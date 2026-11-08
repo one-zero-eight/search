@@ -331,8 +331,8 @@ def test_ask_stream_runs_through_the_queue(client, monkeypatch):
         return {"messages": [AIMessage("a")], "sources": {}}
 
     monkeypatch.setattr(ask, "stream_agent", stream_agent)
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda *a: [])
-    monkeypatch.setattr(ask.groups, "effective_group", lambda *a: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: [])
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
     assert "event: done" in response.text
 
@@ -538,8 +538,8 @@ def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):
             return {"messages": [HumanMessage(inputs["messages"][0]["content"]), AIMessage("answer")], "sources": {}}
 
     monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
     chat_id = kept.start("u1", "q")
 
@@ -734,8 +734,8 @@ def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, st
 
     agent = FakeAgent()
     monkeypatch.setattr(ask, "agent", lambda: agent)
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     response = client.post("/ask/stream" if streamed else "/ask/", json={"query": "подбери тренировку"}, headers=AUTH)
     assert response.status_code == 200
     if streamed:
@@ -773,8 +773,8 @@ def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
             return {"messages": [HumanMessage("q"), AIMessage("Забронировано." if resumed else "")], "sources": {}}
 
     monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7, token=SecretStr("tok"))
     chat_id = kept.start("u1", "забронируй музкомнату")
 

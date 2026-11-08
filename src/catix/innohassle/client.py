@@ -193,6 +193,17 @@ MY_CALENDARS = {
 }
 
 
+def my_student_groups(token: str) -> list[str]:
+    """Verified memberships, not user-selected calendars; never shared-cached."""
+    data = _as_user("GET", "/schedule-assistant/v0/me/student-groups", token).json()
+    if not isinstance(data, list) or any(
+        not isinstance(code, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,39}", code)
+        or code.lower() == "all" for code in data
+    ):
+        raise ValueError("Unreadable verified student groups.")
+    return list(dict.fromkeys(code.upper() for code in data))
+
+
 def my_calendar_groups(token: str) -> tuple[int, list[str]]:
     """Fresh Schedule identity and visible aliases: (favorites + predefined) - hidden."""
     user = _as_user("GET", "/schedule/v0/users/me", token).json()

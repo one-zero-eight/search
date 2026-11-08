@@ -11,6 +11,8 @@ Both bots use this module; only the admin check (is this user an admin of that c
 import logging
 import re
 
+import httpx
+
 from catix.common import cache
 from catix.innohassle import client as innohassle
 from catix.db import pg
@@ -86,6 +88,18 @@ def auto_group(telegram_id: int | None) -> str | None:
     return cache.put(key, group, ttl)
 
 
+def website_groups(token: str | None) -> list[str]:
+    """Fresh verified memberships for the website; no Telegram or manual fallback."""
+    if not token:
+        return []
+    try:
+        return innohassle.my_student_groups(token)
+    except (httpx.HTTPError, innohassle.ServiceError, ValueError):
+        # Upstream diagnostics may contain credentials or private response bodies.
+        log.warning("Website study group verification unavailable; group sources denied")
+        return []
+
+
 def effective_group(user_key: str, telegram_id: int | None = None) -> str:
     """What decides where the user may search: the group InNoHassle knows, else the one they chose, else `all`."""
     return auto_group(telegram_id) or user_group(user_key)
@@ -104,6 +118,15 @@ def set_user_group(user_key: str, code: str) -> None:
                ON CONFLICT (user_key) DO UPDATE SET group_code = excluded.group_code""",
             (user_key, code),
         )
+
+
+def website_chat_ids(verified_groups: list[str]) -> set[int]:
+    """Website access uses verified memberships only, including legacy group chats."""
+    with pg.connection() as conn:
+        return set(pg.column(conn,
+            """SELECT chat_id FROM chats
+               WHERE (group_code = 'all' AND NOT requires_verified_group)
+                  OR (group_code <> 'all' AND group_code = ANY(%s))""", (verified_groups,)))
 
 
 def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int]:

@@ -353,9 +353,10 @@ async def _run(
     query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None,
     *, attachment_manifest: tuple[dict, ...] = (), current_attachment_ids: tuple[str, ...] = (),
 ) -> Answered | Waiting:
-    key = f"tg:{user.telegram_id or 0}"
-    allowed = await asyncio.to_thread(groups.scoped_chat_ids, key, user.telegram_id)
-    group = await asyncio.to_thread(groups.effective_group, key, user.telegram_id)
+    verified_groups = await asyncio.to_thread(groups.website_groups, user.token.get_secret_value() if user.token else None)
+    allowed = await asyncio.to_thread(groups.website_chat_ids, verified_groups)
+    # All memberships grant source access; never guess a single timetable group.
+    group = verified_groups[0] if len(verified_groups) == 1 else None
     thread_id = chats.thread_of(chat_id)
     config = tracing.run_config(thread_id, str(user.telegram_id) if user.telegram_id else user.innohassle_id)
     last = await asyncio.to_thread(chats.checkpoint, chat_id)
@@ -377,7 +378,7 @@ async def _run(
     context = AgentContext(
         allowed_chat_ids=frozenset(allowed),
         user_telegram_id=user.telegram_id,
-        study_group=None if group == groups.ALL else group,
+        study_group=group,
         innohassle_token=user.token,  # the site's user: external MCP account actions and local calendar approval
         innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
         sport_token=user.sport_token,  # their sport through MCP, when the site sent their separate Sport token

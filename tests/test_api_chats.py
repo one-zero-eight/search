@@ -101,8 +101,8 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     script = [_ask("ask_chats", "вопрос"), AIMessage("Отчёт помощника."), AIMessage("Ответ.")]  # each question: helper, report, answer
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
                                                                             checkpointer=checkpointer))
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     monkeypatch.setattr(ask.titles, "name", lambda question: "Вопросы")
     user = UserTokenData(innohassle_id=owner, email="a@innopolis.university", telegram_id=None)
     chat_id = chats.start(owner, "первый вопрос")
@@ -129,8 +129,8 @@ def test_a_question_waits_in_the_chat_for_the_decision_that_is_made_once(owner, 
     ]
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
                                                                             checkpointer=checkpointer))
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     monkeypatch.setattr(ask.titles, "name", lambda question: "Музкомната")
     user = UserTokenData(innohassle_id=owner, email="a@innopolis.university", telegram_id=None, token=SecretStr("user-token"))
     chat_id = chats.start(owner, asked)

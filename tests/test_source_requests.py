@@ -159,8 +159,10 @@ def test_http_contract_owner_only_and_verified_group(db, monkeypatch):
     client = TestClient(app)
     assert client.get("/sources/requests").status_code == 401
     assert client.post("/sources/requests", json={}).status_code == 401
-    monkeypatch.setattr(groups, "auto_group", lambda tg: "B26" if tg == 123 else None)
+    monkeypatch.setattr(groups, "website_groups", lambda token: ["B26"] if token == "owner-token" else [])
     user = UserTokenData(innohassle_id="owner", email="o@example.org", telegram_id=123)
+    from pydantic import SecretStr
+    user.token = SecretStr("owner-token")
     app.dependency_overrides[verify_user] = lambda: user
     try:
         body = {"invite_link": LINK, "group_code": "B27", "consent": True}
@@ -169,7 +171,7 @@ def test_http_contract_owner_only_and_verified_group(db, monkeypatch):
         view = response.json()
         assert set(view) == {"id", "group_code", "comment", "status", "message", "title", "created_at"}
         assert view["group_code"] == "B27" and view["comment"] == ""
-        assert client.get("/sources/requests").json() == {"requests": [view], "verified_group": "B26"}
+        assert client.get("/sources/requests").json() == {"requests": [view], "verified_groups": ["B26"]}
         for consent in (False, 1, "true", None):
             assert client.post("/sources/requests", json={**body, "consent": consent}).status_code == 422
         for link in ("http://t.me/+AbCdEfGhIjKlMnOp", LINK + "?x=1", LINK + "/", "https://t.me/public", "https://t.me.evil/+AbCdEfGhIjKlMnOp", LINK + "\n"):
@@ -180,7 +182,7 @@ def test_http_contract_owner_only_and_verified_group(db, monkeypatch):
         assert client.post("/sources/requests", json={**body, "invite_link": LINK + "999"}).status_code == 429
         user = UserTokenData(innohassle_id="other", email="other@example.org")
         groups.set_user_group("web:other", "B26")
-        assert client.get("/sources/requests").json() == {"requests": [], "verified_group": None}
+        assert client.get("/sources/requests").json() == {"requests": [], "verified_groups": []}
     finally:
         app.dependency_overrides.pop(verify_user, None)
 

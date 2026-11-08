@@ -36,8 +36,8 @@ def test_blank_model_approval_details_survive_api_and_reopening(client, kept, mo
     monkeypatch.setattr(api_tools.mcp_client, "request", arequest)
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     monkeypatch.setattr(core, "tool_call_token", lambda: None)
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda *a: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda *a: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     agent = core.build_agent(Model(responses=[AIMessage(content="", tool_calls=[{
         "name": "call_api_tool", "id": "join", "args": {"name": "events_enroll_in_event", "arguments": {"event_id": EVENT["id"]}},
     }])]), guardrail=False)

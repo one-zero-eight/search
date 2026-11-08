@@ -115,8 +115,8 @@ def test_http_read_offer_click_history_next_turn_without_click_model(stored, mon
         async def astream(self, data, config, **kw):
             yield 'values', await self.ainvoke(data, config)
     monkeypatch.setattr(ask, 'agent', Graph)
-    monkeypatch.setattr(ask.groups, 'scoped_chat_ids', lambda *a: set())
-    monkeypatch.setattr(ask.groups, 'effective_group', lambda *a: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, 'website_chat_ids', lambda *a: set())
+    monkeypatch.setattr(ask.groups, 'website_groups', lambda *a: [])
     async def no_calendar(*a):
         return []
     monkeypatch.setattr(ask, 'calendar_offers', no_calendar)
@@ -218,8 +218,8 @@ def test_real_graph_native_recommendation_to_click_with_replaced_credentials(sto
         conn.execute('UPDATE api_chats SET checkpoint = NULL WHERE chat_id = %s', (chat_id,))
     monkeypatch.setattr(core.store, 'visible_chats', lambda *a: [])
     monkeypatch.setattr(core, 'tool_call_token', lambda: None)
-    monkeypatch.setattr(ask.groups, 'scoped_chat_ids', lambda *a: set())
-    monkeypatch.setattr(ask.groups, 'effective_group', lambda *a: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, 'website_chat_ids', lambda *a: set())
+    monkeypatch.setattr(ask.groups, 'website_groups', lambda *a: [])
     monkeypatch.setattr(ask.titles, 'name', lambda *a: 'Sport')
     monkeypatch.setattr(calendar_tools, 'events_between', lambda *a: [])
     async def no_calendar(*a):

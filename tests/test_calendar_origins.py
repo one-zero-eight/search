@@ -59,8 +59,8 @@ def http_answer(monkeypatch):
     kept = FakeChats()
     monkeypatch.setattr(ask, 'chats', kept)
     monkeypatch.setattr(ask.attachments, 'list_for_chat', lambda *args: [])
-    monkeypatch.setattr(ask.groups, 'scoped_chat_ids', lambda *args: set())
-    monkeypatch.setattr(ask.groups, 'effective_group', lambda *args: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, 'website_chat_ids', lambda *a: set())
+    monkeypatch.setattr(ask.groups, 'website_groups', lambda *a: [])
     monkeypatch.setattr(ask.titles, 'name', lambda *args: None)
     monkeypatch.setattr(token, 'claims', lambda value: {'uid': 'calendar-test', 'email': 'test@innopolis.university'})
 

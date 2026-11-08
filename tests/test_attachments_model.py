@@ -23,8 +23,8 @@ def test_upload_and_reopen_with_real_agent(monkeypatch):
     assert "catix_attachments_test" in settings.database_url
     owner = "vision-test:" + uuid.uuid4().hex
     user = UserTokenData(innohassle_id=owner, email="synthetic@innopolis.university", token=SecretStr("synthetic-not-a-service-token"))
-    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda *args: set())
-    monkeypatch.setattr(ask.groups, "effective_group", lambda *args: ask.groups.ALL)
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
     monkeypatch.setattr(ask.titles, "name", lambda query: "Attachment test")
     monkeypatch.setattr(settings, "agent_plan_thinking", False)
 

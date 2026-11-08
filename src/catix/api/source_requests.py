@@ -37,12 +37,13 @@ class SourceRequestView(BaseModel):
 
 class SourceRequestsView(BaseModel):
     requests: list[SourceRequestView]
-    verified_group: str | None
+    verified_groups: list[str]
 
 
 @router.get("/requests", response_model=SourceRequestsView)
 def list_requests(user: VerifiedDep):
-    return {"requests": source_requests.list_owned(user.innohassle_id), "verified_group": groups.auto_group(user.telegram_id)}
+    verified = groups.website_groups(user.token.get_secret_value() if user.token else None)
+    return {"requests": source_requests.list_owned(user.innohassle_id), "verified_groups": verified}
 
 
 @router.post("/requests", response_model=SourceRequestView, status_code=201)
