@@ -21,6 +21,7 @@ log = logging.getLogger("catix.tracing")
 
 _provider = None
 _client = None
+_private: contextvars.ContextVar[bool] = contextvars.ContextVar("catix_private_files", default=False)
 if settings.phoenix_endpoint:
     from openinference.instrumentation.langchain import LangChainInstrumentor
     from phoenix.otel import register
@@ -36,7 +37,28 @@ if settings.phoenix_endpoint:
 
 
 def enabled() -> bool:
-    return _provider is not None
+    return _provider is not None and not is_private()
+
+
+def is_private() -> bool:
+    """The current question may contain private uploaded material, including follow-ups and tool arguments."""
+    return _private.get()
+
+
+@contextlib.contextmanager
+def private(active: bool = True) -> Iterator[None]:
+    """Keep file-derived text out of Phoenix, including automatically instrumented nested model/tool calls."""
+    if not active or is_private():
+        yield
+        return
+    from openinference.instrumentation import suppress_tracing
+
+    token = _private.set(True)
+    try:
+        with suppress_tracing():
+            yield
+    finally:
+        _private.reset(token)
 
 
 def run_config(thread_id: str, user_id: str | None = None, name: str | None = None) -> dict:
@@ -66,7 +88,7 @@ class Question:
 def question(thread_id: str, user_id: str | None, text: str, name: str = "question", kind: str = "AGENT") -> Iterator[Question]:
     """`with tracing.question(thread, user, text) as q:` around the agent call. The spans of the run nest under it.
     The API's search is a root span of its own (`name="search"`, `kind="RETRIEVER"`): its steps nest under it the same way."""
-    if _provider is None:
+    if not enabled():
         yield Question()
         return
     attributes = {"openinference.span.kind": kind, "session.id": thread_id, "input.value": text}
@@ -83,7 +105,7 @@ _step: contextvars.ContextVar = contextvars.ContextVar("catix_step", default=Non
 def _parent():
     """The span a step belongs to: the step it is inside of, else the LangChain run (a tool) it is called from. The
     OpenInference spans of LangChain runs are not the current OpenTelemetry span, so a step would hang off the question."""
-    if _provider is None:
+    if not enabled():
         return None
     import langchain_core.runnables.config  # noqa: F401 - get_current_span reads it as an attribute, which needs the import
     from openinference.instrumentation.langchain import get_current_span

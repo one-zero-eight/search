@@ -15,7 +15,8 @@ COPY courses.toml ./
 RUN uv sync --frozen --no-dev
 
 # The Max API is served with a certificate of the Russian Ministry of Digital Development (see settings.max_root_ca).
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl libarchive13 \
+# Private attachment parsing: OpenDataLoader needs Java 11+; Poppler renders bounded PDF page images.
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl libarchive13 openjdk-17-jre-headless poppler-utils \
     && rm -rf /var/lib/apt/lists/* \
     && curl -fsSL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o /app/russian_root_ca.crt
 

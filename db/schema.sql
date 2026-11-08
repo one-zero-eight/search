@@ -239,6 +239,24 @@ CREATE TABLE IF NOT EXISTS api_chats (
     updated_at    timestamptz NOT NULL DEFAULT now() -- of the last answer
 );
 CREATE INDEX IF NOT EXISTS api_chats_owner_idx ON api_chats (innohassle_id, updated_at DESC);
+
+-- Private chat attachments: never part of wiki/BM25/vector indexes or ctx_reader views.
+-- Pending uploads expire after 24h (enforced on reads and cleaned under an owner advisory lock).
+-- Binding fixes the chat for life; deleting a chat deletes its originals and extracted pages.
+CREATE TABLE IF NOT EXISTS api_attachments (
+    id         text PRIMARY KEY CHECK (id ~ '^[0-9a-f]{32}$'),
+    owner      text NOT NULL,
+    chat_id    text REFERENCES api_chats (chat_id) ON DELETE CASCADE,
+    filename   text NOT NULL CHECK (char_length(filename) BETWEEN 1 AND 200),
+    media_type text NOT NULL CHECK (media_type IN ('text/plain', 'application/pdf', 'image/png', 'image/jpeg', 'image/webp')),
+    size_bytes integer NOT NULL CHECK (size_bytes BETWEEN 1 AND 10485760),
+    pages      integer NOT NULL CHECK (pages BETWEEN 1 AND 20),
+    data       bytea NOT NULL CHECK (octet_length(data) = size_bytes),
+    page_text  jsonb NOT NULL CHECK (jsonb_typeof(page_text) = 'array' AND jsonb_array_length(page_text) = pages),
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS api_attachments_owner_idx ON api_attachments (owner, created_at);
+CREATE INDEX IF NOT EXISTS api_attachments_chat_idx ON api_attachments (chat_id) WHERE chat_id IS NOT NULL;
 -- (tables created before this column existed; a name the user gave is never replaced by the model's)
 ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS title_by text NOT NULL DEFAULT 'question'
     CHECK (title_by IN ('question', 'model', 'user'));

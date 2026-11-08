@@ -118,6 +118,8 @@ class FakeChats:
 def kept(monkeypatch) -> FakeChats:
     fake = FakeChats()
     monkeypatch.setattr(ask, "chats", fake)
+    monkeypatch.setattr(ask.attachments, "list_for_chat", lambda owner, chat_id: [])
+    monkeypatch.setattr(ask.attachments, "recover_chat", lambda owner, ids: None)
     monkeypatch.setattr(ask.titles, "name", lambda question: f"Тема: {question}")  # (the model is not asked)
     return fake
 
@@ -302,7 +304,7 @@ def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch, kep
     response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
     assert response.headers["content-type"].startswith("text/event-stream")
     names = [line.removeprefix("event: ") for line in response.text.splitlines() if line.startswith("event: ")]
-    assert names == ["status", "answer", "done"]
+    assert names == ["chat", "status", "answer", "done"]
     assert '"answer": "answer"' in response.text
     done = json.loads(response.text.split("event: done\ndata: ")[1])
     assert kept.asked(done["ask_query_id"]) == ("u1", "span-1")  # the 👍/👎 on it annotates its trace
@@ -367,7 +369,8 @@ def test_ask_stream_failure_is_an_error_event(client, monkeypatch):
 
     monkeypatch.setattr(ask, "run", run)
     response = client.post("/ask/stream", json={"query": "x"}, headers=AUTH)
-    assert "event: error" in response.text and "model is down" in response.text
+    assert "event: error" in response.text and "ML service error" in response.text
+    assert "model is down" not in response.text  # Provider diagnostics can contain private document content.
 
 
 def test_history_has_only_questions_and_answers():

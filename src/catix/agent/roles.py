@@ -12,7 +12,8 @@ from dataclasses import dataclass
 from catix.settings import settings
 
 READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings"})
-MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}
+MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
+                          "read_attachment", "view_attachment"}
 DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
                  "published university events, music room bookings, and room, office, canteen and printer locations; "
                  "read the asker's personal agenda including AI Calendar on the site or linked in bots")

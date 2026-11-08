@@ -124,11 +124,13 @@ def delete(chat_id: str, innohassle_id: str) -> bool:
 
 
 def of_user(innohassle_id: str) -> list[AskChat]:
-    """The user's chats that have an answer or a question waiting for the user's decision, the last answered first."""
+    """The user's chats with an answer, waiting decision or bound upload, most recently updated first."""
     with pg.connection() as conn:
         rows = conn.execute(
             """SELECT chat_id, title, created_at, updated_at FROM api_chats c
-               WHERE innohassle_id = %s AND (c.waiting IS NOT NULL OR EXISTS (SELECT 1 FROM api_answers a WHERE a.chat_id = c.chat_id))
+               WHERE innohassle_id = %s AND (c.waiting IS NOT NULL
+                   OR EXISTS (SELECT 1 FROM api_answers a WHERE a.chat_id = c.chat_id)
+                   OR EXISTS (SELECT 1 FROM api_attachments f WHERE f.chat_id = c.chat_id AND f.owner = c.innohassle_id))
                ORDER BY updated_at DESC LIMIT %s""",
             (innohassle_id, LISTED),
         ).fetchall()

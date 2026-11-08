@@ -336,6 +336,7 @@ def test_real_api_decision_resumes_root_calendar_once(calendar, monkeypatch, dec
 
     fake = FakeChats()
     monkeypatch.setattr(ask, "chats", fake)
+    monkeypatch.setattr(ask.attachments, "list_for_chat", lambda owner, chat_id: [])
     monkeypatch.setattr(ask.titles, "name", lambda question: "Calendar")
     monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda *a: set())
     monkeypatch.setattr(ask.groups, "effective_group", lambda *a: ask.groups.ALL)

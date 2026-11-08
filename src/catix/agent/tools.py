@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from catix import official
 from catix.agent.api_tools import API_TOOLS
+from catix.agent.attachment_tools import ATTACHMENT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
 from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.training_tools import get_my_available_trainings
@@ -56,6 +57,10 @@ class AgentContext:
     # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): shared API tools
     # read their sport and check them in through MCP. Never kept, never shown.
     sport_token: SecretStr | None = field(default=None, repr=False)
+    # Private site uploads are bound by the HTTP host, never by model-supplied identity or paths.
+    attachment_chat_id: str | None = None
+    attachments: tuple[dict, ...] = ()
+    current_attachment_ids: tuple[str, ...] = ()
 
 
 def _fmt(dt: date | datetime) -> str:
@@ -645,6 +650,7 @@ TOOLS = [
     read_wiki,
     *API_TOOLS,
     *CALENDAR_TOOLS,
+    *ATTACHMENT_TOOLS,
     get_my_schedule,
     get_my_available_trainings,
     *WEB_TOOLS,

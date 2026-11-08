@@ -6,6 +6,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, Discriminator
 
+from catix.attachments import AttachmentInfo
+
 
 class InfoSources(StrEnum):
     moodle = "moodle"
@@ -182,6 +184,8 @@ class AskApproval(BaseModel):
 class AskResponses(BaseModel):
     query: str
     answer: str
+    attachments: list[AttachmentInfo] = []
+    "Private files attached to this question, also retained through approval and in chat history."
     chat_id: str | None = None
     "Assigned chat index"
     ask_query_id: str | None = None

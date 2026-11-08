@@ -35,7 +35,8 @@ from langgraph.types import Command
 from psycopg.rows import dict_row
 from psycopg_pool import AsyncConnectionPool
 
-from catix import groups, personal_calendar
+from catix import attachments, groups, personal_calendar
+from catix.attachments import AttachmentInfo
 from catix.agent import events as calendar_events
 from catix.agent import titles, tracing
 from catix.agent.approval import DECLINED
@@ -245,12 +246,13 @@ async def one_at_a_time(client: str):
 
 
 async def run(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None,
+    files: list[AttachmentInfo] | None = None,
 ) -> AskResponses:
     """Answer a question and keep the answer in its chat; with `decision`, go on with the chat's question that waits for it
     (`query` is that question). It runs as a task of its own that POST /ask/{chat_id}/cancel can cancel: then `AskCancelled` is
     raised here, while the cancelling of the caller itself (the client went away) goes on as it is."""
-    task = asyncio.ensure_future(_in_line(query, chat_id, user, events, decision))
+    task = asyncio.ensure_future(_in_line(query, chat_id, user, events, decision, files))
     pending.setdefault(chat_id, set()).add(task)
 
     def forget(done: asyncio.Task) -> None:
@@ -272,55 +274,67 @@ async def chat_title(question: str) -> str | None:
     """The model's name of a chat that starts with the question. A bonus: when it fails, the chat keeps the question."""
     try:
         return await asyncio.to_thread(titles.name, question)
-    except Exception:  # noqa: BLE001 - the answer does not need it
-        log.exception("could not name the chat")
+    except Exception as exc:  # noqa: BLE001 - the answer does not need it
+        log.warning("could not name the chat (%s)", type(exc).__name__)
         return None
 
 
 async def _in_line(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None,
+    files: list[AttachmentInfo] | None = None,
 ) -> AskResponses:
     async with one_at_a_time(user.innohassle_id):
-        # A chat not named yet is named while the agent answers: the answer does not wait for it.
-        naming = asyncio.ensure_future(chat_title(query)) if await asyncio.to_thread(chats.needs_title, chat_id) else None
-        try:
-            done = await _run(query, chat_id, user, events, decision)
-        except BaseException:
-            if naming is not None:
-                naming.cancel()  # The question is not kept: the next one names the chat.
-            raise
-        if isinstance(done, Waiting):
-            if naming is not None:
-                naming.cancel()  # Named when it is answered.
-            response = AskResponses(query=query, answer=done.answer, chat_id=chat_id, search_responses=[], messages=done.messages,
-                                    approval=done.approval)  # fmt: skip
-            await asyncio.to_thread(chats.save_waiting, response, done.checkpoint, done.interrupts)
-            return response
-        answer, cards, messages, span_id, checkpoint = done
-        response = AskResponses(
-            query=query,
-            answer=answer,
-            chat_id=chat_id,
-            # The id of the answer for its 👍/👎. None when tracing is off: a vote is an annotation on the answer's trace, and
-            # without a trace there is nothing to vote on (the bot shows no buttons then either).
-            ask_query_id=state.new_id() if span_id else None,
-            search_responses=cards,
-            # (After a decision the answer tells what was booked: InNoHassle's calendar has it already.)
-            calendar_events=await calendar_offers(answer) if decision is None else [],
-            messages=messages,
-        )
-        title = None
-        if naming is not None:  # Ready by now as a rule: the agent takes longer. The answer waits for it only so long.
-            done, _ = await asyncio.wait({naming}, timeout=TITLE_WAIT)
-            title = naming.result() if done else None
-            naming.cancel()
-        # Kept before the client's next question starts: it goes on from the checkpoint kept with this answer.
-        await asyncio.to_thread(chats.save_answer, response, span_id, checkpoint, title)
+        manifest = tuple(item.model_dump() for item in await asyncio.to_thread(attachments.list_for_chat, user.innohassle_id, chat_id))
+        if decision is not None:
+            found = await asyncio.to_thread(chats.waiting, chat_id)
+            files = found[2].attachments if found else []
+        # Includes summaries, calendar extraction and later questions about earlier uploads.
+        with tracing.private(bool(manifest)):
+            return await _answer_in_chat(query, chat_id, user, events, decision, files or [], manifest)
+
+
+async def _answer_in_chat(query, chat_id, user, events, decision, files, manifest) -> AskResponses:
+    # A chat not named yet is named while the agent answers: the answer does not wait for it.
+    naming = asyncio.ensure_future(chat_title(query)) if await asyncio.to_thread(chats.needs_title, chat_id) else None
+    try:
+        file_context = {"attachment_manifest": manifest, "current_attachment_ids": tuple(item.id for item in files)} if manifest else {}
+        done = await _run(query, chat_id, user, events, decision, **file_context)
+    except BaseException:
+        if naming is not None:
+            naming.cancel()  # The question is not kept: the next one names the chat.
+        raise
+    if isinstance(done, Waiting):
+        if naming is not None:
+            naming.cancel()  # Named when it is answered.
+        response = AskResponses(query=query, answer=done.answer, chat_id=chat_id, search_responses=[], messages=done.messages,
+                                approval=done.approval, attachments=files)  # fmt: skip
+        await asyncio.to_thread(chats.save_waiting, response, done.checkpoint, done.interrupts)
         return response
+    answer, cards, messages, span_id, checkpoint = done
+    response = AskResponses(
+        query=query,
+        answer=answer,
+        attachments=files,
+        chat_id=chat_id,
+        # A vote annotates the trace; file conversations deliberately have no trace.
+        ask_query_id=state.new_id() if span_id else None,
+        search_responses=cards,
+        # After a decision, the booked event is in the service already.
+        calendar_events=await calendar_offers(answer) if decision is None else [],
+        messages=messages,
+    )
+    title = None
+    if naming is not None:
+        done, _ = await asyncio.wait({naming}, timeout=TITLE_WAIT)
+        title = naming.result() if done else None
+        naming.cancel()
+    await asyncio.to_thread(chats.save_answer, response, span_id, checkpoint, title)
+    return response
 
 
 async def _run(
-    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None
+    query: str, chat_id: str, user: UserTokenData, events: asyncio.Queue | None = None, decision: AskDecision | None = None,
+    *, attachment_manifest: tuple[dict, ...] = (), current_attachment_ids: tuple[str, ...] = (),
 ) -> Answered | Waiting:
     key = f"tg:{user.telegram_id or 0}"
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, key, user.telegram_id)
@@ -350,6 +364,9 @@ async def _run(
         innohassle_token=user.token,  # the site's user: external MCP account actions and local calendar approval
         innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
         sport_token=user.sport_token,  # their sport through MCP, when the site sent their separate Sport token
+        attachment_chat_id=chat_id,
+        attachments=attachment_manifest,
+        current_attachment_ids=current_attachment_ids,
     )
     # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
     if resume is None:
@@ -400,8 +417,8 @@ async def calendar_offers(answer: str) -> list[CalendarEventOffer]:
     try:
         events = await asyncio.to_thread(calendar_events.extract, answer)
         offered = await asyncio.to_thread(personal_calendar.propose, events) if events else []
-    except Exception:  # noqa: BLE001 - the answer is there already
-        log.exception("could not offer calendar events")
+    except Exception as exc:  # noqa: BLE001 - the answer is there already
+        log.warning("could not offer calendar events (%s)", type(exc).__name__)
         return []
     return [CalendarEventOffer(id=proposal_id, **event) for proposal_id, event in offered]
 
@@ -430,19 +447,20 @@ def server_event(name: str, data: dict) -> str:
         503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
     },
 )
-async def ask_by_query(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
-    chat_id = await chat_of(user, chat_id, query)
+async def ask_by_query(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None),
+                       attachment_ids: list[str] = Body(default=[], max_length=3)):
+    chat_id, files = await _chat_with_files(user, chat_id, query, attachment_ids)
     started = time.monotonic()
     try:
-        response = await run(query, chat_id, user)
+        response = await run(query, chat_id, user, **({"files": files} if files else {}))
     except AskCancelled:
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:
-        log.exception("the agent failed")
+        log.warning("the agent failed (%s)", type(e).__name__)
         if unreachable(e):
             raise HTTPException(status_code=503, detail=UNAVAILABLE) from e
-        raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
-    log.info("ask for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), response.answer)
+        raise HTTPException(status_code=502, detail="ML service error") from None
+    log.info("ask completed (%d ms)", round((time.monotonic() - started) * 1000))
     return response
 
 
@@ -451,36 +469,66 @@ async def ask_by_query(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK)
     response_class=StreamingResponse,
     responses={200: {"description": "Server-sent events: `status`, `answer`, then `done` (AskResponses) or `error`"}},
 )
-async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None)):
+async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None),
+                              attachment_ids: list[str] = Body(default=[], max_length=3)):
     """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, asking a helper, writing, as in the Telegram bot),
     `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources and the events it
     offers for the calendar), `cancelled`
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events."""
-    chat_id = await chat_of(user, chat_id, query)
-    return _streamed(query, chat_id, user)
+    chat_id, files = await _chat_with_files(user, chat_id, query, attachment_ids)
+    return _streamed(query, chat_id, user, files=files)
 
 
-def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecision | None = None) -> StreamingResponse:
+async def _chat_with_files(user: UserTokenData, chat_id: str | None, query: str,
+                           ids: list[str]) -> tuple[str, list[AttachmentInfo]]:
+    if not ids:
+        return await chat_of(user, chat_id, query), []
+    recover = chat_id is None
+    try:
+        if recover:
+            chat_id = await asyncio.to_thread(attachments.recover_chat, user.innohassle_id, ids)
+        chat_id = await chat_of(user, chat_id, query)
+        try:
+            files = await asyncio.to_thread(attachments.bind, user.innohassle_id, chat_id, ids)
+        except attachments.AttachmentError as exc:
+            if not recover or exc.status_code != 409:
+                raise
+            # Another first request may have bound these files since the lookup.
+            # Revalidate the entire set and its owner; explicit chat IDs never fall back.
+            recovered = await asyncio.to_thread(attachments.recover_chat, user.innohassle_id, ids)
+            if recovered is None:
+                raise
+            chat_id = recovered
+            files = await asyncio.to_thread(attachments.bind, user.innohassle_id, chat_id, ids)
+        return chat_id, files
+    except attachments.AttachmentError as exc:
+        raise HTTPException(exc.status_code, exc.detail) from None
+
+
+def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecision | None = None,
+              files: list[AttachmentInfo] | None = None) -> StreamingResponse:
     """The answer to `query` (with `decision`: to the question that waited for it) as server-sent events."""
     events: asyncio.Queue = asyncio.Queue()
 
     async def work() -> None:
         started = time.monotonic()
         try:
-            done = await run(query, chat_id, user, events, decision)
-            log.info("ask (stream) for `%s` (%d ms): %s", query, round((time.monotonic() - started) * 1000), done.answer)
+            done = await run(query, chat_id, user, events, decision, **({"files": files} if files else {}))
+            log.info("ask stream completed (%d ms)", round((time.monotonic() - started) * 1000))
             await events.put(("done", done.model_dump(mode="json")))
         except AskCancelled:
             await events.put(("cancelled", {"detail": "The question was cancelled"}))
         except NothingToDecide:
             await events.put(("error", {"detail": NOTHING_WAITS}))
         except Exception as e:
-            log.exception("the agent failed")
-            await events.put(("error", {"detail": UNAVAILABLE if unreachable(e) else f"ML service error: {e}"}))
+            log.warning("the agent failed (%s)", type(e).__name__)
+            await events.put(("error", {"detail": UNAVAILABLE if unreachable(e) else "ML service error"}))
         await events.put(None)
 
     async def generate():
+        # The client must retain a new chat's id even if generation fails: its uploaded files already belong to it.
+        yield server_event("chat", {"chat_id": chat_id})
         task = asyncio.create_task(work())
         try:
             while (event := await events.get()) is not None:
@@ -528,10 +576,10 @@ async def decide(user: AskerDep, chat_id: str, decision: AskDecision):
     except AskCancelled:
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:
-        log.exception("the agent failed")
+        log.warning("the agent failed (%s)", type(e).__name__)
         if unreachable(e):
             raise HTTPException(status_code=503, detail=UNAVAILABLE) from e
-        raise HTTPException(status_code=502, detail=f"ML service error: {e}") from e
+        raise HTTPException(status_code=502, detail="ML service error") from None
 
 
 @router.post(
