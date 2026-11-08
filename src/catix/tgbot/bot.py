@@ -1,6 +1,6 @@
 """Telegram bot (Bot API): stores group messages and answers questions with the agent.
 
-In groups it saves every text message, and answers only when @mentioned, replied to, or on /ask.
+In configured groups it saves selected topics, and answers only when @mentioned, replied to, or on /ask.
 In channels (the bot must be an admin) it only saves posts.
 Saved messages go to Postgres in batches (ingest.py) and are announced on a Redis stream; the worker
 (worker.py, `catix-worker`) adds their vectors and looks for schedule changes.
@@ -152,6 +152,8 @@ async def _save(message: Message, *, observed_at: datetime | None = None) -> Non
         return
     if not await asyncio.to_thread(userbot_config.bot_listens, message.chat.id):
         if message.chat.id not in IGNORED:  # Once per chat: why a chat the bot is in stays empty.
+            await asyncio.to_thread(userbot_config.register_bot_chat, message.chat.id,
+                                    message.chat.title or str(message.chat.id), message.chat.username)
             IGNORED.add(message.chat.id)
             log.info("chat %s (%s): the bot does not store it (not chosen in /listen, or read by the userbot)", message.chat.id, message.chat.title)
         return
@@ -404,7 +406,7 @@ async def start(message: Message) -> None:
         "В личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
         "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
         "/clear: забыть наш разговор и начать заново."
-        + ("\n/listen и /admin: для администратора: чаты и учебные группы, другие администраторы." if is_admin else "")
+        + ("\n/admin: управление группами, топиками и администраторами. /listen: группы и источники." if is_admin else "")
     )
 
 
@@ -640,6 +642,17 @@ async def remember_private(handler, message: Message, data: dict):
     return await handler(message, data)
 
 
+@router.my_chat_member(F.chat.type.in_(GROUPS | {ChatType.CHANNEL}))
+async def group_status(update: ChatMemberUpdated) -> None:
+    """Discover a bot's group without enabling ingestion before admin confirmation."""
+    member = update.new_chat_member.status not in {ChatMemberStatus.LEFT, ChatMemberStatus.KICKED}
+    if update.new_chat_member.status == ChatMemberStatus.RESTRICTED:
+        member = update.new_chat_member.is_member
+    await asyncio.to_thread(userbot_config.register_bot_chat, update.chat.id,
+                            update.chat.title or str(update.chat.id), update.chat.username, member=member)
+    IGNORED.discard(update.chat.id)
+
+
 @router.my_chat_member(F.chat.type == ChatType.PRIVATE)
 async def private_status(update: ChatMemberUpdated) -> None:
     """The user blocked the bot (no more changes for them) or unblocked it."""
@@ -677,8 +690,8 @@ COMMANDS = [
 ]
 ADMIN_COMMANDS = [
     *COMMANDS,
-    BotCommand(command="listen", description="Чаты для прослушки и учебные группы"),
-    BotCommand(command="admin", description="Администраторы бота"),
+    BotCommand(command="admin", description="Управление ботом"),
+    BotCommand(command="listen", description="Группы и источники"),
 ]
 
 

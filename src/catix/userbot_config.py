@@ -1,8 +1,8 @@
 """What is listened to in Telegram: chats and forum topics, chosen by an admin in the bot (tgbot/listen.py).
 
 Two readers share the choice. The userbot (tguserbot/userbot.py, an account that is a member of the chats) publishes the
-chats and topics it can see and stores what a chosen chat says, history included. The Bot API bot (tgbot/bot.py) stores
-the chats it was added to from then on; a chat it meets for the first time is turned on, an admin can turn it off.
+chats and topics it can see and stores what a chosen chat says, history included. The Bot API bot (tgbot/bot.py) discovers
+the chats it joins, but neither reader stores a new chat until an admin confirms its configuration.
 The userbot publishes the chats and topics it can see; the admin turns chats on and off and
 narrows a forum chat to some of its topics; the userbot picks the change up within seconds. The study group of a
 chat is not kept here, it stays `chats.group_code` (groups.py).
@@ -14,6 +14,9 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
+from psycopg.types.json import Jsonb
+
+from catix import groups
 from catix.common import cache
 from catix.db import pg
 from catix.groups import MAX_CHAT_BASE
@@ -100,22 +103,97 @@ def replace_topics(chat_id: int, found: list[Topic]) -> None:
 
 
 READERS = ("auto", "userbot", "bot", "search")
+MODES = ("store", "search", "off")
 
 
-def _rows() -> dict[int, tuple[list[int] | None, str]]:
+def _rows() -> dict[int, tuple]:
     with pg.connection() as conn:
-        found = conn.execute("SELECT chat_id, topic_ids, reader FROM userbot_listen").fetchall()
-    return {r["chat_id"]: (r["topic_ids"], r["reader"]) for r in found}
+        found = conn.execute("SELECT chat_id, topic_ids, reader, topic_policy FROM userbot_listen").fetchall()
+    return {r["chat_id"]: (r["topic_ids"], r["reader"], r["topic_policy"]) for r in found}
+
+
+def _policy(row: tuple | list) -> dict:
+    """NULL policy keeps the old storage whitelist and unrestricted live search."""
+    if len(row) > 2 and row[2] is not None:
+        policy = {"default": row[2]["default"], "topics": {int(t): mode for t, mode in row[2]["topics"].items()}}
+        if row[1] == "search":
+            policy["default"] = "search" if policy["default"] == "store" else policy["default"]
+            policy["topics"] = {t: "search" if mode == "store" else mode for t, mode in policy["topics"].items()}
+        return policy
+    scope, reader = row[0], row[1]
+    if reader == "search":
+        return {"default": "search", "topics": {}}
+    return {"default": "store" if scope is None else "search", "topics": {t: "store" for t in scope or []}}
+
+
+def get_policy(chat_id: int) -> dict:
+    """Effective editable policy; an absent chat is NOT opted in by this default."""
+    row = _rows().get(chat_id)
+    return _policy(row) if row is not None else {"default": "search", "topics": {}}
+
+
+def save_configuration(chat_id: int, group_code: str, default_mode: str, topic_modes: dict[int, str], reader: str = "auto") -> None:
+    """Confirm policy and study group in one transaction, without touching stored messages."""
+    if type(chat_id) is not int or not -(2**63) <= chat_id < 2**63:
+        raise ValueError("Invalid chat id")
+    code = groups.normalize(group_code) if isinstance(group_code, str) else None
+    if code is None:
+        raise ValueError("Invalid study group")
+    if reader not in READERS or default_mode not in MODES or not isinstance(topic_modes, dict):
+        raise ValueError("Invalid reader or topic policy")
+    if any(type(t) is not int or not 1 <= t < 2**63 or mode not in MODES for t, mode in topic_modes.items()):
+        raise ValueError("Invalid topic id or mode")
+    policy = {"default": default_mode, "topics": dict(topic_modes)}
+    scope = _storage_scope((None, reader, policy))
+    with pg.connection() as conn:
+        found = pg.row(conn, Dialog, f"SELECT * FROM ({_DIALOGS}) x WHERE chat_id = %(chat)s", {"max": MAX_CHAT_BASE // 2, "chat": chat_id})  # noqa: S608
+        if found is None:
+            raise ValueError("Chat is no longer accessible")
+        if found.bot_only and (reader in ("userbot", "search") or _has_mode(policy, ("search",))):
+            raise ValueError("Telegram live search requires the userbot to be in the chat")
+        if reader == "bot" and not found.bot_in:
+            raise ValueError("The Bot API bot is not in this chat")
+        known = {1}  # General is sometimes absent from Telegram's topic listing.
+        if found.forum:
+            known.update(pg.column(conn, "SELECT topic_id FROM userbot_topics WHERE chat_id = %s", (chat_id,)))
+        if not topic_modes.keys() <= known:
+            raise ValueError("A selected topic is no longer available")
+        conn.execute(
+            """INSERT INTO chats (chat_id, title, username, group_code) VALUES (%s, %s, %s, %s)
+               ON CONFLICT (chat_id) DO UPDATE SET title = excluded.title, username = excluded.username,
+                   group_code = excluded.group_code""",
+            (chat_id, found.title, found.username, code),
+        )
+        conn.execute(
+            """INSERT INTO userbot_listen (chat_id, topic_ids, reader, topic_policy) VALUES (%s, %s, %s, %s)
+               ON CONFLICT (chat_id) DO UPDATE SET topic_ids = excluded.topic_ids, reader = excluded.reader,
+                   topic_policy = excluded.topic_policy""",
+            (chat_id, scope, reader, Jsonb(policy)),
+        )
+    _forget()
 
 
 def listened() -> dict[int, list[int] | None]:
     """Chat id -> the topics to store (None = the whole chat)."""
-    return {chat_id: topics for chat_id, (topics, _) in _rows().items()}
+    return {chat_id: _storage_scope(row) for chat_id, row in _rows().items()}
+
+
+def _storage_scope(row: tuple | list) -> list[int] | None:
+    if row[1] == "search":
+        return []
+    policy = _policy(row)
+    if policy["default"] == "store":
+        return None  # Exact exclusions are checked by topic_allowed, not this coarse fetch scope.
+    return sorted(t for t, mode in policy["topics"].items() if mode == "store")
+
+
+def _has_mode(policy: dict, modes: tuple[str, ...]) -> bool:
+    return policy["default"] in modes or any(mode in modes for mode in policy["topics"].values())
 
 
 def readers() -> dict[int, str]:
     """Chat id -> who stores it: auto, userbot or bot."""
-    return {chat_id: reader for chat_id, (_, reader) in _rows().items()}
+    return {chat_id: row[1] for chat_id, row in _rows().items()}
 
 
 def set_reader(chat_id: int, reader: str) -> None:
@@ -133,8 +211,13 @@ def effective_reader(reader: str, userbot_has_chat: bool) -> str:
 def searchable_chats() -> set[int]:
     """The chats Telegram's search may be used on through the userbot: chosen in /listen (whatever the reader) and with the
     userbot's account in them. The admin's choice is the policy; a chat that is not chosen is never searched."""
+    return set(search_policies())
+
+
+def search_policies() -> dict[int, tuple]:
+    """Fresh, batched policies for live search, including account membership revocations."""
     mine = userbot_chat_ids()
-    return {c for c in _rows() if c in mine}
+    return {c: row for c, row in _rows().items() if c in mine and _has_mode(_policy(row), ("store", "search"))}
 
 
 def searchable_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict[int, str]:
@@ -169,13 +252,30 @@ def live_chat_titles(allowed: "frozenset[int] | set[int] | None" = None) -> dict
 def userbot_reads() -> dict[int, list[int] | None]:
     """The chats the userbot stores, with their topics: chosen, its account is in them, and not given to the bot."""
     mine = userbot_chat_ids()
-    return {c: topics for c, (topics, reader) in _rows().items() if c in mine and reader in ("auto", "userbot")}
+    rows = _rows()
+    # Batch-boundary checks also refresh the exact topic policy, even when Redis invalidation was unavailable.
+    cache.put("listen:rows", rows, CACHE_TTL)
+    return {c: scope for c, row in rows.items()
+            if c in mine and row[1] in ("auto", "userbot") and (scope := _storage_scope(row)) != []}
+
+
+def storage_fingerprints() -> dict[int, tuple[bool, tuple[int, ...]]]:
+    """Exact storage scope, including exclusions hidden by a coarse None/all fetch scope."""
+    result = {}
+    for chat_id, row in _rows().items():
+        policy = _policy(row)
+        default = policy["default"] == "store" and row[1] != "search"
+        exceptions = tuple(sorted(t for t, mode in policy["topics"].items()
+                                  if (mode == "store" and row[1] != "search") != default))
+        result[chat_id] = (default, exceptions)
+    return result
 
 
 def live_chats() -> set[int]:
-    """The chats that are searched live with Telegram's search (reader `search`) and that the userbot's account is in."""
+    """Include mixed storage/search chats and legacy live-only readers."""
     mine = userbot_chat_ids()
-    return {c for c, (_, reader) in _rows().items() if reader == "search" and c in mine}
+    return {c for c, row in _rows().items() if c in mine
+            and _has_mode(_policy(row), ("store", "search") if row[1] == "search" else ("search",))}
 
 
 def set_listen(chat_id: int, on: bool) -> None:
@@ -188,21 +288,30 @@ def set_listen(chat_id: int, on: bool) -> None:
 
 
 def toggle_topic(chat_id: int, topic_id: int) -> None:
-    """Add or remove a topic of a listened chat; with none left the whole chat is stored again."""
+    """Compatibility toggle: removing the last stored topic means NONE, never ALL."""
     with pg.connection() as conn:
-        conn.execute(
-            """UPDATE userbot_listen SET topic_ids = nullif(
-                   CASE WHEN topic_ids IS NOT NULL AND %(t)s = ANY(topic_ids) THEN array_remove(topic_ids, %(t)s)
-                        ELSE array_append(coalesce(topic_ids, ARRAY[]::bigint[]), %(t)s) END, ARRAY[]::bigint[])
-               WHERE chat_id = %(c)s""",
-            {"t": topic_id, "c": chat_id},
-        )
+        row = conn.execute("SELECT topic_ids, reader, topic_policy FROM userbot_listen WHERE chat_id = %s FOR UPDATE", (chat_id,)).fetchone()
+        if row is None:
+            return
+        if row["topic_policy"] is None:
+            scope = list(row["topic_ids"] or [])
+            if topic_id in scope:
+                scope.remove(topic_id)
+            else:
+                scope.append(topic_id)
+            conn.execute("UPDATE userbot_listen SET topic_ids = %s WHERE chat_id = %s", (scope, chat_id))
+        else:
+            policy = _policy((row["topic_ids"], row["reader"], row["topic_policy"]))
+            current = policy["topics"].get(topic_id, policy["default"])
+            policy["topics"][topic_id] = "search" if current == "store" else "store"
+            conn.execute("UPDATE userbot_listen SET topic_ids = %s, topic_policy = %s WHERE chat_id = %s",
+                         (_storage_scope((None, row["reader"], policy)), Jsonb(policy), chat_id))
     _forget()
 
 
 def clear_topics(chat_id: int) -> None:
     with pg.connection() as conn:
-        conn.execute("UPDATE userbot_listen SET topic_ids = NULL WHERE chat_id = %s", (chat_id,))
+        conn.execute("UPDATE userbot_listen SET topic_ids = NULL, topic_policy = NULL WHERE chat_id = %s", (chat_id,))
     _forget()
 
 
@@ -225,7 +334,7 @@ def _cached_by_chat(name: str, load: Callable[[], dict[int, Any]]) -> dict[int, 
 
 
 def listened_cached() -> dict[int, list[int] | None]:
-    return {c: topics for c, (topics, _) in _cached_by_chat("rows", _rows).items()}
+    return {c: _storage_scope(row) for c, row in _cached_by_chat("rows", _rows).items()}
 
 
 def _known_chats_cached() -> set[int]:
@@ -237,16 +346,26 @@ def _known_chats_cached() -> set[int]:
 
 
 def bot_listens(chat_id: int) -> bool:
-    """Whether the Bot API bot stores this chat: it is chosen in /listen and the bot is its reader (`auto` gives a chat
-    the userbot's account is in to the userbot). A chat the bot has never seen is turned on now (adding the bot to a chat
-    is the consent); a known chat that is not chosen was turned off by an admin."""
+    """Only an explicit configuration (or legacy seed) permits the bot to store messages."""
     rows = _cached_by_chat("rows", _rows)
-    if chat_id not in rows:
-        if chat_id in _known_chats_cached():
-            return False
-        set_listen(chat_id, True)
-        rows = _cached_by_chat("rows", _rows)
+    if chat_id not in rows or _storage_scope(rows[chat_id]) == []:
+        return False
     return effective_reader(rows[chat_id][1], chat_id in _cached_ids("mine", userbot_chat_ids)) == "bot"
+
+
+def register_bot_chat(chat_id: int, title: str, username: str | None, member: bool = True) -> None:
+    """Discover Bot API chats without granting ingestion consent or deleting their history."""
+    with pg.connection() as conn:
+        if member:
+            conn.execute(
+                """INSERT INTO chats (chat_id, title, username, bot_member) VALUES (%s, %s, %s, true)
+                   ON CONFLICT (chat_id) DO UPDATE SET title = excluded.title, username = excluded.username,
+                       bot_member = true""",
+                (chat_id, title, username),
+            )
+        else:
+            conn.execute("UPDATE chats SET bot_member = false WHERE chat_id = %s", (chat_id,))
+    _forget()
 
 
 def seed_bot_chats() -> int:
@@ -266,11 +385,25 @@ def seed_bot_chats() -> int:
 
 
 def topic_allowed(chat_id: int, topic_id: int | None, general_topic_id: int) -> bool:
-    """Whether a message should be stored: a chat chosen in the bot follows that choice, any other (the Bot API bot's
-    chats) follows TG_TOPICS."""
-    chosen = listened_cached()
-    allowed = chosen[chat_id] if chat_id in chosen else settings.tg_topics.get(chat_id)
-    return allowed is None or (topic_id or general_topic_id) in allowed
+    """Storage/OCR permission. No configured row means no consent to ingest."""
+    row = _cached_by_chat("rows", _rows).get(chat_id)
+    if row is None or row[1] == "search":
+        return False
+    policy = _policy(row)
+    return policy["topics"].get(topic_id or general_topic_id, policy["default"]) == "store"
+
+
+def search_topic_allowed(chat_id: int, topic_id: int | None, *, policies: dict | None = None) -> bool:
+    """Store and search topics may be searched live; off and unconfigured chats may not.
+
+    A caller can pass one fresh snapshot for a whole result batch, including the final revocation check.
+    """
+    rows = policies if policies is not None else _cached_by_chat("rows", _rows)
+    row = rows.get(chat_id)
+    if row is None:
+        return False
+    policy = _policy(row)
+    return policy["topics"].get(topic_id or 1, policy["default"]) != "off"
 
 
 # ---- meta ---------------------------------------------------------------------------------------------------

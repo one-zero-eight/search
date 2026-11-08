@@ -173,6 +173,8 @@ def tgbot(monkeypatch):
     monkeypatch.setattr(bot.writer, "wait_idle", AsyncMock())
     monkeypatch.setattr(bot.store, "delete_message", Mock())
     monkeypatch.setattr(bot.userbot_config, "bot_listens", lambda chat: True)
+    monkeypatch.setattr(bot.userbot_config, "register_bot_chat", Mock())
+    monkeypatch.setattr(bot, "IGNORED", set())
     monkeypatch.setattr(bot.store, "topic_allowed", lambda chat, topic: True)
     return bot
 

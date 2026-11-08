@@ -61,6 +61,10 @@ CREATE TABLE IF NOT EXISTS userbot_listen (
 -- Who stores a listened chat when both the userbot's account and the Bot API bot are in it ('auto' = the userbot, it has the
 -- history; 'bot' / 'userbot' force one): both would store everything twice, a basic group even under different ids.
 ALTER TABLE userbot_listen ADD COLUMN IF NOT EXISTS reader text NOT NULL DEFAULT 'auto';
+-- NULL preserves legacy storage scope AND unrestricted live search. New confirmations explicitly
+-- choose a default (including future topics) and per-topic store/search/off overrides.
+-- topic_ids remains a coarse storage scope: NULL = all (check policy exclusions), [] = none.
+ALTER TABLE userbot_listen ADD COLUMN IF NOT EXISTS topic_policy jsonb;
 -- 'search': nobody stores the chat; the userbot searches it live with Telegram's own search when a question needs it
 -- (a huge chat that is not worth indexing).
 ALTER TABLE userbot_listen DROP CONSTRAINT IF EXISTS userbot_listen_reader_check;

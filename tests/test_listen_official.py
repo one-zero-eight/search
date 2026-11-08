@@ -20,16 +20,20 @@ def in_the_list(chat):
             " ON CONFLICT (chat_id) DO NOTHING",
             (chat, "tests: synthetic chat"),
         )
+    was_listened = chat in listen.userbot_config.listened()
+    listen.userbot_config.set_listen(chat, True)
     try:
         yield chat
     finally:
+        if not was_listened:
+            listen.userbot_config.set_listen(chat, False)
         official.set_official(chat, False)
         with pg.connection() as conn:
             conn.execute("DELETE FROM userbot_dialogs WHERE chat_id = %s", (chat,))
 
 
 def screen(chat_id: int) -> tuple[LLMTestCase, list[str]]:
-    text, rows = listen._chat_screen(chat_id)
+    text, rows = listen._advanced_screen(chat_id)
     buttons = [f"{b.callback_data}|{b.text}" for row in rows for b in row]
     return LLMTestCase(input="", actual_output=text + "\n" + "\n".join(buttons)), buttons
 
