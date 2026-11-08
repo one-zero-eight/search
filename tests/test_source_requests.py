@@ -12,7 +12,8 @@ from catix.db import pg
 LINK = "https://t.me/+AbCdEfGhIjKlMnOp"
 
 
-def test_form_admin_and_userbot_share_exact_durable_request(db, monkeypatch):
+@pytest.mark.parametrize("audience", ["B26", "all"])
+def test_form_admin_and_userbot_share_exact_durable_request(db, monkeypatch, audience):
     import asyncio
     from types import SimpleNamespace
     from unittest.mock import AsyncMock
@@ -28,9 +29,10 @@ def test_form_admin_and_userbot_share_exact_durable_request(db, monkeypatch):
     client = TestClient(app)
     monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
     monkeypatch.setattr(groups, "auto_group", lambda telegram_id: "B26" if telegram_id == 123 else None)
+    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org", telegram_id=123)
     try:
-        created = client.post("/sources/requests", json={"invite_link": LINK, "group_code": "B26", "consent": True})
+        created = client.post("/sources/requests", json={"invite_link": LINK, "group_code": audience, "consent": True})
         assert created.status_code == 201
         request_id = created.json()["id"]
         callback = SimpleNamespace(
@@ -54,7 +56,8 @@ def test_form_admin_and_userbot_share_exact_durable_request(db, monkeypatch):
         assert view["title"] == "Confirmed source" and "invite_link" not in view
         assert groups.scoped_chat_ids("tg:123", 123) == {-123}
         groups.set_user_group("tg:456", "B26")
-        assert groups.scoped_chat_ids("tg:456", 456) == set()
+        assert groups.scoped_chat_ids("tg:456", 456) == ({-123} if audience == "all" else set())
+        assert groups.website_chat_ids([]) == ({-123} if audience == "all" else set())
     finally:
         app.dependency_overrides.pop(verify_user, None)
 
@@ -105,6 +108,81 @@ def test_submit_is_durable_private_and_deduplicated(db):
     with db() as conn:
         assert conn.execute("SELECT count(*) AS n FROM chats").fetchone()["n"] == 0
         assert conn.execute("SELECT count(*) AS n FROM userbot_listen").fetchone()["n"] == 0
+
+
+def test_all_audience_stays_pending_until_approved_and_activates_public_scope(db, monkeypatch):
+    from fastapi.testclient import TestClient
+    from catix import groups, source_requests as requests
+    from catix.api.app import app
+    from catix.api.auth import UserTokenData, verify_user
+
+    monkeypatch.setattr(groups, "website_groups", lambda _: pytest.fail("Public proposals do not require study-group membership"))
+    app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org")
+    try:
+        response = TestClient(app).post("/sources/requests", json={"invite_link": LINK, "group_code": "all", "consent": True})
+    finally:
+        app.dependency_overrides.pop(verify_user, None)
+    assert response.status_code == 201, response.text
+    row = response.json()
+    assert row["status"] == "pending" and row["group_code"] == "all"
+    assert requests.claim() is None
+    assert groups.website_chat_ids([]) == set()
+    assert requests.approve(row["id"], 7, "all")
+    assert requests.activate(requests.claim(), -123, "Public source", None, False)
+    with db() as conn:
+        chat = conn.execute("SELECT * FROM chats WHERE chat_id = -123").fetchone()
+        assert chat["group_code"] == "all" and chat["requires_verified_group"] is False
+    assert groups.website_chat_ids([]) == {-123}
+    monkeypatch.setattr(groups, "auto_group", lambda _: None)
+    assert groups.scoped_chat_ids("tg:999", 999) == {-123}
+
+
+@pytest.mark.parametrize("memberships, requested, status", [
+    (["B26", "B27"], "b27", 201),
+    (["B26"], "B27", 403),
+    ([], "B26", 403),
+    ([], "all", 201),
+    (["B26"], "bad group!", 422),
+])
+def test_submission_requires_fresh_own_group_unless_all(db, monkeypatch, memberships, requested, status):
+    from fastapi.testclient import TestClient
+    from pydantic import SecretStr
+    from catix import groups, source_requests as requests
+    from catix.api.app import app
+    from catix.api.auth import UserTokenData, verify_user
+
+    tokens = []
+    monkeypatch.setattr(groups, "website_groups", lambda token: tokens.append(token) or memberships)
+    groups.set_user_group("web:owner", "B27")  # A manual claim must never count as verification.
+    app.dependency_overrides[verify_user] = lambda: UserTokenData(
+        innohassle_id="owner", email="o@example.org", token=SecretStr("test-user-token"),
+    )
+    try:
+        response = TestClient(app).post("/sources/requests", json={"invite_link": LINK, "group_code": requested, "consent": True})
+    finally:
+        app.dependency_overrides.pop(verify_user, None)
+    assert response.status_code == status, response.text
+    assert tokens == ([] if requested in ("all", "bad group!") else ["test-user-token"])
+    assert len(requests.list_owned("owner")) == (1 if status == 201 else 0)
+
+
+def test_audience_migration_preserves_existing_private_sources_and_accepts_all(db):
+    from catix import groups, source_requests as requests
+
+    private = requests.submit("owner", "o@example.org", LINK, "B26", consent=True)
+    assert requests.approve(private["id"], 7, "B26")
+    assert requests.activate(requests.claim(), -123, "Private source", None, False)
+    with db() as conn:
+        conn.execute("ALTER TABLE source_requests DROP CONSTRAINT IF EXISTS source_requests_group_code_check")
+        conn.execute("ALTER TABLE source_requests ADD CONSTRAINT source_requests_group_code_check CHECK (group_code <> 'all')")
+        schema = Path(__file__).resolve().parents[1].joinpath("db/schema.sql").read_text().replace("__TZ__", "UTC")
+        conn.execute(schema)
+        conn.execute(schema)
+        chat = conn.execute("SELECT * FROM chats WHERE chat_id = -123").fetchone()
+        assert chat["group_code"] == "B26" and chat["requires_verified_group"] is True
+    assert requests.submit("other", "o@example.org", LINK, "all", consent=True)["status"] == "pending"
+    assert groups.website_chat_ids([]) == set()
+    assert groups.website_chat_ids(["B26"]) == {-123}
 
 
 def test_persistent_rate_limit_serializes_concurrent_submissions(db):
@@ -165,18 +243,18 @@ def test_http_contract_owner_only_and_verified_group(db, monkeypatch):
     user.token = SecretStr("owner-token")
     app.dependency_overrides[verify_user] = lambda: user
     try:
-        body = {"invite_link": LINK, "group_code": "B27", "consent": True}
+        body = {"invite_link": LINK, "group_code": "B26", "consent": True}
         response = client.post("/sources/requests", json=body)
         assert response.status_code == 201, response.text
         view = response.json()
         assert set(view) == {"id", "group_code", "comment", "status", "message", "title", "created_at"}
-        assert view["group_code"] == "B27" and view["comment"] == ""
+        assert view["group_code"] == "B26" and view["comment"] == ""
         assert client.get("/sources/requests").json() == {"requests": [view], "verified_groups": ["B26"]}
         for consent in (False, 1, "true", None):
             assert client.post("/sources/requests", json={**body, "consent": consent}).status_code == 422
         for link in ("http://t.me/+AbCdEfGhIjKlMnOp", LINK + "?x=1", LINK + "/", "https://t.me/ab", "https://t.me.evil/+AbCdEfGhIjKlMnOp", LINK + "\nextra"):
             assert client.post("/sources/requests", json={**body, "invite_link": link}).status_code == 422
-        assert client.post("/sources/requests", json={**body, "group_code": "all"}).status_code == 422
+        assert client.post("/sources/requests", json={**body, "group_code": "bad group!"}).status_code == 422
         for number in range(4):
             assert client.post("/sources/requests", json={**body, "invite_link": LINK + str(number)}).status_code == 201
         assert client.post("/sources/requests", json={**body, "invite_link": LINK + "999"}).status_code == 429
@@ -618,11 +696,12 @@ def test_worker_lifecycle_cancels_before_client_disconnect(monkeypatch):
     assert options["request_retries"] == 0, "Telethon must not silently repeat an uncertain join write"
 
 
-def test_terminal_duplicate_returns_conflict_not_false_submission_success(db):
+def test_terminal_duplicate_returns_conflict_not_false_submission_success(db, monkeypatch):
     from fastapi.testclient import TestClient
-    from catix import source_requests as requests
+    from catix import groups, source_requests as requests
     from catix.api.app import app
     from catix.api.auth import UserTokenData, verify_user
+    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
     request = requests.submit("owner", "o@example.org", LINK, "B26", consent=True)
     requests.reject(request["id"], 1, "Not authorized")
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org")
@@ -835,12 +914,12 @@ def test_public_api_store_moderation_and_worker_activation(db, monkeypatch):
     from catix.tgbot import source_requests as moderation
     from catix.tguserbot import source_requests as worker
 
-    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
+    monkeypatch.setattr(groups, "website_groups", lambda _: pytest.fail("all audience needs no study-group verification"))
     monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="public-owner", email="owner@example.org")
     try:
         client = TestClient(app)
-        submitted = client.post("/sources/requests", json={"invite_link": "t.me/UniversityInnopolis", "group_code": "B26", "consent": True})
+        submitted = client.post("/sources/requests", json={"invite_link": "t.me/UniversityInnopolis", "group_code": "all", "consent": True})
         assert submitted.status_code == 201, submitted.text
         assert submitted.json()["status"] == "pending"
         assert requests.get_request(submitted.json()["id"])["invite_link"] == "https://t.me/universityinnopolis"
@@ -879,7 +958,7 @@ def test_public_api_store_moderation_and_worker_activation(db, monkeypatch):
         assert calls.count(JoinChannelRequest) == 1
         with db() as conn:
             chat = conn.execute("SELECT * FROM chats WHERE chat_id = %s", (stored["chat_id"],)).fetchone()
-            assert chat["group_code"] == "B26" and chat["requires_verified_group"] is True
+            assert chat["group_code"] == "all" and chat["requires_verified_group"] is False
     finally:
         app.dependency_overrides.pop(verify_user, None)
 
@@ -893,8 +972,8 @@ def test_public_worker_does_not_activate_left_or_banned_participant(db, particip
     from catix import source_requests as requests
     from catix.tguserbot import source_requests as worker
 
-    request = requests.submit("public-owner", "owner@example.org", "t.me/PublicChannel", "B26", consent=True)
-    requests.approve(request["id"], 7, "B26")
+    request = requests.submit("public-owner", "owner@example.org", "t.me/PublicChannel", "all", consent=True)
+    requests.approve(request["id"], 7, "all")
     channel = types.Channel(457, "Public channel", types.ChatPhotoEmpty(), None, megagroup=True, access_hash=12346, username="publicchannel")
     joined = False
     calls = []
@@ -933,8 +1012,8 @@ def test_public_worker_marks_missing_username_failed_without_join(db, resolution
     from catix import source_requests as requests
     from catix.tguserbot import source_requests as worker
 
-    request = requests.submit("public-owner", "owner@example.org", "t.me/MissingChannel", "B26", consent=True)
-    requests.approve(request["id"], 7, "B26")
+    request = requests.submit("public-owner", "owner@example.org", "t.me/MissingChannel", "all", consent=True)
+    requests.approve(request["id"], 7, "all")
     class Telegram:
         async def get_entity(self, username):
             if resolution_error == "value":
@@ -957,8 +1036,8 @@ def test_public_worker_rejects_user_entities_without_join(db):
     from catix import source_requests as requests
     from catix.tguserbot import source_requests as worker
 
-    request = requests.submit("public-owner", "owner@example.org", "t.me/SomeBot", "B26", consent=True)
-    requests.approve(request["id"], 7, "B26")
+    request = requests.submit("public-owner", "owner@example.org", "t.me/SomeBot", "all", consent=True)
+    requests.approve(request["id"], 7, "all")
     class Telegram:
         async def get_entity(self, username):
             return types.User(99, bot=True, first_name="Bot")
@@ -979,8 +1058,8 @@ def test_public_uncertain_join_is_reconciled_without_repeating_write(db):
     from catix import source_requests as requests
     from catix.tguserbot import source_requests as worker
 
-    request = requests.submit("public-owner", "owner@example.org", "t.me/RetryChannel", "B26", consent=True)
-    requests.approve(request["id"], 7, "B26")
+    request = requests.submit("public-owner", "owner@example.org", "t.me/RetryChannel", "all", consent=True)
+    requests.approve(request["id"], 7, "all")
     channel = types.Channel(458, "Retry channel", types.ChatPhotoEmpty(), None, megagroup=True, access_hash=12347, username="retrychannel")
     joined = False
     calls = []

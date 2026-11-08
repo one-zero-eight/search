@@ -61,8 +61,8 @@ def normalize_link(link: str) -> str:
 def submit(owner: str, email: str, invite_link: str, group_code: str, comment: str = "", *, consent: bool) -> dict:
     link = normalize_link(invite_link)
     code = groups.normalize(group_code)
-    if not code or code == groups.ALL:
-        raise ValueError("A valid study group other than all is required")
+    if not code:
+        raise ValueError("A valid study group or all is required")
     if consent is not True:
         raise ValueError("Explicit consent is required")
     if len(comment) > 2000:
@@ -104,9 +104,15 @@ def get_request(id: str) -> dict | None:
 
 def approve(id: str, admin_id: int, group_code: str) -> bool:
     code = groups.normalize(group_code)
-    if not code or code == groups.ALL:
-        raise ValueError("A valid study group other than all is required")
+    if not code:
+        raise ValueError("A valid study group or all is required")
     with pg.connection() as conn:
+        if code == groups.ALL:
+            current = conn.execute(
+                "SELECT group_code FROM source_requests WHERE id = %s AND status = 'pending' FOR UPDATE", (id,),
+            ).fetchone()
+            if current and current["group_code"] != groups.ALL:
+                raise ValueError("A group-only request cannot be made public without a new public-audience request")
         return conn.execute(
             """UPDATE source_requests SET status = 'approved', group_code = %s, decided_by = %s, decided_at = now()
                WHERE id = %s AND status = 'pending'""", (code, admin_id, id),
@@ -213,8 +219,8 @@ def activate(job: dict, chat_id: int, title: str, username: str | None, forum: b
         try:
             with conn.transaction():  # Savepoint: a legacy listener conflict must undo the new chat too.
                 conn.execute(
-                    "INSERT INTO chats (chat_id, title, username, group_code, requires_verified_group) VALUES (%s, %s, %s, %s, true)",
-                    (chat_id, title, username, current["group_code"]),
+                    "INSERT INTO chats (chat_id, title, username, group_code, requires_verified_group) VALUES (%s, %s, %s, %s, %s)",
+                    (chat_id, title, username, current["group_code"], current["group_code"] != groups.ALL),
                 )
                 conn.execute(
                     """INSERT INTO userbot_listen (chat_id, topic_ids, reader, topic_policy)

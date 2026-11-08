@@ -48,6 +48,11 @@ def list_requests(user: VerifiedDep):
 
 @router.post("/requests", response_model=SourceRequestView, status_code=201)
 def create_request(body: SourceRequestCreate, user: VerifiedDep):
+    code = groups.normalize(body.group_code)
+    if not code:
+        raise HTTPException(422, "A valid study group or all is required")
+    if code != groups.ALL and code not in groups.website_groups(user.token.get_secret_value() if user.token else None):
+        raise HTTPException(403, "Select one of your verified study groups or all cAtIx users. Reload the form to refresh your groups.")
     try:
         return source_requests.submit(user.innohassle_id, user.email, body.invite_link, body.group_code, body.comment, consent=body.consent)
     except source_requests.RateLimited as e:

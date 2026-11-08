@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS source_requests (
     owner text NOT NULL,
     email text NOT NULL,
     invite_link text NOT NULL,
-    group_code text NOT NULL CHECK (group_code <> 'all'),
+    group_code text NOT NULL,
     comment text NOT NULL DEFAULT '',
     consented_at timestamptz NOT NULL,
     status text NOT NULL DEFAULT 'pending'
@@ -54,6 +54,8 @@ CREATE TABLE IF NOT EXISTS source_requests (
     created_at timestamptz NOT NULL DEFAULT now(),
     UNIQUE (owner, invite_link)
 );
+-- Explicitly consented, moderated 'all' proposals are allowed; existing chat policies are unchanged.
+ALTER TABLE source_requests DROP CONSTRAINT IF EXISTS source_requests_group_code_check;
 ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_by bigint;
 ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_at timestamptz;
 ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS available_at timestamptz NOT NULL DEFAULT now();

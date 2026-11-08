@@ -399,8 +399,13 @@ experiments/   скрипты оценки качества поиска и да
 См. `LICENSE` в корне репозитория.
 
 ## TODO
-- Get group of user by their telegram_id or innohassle id (contribute to accounts and return study group of the user)
+- add highlighting on search results
+- when2meet cards
+- move exporting ai calendar to schedule system
+- add union groups (for example first year students groups)
+- remove legacy code and settings, db tables
 - Remove unused features (clean code) maybe delete the whole wiki 😱
 - Redesign autopilot implementation and logic (for now it's not working)
 - Bots (tgbot, maxbot): InMemorySaver to AsyncPostgresSaver, as catix-api has (their agents are built at import, outside an event loop)
+- Maybe delete all agent capabilities for bots (they only will)
 - OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-wiki regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

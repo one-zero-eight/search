@@ -32,7 +32,7 @@ def _button(text: str, data: str) -> InlineKeyboardButton:
 
 def list_screen(page: int) -> tuple[str, Keyboard]:
     found = store.pending_requests(offset=page * PAGE_SIZE, limit=PAGE_SIZE + 1)
-    rows = [[_button(f"{r['group_code']} · {r['email'][:40]}", f"sr:show:{r['id']}")] for r in found[:PAGE_SIZE]]
+    rows = [[_button(f"{'Все пользователи cAtIx' if r['group_code'] == groups.ALL else r['group_code']} · {r['email'][:40]}", f"sr:show:{r['id']}")] for r in found[:PAGE_SIZE]]
     nav = []
     if page:
         nav.append(_button("◀", f"sr:list:{page - 1}"))
@@ -46,17 +46,21 @@ def list_screen(page: int) -> tuple[str, Keyboard]:
 
 def request_screen(request: dict) -> tuple[str, Keyboard]:
     request_id = request["id"]
-    group = html.escape(request["group_code"])
+    group = "все пользователи cAtIx" if request["group_code"] == groups.ALL else html.escape(request["group_code"])
+    visibility = (
+        "Сообщения увидят все пользователи cAtIx, не только участники чата."
+        if request["group_code"] == groups.ALL else
+        "Сообщения увидят все пользователи с подтверждённой принадлежностью к этой учебной группе, не только участники чата."
+    )
     text = (
         f"<b>Заявка на Telegram-чат</b>\n"
         f"От: {html.escape(request['email'])}\n"
         f"Ссылка: {html.escape(request['invite_link'])}\n"
-        f"Учебная группа: <b>{group}</b>\n"
+        f"Аудитория: <b>{group}</b>\n"
         f"Статус: {STATUS[request['status']]}\n"
         f"Комментарий: {html.escape(request['comment'][:1000]) or '—'}{'…' if len(request['comment']) > 1000 else ''}\n\n"
         "Отправитель подтвердил согласие администратора Telegram-чата. "
-        "Перед подключением проверьте это согласие и целевую группу: сообщения увидят все "
-        "пользователи с подтверждённой принадлежностью к этой учебной группе, не только участники чата."
+        f"Перед подключением проверьте это согласие и целевую аудиторию. {visibility}"
     )
     if request.get("message"):
         text += "\n\n" + html.escape(request["message"])
@@ -67,6 +71,7 @@ def request_screen(request: dict) -> tuple[str, Keyboard]:
         text += (
             "\n\nДругая группа (команда сразу одобряет; сначала проверьте согласие):\n"
             f"<code>/source_approve {request_id} КОД_ГРУППЫ</code>\n"
+            "all допустимо только для заявки, изначально поданной для всех пользователей cAtIx.\n"
             "Отклонить с причиной:\n"
             f"<code>/source_reject {request_id} причина</code>"
         )
@@ -81,9 +86,10 @@ def review_screen(request: dict) -> tuple[str, Keyboard]:
         return request_screen(request)
     request_id = request["id"]
     text, _ = request_screen(request)
+    audience = "всех пользователей cAtIx" if request["group_code"] == groups.ALL else f"группы <b>{html.escape(request['group_code'])}</b>"
     text += (
         "\n\nПодтверждая, вы проверили согласие администратора Telegram-чата и разрешаете "
-        f"вступление userbot и поиск для группы <b>{html.escape(request['group_code'])}</b>."
+        f"вступление userbot и поиск для {audience}."
     )
     return text, [
         [_button("Согласие проверено — подключить", f"sr:approve:{request_id}")],
@@ -172,10 +178,14 @@ async def approve_command(message: Message) -> None:
         return
     parts = (message.text or "").split()
     code = groups.normalize(parts[2]) if len(parts) == 3 else None
-    if not code or code == groups.ALL or not REQUEST_ID.fullmatch(parts[1]):
-        await message.answer("Формат: /source_approve ID КОД_ГРУППЫ. Группа all запрещена. Сначала проверьте согласие администратора чата.")
+    if not code or not REQUEST_ID.fullmatch(parts[1]):
+        await message.answer("Формат: /source_approve ID КОД_ГРУППЫ (или all для общей заявки). Сначала проверьте согласие администратора чата на эту аудиторию.")
         return
-    await asyncio.to_thread(store.approve, parts[1], message.from_user.id, code)
+    try:
+        await asyncio.to_thread(store.approve, parts[1], message.from_user.id, code)
+    except ValueError:
+        await message.answer("Нельзя сделать групповую заявку общей: нужна новая заявка с согласием на доступ всех пользователей cAtIx и новой ссылкой-приглашением.")
+        return
     request = await asyncio.to_thread(store.get_request, parts[1])
     if request is None:
         await message.answer("Заявка не найдена.")

@@ -39,6 +39,38 @@ def test_review_is_explicit_about_scope_and_does_not_fetch_history():
     assert "sr:approve:" + "a" * 32 in [b.callback_data for row in rows for b in row]
 
 
+def test_all_audience_review_warns_about_nonmembers_and_all_users():
+    text, rows = moderation().review_screen(request(group_code="all"))
+    assert "все пользователи cAtIx" in text
+    assert "не только участники чата" in text
+    assert "согласие" in text.lower()
+    assert "sr:approve:" + "a" * 32 in [b.callback_data for row in rows for b in row]
+
+
+def test_public_request_can_be_approved_by_command(monkeypatch):
+    module = moderation()
+    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    store = Mock()
+    store.get_request.return_value = request(group_code="all", status="approved")
+    monkeypatch.setattr(module, "store", store)
+    message = command("/source_approve " + "a" * 32 + " all")
+    asyncio.run(module.approve_command(message))
+    store.approve.assert_called_once_with("a" * 32, 7, "all")
+    assert "все пользователи cAtIx" in message.answer.call_args.args[0]
+
+
+def test_command_explains_why_private_consent_cannot_be_widened(monkeypatch):
+    module = moderation()
+    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    store = Mock()
+    store.approve.side_effect = ValueError("private request")
+    monkeypatch.setattr(module, "store", store)
+    message = command("/source_approve " + "a" * 32 + " all")
+    asyncio.run(module.approve_command(message))
+    assert "Нельзя сделать групповую заявку общей" in message.answer.call_args.args[0]
+    store.get_request.assert_not_called()
+
+
 def test_processed_request_has_no_approval_buttons():
     text, rows = moderation().request_screen(request(status="approved"))
     assert "одобрена" in text.lower()
@@ -123,11 +155,11 @@ def test_approve_command_can_choose_group_and_reads_back(monkeypatch):
 
 
 @pytest.mark.parametrize("text,private", [
-    ("/source_approve " + "a" * 32 + " all", True),
+    ("/source_approve " + "a" * 32 + " bad!", True),
     ("/source_approve " + "a" * 32 + " B26-CSE-01", False),
     ("/source_approve nope B26-CSE-01", True),
 ])
-def test_approve_command_refuses_public_scope_or_invalid_context(monkeypatch, text, private):
+def test_approve_command_refuses_invalid_group_or_context(monkeypatch, text, private):
     module = moderation()
     monkeypatch.setattr(module.changes, "admins", lambda: [7])
     store = Mock()
