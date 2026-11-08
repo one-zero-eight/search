@@ -14,6 +14,9 @@ DAY = "2026-11-10"
 NOW = datetime(2026, 11, 9, 12, tzinfo=settings.tz)
 INTERVAL = {"day": DAY, "time_from": "10:00", "time_to": "11:00"}
 BOOK = {**INTERVAL, "room_id": "r", "title": "Study"}
+# Required body fields from https://api.innohassle.ru/room-booking/v0/openapi.json,
+# CreateBookingRequest. participant_emails is nullable, but has no default.
+ROOM_BOOKING_REQUIRED_FIELDS = {"room_id", "title", "start", "end", "participant_emails"}
 
 
 @pytest.fixture
@@ -34,7 +37,14 @@ def room_api(monkeypatch):
             return httpx.Response(state.get("status", 503), json={"detail": "private-upstream-detail"})
         if request.method == "POST":
             assert path == "/room-booking/v0/bookings/"
-            state["writes"].append(json.loads(request.content))
+            body = json.loads(request.content)
+            missing = ROOM_BOOKING_REQUIRED_FIELDS - body.keys()
+            if missing:
+                return httpx.Response(422, json={"detail": [
+                    {"type": "missing", "loc": ["body", field], "msg": "Field required"}
+                    for field in sorted(missing)
+                ]})
+            state["writes"].append(body)
             if state.get("post_timeout"):
                 raise httpx.ReadTimeout("private-upstream-detail", request=request)
             return httpx.Response(200, json={"outlook_booking_id": "created-id"})
@@ -256,3 +266,17 @@ def test_every_unoccupied_room_has_its_own_permission_check(room_api):
     assert data["unavailable"] == [{"room_id": "r", "reason": "No access"}]
     checks = [r.url.path for r in room_api["requests"] if r.url.path.endswith("/can-book")]
     assert checks == ["/room-booking/v0/room/r/can-book", "/room-booking/v0/room/allowed/can-book"]
+
+
+@pytest.mark.parametrize("generic", [False, True])
+@pytest.mark.parametrize("remote", [False, True])
+def test_trace_booking_sends_required_empty_participants_without_extra_user_input(room_api, generic, remote):
+    room_api["rooms"] = [{"id": "3.1"}]
+    arguments = {"room_id": "3.1", "day": "2026-11-11", "time_from": "11:00", "time_to": "12:00", "title": "Тест"}
+    result = invoke("rooms_book_room", arguments, generic=generic, remote=remote)
+    assert not result.is_error and result.data["done"] is True, result
+    assert room_api["writes"] == [{
+        "room_id": "3.1", "title": "Тест", "start": "2026-11-11T11:00:00+03:00",
+        "end": "2026-11-11T12:00:00+03:00", "participant_emails": [],
+    }]
+    assert [r.method for r in room_api["requests"]] == ["GET", "GET", "POST"]

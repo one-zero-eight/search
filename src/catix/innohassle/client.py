@@ -264,7 +264,8 @@ def can_book_room(token: str, room_id: str, start: datetime, end: datetime) -> t
 
 def book_room(token: str, room_id: str, title: str, start: datetime, end: datetime) -> dict:
     validate_room_id(room_id)
-    body = {"room_id": room_id, "title": title, "start": start.isoformat(), "end": end.isoformat()}
+    body = {"room_id": room_id, "title": title, "start": start.isoformat(), "end": end.isoformat(),
+            "participant_emails": []}  # Required upstream even when nobody else is invited.
     return _as_user("POST", "/room-booking/v0/bookings/", token, json=body).json()
 
 
