@@ -704,8 +704,7 @@ def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, st
     ]})
     content = {"text": explanation, "blocks": [{"type": "text", "text": explanation}],
                "empty": "", "whitespace": " \n "}[content_kind]
-    expected = explanation if content_kind in {"text", "blocks"} else ask.WAITING["Russian"].format(
-        actions="- Записать вас на тренировку #46767.")
+    expected = explanation if content_kind in {"text", "blocks"} else ask.WAITING["Russian"]
 
     class FakeAgent:
         paused = False
@@ -779,7 +778,7 @@ def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
     chat_id = kept.start("u1", "забронируй музкомнату")
 
     waiting = asyncio.run(ask.run("забронируй музкомнату", chat_id, user))
-    assert waiting.approval.actions[0].name == "book_music_room" and "- Забронировать музкомнату." in waiting.answer
+    assert waiting.approval.actions[0].name == "book_music_room"
     assert kept.waiting(chat_id)[0] == "cp-paused" and kept.checkpoint(chat_id) is None
 
     wrong = AskDecision(decision="approve", approval_id="cp-other")

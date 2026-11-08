@@ -78,8 +78,8 @@ ACT_UNAVAILABLE = (
     "аудиторию, записаться на событие или отменить бронь, — и подтвердите действие под его ответом."
 )
 WAITING = {
-    "Russian": "Чтобы это сделать, нужно ваше подтверждение:\n\n{actions}\n\nПодтвердите или отклоните это под сообщением.",
-    "English": "This needs your approval first:\n\n{actions}\n\nApprove or reject it below.",
+    "Russian": "Подтвердите или отклоните действие в карточке ниже.",
+    "English": "Approve or reject the action in the card below.",
 }
 
 
@@ -416,7 +416,6 @@ async def _run(
             if paused := list(getattr(after, "interrupts", None) or ()):
                 checkpoint = after.config["configurable"]["checkpoint_id"]
                 approval = _approval(paused, checkpoint)
-                lines = "\n".join(f"- {a.description}" for a in approval.actions)
                 messages = result["messages"]
                 # A tool call can carry the explanation of what the user is about to approve.
                 # Only this last supervisor message belongs to the pending action, not earlier replies or tool results.
@@ -424,7 +423,7 @@ async def _run(
                 if messages and isinstance(messages[-1], AIMessage) and messages[-1].text.strip():
                     answer = final_answer(messages, result.get("sources") or {})
                 if not answer:
-                    answer = WAITING.get(_language(query), WAITING["Russian"]).format(actions=lines)
+                    answer = WAITING.get(_language(query), WAITING["Russian"])
                 traced.answer(answer)
                 counts = [{"id": i.id, "actions": len((i.value or {}).get("action_requests") or [None])} for i in paused]
                 return Waiting(answer, _history(result["messages"]), traced.id, checkpoint, approval, counts)

@@ -52,6 +52,8 @@ def test_blank_model_approval_details_survive_api_and_reopening(client, kept, mo
         body = response.json()
     description = body["approval"]["actions"][0]["description"]
     assert all(value in description for value in ("Robotics workshop", "2026-11-09", "17:00", "19:00", "Room 314"))
+    assert description not in body["answer"]
+    assert "Robotics workshop" not in body["answer"]
     history = client.get(f"/ask/chats/{body['chat_id']}", headers={"Authorization": "Bearer good"}).json()
     assert history["waiting"]["approval"] == body["approval"]
     assert history["waiting"]["answer"] == body["answer"]
