@@ -1,16 +1,15 @@
-"""POST /ask/: a question to the cAtIx agent (the one the Telegram and Max bots use), with a conversation by `chat_id`. The chats
+"""POST /ask/: a question to the website's cAtIx agent, with a conversation by `chat_id`. The chats
 are kept in Postgres: the agent's memory of each (LangGraph's AsyncPostgresSaver) and the answers as the client got them
 (api/chats.py), so that the user comes back to a chat (GET /ask/chats, GET /ask/chats/{chat_id}) and goes on with it, after a
 restart as well. The model names a chat by its first question while the agent answers it (agent/titles.py); the user
 renames it with PATCH /ask/chats/{chat_id} and deletes it with DELETE /ask/chats/{chat_id}.
-An answer that names upcoming events offers them for the user's calendar (`calendar_events`), as the "➕ В мой календарь"
-buttons under the bot's answers; POST /users/my-calendar/events/{id} adds one (api/users.py).
+An answer that names upcoming events offers them for the user's calendar (`calendar_events`);
+POST /users/my-calendar/events/{id} adds one (api/users.py).
 Matched Events reads and calendar-checked Sport recommendations also supply `signup_offers`.
 POST /ask/{chat_id}/signup/{offer_id} is explicit consent to that exact service target, with no model call.
 A durable unknown claim precedes service I/O; fresh checks and exact enrollment readback determine its receipt.
 The receipt is kept in the answer's JSON and supplied to the next question. External URLs are links, not writes.
-POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix as under
-the bot's answers.
+POST /ask/{ask_query_id}/feedback: a 👍/👎 on an answer with an optional comment, an annotation on its trace in Phoenix.
 
 An answer may have to wait for the user: on the site shared API tools do external actions through MCP (book the music
 room or a room, enrol them in an event, cancel a booking), and the orchestrator manages the local AI Calendar.
@@ -66,7 +65,7 @@ from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
 from catix.settings import settings
-from catix.tgbot.stream import partial_text
+from catix.common.render import partial_text
 
 log = logging.getLogger("catix.api")
 router = APIRouter(prefix="", tags=["Ask"])

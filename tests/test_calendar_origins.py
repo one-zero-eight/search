@@ -189,39 +189,6 @@ def test_real_helper_graph_preserves_calendar_origin(monkeypatch, extraction, he
     assert calls == []
 
 
-@pytest.mark.parametrize('mixed', [False, True])
-def test_telegram_passes_provenance_to_background_calendar_offers(monkeypatch, extraction, mixed):
-    from catix.tgbot import bot
-
-    day, extracted, calls, proposals = extraction
-    messages = service_turn(day)
-    sources = with_deadline(messages) if mixed else {}
-    if mixed:
-        extracted.events.append(events.Event(title='Дедлайн по математике', day=day, start_time=time(18, 30),
-                                             end_time=None, room=None, source=1))
-    edits = []
-    monkeypatch.setattr(bot.groups, 'scoped_chat_ids', lambda *args: set())
-    monkeypatch.setattr(bot.groups, 'effective_group', lambda *args: bot.groups.ALL)
-
-    async def run(*args):
-        return {'messages': messages, 'sources': sources}
-
-    monkeypatch.setattr(bot.stream, 'run', run)
-
-    async def check():
-        result = await bot._run_agent('Предложи спорт', 'calendar-origins-tg', 123, None)
-        assert len(result) == 3, 'The bot must retain tool provenance, not just the final text'
-        answer, trace, context = result
-
-        async def edit_reply_markup(**kwargs):
-            edits.append(kwargs)
-
-        await bot._offer_events(SimpleNamespace(edit_reply_markup=edit_reply_markup), answer, trace, context)
-
-    asyncio.run(check())
-    assert len(calls) == len(proposals) == len(edits) == int(mixed)
-    if mixed:
-        assert proposals[0]['title'] == 'Дедлайн по математике'
 
 
 @pytest.mark.parametrize('mode', ['old', 'unpaired', 'wrong_name', 'discovery', 'unrelated'])

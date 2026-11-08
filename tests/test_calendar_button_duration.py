@@ -227,22 +227,3 @@ def test_worker_proposal_survives_answer_offer_cleanup(storage):
     assert "NOT (event ? 'change_id')" in cleanup
 
 
-def test_telegram_button_shows_cross_date_interval_and_proposed_note(storage):
-    from catix.tgbot.bot import _event_label
-
-    [(_, proposed)] = personal_calendar.propose([event()])
-    label = _event_label(proposed)
-    assert "08.11.2026 23:30" in label and "09.11.2026 01:00" in label
-    assert "предлагается 90 мин" in label
-
-
-@pytest.mark.parametrize("overrides", [{}, {"all_day": True}, {"ends_at": "2026-11-09T03:00:00+03:00"}])
-def test_telegram_never_invents_a_duration_without_marker(overrides):
-    from catix.tgbot.bot import _event_label
-
-    label = _event_label(event(**overrides))
-    assert "90" not in label and "предлагается" not in label
-    if overrides.get("all_day"):
-        assert "23:30" not in label
-    elif overrides.get("ends_at"):
-        assert "09.11.2026 03:00" in label

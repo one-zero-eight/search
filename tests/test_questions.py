@@ -3,7 +3,6 @@
 import asyncio
 
 from catix.agent.questions import QuestionQueue
-from catix.tgbot import stream
 
 
 def _run(coro):
@@ -129,21 +128,6 @@ def test_a_question_that_gives_up_leaves_the_queue():
     assert cancelled and log == ["start a", "end a", "start c", "end c"]
 
 
-def test_the_draft_shows_the_queue_and_sends_it_again_to_keep_it_alive():
-    class Recorder(stream.DraftStreamer):
-        def __init__(self):
-            super().__init__(None, 1, None, lambda text: text)
-            self.sent: list[str] = []
-
-        async def _send(self, text, *, html):
-            self.sent.append(text)
-
-    drafts = Recorder()
-    _run(drafts.queued(2))
-    _run(drafts.queued(2))
-    _run(drafts.start())
-    assert drafts.sent == [stream.QUEUED.format(ahead=2)] * 2 + [stream.CHECKING]
-    assert "2" in drafts.sent[0]
 
 
 def test_a_question_that_got_its_turn_earlier_has_the_lower_priority():

@@ -54,11 +54,6 @@ def test_a_user_of_group_all_gets_only_the_chats_of_group_all(grouped_chat):
     assert not store.search(["орнитологии"], chat_ids=scope, limit=5) or all(h.chat_id != grouped_chat for h in store.search(["орнитологии"], chat_ids=scope, limit=5))
 
 
-def test_the_texts_of_the_group_commands_say_what_all_means():
-    reply = groups.mygroup_command("", "tg:999000004", None, may_set=True)
-    assert "общие чаты" in reply and "во всех чатах" not in reply
-    assert "только в общих чатах" in groups.mygroup_command("all", "tg:999000004", None, may_set=True)
-    assert "только в общих чатах" in groups.mygroup_command("", "tg:999000004", None, may_set=False)
 
 
 def test_the_search_tool_never_leaves_the_allowed_chats(grouped_chat):

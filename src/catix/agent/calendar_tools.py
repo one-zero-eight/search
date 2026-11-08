@@ -2,7 +2,7 @@
 
 Read by the known site account or the account linked to Telegram. On the signed-in site, adding, replacing and removing
 an event require the orchestrator's native approval flow. Mutations never use service authentication or a Telegram lookup.
-The existing "➕ В мой календарь" answer buttons remain available in the bot and on the site.
+The "➕ В мой календарь" answer buttons remain available on the site.
 """
 
 import logging
@@ -22,8 +22,8 @@ DEFAULT_DAYS = 14
 MAX_EVENTS = 40
 log = logging.getLogger("catix.calendar.tools")
 NO_CALENDAR = (
-    "The asker's AI Calendar is kept under their InNoHassle account, and this chat does not know it: it is in the Telegram "
-    "bot (/calendar) and on the site innohassle.ru/calendar."
+    "The asker's AI Calendar is kept under their InNoHassle account, and this chat does not know it: "
+    "open the site innohassle.ru/calendar."
 )
 NOT_LINKED = (
     "The asker's Telegram is not linked to an InNoHassle account, where the AI Calendar is kept: they can link it at "

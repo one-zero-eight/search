@@ -1,8 +1,8 @@
-"""Max messenger bot: stores messages of the chats and channels it is in and answers questions with the agent.
+"""Max messenger bot: stores messages from the chats and channels it is in.
 
-Same behaviour as the Telegram bot (bot.py), same database: messages of both messengers are searched together.
-In a dialog it answers every message. In a group chat it answers when @mentioned, replied to, or on /ask, and saves
-everything else. In channels (the bot must be an admin) it only saves posts. Run: `catix-maxbot`.
+Messages from both messengers are searched by the assistant on the InNoHassle website.
+Private dialogs are not indexed; authorized chat administrators can configure chat groups there.
+Run: `catix-maxbot`.
 
 Max has no edit/removal handling beyond `message_edited`, so an edit re-saves the message. Long polling keeps no
 position between restarts: messages written while the bot was down are lost (Max keeps events for a limited time).
@@ -12,7 +12,6 @@ Max chat ids are shifted by MAX_CHAT_BASE in the database so they never collide 
 import asyncio
 import contextlib
 import logging
-import re
 import ssl
 import sys
 from datetime import datetime, timedelta, timezone
@@ -24,36 +23,25 @@ from catix import groups
 from catix.ingest import writer as ingest
 from catix.ingest import images
 from catix.db import pg
-from catix.agent import sqlquery
 from catix.db import store
-from catix.agent import tracing
-from catix.agent.core import build_agent, final_answer
-from catix.agent.questions import QuestionQueue
-from catix.common.render import chunks, to_html
+from catix.common.render import to_html
 from catix.db.rows import ChatGroup
-from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.settings import settings
-from catix.agent.tools import AgentContext
 
 log = logging.getLogger("catix.max")
 
 API = "https://platform-api2.max.ru"
 MAX_CHAT_BASE = groups.MAX_CHAT_BASE  # Telegram ids stay below 10**13 in absolute value, Max ids are assumed to as well.
-MESSAGE_LIMIT = 4000
 POLL_TIMEOUT = 30
 UPDATE_TYPES = "message_created,message_edited,bot_started,bot_added"
 HISTORY_PAGE = 100
-SEND_PAUSE = 0.5  # Max allows two messages per second to one chat.
 
 GREETING = (
-    "Привет! Я cAtIx, ассистент Innopolis University: клубы, аудитории, события, а также экзамены, дедлайны и советы "
-    "из чатов, куда меня добавили.\n\nВ личке просто пишите вопрос. В группе: /ask вопрос, упоминание или ответ "
-    "на моё сообщение.\n\n/mygroup: ваша учебная группа (по умолчанию ищу везде).\n"
-    "/group: указать группу чата, где вы сделали меня администратором."
+    "Привет! Я cAtIx. Сохраняю сообщения из чатов и каналов, куда меня добавили, "
+    "для поиска и уведомлений об изменениях расписания.\n\n"
+    "Задать вопрос ассистенту можно на сайте InNoHassle. В этом боте ответов на вопросы нет."
 )
 
-agent = build_agent()
-questions = QuestionQueue(settings.agent_parallel_questions)  # turns at the agent (agent/questions.py); waiting shows typing
 writer = ingest.Writer()
 
 
@@ -71,7 +59,6 @@ class Max:
             base_url=API, headers={"Authorization": token}, verify=context, timeout=POLL_TIMEOUT + 15
         )
         self.chats: dict[int, dict] = {}
-        self.me: dict = {}
 
     async def call(self, method: str, path: str, **kwargs) -> dict:
         resp = await self.http.request(method, path, **kwargs)
@@ -97,17 +84,15 @@ class Max:
                 return {}  # Not cached: asked again with the next message.
         return self.chats[chat_id]
 
-    async def send(self, chat_id: int, text: str, *, reply_to_mid: str | None = None) -> None:
+    async def send(self, chat_id: int, text: str) -> None:
         body: dict = {"text": to_html(text), "format": "html"}
-        if reply_to_mid:
-            body["link"] = {"type": "reply", "mid": reply_to_mid}
         try:
             await self.call("POST", "/messages", params={"chat_id": chat_id, "disable_link_preview": "true"}, json=body)
         except httpx.HTTPStatusError as e:
             if e.response.status_code != 400:
                 raise
             # The HTML was not accepted: send the plain text.
-            body = {"text": text, **({"link": body["link"]} if reply_to_mid else {})}
+            body = {"text": text}
             await self.call("POST", "/messages", params={"chat_id": chat_id, "disable_link_preview": "true"}, json=body)
 
     async def admin_chats(self, user_id: int) -> list[ChatGroup]:
@@ -123,10 +108,6 @@ class Max:
 
         flags = await asyncio.gather(*(is_admin(c) for c in chats))
         return [c for c, ok in zip(chats, flags) if ok]
-
-    async def typing(self, chat_id: int) -> None:
-        with contextlib.suppress(httpx.HTTPError):
-            await self.call("POST", f"/chats/{chat_id}/actions", json={"action": "typing_on"})
 
 
 def _text(message: dict) -> str:
@@ -163,20 +144,10 @@ async def _download_image(job: dict, ref: str) -> bytes:
     return await images.download_url(ref, verify=context)
 
 
-def _question(message: dict, me: dict) -> bool:
-    text = (message.get("body") or {}).get("text") or ""
-    link = message.get("link") or {}
-    return bool(text.startswith("/ask")
-                or (me.get("username") and f"@{me['username']}".lower() in text.lower())
-                or (me.get("user_id") is not None and link.get("type") == "reply"
-                    and (link.get("sender") or {}).get("user_id") == me["user_id"]))
-
-
 async def _prepare(max_: Max, message: dict, chat_id: int, *, edited: bool = False,
                    observed_at: datetime | None = None) -> tuple[store.ChatInfo, store.Message] | None:
     observed_at = observed_at or datetime.now(timezone.utc)
-    chat_type = (message.get("recipient") or {}).get("chat_type")
-    if chat_type == "dialog" or (chat_type == "chat" and _question(message, getattr(max_, "me", {}))):
+    if (message.get("recipient") or {}).get("chat_type") == "dialog":
         return None
     text = _text(message)
     refs = _image_refs(message)
@@ -251,46 +222,6 @@ async def backfill(max_: Max, chat_id: int) -> None:
     log.info("history of chat %s: %d messages since %s", chat_id, total, since.date())
 
 
-async def _answer(max_: Max, chat_id: int, user_id: int, question: str, reply_mid: str | None) -> None:
-    question = question.strip()
-    if not question:
-        await max_.send(chat_id, "Задайте вопрос, например: /ask когда мидтерм по матану?", reply_to_mid=reply_mid)
-        return
-    thread_id = f"max:{chat_id}:{user_id}"
-    log.info("question in %s: %s", thread_id, question[:200])
-    scope = await asyncio.to_thread(groups.scoped_chat_ids, f"max:{user_id}")
-    group = await asyncio.to_thread(groups.effective_group, f"max:{user_id}")
-    typing = asyncio.create_task(_keep_typing(max_, chat_id))
-    try:
-        context = AgentContext(
-            allowed_chat_ids=None if scope is None else frozenset(scope),
-            user_telegram_id=-user_id,  # Never a Telegram id
-            study_group=None if group == groups.ALL else group,
-        )
-        async with questions.turn(f"max:{user_id}"):
-            with tracing.question(thread_id, str(user_id), question) as traced:
-                state = await agent.ainvoke(
-                    {"messages": [{"role": "user", "content": question}]}, tracing.run_config(thread_id, str(user_id)), context=context
-                )
-                answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
-                traced.answer(answer)
-    except Exception as e:
-        log.exception("agent failed")
-        answer = UNAVAILABLE if unreachable(e) else "Не получилось ответить: ошибка на стороне ассистента. Попробуйте ещё раз позже."
-    finally:
-        typing.cancel()
-    for i, chunk in enumerate(chunks(answer, MESSAGE_LIMIT)):
-        if i:
-            await asyncio.sleep(SEND_PAUSE)
-        await max_.send(chat_id, chunk, reply_to_mid=reply_mid if i == 0 else None)
-
-
-async def _keep_typing(max_: Max, chat_id: int) -> None:
-    while True:
-        await max_.typing(chat_id)
-        await asyncio.sleep(5)
-
-
 SEEN: set[int] = set()  # Chats whose history was requested during this run.
 TASKS: set[asyncio.Task] = set()  # Strong references: the loop keeps only weak ones to running tasks.
 
@@ -305,7 +236,7 @@ def _load_history(max_: Max, chat_id: int) -> None:
     task.add_done_callback(TASKS.discard)
 
 
-async def _handle(max_: Max, me: dict, update: dict) -> None:
+async def _handle(max_: Max, update: dict) -> None:
     observed_at = datetime.now(timezone.utc)  # Before any preparation/metadata await.
     kind = update["update_type"]
     if kind == "bot_added":
@@ -321,7 +252,6 @@ async def _handle(max_: Max, me: dict, update: dict) -> None:
         return
     chat_type = recipient["chat_type"]
     text = (message.get("body") or {}).get("text") or ""
-    mid = (message.get("body") or {}).get("mid")
 
     if chat_type == "dialog":
         if kind == "message_created" and text:
@@ -330,33 +260,16 @@ async def _handle(max_: Max, me: dict, update: dict) -> None:
             command, _, args = text.partition(" ")
             if command == "/group":
                 await max_.send(chat_id, groups.group_command(args, await max_.admin_chats(sender["user_id"])))
-                return
-            if command in ("/clear", "/new"):
-                await asyncio.to_thread(agent.checkpointer.delete_thread, f"max:{chat_id}:{sender['user_id']}")
-                await max_.send(chat_id, "Память диалога очищена: следующий вопрос начнёт разговор заново.")
-                return
-            if command == "/mygroup":
-                await max_.send(chat_id, groups.mygroup_command(args, f"max:{sender['user_id']}", may_set=groups.manual_group_allowed(False)))
-                return
-            await _answer(max_, chat_id, sender["user_id"], text.removeprefix("/ask"), None)
+            elif command == "/start":
+                await max_.send(chat_id, GREETING)
         return
 
     chat_id = recipient["chat_id"]
     _load_history(max_, chat_id)
-    if chat_type == "chat":
-        mention = f"@{me['username']}" if me.get("username") else None
-        if _question(message, me):
-            question = re.sub(re.escape(mention), "", text, flags=re.I) if mention else text
-            # Questions to the bot are not saved: they would show up as search results for the same question.
-            if kind == "message_created":
-                await _answer(max_, chat_id, sender.get("user_id", 0), question.removeprefix("/ask"), mid)
-            elif kind == "message_edited" and (seq := (message.get("body") or {}).get("seq")) is not None:
-                await asyncio.to_thread(store.delete_message, db_chat_id(chat_id), seq, observed_at=observed_at)
-            return
     await _save(max_, message, chat_id, edited=kind == "message_edited", observed_at=observed_at)
 
 
-async def poll(max_: Max, me: dict) -> None:
+async def poll(max_: Max) -> None:
     marker: int | None = None
     delay = 1.0
     while True:
@@ -371,7 +284,7 @@ async def poll(max_: Max, me: dict) -> None:
         marker = data.get("marker", marker)
         for update in data.get("updates", []):
             try:
-                await _handle(max_, me, update)
+                await _handle(max_, update)
             except Exception:
                 log.exception("update failed: %s", update.get("update_type"))
 
@@ -386,19 +299,15 @@ async def run() -> None:
         )
     max_ = Max(settings.max_bot_token.get_secret_value())
     me = await max_.call("GET", "/me")
-    max_.me = me  # Backfills apply the same question exclusion as live updates.
     log.info("Running as @%s", me.get("username"))
-    tracing.log_status()
-    await asyncio.to_thread(sqlquery.reset_context)
     writing = asyncio.create_task(writer.run())
     recognizing = asyncio.create_task(images.run("maxbot", _download_image))
     try:
-        await poll(max_, me)
+        await poll(max_)
     finally:
         recognizing.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await recognizing
-        tracing.flush()
         writing.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await writing

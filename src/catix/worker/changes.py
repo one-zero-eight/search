@@ -182,7 +182,7 @@ def mark_notified(change_id: int) -> None:
 def recipients(change: ChangeView) -> list[int]:
     """Telegram ids of the users a change is for, among those the bot may write to (they started it, bot_users.py): for a
     chat of group `all`, all of them; for a chat of a study group, the users of that group: the one InNoHassle knows, else
-    the one they chose (/mygroup), as for the search (groups.effective_group). The Max users are not told: the worker
+    the previously chosen group, as for search (groups.effective_group). The Max users are not told: the worker
     sends through Telegram only."""
     users = bot_users.reachable()
     if change.requires_verified_group:

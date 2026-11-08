@@ -65,16 +65,11 @@ async def _screen(bot: Bot) -> tuple[str, InlineKeyboardMarkup]:
     return "\n".join(lines), InlineKeyboardMarkup(inline_keyboard=rows)
 
 
-async def _menu(bot: Bot, user_id: int, *, admin: bool) -> None:
-    """Add /admin (and /listen, which every admin has) to the person's command menu, or give the plain menu back."""
-    from catix.tgbot import bot as main  # Imported late: bot.py imports this module.
-
+async def _menu(bot: Bot, user_id: int) -> None:
+    """Remove legacy per-chat menus without exposing administrative commands."""
     scope = BotCommandScopeChat(chat_id=user_id)
     try:
-        if admin:
-            await bot.set_my_commands([*main.ADMIN_COMMANDS], scope=scope)
-        else:
-            await bot.delete_my_commands(scope=scope)
+        await bot.delete_my_commands(scope=scope)
     except TelegramAPIError as e:
         log.info("menu of %s not changed (they have not started the bot yet?): %s", user_id, e)
 
@@ -125,7 +120,7 @@ async def admin_callback(query: CallbackQuery, bot: Bot) -> None:
         if target == user_id:
             notice = "Себя убрать нельзя"
         elif await asyncio.to_thread(admins.remove, target):
-            await _menu(bot, target, admin=False)
+            await _menu(bot, target)
             notice = "Убран"
         else:
             notice = "Его нет среди добавленных"
@@ -164,7 +159,7 @@ async def new_admin(message: Message, bot: Bot) -> None:
         return
     PENDING.discard(message.from_user.id)
     if await asyncio.to_thread(admins.add, target, message.from_user.id):
-        await _menu(bot, target, admin=True)
+        await _menu(bot, target)
         log.info("admin %s added by %s", target, message.from_user.id)
         reply = f"Добавлен администратор <code>{target}</code>. Пусть он напишет боту /start: иначе я не смогу присылать ему карточки."
     else:

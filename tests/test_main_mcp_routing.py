@@ -82,23 +82,6 @@ def test_mcp_metadata_errors_and_empty_results_are_not_found_evidence(payload):
     assert core.found_anything([message]) is not True
 
 
-def test_main_and_helper_prompts_describe_direct_reads_not_a_retired_role():
-    assert not hasattr(roles, "CAMPUS")
-    assert "campus helper" not in roles.SUPERVISOR
-    assert "search_api_tools" in roles.SUPERVISOR and "call_api_tool" in roles.SUPERVISOR
-    assert "get_my_ai_calendar" in roles.SUPERVISOR and "/calendar" in roles.SUPERVISOR
-    assert "timetable_get_courses" in roles.SUPERVISOR
-    assert "schedule_get_schedule" in roles.SUPERVISOR
-    assert "bookability" in roles.SUPERVISOR and "printer" in roles.SUPERVISOR
-    assert "ask_chats" in roles.SUPERVISOR and "midterms" in roles.SUPERVISOR
-    assert "timetable_get_courses" in roles.DOCS
-    assert "get_courses" not in roles.ROLES["docs"].tools
-    for name in ("docs", "chats"):
-        assert "search_api_tools" in roles.prompt(name)
-        assert "call_api_tool" in roles.prompt(name)
-    assert "helper first" not in core.ROLE_REMINDER
-    assert "tool result" in core.ROLE_REMINDER
-    assert roles.DIRECT_OFFERS in roles.abilities({"docs", "chats"})
 
 
 @pytest.mark.parametrize("role", [None, "docs", "chats"])

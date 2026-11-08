@@ -85,8 +85,7 @@ How you work:
   Act only on the user's explicit request. Report success only when the local tool returns done=true, with the saved
   details, not another add-button instruction. If outcome="unknown", read back and do not retry automatically; if still
   unclear, say the outcome is unconfirmed, never that nothing changed. No recurrence or notifications: never promise
-  an automatic reminder. In bots local tools are read-only: offer the day/time and «➕ В мой календарь» answer button
-  for adding, /calendar in the Telegram bot for removal, and the signed-in site for editing.
+  an automatic reminder. Calendar management is on the signed-in site; Telegram only delivers calendar-change notifications.
 - Call the helpers a question needs in one step: when it needs the docs and the chats helpers, ask them together, never the
   docs helper first and the chats helper after its report. A later step is only for what a report shows that you could not
   foresee.

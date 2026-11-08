@@ -460,103 +460,10 @@ def test_newer_correction_reenters_but_stale_and_unknown_snapshots_do_not(db, so
     assert row(db, "image_queue") is not None
 
 
-@pytest.mark.parametrize("source", ["tgbot", "maxbot"])
-@pytest.mark.parametrize("pause", ["prepare", "write", "retry"])
-@pytest.mark.parametrize("original_edit", [False, True])
-def test_real_writer_exclusion_fences_suspended_work_and_allows_live_correction(db, monkeypatch, source, pause, original_edit):
-    import asyncio
-    import contextlib
-    import threading
-    from types import SimpleNamespace as NS
-    from unittest.mock import AsyncMock
-    from catix.ingest import writer, publish
-    from catix.tgbot import bot as tg
-    from catix.maxbot import bot as mx
-    from tests.test_chat_image_clients import bot_message, BOT_PHOTO, max_message, MAX_IMAGE
-
-    module = tg if source == "tgbot" else mx
-    ingest = writer.Writer()
-    monkeypatch.setattr(module, "writer", ingest)  # Real run, retry and wait_idle; no flush mock.
-    monkeypatch.setattr(publish, "publish", AsyncMock())
-    monkeypatch.setattr(tg.userbot_config, "bot_listens", lambda chat: True)
-    monkeypatch.setattr(store, "topic_allowed", lambda *args: True)
-    monkeypatch.setattr(mx, "_load_history", lambda *args: None)
-    started, release = threading.Event(), threading.Event()
-    real_write = store.write_batch
-    calls = 0
-
-    def slow_write(chats, messages):
-        nonlocal calls
-        calls += 1
-        if calls == 1 and pause in {"write", "retry"}:
-            started.set()
-            if pause == "retry":
-                raise psycopg.OperationalError("synthetic transient write failure")
-            assert release.wait(10)
-        if calls == 2 and pause == "retry":
-            assert release.wait(10)
-        return real_write(chats, messages)
-
-    monkeypatch.setattr(store, "write_batch", slow_write)
-
-    async def run():
-        preparing, resume = asyncio.Event(), asyncio.Event()
-        async def chat(*args):
-            if pause == "prepare" and not preparing.is_set():
-                preparing.set()
-                await resume.wait()
-            return {"title": "Study"}
-        async def tg_link(*args):
-            await chat()
-            return None
-        monkeypatch.setattr(tg, "_chat_link", tg_link)
-        monkeypatch.setattr(tg, "_link", lambda msg: None)
-        client = NS(chat=chat, me={"username": "catix", "user_id": 99})
-        telegram = NS(me=AsyncMock(return_value=NS(username="catix", id=99)))
-        async def event(text, edited=False):
-            if source == "tgbot":
-                msg = bot_message(photo=BOT_PHOTO, caption=text,
-                                  edit_date=1767225602 if text == "Correction" else 1767225601 if edited else None)
-                msg = msg.as_(telegram)
-                await (tg.edited(msg) if edited else tg._save(msg))
-            else:
-                await mx._handle(client, client.me, {"update_type": "message_edited" if edited else "message_created",
-                                                    "message": max_message(text, [MAX_IMAGE])})
-        writing = asyncio.create_task(ingest.run())
-        original = asyncio.create_task(event("Original caption", edited=original_edit))
-        try:
-            if pause == "prepare":
-                await asyncio.wait_for(preparing.wait(), 2)
-            else:
-                assert await asyncio.to_thread(started.wait, 2)
-            await event("/ask excluded", edited=True)
-            assert row(db, msg_id=7) is None
-            release.set()
-            resume.set()
-            await original
-            await ingest.wait_idle(timeout=10)
-            assert row(db, msg_id=7) is None
-            assert row(db, "image_queue") is None
-            await event("Correction", edited=True)
-            await ingest.wait_idle(timeout=10)
-            stored = row(db, msg_id=7)
-            assert stored is not None, "a later explicit non-question edit must reenter"
-            assert stored["image_caption"] == "Correction"
-            assert stored["image_refs"]
-            assert row(db, "image_queue") is not None
-            assert stored["edit_date"] is None if source == "maxbot" else stored["edit_date"] is not None
-        finally:
-            release.set()
-            resume.set()
-            await original
-            writing.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await writing
-    asyncio.run(run())
 
 
 @pytest.mark.parametrize("pause", ["request", "page-preparation"])
-def test_max_history_read_started_before_exclusion_cannot_overwrite_later_correction(db, monkeypatch, pause):
+def test_max_history_read_cannot_overwrite_later_live_edits(db, monkeypatch, pause):
     import asyncio
     import contextlib
     from types import SimpleNamespace as NS
@@ -585,16 +492,16 @@ def test_max_history_read_started_before_exclusion_cannot_overwrite_later_correc
                 ready.set()
                 await release.wait()
             return {"title": "Study"}
-        client = NS(call=call, chat=chat, me={"username": "catix", "user_id": 99})
+        client = NS(call=call, chat=chat)
         writing = asyncio.create_task(ingest.run())
         history = asyncio.create_task(bot.backfill(client, 42))
         try:
             await asyncio.wait_for(ready.wait(), 2)
-            for text in ("/ask excluded", "Correction"):
-                await bot._handle(client, client.me, {"update_type": "message_edited",
-                                                      "message": max_message(text, [MAX_IMAGE])})
-            await ingest.wait_idle()
-            assert row(db, msg_id=7)["image_caption"] == "Correction"
+            for text in ("/ask indexed like any message", "Correction"):
+                await bot._handle(client, {"update_type": "message_edited",
+                                           "message": max_message(text, [MAX_IMAGE])})
+                await ingest.wait_idle()
+                assert row(db, msg_id=7)["image_caption"] == text
             release.set()
             await history
             await ingest.wait_idle()

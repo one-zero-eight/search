@@ -25,3 +25,12 @@ def chunks(text: str, size: int) -> list[str]:
         parts.append(text[:cut])
         text = text[cut:].lstrip("\n")
     return [*parts, text] if text else parts
+
+
+REF_GROUP = re.compile(r"\[\s*m\d+(?:\s*[,;]\s*m\d+)*\s*\]")
+PARTIAL_REF = re.compile(r"\[[m\d,;\s]*$")
+
+
+def partial_text(text: str) -> str:
+    """Hide unnumbered source refs and unfinished refs in streamed website answers."""
+    return PARTIAL_REF.sub("", REF_GROUP.sub("", text)).strip()

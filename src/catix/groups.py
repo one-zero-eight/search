@@ -1,8 +1,8 @@
 """Study groups of chats and of users: who sees what.
 
-Every chat belongs to one group (a code like B26-CSE-01) and starts in `all`. The person who made the bot an admin
-of a chat sets the group in a private chat with the bot (`/group`), never in the group itself. A user can pick the
-group whose chats they want answers from (`/mygroup`). A user of group `all` (the default) is answered from the chats of group
+Every chat belongs to one group (a code like B26-CSE-01) and starts in `all`. Administrators configure
+chat groups through the bot; users configure their study group on the website.
+A user of group `all` (the default) is answered from the chats of group
 `all` only; a user of another group from the chats of `all` and of their own group. A chat of a group is never searched for a
 user of another group, and the model cannot change that: the scope is worked out here, in code, from the user's key.
 Both bots use this module; only the admin check (is this user an admin of that chat?) differs by messenger.
@@ -62,7 +62,7 @@ _warned_token = False
 
 
 def auto_group(telegram_id: int | None) -> str | None:
-    """The user's study group from InNoHassle by Telegram id, cached (common/cache.py); None if unknown (then /mygroup decides)."""
+    """The user's study group from InNoHassle by Telegram id, cached; None if unknown."""
     global _warned_token
     if telegram_id is None or not settings.innohassle_groups or not settings.innohassle_service_token:
         return None
@@ -158,29 +158,3 @@ def group_command(args: str, admin_chats: list[ChatGroup]) -> str:
     return f"Готово: чат «{chat.title}» теперь в группе {code}."
 
 
-def manual_group_allowed(is_admin: bool) -> bool:
-    """Choosing a group by hand (`/mygroup`) is open while groups are not taken from InNoHassle (INNOHASSLE_GROUPS off).
-    With them on, it is closed for everybody but the admins until the service token is set: without it nobody can check
-    the group a person names, so it would only be a claim."""
-    return is_admin or not settings.innohassle_groups or settings.innohassle_service_token is not None
-
-
-def mygroup_command(args: str, user_key: str, telegram_id: int | None = None, *, may_set: bool = True) -> str:
-    """Reply to `/mygroup [group]`. A group InNoHassle knows cannot be changed by hand."""
-    if known := auto_group(telegram_id):
-        return f"Ваша группа определена по InNoHassle: {known}. Я ищу в её чатах и в общих; изменить вручную нельзя."
-    if not may_set:
-        return (
-            "Выбор группы вручную сейчас закрыт: она будет определяться автоматически по InNoHassle. "
-            f"Пока я ищу только в общих чатах (группа {ALL})."
-        )
-    if not args.strip():
-        return (
-            f"Ваша группа: {user_group(user_key)}. Чтобы изменить: /mygroup B26-CSE-01. "
-            f"{ALL}: только общие чаты (группа {ALL})."
-        )
-    code = normalize(args)
-    if not code:
-        return "Группа: латиница, цифры, точка, дефис и подчёркивание, до 40 символов, например B26-CSE-01."
-    set_user_group(user_key, code)
-    return f"Ваша группа: {code}. " + (f"Ищу только в общих чатах (группа {ALL})." if code == ALL else f"Ищу в чатах группы {code} и общих.")

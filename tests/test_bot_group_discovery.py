@@ -49,7 +49,3 @@ def test_unconfigured_message_discovers_chat_without_writing_content(monkeypatch
     assert register.call_count == 1  # no extra metadata write for every ignored message
 
 
-def test_admin_commands_describe_new_navigation():
-    commands = {command.command: command.description for command in bot.ADMIN_COMMANDS}
-    assert commands["admin"] == "Управление ботом"
-    assert commands["listen"] == "Группы и источники"

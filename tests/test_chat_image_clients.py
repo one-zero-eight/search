@@ -242,10 +242,7 @@ def test_tgbot_worker_cancelled_before_bot_session_and_db_close(tgbot, monkeypat
     monkeypatch.setattr(tgbot, "set_commands", AsyncMock())
     monkeypatch.setattr(tgbot, "set_profile", AsyncMock())
     monkeypatch.setattr(tgbot.userbot_config, "seed_bot_chats", lambda: 0)
-    monkeypatch.setattr(tgbot.sqlquery, "reset_context", lambda: None)
     monkeypatch.setattr(tgbot.pg, "close", lambda: order.append("db closed"))
-    monkeypatch.setattr(tgbot.tracing, "log_status", lambda: None)
-    monkeypatch.setattr(tgbot.tracing, "flush", lambda: None)
 
     async def idle():
         await asyncio.Event().wait()
@@ -325,7 +322,7 @@ def test_maxbot_only_actual_image_type_is_ocr_source(maxbot, kind):
 
 def test_maxbot_empty_edit_removes_old_ocr(maxbot):
     client = NS(chat=AsyncMock(return_value={}))
-    asyncio.run(maxbot._handle(client, {}, {"update_type": "message_edited", "message": max_message()}))
+    asyncio.run(maxbot._handle(client, {"update_type": "message_edited", "message": max_message()}))
     row = maxbot.writer.put.await_args.args[1]
     assert row.text == "" and row.image_refs == () and row.edit_date is None
     maxbot.writer.put.reset_mock()
@@ -333,14 +330,13 @@ def test_maxbot_empty_edit_removes_old_ocr(maxbot):
     maxbot.writer.put.assert_not_awaited()
 
 
-@pytest.mark.parametrize("chat_type", ["dialog", "chat"])
-def test_maxbot_does_not_store_image_questions_or_dialogs(maxbot, monkeypatch, chat_type):
-    answer = AsyncMock()
-    monkeypatch.setattr(maxbot, "_answer", answer)
-    message = max_message("@catix what is this?", [MAX_IMAGE], chat_type)
-    asyncio.run(maxbot._handle(NS(), {"username": "catix", "user_id": 99},
-                              {"update_type": "message_created", "message": message}))
+@pytest.mark.parametrize("text", ["@catix what is this?", "/ask what is this?", "what is this?"])
+def test_maxbot_does_not_store_or_answer_private_messages(maxbot, text):
+    client = NS(send=AsyncMock())
+    message = max_message(text, [MAX_IMAGE], "dialog")
+    asyncio.run(maxbot._handle(client, {"update_type": "message_created", "message": message}))
     maxbot.writer.put.assert_not_awaited()
+    client.send.assert_not_awaited()
 
 
 def test_maxbot_download_uses_unauthenticated_bounded_fetch_with_root_ca(maxbot, monkeypatch):
@@ -366,10 +362,7 @@ def test_maxbot_worker_cancelled_before_http_and_db_close(maxbot, monkeypatch, t
     monkeypatch.setattr(maxbot.settings, "max_bot_token", SecretStr("test-token"))
     monkeypatch.setattr(maxbot.settings, "max_root_ca", ca)
     monkeypatch.setattr(maxbot, "Max", lambda token: client)
-    monkeypatch.setattr(maxbot.sqlquery, "reset_context", lambda: None)
     monkeypatch.setattr(maxbot.pg, "close", lambda: order.append("db closed"))
-    monkeypatch.setattr(maxbot.tracing, "log_status", lambda: None)
-    monkeypatch.setattr(maxbot.tracing, "flush", lambda: None)
     async def idle():
         await asyncio.Event().wait()
     async def worker(source, download, allowed=None):
@@ -390,17 +383,15 @@ def test_maxbot_worker_cancelled_before_http_and_db_close(maxbot, monkeypatch, t
 
 
 @pytest.mark.parametrize("caption", ["@catix explain", "/ask explain"])
-def test_tgbot_image_caption_question_is_not_indexed(tgbot, monkeypatch, caption):
-    client = NS(me=AsyncMock(return_value=NS(username="catix", id=99)))
-    monkeypatch.setattr(tgbot, "_reply", AsyncMock())
-    asyncio.run(tgbot.group(bot_message(photo=BOT_PHOTO, caption=caption), client))
-    tgbot.writer.put.assert_not_awaited()
+def test_tgbot_image_mentions_and_old_commands_are_indexed(tgbot, caption):
+    asyncio.run(tgbot.group(bot_message(photo=BOT_PHOTO, caption=caption)))
+    row = tgbot.writer.put.await_args.args[1]
+    assert row.text == caption and row.image_refs == ("large",)
 
 
 @pytest.mark.parametrize("kind", ["mention", "ask", "reply"])
 @pytest.mark.parametrize("migrated", [False, True])
-def test_tgbot_edited_image_question_invalidates_existing_row(tgbot, monkeypatch, kind, migrated):
-    client = NS(me=AsyncMock(return_value=NS(username="catix", id=99)))
+def test_tgbot_edited_image_mentions_and_replies_are_stored(tgbot, monkeypatch, kind, migrated):
     kwargs = {"caption": {"mention": "@catix explain", "ask": "/ask explain", "reply": "explain"}[kind]}
     if kind == "reply":
         kwargs["reply_to_message"] = bot_message(from_user={"id": 99, "is_bot": True, "first_name": "Bot"})
@@ -409,18 +400,15 @@ def test_tgbot_edited_image_question_invalidates_existing_row(tgbot, monkeypatch
     listens, topic = Mock(return_value=True), Mock(return_value=True)
     monkeypatch.setattr(tgbot.userbot_config, "bot_listens", listens)
     monkeypatch.setattr(tgbot.store, "topic_allowed", topic)
-    order = Mock()
-    order.attach_mock(tgbot.writer.wait_idle, "flush")
-    order.attach_mock(tgbot.store.delete_message, "delete")
     message = bot_message(photo=BOT_PHOTO, edit_date=int(NOW.timestamp()),
-                          is_topic_message=True, message_thread_id=11, **kwargs).as_(client)
+                          is_topic_message=True, message_thread_id=11, **kwargs)
     asyncio.run(tgbot.edited(message))
-    tgbot.writer.put.assert_not_awaited()
+    row = tgbot.writer.put.await_args.args[1]
+    assert row.chat_id == (-10077 if migrated else -10042)
+    assert row.text == kwargs["caption"] and row.image_refs == ("large",)
+    assert row.edit_date == NOW
     listens.assert_called_once_with(-10042)
     topic.assert_called_once_with(-10042, 11)
-    tgbot.store.delete_message.assert_called_once_with(-10077 if migrated else -10042, 7, edit_date=NOW, observed_at=ANY)
-    assert isinstance(tgbot.store.delete_message.call_args.kwargs["observed_at"], datetime)
-    assert [call[0] for call in order.mock_calls] == ["delete"]
 
 
 @pytest.mark.parametrize("listener,topic", [(False, True), (True, False)])
@@ -434,37 +422,34 @@ def test_tgbot_excluded_edit_cannot_delete_outside_listener_or_topic(tgbot, monk
 
 
 @pytest.mark.parametrize("kind", ["mention", "ask", "reply"])
-def test_maxbot_edited_image_question_invalidates_existing_row(maxbot, monkeypatch, kind):
-    client = NS(chat=AsyncMock(return_value={}))
-    message = max_message({"mention": "@catix explain", "ask": "/ask explain", "reply": "explain"}[kind], [MAX_IMAGE])
+@pytest.mark.parametrize("update_type", ["message_created", "message_edited"])
+def test_maxbot_mentions_commands_and_replies_are_indexed(maxbot, kind, update_type):
+    client = NS(chat=AsyncMock(return_value={}), send=AsyncMock())
+    text = {"mention": "@catix explain", "ask": "/ask explain", "reply": "explain"}[kind]
+    message = max_message(text, [MAX_IMAGE])
     if kind == "reply":
-        message["link"] = {"type": "reply", "sender": {"user_id": 99}}
-    answer = AsyncMock()
-    monkeypatch.setattr(maxbot, "_answer", answer)
-    order = Mock()
-    order.attach_mock(maxbot.writer.wait_idle, "flush")
-    order.attach_mock(maxbot.store.delete_message, "delete")
-    asyncio.run(maxbot._handle(client, {"username": "catix", "user_id": 99},
-                {"update_type": "message_edited", "message": message}))
-    maxbot.writer.put.assert_not_awaited()
-    maxbot.store.delete_message.assert_called_once_with(maxbot.db_chat_id(42), 7, observed_at=ANY)
-    assert isinstance(maxbot.store.delete_message.call_args.kwargs["observed_at"], datetime)
-    assert [call[0] for call in order.mock_calls] == ["delete"]
-    answer.assert_not_awaited()
+        message["link"] = {"type": "reply", "sender": {"user_id": 99}, "message": {"seq": 6}}
+    asyncio.run(maxbot._handle(client, {"update_type": update_type, "message": message}))
+    maxbot.writer.put.assert_awaited_once()
+    row = maxbot.writer.put.await_args.args[1]
+    assert row.text == text
+    assert row.image_refs == (MAX_IMAGE["payload"]["url"],)
+    assert row.reply_to == (6 if kind == "reply" else None)
+    assert row.live_edit == (update_type == "message_edited")
+    assert isinstance(row.observed_at, datetime)
+    maxbot.store.delete_message.assert_not_called()
+    client.send.assert_not_awaited()
 
 
-@pytest.mark.parametrize("excluded", ["dialog", "bot-sender", "missing-seq", "created"])
-def test_maxbot_excluded_edit_deletion_does_not_expand_scope(maxbot, monkeypatch, excluded):
-    message = max_message("/ask explain", [MAX_IMAGE], "dialog" if excluded == "dialog" else "chat")
+@pytest.mark.parametrize("excluded", ["dialog", "bot-sender", "missing-seq"])
+def test_maxbot_non_indexable_image_edits_remain_excluded(maxbot, excluded):
+    message = max_message("@catix explain", [MAX_IMAGE], "dialog" if excluded == "dialog" else "chat")
     if excluded == "bot-sender":
         message["sender"]["is_bot"] = True
     if excluded == "missing-seq":
         del message["body"]["seq"]
-    monkeypatch.setattr(maxbot, "_answer", AsyncMock())
-    asyncio.run(maxbot._handle(NS(), {}, {"update_type": "message_created" if excluded == "created" else "message_edited",
-                                        "message": message}))
+    asyncio.run(maxbot._handle(NS(), {"update_type": "message_edited", "message": message}))
     maxbot.writer.put.assert_not_awaited()
-    maxbot.writer.wait_idle.assert_not_awaited()
     maxbot.store.delete_message.assert_not_called()
 
 
@@ -490,11 +475,66 @@ def test_userbot_backfill_checks_permissions_per_batch_not_per_message(monkeypat
     assert wanted.call_count == 2  # Before fetching and before committing, not two SQL reads per message.
 
 
-@pytest.mark.parametrize("chat_type,text", [("dialog", "caption"), ("chat", "/ask explain"), ("chat", "@catix explain")])
-def test_maxbot_backfill_conversion_excludes_dialogs_and_questions(maxbot, chat_type, text):
-    client = NS(chat=AsyncMock(return_value={}), me={"username": "catix", "user_id": 99})
-    assert asyncio.run(maxbot._prepare(client, max_message(text, [MAX_IMAGE], chat_type), 42)) is None
+@pytest.mark.parametrize("text", ["caption", "/ask explain", "@catix explain"])
+def test_maxbot_backfill_conversion_excludes_dialogs(maxbot, text):
+    client = NS(chat=AsyncMock(return_value={}))
+    assert asyncio.run(maxbot._prepare(client, max_message(text, [MAX_IMAGE], "dialog"), 42)) is None
     client.chat.assert_not_awaited()
+
+
+@pytest.mark.parametrize("text", ["/ask explain", "@catix explain"])
+def test_maxbot_backfill_keeps_mentions_and_former_commands(maxbot, monkeypatch, text):
+    monkeypatch.setattr(maxbot, "_latest_stored", lambda chat_id: NOW)
+    client = NS(chat=AsyncMock(return_value={}),
+                call=AsyncMock(return_value={"messages": [max_message(text, [MAX_IMAGE])]}))
+    asyncio.run(maxbot.backfill(client, 42))
+    maxbot.writer.put.assert_awaited_once()
+    row = maxbot.writer.put.await_args.args[1]
+    assert row.text == text and row.image_refs == (MAX_IMAGE["payload"]["url"],)
+
+
+@pytest.mark.parametrize("command", ["/mygroup", "/calendar", "/clear", "/ask", "/new"])
+def test_maxbot_removed_private_commands_are_ignored(maxbot, command):
+    client = NS(send=AsyncMock(), admin_chats=AsyncMock())
+    asyncio.run(maxbot._handle(client, {"update_type": "message_created",
+                                        "message": max_message(command, chat_type="dialog")}))
+    client.send.assert_not_awaited()
+    client.admin_chats.assert_not_awaited()
+    maxbot.writer.put.assert_not_awaited()
+
+
+@pytest.mark.parametrize("update_type", ["bot_started", "message_created"])
+def test_maxbot_greeting_directs_users_to_website(maxbot, update_type):
+    client = NS(send=AsyncMock())
+    update = {"update_type": update_type, "chat_id": 42}
+    if update_type == "message_created":
+        update["message"] = max_message("/start", chat_type="dialog")
+    asyncio.run(maxbot._handle(client, update))
+    client.send.assert_awaited_once()
+    chat_id, text = client.send.await_args.args
+    assert chat_id == 42
+    assert "сайте InNoHassle" in text
+    assert all(command not in text for command in ("/ask", "/mygroup", "/group", "/calendar", "/clear", "/new"))
+
+
+@pytest.mark.parametrize("is_admin", [False, True])
+def test_maxbot_manual_group_command_changes_only_admin_chats(maxbot, monkeypatch, is_admin):
+    chat = maxbot.ChatGroup(maxbot.db_chat_id(42), "Study", "all")
+    monkeypatch.setattr(maxbot.groups, "list_chats", lambda platform: [chat])
+    saved = Mock()
+    monkeypatch.setattr(maxbot.groups, "set_chat_group", saved)
+    call = AsyncMock(return_value={"members": [{"user_id": 3 if is_admin else 9}]})
+    client = NS(call=call, send=AsyncMock())
+    client.admin_chats = lambda user_id: maxbot.Max.admin_chats(client, user_id)
+    asyncio.run(maxbot._handle(client, {"update_type": "message_created",
+                                        "message": max_message("/group 1 B26-CSE-01", chat_type="dialog")}))
+    call.assert_awaited_once_with("GET", "/chats/42/members/admins")
+    client.send.assert_awaited_once()
+    if is_admin:
+        saved.assert_called_once_with(chat.chat_id, "B26-CSE-01")
+    else:
+        saved.assert_not_called()
+    maxbot.writer.put.assert_not_awaited()
 
 
 def test_userbot_sync_image_metadata_only_and_revoked_topic(monkeypatch):
