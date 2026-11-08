@@ -166,8 +166,8 @@ def test_room_availability_and_account_schedule_keep_aggregations(monkeypatch):
     assert result['booked'] == ['busy']
     assert len(permissions) == 1 and permissions[0][:2] == ('ih-secret', 'free')
     assert (permissions[0][2].hour, permissions[0][3].hour) == (10, 11)
-    monkeypatch.setattr(account_tools, '_calendar', lambda *a: ([{'kind': 'class', 'title': 'Math'}], {}))
-    monkeypatch.setattr(account_tools, '_bookings', lambda *a: ([{'booking_id': 'outlook-id'}], []))
+    monkeypatch.setattr(account_tools, '_calendar', lambda *a: ([{'kind': 'class', 'title': 'Math'}], {}, {}))
+    monkeypatch.setattr(account_tools, '_bookings', lambda *a: ([{'booking_id': 'outlook-id'}], [], {}))
     result = call('account_get_my_schedule', {'date_from': '2099-01-01', 'date_to': '2099-01-02'}, **kwargs)
     assert result['schedule'] == [{'kind': 'class', 'title': 'Math'}]
     assert result['bookings'] == [{'booking_id': 'outlook-id'}]

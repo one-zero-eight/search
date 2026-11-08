@@ -146,6 +146,21 @@ def test_failed_training_read_preserves_safe_reason_and_stops_before_calendar(se
     assert [request[1]["name"] for request in services["requests"]] == ["sport_get_sport_trainings"]
 
 
+@pytest.mark.parametrize("failure", ["upstream_timeout", "mcp_timeout", "partial"])
+def test_calendar_timeout_reason_reaches_training_recommendations(services, failure):
+    if failure == "partial":
+        services["agenda"]["source_errors"] = {"sport": "upstream_timeout"}
+    else:
+        services["agenda"] = {"error": "private diagnostic", "code": failure}
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY))
+    expected = {"innohassle.sport": "upstream_timeout"} if failure == "partial" else {"innohassle": failure}
+    assert result["source_errors"] == expected
+    assert artifact["agenda"]["source_errors"] == expected
+    assert result["complete"] is False and not result["available"] and result["unverified"]
+    assert "private diagnostic" not in str(result)
+    assert len(services["requests"]) == 2
+
+
 @pytest.mark.parametrize("signup", [False, True])
 def test_real_graph_recommendation_is_read_only_and_reusable_for_approval(monkeypatch, services, signup):
     import json

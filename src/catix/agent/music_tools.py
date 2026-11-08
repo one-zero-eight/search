@@ -143,14 +143,26 @@ def get_my_available_music_windows(runtime: ToolRuntime, day: date, duration_min
     except ValueError as error:
         return {"error": str(error)}, None
     arguments = {"day": day.isoformat(), **({"duration_minutes": duration_minutes} if duration_minutes is not None else {})}
+    failure = {"error": "Music Room availability could not be checked; availability is unknown.",
+               "code": "music_unverified", "complete": False,
+               "note": "Personal Music Room availability was not verified. End this turn with an uncertainty report: "
+                       "'Не удалось проверить, когда вам подходит музкомната: проверка не завершена.' "
+                       "Do not retry this recommendation or call get_my_schedule, get_my_ai_calendar, "
+                       "music_get_available_windows, music_get_music_room_schedule or public group timetables "
+                       "to bypass it in the same turn. A separate calendar read cannot establish Music Room availability. "
+                       "Do not recommend windows or offer a booking. The user may request a new check later."}
     try:
         music = mcp_client.request_sync("call_tool", {"name": "music_get_available_windows", "arguments": arguments},
                                        token, **credentials)
+        if isinstance(music, dict) and "error" in music and music.get("code") in ("upstream_timeout", "mcp_timeout"):
+            service = "The Music Room service" if music["code"] == "upstream_timeout" else "MCP"
+            return {**failure, "code": music["code"],
+                    "error": f"{service} did not answer in time; personal Music Room availability is unknown."}, None
         windows = _windows(music, day, duration_minutes)
     except GraphBubbleUp:
         raise
     except Exception:
-        return {"error": "Music Room availability could not be checked; availability is unknown."}, None
+        return failure, None
     agenda = read_my_schedule(runtime, day, day)
     available, excluded, unverified, not_read = [], [], [], []
     try:
@@ -164,6 +176,7 @@ def get_my_available_music_windows(runtime: ToolRuntime, day: date, duration_min
               "duration_minutes": duration_minutes, "available": available, "excluded": excluded, "unverified": unverified,
               "total": len(available) + len(excluded) + len(unverified), "complete": not not_read and not unverified,
               "truncated": bool(agenda.get("truncated")), "not_read": not_read,
+              "source_errors": agenda.get("source_errors", {}),
               "remaining_daily_minutes": music["remaining_daily_minutes"],
               "remaining_weekly_minutes": music["remaining_weekly_minutes"], "rules": music["rules"],
               "reason": music.get("reason"), "checked_at": datetime.now(settings.tz).isoformat(),

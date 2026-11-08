@@ -11,9 +11,12 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from contextvars import copy_context
 from http.cookiejar import CookieJar, DefaultCookiePolicy
+from time import perf_counter
 from urllib.parse import urlsplit
 
 import httpx2
+from mcp.shared.exceptions import MCPError
+from mcp.types import REQUEST_TIMEOUT
 # MCP lazily imports this on the first result. Load its format parsers at startup,
 # not inside the first user request; keep SDK output validation fully enabled.
 import jsonschema  # noqa: F401
@@ -21,7 +24,7 @@ from fastmcp import Client
 from fastmcp.client.transports import StreamableHttpTransport
 
 from catix.settings import settings
-from catix.innohassle.mcp_access import CONFIRMATION_TOOLS
+from catix.innohassle.mcp_access import CREDENTIAL_MODES, CONFIRMATION_TOOLS
 
 log = logging.getLogger("catix.mcp.client")
 TIMEOUT = 40
@@ -32,6 +35,19 @@ def _unknown_outcome() -> dict:
     return {"done": None, "outcome": "unknown",
             "error": "The operation may have completed, but its result could not be confirmed. "
                      "Do not retry automatically; use a fresh read to check the outcome."}
+
+
+def _safe_operation_name(method: str, arguments: dict) -> str:
+    if method != "call_tool":
+        return method
+    name = arguments.get("name")
+    return name if isinstance(name, str) and name in CREDENTIAL_MODES else "unknown"
+
+
+def _is_timeout(error: Exception) -> bool:
+    return (isinstance(error, (TimeoutError, httpx2.TimeoutException))
+            or isinstance(error, MCPError)
+            and error.code in {REQUEST_TIMEOUT, httpx2.codes.REQUEST_TIMEOUT})
 
 
 def validate_url(url: str) -> None:
@@ -92,6 +108,8 @@ async def request(method: str, arguments: dict, token: str | None = None, *,
     if method not in {"search_tools", "call_tool"}:
         return {"error": "Unsupported MCP interface operation."}
     mutation = method == "call_tool" and isinstance(arguments.get("name"), str) and arguments["name"] in CONFIRMATION_TOOLS
+    started = perf_counter()
+    operation = _safe_operation_name(method, arguments)
     try:
         async with asyncio.timeout(TIMEOUT):
             # Keep the original single-argument connection seam for ordinary reads.
@@ -113,9 +131,12 @@ async def request(method: str, arguments: dict, token: str | None = None, *,
                     return {"tools": value, "services": status}
                 return value if isinstance(value, dict) else {"result": value}
     except Exception as e:  # Transport/protocol errors can contain credentials or private backend diagnostics.
-        log.warning("MCP request failed (%s)", type(e).__name__)
+        log.warning("MCP request failed tool=%s exception=%s elapsed_ms=%.1f",
+                    operation, type(e).__name__, (perf_counter() - started) * 1000)
         if mutation:
             return _unknown_outcome()
+        if _is_timeout(e):
+            return {"code": "mcp_timeout", "error": "The MCP adapter request timed out; no reliable result was obtained."}
         return {"error": "The InNoHassle MCP adapter could not answer. Try again later."}
 
 

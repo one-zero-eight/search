@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import logging
+from time import perf_counter
 from typing import TYPE_CHECKING, Annotated, Literal
 
 if TYPE_CHECKING:
@@ -24,6 +26,7 @@ from catix.innohassle.mcp_declarations import (
 from catix.settings import settings
 
 MAX_ITEMS = 40
+_timeout_log = logging.getLogger("catix.mcp.schedule_sources")
 
 
 DEFAULT_DAYS = 7
@@ -57,6 +60,17 @@ def _why(e: innohassle.ServiceError, what: str) -> str:
 def _refused(e: innohassle.ServiceError, what: str) -> dict:
     """The result of an action a service refused: nothing was done."""
     return {"done": False, "error": _why(e, what)}
+
+
+def _read_source(operation: str, read, *args):
+    """Measure inside the worker, not after waiting for unrelated parallel feeds."""
+    started = perf_counter()
+    try:
+        return read(*args)
+    except httpx.TimeoutException as error:
+        _timeout_log.warning("Schedule source timed out operation=%s exception=%s elapsed_ms=%.1f",
+                             operation, type(error).__name__, (perf_counter() - started) * 1000)
+        raise
 
 
 def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
@@ -127,7 +141,7 @@ def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
     return out
 
 
-def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], list[str]]:
+def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], list[str], dict[str, str]]:
     """Mirror the site's visible calendars and source-aware English exclusion.
 
     Website CalendarPage/getCalendarsToShow and iCalendarPlugin/isEnglishEvent,
@@ -137,15 +151,16 @@ def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], lis
 
     user_id, aliases = innohassle.my_calendar_groups(token)
     if not aliases:
-        return [], []
+        return [], [], {}
     catalogue = innohassle.event_groups(fresh=True)
     if not isinstance(catalogue, list) or any(not isinstance(g, dict) or not isinstance(g.get("alias"), str) for g in catalogue):
         raise ValueError("Unreadable calendar catalogue.")
     groups = {group["alias"]: group for group in catalogue}
     has_english = any(alias.startswith("english-") for alias in aliases)
     items, problems, seen = [], [], set()
+    errors: dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=min(8, len(aliases))) as pool:
-        asked = {alias: pool.submit(innohassle.my_group_calendar_ics, token, user_id, alias)
+        asked = {alias: pool.submit(_read_source, "class_calendar_feed", innohassle.my_group_calendar_ics, token, user_id, alias)
                  for alias in aliases if alias in groups}
     for alias in aliases:
         if alias not in groups:
@@ -171,28 +186,33 @@ def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], lis
             if error.status == 401:
                 raise
             problems.append(f"{alias}: {error.status}: {error.detail}")
+        except httpx.TimeoutException as error:
+            errors["class"] = "upstream_timeout"
+            problems.append(f"{alias}: InNoHassle did not answer ({type(error).__name__})")
         except httpx.HTTPError as error:
             problems.append(f"{alias}: InNoHassle did not answer ({type(error).__name__})")
         except ValueError as error:
             problems.append(f"{alias}: unreadable calendar: {error}"[:200])
-    return items, problems
+    return items, problems, errors
 
 
-def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str]]:
+def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str], dict[str, str]]:
     """The asker's InNoHassle calendars in the period (classes, sport, the events they enrolled in), each
     item with its `kind`; and what could not be read, by kind. Read concurrently rather than waiting on each service in turn.
     Raises ServiceError 401 when InNoHassle does not accept the token."""
     from catix.innohassle import client as innohassle
 
     with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS) + 1) as pool:
-        asked: dict[str, Future] = {"class": pool.submit(_class_calendar, token, start, end)}
-        asked.update({kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS})
-    items, problems = ([], {})
+        asked: dict[str, Future] = {"class": pool.submit(_read_source, "class_calendar", _class_calendar, token, start, end)}
+        asked.update({kind: pool.submit(_read_source, f"{kind}_calendar", innohassle.my_calendar_ics, token, kind)
+                      for kind in innohassle.MY_CALENDARS})
+    items, problems, errors = ([], {}, {})
     for kind, future in asked.items():
         try:
             if kind == "class":
-                classes, missing = future.result()
+                classes, missing, class_errors = future.result()
                 items += classes
+                errors.update(class_errors)
                 if missing:
                     problems[kind] = "; ".join(missing)
             else:
@@ -201,31 +221,37 @@ def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str,
             if e.status == 401:
                 raise
             problems[kind] = f"{e.status}: {e.detail}"
+        except httpx.TimeoutException as e:
+            errors[kind] = "upstream_timeout"
+            problems[kind] = f"InNoHassle did not answer ({type(e).__name__})"
         except httpx.HTTPError as e:
             problems[kind] = f"InNoHassle did not answer ({type(e).__name__})"
         except ValueError as e:
             problems[kind] = f"unreadable calendar: {e}"[:200]
-    return (sorted(items, key=lambda i: (i["date"], i.get("time", ""))), problems)
+    return (sorted(items, key=lambda i: (i["date"], i.get("time", ""))), problems, errors)
 
 
-def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]]:
+def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str], dict[str, str]]:
     """The asker's bookings of the music room and of rooms in the period, with the ids cancel_booking takes; and what could
     not be read."""
     from catix.innohassle import client as innohassle
 
-    out, problems = ([], [])
+    out, problems, errors = ([], [], {})
     first, last = (_at(start, time.min), _at(end + timedelta(days=1), time.min))
     try:
-        for b in innohassle.my_music_room_bookings(token):
+        for b in _read_source("music_room_bookings", innohassle.my_music_room_bookings, token):
             begin, finish = (_local(b["time_start"]), _local(b["time_end"]))
             if begin < last and first < finish:
                 out.append(
                     {"service": "music_room", "booking_id": str(b["id"]), **_span(begin, finish), "title": "Music room"}
                 )
+    except httpx.TimeoutException as e:
+        errors["music_room"] = "upstream_timeout"
+        problems.append(f"music room: InNoHassle did not answer ({type(e).__name__})")
     except innohassle.ServiceError as e:
         problems.append(f"music room: {e.detail}")
     try:
-        for b in innohassle.my_room_bookings(token, first, last):
+        for b in _read_source("room_bookings", innohassle.my_room_bookings, token, first, last):
             begin, finish = (_local(b["start"]), _local(b["end"]))
             out.append(
                 {
@@ -236,9 +262,12 @@ def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]
                     "title": b.get("title"),
                 }
             )
+    except httpx.TimeoutException as e:
+        errors["rooms"] = "upstream_timeout"
+        problems.append(f"rooms: InNoHassle did not answer ({type(e).__name__})")
     except innohassle.ServiceError as e:
         problems.append(f"rooms: {e.detail}")
-    return (sorted(out, key=lambda b: (b["date"], b["time"])), problems)
+    return (sorted(out, key=lambda b: (b["date"], b["time"])), problems, errors)
 
 
 def _future_span(day: date, time_from: time, time_to: time) -> str | None:
@@ -270,13 +299,16 @@ def account_get_my_schedule(
     end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     result: dict = {"now": _now().strftime("%Y-%m-%d %H:%M"), "range": [start.isoformat(), end.isoformat()]}
     try:
-        schedule, problems = _calendar(token, start, end)
+        schedule, problems, errors = _calendar(token, start, end)
     except innohassle.ServiceError as e:
         return {"error": _why(e, "The InNoHassle schedule")}
     result["schedule"] = schedule[:MAX_ITEMS]
     if len(schedule) > MAX_ITEMS:
         result["note"] = f"Only the first {MAX_ITEMS} of {len(schedule)} are shown; narrow the dates."
-    result["bookings"], not_booked = _bookings(token, start, end)
+    result["bookings"], not_booked, booking_errors = _bookings(token, start, end)
+    errors.update(booking_errors)
+    if errors:
+        result["source_errors"] = errors
     not_read = [f"{kind}: {problem}" for kind, problem in problems.items()] + not_booked
     if not_read:
         result["not_read"] = not_read

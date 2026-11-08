@@ -120,8 +120,8 @@ def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel, monk
     from catix.agent import calendar_tools
     from catix.innohassle import mcp_account
 
-    monkeypatch.setattr(mcp_account, "_calendar", lambda *a: ([], {}))
-    monkeypatch.setattr(mcp_account, "_bookings", lambda *a: ([], []))
+    monkeypatch.setattr(mcp_account, "_calendar", lambda *a: ([], {}, {}))
+    monkeypatch.setattr(mcp_account, "_bookings", lambda *a: ([], [], {}))
     monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
     training_id = 13 if cancel else 11
     question = "отмени запись на плавание" if cancel else "запиши меня на волейбол в пятницу"

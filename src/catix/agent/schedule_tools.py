@@ -52,7 +52,7 @@ def _event(row, source):
 
 def merge_schedule(period, external, local, group=None):
     """Keep usable components when another source fails; never mistake partial for empty."""
-    events, sources, not_read = [], {}, []
+    events, sources, not_read, source_errors = [], {}, [], {}
     parts = [("innohassle", external, ("schedule", "bookings")), ("ai_calendar", local, ("events",))]
     if group is not None:
         parts.append(("group_timetable", group, ("classes",)))
@@ -60,10 +60,23 @@ def merge_schedule(period, external, local, group=None):
         if (not isinstance(data, dict) or "error" in data or data.get("range") != period):
             sources[source] = {"status": "unavailable", "truncated": False}
             reason = "sign_in_required" if isinstance(data, dict) and data.get("sign_in_required") is True else "unavailable"
+            if isinstance(data, dict) and "error" in data and data.get("code") in ("upstream_timeout", "mcp_timeout"):
+                reason = data["code"]
+                source_errors[source] = reason
             not_read.append(f"{source}: {reason}")
             continue
         problems = data.get("not_read", [])
         problems = list(problems) if isinstance(problems, list) and all(isinstance(p, str) for p in problems) else ["unreadable source status"]
+        if source == "innohassle" and "source_errors" in data:
+            failures = data["source_errors"]
+            if not isinstance(failures, dict) or any(
+                    key not in ("class", "sport", "event", "music_room", "rooms") or code != "upstream_timeout"
+                    for key, code in failures.items()):
+                problems.append("unreadable source status")
+            else:
+                for component, code in failures.items():
+                    source_errors[f"{source}.{component}"] = code
+                    problems.append(f"{component}: {code}")
         truncated = bool(data.get("truncated") or data.get("more") or (source != "ai_calendar" and data.get("note")))
         if source == "group_timetable":
             problems.append("Public group fallback, not selected personal calendars; English stream is unknown")
@@ -95,7 +108,8 @@ def merge_schedule(period, external, local, group=None):
     events.sort(key=lambda item: (item.get("starts_at") or item.get("date", ""), item.get("title") or ""))
     return {"range": period, "timezone": str(settings.tz), "events": events, "total": len(events),
             "sources": sources, "complete": all(s["status"] == "complete" for s in sources.values()),
-            "not_read": not_read, "truncated": any(s["truncated"] for s in sources.values()),
+            "not_read": not_read, "source_errors": source_errors,
+            "truncated": any(s["truncated"] for s in sources.values()),
             "checked_at": datetime.now(settings.tz).isoformat()}
 
 

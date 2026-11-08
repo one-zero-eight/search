@@ -78,14 +78,23 @@ def get_my_available_meeting_slots(runtime: ToolRuntime, meeting_ref: str) -> di
         token, credentials = _credentials("innohassle", runtime)
     except ValueError as error:
         return {"error": str(error)}
+    failure = {"code": "meeting_unverified", "complete": False,
+               "error": "The exact meeting and its slots could not be verified; availability is unknown.",
+               "note": "Personal meeting availability was not verified. Explain the failure without recommending slots. "
+                       "Do not retry this recommendation in the same turn or use raw When2Meet/calendar reads to bypass it. "
+                       "The user may request a new check later."}
     try:
         meeting = mcp_client.request_sync("call_tool", {"name": "when2meet_get_meeting",
                                          "arguments": {"meeting_ref": meeting_ref}}, token, **credentials)
+        if isinstance(meeting, dict) and "error" in meeting and meeting.get("code") in ("upstream_timeout", "mcp_timeout"):
+            service = "When2Meet" if meeting["code"] == "upstream_timeout" else "MCP"
+            return {**failure, "code": meeting["code"],
+                    "error": f"{service} did not answer in time; personal meeting availability is unknown."}
         starts, common = _poll_slots(meeting, meeting_ref)
     except GraphBubbleUp:
         raise
     except Exception:
-        return {"code": "meeting_unverified", "error": "The exact meeting and its slots could not be verified; availability is unknown."}
+        return failure
 
     not_read = []
     poll_complete = not (meeting["slots_truncated"] or meeting["common_slots_truncated"])
@@ -103,7 +112,7 @@ def get_my_available_meeting_slots(runtime: ToolRuntime, meeting_ref: str) -> di
         else:
             candidates.append(item)
 
-    calendar_complete, calendar_truncated = None, False
+    calendar_complete, calendar_truncated, source_errors = None, False, {}
     busy = []
     if candidates:
         first = datetime.fromisoformat(candidates[0]["starts_at"]).date()
@@ -122,6 +131,7 @@ def get_my_available_meeting_slots(runtime: ToolRuntime, meeting_ref: str) -> di
             if not isinstance(agenda, dict):
                 agenda = {"error": "unavailable"}
             calendar_truncated = bool(agenda.get("truncated"))
+            source_errors = agenda.get("source_errors", {})
             problems = agenda.get("not_read", [])
             if isinstance(problems, list) and all(isinstance(value, str) for value in problems):
                 not_read.extend(problems)
@@ -161,4 +171,5 @@ def get_my_available_meeting_slots(runtime: ToolRuntime, meeting_ref: str) -> di
             "poll_complete": poll_complete, "calendar_complete": calendar_complete,
             "complete": poll_complete and not not_read and not unverified,
             "truncated": not poll_complete or calendar_truncated, "not_read": not_read,
+            "source_errors": source_errors,
             "checked_at": datetime.now(MOSCOW).isoformat()}

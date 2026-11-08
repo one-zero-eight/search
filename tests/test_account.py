@@ -48,11 +48,11 @@ def music_room(monkeypatch):
 
     def calendar(token, start, end):
         assert token == "user-token" and start == end
-        return [], {}
+        return [], {}, {}
 
     def bookings(token, start, end):
         assert token == "user-token" and start == end
-        return [], []
+        return [], [], {}
 
     monkeypatch.setattr(mcp_account, "_calendar", calendar)
     monkeypatch.setattr(mcp_account, "_bookings", bookings)

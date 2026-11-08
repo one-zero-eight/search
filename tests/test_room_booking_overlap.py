@@ -33,7 +33,7 @@ def test_music_booking_acquisition_reaches_room_recommendation(
     # Isolate unrelated calendar acquisition, not the account envelope or bookings.
     def calendar(token, first, last):
         assert token == "ih" and first == last == date.fromisoformat(DAY)
-        return [], {}
+        return [], {}, {}
 
     monkeypatch.setattr(mcp_account, "_calendar", calendar)
     monkeypatch.setattr(calendar_tools, "events_between", lambda *args: [])

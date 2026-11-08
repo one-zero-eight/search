@@ -227,11 +227,11 @@ def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_prot
 
     def calendar(user_token, start, end):
         assert user_token == "user-token" and start == end == DAY
-        return [], {}
+        return [], {}, {}
 
     def bookings(user_token, start, end):
         assert user_token == "user-token" and start == end == DAY
-        return [], []
+        return [], [], {}
 
     monkeypatch.setattr(mcp_account, "_calendar", calendar)
     monkeypatch.setattr(mcp_account, "_bookings", bookings)

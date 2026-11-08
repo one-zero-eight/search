@@ -123,6 +123,21 @@ def test_requested_duration_crossing_unknown_start_remains_unverified(services):
     assert result["complete"] is False and result["not_read"] == []
 
 
+@pytest.mark.parametrize("failure", ["upstream_timeout", "mcp_timeout", "partial"])
+def test_calendar_timeout_reason_reaches_music_recommendations(services, failure):
+    if failure == "partial":
+        services["agenda"]["source_errors"] = {"rooms": "upstream_timeout"}
+    else:
+        services["agenda"] = {"error": "private diagnostic", "code": failure}
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY), 60)
+    expected = {"innohassle.rooms": "upstream_timeout"} if failure == "partial" else {"innohassle": failure}
+    assert result["source_errors"] == expected
+    assert artifact["agenda"]["source_errors"] == expected
+    assert result["complete"] is False and not result["available"] and result["unverified"]
+    assert "private diagnostic" not in str(result)
+    assert len(services["requests"]) == 2
+
+
 @pytest.mark.parametrize("fault", ["partial", "truncated", "missing_owner", "local_failure"])
 def test_incomplete_agenda_never_yields_free_windows(services, monkeypatch, fault):
     context = CONTEXT

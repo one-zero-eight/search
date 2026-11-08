@@ -109,6 +109,9 @@ def read(path: str, response_model: type[Projection], parameters: dict, token: s
                 if len(raw) > MAX_BYTES:
                     raise ReadError("InNoHassle returned an oversized response; it was not used.")
             data = json.loads(raw)
+    except httpx.TimeoutException:
+        # Let result_boundary preserve the upstream timeout as structured data.
+        raise
     except (httpx.HTTPError, ValueError):
         raise ReadError("InNoHassle API is unavailable or returned unreadable JSON. Try again later.") from None
     try:

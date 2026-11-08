@@ -81,13 +81,22 @@ def get_my_available_rooms(runtime: ToolRuntime, day: date, time_from: str, time
     except ValueError as error:
         return {"error": str(error)}, None
     arguments = {"day": day.isoformat(), "time_from": time_from, "time_to": time_to}
+    failure = {"error": "Room availability could not be checked for the requested interval; availability is unknown.",
+               "code": "rooms_unverified", "complete": False,
+               "note": "Personal room availability was not verified. Explain the failure without recommending rooms. "
+                       "Do not retry this recommendation in the same turn or use raw room/calendar reads to bypass it. "
+                       "The user may request a new check later."}
     try:
         rooms = mcp_client.request_sync("call_tool", {"name": "rooms_get_free_rooms", "arguments": arguments}, token, **credentials)
+        if isinstance(rooms, dict) and "error" in rooms and rooms.get("code") in ("upstream_timeout", "mcp_timeout"):
+            service = "The room service" if rooms["code"] == "upstream_timeout" else "MCP"
+            return {**failure, "code": rooms["code"],
+                    "error": f"{service} did not answer in time; personal room availability is unknown."}, None
         rooms = _rooms(rooms, day, time_from, time_to)
     except GraphBubbleUp:
         raise
     except Exception:
-        return {"error": "Room availability could not be checked for the requested interval; availability is unknown."}, None
+        return failure, None
     agenda = read_my_schedule(runtime, day, day)
     interval = {field: datetime.combine(day, time.fromisoformat(clock), settings.tz).isoformat()
                 for field, clock in (("starts_at", time_from), ("ends_at", time_to))}
@@ -112,6 +121,7 @@ def get_my_available_rooms(runtime: ToolRuntime, day: date, time_from: str, time
               "available": available, "excluded": excluded, "unverified": unverified, "conflicts": conflicts,
               "total": len(available) + len(excluded) + len(unverified), "complete": not not_read and not unverified,
               "truncated": bool(agenda.get("truncated")), "not_read": not_read,
+              "source_errors": agenda.get("source_errors", {}),
               "checked_at": datetime.now(settings.tz).isoformat(), "service_checked_at": rooms["checked_at"],
               "note": "Only available contains personally verified choices. Rooms in unverified ARE free and permitted "
                       "by the room service; only their compatibility with the personal calendar is unknown. "

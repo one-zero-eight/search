@@ -103,6 +103,22 @@ def test_calendar_conflicts_and_unknown_ends_are_distinct(services, source):
         assert all("conflicts" not in row for row in result["excluded"]), "Shared conflicts must not be repeated per room"
 
 
+@pytest.mark.parametrize("failure", ["upstream_timeout", "mcp_timeout", "partial"])
+def test_calendar_timeout_reason_reaches_room_recommendations(services, failure):
+    if failure == "partial":
+        services["agenda"]["source_errors"] = {"music_room": "upstream_timeout"}
+    else:
+        services["agenda"] = {"error": "private diagnostic", "code": failure}
+    result, artifact = recommend()
+    expected = {"innohassle.music_room": "upstream_timeout"} if failure == "partial" else {"innohassle": failure}
+    assert result["source_errors"] == expected
+    assert artifact["agenda"]["source_errors"] == expected
+    assert result["complete"] is False and not result["available"] and result["unverified"]
+    assert {r["reason"] for r in result["excluded"]} == {"room_occupied", "service_unavailable"}
+    assert "private diagnostic" not in str(result)
+    assert len(services["requests"]) == 2
+
+
 @pytest.mark.parametrize("fault", ["partial", "truncated", "missing_owner", "local_failure", "invalid_interval"])
 def test_incomplete_calendars_preserve_service_exclusions_but_never_claim_free(services, monkeypatch, fault):
     context = CONTEXT

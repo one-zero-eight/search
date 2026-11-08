@@ -63,6 +63,8 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
     if isinstance(trainings, dict) and "error" in trainings:
         if trainings.get("code") == "upstream_timeout":
             return _unavailable("Sport did not answer in time; personal training availability is unknown.", "upstream_timeout")
+        if trainings.get("code") == "mcp_timeout":
+            return _unavailable("MCP did not answer in time; personal training availability is unknown.", "mcp_timeout")
         return _unavailable("Sport trainings could not be read; availability is unknown.", "sport_unavailable")
     if (not isinstance(trainings, dict) or trainings.get("range") != [day.isoformat(), day.isoformat()]
             or not isinstance(trainings.get("trainings"), list)):
@@ -94,7 +96,8 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
               "available": available, "excluded": excluded, "unverified": unverified,
               "total": len(available) + len(excluded) + len(unverified), "truncated": truncated,
               "complete": agenda.get("complete") is True and not truncated and not unverified,
-              "not_read": not_read, "checked_at": datetime.now(settings.tz).isoformat()}
+              "not_read": not_read, "source_errors": agenda.get("source_errors", {}),
+              "checked_at": datetime.now(settings.tz).isoformat()}
     if unverified:
         result["note"] = ("Some trainings could not be checked. If available is empty, lead with uncertainty: "
                           "'Не удалось определить, какие тренировки подходят по вашему расписанию: проверка неполная.' "

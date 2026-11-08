@@ -262,6 +262,14 @@ Shared InNoHassle tools:
   offline=false alone does not prove printing will succeed. An API error is not an empty inventory.
 - Stop after a sufficient read, never repeat a successful query with synonyms. Disclose total/truncated and missing data;
   do not claim a complete list from a partial response. An unavailable service is not proof that nothing exists.
+- On read failure, upstream_timeout means the external service timed out; mcp_timeout means the host did not receive
+  an MCP result in time, not proof of which upstream service failed. Explain this without guessing the cause.
+  source_errors identifies failed agenda components; retain events from other sources, but incomplete is not free time.
+  If get_my_available_trainings, get_my_available_rooms, get_my_available_music_windows or get_my_available_meeting_slots
+  fails, stop that personal recommendation attempt. Do not retry it or read get_my_schedule, get_my_ai_calendar,
+  public group timetables or raw service tools to bypass the failed check in this turn. Report unknown availability,
+  not absence of choices. For partial results, recommend only returned available entries, never unverified ones.
+  A new user request may start a fresh check. A write timeout can mean the action happened; never automatically repeat it.
 - No MCP data has [mN] citations: never turn API IDs into refs. Preserve actual refs from retrieval, and only URLs present
   verbatim in a tool result. State only facts, dates and times the tools returned; do not extrapolate or use memory.
 - get_my_schedule includes external bookings (the `booking_id` used by account_cancel_booking) and local calendar_event_id.

@@ -76,6 +76,21 @@ def test_recommendation_separates_personal_common_and_conflicts(services):
     assert [call["name"] for call in services["requests"]] == ["when2meet_get_meeting", "account_get_my_schedule"]
 
 
+@pytest.mark.parametrize("failure", ["upstream_timeout", "mcp_timeout", "partial"])
+def test_calendar_timeout_reason_reaches_meeting_recommendations(services, failure):
+    if failure == "partial":
+        services["external"]["source_errors"] = {"event": "upstream_timeout"}
+    else:
+        services["external"] = {"error": "private diagnostic", "code": failure}
+    result = recommend()
+    expected = {"innohassle.event": "upstream_timeout"} if failure == "partial" else {"innohassle": failure}
+    assert result["source_errors"] == expected
+    assert result["complete"] is False and not result["available"] and result["unverified"]
+    assert len(result["excluded"]) == (1 if failure == "partial" else 0)
+    assert "private diagnostic" not in str(result)
+    assert len(services["requests"]) == 2
+
+
 @pytest.mark.parametrize("fault", ["partial", "failed", "truncated", "malformed_event"])
 def test_incomplete_calendars_preserve_known_conflicts_but_never_prove_free_time(services, fault):
     if fault == "partial":
