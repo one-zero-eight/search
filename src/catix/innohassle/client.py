@@ -14,7 +14,7 @@ from urllib.parse import quote, urlencode
 import httpx
 
 from catix.common import cache
-from catix.innohassle.identifiers import validate_outlook_id, validate_room_id
+from catix.innohassle.identifiers import validate_calendar_alias, validate_outlook_id, validate_room_id
 from catix.settings import settings
 
 
@@ -118,9 +118,15 @@ def user_id_by_telegram_id(telegram_id: int) -> str | None:
     return str(user["id"]) if user else None
 
 
-def event_groups() -> list[dict]:
+def event_groups(*, fresh: bool = False) -> list[dict]:
     """All schedule groups (academic groups, electives, sport, ...) with aliases and names."""
-    return _get("/schedule/v0/event-groups/")["event_groups"]
+    if fresh:
+        data = _client.get("schedule/v0/event-groups/").raise_for_status().json()
+    else:
+        data = _get("/schedule/v0/event-groups/")
+    if not isinstance(data, dict) or not isinstance(data.get("event_groups"), list):
+        raise ValueError("Unreadable calendar catalogue.")
+    return data["event_groups"]
 
 
 def group_schedule_ics(alias: str) -> str:
@@ -173,14 +179,35 @@ def _as_user(method: str, path: str, token: str, *, params: dict | None = None, 
     return _check_response(resp)
 
 
-# The user's own calendars, as the site's calendar shows them. all.ics is only the event groups (the classes of their groups
-# and the groups they added, not hidden): sport and the events they enrolled in are calendars of their own. (The
-# music room and the room bookings are read from their services, with the ids a cancellation takes.)
+# These personal feeds are separate from selected study-group calendars. Do not use
+# all.ics for classes: it loses the provenance needed for the site's English filter.
 MY_CALENDARS = {
-    "class": "/schedule/v0/users/me/all.ics",
     "sport": "/schedule/v0/users/me/sport.ics",
     "event": "/events/v1/users/me/events.ics",
 }
+
+
+def my_calendar_groups(token: str) -> tuple[int, list[str]]:
+    """Fresh Schedule identity and visible aliases: (favorites + predefined) - hidden."""
+    user = _as_user("GET", "/schedule/v0/users/me", token).json()
+    predefined = _as_user("GET", "/schedule/v0/users/me/predefined", token).json()
+    if not isinstance(user, dict) or not isinstance(predefined, dict) or type(user.get("id")) is not int:
+        raise ValueError("Unreadable calendar selection.")
+    favorites, hidden, assigned = user.get("favorite_event_groups", []), user.get("hidden_event_groups", []), predefined.get("event_groups")
+    if any(not isinstance(values, list) or any(not isinstance(alias, str) for alias in values)
+           for values in (favorites, hidden, assigned)):
+        raise ValueError("Unreadable calendar selection.")
+    visible = list(dict.fromkeys(alias for alias in favorites + assigned if alias not in hidden))
+    for alias in visible:
+        validate_calendar_alias(alias)
+    return user["id"], visible
+
+
+def my_group_calendar_ics(token: str, user_id: int, alias: str) -> str:
+    """A selected group's web feed, using the identity returned by Schedule /users/me."""
+    segment = quote(validate_calendar_alias(alias), safe="")
+    return _as_user("GET", f"/schedule/v0/{segment}.ics", token,
+                    params={"user_id": user_id, "export_type": "web"}).text
 
 
 def my_calendar_ics(token: str, kind: str) -> str:

@@ -12,6 +12,13 @@ _SEGMENT = re.compile(r"[A-Za-z0-9._~@+=-]+")
 _BASE64 = re.compile(r"(?:[A-Za-z0-9+/_-]{4})*(?:[A-Za-z0-9+/_-]{2}(?:==)?|[A-Za-z0-9+/_-]{3}=?)?")
 
 
+def validate_calendar_alias(value: str) -> str:
+    """Schedule aliases include Cyrillic letters, but never URL/path syntax."""
+    if not isinstance(value, str) or value in {".", ".."} or not re.fullmatch(r"[\w.~@+=-]+", value):
+        raise ValueError("Invalid calendar alias.")
+    return value
+
+
 def validate_room_id(value: str) -> str:
     """Room identifiers occupy one URL segment, without Outlook's base64 slashes."""
     if not isinstance(value, str) or value in {".", ".."} or not _SEGMENT.fullmatch(value):

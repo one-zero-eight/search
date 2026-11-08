@@ -92,14 +92,26 @@ def events_between(key: str, start: date, end: date) -> list[dict]:
 
 
 class GetAiCalendarArgs(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     date_from: date | None = Field(None, description="YYYY-MM-DD, default today.")
     date_to: date | None = Field(None, description=f"YYYY-MM-DD inclusive, default date_from + {DEFAULT_DAYS - 1} days.")
+
+    @model_validator(mode="before")
+    @classmethod
+    def without_injected_runtime(cls, values):
+        if isinstance(values, dict) and isinstance(values.get("runtime"), ToolRuntime):
+            return {key: value for key, value in values.items() if key != "runtime"}
+        return values
 
 
 @tool(args_schema=GetAiCalendarArgs)
 def get_my_ai_calendar(runtime: ToolRuntime, date_from: date | None = None, date_to: date | None = None) -> dict:
-    """The asker's AI Calendar for a period: personal events added through the answer buttons or approved local actions,
-    with their ids, raw timestamps and source messages where available. Not their classes: those are in the timetable."""
+    """The asker's local AI Calendar: personal events added through answer buttons or approved local actions,
+    with ids, timestamps and source messages where available. Use date_from/date_to, not day.
+    For a complete signed-in personal agenda also read account_get_my_schedule for external selected calendars,
+    sport and bookings, with the SAME explicit date_from/date_to. This tool alone is not the external schedule.
+    """
     key, why = calendar_key(runtime)
     if key is None:
         return {"error": why}

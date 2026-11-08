@@ -589,6 +589,9 @@ def test_personal_read_contracts_preserve_partial_answers(monkeypatch, target, k
         return class_ics if kind == "schedule" and calendar_kind == "class" else empty_ics
 
     monkeypatch.setattr(client, "my_calendar_ics", calendar)
+    monkeypatch.setattr(client, "my_calendar_groups", lambda token: (1, ["core"]))
+    monkeypatch.setattr(client, "event_groups", lambda **kw: [{"alias": "core", "tags": []}])
+    monkeypatch.setattr(client, "my_group_calendar_ics", lambda token, user_id, alias: calendar(token, "class"))
     def music_bookings(*args):
         if kind == "schedule_only_empty":
             raise client.ServiceError(503, "unavailable")
@@ -626,14 +629,14 @@ def test_all_external_schedule_components_failed_is_not_a_success(monkeypatch, i
         raise client.ServiceError(503, "unavailable")
 
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"})
-    for method in ("my_calendar_ics", "my_music_room_bookings", "my_room_bookings"):
+    for method in ("my_calendar_groups", "my_calendar_ics", "my_music_room_bookings", "my_room_bookings"):
         monkeypatch.setattr(client, method, unavailable)
     payload = native_call("account_get_my_schedule", {"date_from": "2099-01-01", "date_to": "2099-01-01"},
                           token="synthetic-user", uid="u1")
     assert payload["schedule"] == payload["bookings"] == []
     assert "ai_calendar" not in payload
     assert {problem.partition(":")[0] for problem in payload["not_read"]} == {
-        *client.MY_CALENDARS, "music room", "rooms"}
+        "class", *client.MY_CALENDARS, "music room", "rooms"}
     if injected_calendar:
         payload["ai_calendar"] = [{"title": "Not part of this external read"}]
     messages = mixed_read_messages("account_get_my_schedule", payload)

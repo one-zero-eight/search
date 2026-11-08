@@ -5,7 +5,7 @@ import logging
 import re
 import time
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Annotated, Iterable
 from urllib.parse import unquote
 
@@ -112,16 +112,18 @@ Courses (use these names in the answer, never translate or guess a code yourself
 
 GROUP_PROMPT = """
 
-The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for schedule questions
-and for what concerns "my" courses, exams and midterms. The system has already limited every chat search to the chats for
-everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change that. Each chat message says
-its `group`."""
+The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for questions explicitly
+about the public group timetable, and for the study-group context of courses, exams and midterms. It does NOT identify
+this user's selected English stream, subscribed courses or personal calendar. A signed-in user's "my schedule" must use
+account_get_my_schedule and the local AI Calendar, not the public group feed. The system has already limited every chat
+search to the chats for everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change
+that. Each chat message says its `group`."""
 
 NO_GROUP_PROMPT = """
 
 The asker has no study group (`all`): the system has limited every chat search to the chats of group `all` (the ones for
-everybody), and each chat message says the `group` of its chat. The timetable of "my group" is unknown: ask the asker for their group if the
-question needs it."""
+everybody), and each chat message says the `group` of its chat. For an explicitly requested public group timetable,
+ask for the group. A signed-in user's personal agenda needs no group: use account_get_my_schedule and get_my_ai_calendar."""
 
 
 CHATS_PROMPT = """
@@ -165,6 +167,24 @@ def prompt_for(role: str | None):
                 GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT,
                 _chats_prompt(context) if "read_chats" in roles.ROLES[role].tools else "",
             ]
+        if role is None:
+            if context and context.innohassle_token:
+                parts.append("\n\nPersonal agenda source: account_get_my_schedule via call_api_tool. "
+                             "This asker has InNoHassle sign-in; their selected English/course calendars, sport, "
+                             "event enrolments and bookings are NOT the public timetable of their academic group. "
+                             "For 'my schedule' read this source AND local get_my_ai_calendar, never substitute "
+                             "schedule_get_schedule or infer an English stream from the profile group. "
+                             "A failed personal source is missing data, not permission to replace it with group classes.")
+            else:
+                parts.append("\n\nPersonal agenda access: no InNoHassle credential is available. "
+                             "Only the public schedule_get_schedule for a known or explicitly named group and local "
+                             "get_my_ai_calendar can be read here. Label the group timetable as a partial fallback, "
+                             "not the user's subscribed calendar; it may contain multiple English streams. "
+                             "Do not choose their stream or claim external bookings/sport were checked.")
+            parts.append(f"\nFor a personal agenda without an explicit period, use date_from={now.date().isoformat()}, "
+                         f"date_to={(now + timedelta(days=6)).date().isoformat()} (seven days inclusive). "
+                         "Pass the SAME explicit date_from/date_to to both external and local reads. "
+                         "If the user specified a period, use that instead. get_my_ai_calendar has no day argument.")
         parts.append(
             TAIL_PROMPT.format(
                 language=_last_question_language(request),

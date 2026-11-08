@@ -80,6 +80,9 @@ def test_external_account_schedule_has_ics_and_bookings_but_no_local_calendar(mo
         seen.append((token, kind))
         return calendars[kind]
     monkeypatch.setattr(api, 'my_calendar_ics', read)
+    monkeypatch.setattr(api, 'my_calendar_groups', lambda token: (1, ['core']))
+    monkeypatch.setattr(api, 'event_groups', lambda **kw: [{'alias': 'core', 'tags': []}])
+    monkeypatch.setattr(api, 'my_group_calendar_ics', lambda token, user_id, alias: read(token, 'class'))
     monkeypatch.setattr(api, 'my_music_room_bookings', lambda token: [
         {'id': 42, 'time_start': start.isoformat(), 'time_end': (start + timedelta(hours=1)).isoformat()}])
     monkeypatch.setattr(api, 'my_room_bookings', lambda *a: [{'outlook_booking_id': 'AA+/BB==',

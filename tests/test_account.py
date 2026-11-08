@@ -251,6 +251,9 @@ def calendars(monkeypatch):
         return texts[kind]
 
     monkeypatch.setattr(innohassle, "my_calendar_ics", calendar)
+    monkeypatch.setattr(innohassle, "my_calendar_groups", lambda token: (1, ["core"]))
+    monkeypatch.setattr(innohassle, "event_groups", lambda **kw: [{"alias": "core", "tags": []}])
+    monkeypatch.setattr(innohassle, "my_group_calendar_ics", lambda token, user_id, alias: calendar(token, "class"))
     monkeypatch.setattr(innohassle, "my_music_room_bookings", lambda token: [])
     monkeypatch.setattr(innohassle, "my_room_bookings", lambda token, start, end: [])
     return texts

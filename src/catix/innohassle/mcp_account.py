@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Annotated, Literal
 
 if TYPE_CHECKING:
     from catix.innohassle import client as innohassle
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import date, datetime, time, timedelta
 
 import httpx
@@ -99,18 +99,76 @@ def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
     return out
 
 
+def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], list[str]]:
+    """Mirror the site's visible calendars and source-aware English exclusion.
+
+    Website CalendarPage/getCalendarsToShow and iCalendarPlugin/isEnglishEvent,
+    revision 34dc0d59972778eb99de6b0f4b0c10f67599fdb5. Never fall back to all.ics.
+    """
+    from catix.innohassle import client as innohassle
+
+    user_id, aliases = innohassle.my_calendar_groups(token)
+    if not aliases:
+        return [], []
+    catalogue = innohassle.event_groups(fresh=True)
+    if not isinstance(catalogue, list) or any(not isinstance(g, dict) or not isinstance(g.get("alias"), str) for g in catalogue):
+        raise ValueError("Unreadable calendar catalogue.")
+    groups = {group["alias"]: group for group in catalogue}
+    has_english = any(alias.startswith("english-") for alias in aliases)
+    items, problems, seen = [], [], set()
+    with ThreadPoolExecutor(max_workers=min(8, len(aliases))) as pool:
+        asked = {alias: pool.submit(innohassle.my_group_calendar_ics, token, user_id, alias)
+                 for alias in aliases if alias in groups}
+    for alias in aliases:
+        if alias not in groups:
+            problems.append(f"{alias}: selected calendar is not in the catalogue")
+            continue
+        try:
+            tags = groups[alias].get("tags")
+            if tags is None:
+                tags = []
+            if not isinstance(tags, list) or any(not isinstance(tag, dict) for tag in tags):
+                raise ValueError("Unreadable calendar tags.")
+            exclude_english = has_english and any(tag.get("type") == "core-courses" for tag in tags)
+            for item in _calendar_items(asked[alias].result(), "class", start, end):
+                title = item.get("title", "")
+                if exclude_english and any(word in title.strip().lower()
+                                           for word in ("english", "foreign language", "иностранный язык")):
+                    continue
+                key = (item["date"], item.get("time"), title, item.get("place"))
+                if key not in seen:
+                    seen.add(key)
+                    items.append({**item, "calendar": alias})
+        except innohassle.ServiceError as error:
+            if error.status == 401:
+                raise
+            problems.append(f"{alias}: {error.status}: {error.detail}")
+        except httpx.HTTPError as error:
+            problems.append(f"{alias}: InNoHassle did not answer ({type(error).__name__})")
+        except ValueError as error:
+            problems.append(f"{alias}: unreadable calendar: {error}"[:200])
+    return items, problems
+
+
 def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str]]:
     """The asker's InNoHassle calendars in the period (classes, sport, the events they enrolled in), each
     item with its `kind`; and what could not be read, by kind. Read concurrently rather than waiting on each service in turn.
     Raises ServiceError 401 when InNoHassle does not accept the token."""
     from catix.innohassle import client as innohassle
 
-    with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS)) as pool:
-        asked = {kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS}
+    with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS) + 1) as pool:
+        asked: dict[str, Future] = {"class": pool.submit(_class_calendar, token, start, end)}
+        asked.update({kind: pool.submit(innohassle.my_calendar_ics, token, kind) for kind in innohassle.MY_CALENDARS})
     items, problems = ([], {})
     for kind, future in asked.items():
         try:
-            items += _calendar_items(future.result(), kind, start, end)
+            if kind == "class":
+                classes, missing = future.result()
+                items += classes
+                if missing:
+                    problems[kind] = "; ".join(missing)
+            else:
+                items += _calendar_items(future.result(), kind, start, end)
         except innohassle.ServiceError as e:
             if e.status == 401:
                 raise
@@ -169,7 +227,15 @@ def account_get_my_schedule(
     date_from: date | None = None, date_to: date | None = None,
     *, token: str = Depends(require_innohassle),
 ) -> dict:
-    """Signed-in user's external InNoHassle calendars and room/music bookings. No local AI Calendar data."""
+    """The signed-in user's CURRENT PERSONAL schedule: selected/subscribed class calendars,
+    including English and course selections, sport, event enrolments, and personal room/music bookings.
+    Моё расписание, мой календарь: выбранный английский, курсы, спорт и мои бронирования.
+
+    Uses the user's authenticated calendar feeds, not the public academic-group timetable, which
+    can contain other English streams. No group argument is needed. Excludes the local AI Calendar:
+    the host should also read get_my_ai_calendar with the SAME explicit date_from/date_to.
+    Report not_read and truncation; never substitute public group events for a failed personal feed.
+    """
     from catix.innohassle import client as innohassle
 
     start = date_from or _now().date()
