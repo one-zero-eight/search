@@ -101,10 +101,10 @@ def _reads(messages):
                 # Even an uncertain write may have changed personal availability.
                 reads["get_my_schedule"] = None
                 continue
-            if message.name == "get_my_available_music_windows":
+            if message.name in {"get_my_available_music_windows", "get_my_available_rooms"}:
                 reads["get_my_schedule"] = None
                 if message.status == "success" and isinstance(message.artifact, dict):
-                    source = message.artifact.get("music_arguments")
+                    source = message.artifact.get("room_arguments" if message.name == "get_my_available_rooms" else "music_arguments")
                     agenda = message.artifact.get("agenda")
                     arguments = {key: value for key, value in call["args"].items() if value is not None}
                     if (isinstance(source, dict) and isinstance(agenda, dict)

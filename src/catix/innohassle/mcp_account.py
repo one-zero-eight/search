@@ -196,7 +196,7 @@ def _bookings(token: str, start: date, end: date) -> tuple[list[dict], list[str]
     try:
         for b in innohassle.my_music_room_bookings(token):
             begin, finish = (_local(b["time_start"]), _local(b["time_end"]))
-            if first <= begin < last:
+            if begin < last and first < finish:
                 out.append(
                     {"service": "music_room", "booking_id": str(b["id"]), **_span(begin, finish), "title": "Music room"}
                 )

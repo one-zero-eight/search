@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from catix.settings import settings
 
 READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings",
-                        "get_my_available_music_windows"})
+                        "get_my_available_music_windows", "get_my_available_rooms"})
 MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
                           "read_attachment", "view_attachment"}
 DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
@@ -269,6 +269,18 @@ Shared InNoHassle tools:
   bookable at checked_at, booked means occupied, unavailable carries access/time refusal reasons. Failed checks are
   not availability. Upstream Outlook data may be cached; none of these reads reserve a room or guarantee physical access.
   events_get_university_events gives an event's `id` and how one enrols in it.
+- For room recommendations ("подбери комнату", "доступные комнаты для бронирования"), use get_my_available_rooms
+  with one explicit day, time_from and time_to. It checks room occupancy/access AND the full personal agenda including
+  AI Calendar. Ask for missing day/start/end or duration; never choose a duration or search arbitrary intervals all day.
+  A request with only a start ("завтра с 18:00") requires a clarification BEFORE calling any availability tool;
+  do not silently turn it into "18:00-19:00". Required tool arguments are not permission to invent missing user choices.
+  Recommend only available. excluded distinguishes room_occupied, service_unavailable and schedule_conflict;
+  shared conflicts describe the user's events, not occupied rooms. unverified and complete=false mean unknown checks,
+  not "all rooms are booked". unknown_duration_events requires asking when the named event ends, not another read.
+  Rooms in unverified passed the room service's access/occupancy checks; say they are service-bookable but personal
+  calendar compatibility could not be verified, not that no rooms were found or their occupancy is unknown.
+  Do not repeat successful calendar reads or infer alternative rooms/times from exclusions. This read never books.
+  Use rooms_get_free_rooms only for explicitly service-only availability without personal-calendar matching.
 - Event organizers: events_create_draft prepares an event draft; creation requires club-leader or event-manager
   permission, not just student sign-in. events_update_draft edits an exact draft_id with freshly checked can_edit.
   Prepare name/description text for approval; do not invent factual dates, locations, registration URLs or club IDs.
@@ -295,7 +307,7 @@ Shared InNoHassle tools:
   mention classes. can_check_in is NOT personal availability: it only says Sport permits signup.
   Compare the whole starts_at/ends_at intervals with their timezone offsets, not just start times. A slot beginning
   before a class can still overlap it. Unknown duration, partial calendars and failed reads are not free time.
-  get_my_available_trainings and get_my_available_music_windows already include this check; do not repeat successful
+  get_my_available_trainings, get_my_available_music_windows and get_my_available_rooms include this check; do not repeat successful
   calendar reads after them. For Sport and Music Room bookings, the host checks this combined agenda before approval
   and reads it again before execution. On
   schedule_conflict, explain the conflicting events and offer only the returned non-overlapping alternatives;
@@ -332,7 +344,7 @@ Shared InNoHassle tools:
   Available music windows follow the half-hour booking grid. If explaining a conflict, take the event's actual
   start/end from conflicts, never infer class times from the gaps between available windows.
   Use the raw music_get_available_windows only for explicitly service-only availability without calendar matching;
-  use rooms_get_free_rooms for university rooms. Public music_get_music_room_schedule shows occupied intervals only.
+  use get_my_available_rooms for university room recommendations. Public music_get_music_room_schedule shows occupied intervals only.
   Availability windows are calculated with local rules, not a reservation or guaranteed physical access. Preserve the
   checked date/time, latest_start, duration and remaining quota; a long free window does not permit using all its hours.
   Pass duration_minutes only if the user specified it; otherwise omit it and ask for their chosen interval.

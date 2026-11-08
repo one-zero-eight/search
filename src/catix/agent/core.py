@@ -729,7 +729,7 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         if not call or call["name"] != message.name:
             continue
         if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings",
-                            "get_my_available_music_windows", "read_attachment", "view_attachment"}:
+                            "get_my_available_music_windows", "get_my_available_rooms", "read_attachment", "view_attachment"}:
             target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
             target = call["args"].get("name")
@@ -742,6 +742,16 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         except (TypeError, ValueError):
             continue
         if isinstance(data, dict) and "error" not in data:
+            if target == "get_my_available_rooms":
+                try:
+                    arguments = call["args"]
+                    expected = {field: datetime.fromisoformat(f"{arguments['day']}T{arguments[key]}")
+                                .replace(tzinfo=settings.tz).isoformat()
+                                for field, key in (("starts_at", "time_from"), ("ends_at", "time_to"))}
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if data.get("interval") != expected or data.get("range") != [arguments["day"], arguments["day"]]:
+                    continue
             if target in {"read_attachment", "view_attachment"}:
                 if (data.get("id") != call["args"].get("attachment_id")
                         or data.get("page") != call["args"].get("page", 1)
@@ -807,6 +817,25 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         # by kind; preserve any successfully read component, not an all-failed shell.
         if parts is not None and (any(parts) or
                                   not failed.issuperset({"class", "sport", "event", "music room", "rooms"})):
+            return parts
+    elif target == "get_my_available_rooms" and _read_period(data.get("range")):
+        parts = lists("available", "excluded", "unverified")
+        try:
+            start, end = (datetime.fromisoformat(data["interval"][key]) for key in ("starts_at", "ends_at"))
+        except (KeyError, TypeError, ValueError):
+            return None
+        if (parts is not None and start.utcoffset() is not None and end.utcoffset() is not None and start < end
+                and [start.astimezone(settings.tz).date().isoformat(), end.astimezone(settings.tz).date().isoformat()]
+                == data["range"] == [data["range"][0], data["range"][0]]
+                and data.get("timezone") == str(settings.tz) and isinstance(data.get("service_checked_at"), str)
+                and isinstance(data.get("conflicts"), list)
+                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
+                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
+                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
+                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
+                and all(isinstance(row, dict) and isinstance(row.get("room_id"), str) and row["room_id"]
+                        for part in parts for row in part)
+                and all(isinstance(row.get("reason"), str) and row["reason"] for part in parts[1:] for row in part)):
             return parts
     elif target == "get_my_available_music_windows" and _read_period(data.get("range")):
         parts = lists("available", "excluded", "unverified")

@@ -134,7 +134,7 @@ def collect(messages, answer, *, now=None):
                     if item != checked['training']:
                         continue
                     candidates['sport'].append((item, {'arguments': arguments, 'schedule_check': checked}))
-            elif name in {'get_my_schedule', 'get_my_available_music_windows', 'sport_get_my_sport',
+            elif name in {'get_my_schedule', 'get_my_available_music_windows', 'get_my_available_rooms', 'sport_get_my_sport',
                            'sport_get_sport_trainings', 'sport_get_training'}:
                 # Later source reads (including failures) supersede old availability.
                 # Raw eligibility is not a personally checked recommendation.
