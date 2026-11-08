@@ -34,8 +34,8 @@ def user(monkeypatch):
     telegram_id = -(999_000_000 + id(monkeypatch) % 1000)  # key `max:999000xxx`, removed by conftest
     key = abuse.user_key(telegram_id)
     abuse.forgive(key)
-    verdict = {"category": "prompt_injection"}
-    monkeypatch.setattr(guardrail, "screen", lambda text: Verdict(category=verdict["category"]))
+    verdict: dict[str, guardrail.Category] = {"category": "prompt_injection"}
+    monkeypatch.setattr(guardrail, "screen", lambda text, **kwargs: Verdict(category=verdict["category"]))
     ctx = SimpleNamespace(telegram_id=telegram_id, key=key, verdict=verdict)
     yield ctx
     abuse.forgive(key)
@@ -87,7 +87,7 @@ def test_the_fifth_attack_pauses_for_fifteen_minutes_and_the_pause_covers_normal
     assert_test(case(replies[4]), [ContainsAll([PAUSE, "15 мин"], name="PauseNotice")])
     assert pause_minutes(user.key) in (14, 15)
 
-    monkeypatch.setattr(guardrail, "screen", lambda text: pytest.fail("a paused user costs no model call"))
+    monkeypatch.setattr(guardrail, "screen", lambda text, **kwargs: pytest.fail("a paused user costs no model call"))
     assert_test(case(send(NORMAL, user)), [ContainsAll([PAUSED_REPLY], name="PausedReply")])
 
 
@@ -143,13 +143,13 @@ def test_the_texts_follow_the_language_of_the_message(user):
 
 def test_without_a_user_nothing_is_counted(monkeypatch):
     """The command line has no user id: the refusal is plain every time and nothing is stored."""
-    monkeypatch.setattr(guardrail, "screen", lambda text: Verdict(category="prompt_injection"))
+    monkeypatch.setattr(guardrail, "screen", lambda text, **kwargs: Verdict(category="prompt_injection"))
     out = GuardrailMiddleware().before_agent({"messages": [HumanMessage(ATTACK)]}, SimpleNamespace(context=AgentContext()))
     assert out and WARNING not in out["messages"][0].content
 
 
 def test_the_async_path_pauses_too(user, monkeypatch):
-    async def attack(text: str) -> Verdict:
+    async def attack(text: str, **kwargs) -> Verdict:
         return Verdict(category="prompt_injection")
 
     monkeypatch.setattr(guardrail, "ascreen", attack)
