@@ -14,6 +14,7 @@ from langgraph.errors import GraphBubbleUp
 
 from catix.agent import schedule_tools
 from catix.innohassle import mcp_client
+from catix.innohassle.mcp_access import CONFIRMATION_TOOLS
 from catix.settings import settings
 
 
@@ -73,6 +74,31 @@ def _reads(messages):
             call = calls.get(message.tool_call_id)
             if not call or message.name != call["name"]:
                 continue
+            name = call["args"].get("name") if call["name"] == "call_api_tool" else call["name"]
+            if message.name in {"ask_docs", "ask_chats"} and isinstance(message.artifact, dict):
+                receipts = message.artifact.get("action_receipts", [])
+                if isinstance(receipts, list) and any(
+                        isinstance(receipt, dict) and receipt.get("outcome") in {"confirmed", "unknown"}
+                        and receipt.get("name") in CONFIRMATION_TOOLS | {"add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}
+                        for receipt in receipts):
+                    reads["get_my_schedule"] = None
+                continue
+            if (call["name"] == "call_api_tool" and name in CONFIRMATION_TOOLS
+                    or call["name"] in {"add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}):
+                # Even an uncertain write may have changed personal availability.
+                reads["get_my_schedule"] = None
+                continue
+            if message.name == "get_my_available_music_windows":
+                reads["get_my_schedule"] = None
+                if message.status == "success" and isinstance(message.artifact, dict):
+                    source = message.artifact.get("music_arguments")
+                    agenda = message.artifact.get("agenda")
+                    arguments = {key: value for key, value in call["args"].items() if value is not None}
+                    if (isinstance(source, dict) and isinstance(agenda, dict)
+                            and json.dumps(source, sort_keys=True) == json.dumps(arguments, sort_keys=True)
+                            and agenda.get("range") == [arguments.get("day"), arguments.get("day")]):
+                        reads["get_my_schedule"] = agenda
+                continue
             if message.name == "get_my_available_trainings":
                 # Native host artifacts hold the exact read snapshot without repeating
                 # the whole agenda in the model-visible recommendation list.
@@ -83,7 +109,6 @@ def _reads(messages):
                     reads["get_my_schedule"] = message.artifact.get("agenda")
                     reads["training_arguments"] = message.artifact.get("training_arguments", {})
                 continue
-            name = call["args"].get("name") if call["name"] == "call_api_tool" else call["name"]
             if name not in {"sport_get_sport_trainings", "get_my_schedule"}:
                 continue
             if (name == "get_my_schedule" and call["name"] != "get_my_schedule"
@@ -93,6 +118,12 @@ def _reads(messages):
                 data = json.loads(message.content) if message.status == "success" and isinstance(message.content, str) else None
             except (TypeError, ValueError):
                 data = None
+            if name == "get_my_schedule" and isinstance(data, dict):
+                period = data.get("range")
+                if (not isinstance(period, list) or len(period) != 2
+                        or any(call["args"].get(key) is not None and call["args"][key] != period[index]
+                               for index, key in enumerate(("date_from", "date_to")))):
+                    data = None
             reads[name] = data
             if name == "sport_get_sport_trainings":
                 reads["training_arguments"] = call["args"].get("arguments") or {}
@@ -187,9 +218,11 @@ def batch_conflicts(prepared):
     checked = [item for item in prepared if "schedule_check" in item]
     for index, item in enumerate(checked):
         for other in checked[index + 1:]:
-            if _overlaps(item["schedule_check"]["training"], other["schedule_check"]["training"]):
-                error = ScheduleCheckError("schedule_conflict", "These signup requests overlap each other. "
-                                           "Choose non-overlapping trainings; nothing was written.")
+            first = item["schedule_check"].get("booking", item["schedule_check"].get("training"))
+            second = other["schedule_check"].get("booking", other["schedule_check"].get("training"))
+            if _overlaps(first, second):
+                error = ScheduleCheckError("schedule_conflict", "These booking or signup requests overlap each other. "
+                                           "Choose non-overlapping times; nothing was written.")
                 errors[item["call_id"]] = errors[other["call_id"]] = error
     return errors
 

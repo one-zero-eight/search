@@ -221,9 +221,21 @@ def test_action_receipts_are_matched_and_never_read_evidence(name, target, recei
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_protocol, monkeypatch, helper, decision):
-    from catix.innohassle import client, token
+    from catix.agent import calendar_tools
+    from catix.innohassle import client, mcp_account, token
     from tests.test_account import DAY, SITE
 
+    def calendar(user_token, start, end):
+        assert user_token == "user-token" and start == end == DAY
+        return [], {}
+
+    def bookings(user_token, start, end):
+        assert user_token == "user-token" and start == end == DAY
+        return [], []
+
+    monkeypatch.setattr(mcp_account, "_calendar", calendar)
+    monkeypatch.setattr(mcp_account, "_bookings", bookings)
+    monkeypatch.setattr(calendar_tools, "events_between", lambda key, start, end: [])
     writes = []
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"} if value == "user-token" else None)
     monkeypatch.setattr(client, "my_music_room_profile", lambda token: {"status": "free"})

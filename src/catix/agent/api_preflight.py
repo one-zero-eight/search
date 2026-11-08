@@ -18,6 +18,7 @@ from typing_extensions import NotRequired
 from catix.agent import api_context
 from catix.agent.api_descriptions import describe_action
 from catix.agent.api_tools import _credential_mode, _credentials, _needs_approval, _reviewed_args
+from catix.agent.music_scheduling import prepare_booking
 from catix.agent.scheduling import ScheduleCheckError, batch_conflicts, prepare_training
 from catix.innohassle import mcp_client
 
@@ -110,6 +111,8 @@ def _prepared(call, args, state, schema, runtime):
                 "description": description}
     if args.name == "sport_sport_checkin" and displayed.get("cancel") is False:
         prepared["schedule_check"] = prepare_training(displayed, state["messages"], runtime)
+    elif args.name == "music_book_music_room":
+        prepared["schedule_check"] = prepare_booking(displayed, state["messages"], runtime)
     return prepared
 
 

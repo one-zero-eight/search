@@ -11,7 +11,8 @@ from dataclasses import dataclass
 
 from catix.settings import settings
 
-READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings"})
+READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings",
+                        "get_my_available_music_windows"})
 MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
                           "read_attachment", "view_attachment"}
 DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
@@ -289,8 +290,9 @@ Shared InNoHassle tools:
   mention classes. can_check_in is NOT personal availability: it only says Sport permits signup.
   Compare the whole starts_at/ends_at intervals with their timezone offsets, not just start times. A slot beginning
   before a class can still overlap it. Unknown duration, partial calendars and failed reads are not free time.
-  get_my_available_trainings already includes this check; do not repeat successful calendar reads after it.
-  For Sport, the host checks this combined agenda before approval and reads it again before execution. On
+  get_my_available_trainings and get_my_available_music_windows already include this check; do not repeat successful
+  calendar reads after them. For Sport and Music Room bookings, the host checks this combined agenda before approval
+  and reads it again before execution. On
   schedule_conflict, explain the conflicting events and offer only the returned non-overlapping alternatives;
   do not retry the same conflicting slot or silently move anything. On schedule_unverified, obtain the missing
   complete reads or explain that availability could not be checked. Cancellations do not require a free interval.
@@ -311,7 +313,15 @@ Shared InNoHassle tools:
   unless the result says "done": true. Report a decline or refusal exactly, in one sentence.
 - If ANY mutation returns outcome="unknown", do not repeat it: use a fresh read to check the result. If still unclear,
   say the outcome could not be confirmed. Never claim success or that nothing was changed.
-- Before a music-room booking, use music_get_available_windows for the user's calculated windows and personal limits;
+- For music-room recommendations ("когда могу поиграть", "подбери время в музкомнате") and before booking, use the host
+  get_my_available_music_windows for one explicit day. It combines music_get_available_windows service access/quotas
+  with the full personal agenda including AI Calendar. Recommend only available; excluded/unverified are not free time.
+  With complete=false, say availability could not be verified, NOT "there are no available windows"; do not repeat
+  the same availability/calendar reads in this turn. A failed or partial calendar is not proof of availability.
+  This read does not book anything or need approval. Quotas apply to the requested date, not necessarily today.
+  Available music windows follow the half-hour booking grid. If explaining a conflict, take the event's actual
+  start/end from conflicts, never infer class times from the gaps between available windows.
+  Use the raw music_get_available_windows only for explicitly service-only availability without calendar matching;
   use rooms_get_free_rooms for university rooms. Public music_get_music_room_schedule shows occupied intervals only.
   Availability windows are calculated with local rules, not a reservation or guaranteed physical access. Preserve the
   checked date/time, latest_start, duration and remaining quota; a long free window does not permit using all its hours.

@@ -19,6 +19,7 @@ from catix import official
 from catix.agent.api_tools import API_TOOLS
 from catix.agent.attachment_tools import ATTACHMENT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
+from catix.agent.music_tools import get_my_available_music_windows
 from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.training_tools import get_my_available_trainings
 from catix.agent.web_tools import WEB_TOOLS
@@ -653,5 +654,6 @@ TOOLS = [
     *ATTACHMENT_TOOLS,
     get_my_schedule,
     get_my_available_trainings,
+    get_my_available_music_windows,
     *WEB_TOOLS,
 ]

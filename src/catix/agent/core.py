@@ -729,7 +729,7 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         if not call or call["name"] != message.name:
             continue
         if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings",
-                            "read_attachment", "view_attachment"}:
+                            "get_my_available_music_windows", "read_attachment", "view_attachment"}:
             target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
             target = call["args"].get("name")
@@ -807,6 +807,22 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         # by kind; preserve any successfully read component, not an all-failed shell.
         if parts is not None and (any(parts) or
                                   not failed.issuperset({"class", "sport", "event", "music room", "rooms"})):
+            return parts
+    elif target == "get_my_available_music_windows" and _read_period(data.get("range")):
+        parts = lists("available", "excluded", "unverified")
+        if (parts is not None and data["range"][0] == data["range"][1]
+                and "duration_minutes" in data and isinstance(data.get("rules"), dict)
+                and isinstance(data.get("service_checked_at"), str)
+                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
+                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
+                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
+                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
+                and not (parts[0] and not data["complete"])
+                and all(isinstance(row, dict) and type(row.get("max_duration_minutes")) is int
+                        and row["max_duration_minutes"] >= 30
+                        and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at", "start", "end", "latest_start"))
+                        for row in parts[0])
+                and all(isinstance(row, dict) and isinstance(row.get("reason"), str) for part in parts[1:] for row in part)):
             return parts
     elif target == "get_my_available_trainings" and _read_period(data.get("range")):
         parts = lists("available", "excluded", "unverified")

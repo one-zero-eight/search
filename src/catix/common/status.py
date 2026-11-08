@@ -19,6 +19,7 @@ STATUS = {
     "get_my_ai_calendar": "🗓 Смотрю ваш AI-календарь…",
     "get_my_schedule": "🗓 Смотрю ваше расписание и личные события…",
     "get_my_available_trainings": "🏃 Подбираю тренировки без пересечений…",
+    "get_my_available_music_windows": "🎵 Подбираю время в музкомнате без пересечений…",
     "read_attachment": "📄 Читаю прикреплённый файл…",
     "view_attachment": "🖼 Рассматриваю изображение или страницу…",
     "add_to_ai_calendar": "🗓 Готовлю добавление в календарь…",

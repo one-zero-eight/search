@@ -148,6 +148,11 @@ def _call(name: str, runtime: ToolRuntime, arguments: dict | None = None) -> dic
 
         if refusal := recheck_training(payload["arguments"], runtime, token, credentials):
             return refusal
+    elif name == "music_book_music_room":
+        from catix.agent.music_scheduling import recheck_booking
+
+        if refusal := recheck_booking(payload["arguments"], runtime):
+            return refusal
     return mcp_client.request_sync("call_tool", payload, token, **credentials)
 
 
@@ -160,6 +165,11 @@ async def _acall(name: str, runtime: ToolRuntime, arguments: dict | None = None)
         from catix.agent.scheduling import arecheck_training
 
         if refusal := await arecheck_training(payload["arguments"], runtime, token, credentials):
+            return refusal
+    elif name == "music_book_music_room":
+        from catix.agent.music_scheduling import arecheck_booking
+
+        if refusal := await arecheck_booking(payload["arguments"], runtime):
             return refusal
     return await mcp_client.request("call_tool", payload, token, **credentials)
 

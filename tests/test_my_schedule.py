@@ -256,7 +256,7 @@ def test_bad_event_does_not_abort_unaffected_source_or_prove_completeness(monkey
 
 
 @pytest.mark.parametrize("helper", [False, True])
-@pytest.mark.parametrize("tool_name", ["get_my_schedule", "get_my_available_trainings"])
+@pytest.mark.parametrize("tool_name", ["get_my_schedule", "get_my_available_trainings", "get_my_available_music_windows"])
 def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, helper, tool_name):
     import asyncio
     from langchain_core.messages import AIMessageChunk
