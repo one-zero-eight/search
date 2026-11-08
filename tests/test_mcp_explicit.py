@@ -28,7 +28,7 @@ def test_startup_registers_all_typed_tools_without_schema_network(monkeypatch):
         assert not attempts
         from catix.innohassle import mcp_tools
         names = {name for name, fn in vars(mcp_tools).items() if callable(fn) and hasattr(fn, '__fastmcp__')}
-        assert len(names) == 25 + 4
+        assert len(names) == 24 + 4 + 2 + 1
         for name in names:
             declared = await root.get_tool(name)
             assert declared.parameters['additionalProperties'] is False
@@ -37,7 +37,7 @@ def test_startup_registers_all_typed_tools_without_schema_network(monkeypatch):
         async with Client(root) as client:
             assert {t.name for t in await client.list_tools()} == {'search_tools', 'call_tool', 'service_status'}
             status = (await client.call_tool('service_status', {})).data
-            assert sum(item['tools'] for item in status.values()) == 25 + 4
+            assert sum(item['tools'] for item in status.values()) == 24 + 4 + 2 + 1
             assert {name for item in status.values() for name in item['tool_names']} == names
             assert all(item['registered'] for item in status.values())
     asyncio.run(run())

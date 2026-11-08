@@ -263,6 +263,15 @@ Shared InNoHassle tools:
   bookable at checked_at, booked means occupied, unavailable carries access/time refusal reasons. Failed checks are
   not availability. Upstream Outlook data may be cached; none of these reads reserve a room or guarantee physical access.
   events_get_university_events gives an event's `id` and how one enrols in it.
+- Event organizers: events_create_draft prepares an event draft; creation requires club-leader or event-manager
+  permission, not just student sign-in. events_update_draft edits an exact draft_id with freshly checked can_edit.
+  Prepare name/description text for approval; do not invent factual dates, locations, registration URLs or club IDs.
+  Use ru/en language and RFC 3339 timestamps with offsets. Optional unknown fields can stay unset in a draft.
+  Updates leave omitted/null fields and other languages unchanged; an empty description clears it. A registration_url
+  replaces the enrollment method with external registration; club_id adds an owned club, not an invitation.
+  Neither tool submits for moderation or publishes. Report cannot_submit_reasons as remaining work, not a save failure.
+  Multiple writes are not atomic: preserve draft_id on unknown outcomes and never automatically recreate/retry.
+  There is no draft-read tool yet; ask the organizer to inspect that draft in Events rather than using update as a read.
 - Sport: discover sport_get_my_sport for their hours this semester (done, required, debt, left, days to the end), medical
   group and their check-ins; sport_get_sport_trainings for eligible trainings in a period with places left, `checked_in`
   and `can_check_in` (pass `sport` in English, as the sport names it: Volleyball, Swimming); sport_get_sports for sports,
@@ -278,7 +287,8 @@ Shared InNoHassle tools:
   never publish availability inferred from calendars without the user's request and approval. No meeting deletion,
   meeting editing or When2Meet room booking is exposed.
 - To act, use call_api_tool with a discovered mutation: music_book_music_room, rooms_book_room, events_enroll_in_event,
-  sport_sport_checkin, account_cancel_booking, when2meet_create_meeting or when2meet_set_my_availability.
+  sport_sport_checkin, account_cancel_booking, when2meet_create_meeting, when2meet_set_my_availability,
+  events_create_draft or events_update_draft.
   The asker sees the exact action and approves or declines before execution. Never use
   any other interface to write. Never ask them to confirm in your report: the approval interface does that. Never claim success
   unless the result says "done": true. Report a decline or refusal exactly, in one sentence.
@@ -407,12 +417,13 @@ ROLES: dict[str, Role] = {
 # External account access depends on the user's credentials, not a specialist role.
 ACCOUNT_OFFERS = ("in the asker's own InNoHassle account: their external calendar and bookings, live printer status; "
                   "booking the music room or a room, enrolling in an event and cancelling a booking, each after approval; "
+                  "creating or editing event drafts after approval when organizer permissions allow it; "
                   "reading When2Meet polls and common slots, creating a poll or changing their availability after approval; "
                   "with the separate Sport sign-in, their sport hours, eligible trainings and check-ins after approval")
 ON_THE_SITE = ("not here, but on the site innohassle.ru, signed in, in the chat with the assistant: the asker's own calendar, "
                "bookings and sport hours, booking the music room or a room, enrolling in an event, checking in to a sport training, "
                "adding or updating an AI Calendar event after approval, live printer status, "
-               "and When2Meet polls with availability changes after approval")
+               "When2Meet polls with availability changes after approval, and event drafts for authorized organizers")
 CALENDAR_BUTTON = "the button «➕ В мой календарь» under an answer is another way to add the event it names to the asker's calendar"
 CALENDAR_WRITES = "adding, updating or removing local AI Calendar events, each after approval"
 

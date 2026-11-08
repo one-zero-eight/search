@@ -50,6 +50,10 @@ from catix.innohassle.mcp_campus import (
 )
 from catix.innohassle.mcp_declarations import metadata as _metadata
 from catix.innohassle.mcp_declarations import require_innohassle, result_boundary
+from catix.innohassle.mcp_events import (
+    events_create_draft as events_create_draft,
+    events_update_draft as events_update_draft,
+)
 from catix.innohassle.mcp_public import (
     clubs_get_clubs as clubs_get_clubs,
 )

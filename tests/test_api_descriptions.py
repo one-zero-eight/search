@@ -41,7 +41,12 @@ CASES = [
     ("when2meet_set_my_availability", {"meeting_ref": "team-42", "availability": []},
      "Очистить все ваши отмеченные слоты в When2Meet team-42.",
      "Clear all your marked slots in When2Meet team-42."),
-
+    ("events_create_draft", {"name": "Draft", "description": "Text", "locale": "en"},
+     "Создать черновик мероприятия. Язык: en. Название: Draft. Описание: Text. Неуказанные поля останутся незаполненными. Без отправки на модерацию и публикации. Сохранение неатомарное.",
+     "Create event draft. Language: en. Name: Draft. Description: Text. Unspecified fields remain unset. No submission for moderation or publication. Saving is not atomic."),
+    ("events_update_draft", {"draft_id": "a" * 24, "locale": "ru", "description": ""},
+     "Изменить черновик мероприятия aaaaaaaaaaaaaaaaaaaaaaaa. Язык: ru. Очистить описание. Остальные поля и языки не изменяются. Без отправки на модерацию и публикации. Сохранение неатомарное.",
+     "Update event draft aaaaaaaaaaaaaaaaaaaaaaaa. Language: ru. Clear description. Other fields and languages stay unchanged. No submission for moderation or publication. Saving is not atomic."),
 ]
 
 
