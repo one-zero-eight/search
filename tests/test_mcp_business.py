@@ -35,6 +35,7 @@ def test_trainings_keep_filter_capacity_signup_flags_and_truncation(monkeypatch)
     assert [item['training_id'] for item in result['trainings']] == [7, 8, 9]
     assert result['trainings'][0] == {'training_id': 7, 'date': '2099-01-01 Thu',
         'name': 'Volleyball (Beginners)', 'time': '10:00-11:30', 'place': 'Court A',
+        'starts_at': '2099-01-01T10:00:00+03:00', 'ends_at': '2099-01-01T11:30:00+03:00',
         'places_left': 17, 'checked_in': False, 'can_check_in': True}
     assert result['trainings'][1]['checked_in'] is True and 'can_check_in' not in result['trainings'][1]
     assert result['trainings'][2]['places_left'] == 0 and result['trainings'][2]['can_check_in'] is False

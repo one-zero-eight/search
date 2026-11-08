@@ -89,6 +89,7 @@ def test_the_trainings_they_may_go_to_with_places_and_check_in(sport):
     assert [(t["training_id"], t["places_left"], t["can_check_in"]) for t in out["trainings"]] == [(11, 17, True), (12, 0, False)]
     first = out["trainings"][0]
     assert first == {"training_id": 11, "date": FRIDAY.strftime("%Y-%m-%d %a"), "name": "Volleyball (Beginners)", "time": "18:00-19:30",
+                     "starts_at": VOLLEYBALL["start"], "ends_at": VOLLEYBALL["end"],
                      "place": "Sport Complex, Hall 1", "places_left": 17, "checked_in": False, "can_check_in": True}  # fmt: skip
     assert "no places left" in out["rules"]
     swimming = call("sport_get_sport_trainings", {"date_from": TODAY.isoformat(), "date_to": FRIDAY.isoformat(), "sport": "swim"},
@@ -132,9 +133,11 @@ def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel):
     assert request["name"] == "call_api_tool" and request["args"]["name"] == "sport_sport_checkin"
     description = request["description"]
     if cancel:
-        assert description == "Отменить вашу запись на тренировку #13."
+        assert description.startswith("Отменить вашу запись на тренировку #13.")
+        assert "Swimming" in description
     else:
-        assert description == "Записать вас на тренировку #11."
+        assert description.startswith("Записать вас на тренировку #11.")
+        assert "Volleyball" in description and "18:00" in description and "19:30" in description
     agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert sport == ([(training_id, not cancel)] if decision == "approve" else [])
     assert not agent.get_state(config).interrupts

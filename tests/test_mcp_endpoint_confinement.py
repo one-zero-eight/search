@@ -30,6 +30,12 @@ def upstream(monkeypatch):
                 return httpx.Response(200, json=[])
             if request.url.path.endswith(("/rooms/", "/bookings/my", "/my_bookings")):
                 return httpx.Response(200, json=[])
+            if request.url.path.startswith("/room-booking/v0/bookings/"):
+                return httpx.Response(200, json={
+                    "outlook_booking_id": request.url.path.removeprefix("/room-booking/v0/bookings/"),
+                    "related_to_me": True, "room_id": "314", "title": "Study group",
+                    "start": "2099-01-01T10:00:00+03:00", "end": "2099-01-01T11:00:00+03:00",
+                })
             return httpx.Response(200, json={"can_book": True})
         if request.method == "POST":
             return httpx.Response(200, json={"outlook_booking_id": "outlook-id"})
@@ -143,7 +149,7 @@ def test_direct_room_operations_reject_unsafe_ids_without_request(upstream, iden
 @pytest.mark.parametrize("identifier", ["../../../music-room/v0/bookings/42", "%252e%252e%252f42", "a?other", "a#other", "a\\b", "a\nb"])
 @pytest.mark.parametrize("name", ["account_cancel_booking", "rooms_book_room"])
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
-def test_invalid_identifier_is_refused_at_execution_before_upstream(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier, helper):
+def test_invalid_identifier_is_refused_before_upstream(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier, helper):
     from langchain_core.messages import ToolMessage
     from langgraph.types import Command
     from pydantic import SecretStr
@@ -156,6 +162,14 @@ def test_invalid_identifier_is_refused_at_execution_before_upstream(monkeypatch,
     context = AgentContext(innohassle_token=SecretStr(signed_user), innohassle_id="synthetic-owner")
     agent, config, out = _graph_action({"name": name, "arguments": arguments}, context=context, helper=helper)
     paused = agent.get_state(config).interrupts
+    if name == "account_cancel_booking":
+        # Cancellation now needs an exact detail read before consent; its ID validation fails without I/O.
+        assert not paused and upstream == []
+        assert not core.action_receipt(out["messages"])
+        results = [m for m in out["messages"] if isinstance(m, ToolMessage)]
+        payloads = results[0].artifact["results"] if helper else [m.content for m in results]
+        assert any("confirmation" in str(value) for value in payloads)
+        return
     assert len(paused) == 1 and upstream == []
     assert paused[0].value['action_requests'][0]['args']['arguments'] == arguments
     out = agent.invoke(Command(resume={paused[0].id: {'decisions': [{'type': 'approve'}]}}), config, context=context)
@@ -247,7 +261,9 @@ def test_graph_preserves_opaque_id_and_requires_consent(monkeypatch, signed_user
     assert len(paused) == 1
     assert paused[0].value["action_requests"][0]["args"]["arguments"] == arguments
     assert "AA+/BB==" in paused[0].value["action_requests"][0]["description"]
-    assert all(request.method == "GET" for request in upstream)
+    assert "Study group" in paused[0].value["action_requests"][0]["description"]
+    assert [(request.method, request.url.raw_path) for request in upstream] == [
+        ("GET", b"/room-booking/v0/bookings/AA%2B%2FBB%3D%3D")]
     agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     writes = [request for request in upstream if request.method != "GET"]
     if decision == "approve":
@@ -255,3 +271,4 @@ def test_graph_preserves_opaque_id_and_requires_consent(monkeypatch, signed_user
         assert writes[0].url.raw_path == b"/room-booking/v0/bookings/AA%2B%2FBB%3D%3D"
     else:
         assert writes == []
+    assert sum(request.method == "GET" for request in upstream) == 1, "Resume must not refetch the proposal"

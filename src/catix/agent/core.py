@@ -763,6 +763,21 @@ def _read_parts(target: str, data: dict) -> tuple | None:
             return parts
     elif target == "sport_get_sport_trainings" and _read_period(data.get("range")):
         return lists("trainings")
+    elif target == "sport_get_training":
+        item = data.get("training")
+        if (isinstance(item, dict) and type(item.get("training_id")) is int and item["training_id"] > 0
+                and all(isinstance(item.get(key), str) and item[key] for key in ("name", "date"))):
+            return (item,)
+    elif target == "events_get_event":
+        item = data.get("event")
+        if (isinstance(item, dict) and isinstance(item.get("id"), str) and re.fullmatch(r"[0-9a-f]{24}", item["id"])
+                and all(isinstance(item.get(key), str) and item[key] for key in ("title", "start"))):
+            return (item,)
+    elif target == "account_get_booking":
+        item = data.get("booking")
+        if (isinstance(item, dict) and item.get("service") in {"room", "music_room"}
+                and all(isinstance(item.get(key), str) and item[key] for key in ("booking_id", "date", "time"))):
+            return (item,)
     elif target == "get_my_ai_calendar":
         return lists("events") if _read_period(data.get("range")) else None
     elif target == "schedule_get_schedule" and _read_period(data.get("range")):

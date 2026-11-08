@@ -16,6 +16,9 @@ from catix.innohassle import actions
 from catix.innohassle.mcp_account import (
     account_cancel_booking as account_cancel_booking,
 )
+from catix.innohassle.mcp_account import (
+    account_get_booking as account_get_booking,
+)
 
 # Ordinary re-exports make this the single definition facade.
 from catix.innohassle.mcp_account import (
@@ -58,6 +61,9 @@ from catix.innohassle.mcp_public import (
     clubs_get_clubs as clubs_get_clubs,
 )
 from catix.innohassle.mcp_public import (
+    events_get_event as events_get_event,
+)
+from catix.innohassle.mcp_public import (
     events_get_university_events as events_get_university_events,
 )
 from catix.innohassle.mcp_public import (
@@ -65,6 +71,9 @@ from catix.innohassle.mcp_public import (
 )
 from catix.innohassle.mcp_public import (
     schedule_get_schedule as schedule_get_schedule,
+)
+from catix.innohassle.mcp_sport import (
+    sport_get_training as sport_get_training,
 )
 from catix.innohassle.mcp_sport import (
     sport_get_my_sport as sport_get_my_sport,

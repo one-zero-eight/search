@@ -1,6 +1,7 @@
 """Explicit MCP public integrations. Business rules execute here, not in the agent."""
 
 import json
+import math
 import re
 from datetime import date, datetime, timedelta
 from typing import Annotated, Literal
@@ -274,6 +275,51 @@ def clubs_get_clubs(
     if len(found) > limit:
         result["note"] = f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."
     return result
+
+
+@tool(**metadata())
+@result_boundary()
+def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) -> dict:
+    """Read one exact published event: localized title, date, interval, location and page.
+
+    Public fresh read by event_id; does not enroll anyone or return participants.
+    """
+    from catix.innohassle import client as innohassle
+
+    item = innohassle.event(event_id, fresh=True)
+    if not isinstance(item, dict) or item.get("id") != event_id:
+        raise ValueError("Unreadable event details.")
+    data = item["data"]
+    locales = data["locales"]
+    if not isinstance(locales, dict) or any(
+        not isinstance(lang, str) or not isinstance(loc, dict)
+        or not isinstance(loc.get("name"), str) for lang, loc in locales.items()
+    ):
+        raise ValueError("Unreadable event names.")
+    names = {lang: loc["name"] for lang, loc in sorted(locales.items()) if loc["name"].strip()}
+    title = names.get("en") or names.get("ru") or next(iter(names.values()))
+    start = datetime.fromisoformat(data["starts_at"])
+    if start.tzinfo is None:
+        raise ValueError("Unreadable event timezone.")
+    start = start.astimezone(settings.tz)
+    location = data.get("location")
+    if location is not None and (not isinstance(location, dict)
+            or not isinstance(location.get("display_name"), str)):
+        raise ValueError("Unreadable event location.")
+    duration = data.get("duration_hours")
+    if duration is not None and (type(duration) not in (int, float)
+            or not math.isfinite(duration) or duration <= 0):
+        raise ValueError("Unreadable event duration.")
+    result = {"id": item["id"], "title": title, "start": _fmt(start),
+              "starts_at": start.isoformat(), "timezone": str(settings.tz),
+              "location": (data.get("location") or {}).get("display_name"),
+              "page": EVENT_PAGE.format(id=item["id"])}
+    if len(set(names.values())) > 1:
+        result["names"] = names
+    if duration is not None:
+        end = start + timedelta(hours=duration)
+        result.update(end=_fmt(end), ends_at=end.isoformat())
+    return {"event": result}
 
 
 @tool(**metadata())

@@ -53,9 +53,12 @@ def training_name(t: dict) -> str:
 def training_item(t: dict) -> dict:
     """A training as the model sees it, with the id sport_checkin takes."""
     start, end = (_local(t["start"]), _local(t["end"]))
-    item: dict = {"training_id": t["id"], "date": start.strftime("%Y-%m-%d %a"), "name": training_name(t)}
+    item: dict = {"training_id": t["id"], "date": start.strftime("%Y-%m-%d %a"), "name": training_name(t),
+                  "starts_at": start.isoformat(), "ends_at": end.isoformat()}
     if not t.get("is_all_day"):
         item["time"] = f"{start:%H:%M}-{end:%H:%M}"
+    else:
+        item["all_day"] = True
     if place := (t.get("training_location") or {}).get("name"):
         item["place"] = place
     if (capacity := t.get("max_checkins")) is not None:
@@ -75,6 +78,38 @@ def _matches(t: dict, wanted: str) -> bool:
 
 def _day_start(day: date) -> datetime:
     return datetime.combine(day, time.min, settings.tz)
+
+
+@tool(**metadata())
+@result_boundary()
+def sport_get_training(
+    training_id: Annotated[int, Field(gt=0)],
+    *, token: str = Depends(require_sport),
+) -> dict:
+    """Read one exact Sport training: name, date, interval and place by training_id.
+
+    Requires separate Sport sign-in. Does not establish personal signup eligibility.
+    """
+    from catix.innohassle import sport as sport_api
+
+    training = sport_api.training(token, training_id)
+    if (not isinstance(training, dict) or type(training.get("id")) is not int
+            or training["id"] != training_id or type(training.get("is_all_day")) is not bool):
+        raise ValueError("Unreadable training details.")
+    names = [training.get(key) for key in ("training_custom_name", "sport_name", "display_name", "group_name")]
+    if (any(name is not None and not isinstance(name, str) for name in names)
+            or not any(isinstance(name, str) and name.strip() for name in names)):
+        raise ValueError("Unreadable training name.")
+    location = training.get("training_location")
+    if location is not None and (not isinstance(location, dict)
+            or not isinstance(location.get("name"), str) or not location["name"].strip()):
+        raise ValueError("Unreadable training location.")
+    start, end = _local(training["start"]), _local(training["end"])
+    if end <= start:
+        raise ValueError("Unreadable training interval.")
+    return {"training": {**training_item(training), "timezone": str(settings.tz),
+                         **({"all_day": True} if training["is_all_day"] else {}),
+                         "starts_at": start.isoformat(), "ends_at": end.isoformat()}}
 
 
 @tool(**metadata())

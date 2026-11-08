@@ -6,6 +6,7 @@ which only the site has (api/auth.py): those calls are never cached, and the tok
 everybody is kept in the shared cache (common/cache.py) for settings.innohassle_cache_ttl."""
 
 import math
+import re
 from datetime import date, datetime
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from typing import Any
@@ -55,9 +56,14 @@ def events(start: datetime, end: datetime) -> list[dict]:
     return _get("/events/v1/events/", params={"from": start.isoformat(), "to": end.isoformat()})
 
 
-def event(event_id: str) -> dict:
-    """One published event with its descriptions in each language (`locales`) and links."""
-    return _get(f"/events/v1/events/{event_id}")
+def event(event_id: str, *, fresh: bool = False) -> dict:
+    """One published event; exact detail reads bypass shared cached values."""
+    if not isinstance(event_id, str) or not re.fullmatch(r"[0-9a-f]{24}", event_id):
+        raise ValueError("Invalid event identifier.")
+    path = f"/events/v1/events/{event_id}"
+    if fresh:
+        return _check_response(_client.get(path.lstrip("/"))).json()
+    return _get(path)
 
 
 def search_areas(query: str) -> list[dict]:
@@ -294,6 +300,12 @@ def book_room(token: str, room_id: str, title: str, start: datetime, end: dateti
     body = {"room_id": room_id, "title": title, "start": start.isoformat(), "end": end.isoformat(),
             "participant_emails": []}  # Required upstream even when nobody else is invited.
     return _as_user("POST", "/room-booking/v0/bookings/", token, json=body).json()
+
+
+def room_booking(token: str, outlook_booking_id: str) -> dict:
+    """Fresh exact booking. Callers must check related_to_me before projecting it."""
+    segment = quote(validate_outlook_id(outlook_booking_id), safe="")
+    return _as_user("GET", f"/room-booking/v0/bookings/{segment}", token).json()
 
 
 def cancel_room(token: str, outlook_booking_id: str) -> None:

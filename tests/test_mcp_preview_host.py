@@ -27,11 +27,16 @@ SCHEMA = {"type": "object", "properties": {"training_id": {"type": "integer"}, "
 
 def state(call=None, questions=None, schema=SCHEMA) -> ApiPreflightState:
     import json
+    reads = [AIMessage(content="", tool_calls=[{"name": "call_api_tool", "id": "training", "args": {
+        "name": "sport_get_sport_trainings", "arguments": {"date_from": "2026-11-09", "date_to": "2026-11-09"}}}]),
+        ToolMessage(content=json.dumps({"trainings": [{"training_id": 7, "name": "Frisbee",
+            "date": "2026-11-09 Mon", "time": "08:00-10:00", "place": "Big Hall"}]}),
+            name="call_api_tool", tool_call_id="training")]
     return {"messages": [*(questions or [HumanMessage("Check in.")]),
                          AIMessage(content="", tool_calls=[{"name": "search_api_tools", "args": {"query": "sport"}, "id": "s1"}]),
                          ToolMessage(content=json.dumps({"tools": [{"name": "sport_sport_checkin", "inputSchema": schema}]}),
                                      name="search_api_tools", tool_call_id="s1"),
-                         AIMessage(content="", tool_calls=[deepcopy(call or CALL)])]}
+                         *reads, AIMessage(content="", tool_calls=[deepcopy(call or CALL)])]}
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
@@ -47,8 +52,9 @@ def test_preflight_formats_locally_in_latest_language_then_callback_is_pure(monk
     prepared = (asyncio.run(middleware.aafter_model(initial, RUNTIME)) if asynchronous
                 else middleware.after_model(initial, RUNTIME))
     assert "jump_to" not in prepared
-    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == description
-    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == description
+    shown = api_tools._describe_mutation(CALL, prepared, RUNTIME)
+    assert shown.startswith(description) and "Frisbee" in shown
+    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == shown
     assert prepared["api_prepared"][0]["arguments"] == ARGUMENTS  # Defaults never replace raw execution intent.
 
 

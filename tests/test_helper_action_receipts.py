@@ -35,6 +35,11 @@ def mutation(monkeypatch):
             return {"tools": [{"name": args["query"], "inputSchema": input_schema(args["query"])}]}
         assert token == "synthetic-user"
         assert method == "call_tool"
+        if args["name"] == "account_get_booking":
+            assert args["arguments"]["service"] == "room" and kwargs == {}
+            return {"booking": {**args["arguments"], "title": "Study group", "room": "314",
+                                "date": "2099-01-02", "time": "10:00-11:00"}}
+        assert args["name"] == "account_cancel_booking"
         sent.append(args)
         result = payload["result"]
         return result.pop(0) if isinstance(result, list) else result

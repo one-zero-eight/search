@@ -10,7 +10,7 @@ from tests.mcp_native_helpers import registered_tools
 
 def test_no_calendar_or_legacy_implementation_metadata():
     definitions = registered_tools()
-    assert len(definitions) == 24 + 4 + 2 + 1
+    assert len(definitions) == 24 + 4 + 2 + 1 + 3
     assert not any(name.startswith('calendar_') for name in definitions)
     for definition in definitions.values():
         assert 'catix' not in (definition.meta or {})

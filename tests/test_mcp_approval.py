@@ -44,6 +44,10 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
             return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
         assert token == "user-token" and credentials == {"sport_token": "sport-token"}
         assert method == "call_tool"
+        if payload["name"] == "sport_get_training":
+            assert payload["arguments"] == {"training_id": 11}
+            return {"training": {"training_id": 11, "name": "Basketball", "date": "2099-01-02",
+                                 "time": "17:00-18:00", "place": "Big Hall"}}
         sent.append(payload)
         return {"done": True}
 
@@ -53,7 +57,9 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     agent, config, _ = _graph_action(model_args, helper=helper, context=context)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and sent == []
-    assert paused[0].value["action_requests"][0]["description"] == "Записать вас на тренировку #11."
+    description = paused[0].value["action_requests"][0]["description"]
+    assert description.startswith("Записать вас на тренировку #11.")
+    assert "Basketball" in description and "17:00" in description
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
@@ -151,6 +157,11 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
             assert token is None and kwargs == {}
             return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
         assert method == "call_tool"
+        if payload["name"] == "account_get_booking":
+            assert token == "user-token" and kwargs == {}
+            assert payload["arguments"] == args["arguments"]
+            return {"booking": {**args["arguments"], "title": "Study group", "room": "314",
+                                "date": "2099-01-02", "time": "10:00-11:00"}}
         sent.append(payload)
         return receipt
 

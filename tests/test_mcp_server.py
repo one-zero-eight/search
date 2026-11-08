@@ -50,7 +50,7 @@ def test_static_search_schemas_describe_typed_parameters_and_projected_output(po
             event = next(t for t in results if t['name'] == EVENTS)
             assert set(event['inputSchema']['properties']) == {'from', 'to', 'club'}
             status = (await client.call_tool('service_status', {})).data
-            assert sum(item['tools'] for item in status.values()) == 24 + 4 + 2 + 1
+            assert sum(item['tools'] for item in status.values()) == 24 + 4 + 2 + 1 + 3
             assert status['maps']['registered'] is True and status['maps']['tools'] == 3
             assert set(status['maps']['tool_names']) == {'maps_find_room', MAP, 'maps_scenes_scenes'}
     asyncio.run(run())

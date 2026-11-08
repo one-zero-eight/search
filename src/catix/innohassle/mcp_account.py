@@ -375,6 +375,47 @@ def rooms_book_room(
     }
 
 
+@tool(**metadata())
+@result_boundary()
+def account_get_booking(
+    service: Literal["music_room", "room"],
+    booking_id: Annotated[str, Field(min_length=1, max_length=200), AfterValidator(validate_outlook_id)],
+    *, token: str = Depends(require_innohassle),
+) -> dict:
+    """Inspect an existing personal reservation by its exact opaque identifier.
+
+    Sign-in required. Returns title, full dates, times and place for the selected service.
+    Only owned reservations are returned. Does not create or cancel anything.
+    """
+    from catix.innohassle import client as innohassle
+
+    if service == "room":
+        booking = innohassle.room_booking(token, booking_id)
+        if (not isinstance(booking, dict) or booking.get("outlook_booking_id") != booking_id
+                or booking.get("related_to_me") is not True):
+            raise ValueError("The exact personal booking could not be verified.")
+        if any(not isinstance(booking.get(key), str) or not booking[key].strip() for key in ("room_id", "title")):
+            raise ValueError("Unreadable room booking details.")
+        start, end = _local(booking["start"]), _local(booking["end"])
+        item = {"room": booking["room_id"], "place": booking["room_id"], "title": booking["title"]}
+    else:
+        bookings = innohassle.my_music_room_bookings(token)
+        if not isinstance(bookings, list) or any(
+            not isinstance(b, dict) or type(b.get("id")) not in (int, str) for b in bookings
+        ):
+            raise ValueError("Unreadable personal music bookings.")
+        matches = [b for b in bookings if str(b["id"]) == booking_id]
+        if len(matches) != 1:
+            raise ValueError("The exact personal booking could not be verified.")
+        booking = matches[0]
+        start, end = _local(booking["time_start"]), _local(booking["time_end"])
+        item = {"title": "Music room", "place": "Music room"}
+    if end <= start:
+        raise ValueError("Unreadable booking interval.")
+    return {"booking": {"service": service, "booking_id": booking_id, **_span(start, end), **item,
+                        "timezone": str(settings.tz), "starts_at": start.isoformat(), "ends_at": end.isoformat()}}
+
+
 @tool(**metadata(write=True))
 @result_boundary(write=True)
 def account_cancel_booking(
