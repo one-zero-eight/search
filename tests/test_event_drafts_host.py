@@ -6,7 +6,7 @@ from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
-from catix.agent import core
+from catix.agent import core, guardrail
 from catix.agent import api_tools, roles
 from catix.agent.api_descriptions import describe_action
 from catix.agent.tools import AgentContext
@@ -20,7 +20,7 @@ MUTATIONS = [('events_create_draft', CREATE),
 
 
 def test_draft_guidance_is_shared_and_does_not_promise_student_permissions():
-    for prompt in (roles.SUPERVISOR, roles.prompt('docs'), roles.prompt('chats')):
+    for prompt in (guardrail.PROMPT, roles.SUPERVISOR, roles.prompt('docs'), roles.prompt('chats')):
         assert 'events_create_draft' in prompt and 'events_update_draft' in prompt
         assert 'club-leader' in prompt and 'event-manager' in prompt
         assert 'draft_id' in prompt
