@@ -7,7 +7,13 @@ from psycopg.errors import UniqueViolation
 from catix import groups, userbot_config
 from catix.db import pg
 
-INVITE_RE = re.compile(r"https://t\.me/(?:\+|joinchat/)([A-Za-z0-9_-]{16,128})", re.ASCII)
+INVITE_RE = re.compile(r"(?:https://)?t\.me/(?:\+|joinchat/)([A-Za-z0-9_-]{16,128})", re.ASCII)
+PUBLIC_RE = re.compile(r"[A-Za-z][A-Za-z0-9_]{3,30}[A-Za-z0-9]", re.ASCII)
+RESERVED_USERNAMES = frozenset({
+    "joinchat", "share", "proxy", "socks", "login", "confirmphone", "setlanguage",
+    "addstickers", "addemoji", "addtheme", "bg", "invoice", "giftcode", "addlist",
+    "boost", "contact",
+})
 
 
 class RateLimited(ValueError):
@@ -25,8 +31,35 @@ def invite_hash(link: str) -> str:
     return match[1]
 
 
+def public_username(link: str) -> str | None:
+    """Return a canonical public username, or None for an accepted private invite."""
+    if not isinstance(link, str):
+        raise ValueError("Use a Telegram t.me public username or private invitation")
+    if INVITE_RE.fullmatch(link):
+        return None
+    match = re.fullmatch(r"(?:https://)?t\.me/([^/?#]+)", link, re.ASCII)
+    if not match:
+        raise ValueError("Use a Telegram t.me public username or private invitation")
+    username = match[1]
+    if not PUBLIC_RE.fullmatch(username) or username.lower() in RESERVED_USERNAMES:
+        raise ValueError("Telegram public link must contain a valid, non-reserved username")
+    return username.lower()
+
+
+def normalize_link(link: str) -> str:
+    """Validate the entire submitted link and return canonical HTTPS Telegram URL."""
+    if isinstance(link, str):
+        link = link.strip()
+    username = public_username(link)
+    if username is not None:
+        return f"https://t.me/{username}"
+    match = INVITE_RE.fullmatch(link)
+    assert match is not None
+    return f"https://t.me/+{match[1]}"
+
+
 def submit(owner: str, email: str, invite_link: str, group_code: str, comment: str = "", *, consent: bool) -> dict:
-    link = "https://t.me/+" + invite_hash(invite_link)
+    link = normalize_link(invite_link)
     code = groups.normalize(group_code)
     if not code or code == groups.ALL:
         raise ValueError("A valid study group other than all is required")

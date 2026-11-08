@@ -174,7 +174,7 @@ def test_http_contract_owner_only_and_verified_group(db, monkeypatch):
         assert client.get("/sources/requests").json() == {"requests": [view], "verified_groups": ["B26"]}
         for consent in (False, 1, "true", None):
             assert client.post("/sources/requests", json={**body, "consent": consent}).status_code == 422
-        for link in ("http://t.me/+AbCdEfGhIjKlMnOp", LINK + "?x=1", LINK + "/", "https://t.me/public", "https://t.me.evil/+AbCdEfGhIjKlMnOp", LINK + "\n"):
+        for link in ("http://t.me/+AbCdEfGhIjKlMnOp", LINK + "?x=1", LINK + "/", "https://t.me/ab", "https://t.me.evil/+AbCdEfGhIjKlMnOp", LINK + "\nextra"):
             assert client.post("/sources/requests", json={**body, "invite_link": link}).status_code == 422
         assert client.post("/sources/requests", json={**body, "group_code": "all"}).status_code == 422
         for number in range(4):
@@ -781,3 +781,230 @@ def test_topic_change_during_source_backfill_is_not_lost(db, monkeypatch):
             await asyncio.gather(task, return_exceptions=True)
     asyncio.run(scenario())
     assert seen == [[1], [2]]
+
+
+@pytest.mark.parametrize(("raw", "canonical"), [
+    ("https://t.me/UniversityInnopolis", "https://t.me/universityinnopolis"),
+    ("t.me/UniversityInnopolis", "https://t.me/universityinnopolis"),
+    ("https://t.me/+AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
+    ("t.me/+AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
+    ("https://t.me/joinchat/AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
+    ("t.me/joinchat/AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
+    ("  t.me/UniversityInnopolis  ", "https://t.me/universityinnopolis"),
+])
+def test_public_and_private_links_normalize_to_canonical_https(raw, canonical):
+    from catix import source_requests as requests
+    assert requests.normalize_link(raw) == canonical
+
+
+@pytest.mark.parametrize("raw", [
+    "http://t.me/universityinnopolis", "https://t.me/user?x=1", "https://t.me/user#x",
+    "https://name@t.me/user", "https://evil.example/user", "https://t.me/user/123",
+    "https://t.me/joinchat", "https://t.me/Share",
+    "https://t.me/1abcde", "https://t.me/ab", "https://t.me/user.",
+    "https://t.me/%75ser",
+])
+def test_source_link_normalizer_rejects_noncanonical_or_reserved_links(raw):
+    from catix import source_requests as requests
+    with pytest.raises(ValueError):
+        requests.normalize_link(raw)
+
+
+@pytest.mark.parametrize("username", [
+    "joinchat", "share", "proxy", "socks", "login", "confirmphone", "setlanguage",
+    "addstickers", "addemoji", "addtheme", "bg", "invoice", "giftcode", "addlist",
+    "boost", "contact",
+])
+def test_reserved_telegram_actions_are_not_public_usernames(username):
+    from catix import source_requests as requests
+    with pytest.raises(ValueError):
+        requests.normalize_link(f"https://t.me/{username.title()}")
+
+
+def test_public_api_store_moderation_and_worker_activation(db, monkeypatch):
+    import asyncio
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock
+    from fastapi.testclient import TestClient
+    from telethon.tl import types
+    from telethon.tl.functions.channels import JoinChannelRequest
+
+    from catix import groups, source_requests as requests
+    from catix.api.app import app
+    from catix.api.auth import UserTokenData, verify_user
+    from catix.tgbot import source_requests as moderation
+    from catix.tguserbot import source_requests as worker
+
+    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
+    monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
+    app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="public-owner", email="owner@example.org")
+    try:
+        client = TestClient(app)
+        submitted = client.post("/sources/requests", json={"invite_link": "t.me/UniversityInnopolis", "group_code": "B26", "consent": True})
+        assert submitted.status_code == 201, submitted.text
+        assert submitted.json()["status"] == "pending"
+        assert requests.get_request(submitted.json()["id"])["invite_link"] == "https://t.me/universityinnopolis"
+        assert requests.claim() is None
+        callback = SimpleNamespace(
+            data=f"sr:approve:{submitted.json()['id']}", from_user=SimpleNamespace(id=7), answer=AsyncMock(),
+            message=SimpleNamespace(chat=SimpleNamespace(type="private"), edit_text=AsyncMock()),
+        )
+        asyncio.run(moderation.request_callback(callback))
+        assert requests.get_request(submitted.json()["id"])["status"] == "approved"
+
+        channel = types.Channel(456, "University Innopolis", types.ChatPhotoEmpty(), None, megagroup=True, access_hash=12345, username="universityinnopolis")
+        calls = []
+        joined = False
+        class Telegram:
+            async def get_entity(self, username):
+                assert username == "universityinnopolis"
+                return channel
+            async def __call__(self, request, **kwargs):
+                nonlocal joined
+                calls.append(type(request))
+                if isinstance(request, JoinChannelRequest):
+                    assert requests.get_request(submitted.json()["id"])["join_started_at"] is not None
+                    joined = True
+                    return SimpleNamespace(chats=[channel], users=[])
+                if type(request).__name__ == "GetParticipantRequest":
+                    if not joined:
+                        from telethon.errors import UserNotParticipantError
+                        raise UserNotParticipantError(request)
+                    return SimpleNamespace(participant=types.ChannelParticipantSelf(1, 2, None))
+                raise AssertionError(f"unexpected RPC: {request!r}")
+        telegram = Telegram()
+        assert asyncio.run(worker.process_one(telegram))
+        stored = requests.get_request(submitted.json()["id"])
+        assert stored["status"] == "connected" and stored["chat_id"] == -1000000000456, stored["message"]
+        assert calls.count(JoinChannelRequest) == 1
+        with db() as conn:
+            chat = conn.execute("SELECT * FROM chats WHERE chat_id = %s", (stored["chat_id"],)).fetchone()
+            assert chat["group_code"] == "B26" and chat["requires_verified_group"] is True
+    finally:
+        app.dependency_overrides.pop(verify_user, None)
+
+
+@pytest.mark.parametrize("participant_kind", ["left", "banned"])
+def test_public_worker_does_not_activate_left_or_banned_participant(db, participant_kind):
+    import asyncio
+    from types import SimpleNamespace
+    from telethon.tl import types
+    from telethon.tl.functions.channels import JoinChannelRequest
+    from catix import source_requests as requests
+    from catix.tguserbot import source_requests as worker
+
+    request = requests.submit("public-owner", "owner@example.org", "t.me/PublicChannel", "B26", consent=True)
+    requests.approve(request["id"], 7, "B26")
+    channel = types.Channel(457, "Public channel", types.ChatPhotoEmpty(), None, megagroup=True, access_hash=12346, username="publicchannel")
+    joined = False
+    calls = []
+    class Telegram:
+        async def get_entity(self, username):
+            return channel
+        async def __call__(self, rpc, **kwargs):
+            nonlocal joined
+            calls.append(type(rpc))
+            if isinstance(rpc, JoinChannelRequest):
+                assert requests.get_request(request["id"])["join_started_at"] is not None
+                joined = True
+                return SimpleNamespace(chats=[channel])
+            if participant_kind == "left":
+                participant = types.ChannelParticipantLeft(types.PeerUser(7))
+            else:
+                participant = types.ChannelParticipantBanned(
+                    types.PeerUser(7), 1, None, types.ChatBannedRights(until_date=None, view_messages=True), left=True,
+                )
+            return SimpleNamespace(participant=participant)
+
+    assert asyncio.run(worker.process_one(Telegram()))
+    result = requests.get_request(request["id"])
+    assert result["status"] == "waiting_join"
+    assert result["join_started_at"] is not None
+    assert calls.count(JoinChannelRequest) == 1
+    with db() as conn:
+        assert conn.execute("SELECT count(*) AS n FROM chats").fetchone()["n"] == 0
+
+
+@pytest.mark.parametrize("resolution_error", ["value", "invalid", "unoccupied"])
+def test_public_worker_marks_missing_username_failed_without_join(db, resolution_error):
+    import asyncio
+    from telethon import errors
+    from telethon.tl.functions.channels import JoinChannelRequest
+    from catix import source_requests as requests
+    from catix.tguserbot import source_requests as worker
+
+    request = requests.submit("public-owner", "owner@example.org", "t.me/MissingChannel", "B26", consent=True)
+    requests.approve(request["id"], 7, "B26")
+    class Telegram:
+        async def get_entity(self, username):
+            if resolution_error == "value":
+                raise ValueError("No user has 'missingchannel' as username")
+            err = errors.UsernameInvalidError if resolution_error == "invalid" else errors.UsernameNotOccupiedError
+            raise err(None)
+        async def __call__(self, rpc, **kwargs):
+            assert not isinstance(rpc, JoinChannelRequest)
+            raise AssertionError("resolution failure must precede all join RPCs")
+
+    assert asyncio.run(worker.process_one(Telegram()))
+    result = requests.get_request(request["id"])
+    assert result["status"] == "failed" and result["join_started_at"] is None
+
+
+def test_public_worker_rejects_user_entities_without_join(db):
+    import asyncio
+    from telethon.tl import types
+    from telethon.tl.functions.channels import JoinChannelRequest
+    from catix import source_requests as requests
+    from catix.tguserbot import source_requests as worker
+
+    request = requests.submit("public-owner", "owner@example.org", "t.me/SomeBot", "B26", consent=True)
+    requests.approve(request["id"], 7, "B26")
+    class Telegram:
+        async def get_entity(self, username):
+            return types.User(99, bot=True, first_name="Bot")
+        async def __call__(self, rpc, **kwargs):
+            assert not isinstance(rpc, JoinChannelRequest)
+            raise AssertionError("a resolved user must never be joined or activated")
+
+    assert asyncio.run(worker.process_one(Telegram()))
+    result = requests.get_request(request["id"])
+    assert result["status"] == "failed" and result["join_started_at"] is None
+
+
+def test_public_uncertain_join_is_reconciled_without_repeating_write(db):
+    import asyncio
+    from types import SimpleNamespace
+    from telethon.tl import types
+    from telethon.tl.functions.channels import JoinChannelRequest
+    from catix import source_requests as requests
+    from catix.tguserbot import source_requests as worker
+
+    request = requests.submit("public-owner", "owner@example.org", "t.me/RetryChannel", "B26", consent=True)
+    requests.approve(request["id"], 7, "B26")
+    channel = types.Channel(458, "Retry channel", types.ChatPhotoEmpty(), None, megagroup=True, access_hash=12347, username="retrychannel")
+    joined = False
+    calls = []
+    class Telegram:
+        async def get_entity(self, username):
+            return channel
+        async def __call__(self, rpc, **kwargs):
+            nonlocal joined
+            calls.append(type(rpc))
+            if isinstance(rpc, JoinChannelRequest):
+                assert requests.get_request(request["id"])["join_started_at"] is not None
+                joined = True
+                raise TimeoutError("uncertain public join")
+            if not joined:
+                from telethon.errors import UserNotParticipantError
+                raise UserNotParticipantError(rpc)
+            return SimpleNamespace(participant=types.ChannelParticipantSelf(1, 2, None))
+
+    telegram = Telegram()
+    assert asyncio.run(worker.process_one(telegram))
+    pending = requests.get_request(request["id"])
+    assert pending["status"] == "waiting_join" and pending["join_started_at"]
+    with db() as conn:
+        conn.execute("UPDATE source_requests SET available_at = now() WHERE id = %s", (request["id"],))
+    assert asyncio.run(worker.process_one(telegram))
+    assert requests.get_request(request["id"])["status"] == "connected"
+    assert calls.count(JoinChannelRequest) == 1
