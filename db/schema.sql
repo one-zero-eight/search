@@ -216,6 +216,9 @@ UPDATE message_embeddings e SET chat_id = m.chat_id FROM messages m WHERE m.id =
 ALTER TABLE message_embeddings ALTER COLUMN chat_id SET NOT NULL;
 CREATE INDEX IF NOT EXISTS message_embeddings_chat_idx ON message_embeddings (chat_id);
 
+-- Retired experimental model profiles; the active vectors stay in message_embeddings.
+DROP TABLE IF EXISTS public.message_model_embeddings;
+
 -- Messages waiting for a vector. A trigger fills it, workers take rows with FOR UPDATE SKIP LOCKED, so any
 -- number of workers (and processes) can embed in parallel and a crash loses nothing.
 CREATE TABLE IF NOT EXISTS embedding_queue (
@@ -474,6 +477,8 @@ CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings (
 );
 -- (harrier-oss-v1 was tried as a second vector space and found worse than bge-m3 on the wiki: its table is gone.)
 DROP TABLE IF EXISTS wiki_chunk_embeddings_harrier;
+-- Retired experimental model profiles; the active vectors stay in wiki_chunk_embeddings.
+DROP TABLE IF EXISTS public.wiki_model_embeddings;
 CREATE TABLE IF NOT EXISTS wiki_embedding_queue (
     chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
     queued_at timestamptz NOT NULL DEFAULT now()
