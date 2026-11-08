@@ -12,7 +12,7 @@ An answer may have to wait for the user: on the site shared API tools do externa
 room or a room, enrol them in an event, cancel a booking), and the orchestrator manages the local AI Calendar.
 HumanInTheLoopMiddleware pauses the
 agent before each such action (a LangGraph interrupt in the chat's thread). The response then has `approval` (what is to be
-done) instead of the answer, and the question waits in the chat (api/chats.py `save_waiting`). POST
+done) alongside the assistant's explanation, and the question waits in the chat (api/chats.py `save_waiting`). POST
 /ask/{chat_id}/decision (or .../decision/stream) approves or rejects it: the agent goes on from where it paused, with the token
 of that request, and its answer is the answer to the question. An answer to a new question in the chat drops what waited.
 
@@ -376,7 +376,14 @@ async def _run(
                 checkpoint = after.config["configurable"]["checkpoint_id"]
                 approval = _approval(paused, checkpoint)
                 lines = "\n".join(f"- {a.description}" for a in approval.actions)
-                answer = WAITING.get(_language(query), WAITING["Russian"]).format(actions=lines)
+                messages = result["messages"]
+                # A tool call can carry the explanation of what the user is about to approve.
+                # Only this last supervisor message belongs to the pending action, not earlier replies or tool results.
+                answer = ""
+                if messages and isinstance(messages[-1], AIMessage) and messages[-1].text.strip():
+                    answer = final_answer(messages, result.get("sources") or {})
+                if not answer:
+                    answer = WAITING.get(_language(query), WAITING["Russian"]).format(actions=lines)
                 traced.answer(answer)
                 counts = [{"id": i.id, "actions": len((i.value or {}).get("action_requests") or [None])} for i in paused]
                 return Waiting(answer, _history(result["messages"]), traced.id, checkpoint, approval, counts)

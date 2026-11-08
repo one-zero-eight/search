@@ -683,6 +683,64 @@ def test_the_sites_sport_token_reaches_the_agent_with_the_question_and_the_decis
     assert seen == ["sport-mine", None, None], "only the asker's own, and only from the request it came with"
 
 
+@pytest.mark.parametrize("streamed", [False, True])
+@pytest.mark.parametrize("content_kind", ["text", "blocks", "empty", "whitespace"])
+def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, streamed, content_kind):
+    explanation = (
+        "Ваше расписание на завтра (9 ноября): занятия с 09:00 до 15:50.\n\n"
+        "- **Воллейбол**, 20:00–22:30, [SC] Big Hall (15 мест свободно)\n\nЗаписать вас на неё?"
+    )
+    paused = SimpleNamespace(id="i1", value={"action_requests": [
+        {"name": "call_api_tool", "description": "Записать вас на тренировку #46767."}
+    ]})
+    content = {"text": explanation, "blocks": [{"type": "text", "text": explanation}],
+               "empty": "", "whitespace": " \n "}[content_kind]
+    expected = explanation if content_kind in {"text", "blocks"} else ask.WAITING["Russian"].format(
+        actions="- Записать вас на тренировку #46767.")
+
+    class FakeAgent:
+        paused = False
+
+        async def _delete(thread_id):
+            return None
+
+        checkpointer = SimpleNamespace(adelete_thread=_delete)
+
+        async def aget_state(self, config):
+            return SimpleNamespace(values={}, interrupts=[paused] if self.paused else [],
+                                   config={"configurable": {"checkpoint_id": "cp-paused"}})
+
+        async def ainvoke(self, inputs, config, context):
+            self.paused = True
+            return {"messages": [HumanMessage("предыдущий вопрос"), AIMessage("Старый ответ: бассейн в 10:00."),
+                                 HumanMessage("подбери тренировку"), AIMessage(
+                content=content,
+                tool_calls=[{"id": "checkin", "name": "call_api_tool", "args": {
+                    "name": "sport_sport_checkin", "arguments": {"training_id": 46767},
+                }}],
+            )], "sources": {}}
+
+        async def astream(self, inputs, config, context, stream_mode):
+            yield "values", await self.ainvoke(inputs, config, context)
+
+    agent = FakeAgent()
+    monkeypatch.setattr(ask, "agent", lambda: agent)
+    monkeypatch.setattr(ask.groups, "scoped_chat_ids", lambda key, telegram_id: set())
+    monkeypatch.setattr(ask.groups, "effective_group", lambda key, telegram_id: ask.groups.ALL)
+    response = client.post("/ask/stream" if streamed else "/ask/", json={"query": "подбери тренировку"}, headers=AUTH)
+    assert response.status_code == 200
+    if streamed:
+        block = next(block for block in response.text.split("\n\n") if block.startswith("event: done\n"))
+        body = json.loads(block.split("data: ", 1)[1])
+    else:
+        body = response.json()
+    assert body["answer"] == expected
+    assert body["approval"]["actions"] == paused.value["action_requests"]
+    history = client.get(f"/ask/chats/{body['chat_id']}", headers=AUTH).json()
+    assert history["waiting"]["answer"] == expected
+    assert not kept.answers, "the explanation is not a completed action"
+
+
 def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
     calls = []
     paused = SimpleNamespace(id="i1", value={"action_requests": [{"name": "book_music_room", "description": "Забронировать музкомнату."}]})
