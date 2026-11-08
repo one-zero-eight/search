@@ -273,8 +273,11 @@ def delete_event(user_key: str, event_id: int) -> bool:
 # ---- the feed -------------------------------------------------------------------------------------------------
 
 
-def ics(user_key: str) -> str:
-    """The user's events as an iCalendar document (all of them: a calendar app shows what it wants)."""
+def ics(user_key: str, *, include_sources: bool = True) -> str:
+    """The user's events as an iCalendar document (all of them: a calendar app shows what it wants).
+
+    Public subscription exports omit source links and notes; private calendar consumers keep the historical default.
+    """
     from datetime import timedelta
     from catix.worker.changes import _escape, _fold
 
@@ -304,9 +307,9 @@ def ics(user_key: str) -> str:
         lines.append(f"SUMMARY:{_escape(r.title)}")
         if r.room:
             lines.append(f"LOCATION:{_escape(r.room)}")
-        if r.source_url:
+        if include_sources and r.source_url:
             lines += [f"URL:{r.source_url}", f"X-WR-LINK:{r.source_url}"]  # The message the event comes from.
-        if r.source_note:  # Where it comes from in words: a message of a basic group has no link.
+        if include_sources and r.source_note:  # Where it comes from in words: a message of a basic group has no link.
             lines.append(f"DESCRIPTION:{_escape(r.source_note)}")
         lines.append("END:VEVENT")
     lines.append("END:VCALENDAR")

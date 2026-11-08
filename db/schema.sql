@@ -405,6 +405,15 @@ CREATE TABLE IF NOT EXISTS schedule_changes (
     decided_at  timestamptz
 );
 
+-- Raw opaque calendar subscription keys are intentionally retained only for link retrieval/revocation.
+-- The application role needs access; ctx_reader must never read this table (revokes follow below).
+CREATE TABLE IF NOT EXISTS calendar_export_keys (
+    user_key   text PRIMARY KEY,
+    access_key text NOT NULL UNIQUE,
+    revoked_at timestamptz,
+    created_at timestamptz NOT NULL DEFAULT now()
+);
+
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM ctx_reader;
 REVOKE ALL ON SCHEMA public FROM ctx_reader;
 GRANT USAGE ON SCHEMA visible TO ctx_reader;

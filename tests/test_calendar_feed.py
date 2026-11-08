@@ -211,7 +211,8 @@ def test_the_agent_reads_the_events_of_a_period_and_removes_one_of_its_own(event
     add(IH, "Дедлайн", 12)
     at = lambda day: datetime(2099, 1, day, tzinfo=settings.tz)  # noqa: E731
     assert [e.title for e in personal_calendar.between(IH, at(10), at(11))] == ["Экзамен"]
-    assert [e.title for e in personal_calendar.between(IH, at(11), at(13))] == ["Дедлайн"]
+    # The fixture omits ends_at: an earlier timed event with an unknown end cannot be assumed finished at midnight.
+    assert [e.title for e in personal_calendar.between(IH, at(11), at(13))] == ["Экзамен", "Дедлайн"]
     exam = personal_calendar.between(IH, at(10), at(11))[0]
     assert personal_calendar.event_of(IH, exam.id).title == "Экзамен" and personal_calendar.event_of(TG, exam.id) is None
     assert not personal_calendar.delete_event(TG, exam.id), "not someone else's"

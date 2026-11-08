@@ -28,6 +28,23 @@ from catix.settings import settings
 log = logging.getLogger("catix.api")
 
 
+class _CalendarExportAccessLogFilter(logging.Filter):
+    """Keep the reusable subscription credential out of Uvicorn's request-target log field."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        args = record.args
+        if isinstance(args, tuple) and len(args) >= 3 and isinstance(args[2], str):
+            target = args[2]
+            path = target.split("?", 1)[0]
+            if path.endswith("/users/calendar-export.ics"):
+                record.args = (*args[:2], path, *args[3:])
+        return True
+
+
+_calendar_export_log_filter = _CalendarExportAccessLogFilter()
+logging.getLogger("uvicorn.access").addFilter(_calendar_export_log_filter)
+
+
 @contextlib.asynccontextmanager
 async def lifespan(_app: FastAPI):
     async with ask.memory():  # the agent with its memory of the chats in Postgres
@@ -68,6 +85,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def protect_calendar_export_access_log(request: Request, call_next):
+    # Uvicorn may configure logging after importing this module (its CLI path does). Install before it logs this request.
+    access_logger = logging.getLogger("uvicorn.access")
+    if _calendar_export_log_filter not in access_logger.filters:
+        access_logger.addFilter(_calendar_export_log_filter)
+    return await call_next(request)
 
 
 @app.get("/", tags=["Root"], include_in_schema=False)
