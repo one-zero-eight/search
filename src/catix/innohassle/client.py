@@ -254,15 +254,21 @@ def book_music_room(token: str, start: datetime, end: datetime) -> dict:
     """Book the music room for the user; the booking. The times go in local time without an offset, as the service wants."""
     body = {"time_start": start.replace(tzinfo=None).isoformat(), "time_end": end.replace(tzinfo=None).isoformat()}
     booking = _as_user("POST", "/music-room/v0/bookings/", token, json=body).json()
-    if not isinstance(booking, dict):  # It says why it did not book with a text and 200: "overlapping", no hours left...
-        raise ServiceError(200, str(booking)[:300])
+    if isinstance(booking, str):  # The service's declared HTTP 200 refusal variant is a string.
+        raise ServiceError(200, booking[:300])
+    if not isinstance(booking, dict):
+        # A malformed reply after POST does not prove that nothing was booked.
+        raise ValueError("Invalid Music Room booking response.")
     return booking
 
 
 def cancel_music_room(token: str, booking_id: int) -> None:
     if type(booking_id) is not int:
         raise ValueError("Invalid music room booking identifier.")
-    if _as_user("DELETE", f"/music-room/v0/bookings/{booking_id}", token).json() is not True:
+    cancelled = _as_user("DELETE", f"/music-room/v0/bookings/{booking_id}", token).json()
+    if type(cancelled) is not bool:
+        raise ValueError("Invalid Music Room cancellation response.")
+    if cancelled is False:
         raise ServiceError(200, "the music room did not cancel the booking")
 
 

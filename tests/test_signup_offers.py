@@ -127,7 +127,7 @@ def test_matched_recommendation_produces_opaque_offer_and_private_snapshot():
     assert 'training_id' not in response.model_dump_json()
 
 
-@pytest.mark.parametrize('mode', ['old', 'unpaired', 'failed', 'excluded', 'artifact_mismatch', 'mutated', 'unmentioned'])
+@pytest.mark.parametrize('mode', ['old', 'unpaired', 'failed', 'excluded', 'artifact_mismatch', 'mutated'])
 def test_untrusted_or_stale_recommendations_never_offer_signup(mode):
     from catix.api.signup import collect
     messages = recommendation()
@@ -146,9 +146,15 @@ def test_untrusted_or_stale_recommendations_never_offer_signup(mode):
         messages.extend([AIMessage('', tool_calls=[{'id': 'write', 'name': 'call_api_tool', 'args': {
             'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}}}]),
             ToolMessage('{}', name='call_api_tool', tool_call_id='write')])
-    else:
-        answer = 'Не нашлось подходящего занятия.'
     assert collect(messages, answer, now=NOW) == ([], {})
+
+
+@pytest.mark.parametrize('service', ['sport', 'events'])
+def test_offer_selection_never_depends_on_literal_model_title(service):
+    from catix.api.signup import collect
+    messages = recommendation() if service == 'sport' else event_read()
+    offers, _ = collect(messages, 'Выберите подходящий вариант ниже.', now=NOW)
+    assert len(offers) == 1 and offers[0].service == service
 
 
 def test_sport_click_uses_real_fresh_guard_then_exact_readback(monkeypatch):

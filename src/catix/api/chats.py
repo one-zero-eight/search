@@ -11,7 +11,7 @@ The functions block: the API calls them with asyncio.to_thread.
 from psycopg.types.json import Jsonb
 
 from catix.api import state
-from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SignupOffer
+from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SignupOffer, SignupSelection
 from catix.db import pg
 
 TITLE_MAX = 200  # characters of the first question kept as the chat's title
@@ -175,9 +175,10 @@ def _signup_row(conn, chat_id, owner, offer_id):
                         (chat_id, Jsonb([{'id': offer_id}]))).fetchone()
 
 
-def claim_signup(chat_id: str, owner: str, offer_id: str) -> tuple[SignupOffer, dict | None] | None:
+def claim_signup(chat_id: str, owner: str, offer_id: str, selection: SignupSelection | None = None) -> tuple[SignupOffer, dict | None] | None:
     """Commit unknown before any I/O. A crashed/duplicate click never gets a target."""
     from catix.api.signup import UNKNOWN
+    from catix.api.booking_offers import select
 
     with pg.connection() as conn:
         row = _signup_row(conn, chat_id, owner, offer_id)
@@ -189,6 +190,9 @@ def claim_signup(chat_id: str, owner: str, offer_id: str) -> tuple[SignupOffer, 
         target = response.get('_signup_targets', {}).get(offer_id)
         if offer.status != 'available' or target is None:
             return offer, None
+        offer, target = select(offer, target, selection)
+        item.update(offer.model_dump(mode='json'))
+        response['_signup_targets'][offer_id] = target
         item.update(status='unknown', message=UNKNOWN)
         conn.execute('UPDATE api_answers SET response = %s WHERE id = %s', (Jsonb(response), row['id']))
         conn.execute('UPDATE api_chats SET updated_at = now() WHERE chat_id = %s', (chat_id,))
@@ -223,7 +227,7 @@ def signup_receipts(chat_id: str, owner: str) -> list[dict]:
         rows = conn.execute('''SELECT a.response->'signup_offers' AS offers FROM api_answers a
                                JOIN api_chats c USING (chat_id) WHERE c.chat_id = %s AND c.innohassle_id = %s
                                ORDER BY a.id''', (chat_id, owner)).fetchall()
-    return [{key: item.get(key) for key in ('id', 'service', 'title', 'starts_at', 'ends_at', 'all_day', 'location', 'status', 'message')}
+    return [{key: item.get(key) for key in ('id', 'service', 'title', 'booking_title', 'starts_at', 'ends_at', 'all_day', 'location', 'status', 'message')}
             for row in rows for item in row['offers'] or [] if item.get('status') in {'confirmed', 'refused', 'unknown'}]
 
 

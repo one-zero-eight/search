@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Discriminator, PrivateAttr
+from pydantic import BaseModel, ConfigDict, Discriminator, Field, PrivateAttr
 
 from catix.attachments import AttachmentInfo
 
@@ -193,12 +193,33 @@ class AskApproval(BaseModel):
     "What the assistant is about to do for the user in InNoHassle. Nothing is done before the user decides: POST /ask/{chat_id}/decision."
 
 
+class SignupSelection(BaseModel):
+    """Only explicit user choices; target IDs and dates remain server-owned."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    booking_title: str | None = Field(None, max_length=100, pattern=r"\S")
+    time_from: str | None = Field(None, pattern=r"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$")
+    time_to: str | None = Field(None, pattern=r"^(?:[01][0-9]|2[0-3]):[0-5][0-9]$")
+
+
+class MusicBookingWindow(BaseModel):
+    starts_at: datetime
+    ends_at: datetime
+    latest_start_at: datetime
+    max_duration_minutes: int
+    duration_minutes: int | None = None
+    step_minutes: Literal[30] = 30
+
+
 class SignupOffer(BaseModel):
     """A verified service target; an external URL is a link, never consent to a write."""
 
     id: str
-    service: Literal["events", "sport"]
+    service: Literal["events", "sport", "rooms", "music"]
     title: str
+    booking_title: str | None = None
+    music_window: MusicBookingWindow | None = None
     starts_at: datetime
     ends_at: datetime | None = None
     all_day: bool = False

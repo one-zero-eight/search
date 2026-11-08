@@ -60,6 +60,7 @@ from catix.api.schemas import (
     CalendarEventOffer,
     SearchResponse,
     SignupOffer,
+    SignupSelection,
 )
 from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
@@ -568,12 +569,15 @@ def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecisi
 
 @router.post('/ask/{chat_id}/signup/{offer_id}', response_model=SignupOffer,
              responses={404: {'description': 'Offer not found or chat is not owned by this user'}})
-async def signup_offer(user: AskerDep, chat_id: str, offer_id: str) -> SignupOffer:
+async def signup_offer(user: AskerDep, chat_id: str, offer_id: str, selection: SignupSelection | None = None) -> SignupOffer:
     """An explicit button click, not an agent turn. Durable claim prevents retries."""
     if not user.innohassle_id:
         raise HTTPException(404, 'Signup offer not found')
     async with one_at_a_time(user.innohassle_id):
-        claimed = await asyncio.to_thread(chats.claim_signup, chat_id, user.innohassle_id, offer_id)
+        try:
+            claimed = await asyncio.to_thread(chats.claim_signup, chat_id, user.innohassle_id, offer_id, selection)
+        except ValueError as error:
+            raise HTTPException(422, str(error)) from None
         if claimed is None:
             raise HTTPException(404, 'Signup offer not found')
         offer, target = claimed
