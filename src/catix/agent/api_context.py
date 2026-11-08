@@ -73,9 +73,13 @@ def from_result(target, arguments, read_name, data, language="en"):
     """Project only one exact target from a known read's wire shape."""
     if not isinstance(data, dict) or "error" in data:
         return None
-    if target == "sport_sport_checkin" and read_name in {"sport_get_sport_trainings", "sport_get_training", "sport_get_my_sport"}:
+    if target == "sport_sport_checkin" and read_name in {"sport_get_sport_trainings", "sport_get_training", "sport_get_my_sport", "get_my_available_trainings"}:
         rows = ([data.get("training")] if read_name == "sport_get_training" else
                 data.get("checked_in") if read_name == "sport_get_my_sport" else data.get("trainings"))
+        if read_name == "get_my_available_trainings":
+            if not all(isinstance(data.get(key), list) for key in ("available", "excluded", "unverified")):
+                return None
+            rows = data["available"] + data["excluded"] + data["unverified"]
         if not isinstance(rows, list):
             return None
         matches = [row for row in rows if isinstance(row, dict) and type(row.get("training_id")) is int
@@ -137,7 +141,7 @@ def from_messages(target, arguments, messages, language="en"):
     if lookup is None:
         return None
     if target == "sport_sport_checkin":
-        sources = {"sport_get_sport_trainings", "sport_get_my_sport", "sport_get_training"}
+        sources = {"sport_get_sport_trainings", "sport_get_my_sport", "sport_get_training", "get_my_available_trainings"}
     elif target == "events_enroll_in_event":
         sources = {"events_get_university_events", "events_get_event", "events_events_list_events"}
     else:
@@ -148,11 +152,13 @@ def from_messages(target, arguments, messages, language="en"):
             calls, found = {}, None
         elif isinstance(message, AIMessage):
             calls.update((call["id"], call) for call in message.tool_calls)
-        elif isinstance(message, ToolMessage) and message.name == "call_api_tool":
+        elif isinstance(message, ToolMessage) and message.name in {"call_api_tool", "get_my_available_trainings"}:
             call = calls.get(message.tool_call_id)
-            if not call or call["name"] != "call_api_tool":
+            if not call or call["name"] != message.name:
                 continue
-            name = call["args"].get("name")
+            name = message.name if message.name == "get_my_available_trainings" else call["args"].get("name")
+            if name == "get_my_available_trainings" and call["name"] != name:
+                continue
             if name == target:
                 found = None  # An intervening mutation invalidates the earlier snapshot.
                 continue

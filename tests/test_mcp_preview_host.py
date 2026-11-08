@@ -27,16 +27,16 @@ SCHEMA = {"type": "object", "properties": {"training_id": {"type": "integer"}, "
 
 def state(call=None, questions=None, schema=SCHEMA) -> ApiPreflightState:
     import json
-    reads = [AIMessage(content="", tool_calls=[{"name": "call_api_tool", "id": "training", "args": {
-        "name": "sport_get_sport_trainings", "arguments": {"date_from": "2026-11-09", "date_to": "2026-11-09"}}}]),
-        ToolMessage(content=json.dumps({"trainings": [{"training_id": 7, "name": "Frisbee",
-            "date": "2026-11-09 Mon", "time": "08:00-10:00", "place": "Big Hall"}]}),
-            name="call_api_tool", tool_call_id="training")]
+    from tests.test_sport_calendar_guard import DAY, FRISBEE, agenda_data, read_messages
+
+    reads = read_messages("sport_get_sport_trainings", {"range": [DAY, DAY], "trainings": [{**FRISBEE, "training_id": 7}]}, "training")
+    reads += read_messages("get_my_schedule", agenda_data(classes=[]), "agenda")
     return {"messages": [*(questions or [HumanMessage("Check in.")]),
                          AIMessage(content="", tool_calls=[{"name": "search_api_tools", "args": {"query": "sport"}, "id": "s1"}]),
                          ToolMessage(content=json.dumps({"tools": [{"name": "sport_sport_checkin", "inputSchema": schema}]}),
                                      name="search_api_tools", tool_call_id="s1"),
-                         *reads, AIMessage(content="", tool_calls=[deepcopy(call or CALL)])]}
+                         *reads,
+                         AIMessage(content="", tool_calls=[deepcopy(call or CALL)])]}
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])

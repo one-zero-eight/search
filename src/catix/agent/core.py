@@ -111,7 +111,7 @@ GROUP_PROMPT = """
 The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for questions explicitly
 about the public group timetable, and for the study-group context of courses, exams and midterms. It does NOT identify
 this user's selected English stream, subscribed courses or personal calendar. A signed-in user's "my schedule" must use
-account_get_my_schedule and the local AI Calendar, not the public group feed. The system has already limited every chat
+get_my_schedule (including AI Calendar), not the public group feed. The system has already limited every chat
 search to the chats for everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change
 that. Each chat message says its `group`."""
 
@@ -119,7 +119,7 @@ NO_GROUP_PROMPT = """
 
 The asker has no study group (`all`): the system has limited every chat search to the chats of group `all` (the ones for
 everybody), and each chat message says the `group` of its chat. For an explicitly requested public group timetable,
-ask for the group. A signed-in user's personal agenda needs no group: use account_get_my_schedule and get_my_ai_calendar."""
+ask for the group. A signed-in user's personal agenda needs no group: use get_my_schedule."""
 
 
 CHATS_PROMPT = """
@@ -163,22 +163,22 @@ def prompt_for(role: str | None):
             ]
         if role is None:
             if context and context.innohassle_token:
-                parts.append("\n\nPersonal agenda source: account_get_my_schedule via call_api_tool. "
+                parts.append("\n\nPersonal agenda source: get_my_schedule, a host tool including AI Calendar. "
                              "This asker has InNoHassle sign-in; their selected English/course calendars, sport, "
                              "event enrolments and bookings are NOT the public timetable of their academic group. "
-                             "For 'my schedule' read this source AND local get_my_ai_calendar, never substitute "
+                             "For 'my schedule' call this one combined tool; never substitute "
                              "schedule_get_schedule or infer an English stream from the profile group. "
                              "A failed personal source is missing data, not permission to replace it with group classes.")
             else:
                 parts.append("\n\nPersonal agenda access: no InNoHassle credential is available. "
-                             "Only the public schedule_get_schedule for a known or explicitly named group and local "
-                             "get_my_ai_calendar can be read here. Label the group timetable as a partial fallback, "
+                             "Use get_my_schedule for the available local calendar and trusted-group fallback. "
+                             "Label the group timetable as a partial fallback, "
                              "not the user's subscribed calendar; it may contain multiple English streams. "
                              "Do not choose their stream or claim external bookings/sport were checked.")
             parts.append(f"\nFor a personal agenda without an explicit period, use date_from={now.date().isoformat()}, "
                          f"date_to={(now + timedelta(days=6)).date().isoformat()} (seven days inclusive). "
-                         "Pass the SAME explicit date_from/date_to to both external and local reads. "
-                         "If the user specified a period, use that instead. get_my_ai_calendar has no day argument.")
+                         "get_my_schedule applies one shared period to every source. "
+                         "If the user specified a period, use that instead. It has no day argument.")
         parts.append(
             TAIL_PROMPT.format(
                 language=_last_question_language(request),
@@ -249,7 +249,9 @@ class QuestionNoteMiddleware(AgentMiddleware):
                 if self.alone and request.state.get("answer_alone"):
                     reminder = self.alone.format(language=_language(str(messages[i].content)))
                 text = str(messages[i].content)
-                worked = dates.question_dates(text, datetime.now(settings.tz))
+                context = getattr(getattr(request, "runtime", None), "context", None)
+                now = context.asked_at.astimezone(settings.tz) if context else datetime.now(settings.tz)
+                worked = dates.question_dates(text, now)
                 notes = [
                     f"Dates in this message, worked out (use them, not your own arithmetic): {'; '.join(worked)}." if worked else "",
                     courses.hint_line(text).strip() if self.hint else "",
@@ -688,8 +690,8 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         call = calls.get(message.tool_call_id)
         if not call or call["name"] != message.name:
             continue
-        if message.name == "get_my_ai_calendar":
-            target = "get_my_ai_calendar"  # Local-only; independent of the MCP catalogue.
+        if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings"}:
+            target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
             target = call["args"].get("name")
             if not isinstance(target, str) or target not in MCP_READ_TOOLS:
@@ -755,6 +757,18 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         if parts is not None and (any(parts) or
                                   not failed.issuperset({"class", "sport", "event", "music room", "rooms"})):
             return parts
+    elif target == "get_my_available_trainings" and _read_period(data.get("range")):
+        parts = lists("available", "excluded", "unverified")
+        if (parts is not None and data["range"][0] == data["range"][1]
+                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
+                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
+                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
+                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
+                and all(isinstance(row, dict) and type(row.get("training_id")) is int and row["training_id"] > 0
+                        and row.get("checked_in") is False and row.get("can_check_in") is True
+                        and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at")) for row in parts[0])
+                and all(isinstance(row, dict) and isinstance(row.get("reason"), str) for part in parts[1:] for row in part)):
+            return parts
     elif target == "sport_get_sport_trainings" and _read_period(data.get("range")):
         return lists("trainings")
     elif target == "sport_get_training":
@@ -772,6 +786,22 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         if (isinstance(item, dict) and item.get("service") in {"room", "music_room"}
                 and all(isinstance(item.get(key), str) and item[key] for key in ("booking_id", "date", "time"))):
             return (item,)
+    elif target == "get_my_schedule" and _read_period(data.get("range")):
+        parts, origins = lists("events"), data.get("sources")
+        missing = data.get("not_read")
+        if (parts is not None and type(data.get("total")) is int and data["total"] == len(parts[0])
+                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
+                and isinstance(missing, list) and all(isinstance(value, str) for value in missing)
+                and isinstance(origins, dict) and {"innohassle", "ai_calendar"} <= origins.keys()
+                and origins.keys() <= {"innohassle", "ai_calendar", "group_timetable"}
+                and all(isinstance(value, dict) and value.get("status") in {"complete", "partial", "unavailable"}
+                        and type(value.get("truncated")) is bool for value in origins.values())
+                and data["complete"] == all(value["status"] == "complete" for value in origins.values())
+                and not (data["complete"] and (missing or data["truncated"]))
+                and any(value["status"] != "unavailable" for value in origins.values())
+                and all(isinstance(row, dict) and isinstance(row.get("source"), str) and row["source"] in origins
+                        and origins[row["source"]]["status"] != "unavailable" for row in parts[0])):
+            return parts
     elif target == "get_my_ai_calendar":
         return lists("events") if _read_period(data.get("range")) else None
     elif target == "schedule_get_schedule" and _read_period(data.get("range")):

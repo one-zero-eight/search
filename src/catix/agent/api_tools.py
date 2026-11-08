@@ -143,6 +143,11 @@ def _call(name: str, runtime: ToolRuntime, arguments: dict | None = None) -> dic
     if isinstance(prepared, dict):
         return prepared
     payload, token, credentials = prepared
+    if name == "sport_sport_checkin" and payload["arguments"].get("cancel") is not True:
+        from catix.agent.scheduling import recheck_training
+
+        if refusal := recheck_training(payload["arguments"], runtime, token, credentials):
+            return refusal
     return mcp_client.request_sync("call_tool", payload, token, **credentials)
 
 
@@ -151,6 +156,11 @@ async def _acall(name: str, runtime: ToolRuntime, arguments: dict | None = None)
     if isinstance(prepared, dict):
         return prepared
     payload, token, credentials = prepared
+    if name == "sport_sport_checkin" and payload["arguments"].get("cancel") is not True:
+        from catix.agent.scheduling import arecheck_training
+
+        if refusal := await arecheck_training(payload["arguments"], runtime, token, credentials):
+            return refusal
     return await mcp_client.request("call_tool", payload, token, **credentials)
 
 
@@ -179,8 +189,8 @@ call_api_tool = _CallApiTool.from_function(
                 "Mutations wait for the user's approval of the exact change. "
                 "If a mutation outcome is unknown, never repeat it; use a fresh read to reconcile. "
                 "Public data needs no sign-in; account reads and printer state need sign-in, Sport needs its separate token. "
-                "For a signed-in user's own schedule, use account_get_my_schedule, not schedule_get_schedule; "
-                "combine it with local get_my_ai_calendar using the same date_from/date_to. "
+                "For the user's own schedule, use the host get_my_schedule tool, which already includes AI Calendar. "
+                "account_get_my_schedule reads only the external part. "
                 "schedule_get_schedule is only a public group timetable and may contain multiple English streams. "
                 "For that public read, omit group to use the trusted profile group; an explicit group must be "
                 "the user's own or named in their question. If unknown, ask; never copy an example group. "

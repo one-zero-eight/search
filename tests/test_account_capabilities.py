@@ -29,7 +29,8 @@ def test_root_exposes_shared_api_and_only_retrieval_helpers():
 
 def test_calendar_requests_are_routed_to_actions_on_the_site_and_buttons_in_bots():
     assert "add_to_ai_calendar" in roles.SUPERVISOR and "update_ai_calendar" in roles.SUPERVISOR
-    assert "AI Calendar" not in roles.MCP_RULES and "calendar_" not in roles.MCP_RULES
+    assert "host tool get_my_schedule" in roles.MCP_RULES
+    assert "calendar_add_to_ai_calendar" not in roles.MCP_RULES
     assert "Nobody adds an event" not in roles.SUPERVISOR
     assert "only by its button" not in roles.MCP_RULES
     assert "AI Calendar" not in roles.ACCOUNT_OFFERS

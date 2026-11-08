@@ -17,6 +17,8 @@ STATUS = {
     "search_api_tools": "🔎 Ищу подходящий инструмент…",
     "call_api_tool": "🔧 Обращаюсь к сервису…",
     "get_my_ai_calendar": "🗓 Смотрю ваш AI-календарь…",
+    "get_my_schedule": "🗓 Смотрю ваше расписание и личные события…",
+    "get_my_available_trainings": "🏃 Подбираю тренировки без пересечений…",
     "add_to_ai_calendar": "🗓 Готовлю добавление в календарь…",
     "update_ai_calendar": "🗓 Готовлю изменение календаря…",
     "remove_from_ai_calendar": "🗑 Готовлю удаление из календаря…",

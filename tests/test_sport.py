@@ -116,10 +116,21 @@ def test_without_the_sport_token_nothing_is_asked(sport):
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("cancel", [False, True])
-def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel):
+def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel, monkeypatch):
+    from catix.agent import calendar_tools
+    from catix.innohassle import mcp_account
+
+    monkeypatch.setattr(mcp_account, "_calendar", lambda *a: ([], {}))
+    monkeypatch.setattr(mcp_account, "_bookings", lambda *a: ([], []))
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
     training_id = 13 if cancel else 11
     question = "отмени запись на плавание" if cancel else "запиши меня на волейбол в пятницу"
-    script = [
+    period = {"date_from": FRIDAY.isoformat(), "date_to": FRIDAY.isoformat()}
+    script = ([] if cancel else [AIMessage(content="", tool_calls=[
+        {"name": "call_api_tool", "args": {"name": "sport_get_sport_trainings", "arguments": period}, "id": "trainings"},
+        {"name": "call_api_tool", "args": {"name": "account_get_my_schedule", "arguments": period}, "id": "agenda"},
+        {"name": "get_my_ai_calendar", "args": period, "id": "local"},
+    ])]) + [
         AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": {
             "name": "sport_sport_checkin", "arguments": {"training_id": training_id, "cancel": cancel}}, "id": "h1"}]),
         AIMessage(content="Обработано."),

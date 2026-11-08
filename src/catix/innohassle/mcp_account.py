@@ -44,7 +44,8 @@ def _local(value: str) -> datetime:
 
 
 def _span(start: datetime, end: datetime) -> dict:
-    return {"date": start.strftime("%Y-%m-%d %a"), "time": f"{start:%H:%M}-{end:%H:%M}"}
+    return {"date": start.strftime("%Y-%m-%d %a"), "time": f"{start:%H:%M}-{end:%H:%M}",
+            "starts_at": start.isoformat(), "ends_at": end.isoformat()}
 
 
 def _why(e: innohassle.ServiceError, what: str) -> str:
@@ -61,7 +62,7 @@ def _refused(e: innohassle.ServiceError, what: str) -> dict:
 def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
     calendar = icalendar.Calendar.from_ical(text)
     now, seen, out = (_now(), set(), [])
-    for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
+    for ev in recurring_ical_events.of(calendar).between(_at(start, time.min), _at(end + timedelta(days=1), time.min)):
         begin = ev.decoded("DTSTART")
         title, place = (str(ev.get("SUMMARY", "")), str(ev.get("LOCATION", "")) or None)
         if (key := (str(begin), title, place)) in seen:
@@ -73,8 +74,11 @@ def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
                     k: v
                     for k, v in {
                         "kind": kind,
+                        "calendar_uid": str(ev.get("UID", "")),
                         "date": begin.strftime("%Y-%m-%d %a"),
                         "all_day": True,
+                        "starts_at": _at(begin, time.min).isoformat(),
+                        "ends_at": _at(ev.decoded("DTEND", begin + timedelta(days=1)), time.min).isoformat(),
                         "title": title,
                         "place": place,
                     }.items()
@@ -86,6 +90,8 @@ def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
         finish = ev.decoded("DTEND").astimezone(settings.tz) if "DTEND" in ev else begin
         item = {
             "kind": kind,
+            "calendar_uid": str(ev.get("UID", "")),
+            "starts_at": begin.isoformat(),
             **(
                 _span(begin, finish)
                 if finish > begin
@@ -233,7 +239,7 @@ def account_get_my_schedule(
 
     Uses the user's authenticated calendar feeds, not the public academic-group timetable, which
     can contain other English streams. No group argument is needed. Excludes the local AI Calendar:
-    the host should also read get_my_ai_calendar with the SAME explicit date_from/date_to.
+    cAtIx hosts use get_my_schedule to combine this external source with their local AI Calendar.
     Report not_read and truncation; never substitute public group events for a failed personal feed.
     """
     from catix.innohassle import client as innohassle

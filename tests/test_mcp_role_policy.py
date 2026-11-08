@@ -64,14 +64,14 @@ def test_per_user_credentials_and_raw_arguments_without_server_imports(monkeypat
         runtime = SimpleNamespace(context=AgentContext(innohassle_token=SecretStr(f"user-{user}"),
                                                        sport_token=SecretStr(f"sport-{user}")))
         for name, args in [("maps_scenes_scenes", {}), ("printers_print_get_printers_status", {}),
-                           ("sport_sport_checkin", {"training_id": 11})]:
+                           ("sport_sport_checkin", {"training_id": 11, "cancel": True})]:
             result = (asyncio.run(tool.coroutine(name, runtime, args)) if asynchronous else tool.func(name, runtime, args))
             assert result == {"done": True}
     assert [(args[2], kwargs) for args, kwargs in sent] == [
         (None, {}), ("user-a", {}), ("user-a", {"sport_token": "sport-a"}),
         (None, {}), ("user-b", {}), ("user-b", {"sport_token": "sport-b"}),
     ]
-    assert sent[2][0][1]["arguments"] == {"training_id": 11}  # No host defaults/canonicalizer.
+    assert sent[2][0][1]["arguments"] == {"training_id": 11, "cancel": True}  # No host defaults/canonicalizer.
 
 
 @pytest.mark.parametrize("name,context", [

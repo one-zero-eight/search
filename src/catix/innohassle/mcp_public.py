@@ -3,7 +3,7 @@
 import json
 import math
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 from typing import Annotated, Literal
 
 import icalendar
@@ -162,7 +162,8 @@ def schedule_get_schedule(
     calendar = icalendar.Calendar.from_ical(ics)
     now = datetime.now(settings.tz)
     classes, seen = ([], set())
-    for ev in recurring_ical_events.of(calendar).between(start, end + timedelta(days=1)):
+    for ev in recurring_ical_events.of(calendar).between(
+            datetime.combine(start, time.min, settings.tz), datetime.combine(end + timedelta(days=1), time.min, settings.tz)):
         title = str(ev.get("SUMMARY", ""))
         if query and (not _matches(query, title)):
             continue
@@ -178,6 +179,9 @@ def schedule_get_schedule(
         status = "finished" if finish <= now else "now" if begin <= now else "upcoming"
         item = {
             "date": local.strftime("%Y-%m-%d %a"),
+            "calendar_uid": str(ev.get("UID", "")),
+            "starts_at": local.isoformat(),
+            "ends_at": finish.astimezone(settings.tz).isoformat() if finish > begin else None,
             "time": f"{local:%H:%M}-{ev.decoded('DTEND').astimezone(settings.tz):%H:%M}"
             if "DTEND" in ev
             else f"{local:%H:%M}",

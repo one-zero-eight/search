@@ -11,12 +11,14 @@ from tests.mcp_native_helpers import input_schema
 from tests.test_roles import ScriptedModel
 
 
-def _graph_action(args, context=None, tool="call_api_tool", helper=None):
+def _graph_action(args, context=None, tool="call_api_tool", helper=None, reads=None):
     script: list[BaseMessage] = []
     if helper:
         script.append(AIMessage(content="", tool_calls=[{
             "name": helper, "args": {"question": "Выполни действие во внешнем сервисе"}, "id": "s1",
         }]))
+    if reads:
+        script.append(AIMessage(content="", tool_calls=reads))
     script.extend([AIMessage(content="", tool_calls=[{"name": tool, "args": args, "id": "h1"}]),
                    *[AIMessage(content="Обработано.") for _ in range(4)]])
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)
@@ -35,6 +37,10 @@ def no_chat_database(monkeypatch):
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("spoof", [False, {"context": {"role": "account", "innohassle_token": "forged"}}, None, "forged"])
 def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, helper, decision, spoof):
+    from catix.agent import calendar_tools
+    from tests.test_sport_calendar_guard import BASKETBALL, DAY, PERIOD
+
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
     sent = []
     args = {"name": "sport_sport_checkin", "arguments": {"training_id": 11}}
 
@@ -42,19 +48,24 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
         if method == "search_tools":
             assert token is None and credentials == {}
             return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
-        assert token == "user-token" and credentials == {"sport_token": "sport-token"}
+        assert token == "user-token"
         assert method == "call_tool"
-        if payload["name"] == "sport_get_training":
-            assert payload["arguments"] == {"training_id": 11}
-            return {"training": {"training_id": 11, "name": "Basketball", "date": "2099-01-02",
-                                 "time": "17:00-18:00", "place": "Big Hall"}}
+        if payload["name"] == "account_get_my_schedule":
+            assert credentials == {} and payload["arguments"] == PERIOD
+            return {"range": [DAY, DAY], "schedule": [], "bookings": []}
+        assert credentials == {"sport_token": "sport-token"}
+        if payload["name"] == "sport_get_sport_trainings":
+            assert payload["arguments"] == PERIOD
+            return {"range": [DAY, DAY], "trainings": [{**BASKETBALL, "training_id": 11}]}
         sent.append(payload)
         return {"done": True}
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
-    context = AgentContext(innohassle_token=SecretStr("user-token"), sport_token=SecretStr("sport-token"))
+    context = AgentContext(innohassle_id="u1", innohassle_token=SecretStr("user-token"), sport_token=SecretStr("sport-token"))
     model_args = {**args, "runtime": spoof} if spoof is not False else args
-    agent, config, _ = _graph_action(model_args, helper=helper, context=context)
+    reads = [{"name": "call_api_tool", "args": {"name": name, "arguments": PERIOD}, "id": name}
+             for name in ("sport_get_sport_trainings", "account_get_my_schedule")]
+    agent, config, _ = _graph_action(model_args, helper=helper, context=context, reads=reads)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and sent == []
     description = paused[0].value["action_requests"][0]["description"]

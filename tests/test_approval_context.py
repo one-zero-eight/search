@@ -35,11 +35,14 @@ def read_messages(name, arguments, data, ident="read"):
 
 
 def initial(messages=None):
+    from tests.test_sport_calendar_guard import agenda_data, read_messages as host_read
+
+    calendars = host_read("get_my_schedule", agenda_data(classes=[]), "agenda")
     return {"messages": [HumanMessage("Запиши на подходящую тренировку."),
                          AIMessage(content="", tool_calls=[{"name": "search_api_tools", "id": "schema", "args": {"query": "sport"}}]),
                          ToolMessage(content=json.dumps({"tools": [{"name": "sport_sport_checkin", "inputSchema": SCHEMA}]}),
                                      name="search_api_tools", tool_call_id="schema"),
-                         *(messages or []), AIMessage(content="", tool_calls=[deepcopy(CALL)])]}
+                         *calendars, *(messages or []), AIMessage(content="", tool_calls=[deepcopy(CALL)])]}
 
 
 def prepare(state, asynchronous):

@@ -166,7 +166,8 @@ def test_external_tools_are_registered_only_through_shared_mcp():
     assert shared <= roles.MAIN_TOOLS <= known
     assert all(shared <= role.tools <= known for role in roles.ROLES.values())
     assert {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"} <= known
-    assert not {"get_my_schedule", "book_music_room", "sport_checkin", "get_courses", "get_schedule",
+    assert "get_my_schedule" in known  # Host aggregator, not the retired external-only implementation.
+    assert not {"book_music_room", "sport_checkin", "get_courses", "get_schedule",
                 "get_clubs", "get_university_events", "find_room"} & known
 
 

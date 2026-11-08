@@ -18,6 +18,7 @@ from catix.common.dates import ClockTime
 from catix.settings import settings
 
 DEFAULT_DAYS = 14
+MAX_EVENTS = 40
 log = logging.getLogger("catix.calendar.tools")
 NO_CALENDAR = (
     "The asker's AI Calendar is kept under their InNoHassle account, and this chat does not know it: it is in the Telegram "
@@ -85,9 +86,10 @@ def calendar_item(event: personal_calendar.PersonalEvent) -> dict:
 
 
 def events_between(key: str, start: date, end: date) -> list[dict]:
-    """The AI Calendar's events from `start` to `end` inclusive."""
+    """The AI Calendar's events, with one extra row to detect truncation."""
     first = datetime.combine(start, time.min, settings.tz)
-    found = personal_calendar.between(key, first, datetime.combine(end + timedelta(days=1), time.min, settings.tz))
+    found = personal_calendar.between(key, first, datetime.combine(end + timedelta(days=1), time.min, settings.tz),
+                                      limit=MAX_EVENTS + 1)
     return [calendar_item(e) for e in found]
 
 
@@ -109,16 +111,24 @@ class GetAiCalendarArgs(BaseModel):
 def get_my_ai_calendar(runtime: ToolRuntime, date_from: date | None = None, date_to: date | None = None) -> dict:
     """The asker's local AI Calendar: personal events added through answer buttons or approved local actions,
     with ids, timestamps and source messages where available. Use date_from/date_to, not day.
-    For a complete signed-in personal agenda also read account_get_my_schedule for external selected calendars,
-    sport and bookings, with the SAME explicit date_from/date_to. This tool alone is not the external schedule.
+    Use this only for explicitly local AI Calendar requests. For the full personal agenda use get_my_schedule,
+    which includes these events together with selected class calendars, sport, enrolments and bookings.
     """
+    start = date_from or datetime.now(settings.tz).date()
+    end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
+    return read_calendar(runtime, start, end)
+
+
+def read_calendar(runtime, start: date, end: date) -> dict:
+    """Read the local calendar for an explicit period, shared by both host agenda tools."""
     key, why = calendar_key(runtime)
     if key is None:
         return {"error": why}
-    start = date_from or datetime.now(settings.tz).date()
-    end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     events = events_between(key, start, end)
-    result: dict = {"range": [start.isoformat(), end.isoformat()], "events": events}
+    result: dict = {"range": [start.isoformat(), end.isoformat()], "events": events[:MAX_EVENTS],
+                    "truncated": len(events) > MAX_EVENTS}
+    if result["truncated"]:
+        result["note"] = "Only the first 40 AI Calendar events are shown; narrow the dates. Availability is not verified."
     if not events:
         result["note"] = "No event of the AI Calendar in this period. Add through an answer button or an approved AI Calendar action on the site."
     return result

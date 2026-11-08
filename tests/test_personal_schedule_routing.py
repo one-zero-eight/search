@@ -50,7 +50,7 @@ def capture_prompt(monkeypatch, *, signed_in=True, group='B26-CSE-01'):
 def test_signed_in_schedule_prompt_does_not_replace_personal_calendar_with_known_group(monkeypatch):
     prompt, _ = capture_prompt(monkeypatch)
     assert 'Use it for schedule questions' not in prompt
-    assert 'Personal agenda source: account_get_my_schedule' in prompt
+    assert 'Personal agenda source: get_my_schedule' in prompt
     assert 'date_from=2026-11-08, date_to=2026-11-14' in prompt
     assert 'get_my_ai_calendar' in prompt
 
@@ -58,7 +58,7 @@ def test_signed_in_schedule_prompt_does_not_replace_personal_calendar_with_known
 @pytest.mark.parametrize('signed_in,group', [(True, None), (True, 'B26-CSE-01'), (False, 'B26-CSE-01'), (False, None)])
 def test_agenda_source_is_selected_by_credentials_not_presence_of_group(monkeypatch, signed_in, group):
     prompt, _ = capture_prompt(monkeypatch, signed_in=signed_in, group=group)
-    assert ('Personal agenda source: account_get_my_schedule' in prompt) is signed_in
+    assert ('Personal agenda source: get_my_schedule' in prompt) is signed_in
     assert ('Personal agenda access: no InNoHassle credential' in prompt) is not signed_in
     assert 'date_from=2026-11-08, date_to=2026-11-14' in prompt
 
@@ -147,25 +147,22 @@ def test_trace_calendar_day_argument_is_refused_instead_of_silently_expanding_pe
 def test_current_personal_feeds_and_ai_calendar_cover_all_sources_for_the_same_period(personal_sources):
     period = {'date_from': START, 'date_to': END}
     model = ScriptedModel(responses=[
-        AIMessage(content='', tool_calls=[
-            {'name': 'call_api_tool', 'args': {'name': 'account_get_my_schedule', 'arguments': period},
-             'id': 'external', 'type': 'tool_call'},
-            {'name': 'get_my_ai_calendar', 'args': period, 'id': 'local', 'type': 'tool_call'},
-        ]), AIMessage(content='sentinel'),
+        AIMessage(content='', tool_calls=[{'name': 'get_my_schedule', 'args': period, 'id': 'agenda', 'type': 'tool_call'}]),
+        AIMessage(content='sentinel'),
     ])
     agent = core.build_agent(model, guardrail=False)
     config = {'configurable': {'thread_id': 'personal-all-sources'}}
     out = agent.invoke({'messages': [HumanMessage('какое у меня рассписание?')]}, config, context=context())
     assert not agent.get_state(config).interrupts
     payloads = {m.name: json.loads(m.content) for m in out['messages'] if isinstance(m, ToolMessage)}
-    external, local = payloads['call_api_tool'], payloads['get_my_ai_calendar']
-    assert external['range'] == local['range'] == [START, END]
-    assert {item['title'] for item in external['schedule']} == {
+    assert set(payloads) == {'get_my_schedule'}
+    agenda = payloads['get_my_schedule']
+    assert agenda['range'] == [START, END] and agenda['complete'] is True
+    assert {item['title'] for item in agenda['events'] if item['source'] == 'innohassle' and 'service' not in item} == {
         'Selected English E7', 'Selected Course Robotics', 'Personal Swimming', 'Enrolled Workshop',
     }
-    assert {item['service'] for item in external['bookings']} == {'music_room', 'room'}
-    assert local['events'][0]['title'] == 'AI calendar guitar practice'
-    assert 'ai_calendar' not in external
+    assert {item['service'] for item in agenda['events'] if 'service' in item} == {'music_room', 'room'}
+    assert [item['title'] for item in agenda['events'] if item['source'] == 'ai_calendar'] == ['AI calendar guitar practice']
     assert 'Wrong English' not in str(payloads)
     assert core.successful_read(out['messages']) and core.read_evidence(out['messages'])
     paths = [r.url.path for r in personal_sources['http']]

@@ -48,6 +48,7 @@ _WEEKDAYS = {
 }  # fmt: skip
 _RELATIVE = {
     "позавчера": -2, "вчера": -1, "сегодня": 0, "завтра": 1, "послезавтра": 2,
+    "после завтра": 2, "day after tomorrow": 2, "the day after tomorrow": 2,
     "yesterday": -1, "today": 0, "tomorrow": 1,
     # The evening of the day written: "room 108 tonight between 18:30-19:10" was told as "в ночь с 23 на 24 октября".
     "tonight": 0, "this evening": 0, "this morning": 0,
@@ -55,7 +56,9 @@ _RELATIVE = {
 
 _MONTH_NAMES = "|".join(sorted(_MONTHS, key=len, reverse=True))
 _WEEKDAY_NAMES = "|".join(_WEEKDAYS)
-_RELATIVE_RE = re.compile(rf"(?<![\w])({'|'.join(_RELATIVE)})(?![\w])", re.I)
+# Prefer full phrases and consume their nested words once; normalize whitespace only for lookup.
+_RELATIVE_NAMES = "|".join(r"\s+".join(map(re.escape, phrase.split())) for phrase in sorted(_RELATIVE, key=len, reverse=True))
+_RELATIVE_RE = re.compile(rf"(?<![\w])({_RELATIVE_NAMES})(?![\w])", re.I)
 _WEEKDAY_RE = re.compile(
     rf"(?<![\w])(?:(?:в|во)\s+(?:(следующий|следующую|следующее)\s+)?|(on|next|this)\s+)({_WEEKDAY_NAMES})(?![\w])", re.I
 )
@@ -222,7 +225,8 @@ def found_dates(text: str, sent_at: datetime, now: datetime) -> list[tuple[str, 
         if (match.group(3) or len(match.group(2)) == 2) and 1 <= month <= 12 and (target := _with_year(sent, month, day, int(match.group(3)) if match.group(3) else None)):
             found.append((match.group(0), target))
     for match in _RELATIVE_RE.finditer(text):
-        found.append((match.group(0), sent + timedelta(days=_RELATIVE[match.group(1).lower()])))
+        phrase = " ".join(match.group(1).lower().split())
+        found.append((match.group(0), sent + timedelta(days=_RELATIVE[phrase])))
 
     for match in _SPAN_RE.finditer(text):
         count = int(match.group(1)) if match.group(1).isdigit() else _NUMBERS[match.group(1).lower()]

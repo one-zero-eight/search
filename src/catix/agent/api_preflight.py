@@ -1,5 +1,6 @@
 """Validate discovered write schemas before entering host approval."""
 
+import asyncio
 import json
 from copy import deepcopy
 from types import SimpleNamespace
@@ -17,6 +18,7 @@ from typing_extensions import NotRequired
 from catix.agent import api_context
 from catix.agent.api_descriptions import describe_action
 from catix.agent.api_tools import _credential_mode, _credentials, _needs_approval, _reviewed_args
+from catix.agent.scheduling import ScheduleCheckError, batch_conflicts, prepare_training
 from catix.innohassle import mcp_client
 
 
@@ -97,14 +99,18 @@ def _language(state):
     return "ru" if not letters or sum("Ѐ" <= char <= "ӿ" for char in letters) * 2 >= len(letters) else "en"
 
 
-def _prepared(call, args, state, schema):
+def _prepared(call, args, state, schema, runtime):
     # Defaults are for display only; execution and consent stay bound to the original JSON.
     displayed = {key: deepcopy(field["default"]) for key, field in schema.get("properties", {}).items()
                  if isinstance(field, dict) and "default" in field}
     displayed.update(deepcopy(args.arguments))
     _validate(schema, displayed)
-    return {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
-            "description": describe_action(args.name, displayed, _language(state))}
+    description = describe_action(args.name, displayed, _language(state))
+    prepared = {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
+                "description": description}
+    if args.name == "sport_sport_checkin" and displayed.get("cancel") is False:
+        prepared["schedule_check"] = prepare_training(displayed, state["messages"], runtime)
+    return prepared
 
 
 def _context_request(prepared, state):
@@ -162,9 +168,11 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
 
     @staticmethod
     def _finish(state, prepared, errors):
+        errors.update(batch_conflicts(prepared))
         if errors:
             return {"api_prepared": [], "messages": [ToolMessage(
-                content=json.dumps({"error": str(errors.get(call["id"], "Not executed: another call in this batch failed preflight."))}),
+                content=json.dumps(errors[call["id"]].result if isinstance(errors.get(call["id"]), ScheduleCheckError)
+                                   else {"error": str(errors.get(call["id"], "Not executed: another call in this batch failed preflight."))}),
                 name=call["name"], tool_call_id=call["id"], status="error",
                 artifact={"requires_user_input": True} if getattr(errors.get(call["id"]), "requires_user_input", False) else None,
             ) for call in state["messages"][-1].tool_calls], "jump_to": "model"}
@@ -191,14 +199,14 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 if schema is None:
                     schema = _schema(mcp_client.request_sync("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
-                item = _prepared(call, args, state, schema)
+                item = _prepared(call, args, state, schema, runtime)
                 if lookup := _context_request(item, state):
                     token, credentials = _credentials(_credential_mode(lookup["name"]), runtime)
                     _add_context(item, lookup, mcp_client.request_sync("call_tool", lookup, token, **credentials), state)
                 prepared.append(item)
             except GraphBubbleUp:
                 raise
-            except PreflightError as error:
+            except (PreflightError, ScheduleCheckError) as error:
                 errors[call["id"]] = error
                 if error.requires_user_input:
                     break
@@ -218,14 +226,14 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 if schema is None:
                     schema = _schema(await mcp_client.request("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
-                item = _prepared(call, args, state, schema)
+                item = await asyncio.to_thread(_prepared, call, args, state, schema, runtime)
                 if lookup := _context_request(item, state):
                     token, credentials = _credentials(_credential_mode(lookup["name"]), runtime)
                     _add_context(item, lookup, await mcp_client.request("call_tool", lookup, token, **credentials), state)
                 prepared.append(item)
             except GraphBubbleUp:
                 raise
-            except PreflightError as error:
+            except (PreflightError, ScheduleCheckError) as error:
                 errors[call["id"]] = error
                 if error.requires_user_input:
                     break
