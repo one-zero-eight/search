@@ -772,6 +772,18 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         return counted("areas")
     elif target == "clubs_get_clubs":
         return counted("clubs")
+    elif target == "timetable_get_instructor_schedule" and _read_period(data.get("range")):
+        person, parts = data.get("instructor"), counted("classes")
+        if (isinstance(person, dict) and isinstance(person.get("id"), str) and person["id"]
+                and parts is not None and data["total"] == len(parts[0])
+                and all(isinstance(row, dict) and isinstance(row.get("course"), str) and row["course"]
+                        and _read_period([row.get("date"), row.get("date")])
+                        and data["range"][0] <= row["date"] <= data["range"][1]
+                        and all(isinstance(row.get(key), str)
+                                and re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d", row[key])
+                                for key in ("start", "end"))
+                        and row["start"] < row["end"] for row in parts[0])):
+            return parts
     elif target == "timetable_get_courses" and isinstance(data.get("term"), dict):
         return lists("courses", *[key for key in ("teachers", "more_courses") if key in data])
     elif target == "events_get_university_events" and _read_period(data.get("range")):

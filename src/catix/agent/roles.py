@@ -239,6 +239,9 @@ Shared InNoHassle tools:
   or as a clearly labelled partial fallback without sign-in. It can include several English streams and cannot identify
   the user's chosen one. For that public read, omit group to use the trusted profile group, or pass a group explicitly
   named by the user. If neither is known, ask for it; personal account calendars do not need a group.
+- For an instructor's classes on specific dates, discover timetable_get_instructor_schedule with explicit inclusive
+  date_from/date_to (same date for one day). It returns classrooms and the last class end per day. Resolve ambiguous
+  instructors with the user, not by guessing. Gaps are not free time: personal meetings are not shown.
 - Discover timetable_get_courses for this term's courses, teachers, contacts, weekly classes and term/block dates;
   timetable_get_room_timetable for classes in a room or rooms free of classes; maps_find_room for locations (rooms,
   offices, canteens, printers); clubs_get_clubs for clubs; events_get_university_events for published events;

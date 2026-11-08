@@ -18,6 +18,7 @@ CONFIRMATION_TOOLS = frozenset({
 CREDENTIAL_MODES = MappingProxyType({
     "schedule_get_schedule": "public",
     "timetable_get_courses": "public",
+    "timetable_get_instructor_schedule": "public",
     "timetable_get_room_timetable": "public",
     "maps_find_room": "public",
     "clubs_get_clubs": "public",

@@ -142,6 +142,88 @@ def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=8
 
 @tool(**metadata())
 @result_boundary()
+def timetable_get_instructor_schedule(
+    instructor: Annotated[str, Field(min_length=1, max_length=80, pattern=r"\w")],
+    date_from: date,
+    date_to: date,
+) -> dict:
+    """Instructor's classes on specific dates: rooms, times and last class end each day.
+    Расписание преподавателя: где пары завтра, когда заканчиваются занятия в пятницу.
+
+    Pass a surname, full name or exact instructor ID from timetable_get_courses.
+    Both dates are inclusive, at most 31 days. Public current-term timetable only.
+    Gaps are not the instructor's free time: personal meetings are not shown.
+    """
+    from catix.innohassle import client as innohassle
+
+    if not 0 <= (date_to - date_from).days < 31:
+        return {"error": "date_to must be on or after date_from; request at most 31 inclusive days.",
+                "code": "invalid_range"}
+    data = innohassle.timetable()
+    term = data.get("term") if isinstance(data, dict) else None
+    semester = term.get("semester") if isinstance(term, dict) else None
+    if (not isinstance(term, dict) or not isinstance(semester, dict) or not isinstance(data.get("courses"), list)
+            or not isinstance(data.get("instructors"), list)):
+        return {"error": "The published timetable is incomplete; no schedule can be established.",
+                "code": "invalid_timetable"}
+    term_start = date.fromisoformat(semester["start_date"])
+    term_end = date.fromisoformat(semester["end_date"])
+    if not term_start <= date_from <= date_to <= term_end:
+        return {"error": "Requested dates are outside the published term; absence of classes is unknown.",
+                "code": "outside_published_term", "term": {"name": term.get("name"), "semester": semester}}
+    people = data["instructors"]
+    teachers = [p for p in people if p["id"] == instructor]
+    if not teachers:
+        teachers = [p for p in people if any(
+            value and value.casefold() == instructor.casefold()
+            for value in (p.get("name_en"), p.get("name_ru"), p.get("alias"), p.get("email")))]
+    if not teachers:
+        teachers = [p for p in people
+                    if _matches(instructor, p.get("id"), p.get("name_en"), p.get("name_ru"),
+                                p.get("alias"), p.get("email"))]
+    if not teachers:
+        return {"error": "No instructor matches in the published timetable. Try a surname or English name.",
+                "code": "instructor_not_found"}
+    if len(teachers) > 1:
+        return {
+            "error": "Several instructors match. Ask the user to select one, then pass their exact ID.",
+            "code": "ambiguous_instructor", "total": len(teachers),
+            "candidates": [{"id": p["id"], "name": p.get("name_en"), "name_ru": p.get("name_ru")}
+                           for p in teachers[:MAX_TEACHERS]],
+            "truncated": len(teachers) > MAX_TEACHERS,
+        }
+    person = teachers[0]
+    classes, days = [], []
+    for offset in range((date_to - date_from).days + 1):
+        day = date_from + timedelta(days=offset)
+        sessions = [s for s in timetable.sessions_on(data, day)
+                    if person["id"] in (s.instructor if isinstance(s.instructor, list) else [s.instructor])]
+        for s in sessions:
+            item = {
+                "date": day.isoformat(), "start": f"{s.start:%H:%M}", "end": f"{s.end:%H:%M}",
+                "course": s.course, "kind": s.kind, "room": s.room, "groups": list(s.audience),
+            }
+            if s.notes:
+                item["notes"] = s.notes
+            classes.append(item)
+        days.append({
+            "date": day.isoformat(), "class_count": len(sessions),
+            "first_class_start": f"{min(s.start for s in sessions):%H:%M}" if sessions else None,
+            "last_class_end": f"{max(s.end for s in sessions):%H:%M}" if sessions else None,
+        })
+    return {
+        "instructor": {"id": person["id"], **{k: v for k, v in (_teacher(person) or {}).items()
+                                               if k in {"name", "name_ru"}}},
+        "range": [date_from.isoformat(), date_to.isoformat()], "timezone": str(settings.tz),
+        "term": {k: data["term"][k] for k in ("name", "semester")},
+        "classes": classes, "total": len(classes), "days": days,
+        "note": "Only explicitly assigned classes in the public timetable; personal meetings are not shown. "
+                "Gaps or days without listed classes are not the instructor's free time.",
+    }
+
+
+@tool(**metadata())
+@result_boundary()
 def timetable_get_room_timetable(
     day: date | None = None,
     room: Annotated[str | None, Field(max_length=20)] = None,
@@ -172,7 +254,9 @@ def timetable_get_room_timetable(
                 "course": s.course,
                 "kind": s.kind,
                 "groups": list(s.audience),
-                "instructor": (people.get(s.instructor or "") or {}).get("name_en") or s.instructor,
+                "instructor": ", ".join((people.get(i) or {}).get("name_en") or i
+                                        for i in (s.instructor if isinstance(s.instructor, list)
+                                                  else [s.instructor]) if i),
                 "status": "finished" if end <= now else "now" if begin <= now else "upcoming",
                 "notes": s.notes,
             }

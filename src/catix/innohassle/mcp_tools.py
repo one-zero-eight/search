@@ -43,6 +43,9 @@ from catix.innohassle.mcp_campus import (
     timetable_get_courses as timetable_get_courses,
 )
 from catix.innohassle.mcp_campus import (
+    timetable_get_instructor_schedule as timetable_get_instructor_schedule,
+)
+from catix.innohassle.mcp_campus import (
     timetable_get_room_timetable as timetable_get_room_timetable,
 )
 from catix.innohassle.mcp_declarations import metadata as _metadata

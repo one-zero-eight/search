@@ -19,6 +19,7 @@ def test_server_registration_is_complete_and_keeps_flat_arguments():
         'printers_print_get_printers_status', 'maps_scenes_search_areas', 'maps_scenes_scenes',
         'clubs_get_clubs_list_clubs__get', 'music_bookings_daily_bookings', 'events_events_list_events',
         'schedule_get_schedule', 'timetable_get_courses', 'timetable_get_room_timetable',
+        'timetable_get_instructor_schedule',
         'maps_find_room', 'clubs_get_clubs',
         'account_get_my_schedule', 'rooms_get_free_rooms', 'rooms_book_room', 'account_cancel_booking',
         'music_get_music_room_schedule', 'music_get_available_windows', 'music_book_music_room', 'events_get_university_events',
