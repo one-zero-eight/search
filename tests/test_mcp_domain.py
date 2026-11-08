@@ -100,17 +100,26 @@ def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
     kwargs = {'token': 'ih-secret', 'sport_token': None, 'uid': 'owner'}
     room = {'room_id': 'r', 'title': 'meeting', 'day': '2099-01-01', 'time_from': '10:00', 'time_to': '11:00'}
     monkeypatch.setattr(api, 'can_book_room', lambda *a: (False, 'students only'))
+    occupancy = []
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: occupancy.append((a, kw)) or [])
     monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'outlook-returned-id'})
     assert call('rooms_book_room', room, **kwargs)['done'] is False
     assert not writes
+    assert not occupancy
     monkeypatch.setattr(api, 'can_book_room', lambda *a: (True, None))
     result = call('rooms_book_room', room, **kwargs)
     assert result['done'] is True and result['booked']['booking_id'] == 'outlook-returned-id'
     assert writes[-1][:3] == ('ih-secret', 'r', 'meeting')
+    assert occupancy == [(('ih-secret', *writes[-1][3:]), {'room_id': 'r'})]
     monkeypatch.setattr(api, 'cancel_room', lambda *a: writes.append(a))
     assert call('account_cancel_booking', {'service': 'room', 'booking_id': 'outlook-returned-id'}, **kwargs)['done'] is True
     assert writes[-1] == ('ih-secret', 'outlook-returned-id')
     music = {k: v for k, v in room.items() if k not in {'room_id', 'title'}}
+    from datetime import datetime
+    from catix.settings import settings
+    monkeypatch.setattr(account_tools, '_now', lambda: datetime(2099, 1, 1, 8, tzinfo=settings.tz))
+    monkeypatch.setattr(api, 'my_music_room_profile', lambda token: {'status': 'free'})
+    monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
     monkeypatch.setattr(api, 'music_room_bookings', lambda *a, **kwargs: [{'time_start': '2099-01-01T10:30:00', 'time_end': '2099-01-01T11:30:00'}])
     monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 4})
     assert call('music_book_music_room', music, **kwargs)['done'] is False
@@ -142,9 +151,13 @@ def test_room_availability_and_account_schedule_keep_aggregations(monkeypatch):
         {'id': 'busy', 'title': 'Busy', 'capacity': 5}])
     monkeypatch.setattr(api, 'room_bookings', lambda *a: [
         {'room_id': 'busy', 'start': '2099-01-01T10:30:00', 'end': '2099-01-01T11:30:00'}])
+    permissions = []
+    monkeypatch.setattr(api, 'can_book_room', lambda *a: permissions.append(a) or (True, None))
     result = call('rooms_get_free_rooms', {'day': '2099-01-01', 'time_from': '10:00', 'time_to': '11:00'}, **kwargs)
     assert result['free'] == [{'room_id': 'free', 'title': 'Free', 'capacity': 10, 'who': 'students'}]
     assert result['booked'] == ['busy']
+    assert len(permissions) == 1 and permissions[0][:2] == ('ih-secret', 'free')
+    assert (permissions[0][2].hour, permissions[0][3].hour) == (10, 11)
     monkeypatch.setattr(account_tools, '_calendar', lambda *a: ([{'kind': 'class', 'title': 'Math'}], {}))
     monkeypatch.setattr(account_tools, '_bookings', lambda *a: ([{'booking_id': 'outlook-id'}], []))
     result = call('account_get_my_schedule', {'date_from': '2099-01-01', 'date_to': '2099-01-02'}, **kwargs)

@@ -189,6 +189,22 @@ def account_get_my_schedule(
     return result
 
 
+def _busy_rooms(bookings: list[dict], start: datetime, end: datetime) -> set[str]:
+    if not isinstance(bookings, list):
+        raise ValueError("Invalid room bookings response.")
+    busy = set()
+    for booking in bookings:
+        if not isinstance(booking, dict) or not all(isinstance(booking.get(k), str) for k in ("room_id", "start", "end")):
+            raise ValueError("Invalid room booking.")
+        room_id = validate_room_id(booking["room_id"])
+        begin, finish = _local(booking["start"]), _local(booking["end"])
+        if finish <= begin:
+            raise ValueError("Invalid room booking interval.")
+        if begin < end and start < finish:
+            busy.add(room_id)
+    return busy
+
+
 @tool(**metadata())
 @result_boundary()
 def rooms_get_free_rooms(
@@ -198,25 +214,26 @@ def rooms_get_free_rooms(
     """Room booking availability: find a free room or classroom for a reservation.
     Найти свободные аудитории и комнаты для бронирования.
 
-    Check room booking times for the requested day and interval, including capacity and access rules.
-    Sign-in required. Returns free and occupied rooms separately; does not create a booking.
-    Availability depends on the interval: ask for the end time or duration if it is unknown.
+    Check room booking times, occupancy and the signed-in user's access for the exact interval.
+    Returns free, booked and unavailable rooms with refusal reasons; does not create a booking.
+    Availability depends on the interval: ask for the end time or duration if unknown.
     """
     from catix.innohassle import client as innohassle
 
     day = day or _now().date()
+    if problem := _future_span(day, time_from, time_to):
+        return {"error": problem}
     start, end = (_at(day, time_from), _at(day, time_to))
-    if end <= start:
-        return {"error": "time_to must be after time_from."}
-    try:
-        rooms = innohassle.bookable_rooms(token)
-        bookings = innohassle.room_bookings(token, start, end)
-    except innohassle.ServiceError as e:
-        return {"error": _why(e, "The room booking service")}
-    busy = {b["room_id"] for b in bookings if _local(b["start"]) < end and start < _local(b["end"])}
-    free = []
+    rooms = innohassle.bookable_rooms(token)
+    bookings = innohassle.room_bookings(token, start, end)
+    busy = _busy_rooms(bookings, start, end)
+    free, unavailable = [], []
     for room in rooms:
         if room["id"] in busy:
+            continue
+        allowed, reason = innohassle.can_book_room(token, room["id"], start, end)
+        if not allowed:
+            unavailable.append({"room_id": room["id"], "reason": reason or "The service gave no reason."})
             continue
         item = {
             "room_id": room["id"],
@@ -233,6 +250,11 @@ def rooms_get_free_rooms(
         "range": f"{time_from:%H:%M}-{time_to:%H:%M}",
         "free": free,
         "booked": sorted(busy),
+        "unavailable": unavailable,
+        "checked_at": _now().isoformat(),
+        "timezone": str(settings.tz),
+        "note": "Checked against the service's current response, which may cache Outlook data. "
+                "Not a reservation or guaranteed physical access; rechecked before booking.",
     }
 
 
@@ -244,7 +266,7 @@ def rooms_book_room(
     title: Annotated[str, Field(max_length=100)],
     *, token: str = Depends(require_innohassle),
 ) -> dict:
-    """Create a room booking or reservation after permission/time checks.
+    """Create a room booking or reservation after permission/time and occupancy checks.
     Забронировать аудиторию или комнату.
 
     Book a room with its actual ID, requested title and time interval.
@@ -262,6 +284,15 @@ def rooms_book_room(
                 "done": False,
                 "error": f"The asker cannot book this room then: {why or 'the service gave no reason'}.",
             }
+        bookings = innohassle.room_bookings(token, start, end, room_id=room_id)
+        if room_id in _busy_rooms(bookings, start, end):
+            return {"done": False, "code": "room_occupied", "error": "The room is booked then; nothing was booked."}
+    except (innohassle.ServiceError, httpx.HTTPError, ValueError, TypeError, KeyError):
+        return {"done": False, "code": "availability_unverified",
+                "error": "Room availability could not be verified; nothing was booked."}
+    if problem := _future_span(day, time_from, time_to):
+        return invalid_arguments(problem)
+    try:
         booking = innohassle.book_room(token, room_id, title, start, end)
     except innohassle.ServiceError as e:
         return _refused(e, "The room booking service")
@@ -369,6 +400,11 @@ def music_get_available_windows(
     duration_minutes, or a 30-minute booking if omitted. max_duration_minutes is a limit at
     the window's start, not permission to book the whole window. No reservation is made.
     """
+    return _music_availability(day, duration_minutes, token)
+
+
+def _music_availability(day: date, duration_minutes: int | None, token: str) -> dict:
+    """Shared fresh personal checks for the availability read and booking write."""
     from catix.innohassle import client as innohassle
 
     now = _now()
@@ -425,31 +461,39 @@ def music_book_music_room(
     day: date, time_from: ClockTime, time_to: ClockTime,
     *, token: str = Depends(require_innohassle),
 ) -> dict:
-    """Book the music room after overlap and remaining-hours checks.
+    """Book the music room after fresh personal access, quota and occupancy checks.
 
+    Enforces the same conservative local 07:00–22:30 opening, half-hour grid and rolling
+    seven-day start horizon as music_get_available_windows, including direct MCP calls.
+    These are local bot-derived constraints, not a live upstream policy guarantee.
     Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
     """
     from catix.innohassle import client as innohassle
 
     if problem := _future_span(day, time_from, time_to):
         return invalid_arguments(problem)
+    if time_from.minute % 30 or time_to.minute % 30:
+        return invalid_arguments("Music Room bookings must start and end on the conservative local 30-minute grid.")
     start, end = (_at(day, time_from), _at(day, time_to))
+    duration = int((end - start).total_seconds() // 60)
     try:
-        taken = [
-            b
-            for b in innohassle.music_room_bookings(day, fresh=True)
-            if _local(b["time_start"]) < end and start < _local(b["time_end"])
-        ]
-        if taken:
-            busy = ", ".join((f"{_local(b['time_start']):%H:%M}-{_local(b['time_end']):%H:%M}" for b in taken))
-            return {"done": False, "error": f"The music room is booked then ({busy}): nothing was booked."}
-        daily, weekly = innohassle.music_room_hours_left(token, day)
-        hours = (end - start).total_seconds() / 3600
-        if hours > min(daily, weekly):
-            return {
-                "done": False,
-                "error": f"The asker may book {daily:g} more hours that day and {weekly:g} that week: nothing was booked.",
-            }
+        available = _music_availability(day, duration, token)
+    except Exception:
+        # This block is read-only: unlike a POST/readback failure, nothing was written.
+        return {"done": False, "code": "availability_unverified",
+                "error": "Music Room access, quotas or occupancy could not be verified; nothing was booked."}
+    if "error" in available:
+        return {"done": False, **available}
+    if not any(
+        window["start"] <= time_from.strftime("%H:%M") <= window["latest_start"]
+        and time_to.strftime("%H:%M") <= window["end"]
+        and duration <= window["max_duration_minutes"]
+        for window in available["windows"]
+    ):
+        return {"done": False, "code": available["reason"] or "no_matching_window",
+                "error": "The requested interval is not available under the Music Room personal limits "
+                         "and conservative local booking rules; nothing was booked."}
+    try:
         booking = innohassle.book_music_room(token, start, end)
     except innohassle.ServiceError as e:
         return _refused(e, "The music room")

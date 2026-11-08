@@ -44,6 +44,7 @@ def native_mcp(monkeypatch, mcp_http_protocol):
 def music_room(monkeypatch):
     """The music room's service: nothing booked that day, 4 hours left; the bookings made."""
     made: list[tuple[str, datetime, datetime]] = []
+    monkeypatch.setattr(innohassle, "my_music_room_profile", lambda token: {"status": "free"})
     monkeypatch.setattr(innohassle, "music_room_bookings", lambda day, **kwargs: [])
     monkeypatch.setattr(innohassle, "music_room_hours_left", lambda token, day: (4.0, 10.0))
 

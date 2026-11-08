@@ -51,6 +51,7 @@ def test_missing_title_mutation_returns_safe_validation_error(verified, monkeypa
     monkeypatch.setattr(api, 'bookable_rooms', lambda *a: reads.append(a) or [])
     monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
     monkeypatch.setattr(api, 'book_room', lambda *a, **kw: writes.append((a, kw)))
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: reads.append((a, kw)) or [])
     arguments = {'room_id': 'private-input-value', 'day': '2099-01-01',
                  'time_from': '10:30', 'time_to': '11:30'}
 
@@ -97,6 +98,7 @@ def test_mutation_authentication_precedes_upstream_writes(verified, monkeypatch,
 @pytest.mark.parametrize('remote', [False, True])
 def test_invalid_mutations_and_nested_controls_never_execute(verified, monkeypatch, remote):
     monkeypatch.setattr(api, 'can_book_room', lambda *a: pytest.fail('Invalid mutation read'))
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: pytest.fail('Invalid mutation occupancy read'))
     monkeypatch.setattr(api, 'book_room', lambda *a: pytest.fail('Invalid mutation write'))
     monkeypatch.setattr(sport, 'check_in', lambda *a: pytest.fail('Invalid mutation write'))
     room = {'room_id': 'r', 'day': '2099-01-01', 'time_from': '10:30', 'time_to': '11:30', 'title': 'Study'}
@@ -135,6 +137,7 @@ def test_mutation_validation_preserves_raw_types_and_hides_private_inputs(verifi
     monkeypatch.setattr(api, 'bookable_rooms', lambda *a: reads.append(a) or [])
     monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
     monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'booking'})
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: reads.append((a, kw)) or [])
     monkeypatch.setattr(sport, 'training', lambda *a: reads.append(a) or {})
     monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
     room = {'room_id': 'r', 'day': '2099-01-01', 'time_from': '10:30',
@@ -169,7 +172,8 @@ def test_mutation_validation_preserves_raw_types_and_hides_private_inputs(verifi
                 payload = {'name': name, 'arguments': arguments} if generic else arguments
                 assert (await client.call_tool('call_tool' if generic else name, payload)).data['done'] is True
     asyncio.run(run())
-    assert len(reads) == 1 and len(writes) == 2
+    assert len(reads) == 2 and len(writes) == 2
+    assert reads == [('ih', 'r', *writes[0][3:]), (('ih', *writes[0][3:]), {'room_id': 'r'})]
     assert writes[-1] == ('sport', 7, True)
     assert 'private-' not in caplog.text
 

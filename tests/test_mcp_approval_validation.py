@@ -82,6 +82,8 @@ def test_title_clarification_then_local_description_and_explicit_consent(
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     monkeypatch.setattr(client, "bookable_rooms", lambda *a: pytest.fail("Confirmation must not fetch display details"))
     monkeypatch.setattr(client, "can_book_room", lambda *a: (True, None))
+    occupancy = []
+    monkeypatch.setattr(client, "room_bookings", lambda *a, **kw: occupancy.append((a, kw)) or [])
     monkeypatch.setattr(client, "book_room", lambda *a: writes.append(a) or {"outlook_booking_id": "test-booking"})
 
     async def record(method, arguments, access=None, **kwargs):
@@ -108,6 +110,7 @@ def test_title_clarification_then_local_description_and_explicit_consent(
     agent.invoke({"messages": [HumanMessage("Название: Заседание студсовета.")]}, config, context=context)
     pending = agent.get_state(config).interrupts
     assert len(pending) == 1 and writes == []
+    assert occupancy == []
     action = pending[0].value["action_requests"][0]
     assert action["args"] == complete
     assert all(value in action["description"] for value in ["su-office", "2099", "10:00", "12:00", "Заседание студсовета"]), action["description"]
@@ -118,6 +121,8 @@ def test_title_clarification_then_local_description_and_explicit_consent(
     assert not agent.get_state(config).interrupts
     assert requests == prepared_requests + (["call_tool"] if decision == "approve" else [])
     assert len(writes) == (1 if decision == "approve" else 0)
+    assert occupancy == ([(('synthetic-user', *writes[0][3:]), {'room_id': 'su-office'})]
+                         if decision == "approve" else [])
     if writes:
         access, room, title, start, end = writes[0]
         assert (access, room, title) == ("synthetic-user", "su-office", "Заседание студсовета")

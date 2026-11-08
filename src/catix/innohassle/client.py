@@ -223,15 +223,25 @@ def cancel_music_room(token: str, booking_id: int) -> None:
 
 
 def bookable_rooms(token: str) -> list[dict]:
-    """The rooms the room booking service has (id, title, capacity, access_level, restrict_daytime); the same for
-    everybody, so it is cached once read."""
-    return cache.cached("innohassle:room-booking:rooms", settings.innohassle_cache_ttl,
-                        lambda: _as_user("GET", "/room-booking/v0/rooms/", token).json())  # fmt: skip
+    """Fresh room inventory including staff rooms; each still requires a personal permission check."""
+    rooms = _as_user("GET", "/room-booking/v0/rooms/", token, params={"include_red": True}).json()
+    if not isinstance(rooms, list):
+        raise ValueError("Invalid room inventory response.")
+    for room in rooms:
+        if not isinstance(room, dict) or not isinstance(room.get("id"), str):
+            raise ValueError("Invalid room inventory entry.")
+        validate_room_id(room["id"])
+    return rooms
 
 
-def room_bookings(token: str, start: datetime, end: datetime) -> list[dict]:
-    """The bookings of all the rooms (of the students' access level) between `start` and `end`."""
-    return _as_user("GET", "/room-booking/v0/bookings/", token, params={"start": start.isoformat(), "end": end.isoformat()}).json()
+def room_bookings(token: str, start: datetime, end: datetime, *, room_id: str | None = None) -> list[dict]:
+    """Read occupancy again, optionally for one exact room (including restricted rooms)."""
+    params = {"start": start.isoformat(), "end": end.isoformat()}
+    if room_id is not None:
+        params["room_id"] = validate_room_id(room_id)
+    else:
+        params["include_red"] = "true"
+    return _as_user("GET", "/room-booking/v0/bookings/", token, params=params).json()
 
 
 def my_room_bookings(token: str, start: datetime, end: datetime) -> list[dict]:
@@ -239,12 +249,17 @@ def my_room_bookings(token: str, start: datetime, end: datetime) -> list[dict]:
 
 
 def can_book_room(token: str, room_id: str, start: datetime, end: datetime) -> tuple[bool, str]:
-    """(may the user book the room then, why not)."""
+    """Personal access/time permission and refusal reason, NOT an occupancy check."""
     segment = quote(validate_room_id(room_id), safe="")
     answer = _as_user(
         "GET", f"/room-booking/v0/room/{segment}/can-book", token, params={"start": start.isoformat(), "end": end.isoformat()}
     ).json()
-    return bool(answer.get("can_book")), str(answer.get("reason_why_cannot") or "")
+    if not isinstance(answer, dict) or type(answer.get("can_book")) is not bool:
+        raise ValueError("Invalid room permission response.")
+    reason = answer.get("reason_why_cannot", "")
+    if not isinstance(reason, str):
+        raise ValueError("Invalid room permission reason.")
+    return answer["can_book"], reason
 
 
 def book_room(token: str, room_id: str, title: str, start: datetime, end: datetime) -> dict:

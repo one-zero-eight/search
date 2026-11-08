@@ -91,7 +91,15 @@ def test_every_native_write_authenticates_on_both_dispatch_paths(native, monkeyp
     writes = []
     from catix.innohassle import client as api, sport
     monkeypatch.setattr(api, 'can_book_room', lambda *a: (True, None))
+    occupancy = []
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: occupancy.append((a, kw)) or [])
     monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'new'})
+    if name == 'music_book_music_room':
+        from datetime import datetime
+        from catix.innohassle import mcp_account
+        from catix.settings import settings
+        monkeypatch.setattr(mcp_account, '_now', lambda: datetime(2099, 1, 1, 8, tzinfo=settings.tz))
+    monkeypatch.setattr(api, 'my_music_room_profile', lambda token: {'status': 'free'})
     monkeypatch.setattr(api, 'music_room_bookings', lambda *a, **kwargs: [])
     monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
     monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 1})
@@ -106,12 +114,15 @@ def test_every_native_write_authenticates_on_both_dispatch_paths(native, monkeyp
                     {'name': name, 'arguments': args} if generic else args, raise_on_error=False)
                 assert denied.is_error
         assert not writes
+        assert not occupancy
         async with connection(remote, 'alice', 'sport-alice') as client:
             result = await client.call_tool('call_tool' if generic else name,
                 {'name': name, 'arguments': args} if generic else args)
             assert result.data['done'] is True
         assert len(writes) == 1
         assert writes[0][0] == ('sport-alice' if name.startswith('sport_') else 'alice')
+        assert occupancy == ([(('alice', *writes[0][3:]), {'room_id': 'r'})]
+                             if name == 'rooms_book_room' else [])
     asyncio.run(run())
 
 

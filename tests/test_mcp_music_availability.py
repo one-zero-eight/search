@@ -25,9 +25,20 @@ def music_api(monkeypatch):
     monkeypatch.setattr(mcp_server.token_verifier, "claims", lambda token: {"uid": "owner"} if token == "ih" else None)
     def respond(request):
         state["requests"].append(request)
-        assert request.method == "GET", "Availability must never reserve anything"
         assert "cookie" not in request.headers
         path = request.url.path
+        if request.method == "POST":
+            assert state.get("allow_write"), "Availability must never reserve anything"
+            assert path == "/music-room/v0/bookings/"
+            assert request.headers["authorization"] == "Bearer ih"
+            if state.get("post_error"):
+                raise state["post_error"]
+            if "post_content" in state:
+                return httpx.Response(200, content=state["post_content"])
+            return httpx.Response(state.get("post_status", 200), json=state.get("post_reply", {"id": 99}))
+        assert request.method == "GET"
+        if state.get("read_error"):
+            raise state["read_error"]
         if state.get("fail_path") and path.endswith(state["fail_path"]):
             return httpx.Response(state.get("status", 500), json={"detail": "private-upstream-diagnostic"},
                                   headers={"Location": "https://forbidden.test/"})

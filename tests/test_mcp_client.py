@@ -80,6 +80,7 @@ def test_http_mutation_validation_is_definite_refusal_before_upstream(monkeypatc
     monkeypatch.setattr(mcp_server.token_verifier, 'claims',
                         lambda token: {'uid': 'owner'} if token == 'ih' else None)
     monkeypatch.setattr(api, 'can_book_room', lambda *a: reads.append(a) or (True, None))
+    monkeypatch.setattr(api, 'room_bookings', lambda *a, **kw: reads.append((a, kw)) or [])
     monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'booking'})
     monkeypatch.setattr(settings, 'innohassle_mcp_url', 'http://127.0.0.1/mcp')
     original = mcp_client._http_client
@@ -102,7 +103,8 @@ def test_http_mutation_validation_is_definite_refusal_before_upstream(monkeypatc
             assert allowed['done'] is True
 
     asyncio.run(run())
-    assert len(reads) == 1 and len(writes) == 1
+    assert len(reads) == 2 and len(writes) == 1
+    assert reads == [('ih', 'r', *writes[0][3:]), (('ih', *writes[0][3:]), {'room_id': 'r'})]
     assert 'private-input-secret' not in caplog.text
 
 

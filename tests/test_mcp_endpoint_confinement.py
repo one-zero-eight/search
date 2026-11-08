@@ -26,6 +26,8 @@ def upstream(monkeypatch):
     def reply(request):
         requests.append(request)
         if request.method == "GET":
+            if request.url.path == "/room-booking/v0/bookings/":
+                return httpx.Response(200, json=[])
             if request.url.path.endswith(("/rooms/", "/bookings/my", "/my_bookings")):
                 return httpx.Response(200, json=[])
             return httpx.Response(200, json={"can_book": True})
@@ -181,10 +183,14 @@ def test_http_room_preflight_stays_on_approved_endpoint(monkeypatch, signed_user
             assert allowed.data["done"] is True
             assert [(request.method, request.url.raw_path.split(b"?")[0]) for request in upstream] == [
                 ("GET", b"/room-booking/v0/room/r%2B1%40example.test/can-book"),
+                ("GET", b"/room-booking/v0/bookings/"),
                 ("POST", b"/room-booking/v0/bookings/"),
             ]
             assert set(upstream[0].url.params) == {"start", "end"}
-            assert json.loads(upstream[1].content)["room_id"] == "r+1@example.test"
+            assert dict(upstream[1].url.params) == {**dict(upstream[0].url.params), "room_id": "r+1@example.test"}
+            body = json.loads(upstream[2].content)
+            assert {key: body[key] for key in ("start", "end", "room_id")} == dict(upstream[1].url.params)
+            assert all(request.headers['authorization'] == f'Bearer {signed_user}' for request in upstream)
     asyncio.run(run())
 
 

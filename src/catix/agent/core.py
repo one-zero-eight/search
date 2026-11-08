@@ -717,6 +717,8 @@ def _read_parts(target: str, data: dict) -> tuple | None:
 
     if target == "rooms_get_free_rooms":
         if data.get("date") and data.get("range"):
+            if "unavailable" in data:
+                return lists("free", "booked", "unavailable")
             return lists("free", "booked")
     elif target == "timetable_get_room_timetable" and data.get("date"):
         if data.get("room"):

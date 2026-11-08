@@ -34,10 +34,19 @@ def room_storage(monkeypatch):
         writes.requests.append(request)
         assert request.headers['authorization'] == 'Bearer synthetic-token'
         if request.method == 'GET':
+            if request.url.path == '/room-booking/v0/bookings/':
+                assert dict(request.url.params) == {**dict(writes.requests[-2].url.params), 'room_id': 'r'}
+                return httpx.Response(200, json=[])
             assert request.url.path == '/room-booking/v0/room/r/can-book'
             return httpx.Response(200, json={'can_book': True})
         assert request.method == 'POST' and request.url.path == '/room-booking/v0/bookings/'
+        assert [(item.method, item.url.path) for item in writes.requests[-3:]] == [
+            ('GET', '/room-booking/v0/room/r/can-book'),
+            ('GET', '/room-booking/v0/bookings/'),
+            ('POST', '/room-booking/v0/bookings/'),
+        ]
         body = json.loads(request.content)
+        assert dict(writes.requests[-2].url.params) == {key: body[key] for key in ('start', 'end', 'room_id')}
         writes.append(('synthetic-token', body['room_id'], body['title'],
                        datetime.fromisoformat(body['start']), datetime.fromisoformat(body['end'])))
         return httpx.Response(200, json={'outlook_booking_id': 'booked-id'})
@@ -75,7 +84,7 @@ def test_invalid_raw_time_does_not_write(room_storage, generic, altered, remote)
             assert not denied.is_error and denied.data['done'] is False
             assert denied.data['code'] == 'invalid_arguments'
             assert room_storage == [] and not room_storage.requests
-            # A subsequent valid request must reach HTTP exactly once.
+            # A subsequent valid request checks permission/occupancy and writes exactly once.
             allowed = await call(client, NAME, ARGS, generic)
             assert not allowed.is_error, allowed
             assert allowed.data["done"] is True

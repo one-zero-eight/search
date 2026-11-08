@@ -525,6 +525,8 @@ def test_real_room_availability_survives_failed_helper(mcp_http_protocol, monkey
     bookings = [{"room_id": "313", "start": f"{day}T10:00:00+03:00", "end": f"{day}T11:00:00+03:00"}]
     monkeypatch.setattr(client, "bookable_rooms", lambda token: [] if availability == "empty" else rooms)
     monkeypatch.setattr(client, "room_bookings", lambda *a: bookings if availability == "booked" else [])
+    permissions = []
+    monkeypatch.setattr(client, "can_book_room", lambda *a: permissions.append(a) or (True, None))
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"})
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
 
@@ -541,6 +543,7 @@ def test_real_room_availability_survives_failed_helper(mcp_http_protocol, monkey
     assert payload["free"] == ([{"room_id": "313", "title": "Room313", "capacity": 10, "who": "students"}]
                                if availability == "free" else [])
     assert payload["booked"] == (["313"] if availability == "booked" else [])
+    assert [args[:2] for args in permissions] == ([('synthetic-user', '313')] if availability == 'free' else [])
     assert core.final_answer(out["messages"], {}) == answer
     assert core.successful_read(out["messages"]) is True
     assert core.read_evidence(out["messages"]) is (availability != "empty")

@@ -250,7 +250,10 @@ Shared InNoHassle tools:
   account_cancel_booking). Pass on what `not_read` says
   could not be read. music_get_music_room_schedule lists occupied intervals, not confirmed availability. If none overlap
   the requested period, say "no bookings"; opening hours and access are not verified by this read.
-  rooms_get_free_rooms shows rooms nobody booked at a time; events_get_university_events gives an event's `id` and how one enrols in it.
+  rooms_get_free_rooms checks occupancy and the user's permission for the exact interval: free means personally
+  bookable at checked_at, booked means occupied, unavailable carries access/time refusal reasons. Failed checks are
+  not availability. Upstream Outlook data may be cached; none of these reads reserve a room or guarantee physical access.
+  events_get_university_events gives an event's `id` and how one enrols in it.
 - Sport: discover sport_get_my_sport for their hours this semester (done, required, debt, left, days to the end), medical
   group and their check-ins; sport_get_sport_trainings for eligible trainings in a period with places left, `checked_in`
   and `can_check_in` (pass `sport` in English, as the sport names it: Volleyball, Swimming); sport_get_sports for sports,
