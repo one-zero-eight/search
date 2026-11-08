@@ -7,9 +7,11 @@ from datetime import datetime, timedelta, timezone
 import httpx
 import jwt
 import pytest
+from pydantic import HttpUrl
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 from catix.innohassle import client as backend, token
+from catix.settings import settings
 from tests.mcp_native_helpers import connection
 
 ID = 'a' * 24
@@ -77,7 +79,9 @@ def invoke(signed, name, arguments, generic=True):
 
 
 @pytest.mark.parametrize('generic', [False, True])
-def test_create_draft_checks_rights_writes_locale_host_and_reads_back(signed, upstream, generic):
+@pytest.mark.parametrize('local_api', [None, 'http://127.0.0.1:9101/events/v1/'])
+def test_create_draft_checks_rights_writes_locale_host_and_reads_back(signed, upstream, generic, local_api, monkeypatch):
+    monkeypatch.setattr(settings, 'innohassle_events_api', HttpUrl(local_api) if local_api else None)
     _, requests = upstream
     result = invoke(signed, 'events_create_draft', CREATE, generic)
     assert not result.is_error
@@ -97,6 +101,8 @@ def test_create_draft_checks_rights_writes_locale_host_and_reads_back(signed, up
         'enrollment': {'type': 'external', 'url': CREATE['registration_url'], 'capacity': None}}
     assert json.loads(requests[3].content) == {'club_id': '42'}
     assert all(r.headers['Authorization'] == f'Bearer {signed}' for r in requests)
+    assert all(r.url.host == ('127.0.0.1' if local_api else 'synthetic.test') for r in requests)
+    assert all(r.url.port == (9101 if local_api else None) for r in requests)
 
 
 @pytest.mark.parametrize('generic', [False, True])

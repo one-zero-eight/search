@@ -31,13 +31,24 @@ _client = _http_client(str(settings.innohassle_api), timeout=30)
 BOOKINGS_TTL = 30  # seconds: public timetable only; availability and writes bypass it
 
 
+def _url(path: str) -> str:
+    """Resolve fixed service paths against operator configuration, never model input."""
+    if path.startswith("/events/v1/") and settings.innohassle_events_api is not None:
+        return str(settings.innohassle_events_api).rstrip("/") + "/" + path.removeprefix("/events/v1/")
+    if path.startswith("/clubs/v0/") and settings.innohassle_clubs_api is not None:
+        return str(settings.innohassle_clubs_api).rstrip("/") + "/" + path.removeprefix("/clubs/v0/")
+    return path.lstrip("/")
+
+
 def _get(path: str, *, params: dict | None = None, as_text: bool = False, ttl: int | None = None) -> Any:
+    url = _client.build_request("GET", _url(path)).url
+
     def load() -> Any:
-        resp = _client.get(path.lstrip("/"), params=params)
+        resp = _client.get(url, params=params)
         resp.raise_for_status()
         return resp.text if as_text else resp.json()
 
-    key = f"innohassle:{path}?{urlencode(sorted((params or {}).items()))}"
+    key = f"innohassle:{url}?{urlencode(sorted((params or {}).items()))}"
     return cache.cached(key, settings.innohassle_cache_ttl if ttl is None else ttl, load)
 
 
@@ -62,7 +73,7 @@ def event(event_id: str, *, fresh: bool = False) -> dict:
         raise ValueError("Invalid event identifier.")
     path = f"/events/v1/events/{event_id}"
     if fresh:
-        return _check_response(_client.get(path.lstrip("/"))).json()
+        return _check_response(_client.get(_url(path))).json()
     return _get(path)
 
 
@@ -180,7 +191,7 @@ def _check_response(resp: httpx.Response) -> httpx.Response:
 
 
 def _as_user(method: str, path: str, token: str, *, params: dict | None = None, json: dict | None = None) -> httpx.Response:
-    resp = _client.request(method, path.lstrip("/"), params=params, json=json, headers={"Authorization": f"Bearer {token}"},
+    resp = _client.request(method, _url(path), params=params, json=json, headers={"Authorization": f"Bearer {token}"},
                            timeout=httpx.Timeout(20, connect=5))
     return _check_response(resp)
 

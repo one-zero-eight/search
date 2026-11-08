@@ -95,7 +95,7 @@ def read(path: str, response_model: type[Projection], parameters: dict, token: s
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     parameters = {key: value for key, value in parameters.items() if value is not None}
     try:
-        with backend._client.stream("GET", path, headers=headers, params=parameters,
+        with backend._client.stream("GET", backend._url(path), headers=headers, params=parameters,
                                     follow_redirects=False) as response:
             if response.status_code == 401:
                 raise ReadError("InNoHassle did not accept the sign-in: sign in on the site again.")

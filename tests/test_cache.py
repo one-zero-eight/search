@@ -101,7 +101,7 @@ def test_inno_hassle_is_asked_once_for_every_process(monkeypatch, shared_cache):
     monkeypatch.setattr(innohassle, "_client", httpx.Client(base_url=str(settings.innohassle_api), transport=httpx.MockTransport(answer)))
     assert innohassle.clubs() == innohassle.clubs() == [{"id": 1}] and len(asked) == 1
     innohassle.music_room_bookings(date(2026, 11, 6))
-    assert shared_cache.ttl[cache.PREFIX + "innohassle:/music-room/v0/bookings/daily_bookings?date=2026-11-06"] == innohassle.BOOKINGS_TTL
+    assert shared_cache.ttl[cache.PREFIX + "innohassle:" + asked[-1]] == innohassle.BOOKINGS_TTL
     monkeypatch.setattr(settings, "innohassle_cache_ttl", 0)
     innohassle.scenes(), innohassle.scenes()
     assert len(asked) == 4, "a TTL of 0 is no cache"

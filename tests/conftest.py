@@ -107,6 +107,10 @@ def _hermetic(request, monkeypatch):
 
     monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
     monkeypatch.setattr(settings, "tg_bot_token", None)  # (the wiki's run tells the admins of new sites and of the OCR queue: not from a test)
+    # Operator-local service roots must not change synthetic upstream paths in unrelated tests.
+    # Routing tests install their own explicit Settings or override these after this autouse fixture.
+    monkeypatch.setattr(settings, "innohassle_events_api", None)
+    monkeypatch.setattr(settings, "innohassle_clubs_api", None)
     from catix.wiki.sources import sites
 
     def no_browser(url: str) -> str:

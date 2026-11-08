@@ -83,6 +83,9 @@ class Settings(BaseSettings):
     )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
+    # Optional complete API roots replacing /events/v1 and /clubs/v0, not the gateway or Accounts/JWKS.
+    innohassle_events_api: HttpUrl | None = None
+    innohassle_clubs_api: HttpUrl | None = None
     # Independently running MCP HTTP server; Docker uses the private http://mcp:8010/mcp endpoint.
     innohassle_mcp_url: HttpUrl = HttpUrl("http://127.0.0.1:8010/mcp")
     # Token of a service with the `users` scope: it lets us ask InNoHassle which study group a Telegram id belongs to.
@@ -251,6 +254,17 @@ class Settings(BaseSettings):
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
     timezone: str = "Europe/Moscow"
+
+    @field_validator("innohassle_events_api", "innohassle_clubs_api", mode="before")
+    @classmethod
+    def _service_api_root(cls, value):
+        if value is None or value == "":
+            return None
+        raw = str(value)
+        parsed = urlsplit(raw)
+        if parsed.username is not None or parsed.password is not None or "?" in raw or "#" in raw:
+            raise ValueError("Service API URLs must not contain credentials, query or fragment.")
+        return value
 
     @field_validator("innohassle_mcp_url", mode="before")
     @classmethod
