@@ -101,21 +101,35 @@ def test_main_and_helper_prompts_describe_direct_reads_not_a_retired_role():
     assert roles.DIRECT_OFFERS in roles.abilities({"docs", "chats"})
 
 
-def test_main_prompt_includes_trusted_group_and_course_names(monkeypatch):
+@pytest.mark.parametrize("role", [None, "docs", "chats"])
+def test_prompts_keep_trusted_group_without_course_glossary(monkeypatch, role):
     from langchain.agents.middleware import ModelRequest
     from langgraph.runtime import Runtime
 
-    monkeypatch.setattr(core.courses, "courses", lambda: ["ITP"])
-    monkeypatch.setattr(core.courses, "glossary", lambda: "ITP = Introduction to Programming")
+    monkeypatch.setattr(core.courses, "courses", lambda: (
+        core.courses.Course("ITP", "Introduction to Programming", ("итп",)),
+        core.courses.Course("CA", "Computer Architecture", ("компарх", "компарч")),
+    ))
+    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     seen = []
     request = ModelRequest(model=ScriptedModel(responses=[AIMessage(content="ok")]),
                            messages=[HumanMessage("Мои пары завтра")], tools=[],
                            state={"messages": []}, runtime=Runtime(context=AgentContext(study_group="B26-CSE-01")))
-    core.prompt_for(None).wrap_model_call(request, seen.append)
+    core.prompt_for(role).wrap_model_call(request, seen.append)
     text = seen[0].system_message.text
     assert "study group is B26-CSE-01" in text
     assert "never ask for it" in text
-    assert "ITP = Introduction to Programming" in text
+    assert "Courses (use these names" not in text
+    assert "ITP = Introduction to Programming" not in text
+    assert "CA = Computer Architecture" not in text
+
+    # Only the subject mentioned in the question is decoded, outside the system prompt.
+    question = request.override(messages=[HumanMessage("Когда мидтерм по компарчу?")])
+    hinted = core.QuestionNoteMiddleware(hint=True)._with_hint(question)
+    assert "CA = Computer Architecture" in hinted.messages[0].content
+    assert "ITP = Introduction to Programming" not in hinted.messages[0].content
+    assert question.messages[0].content == "Когда мидтерм по компарчу?"
+    assert {"компарх", "компарч"} <= set(core.store._words("компарч").split())
 
 
 def test_api_identifiers_cannot_resurrect_old_citations():

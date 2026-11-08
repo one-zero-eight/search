@@ -106,10 +106,6 @@ TAIL_PROMPT = """
 Current date and time: {now} ({timezone}, {weekday}).
 The user's last message is in {language}: write the answer in {language}."""
 
-COURSES_PROMPT = """
-
-Courses (use these names in the answer, never translate or guess a code yourself): {glossary}."""
-
 GROUP_PROMPT = """
 
 The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for questions explicitly
@@ -158,12 +154,10 @@ def prompt_for(role: str | None):
                                         calendar_writes=set(LOCAL_CALENDAR_APPROVAL) <= tool_names)
             parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=abilities),
                      BRIEF_PROMPT if context and context.brief else "",
-                     COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
                      GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT]
         else:
             parts = [
                 roles.prompt(role),  # Same for everybody: its start stays in the model server's cache.
-                COURSES_PROMPT.format(glossary=courses.glossary()) if courses.courses() else "",
                 GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT,
                 _chats_prompt(context) if "read_chats" in roles.ROLES[role].tools else "",
             ]
