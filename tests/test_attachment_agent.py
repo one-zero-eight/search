@@ -51,6 +51,94 @@ def test_previous_turn_attachment_data_does_not_support_new_answer():
     assert not core.read_evidence([*read_turn(), AIMessage("Ответ"), HumanMessage("Что в другой странице?")])
 
 
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_short_action_request_inspects_current_image_before_asking_for_details(monkeypatch, asynchronous):
+    import asyncio
+    from pydantic import SecretStr
+    from catix import attachments
+    from catix.agent import attachment_tools
+    from catix.agent.tools import AgentContext
+    from tests.test_roles import ScriptedModel
+
+    class ImageFirstModel(ScriptedModel):
+        def bind_tools(self, tools, **kwargs):
+            # Without an enforced image read, the model can return the reported clarification.
+            if self.i == 0 and kwargs.get("tool_choice") != {
+                "type": "function", "function": {"name": "view_attachment"},
+            }:
+                return ScriptedModel(responses=[AIMessage("Уточните название, дату и место мероприятия.")])
+            return self
+
+    metadata = {"id": FILE_ID, "filename": "image.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
+    monkeypatch.setattr(core, "tool_call_token", lambda: None)
+    monkeypatch.setattr(core.store, "visible_chats", lambda *args: [])
+    reads = []
+
+    def image(owner, chat, file_id, page):
+        reads.append((owner, chat, file_id, page))
+        return b"synthetic pixels"
+
+    monkeypatch.setattr(attachments, "image_page", image)
+    monkeypatch.setattr(attachment_tools, "_inspect_image", lambda *args: ("Встреча команды, 18 ноября, аудитория 512.", False))
+    model = ImageFirstModel(responses=[read_turn("view_attachment")[1], AIMessage("На image.png: встреча команды, 18 ноября, аудитория 512. Уточните время.")])
+    graph = core.build_agent(model, guardrail=False)
+    context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"),
+                           attachment_chat_id="chat", attachments=(metadata,), current_attachment_ids=(FILE_ID,))
+    args = ({"messages": [HumanMessage("Создай ивент")]}, {"configurable": {"thread_id": "implicit-image"}})
+    result = asyncio.run(graph.ainvoke(*args, context=context)) if asynchronous else graph.invoke(*args, context=context)
+    assert reads == [("owner", "chat", FILE_ID, 1)]
+    assert "512" in core.final_answer(result["messages"], {})
+
+
+@pytest.mark.parametrize(("messages", "current", "state", "choice", "expected"), [
+    ([HumanMessage("Создай ивент")], True, {}, None, "view_attachment"),
+    (read_turn("view_attachment"), True, {}, None, None),
+    (read_turn("view_attachment", error="Unreadable"), True, {}, None, None),
+    (read_turn("read_attachment", text=""), True, {}, None, "view_attachment"),
+    ([*read_turn("view_attachment"), HumanMessage("Создай другой ивент")], True, {}, None, "view_attachment"),
+    ([HumanMessage("Создай ивент"), read_turn("view_attachment")[-1]], True, {}, None, "view_attachment"),
+    ([HumanMessage("Создай ивент")], False, {}, None, None),
+    ([HumanMessage("Спасибо")], True, {"answer_alone": True}, None, None),
+    ([HumanMessage("Создай ивент")], True, {}, "none", "none"),
+])
+def test_current_image_read_is_scoped_and_does_not_repeat_errors(messages, current, state, choice, expected):
+    from langchain.agents.middleware import ModelRequest
+    from langgraph.runtime import Runtime
+    from pydantic import SecretStr
+    from catix.agent.tools import AgentContext
+    from tests.test_roles import ScriptedModel
+
+    metadata = {"id": FILE_ID, "filename": "image.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
+    context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"),
+                           attachment_chat_id="chat", attachments=(metadata,), current_attachment_ids=(FILE_ID,) if current else ())
+    request = ModelRequest(model=ScriptedModel(responses=[AIMessage("ok")]), messages=messages,
+                           tools=[{"name": "read_attachment"}, {"name": "view_attachment"}, {"name": "call_api_tool"}],
+                           state={"messages": messages, **state}, runtime=Runtime(context=context), tool_choice=choice)
+    seen = []
+    core.AttachmentAccessMiddleware().wrap_model_call(request, seen.append)
+    assert seen[0].tool_choice == ({"type": "function", "function": {"name": expected}} if expected == "view_attachment" else expected)
+    assert seen[0].tools == request.tools, "keep all tool definitions stable for prefix caching and later consent"
+    assert request.messages == messages, "the stored user message must not acquire the model-only hint"
+
+
+def test_malformed_file_call_does_not_crash_next_model_request():
+    from langchain.agents.middleware import ModelRequest
+    from langgraph.runtime import Runtime
+    from pydantic import SecretStr
+    from catix.agent.tools import AgentContext
+    from tests.test_roles import ScriptedModel
+
+    messages = read_turn("view_attachment")
+    messages[1].tool_calls[0]["args"]["attachment_id"] = [FILE_ID]
+    context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"), attachment_chat_id="chat",
+                           attachments=({"id": FILE_ID, "media_type": "image/png"},), current_attachment_ids=(FILE_ID,))
+    request = ModelRequest(model=ScriptedModel(responses=[AIMessage("ok")]), messages=messages,
+                           tools=[{"name": "view_attachment"}], state={"messages": messages}, runtime=Runtime(context=context))
+    seen = []
+    core.AttachmentAccessMiddleware().wrap_model_call(request, seen.append)
+    assert seen[0].tool_choice == {"type": "function", "function": {"name": "view_attachment"}}
+
+
 def test_attachment_tools_and_manifest_are_scoped_to_authenticated_site_chat():
     from langchain.agents.middleware import ModelRequest
     from langgraph.runtime import Runtime

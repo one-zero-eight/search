@@ -332,7 +332,7 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         answer=answer,
         attachments=files,
         chat_id=chat_id,
-        # A vote annotates the trace; file conversations deliberately have no trace.
+        # A vote annotates the trace, including when the answer used private files.
         ask_query_id=state.new_id() if span_id else None,
         search_responses=cards,
         # After a decision, the booked event is in the service already.

@@ -70,6 +70,32 @@ def test_a_question_is_one_trace_with_session_user_and_text(phoenix):
     assert any(s.get("parent_id") == span_id for s in spans), "the LangChain run is not under the question span"
 
 
+def test_private_file_question_reaches_phoenix_with_nested_runs(phoenix):
+    session = "private-test-" + uuid.uuid4().hex[:8]
+    with tracing.private():
+        with tracing.question(session, "synthetic-private-user", "synthetic private document question") as traced:
+            RunnableLambda(lambda x: str(x).upper()).invoke(
+                "synthetic private tool text", tracing.run_config(session, "synthetic-private-user")  # pyright: ignore[reportArgumentType]
+            )
+            with tracing.span("synthetic-file-read", "TOOL", input="synthetic file text") as output:
+                output("synthetic extracted answer")
+            traced.answer("synthetic file answer")
+    assert traced.id
+    tracing.flush()
+    spans = spans_of(phoenix, traced.id)
+    root = next(s for s in spans if s["context"]["span_id"] == traced.id)
+    assert root["attributes"]["session.id"] == session
+    assert root["attributes"]["user.id"] == "synthetic-private-user"
+    assert root["attributes"]["input.value"] == "synthetic private document question"
+    assert root["attributes"]["output.value"] == "synthetic file answer"
+    assert any(s["name"] == "synthetic-file-read" and s.get("parent_id") == traced.id for s in spans)
+    assert any(s.get("parent_id") == traced.id and s["name"] != "synthetic-file-read" for s in spans)
+    tracing.score_feedback(traced.id, "api:synthetic-private-user", False, "Synthetic file feedback")
+    annotations = phoenix.spans.get_span_annotations(span_ids=[traced.id], project_identifier=settings.phoenix_project)
+    assert [(a["identifier"], a["result"]["score"], a["result"].get("explanation")) for a in annotations] == [
+        ("api:synthetic-private-user", 0.0, "Synthetic file feedback")]
+
+
 def test_feedback_is_an_annotation_and_a_second_vote_replaces_the_first(phoenix):
     span_id, _ = traced_run()
     spans_of(phoenix, span_id)

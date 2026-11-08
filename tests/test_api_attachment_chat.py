@@ -6,6 +6,7 @@ import pytest
 
 from catix.api import ask
 from tests.test_api import AUTH, answering, client, kept  # noqa: F401 - shared isolated API fixtures
+from tests.test_attachment_privacy import traced_files  # noqa: F401 - isolated real tracer
 
 
 def events(response):
@@ -33,7 +34,8 @@ def test_attachment_ids_are_validated_before_generation(client, monkeypatch, kep
     assert not kept.answers
 
 
-def test_attachment_manifest_follows_question_into_history(client, monkeypatch, kept):
+@pytest.mark.parametrize("path", ["/ask/", "/ask/stream"])
+def test_attachment_manifest_follows_question_into_history(client, monkeypatch, kept, traced_files, path):
     store = getattr(ask, "attachments", None)
     assert store is not None, "ask must bind owned uploads and return metadata"
     item = store.AttachmentInfo(id="11111111-1111-4111-8111-111111111111", filename="plan.txt",
@@ -45,24 +47,41 @@ def test_attachment_manifest_follows_question_into_history(client, monkeypatch, 
         calls.append("bind")
         return [item]
 
+    from catix.agent import tracing
+    feedback_calls = []
+    monkeypatch.setattr(tracing, "score_feedback", lambda *args: feedback_calls.append(args))
+
     async def answer(query, chat_id, user, events=None, decision=None, **kwargs):
-        from catix.agent import tracing
         assert tracing.is_private()
+        assert tracing.enabled()
         assert kwargs["attachment_manifest"] == (item.model_dump(),)
         assert kwargs["current_attachment_ids"] == (item.id,)
         calls.append("agent")
-        return "В файле указан дедлайн.", [], [], None, "cp-file"
+        text = "В файле указан дедлайн."
+        with tracing.question(kept.thread_of(chat_id), user.innohassle_id, query) as traced:
+            traced.answer(text)
+        return text, [], [], traced.id, "cp-file"
 
     monkeypatch.setattr(store, "bind", bind)
     monkeypatch.setattr(store, "list_for_chat", lambda owner, chat_id: [item])
     monkeypatch.setattr(ask, "_run", answer)
-    response = client.post("/ask/", json={"query": "Какой дедлайн?", "attachment_ids": [item.id]}, headers=AUTH)
+    response = client.post(path, json={"query": "Какой дедлайн?", "attachment_ids": [item.id]}, headers=AUTH)
     assert response.status_code == 200
-    body = response.json()
+    body = response.json() if path == "/ask/" else next(data for name, data in events(response) if name == "done")
     assert body["attachments"] == [item.model_dump()]
+    assert body["ask_query_id"]
     assert calls == ["bind", "agent"]
     history = client.get(f"/ask/chats/{body['chat_id']}", headers=AUTH).json()
     assert history["answers"][0]["attachments"] == body["attachments"]
+    response = client.post(f"/ask/{body['ask_query_id']}/feedback?feedback=dislike", json={"comment": "Wrong deadline"}, headers=AUTH)
+    assert response.status_code == 200
+    span = next(span for span in traced_files.get_finished_spans() if span.name == "question")
+    assert span.attributes["input.value"] == "Какой дедлайн?"
+    assert span.attributes["output.value"] == body["answer"]
+    assert feedback_calls == [(f"{span.context.span_id:016x}", "api:u1", False, "Wrong deadline")]
+    history = client.get(f"/ask/chats/{body['chat_id']}", headers=AUTH).json()
+    assert history["answers"][0]["feedback"] == "dislike"
+    assert history["answers"][0]["feedback_comment"] == "Wrong deadline"
 
 
 def test_upload_contract_is_registered_in_the_application(client):
@@ -92,6 +111,9 @@ def test_private_model_errors_are_not_logged_or_returned(client, monkeypatch, ca
 
 def test_approval_resume_retains_files_and_followups_remain_private(client, monkeypatch, kept):
     from catix.agent import tracing
+    monkeypatch.setattr(tracing, "_provider", object())
+    feedback_calls = []
+    monkeypatch.setattr(tracing, "score_feedback", lambda *args: feedback_calls.append(args))
     from catix.api.schemas import AskAction, AskApproval
 
     item = ask.attachments.AttachmentInfo(id="a" * 32, filename="event.png", media_type="image/png", size_bytes=100, pages=1)
@@ -106,7 +128,7 @@ def test_approval_resume_retains_files_and_followups_remain_private(client, monk
             return ask.Waiting("В файле указана встреча.", [], None, "cp-wait",
                                AskApproval(id="cp-wait", actions=[AskAction(name="add_to_ai_calendar", description="Добавить встречу")]),
                                [{"id": "interrupt", "actions": 1}])
-        return "Ответ", [], [], None, "cp-done"
+        return "Ответ", [], [], "phoenix-span-followup", "cp-done"
 
     monkeypatch.setattr(ask, "_run", answer)
     stream = events(client.post("/ask/stream", json={"query": "Добавь встречу с картинки", "attachment_ids": [item.id]}, headers=AUTH))
@@ -119,6 +141,13 @@ def test_approval_resume_retains_files_and_followups_remain_private(client, monk
     assert decision.status_code == 200 and decision.json()["attachments"] == body["attachments"]
     followup = client.post("/ask/", json={"query": "Что ещё видно?", "chat_id": chat_id}, headers=AUTH)
     assert followup.status_code == 200 and followup.json()["attachments"] == []
+    assert followup.json()["ask_query_id"]
+    feedback = client.post(f"/ask/{followup.json()['ask_query_id']}/feedback?feedback=like", json={"comment": "Useful summary"}, headers=AUTH)
+    assert feedback.status_code == 200
+    assert feedback_calls == [("phoenix-span-followup", "api:u1", True, "Useful summary")]
+    history = client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()
+    assert history["answers"][-1]["feedback"] == "like"
+    assert history["answers"][-1]["feedback_comment"] == "Useful summary"
     assert seen == [(item.id,), (item.id,), ()]
 
 

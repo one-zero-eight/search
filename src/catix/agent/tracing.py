@@ -37,7 +37,7 @@ if settings.phoenix_endpoint:
 
 
 def enabled() -> bool:
-    return _provider is not None and not is_private()
+    return _provider is not None
 
 
 def is_private() -> bool:
@@ -47,16 +47,13 @@ def is_private() -> bool:
 
 @contextlib.contextmanager
 def private(active: bool = True) -> Iterator[None]:
-    """Keep file-derived text out of Phoenix, including automatically instrumented nested model/tool calls."""
+    """Mark a file conversation so application logs can redact content; Phoenix tracing remains enabled."""
     if not active or is_private():
         yield
         return
-    from openinference.instrumentation import suppress_tracing
-
     token = _private.set(True)
     try:
-        with suppress_tracing():
-            yield
+        yield
     finally:
         _private.reset(token)
 

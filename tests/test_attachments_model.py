@@ -54,7 +54,8 @@ def test_upload_and_reopen_with_real_agent(monkeypatch):
             first = response.json()
             assert "18" in first["answer"] and "ноябр" in first["answer"] and "16:45" in first["answer"], first["answer"]
             assert first["attachments"] == [file] and first["approval"] is None
-            assert first["ask_query_id"] is None, "private file conversations must not be exported to tracing"
+            from catix.agent import tracing
+            assert (first["ask_query_id"] is not None) == tracing.enabled(), "private file traces should retain the feedback identifier when tracing is enabled"
 
             image = Image.new("RGB", (900, 350), "white")
             draw = ImageDraw.Draw(image)
