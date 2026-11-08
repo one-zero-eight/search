@@ -200,9 +200,9 @@ async def _run_agent(
     user_id: int | None,
     streamer: stream.DraftStreamer | None,
     brief: bool = False,
-) -> tuple[str, str | None]:
+) -> tuple[str, str | None, dict]:
     """Ask the agent; it may use the chats of the asker's study group (found by Telegram id).
-    Returns the answer and the root span of its trace in Phoenix (for the 👍/👎 under it)."""
+    Returns the answer, the root span in Phoenix (for 👍/👎) and calendar provenance."""
     allowed = await asyncio.to_thread(groups.scoped_chat_ids, f"tg:{user_id or 0}", user_id)
     group = await asyncio.to_thread(groups.effective_group, f"tg:{user_id or 0}", user_id)
     config = tracing.run_config(thread_id, str(user_id) if user_id else None)
@@ -218,7 +218,7 @@ async def _run_agent(
             state = await stream.run(agent, {"messages": [{"role": "user", "content": question}]}, config, context, streamer)
             answer = final_answer(state["messages"], state.get("sources") or {}) or "Не получилось сформулировать ответ."
             traced.answer(answer)
-    return answer, traced.id
+    return answer, traced.id, calendar_events.origins(state['messages'])
 
 
 def _event_label(event: dict) -> str:
@@ -335,10 +335,10 @@ async def calendar_callback(query: CallbackQuery) -> None:
 _background: set[asyncio.Task] = set()
 
 
-async def _offer_events(sent: Message, answer: str, trace: str) -> None:
+async def _offer_events(sent: Message, answer: str, trace: str, origins: dict) -> None:
     """If the answer names upcoming events, add an "add to my calendar" button for each under it."""
     try:
-        events = await asyncio.to_thread(calendar_events.extract, answer)
+        events = await asyncio.to_thread(calendar_events.extract, answer, origins=origins)
         if not events:
             return
         offered = await asyncio.to_thread(personal_calendar.propose, events)
@@ -371,7 +371,7 @@ async def _answer(message: Message, question: str) -> None:
     )
     async with ChatActionSender.typing(chat_id=message.chat.id, bot=message.bot, message_thread_id=message.message_thread_id):
         try:
-            answer, trace = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
+            answer, trace, origins = await _run_agent(question, thread_id, message.from_user.id if message.from_user else None, streamer)
             log.info("answered in %.1fs, %d chars", time.monotonic() - started, len(answer))
         except Exception as e:
             log.exception("agent failed")
@@ -389,7 +389,7 @@ async def _answer(message: Message, question: str) -> None:
             # Converter produced HTML Telegram does not accept: fall back to plain text.
             sent = await message.reply(chunk, disable_web_page_preview=True, reply_markup=keyboard)
     if sent and trace:
-        task = asyncio.create_task(_offer_events(sent, answer, trace))  # After the answer: it does not delay it.
+        task = asyncio.create_task(_offer_events(sent, answer, trace, origins))  # After the answer: it does not delay it.
         _background.add(task)
         task.add_done_callback(_background.discard)
 
@@ -537,7 +537,7 @@ async def _inline_answer(user_id: int, question: str) -> tuple[str, str | None]:
     thread_id = f"tg:inline:{user_id}:{uuid.uuid4().hex}"
     try:
         # One answer per message, an inline message cannot be followed by more.
-        answer, trace = await _run_agent(question, thread_id, user_id, None, brief=True)  # No calendar buttons in a card.
+        answer, trace, _ = await _run_agent(question, thread_id, user_id, None, brief=True)  # No calendar buttons in a card.
         return _chunks(answer, 3500)[0], trace
     except Exception as e:
         log.exception("inline agent failed")

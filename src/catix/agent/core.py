@@ -39,6 +39,7 @@ from typing_extensions import NotRequired
 
 from catix import userbot_config
 from catix.agent import claims, questions, roles, sources, tracing, web_tools
+from catix.agent import events as calendar_events
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
 from catix.agent.calendar_tools import _mutation_key
 from catix.agent.api_tools import API_APPROVAL
@@ -1523,6 +1524,8 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             "results": [str(m.content) for m in messages if isinstance(m, ToolMessage)],
             "found": found_anything(messages),
         }
+        if calendar_origins := calendar_events.origins(messages):
+            used['calendar_origins'] = calendar_origins
         if read_evidence(messages):
             used["read_found"] = True
         if requires_user_input(messages):

@@ -178,6 +178,7 @@ class AnswerHistory(list):
 
     signup_offers: list[SignupOffer]
     signup_targets: dict
+    calendar_origins: dict
 
 
 def _history(messages: list) -> list[dict]:
@@ -334,7 +335,7 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         ask_query_id=state.new_id() if span_id else None,
         search_responses=cards,
         # After a decision, the booked event is in the service already.
-        calendar_events=await calendar_offers(answer) if decision is None else [],
+        calendar_events=await calendar_offers(answer, getattr(messages, 'calendar_origins', None)) if decision is None else [],
         signup_offers=getattr(messages, 'signup_offers', []),
         messages=messages,
     )
@@ -430,15 +431,16 @@ async def _run(
     cited = answer.rstrip().split("\n\n")[-1].startswith(("Источники:", "Sources:"))
     cards = _cards(result.get("sources") or {}, before) if cited else []
     history = AnswerHistory(_history(result['messages']))
+    history.calendar_origins = calendar_events.origins(result['messages'])
     history.signup_offers, history.signup_targets = signup.collect(result['messages'], answer) if decision is None else ([], {})
     return answer, cards, history, traced.id, after.config["configurable"]["checkpoint_id"]
 
 
-async def calendar_offers(answer: str) -> list[CalendarEventOffer]:
+async def calendar_offers(answer: str, origins: dict | None = None) -> list[CalendarEventOffer]:
     """The upcoming events the answer names, offered for the user's calendar as under the bot's answers (one more short
     call of the model, only when the answer has a date). A bonus: when it fails, the answer goes without them."""
     try:
-        events = await asyncio.to_thread(calendar_events.extract, answer)
+        events = await asyncio.to_thread(calendar_events.extract, answer, **({'origins': origins} if origins else {}))
         offered = await asyncio.to_thread(personal_calendar.propose, events) if events else []
     except Exception as exc:  # noqa: BLE001 - the answer is there already
         log.warning("could not offer calendar events (%s)", type(exc).__name__)

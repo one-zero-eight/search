@@ -43,6 +43,7 @@ def accounts(monkeypatch):
         return f"ih:{innohassle_id}"
 
     monkeypatch.setattr(innohassle_token, "_keys", Keys())
+    monkeypatch.setattr(ask.attachments, "list_for_chat", lambda *args: [])
     monkeypatch.setattr(personal_calendar, "account_key", account_key)
     monkeypatch.setattr(personal_calendar, "ics", lambda user_key: f"BEGIN:VCALENDAR\r\nX-USER:{user_key}\r\nEND:VCALENDAR\r\n")
     return seen

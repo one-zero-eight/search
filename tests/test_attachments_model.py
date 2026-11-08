@@ -28,7 +28,7 @@ def test_upload_and_reopen_with_real_agent(monkeypatch):
     monkeypatch.setattr(ask.titles, "name", lambda query: "Attachment test")
     monkeypatch.setattr(settings, "agent_plan_thinking", False)
 
-    async def no_offers(answer):
+    async def no_offers(answer, origins=None):
         return []
 
     monkeypatch.setattr(ask, "calendar_offers", no_offers)
