@@ -32,6 +32,7 @@ CREDENTIAL_MODES = MappingProxyType({
     "account_get_my_schedule": "innohassle",
     "rooms_get_free_rooms": "innohassle",
     "rooms_book_room": "innohassle",
+    "music_get_available_windows": "innohassle",
     "music_book_music_room": "innohassle",
     "account_cancel_booking": "innohassle",
     "events_enroll_in_event": "innohassle",

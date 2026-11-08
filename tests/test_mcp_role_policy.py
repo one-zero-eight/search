@@ -94,7 +94,7 @@ def test_confirmation_is_selected_by_exact_name_even_for_invalid_business_argume
 
 def test_client_catalogue_is_complete_and_pure():
     from catix.innohassle.mcp_access import CREDENTIAL_MODES, CONFIRMATION_TOOLS
-    assert len(CREDENTIAL_MODES) == 23
+    assert len(CREDENTIAL_MODES) == 24
     assert set(CREDENTIAL_MODES.values()) == {"public", "innohassle", "sport"}
     assert CONFIRMATION_TOOLS == {"rooms_book_room", "music_book_music_room", "account_cancel_booking",
                                   "events_enroll_in_event", "sport_sport_checkin"}

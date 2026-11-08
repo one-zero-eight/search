@@ -28,6 +28,9 @@ from catix.innohassle.mcp_account import (
     music_book_music_room as music_book_music_room,
 )
 from catix.innohassle.mcp_account import (
+    music_get_available_windows as music_get_available_windows,
+)
+from catix.innohassle.mcp_account import (
     rooms_book_room as rooms_book_room,
 )
 from catix.innohassle.mcp_account import (

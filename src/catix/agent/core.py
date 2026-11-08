@@ -754,6 +754,20 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         return lists("courses", *[key for key in ("teachers", "more_courses") if key in data])
     elif target == "events_get_university_events" and _read_period(data.get("range")):
         return counted("events")
+    elif target == "music_get_available_windows":
+        day = data.get("date")
+        windows = data.get("windows")
+        if (data.get("availability") == "calculated" and _read_period([day, day])
+                and isinstance(data.get("checked_at"), str) and isinstance(data.get("timezone"), str)
+                and isinstance(windows, list) and all(
+                    isinstance(window, dict)
+                    and all(isinstance(window.get(key), str) for key in ("start", "end", "latest_start"))
+                    and type(window.get("max_duration_minutes")) is int
+                    and window["max_duration_minutes"] > 0 for window in windows
+                ) and (windows or isinstance(data.get("reason"), str) and data["reason"] in {
+                    "outside_booking_horizon", "access_denied", "insufficient_quota", "no_matching_window",
+                })):
+            return (windows,)
     elif target == "music_get_music_room_schedule" and isinstance(data.get("music_room"), dict):
         return lists("days")
     elif target == "sport_get_sports":

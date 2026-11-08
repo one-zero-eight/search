@@ -314,6 +314,111 @@ def account_cancel_booking(
     }
 
 
+# Conservative local availability rules from the published Music Room bot UI.
+# Keep separate from the upstream API's permissive/buggy hour and .days checks.
+_MUSIC_OPEN, _MUSIC_CLOSE = time(7), time(22, 30)
+_MUSIC_STEP = timedelta(minutes=30)
+_MUSIC_HORIZON = timedelta(days=7)
+_MUSIC_RULES_SOURCE = (
+    "https://github.com/one-zero-eight/music-room/blob/60e67e3cc3e770513a748b8cf59c0a61d687de92/"
+    "src/bot/routers/booking/create_booking_routes.py"
+)
+
+
+def _music_windows(day: date, now: datetime, occupied: list[tuple[datetime, datetime]],
+                   quota_minutes: int, duration_minutes: int | None) -> list[dict]:
+    """Subtract occupied half-hours, then constrain starts and personal duration."""
+    cursor, closing = _at(day, _MUSIC_OPEN), _at(day, _MUSIC_CLOSE)
+    spans = []
+    while cursor < closing:
+        end = cursor + _MUSIC_STEP
+        if cursor > now and not any(start < end and cursor < finish for start, finish in occupied):
+            if spans and spans[-1][1] == cursor:
+                spans[-1] = (spans[-1][0], end)
+            else:
+                spans.append((cursor, end))
+        cursor = end
+    minimum = timedelta(minutes=duration_minutes) if duration_minutes is not None else _MUSIC_STEP
+    horizon, midnight = now + _MUSIC_HORIZON, _at(day, time.min)
+    windows = []
+    for start, end in spans:
+        maximum = min(quota_minutes, int((end - start).total_seconds() // 60)) // 30 * 30
+        latest = min(end - minimum, horizon)
+        latest = midnight + ((latest - midnight) // _MUSIC_STEP) * _MUSIC_STEP
+        if maximum < minimum.total_seconds() / 60 or latest < start:
+            continue
+        windows.append({"start": start.strftime("%H:%M"), "end": end.strftime("%H:%M"),
+                        "latest_start": latest.strftime("%H:%M"), "max_duration_minutes": maximum})
+    return windows
+
+
+@tool(**metadata())
+@result_boundary()
+def music_get_available_windows(
+    day: date,
+    duration_minutes: Annotated[int | None, Field(ge=30, le=1440, multiple_of=30)] = None,
+    *, token: str = Depends(require_innohassle),
+) -> dict:
+    """Find personal music room booking availability and free time windows for one day.
+    Свободные окна музыкальной комнаты: когда можно записаться или забронировать музкомнату.
+
+    Requires InNoHassle sign-in and Music Room registration. Calculates from fresh occupied
+    intervals and daily/weekly quotas using local bot-derived 07:00–22:30 / 30-minute rules
+    and a conservative rolling seven-day start horizon; not an upstream availability promise.
+    Omit duration to see windows without inventing the user's duration. latest_start is for
+    duration_minutes, or a 30-minute booking if omitted. max_duration_minutes is a limit at
+    the window's start, not permission to book the whole window. No reservation is made.
+    """
+    from catix.innohassle import client as innohassle
+
+    now = _now()
+    result = {
+        "date": day.isoformat(), "timezone": str(settings.tz), "checked_at": now.isoformat(),
+        "availability": "calculated", "duration_minutes": duration_minutes,
+        "rules": {"opens_at": "07:00", "closes_at": "22:30", "step_minutes": 30,
+                  "latest_booking_start": (now + _MUSIC_HORIZON).isoformat(), "source": _MUSIC_RULES_SOURCE},
+        "remaining_daily_minutes": None, "remaining_weekly_minutes": None,
+        "windows": [], "reason": None,
+        "note": "Calculated from fresh bookings and personal limits using conservative local, bot-derived rules, "
+                "not live upstream policy, a reservation or guaranteed physical access. "
+                "Windows are alternatives sharing the same quota. Availability may change before confirmation.",
+    }
+    if not now.date() <= day <= (now + _MUSIC_HORIZON).date():
+        return {**result, "reason": "outside_booking_horizon"}
+    try:
+        profile = innohassle.my_music_room_profile(token)
+    except innohassle.ServiceError as error:
+        if error.status in {403, 404}:
+            return {"error": "Music Room registration/access could not be verified. "
+                             "Check your registration in @InnoMusicRoomBot.", "code": "access_unverified"}
+        raise
+    status = profile.get("status") if isinstance(profile, dict) else None
+    if status == "banned":
+        return {**result, "reason": "access_denied"}
+    if status not in {"free", "middle", "senior", "lord", "admin"}:
+        raise ValueError("Unknown Music Room access status.")
+    daily, weekly = innohassle.music_room_hours_left(token, day)
+    bookings = innohassle.music_room_bookings(day, fresh=True)
+    if not isinstance(bookings, list):
+        raise ValueError("Invalid Music Room bookings response.")
+    occupied = []
+    for booking in bookings:
+        start, end = _local(booking["time_start"]), _local(booking["time_end"])
+        if end <= start:
+            raise ValueError("Invalid Music Room booking interval.")
+        occupied.append((start, end))
+    now = _now()
+    result["checked_at"] = now.isoformat()
+    result["rules"]["latest_booking_start"] = (now + _MUSIC_HORIZON).isoformat()
+    daily_minutes, weekly_minutes = max(0, int(daily * 60)), max(0, int(weekly * 60))
+    result["remaining_daily_minutes"], result["remaining_weekly_minutes"] = daily_minutes, weekly_minutes
+    quota = min(daily_minutes, weekly_minutes)
+    result["windows"] = _music_windows(day, now, occupied, quota, duration_minutes)
+    if not result["windows"]:
+        result["reason"] = "insufficient_quota" if quota < (duration_minutes or 30) else "no_matching_window"
+    return result
+
+
 @tool(**metadata(write=True))
 @result_boundary(write=True)
 def music_book_music_room(
@@ -332,7 +437,7 @@ def music_book_music_room(
     try:
         taken = [
             b
-            for b in innohassle.music_room_bookings(day)
+            for b in innohassle.music_room_bookings(day, fresh=True)
             if _local(b["time_start"]) < end and start < _local(b["time_end"])
         ]
         if taken:

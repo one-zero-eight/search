@@ -204,7 +204,7 @@ def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_prot
 
     writes = []
     monkeypatch.setattr(token, "claims", lambda value: {"uid": "u1"} if value == "user-token" else None)
-    monkeypatch.setattr(client, "music_room_bookings", lambda day: [])
+    monkeypatch.setattr(client, "music_room_bookings", lambda day, **kwargs: [])
     monkeypatch.setattr(client, "music_room_hours_left", lambda token, day: (4, 10))
     monkeypatch.setattr(client, "book_music_room", lambda *a: writes.append(a) or {"id": 77})
     args = {"name": "music_book_music_room", "arguments": {

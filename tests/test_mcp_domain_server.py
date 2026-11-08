@@ -92,7 +92,7 @@ def test_every_native_write_authenticates_on_both_dispatch_paths(native, monkeyp
     from catix.innohassle import client as api, sport
     monkeypatch.setattr(api, 'can_book_room', lambda *a: (True, None))
     monkeypatch.setattr(api, 'book_room', lambda *a: writes.append(a) or {'outlook_booking_id': 'new'})
-    monkeypatch.setattr(api, 'music_room_bookings', lambda *a: [])
+    monkeypatch.setattr(api, 'music_room_bookings', lambda *a, **kwargs: [])
     monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
     monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 1})
     monkeypatch.setattr(api, 'cancel_room', lambda *a: writes.append(a))
@@ -211,7 +211,7 @@ def test_http_writes_verify_real_jwt_without_host_or_redis(monkeypatch, generic)
 def test_native_public_aggregated_reads_remain_public_and_drop_credentials(native, monkeypatch):
     from catix.innohassle import client as api
     seen = []
-    monkeypatch.setattr(api, 'music_room_bookings', lambda day: seen.append(day) or [])
+    monkeypatch.setattr(api, 'music_room_bookings', lambda day, **kwargs: seen.append(day) or [])
     monkeypatch.setattr(api, 'events', lambda start, end: seen.append((start, end)) or [])
     async def run():
         for credential in (None, 'alice'):

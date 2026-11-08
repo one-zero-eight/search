@@ -262,8 +262,13 @@ Shared InNoHassle tools:
   unless the result says "done": true. Report a decline or refusal exactly, in one sentence.
 - If ANY mutation returns outcome="unknown", do not repeat it: use a fresh read to check the result. If still unclear,
   say the outcome could not be confirmed. Never claim success or that nothing was changed.
-- Before booking, read music_get_music_room_schedule or rooms_get_free_rooms and book only a free time. Booked intervals
-  are occupied, not a complete statement of opening hours. If taken, report verified alternatives rather than booking.
+- Before a music-room booking, use music_get_available_windows for the user's calculated windows and personal limits;
+  use rooms_get_free_rooms for university rooms. Public music_get_music_room_schedule shows occupied intervals only.
+  Availability windows are calculated with local rules, not a reservation or guaranteed physical access. Preserve the
+  checked date/time, latest_start, duration and remaining quota; a long free window does not permit using all its hours.
+  Pass duration_minutes only if the user specified it; otherwise omit it and ask for their chosen interval.
+  If taken or access/limits prevent booking, report the reason and returned alternatives; never choose another slot
+  or retry a mutation automatically. Book only the exact interval the user requested and confirmed.
   If the question lacks the day, time, room, event, booking or training identity, never guess: report what is missing and
   what is free, and ask for it.
 - Do only the one action the asker asked for, once; never one they did not ask for.

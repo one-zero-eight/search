@@ -21,7 +21,7 @@ def test_server_registration_is_complete_and_keeps_flat_arguments():
         'schedule_get_schedule', 'timetable_get_courses', 'timetable_get_room_timetable',
         'maps_find_room', 'clubs_get_clubs',
         'account_get_my_schedule', 'rooms_get_free_rooms', 'rooms_book_room', 'account_cancel_booking',
-        'music_get_music_room_schedule', 'music_book_music_room', 'events_get_university_events',
+        'music_get_music_room_schedule', 'music_get_available_windows', 'music_book_music_room', 'events_get_university_events',
         'events_enroll_in_event', 'sport_get_my_sport', 'sport_get_sport_trainings', 'sport_get_sports',
         'sport_sport_checkin',
     }
@@ -111,11 +111,11 @@ def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
     assert call('account_cancel_booking', {'service': 'room', 'booking_id': 'outlook-returned-id'}, **kwargs)['done'] is True
     assert writes[-1] == ('ih-secret', 'outlook-returned-id')
     music = {k: v for k, v in room.items() if k not in {'room_id', 'title'}}
-    monkeypatch.setattr(api, 'music_room_bookings', lambda *a: [{'time_start': '2099-01-01T10:30:00', 'time_end': '2099-01-01T11:30:00'}])
+    monkeypatch.setattr(api, 'music_room_bookings', lambda *a, **kwargs: [{'time_start': '2099-01-01T10:30:00', 'time_end': '2099-01-01T11:30:00'}])
     monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 4})
     assert call('music_book_music_room', music, **kwargs)['done'] is False
     count = len(writes)
-    monkeypatch.setattr(api, 'music_room_bookings', lambda *a: [])
+    monkeypatch.setattr(api, 'music_room_bookings', lambda *a, **kwargs: [])
     monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (0.5, 2))
     assert call('music_book_music_room', music, **kwargs)['done'] is False
     assert len(writes) == count

@@ -5,6 +5,7 @@ to the users endpoint. What is the user's own (their schedule, bookings, enrolme
 which only the site has (api/auth.py): those calls are never cached, and the token is never kept. What is the same for
 everybody is kept in the shared cache (common/cache.py) for settings.innohassle_cache_ttl."""
 
+import math
 from datetime import date, datetime
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from typing import Any
@@ -26,7 +27,7 @@ def _http_client(base_url: str, *, timeout: float = 20, **kwargs) -> httpx.Clien
 _client = _http_client(str(settings.innohassle_api), timeout=30)
 
 
-BOOKINGS_TTL = 30  # seconds: the music room's bookings are looked at right before one is made
+BOOKINGS_TTL = 30  # seconds: public timetable only; availability and writes bypass it
 
 
 def _get(path: str, *, params: dict | None = None, as_text: bool = False, ttl: int | None = None) -> Any:
@@ -73,9 +74,12 @@ def timetable() -> dict:
     return _get("/schedule-assistant/v0/timetable")
 
 
-def music_room_bookings(day: date) -> list[dict]:
-    """The bookings of the music room on a day (id, user_alias, time_start, time_end in local time)."""
-    return _get("/music-room/v0/bookings/daily_bookings", params={"date": day.isoformat()}, ttl=BOOKINGS_TTL)
+def music_room_bookings(day: date, *, fresh: bool = False) -> list[dict]:
+    """Public occupied intervals; bypass shared cache for availability and writes."""
+    path, parameters = "/music-room/v0/bookings/daily_bookings", {"date": day.isoformat()}
+    if fresh:
+        return _check_response(_client.get(path.lstrip("/"), params=parameters)).json()
+    return _get(path, params=parameters, ttl=BOOKINGS_TTL)
 
 
 class ServiceTokenError(Exception):
@@ -188,10 +192,17 @@ def my_music_room_bookings(token: str) -> list[dict]:
     return _as_user("GET", "/music-room/v0/bookings/my_bookings", token).json()
 
 
+def my_music_room_profile(token: str) -> dict:
+    """Verify registration/access in Music Room without retaining profile data."""
+    return _as_user("GET", "/music-room/v0/users/me", token).json()
+
+
 def music_room_hours_left(token: str, day: date) -> tuple[float, float]:
     """(hours of the music room the user may still book on that day, in that week)."""
     daily = _as_user("GET", "/music-room/v0/users/me/remaining_daily_hours", token, params={"date": day.isoformat()}).json()
     weekly = _as_user("GET", "/music-room/v0/users/me/remaining_weekly_hours", token, params={"date": day.isoformat()}).json()
+    if any(type(value) not in (int, float) or not math.isfinite(value) for value in (daily, weekly)):
+        raise ValueError("Invalid Music Room quota response.")
     return float(daily), float(weekly)
 
 
