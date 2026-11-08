@@ -48,6 +48,8 @@ class AgentContext:
     brief: bool = False
     # The asker's study group (from InNoHassle or their own choice); None when unknown (the default `all`).
     study_group: str | None = None
+    # All memberships verified by the website; singular study_group is only an unambiguous timetable default.
+    verified_study_groups: tuple[str, ...] = ()
     # When the question was asked: the prompts say this time, so that it stays the same for all the model calls of one
     # question (see core.prompt_for).
     asked_at: datetime = field(default_factory=lambda: datetime.now(settings.tz))

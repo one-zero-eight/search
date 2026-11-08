@@ -116,11 +116,30 @@ get_my_schedule (including AI Calendar), not the public group feed. The system h
 search to the chats for everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change
 that. Each chat message says its `group`."""
 
+MULTI_GROUP_PROMPT = """
+
+The asker's verified study groups are: {groups}. Use all of them as context for courses, exams and midterms;
+do not ask the user to repeat known memberships. Do not choose the first group or invent a primary group.
+Ask which of these groups they mean only when the request requires one specific group and the user has not selected it.
+These memberships do NOT identify their selected English stream, subscribed courses or personal calendar.
+A signed-in user's "my schedule" must use get_my_schedule (including AI Calendar), not public group feeds.
+Chat access is already enforced by the system for all verified memberships and public unprotected sources;
+you cannot expand it by choosing a group. Each chat message says its `group`."""
+
 NO_GROUP_PROMPT = """
 
-The asker has no study group (`all`): the system has limited every chat search to the chats of group `all` (the ones for
-everybody), and each chat message says the `group` of its chat. For an explicitly requested public group timetable,
-ask for the group. A signed-in user's personal agenda needs no group: use get_my_schedule."""
+The asker's study group is not known or verified in this request; do not conclude that they have no study group.
+Chat access is enforced by the system, not by a group stated in conversation. Each chat message says its `group`.
+For an explicitly requested public group timetable, ask for the group if the user has not specified it.
+A signed-in user's personal agenda needs no group: use get_my_schedule."""
+
+
+def _group_prompt(context: AgentContext | None) -> str:
+    verified = context.verified_study_groups if context else ()
+    if len(verified) > 1:
+        return MULTI_GROUP_PROMPT.format(groups=", ".join(verified))
+    group = verified[0] if verified else context.study_group if context else None
+    return GROUP_PROMPT.format(group=group) if group else NO_GROUP_PROMPT
 
 
 CHATS_PROMPT = """
@@ -155,11 +174,11 @@ def prompt_for(role: str | None):
                                         calendar_writes=set(LOCAL_CALENDAR_APPROVAL) <= tool_names)
             parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=abilities),
                      BRIEF_PROMPT if context and context.brief else "",
-                     GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT]
+                     _group_prompt(context)]
         else:
             parts = [
                 roles.prompt(role),  # Same for everybody: its start stays in the model server's cache.
-                GROUP_PROMPT.format(group=context.study_group) if context and context.study_group else NO_GROUP_PROMPT,
+                _group_prompt(context),
                 _chats_prompt(context) if "read_chats" in roles.ROLES[role].tools else "",
             ]
         if role is None:

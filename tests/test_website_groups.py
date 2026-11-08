@@ -126,6 +126,7 @@ def test_ask_uses_all_verified_groups_without_telegram(
     assert len(seen) == 1
     assert seen[0].allowed_chat_ids == frozenset(allowed)
     assert seen[0].study_group == study_group
+    assert seen[0].verified_study_groups == (tuple(memberships) if allowed != {1} else ())
     assert len(calls) == 1
 
 
