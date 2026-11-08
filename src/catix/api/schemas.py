@@ -164,6 +164,8 @@ class CalendarEventOffer(BaseModel):
     starts_at: datetime
     "Start; for an all-day event the day (its time means nothing)."
     ends_at: datetime | None = None
+    end_suggested: bool = False
+    "The end is an explicit 90-minute proposal, not a source-provided duration."
     all_day: bool = False
     "The answer names the day only, not the time."
     room: str | None = None

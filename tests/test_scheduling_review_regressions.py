@@ -73,6 +73,54 @@ def test_local_midnight_ics_without_end_still_has_unknown_duration():
     assert error.value.result["code"] == "schedule_unverified"
 
 
+@pytest.mark.parametrize("service", ["music", "sport"])
+@pytest.mark.parametrize("event,code", [
+    ({"starts_at": DAY + "T06:00:00Z", "ends_at": None, "all_day": False}, None),
+    ({"starts_at": DAY + "T06:00:01Z", "ends_at": None, "all_day": False}, None),
+    ({"starts_at": DAY + "T05:59:59Z", "ends_at": None, "all_day": False}, "schedule_unverified"),
+    ({"starts_at": "2026-11-08T09:00:00+03:00", "ends_at": None, "all_day": False}, "schedule_unverified"),
+    ({"starts_at": DAY + "T12:00:00+03:00", "ends_at": None, "all_day": True}, "schedule_conflict"),
+    ({"starts_at": DAY + "T12:00:00", "ends_at": None}, "schedule_unverified"),
+    ({"starts_at": "invalid", "ends_at": None}, "schedule_unverified"),
+    ({"starts_at": DAY + "T12:00:00+03:00", "ends_at": DAY + "T11:00:00+03:00"}, "schedule_unverified"),
+    ({"starts_at": DAY + "T12:00:00+03:00", "ends_at": DAY + "T13:00:00"}, "schedule_unverified"),
+])
+def test_unknown_end_boundaries_do_not_weaken_malformed_or_all_day_checks(service, event, code):
+    from catix.agent.music_scheduling import check_booking
+    from tests.test_sport_calendar_guard import agenda_data
+
+    agenda = agenda_data(classes=[])
+    agenda.update(events=[event], total=1)
+    candidate = interval("07:00", "09:00", training_id=1, name="Swimming", checked_in=False, can_check_in=True)
+    def check():
+        return (check_booking(candidate, agenda) if service == "music" else
+                scheduling.check_training(1, {"range": [DAY, DAY], "trainings": [candidate]}, agenda))
+    if code:
+        with pytest.raises(scheduling.ScheduleCheckError) as error:
+            check()
+        assert error.value.result["code"] == code
+    else:
+        assert check()
+
+
+@pytest.mark.parametrize("end,expected", [
+    (DAY + "T13:00:00+03:00", "2026-11-10T00:00:00+03:00"),
+    ("2026-11-11T15:00:00+03:00", "2026-11-11T00:00:00+03:00"),
+    ("2026-11-10T22:00:00Z", "2026-11-11T00:00:00+03:00"),
+])
+def test_explicit_all_day_end_uses_exclusive_local_dates(end, expected):
+    event = {"starts_at": DAY + "T12:00:00+03:00", "ends_at": end, "all_day": True}
+    start, finish = scheduling._interval(event)
+    assert start.isoformat() == DAY + "T00:00:00+03:00"
+    assert finish.isoformat() == expected
+
+
+@pytest.mark.parametrize("end", ["invalid", DAY + "T13:00:00", DAY + "T11:00:00+03:00"])
+def test_all_day_normalization_does_not_repair_invalid_end(end):
+    with pytest.raises(scheduling.ScheduleCheckError):
+        scheduling._interval({"starts_at": DAY + "T12:00:00+03:00", "ends_at": end, "all_day": True})
+
+
 @pytest.fixture
 def capped_sport_services(monkeypatch):
     from fastmcp.tools.function_tool import FunctionTool

@@ -299,6 +299,61 @@ def test_interval_boundaries_offsets_and_all_day_semantics(events, code):
         assert result["api_prepared"][0]["schedule_check"]["booking"] == interval("17:00", "18:00")
 
 
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("start,end,code", [("07:00", "09:00", None),
+                                          ("20:30", "21:00", "schedule_unverified"),
+                                          ("10:00", "10:30", "schedule_conflict")])
+def test_unknown_duration_preflight_and_fresh_write_are_slot_specific(monkeypatch, asynchronous, start, end, code):
+    unknown = {**interval("09:00", "10:30", title="test1 по дискре", all_day=False), "ends_at": None}
+    events = [unknown, interval("09:00", "10:30", title="Known class")]
+    arguments = {"day": DAY, "time_from": start, "time_to": end}
+    state = history(events)
+    state["messages"][-1].tool_calls = [action(arguments)]
+    monkeypatch.setattr(schedule_tools, "read_my_schedule", lambda *a: pytest.fail("Unknown end is not an unread calendar"))
+    prepared = prepare(state, asynchronous)
+    if code:
+        refusal = json.loads(prepared["messages"][0].content)
+        assert refusal["code"] == code
+        if code == "schedule_unverified":
+            assert refusal["uncertainty"] == "unknown_event_end"
+            assert refusal["unknown_duration_events"][0]["title"] == "test1 по дискре"
+    else:
+        assert prepared["api_prepared"][0]["schedule_check"]["booking"] == interval(start, end)
+
+    # Consent was granted against a previously empty agenda. Fresh data must
+    # independently classify the exact approved slot before any remote write.
+    clean = history()
+    clean["messages"][-1].tool_calls = [action(arguments)]
+    approved = prepare(clean, asynchronous)
+    fresh = []
+    def read(*a):
+        fresh.append(True)
+        return agenda_data(events)
+    async def aread(*a):
+        return read(*a)
+    writes = []
+    def request(*a, **kw):
+        writes.append(a[1])
+        return {"done": True}
+    async def arequest(*a, **kw):
+        return request(*a, **kw)
+    monkeypatch.setattr(schedule_tools, "read_my_schedule", read)
+    monkeypatch.setattr(schedule_tools, "aread_my_schedule", aread)
+    monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    monkeypatch.setattr(api_tools.mcp_client, "request", arequest)
+    runtime: Any = SimpleNamespace(state=approved, context=CONTEXT, tool_call_id="write")
+    result = (asyncio.run(api_tools._acall("music_book_music_room", runtime, arguments)) if asynchronous
+              else api_tools._call("music_book_music_room", runtime, arguments))
+    assert fresh == [True]
+    assert len(writes) == (0 if code else 1)
+    if code:
+        assert result["code"] == code and result["done"] is False
+        if code == "schedule_unverified":
+            assert result["unknown_duration_events"][0]["ends_at"] is None
+    else:
+        assert result == {"done": True}
+
+
 @pytest.mark.parametrize("arguments", [{"day": DAY, "time_from": "17:00"},
                                        {**ARGUMENTS, "time_to": None}, {**ARGUMENTS, "time_to": "18:00:01"},
                                        {**ARGUMENTS, "time_to": "17:00"}, {**ARGUMENTS, "time_to": "16:00"}])

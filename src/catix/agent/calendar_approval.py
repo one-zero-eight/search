@@ -29,7 +29,10 @@ def _russian(state) -> bool:
 
 def _calendar_when(start: datetime, end: datetime | None, ru: bool) -> str:
     day = f"{WEEKDAYS_RU[start.weekday()]}, {start.day} {MONTHS_RU[start.month - 1]}" if ru else start.strftime("%a, %d %b")
-    return f"{day} {start.year}, {start:%H:%M}" + (f"–{end:%H:%M}" if end else "")
+    when = f"{day} {start.year}, {start:%H:%M}"
+    if end is not None:
+        when += " – " + _calendar_when(end, None, ru) if end.date() != start.date() else f"–{end:%H:%M}"
+    return when
 
 
 def _calendar_event_for_approval(runtime, event_id: int, ru: bool) -> tuple[personal_calendar.PersonalEvent | None, str]:
@@ -62,6 +65,10 @@ def _describe_calendar(tool_call, state, runtime) -> str:
     when = _calendar_when(values["starts_at"], values["ends_at"], ru)
     if a.all_day:
         when = when.rsplit(", ", 1)[0] + (", весь день" if ru else ", all day")
+    elif a.end_suggested:
+        minutes = a.proposed_duration_minutes
+        when += (f" (предложенная длительность — {minutes} минут; окончание не было указано)" if ru
+                 else f" (suggested duration: {minutes} minutes; no end was specified)")
     elif a.end_time is None:
         when += " (без времени окончания)" if ru else " (no end time)"
     place = a.room or ("место не задано" if ru else "no place specified")

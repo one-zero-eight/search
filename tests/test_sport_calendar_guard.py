@@ -289,3 +289,60 @@ def test_legacy_capped_local_calendar_does_not_prove_availability():
     result = prepare(history(classes=[], events=[interval("11:00", "12:00")] * 40))
     assert result.get("jump_to") == "model"
     assert json.loads(result["messages"][0].content)["code"] == "schedule_unverified"
+
+
+@pytest.mark.parametrize("asynchronous", [False, True])
+@pytest.mark.parametrize("start,end,code", [("07:00", "09:00", None),
+                                          ("20:30", "21:00", "schedule_unverified"),
+                                          ("10:00", "10:30", "schedule_conflict")])
+def test_unknown_event_end_preflight_and_fresh_signup_match(monkeypatch, asynchronous, start, end, code):
+    from catix.agent import schedule_tools
+
+    unknown = {**interval("09:00", "10:30", title="test1 по дискре", all_day=False), "ends_at": None}
+    training = {**FRISBEE, **interval(start, end)}
+    trainings = {"range": [DAY, DAY], "trainings": [training]}
+    state = history(classes=[CLASS], events=[unknown])
+    state["messages"][6].content = json.dumps(trainings)
+    result = prepare(state, asynchronous)
+    if code:
+        refusal = json.loads(result["messages"][0].content)
+        assert refusal["code"] == code
+        if code == "schedule_unverified":
+            assert refusal["uncertainty"] == "unknown_event_end"
+            assert refusal["unknown_duration_events"][0]["title"] == "test1 по дискре"
+    else:
+        assert result["api_prepared"][0]["schedule_check"]["training"] == training
+
+    clean = history(classes=[])
+    clean["messages"][6].content = json.dumps(trainings)
+    approved = prepare(clean, asynchronous)
+    reads, writes = [], []
+    def read(*a):
+        reads.append(True)
+        return agenda_data(classes=[CLASS], events=[unknown])
+    async def aread(*a):
+        return read(*a)
+    def request(method, payload, *a, **kw):
+        if payload["name"] == "sport_get_sport_trainings":
+            return trainings
+        assert payload["name"] == "sport_sport_checkin"
+        writes.append(payload)
+        return {"done": True}
+    async def arequest(*a, **kw):
+        return request(*a, **kw)
+    monkeypatch.setattr(schedule_tools, "read_my_schedule", read)
+    monkeypatch.setattr(schedule_tools, "aread_my_schedule", aread)
+    monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    monkeypatch.setattr(api_tools.mcp_client, "request", arequest)
+    from typing import Any
+    runtime: Any = SimpleNamespace(state=approved, context=CONTEXT, tool_call_id="write")
+    arguments = {"training_id": FRISBEE["training_id"]}
+    result = (asyncio.run(api_tools._acall("sport_sport_checkin", runtime, arguments)) if asynchronous
+              else api_tools._call("sport_sport_checkin", runtime, arguments))
+    assert reads == [True] and len(writes) == (0 if code else 1)
+    if code:
+        assert result["code"] == code
+        if code == "schedule_unverified":
+            assert result["unknown_duration_events"][0]["ends_at"] is None
+    else:
+        assert result == {"done": True}

@@ -9,7 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from catix.agent.api_tools import _credentials
 from catix.agent.schedule_tools import read_my_schedule
-from catix.agent.scheduling import ScheduleCheckError, _busy, _overlaps
+from catix.agent.scheduling import ScheduleCheckError, _busy, _calendar_conflicts
 from catix.innohassle import mcp_client
 from catix.settings import settings
 
@@ -80,25 +80,36 @@ def _windows(music, day, duration_minutes):
 
 def _fit_windows(day, duration_minutes, windows, busy):
     """Keep the service's half-hour grid, per-window quota and latest start bound."""
-    available, excluded = [], []
+    available, excluded, unverified = [], [], []
     step = timedelta(minutes=30)
     minimum = timedelta(minutes=duration_minutes or 30)
     for window in windows:
         cursor, end = _at(day, window["start"]), _at(day, window["end"])
-        conflicts = [event for event in busy if _overlaps(_span(cursor, end), event)]
+        conflicts, _ = _calendar_conflicts(_span(cursor, end), busy)
         if conflicts:
             excluded.append({"reason": "schedule_conflict", "conflicts": conflicts})
-        free = []
+        segments, uncertain = [], []
         while cursor < end:
             finish = cursor + step
             item = _span(cursor, finish)
-            if not any(_overlaps(item, event) for event in conflicts):
-                if free and free[-1][1] == cursor:
-                    free[-1] = (free[-1][0], finish)
+            overlaps, unknown = _calendar_conflicts(item, busy)
+            if not overlaps and not unknown:
+                if segments and segments[-1][1] == cursor:
+                    segments[-1] = (segments[-1][0], finish)
                 else:
-                    free.append((cursor, finish))
+                    segments.append((cursor, finish))
+            # Check the whole requested interval, including starts before an
+            # unknown event whose requested finish crosses that event's start.
+            candidate_end = cursor + minimum
+            if candidate_end <= end and cursor <= _at(day, window["latest_start"]):
+                overlaps, unknown = _calendar_conflicts(_span(cursor, candidate_end), busy)
+                if unknown and not overlaps:
+                    if uncertain and uncertain[-1][1] + step == cursor and uncertain[-1][2] == unknown:
+                        uncertain[-1] = (uncertain[-1][0], cursor, unknown)
+                    else:
+                        uncertain.append((cursor, cursor, unknown))
             cursor = finish
-        for start, finish in free:
+        for start, finish in segments:
             maximum = min(window["max_duration_minutes"], int((finish - start).total_seconds() // 60))
             latest = min(finish - minimum, _at(day, window["latest_start"]))
             item = _span(start, finish)
@@ -106,7 +117,12 @@ def _fit_windows(day, duration_minutes, windows, busy):
                 excluded.append({**item, "reason": "no_matching_duration_or_start"})
             else:
                 available.append({**item, "latest_start": latest.strftime("%H:%M"), "max_duration_minutes": maximum})
-    return available, excluded
+        for start, latest, unknown in uncertain:
+            finish = latest + minimum
+            maximum = min(window["max_duration_minutes"], int((finish - start).total_seconds() // 60))
+            unverified.append({**_span(start, finish), "latest_start": latest.strftime("%H:%M"), "max_duration_minutes": maximum,
+                               "reason": "schedule_unverified", "uncertainty": "unknown_event_end", "unknown_duration_events": unknown})
+    return available, excluded, unverified
 
 
 @tool(args_schema=AvailableMusicArgs, response_format="content_and_artifact")
@@ -115,7 +131,10 @@ def get_my_available_music_windows(runtime: ToolRuntime, day: date, duration_min
     Когда мне можно поиграть / подбери свободное время в музкомнате без пересечений с занятиями.
     Combines Music Room access, quotas and occupied intervals with get_my_schedule. No separate calendar read needed.
     Recommend only available; excluded/unverified are NOT free time. Omit duration_minutes unless the user specified it.
-    complete=false means UNKNOWN, not no available slots. Report the missing data; do not retry the same reads this turn.
+    Never derive extra windows from gaps between excluded events: conflicts is NOT the full calendar or room schedule.
+    complete=false means some availability is UNKNOWN, not no available slots. Available windows remain safe choices.
+    unknown_duration_events names events needing an end time; ask when they end, not for another calendar read.
+    Report missing source data separately; do not retry the same reads this turn.
     Windows share the quota; max_duration_minutes is a limit, not the selected booking duration.
     No booking or signup. Booking requires the user's exact interval, separate approval and fresh checks.
     """
@@ -136,20 +155,23 @@ def get_my_available_music_windows(runtime: ToolRuntime, day: date, duration_min
     available, excluded, unverified, not_read = [], [], [], []
     try:
         busy = _busy(agenda, {"date_from": day.isoformat(), "date_to": day.isoformat()})
-        available, excluded = _fit_windows(day, duration_minutes, windows, busy)
+        available, excluded, unverified = _fit_windows(day, duration_minutes, windows, busy)
     except ScheduleCheckError as error:
         unverified = [{**window, "reason": error.result["code"]} for window in windows]
-        not_read = [*agenda.get("not_read", []), "Personal calendar coverage or event durations are incomplete; "
+        not_read = [*agenda.get("not_read", []), "Personal calendar coverage or event times are invalid or incomplete; "
                     "availability is unknown, not a fully booked day. Do not repeat these reads in the same turn."]
     result = {"range": [day.isoformat(), day.isoformat()], "timezone": str(settings.tz),
               "duration_minutes": duration_minutes, "available": available, "excluded": excluded, "unverified": unverified,
-              "total": len(available) + len(excluded) + len(unverified), "complete": not not_read,
+              "total": len(available) + len(excluded) + len(unverified), "complete": not not_read and not unverified,
               "truncated": bool(agenda.get("truncated")), "not_read": not_read,
               "remaining_daily_minutes": music["remaining_daily_minutes"],
               "remaining_weekly_minutes": music["remaining_weekly_minutes"], "rules": music["rules"],
               "reason": music.get("reason"), "checked_at": datetime.now(settings.tz).isoformat(),
               "service_checked_at": music["checked_at"],
               "note": "Calculated using conservative local Music Room rules, not a reservation or guaranteed access. "
+                      "ONLY the available list contains verified choices. Do not calculate other free windows between conflicts; "
+                      "excluded events are not the full calendar or room occupancy. "
+                      "Unknown event ends affect only unverified intervals; ask when those named events end. "
                       "Quotas apply to the requested date, not necessarily today. A window is a range of choices, not a booking interval. "
                       "Describe classes/meetings only using exact starts_at/ends_at inside conflicts. "
                       "Windows are alternatives sharing the same quota. max_duration_minutes is the limit at the window's start; "

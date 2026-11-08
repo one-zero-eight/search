@@ -6,7 +6,7 @@ from datetime import date, datetime, time
 from langgraph.errors import GraphBubbleUp
 
 from catix.agent import schedule_tools
-from catix.agent.scheduling import ScheduleCheckError, _busy, _overlaps, _period, _reads, _unknown
+from catix.agent.scheduling import ScheduleCheckError, _busy, _calendar_conflicts, _period, _reads, _unknown, _unknown_duration
 from catix.settings import settings
 
 
@@ -19,13 +19,15 @@ def _booking(arguments):
 
 def check_booking(booking, agenda):
     period = _period(booking)
-    conflicts = [event for event in _busy(agenda, period) if _overlaps(booking, event)]
+    conflicts, unknown = _calendar_conflicts(booking, _busy(agenda, period))
     if conflicts:
         raise ScheduleCheckError(
             "schedule_conflict", "The music booking overlaps the personal calendar. Do not request ordinary approval "
             "for this slot. Ask for a non-overlapping time; never move events or select another slot automatically.",
             conflicts=conflicts,
         )
+    if unknown:
+        raise _unknown_duration(unknown)
     return {"booking": dict(booking), "period": period}
 
 

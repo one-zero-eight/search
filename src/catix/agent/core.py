@@ -817,7 +817,6 @@ def _read_parts(target: str, data: dict) -> tuple | None:
                 and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
                 and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
                 and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
-                and not (parts[0] and not data["complete"])
                 and all(isinstance(row, dict) and type(row.get("max_duration_minutes")) is int
                         and row["max_duration_minutes"] >= 30
                         and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at", "start", "end", "latest_start"))

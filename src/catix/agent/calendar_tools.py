@@ -7,6 +7,7 @@ The existing "➕ В мой календарь" answer buttons remain available 
 
 import logging
 from datetime import date, datetime, time, timedelta
+from typing import Literal
 
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
@@ -174,7 +175,9 @@ class AddToAiCalendarArgs(BaseModel):
     day: date = Field(description="YYYY-MM-DD in the local timezone.")
     all_day: bool = Field(False, description="True only when the asker explicitly requests an all-day event.")
     start_time: ClockTime | None = Field(None, description="Local HH:MM, required unless all_day is true.")
-    end_time: ClockTime | None = Field(None, description="Optional local HH:MM on the same day, after start_time.")
+    end_time: ClockTime | None = Field(None, description="Known local HH:MM on end_day (default day), after the start. Never invent it. Use proposed_duration_minutes=90 to offer a duration when the end is unknown.")
+    end_day: date | None = Field(None, description="Optional explicit end date for an overnight timed event, YYYY-MM-DD; requires end_time. Omit for same-day events.")
+    proposed_duration_minutes: Literal[90] | None = Field(None, description="Explicit proposal, not a source fact: use 90 for a new timed event whose end is unknown, unless the user wants to leave it unknown. Approval shows the proposed interval; rejection saves nothing. Cannot combine with end_time/end_day/all_day.")
     room: str | None = Field(None, description="Optional place; not a room booking.")
 
     @model_validator(mode="before")
@@ -188,23 +191,35 @@ class AddToAiCalendarArgs(BaseModel):
 
     @model_validator(mode="after")
     def valid_time_span(self):
+        if self.proposed_duration_minutes is not None and (self.all_day or self.end_time is not None or self.end_day is not None):
+            raise ValueError("A duration proposal requires a timed event without an explicit end.")
         for clock in (self.start_time, self.end_time):
             if clock is not None and clock.tzinfo is not None:
                 raise ValueError("Use local clock times without a timezone offset.")
         if self.all_day:
-            if self.start_time is not None or self.end_time is not None:
-                raise ValueError("An all-day event must not specify start_time or end_time.")
+            if self.start_time is not None or self.end_time is not None or self.end_day is not None:
+                raise ValueError("An all-day event must not specify start_time, end_time or end_day.")
         elif self.start_time is None:
             raise ValueError("Specify start_time, or explicitly request all_day=true.")
-        elif self.end_time is not None and self.end_time <= self.start_time:
-            raise ValueError("end_time must be after start_time on the same day.")
+        elif self.end_day is not None and self.end_time is None:
+            raise ValueError("end_day requires an explicit end_time.")
+        elif self.end_time is not None and datetime.combine(self.end_day or self.day, self.end_time) <= datetime.combine(self.day, self.start_time):
+            raise ValueError("The end date and time must be after the start.")
         return self
+
+    @property
+    def end_suggested(self) -> bool:
+        return self.proposed_duration_minutes is not None
 
     def event_values(self) -> dict:
         start = self.start_time or settings.changes_default_time
+        starts_at = datetime.combine(self.day, start, settings.tz)
+        ends_at = datetime.combine(self.end_day or self.day, self.end_time, settings.tz) if self.end_time else None
+        if self.proposed_duration_minutes is not None:
+            ends_at = starts_at + timedelta(minutes=self.proposed_duration_minutes)
         return {
-            "title": self.title, "starts_at": datetime.combine(self.day, start, settings.tz), "all_day": self.all_day,
-            "ends_at": datetime.combine(self.day, self.end_time, settings.tz) if self.end_time else None, "room": self.room,
+            "title": self.title, "starts_at": starts_at, "all_day": self.all_day,
+            "ends_at": ends_at, "room": self.room,
         }
 
 
@@ -212,11 +227,16 @@ class AddToAiCalendarArgs(BaseModel):
 def add_to_ai_calendar(
     title: str, day: date, runtime: ToolRuntime, all_day: bool = False,
     start_time: ClockTime | None = None, end_time: ClockTime | None = None, room: str | None = None,
+    end_day: date | None = None,
+    proposed_duration_minutes: Literal[90] | None = None,
 ) -> dict:
     """Add one personal event to the asker's AI Calendar, not a booking or enrollment. The asker approves it before it runs.
-    No recurrence or notifications. A repeated title and start returns the existing event without changing its details."""
+    If no end is known, leave end_time unset and use proposed_duration_minutes=90 to offer a duration explicitly.
+    Only approval saves that end; omitting the proposal leaves it unknown, including for old pending actions.
+    Never invent end_time yourself. No recurrence or notifications. A repeated title and start keeps the existing details."""
     try:
-        args = AddToAiCalendarArgs(title=title, day=day, all_day=all_day, start_time=start_time, end_time=end_time, room=room)
+        args = AddToAiCalendarArgs(title=title, day=day, all_day=all_day, start_time=start_time, end_time=end_time, room=room,
+                                   end_day=end_day, proposed_duration_minutes=proposed_duration_minutes)
     except ValidationError as e:
         return {"done": False, "error": str(e)}
     key, why = _mutation_key(runtime)
@@ -233,18 +253,22 @@ def add_to_ai_calendar(
 
 class UpdateAiCalendarArgs(AddToAiCalendarArgs):
     calendar_event_id: int = Field(gt=0, description="The owned event id from get_my_ai_calendar.")
+    end_time: ClockTime | None = Field(None, description="Known local HH:MM on end_day (default day), after the start. Omitted/null clears the end; updating never silently proposes a default duration.")
 
 
 @tool(args_schema=UpdateAiCalendarArgs)
 def update_ai_calendar(
     calendar_event_id: int, title: str, day: date, runtime: ToolRuntime, all_day: bool = False,
     start_time: ClockTime | None = None, end_time: ClockTime | None = None, room: str | None = None,
+    end_day: date | None = None,
+    proposed_duration_minutes: Literal[90] | None = None,
 ) -> dict:
     """Replace one owned AI Calendar event after approval. Read it first and pass every unchanged field too: omitted room
     and end_time are cleared. A material edit clears its old source attribution. No booking, recurrence or notifications."""
     try:
         args = UpdateAiCalendarArgs(calendar_event_id=calendar_event_id, title=title, day=day, all_day=all_day,
-                                    start_time=start_time, end_time=end_time, room=room)
+                                    start_time=start_time, end_time=end_time, room=room, end_day=end_day,
+                                    proposed_duration_minutes=proposed_duration_minutes)
     except ValidationError as e:
         return {"done": False, "error": str(e)}
     key, why = _mutation_key(runtime)

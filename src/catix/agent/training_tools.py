@@ -34,6 +34,8 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
     Предложи/подбери тренировки без пересечений с занятиями. Use this host tool, not raw Sport eligibility, for recommendations.
     Only available contains calendar-compatible, signup-eligible alternatives; excluded has reasons/conflicts;
     unverified is NOT free time. Report complete=false/truncated; this is not a reservation or an automatic signup.
+    unknown_duration_events identifies events with no known end; ask when they end, not for another calendar read.
+    These uncertainties do not invalidate entries in available or definite conflicts in excluded.
     Omit sport unless the user chose it. Ask for the day if unknown. Signup still requires separate user approval and fresh checks.
     """
     try:
@@ -66,12 +68,13 @@ def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | Non
                 available.append(item)
         except ScheduleCheckError as error:
             collection = excluded if error.result["code"] == "training_unavailable" else unverified
-            collection.append({**candidate, "reason": error.result["code"]})
+            collection.append({**candidate, "reason": error.result["code"],
+                               **{key: error.result[key] for key in ("uncertainty", "unknown_duration_events") if key in error.result}})
     truncated = bool(trainings.get("more") or trainings.get("truncated") or agenda.get("truncated"))
     not_read = list(agenda.get("not_read", []))
     if trainings.get("more") or trainings.get("truncated"):
         not_read.append("Sport training list is truncated; choose a sport to narrow the read.")
-    if unverified:
+    if any(item.get("uncertainty") != "unknown_event_end" for item in unverified):
         not_read.append("Some trainings could not be checked; do not recommend unverified entries.")
     result = {"range": [day.isoformat(), day.isoformat()], "timezone": str(settings.tz),
               "available": available, "excluded": excluded, "unverified": unverified,

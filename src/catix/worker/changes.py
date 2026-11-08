@@ -8,17 +8,18 @@ user) who started the bot, the only ones it may write to (bot_users.py). Each de
 """
 
 import html
+import json
 import logging
 import re
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field
 
 from catix import admins as admins_module
-from catix import bot_users, groups
+from catix import bot_users, groups, personal_calendar
 from catix.common import dates
 from catix.common.dates import ClockTime
 from catix.db import pg
@@ -27,8 +28,6 @@ from catix.db.rows import ChangeKind, ChangeView, MessageToRead
 from catix.settings import settings
 
 log = logging.getLogger("catix.changes")
-
-DEFAULT_LENGTH = timedelta(minutes=90)  # A class; used when the message gives no end.
 
 MIN_CHARS = 15  # "ок", "спасибо", a sticker caption: nothing to decide, so the model is not asked.
 LOOKUPS = 8  # Groups of the users asked from InNoHassle at once.
@@ -84,7 +83,11 @@ def when(change: Change) -> tuple[datetime, datetime | None, bool]:
         return datetime.combine(day, time(0), settings.tz), None, True
     start = datetime.combine(day, change.start_time, settings.tz)
     end = datetime.combine(day, change.end_time, settings.tz) if change.end_time else None
-    return start, end if end and end > start else None, False
+    if end is not None and end <= start:
+        if change.kind in ("announcement", "reschedule"):
+            raise ValueError("The end must be after the start.")
+        end = None
+    return start, end, False
 
 
 def _model():
@@ -223,6 +226,7 @@ def add_to_calendar(user_key: str, change_id: int) -> str | None:
         change = pg.row(conn, ChangeView, CHANGE_VIEW + " WHERE s.id = %s", (change_id,))
         if change is None:
             return None
+        end, _ = _offered_end(conn, change)
         link = change.link or change.chat_link
         note = f"Из чата {_origin(change)}:\n{change.text[:600]}"  # A basic group has no link: the message itself, then.
         subject = change.subject or change.summary
@@ -244,14 +248,14 @@ def add_to_calendar(user_key: str, change_id: int) -> str | None:
             conn.execute(
                 """UPDATE personal_events SET starts_at = %s, ends_at = %s, all_day = %s, room = coalesce(%s, room),
                           source_url = coalesce(%s, source_url), source_note = %s WHERE id = %s""",
-                (change.starts_at, change.ends_at, change.all_day, change.room, link, note, earlier),
+                (change.starts_at, end, change.all_day, change.room, link, note, earlier),
             )
             return f"Перенесено в вашем календаре: {subject}"
         title = f"{KIND_TITLE[change.kind]}: {subject}"
         conn.execute(
             """INSERT INTO personal_events (user_key, title, starts_at, ends_at, all_day, room, source_url, source_note)
                VALUES (%s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
-            (user_key, title, change.starts_at, change.ends_at, change.all_day, change.room, link, note),
+            (user_key, title, change.starts_at, end, change.all_day, change.room, link, note),
         )
     return f"Добавлено в ваш календарь: {title}"
 
@@ -265,8 +269,19 @@ def _origin(change: ChangeView) -> str:
 def card(change: ChangeView) -> str:
     """The text a user sees (Telegram HTML): what changed, and the message it was read from, as a link if it has one."""
     when = change.starts_at.astimezone(settings.tz)
+    _validate_interval(change)
+    end, suggested = change.ends_at, False
+    if change.kind in ("announcement", "reschedule") and not change.all_day and end is None:
+        with pg.connection() as conn:
+            end, suggested = _offered_end(conn, change, prepare=True)
     lines = [f"<b>{html.escape(KIND_TITLE[change.kind])}: {html.escape(change.subject or '?')}</b>"]
-    lines.append(f"Когда: {when:%d.%m.%Y}" + ("" if change.all_day else f" {when:%H:%M}"))
+    interval = f"{when:%d.%m.%Y}" + ("" if change.all_day else f" {when:%H:%M}")
+    if end is not None and not change.all_day:
+        end = end.astimezone(settings.tz)
+        interval += f" – {end:%H:%M}" if when.date() == end.date() else f" – {end:%d.%m.%Y %H:%M}"
+    lines.append(f"Когда: {interval}")
+    if suggested:
+        lines.append(f"Предлагаемая длительность: {personal_calendar.PROPOSED_DURATION_MINUTES} минут (окончание не указано в источнике).")
     if change.room:
         lines.append(f"Аудитория: {html.escape(change.room)}")
     source = html.escape(_origin(change))
@@ -274,6 +289,37 @@ def card(change: ChangeView) -> str:
         source = f'<a href="{html.escape(link)}">{source}</a>'
     lines += ["", f"Источник: {source}", html.escape(change.text[:600])]
     return "\n".join(lines)
+
+
+def _validate_interval(change: ChangeView) -> None:
+    if change.kind in ("announcement", "reschedule"):
+        personal_calendar._proposal_interval({
+            "starts_at": change.starts_at.isoformat(),
+            "ends_at": change.ends_at.isoformat() if change.ends_at is not None else None,
+            "all_day": change.all_day,
+        })
+
+
+def _offered_end(conn, change: ChangeView, *, prepare: bool = False) -> tuple[datetime | None, bool]:
+    """Save suggestions before displaying new cards; old callbacks never invent an unseen end."""
+    _validate_interval(change)
+    if change.kind not in ("announcement", "reschedule") or change.all_day or change.ends_at is not None:
+        return change.ends_at, False
+    proposal_id = f"change:{change.id}"
+    offer = pg.scalar(conn, "SELECT event FROM calendar_proposals WHERE id = %s", (proposal_id,))
+    if offer is None and prepare and change.notified_at is None:
+        offer = personal_calendar.proposed_event({"starts_at": change.starts_at.isoformat(), "change_id": change.id})
+        conn.execute(
+            "INSERT INTO calendar_proposals (id, event) VALUES (%s, %s::jsonb) ON CONFLICT DO NOTHING",
+            (proposal_id, json.dumps(offer)),
+        )
+        offer = pg.scalar(conn, "SELECT event FROM calendar_proposals WHERE id = %s", (proposal_id,))
+    if offer is None:
+        return None, False
+    start, end = personal_calendar._proposal_interval(offer)
+    if start != change.starts_at or offer.get("change_id") != change.id or not offer.get("end_suggested"):
+        raise ValueError("The saved change proposal no longer matches the event.")
+    return end, True
 
 
 # ---- iCalendar text (personal_calendar.py) -----------------------------------------------------------------

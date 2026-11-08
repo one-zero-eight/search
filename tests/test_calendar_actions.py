@@ -243,7 +243,7 @@ def test_direct_mutation_rejects_invalid_id_before_lookup(monkeypatch, tool_name
     assert result["done"] is False and result["error"]
 
 
-def test_noop_update_preserves_original_source_and_timestamp_precision(calendar_db):
+def test_noop_storage_update_and_strict_tool_refusal_preserve_source_and_precision(calendar_db):
     from catix.agent import calendar_tools as tools
 
     start, end = at().replace(second=12, microsecond=345678), at(hour=11).replace(second=23, microsecond=456789)
@@ -253,9 +253,11 @@ def test_noop_update_preserves_original_source_and_timestamp_precision(calendar_
     original = personal_calendar.event_of("ih:alice", event.id)
     result = tools.update_ai_calendar.func(runtime=runtime(), calendar_event_id=event.id, title=" Exam ",
                                           day=start.date(), start_time=start.time(), end_time=end.time(), room="108")
-    assert result["done"] is True
+    assert result["done"] is False and "HH:MM" in result["error"]
     assert personal_calendar.event_of("ih:alice", event.id) == original
-    assert result["event"]["source"] == "https://t.me/c/1/2"
+    saved = personal_calendar.update_event("ih:alice", event.id, title=" Exam ", starts_at=start, ends_at=end, all_day=False, room="108")
+    assert saved == original and saved is not None
+    assert tools.calendar_item(saved)["source"] == "https://t.me/c/1/2"
 
 
 def test_add_tool_all_day_uses_configured_calendar_button_time(calendar_db, monkeypatch):

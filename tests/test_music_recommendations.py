@@ -68,15 +68,68 @@ def test_windows_subtract_both_calendars_regrid_and_preserve_quota(services):
     assert artifact["music_arguments"] == {"day": DAY, "duration_minutes": 60}
 
 
-@pytest.mark.parametrize("fault", ["partial", "truncated", "unknown_duration", "missing_owner", "local_failure"])
+def test_trace_unknown_end_keeps_early_window_and_exact_known_conflicts(services, monkeypatch):
+    monkeypatch.setattr("tests.test_music_recommendations.DAY", "2026-11-09")
+    services["music"].update(date=DAY, checked_at="2026-11-08T12:10:00+03:00", duration_minutes=None,
+                             remaining_weekly_minutes=120, windows=[
+        {"start": start, "end": end, "latest_start": latest, "max_duration_minutes": maximum}
+        for start, end, latest, maximum in [("07:00", "09:00", "08:30", 120),
+                                           ("10:00", "10:30", "10:00", 30),
+                                           ("12:30", "13:00", "12:30", 30),
+                                           ("20:30", "21:00", "20:30", 30)]])
+    services["agenda"].update(range=[DAY, DAY], schedule=[
+        interval(start, end, title=f"Class {start}") for start, end in [
+            ("09:00", "10:30"), ("10:40", "12:10"), ("12:40", "14:10"), ("14:20", "15:50")]])
+    services["local"] = [{**interval("09:00", "10:30", title="test1 по дискре", all_day=False), "ends_at": None}]
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY))
+    assert [(w["start"], w["end"]) for w in result["available"]] == [("07:00", "09:00")]
+    assert [w["conflicts"][0]["starts_at"] for w in result["excluded"]] == [
+        DAY + "T09:00:00+03:00", DAY + "T12:40:00+03:00"]
+    assert all("start" not in w and "starts_at" not in w for w in result["excluded"])
+    later, = result["unverified"]
+    assert (later["start"], later["end"]) == ("20:30", "21:00")
+    assert later["reason"] == "schedule_unverified" and later["uncertainty"] == "unknown_event_end"
+    assert later["unknown_duration_events"][0]["title"] == "test1 по дискре"
+    assert later["unknown_duration_events"][0]["ends_at"] is None
+    assert result["complete"] is False and result["not_read"] == []
+    assert result["total"] == 4 and artifact["agenda"]["complete"] is True
+
+
+@pytest.mark.parametrize("duration", [None, 60])
+def test_unknown_end_splits_one_window_without_losing_grid_or_limits(services, duration):
+    services["music"]["duration_minutes"] = duration
+    services["music"]["windows"][0]["latest_start"] = "16:30"
+    services["local"] = [{**interval("16:10", "16:30", title="Unknown meeting", all_day=False), "ends_at": None}]
+    result, _ = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY), duration)
+    assert [(w["start"], w["end"], w["latest_start"], w["max_duration_minutes"]) for w in result["available"]] == [
+        ("10:30", "12:30", "11:30" if duration else "12:00", 60),
+        ("14:30", "16:00", "15:00" if duration else "15:30", 60)]
+    later, = result["unverified"]
+    assert (later["start"], later["end"], later["latest_start"], later["max_duration_minutes"]) == (
+        "15:30" if duration else "16:00", "17:30" if duration else "17:00", "16:30", 60)
+    assert later["unknown_duration_events"][0]["starts_at"] == DAY + "T16:10:00+03:00"
+    assert result["not_read"] == [] and result["complete"] is False
+
+
+def test_requested_duration_crossing_unknown_start_remains_unverified(services):
+    services["music"].update(duration_minutes=120, remaining_weekly_minutes=120, windows=[
+        {"start": "07:00", "end": "10:00", "latest_start": "08:00", "max_duration_minutes": 120}])
+    services["agenda"]["schedule"] = []
+    services["local"] = [{**interval("09:00", "10:00", title="Unknown meeting", all_day=False), "ends_at": None}]
+    result, _ = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY), 120)
+    assert [(w["start"], w["end"], w["latest_start"]) for w in result["available"]] == [("07:00", "09:00", "07:00")]
+    later, = result["unverified"]
+    assert (later["start"], later["end"], later["latest_start"]) == ("07:30", "10:00", "08:00")
+    assert result["complete"] is False and result["not_read"] == []
+
+
+@pytest.mark.parametrize("fault", ["partial", "truncated", "missing_owner", "local_failure"])
 def test_incomplete_agenda_never_yields_free_windows(services, monkeypatch, fault):
     context = CONTEXT
     if fault == "partial":
         services["agenda"]["not_read"] = ["class: unavailable"]
     elif fault == "truncated":
         services["agenda"]["truncated"] = True
-    elif fault == "unknown_duration":
-        services["local"][0]["ends_at"] = None
     elif fault == "missing_owner":
         context = AgentContext(innohassle_token=SecretStr("synthetic-ih"))
     else:

@@ -41,9 +41,12 @@ def _event(row, source):
             item[field] = parsed.astimezone(settings.tz).isoformat()
         else:
             item[field] = None
-    if source == "ai_calendar" and item.get("all_day") is True and item["starts_at"] and item["ends_at"] is None:
+    if source == "ai_calendar" and item.get("all_day") is True and item["starts_at"]:
+        if item["ends_at"] and datetime.fromisoformat(item["ends_at"]) <= datetime.fromisoformat(item["starts_at"]):
+            raise ValueError("Calendar end must be after its start.")
         start = datetime.combine(datetime.fromisoformat(item["starts_at"]).date(), time.min, settings.tz)
-        item.update(starts_at=start.isoformat(), ends_at=(start + timedelta(days=1)).isoformat())
+        end = datetime.combine(datetime.fromisoformat(item["ends_at"]).date(), time.min, settings.tz) if item["ends_at"] else start + timedelta(days=1)
+        item.update(starts_at=start.isoformat(), ends_at=max(end, start + timedelta(days=1)).isoformat())
     return item
 
 

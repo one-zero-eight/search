@@ -73,6 +73,22 @@ def test_trace_functional_training_overlaps_are_excluded_before_recommendation(s
     assert artifact["trainings"]["range"] == [DAY, DAY]
 
 
+def test_unknown_event_end_only_affects_later_nonconflicting_trainings(services):
+    unknown = {**interval("09:00", "10:30", title="test1 по дискре", all_day=False), "ends_at": None}
+    services["local"] = [unknown]
+    early = {**TRAININGS[2], **interval("07:00", "09:00"), "training_id": 1}
+    services["trainings"]["trainings"].insert(0, early)
+    result, _ = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY))
+    assert [t["training_id"] for t in result["available"]] == [1]
+    assert [t["training_id"] for t in result["excluded"]] == [49039, 47775, 48671]
+    later, = result["unverified"]
+    assert later["training_id"] == 46975 and later["reason"] == "schedule_unverified"
+    assert later["uncertainty"] == "unknown_event_end"
+    assert later["unknown_duration_events"][0]["title"] == "test1 по дискре"
+    assert later["unknown_duration_events"][0]["ends_at"] is None
+    assert result["complete"] is False and result["not_read"] == []
+
+
 @pytest.mark.parametrize("mode", ["partial_calendar", "local_conflict", "unknown_duration", "closed", "truncated", "empty"])
 def test_recommendations_never_confuse_unknown_or_ineligible_with_free(services, mode):
     services["trainings"]["trainings"] = [deepcopy(TRAININGS[2])]

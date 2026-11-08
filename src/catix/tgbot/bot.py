@@ -223,7 +223,12 @@ async def _run_agent(
 
 def _event_label(event: dict) -> str:
     start = datetime.fromisoformat(event["starts_at"]).astimezone(settings.tz)
-    when = f"{start:%d.%m}" if event.get("all_day") else f"{start:%d.%m %H:%M}"
+    when = f"{start:%d.%m.%Y}" if event.get("all_day") else f"{start:%d.%m.%Y %H:%M}"
+    if not event.get("all_day") and event.get("ends_at"):
+        end = datetime.fromisoformat(event["ends_at"]).astimezone(settings.tz)
+        when += f"–{end:%H:%M}" if start.date() == end.date() else f" – {end:%d.%m.%Y %H:%M}"
+        if event.get("end_suggested"):
+            when += f" · предлагается {personal_calendar.PROPOSED_DURATION_MINUTES} мин"
     return f"➕ В мой календарь: {event['title'][:28]} · {when}"
 
 
