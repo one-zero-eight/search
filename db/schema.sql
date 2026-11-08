@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS chats (
     group_code text NOT NULL DEFAULT 'all'        -- study group the chat belongs to (groups.py); 'all' = everybody
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS group_code text NOT NULL DEFAULT 'all';  -- tables created before this column existed
+ALTER TABLE chats ADD COLUMN IF NOT EXISTS requires_verified_group boolean NOT NULL DEFAULT false;
 -- An admin marks a chat as official (catix/official.py): only its messages may be called official in an answer.
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS official boolean NOT NULL DEFAULT false;
 
@@ -37,6 +38,51 @@ SELECT substr(user_key, 4)::bigint FROM user_groups WHERE user_key ~ '^tg:[0-9]+
 ON CONFLICT (telegram_id) DO NOTHING;
 
 -- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
+-- Private invitations remain outside chats until a moderator approves and Telegram confirms membership.
+CREATE TABLE IF NOT EXISTS source_requests (
+    id text PRIMARY KEY CHECK (id ~ '^[0-9a-f]{32}$'),
+    owner text NOT NULL,
+    email text NOT NULL,
+    invite_link text NOT NULL,
+    group_code text NOT NULL CHECK (group_code <> 'all'),
+    comment text NOT NULL DEFAULT '',
+    consented_at timestamptz NOT NULL,
+    status text NOT NULL DEFAULT 'pending'
+        CHECK (status IN ('pending', 'approved', 'joining', 'waiting_join', 'connected', 'failed', 'rejected')),
+    message text,
+    title text,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    UNIQUE (owner, invite_link)
+);
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_by bigint;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_at timestamptz;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS available_at timestamptz NOT NULL DEFAULT now();
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS token text;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS lease_until timestamptz;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS join_started_at timestamptz;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS chat_id bigint;
+ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS backfill_pending boolean NOT NULL DEFAULT false;
+CREATE INDEX IF NOT EXISTS source_requests_queue ON source_requests (available_at, created_at)
+    WHERE status IN ('approved', 'joining', 'waiting_join');
+-- Independent of request rows: deleting a claimed request cannot start overlapping Telegram writes.
+CREATE TABLE IF NOT EXISTS source_request_lease (
+    singleton boolean PRIMARY KEY DEFAULT true CHECK (singleton),
+    token text,
+    lease_until timestamptz,
+    available_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO source_request_lease (singleton) VALUES (true) ON CONFLICT DO NOTHING;
+
+-- One Telegram account shares join intent across owners; request deletion must not erase it.
+CREATE TABLE IF NOT EXISTS source_request_join_intents (
+    invite_link text PRIMARY KEY,
+    started_at timestamptz NOT NULL DEFAULT now()
+);
+INSERT INTO source_request_join_intents (invite_link, started_at)
+SELECT invite_link, min(join_started_at) FROM source_requests
+WHERE join_started_at IS NOT NULL GROUP BY invite_link
+ON CONFLICT DO NOTHING;
+
 -- (tguserbot/userbot.py). The userbot publishes the chats and forum topics it can see; the admin picks from them.
 CREATE TABLE IF NOT EXISTS userbot_dialogs (
     chat_id      bigint PRIMARY KEY,

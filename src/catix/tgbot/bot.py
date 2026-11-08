@@ -430,9 +430,9 @@ async def chat_migrated(message: Message) -> None:
     old, new = (
         (message.chat.id, message.migrate_to_chat_id) if message.migrate_to_chat_id else (message.migrate_from_chat_id, message.chat.id)
     )
-    MIGRATED[old] = new
     await writer.wait_idle()  # Messages of the old chat that are still queued must be stored before they move.
     counts = await asyncio.to_thread(store.migrate_chat, old, new)
+    MIGRATED[old] = new  # Never redirect private messages when migration was refused by the access-policy guard.
     log.info("chat %s became a supergroup %s: %s", old, new, counts)
 
 
@@ -671,7 +671,7 @@ async def decide_change(query: CallbackQuery) -> None:
         except personal_calendar.NoAccount as e:  # The card keeps its buttons for after the Telegram is linked.
             await query.answer(str(e), show_alert=True)
             return
-        done = await asyncio.to_thread(changes.add_to_calendar, user_key, int(change_id))
+        done = await asyncio.to_thread(changes.add_to_calendar, user_key, int(change_id), telegram_id=query.from_user.id)
         verdict = f"✅ {done[:180]}. /calendar" if done else "Изменение не найдено"
     else:
         verdict = "❌ Не добавлено"

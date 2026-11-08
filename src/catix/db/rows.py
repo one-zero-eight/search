@@ -106,6 +106,7 @@ class ChangeView:
     chat_title: str
     chat_link: str | None
     group_code: str
+    requires_verified_group: bool = False
 
 
 @dataclass(frozen=True, slots=True)

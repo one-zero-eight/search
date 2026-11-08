@@ -19,10 +19,12 @@ from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMar
 
 from catix import groups, official, userbot_config
 from catix.db import pg, store
+from catix.tgbot import source_requests
 from catix.worker import changes
 
 log = logging.getLogger("catix.listen")
 router = Router()
+router.include_router(source_requests.router)
 
 PAGE_SIZE = 8
 BUTTON_TITLE = 32
@@ -358,6 +360,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append(nav)
     rows.append([_button("➕ Добавить группу", "ls:add")])
     rows.append([_button("🔄 Обновить список", "ls:r")])
+    rows.append([_button("📥 Заявки на чаты", "sr:list:0")])
     rows.append([_button("← Администрирование", "adm:home")])
     text = (
         f"<b>Подключённые группы</b>: {len(dialogs)}.\n"

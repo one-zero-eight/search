@@ -163,7 +163,7 @@ def admins() -> list[int]:
 CHANGE_VIEW = """
 SELECT s.id, s.message_id, s.kind, s.subject, s.starts_at, s.ends_at, s.all_day, s.room, s.summary, s.status,
        s.created_at, s.notified_at, s.decided_at,
-       m.text, m.date, m.link, m.sender_name, c.title AS chat_title, c.link AS chat_link, c.group_code
+       m.text, m.date, m.link, m.sender_name, c.title AS chat_title, c.link AS chat_link, c.group_code, c.requires_verified_group
 FROM schedule_changes s JOIN messages m ON m.id = s.message_id JOIN chats c ON c.chat_id = m.chat_id
 """
 
@@ -185,6 +185,12 @@ def recipients(change: ChangeView) -> list[int]:
     the one they chose (/mygroup), as for the search (groups.effective_group). The Max users are not told: the worker
     sends through Telegram only."""
     users = bot_users.reachable()
+    if change.requires_verified_group:
+        if change.group_code == groups.ALL:
+            return []  # A later manual edit to 'all' must not make a private source public.
+        with ThreadPoolExecutor(LOOKUPS) as pool:
+            known = list(pool.map(groups.auto_group, users))
+        return [user for user, group in zip(users, known, strict=True) if group == change.group_code]
     if change.group_code == groups.ALL:
         return users
     with pg.connection() as conn:
@@ -217,7 +223,7 @@ def _earlier_event(conn, user_key: str, subject: str) -> int | None:
     return next((r["id"] for r in rows if _same_subject(subject, r["title"])), None)
 
 
-def add_to_calendar(user_key: str, change_id: int) -> str | None:
+def add_to_calendar(user_key: str, change_id: int, *, telegram_id: int | None = None) -> str | None:
     """Put a change in the user's personal calendar and say what was done; None if there is no such change.
 
     A reschedule or a room change of an event the user already has changes that event (it keeps its id, so calendar apps
@@ -226,6 +232,8 @@ def add_to_calendar(user_key: str, change_id: int) -> str | None:
         change = pg.row(conn, ChangeView, CHANGE_VIEW + " WHERE s.id = %s", (change_id,))
         if change is None:
             return None
+        if change.requires_verified_group and (change.group_code == groups.ALL or groups.auto_group(telegram_id) != change.group_code):
+            return None  # Guessed/forwarded callback IDs cannot disclose a protected source.
         end, _ = _offered_end(conn, change)
         link = change.link or change.chat_link
         note = f"Из чата {_origin(change)}:\n{change.text[:600]}"  # A basic group has no link: the message itself, then.

@@ -14,6 +14,12 @@ from catix.tguserbot import userbot
 ENTITY = Chat(id=42, title="Forum", photo=None, participants_count=2, date=datetime.now(timezone.utc), version=1)
 
 
+@pytest.fixture(autouse=True)
+def no_source_request_database(monkeypatch):
+    monkeypatch.setattr(userbot.source_requests, "backfill_pending", lambda: set())
+    monkeypatch.setattr(userbot.source_requests, "backfill_done", lambda chat_id: None)
+
+
 def message(n, topic):
     return Message(id=n, peer_id=PeerChat(42), date=datetime.now(timezone.utc), message="history",
                    reply_to=MessageReplyHeader(reply_to_msg_id=topic, forum_topic=True))

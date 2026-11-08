@@ -107,10 +107,13 @@ def set_user_group(user_key: str, code: str) -> None:
 
 
 def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int]:
-    """Chats a user's answers may come from: those of group `all` and of the user's own group (for `all`: only the first)."""
-    group = effective_group(user_key, telegram_id)
+    """Legacy chats keep manual fallback. Requested private sources require a verified, matching study group."""
+    verified = auto_group(telegram_id)
+    group = verified or user_group(user_key)
     with pg.connection() as conn:
-        return set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code IN (%s, %s)", (ALL, group)))
+        return set(pg.column(conn,
+            """SELECT chat_id FROM chats WHERE group_code IN (%s, %s)
+               AND (NOT requires_verified_group OR (group_code <> 'all' AND group_code = %s))""", (ALL, group, verified)))
 
 
 def group_command(args: str, admin_chats: list[ChatGroup]) -> str:

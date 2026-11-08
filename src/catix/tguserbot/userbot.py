@@ -35,11 +35,12 @@ from telethon.tl.types import (
     MessageMediaDocument, MessageMediaPhoto,
 )
 
-from catix import live_search, userbot_config
+from catix import live_search, source_requests, userbot_config
 from catix.db import pg
 from catix.db import store
 from catix.ingest import images, publish
 from catix.settings import settings
+from catix.tguserbot import source_requests as source_worker
 
 BATCH = 500
 
@@ -423,7 +424,7 @@ async def listen() -> None:
 
 async def _listen_once() -> None:
     # Two tries to connect and one to reconnect (Telethon counts them so): the pauses between rounds are listen()'s.
-    async with _client(connection_retries=1) as client:
+    async with _client(connection_retries=1, request_retries=0, flood_sleep_threshold=0) as client:
         await client.start()
         await _publish_dialogs(client)
         await _seed(client)
@@ -450,11 +451,12 @@ async def _listen_once() -> None:
             return job["chat_id"] in userbot_config.userbot_reads() and store.topic_allowed(job["chat_id"], job["topic_id"])
 
         recognizing = asyncio.create_task(images.run("tguserbot", download, allowed=allowed))
+        requesting = asyncio.create_task(source_worker.run(client))
         print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
         try:
             await client.run_until_disconnected()
         finally:
-            tasks = (follower, searching, heartbeat, recognizing)
+            tasks = (follower, searching, heartbeat, recognizing, requesting)
             for task in tasks:
                 task.cancel()
             # Finish downloads/lease cleanup while the Telegram client is still open.
@@ -494,7 +496,7 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
 
 async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channel | Chat], backfills: dict[int, asyncio.Task]) -> None:
     """Keep `entities` equal to the chats chosen in the bot; fetch the history of a chat that was just turned on
-    (or got more topics). What was chosen before this start is not fetched again: that is `sync`."""
+    (or got more topics). Durable source requests also resume unfinished backfills on restart."""
     applied: dict | None = None
     last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
     while True:
@@ -502,6 +504,7 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
             # Not a chat only the Bot API bot is in (this account cannot open it), nor one an admin gave to the bot.
             wanted = userbot_config.userbot_reads()
             fingerprints = userbot_config.storage_fingerprints()
+            requested_backfills = source_requests.backfill_pending()
             for chat_id in set(entities) - set(wanted):
                 del entities[chat_id]
                 print(f"No longer listening to {chat_id}.")
@@ -518,7 +521,7 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
                         next_applied[chat_id] = applied[chat_id]
                     continue
                 changed = applied is not None and applied.get(chat_id, ...) != fingerprints.get(chat_id)
-                if changed:
+                if changed or chat_id in requested_backfills:
                     print(f"Now listening to {utils.get_display_name(entity)}, fetching its history.")
                     task = asyncio.create_task(_backfill(client, entity, topics))
                     backfills[chat_id] = task
@@ -669,6 +672,8 @@ def _same(topics: list[int] | None) -> list[int] | None:
 async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None) -> None:
     try:
         print(await _sync_chat(client, entity, topics, backfill=True))
+        if utils.get_peer_id(entity) in userbot_config.userbot_reads():
+            source_requests.backfill_done(utils.get_peer_id(entity))
     except Exception as e:  # noqa: BLE001
         print(f"History of {utils.get_display_name(entity)} not fetched: {e!r}", file=sys.stderr)
 

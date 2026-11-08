@@ -242,6 +242,12 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
     if old_id == new_id:
         return counts
     with pg.connection() as conn:
+        protected = conn.execute(
+            "SELECT chat_id FROM chats WHERE chat_id = ANY(%s::bigint[]) AND requires_verified_group FOR UPDATE",
+            ([old_id, new_id],),
+        ).fetchone()
+        if protected:
+            raise ValueError("Protected source migration requires manual access-policy review")
         old = pg.row(
             conn, ChatRow, "SELECT chat_id, title, username, bot_member FROM chats WHERE chat_id = %s", (old_id,)
         )
