@@ -212,6 +212,7 @@ def test_when_the_docs_helper_found_nothing_the_chats_helper_is_asked_next_witho
         request.messages = [HumanMessage("что такое DID?"), AIMessage(content="", tool_calls=calls),
                             *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name, artifact={"found": found})
                               for i, (name, text, found) in enumerate(reports))]
+        request.state["messages"] = request.messages
         return request
 
     written = ModelResponse(result=[AIMessage(content="ответ supervisor")])

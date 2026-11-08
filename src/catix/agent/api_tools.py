@@ -1,14 +1,16 @@
 """Shared MCP calls with name-based host consent and per-request credentials.
 
-Business arguments belong to the server. The host only checks its generic call
-shape, known names and trusted identity, and supplies the profile's schedule group.
+Business rules belong to the server. Host preflight validates discovered JSON
+schemas before approval; execution still sends the original business arguments.
 """
 
 import json
+from collections.abc import Mapping
+from typing import Any
 
 from langchain.tools import ToolRuntime
-from langchain_core.messages import HumanMessage
 from langchain_core.tools import StructuredTool
+from langgraph.runtime import Runtime
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from catix.innohassle import mcp_client
@@ -35,12 +37,12 @@ class CallApiToolArgs(BaseModel):
         return value
 
 
-def _token(runtime: ToolRuntime) -> str | None:
+def _token(runtime: ToolRuntime | Runtime[Any]) -> str | None:
     secret = getattr(getattr(runtime, "context", None), "innohassle_token", None)
     return secret.get_secret_value() if secret else None
 
 
-def _sport_credentials(runtime: ToolRuntime) -> dict:
+def _sport_credentials(runtime: ToolRuntime | Runtime[Any]) -> dict:
     secret = getattr(getattr(runtime, "context", None), "sport_token", None)
     return {"sport_token": secret.get_secret_value()} if secret else {}
 
@@ -78,7 +80,7 @@ def _credential_mode(name: str) -> str:
     return CREDENTIAL_MODES[name]
 
 
-def _credentials(mode: str, runtime: ToolRuntime) -> tuple[str | None, dict]:
+def _credentials(mode: str, runtime: ToolRuntime | Runtime[Any]) -> tuple[str | None, dict]:
     if mode == "public":
         return None, {}
     token = _token(runtime)
@@ -90,7 +92,7 @@ def _credentials(mode: str, runtime: ToolRuntime) -> tuple[str | None, dict]:
     return token, credentials
 
 
-def _reviewed_args(tool_call: dict) -> CallApiToolArgs:
+def _reviewed_args(tool_call: Mapping[str, Any]) -> CallApiToolArgs:
     # ToolNode replaces ANY outer runtime. Apply the same canonicalization in the
     # consent gate so a model-supplied runtime can neither supply identity nor skip it.
     args = {key: value for key, value in tool_call["args"].items() if key != "runtime"}
@@ -114,34 +116,15 @@ def _needs_approval(request) -> bool:
 
 
 def _describe_mutation(tool_call, state, runtime) -> str:
+    """Pure checkpoint lookup: HITL replays this callback when consuming a resume."""
     args = _reviewed_args(tool_call)
     if args.name not in CONFIRMATION_TOOLS:
         raise ValueError("Read operations do not require approval.")
-    question = next((str(message.content) for message in state.get("messages", [])
-                     if isinstance(message, HumanMessage)), "")
-    letters = [char for char in question if char.isalpha()]
-    language = "ru" if not letters or sum("Ѐ" <= char <= "ӿ" for char in letters) * 2 >= len(letters) else "en"
-    try:
-        token, credentials = _credentials(_credential_mode(args.name), runtime)
-        preview = mcp_client.request_sync("preview_tool", {
-            "name": args.name, "arguments": args.arguments, "language": language,
-        }, token, **credentials)
-        echoed = preview.get("arguments") if isinstance(preview, dict) else None
-        # The server may fill defaults, but must preserve every explicitly supplied
-        # value. Only the description is used; execution still sends the raw intent.
-        if (isinstance(preview, dict) and "error" not in preview and preview.get("name") == args.name
-                and isinstance(echoed, dict)
-                and all(key in echoed and json.dumps(echoed[key], sort_keys=True) == json.dumps(value, sort_keys=True)
-                        for key, value in args.arguments.items())
-                and isinstance(preview.get("description"), str) and preview["description"].strip()):
-            return preview["description"]
-    except Exception:
-        # A failed preview must never suppress consent or disclose diagnostics.
-        pass
-    details = f"{args.name}: {json.dumps(args.arguments, ensure_ascii=False, sort_keys=True)}"
-    return (("Не удалось получить подробности из MCP. Подтвердите действие с указанными параметрами: "
-             if language == "ru" else "MCP details could not be read. Confirm the action with these exact arguments: ")
-            + details)
+    for prepared in state.get("api_prepared", []):
+        if (prepared["call_id"] == tool_call.get("id") and prepared["target"] == args.name
+                and json.dumps(prepared["arguments"], sort_keys=True) == json.dumps(args.arguments, sort_keys=True)):
+            return prepared["description"]
+    raise ValueError("No matching prepared approval description. Run preflight before HITL.")
 
 
 def _prepare(name: str, arguments: dict | None, runtime: ToolRuntime):

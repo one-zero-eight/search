@@ -9,6 +9,7 @@ from pydantic import SecretStr
 
 from catix.agent import api_tools, core
 from catix.agent.tools import AgentContext
+from catix.innohassle import mcp_domain
 from tests.test_roles import ScriptedModel
 
 
@@ -35,7 +36,10 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     sent, previews = [], []
     args = {"name": "sport_sport_checkin", "arguments": {"training_id": 11}}
 
-    def request(method, payload, token, **credentials):
+    def request(method, payload, token=None, **credentials):
+        if method == "search_tools":
+            assert token is None and credentials == {}
+            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
         assert token == "user-token" and credentials == {"sport_token": "sport-token"}
         if method == "preview_tool":
             previews.append(payload)
@@ -92,23 +96,27 @@ def test_invalid_outer_shape_and_unknown_targets_never_send_or_interrupt(monkeyp
 
 
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
-def test_server_business_validation_occurs_after_name_selected_consent(monkeypatch, helper):
-    sent = []
+def test_server_preview_validation_prevents_consent_and_execution(monkeypatch, helper):
+    sent, previews = [], []
 
-    def request(method, payload, token, **kwargs):
+    def request(method, payload, token=None, **kwargs):
+        if method == "search_tools":
+            assert token is None and kwargs == {}
+            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
         if method == "preview_tool":
-            return {"error": "Invalid business arguments"}
+            previews.append(payload)
+            return {"code": "invalid_arguments", "error": "time_to must be after time_from."}
         sent.append(payload)
         return {"error": "Invalid business arguments"}
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
-    args = {"name": "rooms_book_room", "arguments": {"day": "not-a-date"}}
+    # Individual field types/formats are valid; the server owns this cross-field rule.
+    args = {"name": "rooms_book_room", "arguments": {
+        "day": "2099-01-01", "room_id": "r1", "title": "Meeting", "time_from": "11:00", "time_to": "10:00"}}
     agent, config, _ = _graph_action(args, helper=helper)
-    paused = agent.get_state(config).interrupts[0]
-    assert sent == [] and "not-a-date" in paused.value["action_requests"][0]["description"]
-    agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config,
-                 context=AgentContext(innohassle_token=SecretStr("user-token")))
-    assert sent == [args]
+    assert not agent.get_state(config).interrupts
+    assert sent == []
+    assert previews == [{**args, "language": "ru"}]
 
 
 @pytest.mark.parametrize("context,name", [
@@ -131,7 +139,10 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
     sent = []
     args = {"name": "account_cancel_booking", "arguments": {"service": "room", "booking_id": "booking-5"}}
 
-    def request(method, payload, token, **kwargs):
+    def request(method, payload, token=None, **kwargs):
+        if method == "search_tools":
+            assert token is None and kwargs == {}
+            return {"tools": [{"name": payload["query"], "inputSchema": mcp_domain.schema(payload["query"])}]}
         if method == "preview_tool":
             return {"name": args["name"], "arguments": args["arguments"], "description": "Cancel booking-5"}
         sent.append(payload)

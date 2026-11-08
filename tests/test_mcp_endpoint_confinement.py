@@ -138,19 +138,22 @@ def test_direct_room_operations_reject_unsafe_ids_without_request(upstream, iden
 
 @pytest.mark.parametrize("identifier", ["../../../music-room/v0/bookings/42", "%252e%252e%252f42", "a?other", "a#other", "a\\b", "a\nb"])
 @pytest.mark.parametrize("name", ["account_cancel_booking", "rooms_book_room"])
-def test_invalid_identifier_never_reaches_upstream_after_host_approval(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier):
-    from langgraph.types import Command
+@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
+def test_invalid_identifier_is_refused_before_approval_or_upstream(monkeypatch, upstream, signed_user, mcp_http_protocol, name, identifier, helper):
+    from langchain_core.messages import ToolMessage
     from pydantic import SecretStr
+    from catix.agent import core
     from catix.agent.tools import AgentContext
     from tests.test_mcp_approval import _graph_action
 
+    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     arguments = {"service": "room", "booking_id": identifier} if name == "account_cancel_booking" else room_arguments(identifier)
     context = AgentContext(innohassle_token=SecretStr(signed_user), innohassle_id="synthetic-owner")
-    agent, config, _ = _graph_action({"name": name, "arguments": arguments}, context=context)
-    paused = agent.get_state(config).interrupts
-    assert len(paused) == 1 and upstream == []
-    agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=context)
-    assert upstream == []
+    agent, config, out = _graph_action({"name": name, "arguments": arguments}, context=context, helper=helper)
+    assert not agent.get_state(config).interrupts and upstream == []
+    results = [m for m in out["messages"] if isinstance(m, ToolMessage)]
+    payloads = results[0].artifact["results"] if helper else [m.content for m in results]
+    assert any("identifier" in json.loads(value).get("error", "").lower() for value in payloads)
 
 
 def test_http_room_preflight_stays_on_approved_endpoint(monkeypatch, signed_user, upstream):

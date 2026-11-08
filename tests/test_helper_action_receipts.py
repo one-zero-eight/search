@@ -9,6 +9,7 @@ from pydantic import SecretStr
 
 from catix.agent import api_tools, core
 from catix.agent.tools import AgentContext
+from catix.innohassle import mcp_domain
 from tests.test_roles import ScriptedModel
 
 
@@ -28,7 +29,10 @@ def mutation(monkeypatch):
     sent = []
     payload: dict[str, dict | list[dict]] = {"result": CONFIRMED}
 
-    def request(method, args, token, **kwargs):
+    def request(method, args, token=None, **kwargs):
+        if method == "search_tools":
+            assert token is None and kwargs == {}
+            return {"tools": [{"name": args["query"], "inputSchema": mcp_domain.schema(args["query"])}]}
         assert token == "synthetic-user"
         if method == "preview_tool":
             return {"name": args["name"], "arguments": args["arguments"], "description": "Cancel synthetic booking"}

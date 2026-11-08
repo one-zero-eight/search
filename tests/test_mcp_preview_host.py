@@ -1,78 +1,129 @@
-"""External API approval details are read over MCP, never through agent HTTP code."""
+"""Preview I/O belongs to preflight; the replayed HITL callback is a pure lookup."""
+
 import asyncio
 from contextlib import asynccontextmanager
+from copy import deepcopy
 from types import SimpleNamespace
 
 import pytest
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langgraph.errors import GraphBubbleUp
+from langgraph.runtime import Runtime
 from pydantic import SecretStr
 
 from catix.agent import api_tools
+from catix.agent.api_preflight import ApiPreflightMiddleware, ApiPreflightState
+from catix.agent.tools import AgentContext
 from catix.innohassle import mcp_client
 
 
-def test_approval_description_comes_from_mcp_without_issuing_a_capability(monkeypatch):
-    calls = []
-    arguments = {"day": "2099-01-01", "time_from": "10:00", "time_to": "11:00"}
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=SecretStr("synthetic-user")))
-
-    def request(name, payload, token, **credentials):
-        calls.append((name, payload, token, credentials))
-        return {"name": "music_book_music_room", "arguments": arguments, "description": "Описание от MCP."}
-
-    monkeypatch.setattr(mcp_client, "request_sync", request)
-    result = api_tools._describe_mutation(
-        {"name": "call_api_tool", "args": {"name": "music_book_music_room", "arguments": arguments}},
-        {"messages": [HumanMessage("Забронируй музыкальную комнату.")]}, runtime,
-    )
-    assert result == "Описание от MCP."
-    assert calls == [("preview_tool", {
-        "name": "music_book_music_room", "arguments": arguments, "language": "ru",
-    }, "synthetic-user", {})]
+ARGUMENTS = {"training_id": 7}
+CALL = {"name": "call_api_tool", "id": "write-1", "args": {"name": "sport_sport_checkin", "arguments": ARGUMENTS}}
+RUNTIME = Runtime(context=AgentContext(
+    innohassle_token=SecretStr("synthetic-user"), sport_token=SecretStr("synthetic-sport"),
+))
+SCHEMA = {"type": "object", "properties": {"training_id": {"type": "integer"}, "cancel": {"type": "boolean"}},
+          "required": ["training_id"]}
 
 
-@pytest.mark.parametrize("bad_preview", [
-    {"error": "synthetic-user upstream diagnostics"},
-    {"name": "other_tool", "arguments": {}, "description": "WRONG PREVIEW"},
-    {"name": "music_book_music_room", "arguments": {"day": "2099-01-02"}, "description": "WRONG PREVIEW"},
-    {"name": "music_book_music_room", "arguments": {}, "description": ""},
-])
-def test_failed_or_mismatched_preview_keeps_exact_confirmation_without_leaking_errors(monkeypatch, bad_preview):
-    arguments = {"day": "2099-01-01", "time_from": "10:00", "time_to": "11:00"}
-    call = {"name": "call_api_tool", "args": {"name": "music_book_music_room", "arguments": arguments}}
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=SecretStr("synthetic-user")))
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: bad_preview)
-    assert api_tools._needs_approval(SimpleNamespace(tool_call=call))
-    result = api_tools._describe_mutation(call, {"messages": [HumanMessage("Book the music room.")]}, runtime)
-    assert "music_book_music_room" in result and "2099-01-01" in result
-    assert "10:00" in result and "11:00" in result
-    assert "synthetic-user" not in result and "WRONG PREVIEW" not in result
-    assert api_tools._needs_approval(SimpleNamespace(tool_call=call))
+def state(call=None, questions=None) -> ApiPreflightState:
+    import json
+    return {"messages": [*(questions or [HumanMessage("Check in.")]),
+                         AIMessage(content="", tool_calls=[{"name": "search_api_tools", "args": {"query": "sport"}, "id": "s1"}]),
+                         ToolMessage(content=json.dumps({"tools": [{"name": "sport_sport_checkin", "inputSchema": SCHEMA}]}),
+                                     name="search_api_tools", tool_call_id="s1"),
+                         AIMessage(content="", tool_calls=[deepcopy(call or CALL)])]}
 
 
-def test_sport_preview_uses_separate_credentials_without_an_approval_capability(monkeypatch):
-    calls = []
-    runtime = SimpleNamespace(context=SimpleNamespace(
-        innohassle_token=SecretStr("synthetic-user"), sport_token=SecretStr("synthetic-sport"),
-    ))
+def test_preflight_uses_sport_credentials_and_latest_language_then_callback_is_pure(monkeypatch):
+    sent = []
 
-    def request(name, payload, token, **credentials):
-        calls.append((name, payload, token, credentials))
-        return {"name": payload["name"], "arguments": payload["arguments"], "description": "Reviewed training."}
+    def request(method, payload, token, **credentials):
+        sent.append((method, payload, token, credentials))
+        return {"name": payload["name"], "arguments": {**payload["arguments"], "cancel": False}, "description": "Reviewed training."}
 
     monkeypatch.setattr(mcp_client, "request_sync", request)
-    result = api_tools._describe_mutation(
-        {"name": "call_api_tool", "args": {"name": "sport_sport_checkin", "arguments": {"training_id": 7}}},
-        {"messages": [HumanMessage("Register me for the training.")]}, runtime,
-    )
-    assert result == "Reviewed training."
-    assert calls == [("preview_tool", {
-        "name": "sport_sport_checkin", "arguments": {"training_id": 7}, "language": "en",
+    initial = state(questions=[HumanMessage("Запиши на спорт."), HumanMessage("Check in.")])
+    prepared = ApiPreflightMiddleware().after_model(initial, RUNTIME)
+    assert "jump_to" not in prepared
+    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == "Reviewed training."
+    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == "Reviewed training."
+    assert sent == [("preview_tool", {
+        "name": "sport_sport_checkin", "arguments": ARGUMENTS, "language": "en",
     }, "synthetic-user", {"sport_token": "synthetic-sport"})]
+    assert prepared["api_prepared"][0]["arguments"] == ARGUMENTS  # Defaults never replace raw execution intent.
+
+
+@pytest.mark.parametrize("change", ["id", "target", "arguments", "bool_vs_int", "missing"])
+def test_description_refuses_unprepared_or_different_call_without_io(monkeypatch, change):
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("HITL lookup must never perform I/O"))
+    prepared = {"api_prepared": [{"call_id": "write-1", "target": "sport_sport_checkin", "arguments": ARGUMENTS,
+                                  "description": "Reviewed training."}]}
+    call = deepcopy(CALL)
+    if change == "id":
+        call["id"] = "write-2"
+    elif change == "target":
+        call["args"]["name"] = "rooms_book_room"
+    elif change == "arguments":
+        call["args"]["arguments"]["cancel"] = True
+    elif change == "bool_vs_int":
+        prepared["api_prepared"][0]["arguments"] = {"training_id": 1}
+        call["args"]["arguments"] = {"training_id": True}
+    else:
+        prepared = {}
+    assert api_tools._needs_approval(SimpleNamespace(tool_call=call, runtime=RUNTIME))
+    with pytest.raises(ValueError, match="prepared"):
+        api_tools._describe_mutation(call, prepared, RUNTIME)
+    assert api_tools._needs_approval(SimpleNamespace(tool_call=call, runtime=RUNTIME))
+
+
+@pytest.mark.parametrize("token", [None, SecretStr("synthetic-user")])
+def test_missing_required_credentials_never_send_preflight_io(monkeypatch, token):
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No required credentials"))
+    runtime = Runtime(context=AgentContext(innohassle_token=token))
+    initial: ApiPreflightState = {**state(), "api_prepared": [{"description": "stale"}]}
+    assert ApiPreflightMiddleware().after_model(initial, runtime) == {"api_prepared": []}
+    assert not api_tools._needs_approval(SimpleNamespace(tool_call=CALL, runtime=runtime))
+
+
+@pytest.mark.parametrize("preview_arguments", [{"training_id": 8}, {"training_id": True}, {"training_id": 7, "cancel": False}])
+def test_preview_cannot_change_any_explicit_typed_value(monkeypatch, preview_arguments):
+    call = deepcopy(CALL)
+    call["args"]["arguments"]["cancel"] = True
+    if preview_arguments.get("training_id") is True:
+        call["args"]["arguments"]["training_id"] = 1
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {
+        "name": "sport_sport_checkin", "arguments": preview_arguments, "description": "WRONG PREVIEW",
+    })
+    result = ApiPreflightMiddleware().after_model(state(call), RUNTIME)
+    assert result["jump_to"] == "model" and result["api_prepared"] == []
+    assert "WRONG PREVIEW" not in str(result)
+    assert api_tools._needs_approval(SimpleNamespace(tool_call=call, runtime=RUNTIME))
+
+
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_graph_control_flow_is_not_swallowed(monkeypatch, asynchronous):
+    error = GraphBubbleUp("synthetic control flow")
+
+    def request(*args, **kwargs):
+        raise error
+
+    async def arequest(*args, **kwargs):
+        raise error
+
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(mcp_client, "request", arequest)
+    middleware = ApiPreflightMiddleware()
+    with pytest.raises(GraphBubbleUp) as actual:
+        if asynchronous:
+            asyncio.run(middleware.aafter_model(state(), RUNTIME))
+        else:
+            middleware.after_model(state(), RUNTIME)
+    assert actual.value is error
 
 
 @pytest.mark.parametrize("inside_event_loop", [False, True])
-def test_mcp_preview_transport_works_in_sync_and_async_hitl_callbacks(monkeypatch, inside_event_loop):
+def test_mcp_preview_transport_sync_bridge_remains_usable(monkeypatch, inside_event_loop):
     calls = []
     payload = {"name": "music_book_music_room", "arguments": {}, "language": "en"}
     result = {"name": payload["name"], "arguments": {}, "description": "Remote preview."}
@@ -98,26 +149,3 @@ def test_mcp_preview_transport_works_in_sync_and_async_hitl_callbacks(monkeypatc
     actual = asyncio.run(in_loop()) if inside_event_loop else call()
     assert actual == result
     assert calls == [("preview_tool", payload)]
-
-
-@pytest.mark.parametrize("auth,token", [("innohassle", None), ("sport", SecretStr("synthetic-user"))])
-def test_missing_required_credentials_never_send_a_preview(monkeypatch, auth, token):
-    sent = []
-    parsed = api_tools.CallApiToolArgs(name="sport_sport_checkin", arguments={"training_id": 7})
-    monkeypatch.setattr(api_tools, "_reviewed_args", lambda call: parsed)
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: sent.append((a, kw)) or {})
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=token))
-    description = api_tools._describe_mutation({}, {"messages": [HumanMessage("Check in.")]}, runtime)
-    assert "sport_sport_checkin" in description and "7" in description
-    assert sent == []
-
-
-def test_preview_can_fill_defaults_but_cannot_change_explicit_values(monkeypatch):
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=SecretStr("ih"), sport_token=SecretStr("sport")))
-    call = {"args": {"name": "sport_sport_checkin", "arguments": {"training_id": 7}}}
-    preview = {"name": "sport_sport_checkin", "arguments": {"training_id": 7, "cancel": False}, "description": "Check in to training 7."}
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: preview)
-    assert api_tools._describe_mutation(call, {}, runtime) == preview["description"]
-    call["args"]["arguments"]["cancel"] = True
-    description = api_tools._describe_mutation(call, {}, runtime)
-    assert description != preview["description"] and '"cancel": true' in description

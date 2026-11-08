@@ -180,9 +180,9 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
 
 def _when(start: datetime, end: datetime | None, ru: bool) -> str:
     day = (
-        f"{WEEKDAYS_RU[start.weekday()]}, {start.day} {MONTHS_RU[start.month - 1]}"
+        f"{WEEKDAYS_RU[start.weekday()]}, {start.day} {MONTHS_RU[start.month - 1]} {start.year}"
         if ru
-        else start.strftime("%a, %d %b")
+        else start.strftime("%a, %d %b %Y")
     )
     return f"{day}, {start:%H:%M}" + (f"–{end:%H:%M}" if end else "")
 

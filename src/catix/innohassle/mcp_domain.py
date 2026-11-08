@@ -15,6 +15,10 @@ from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 from pydantic import ValidationError as ModelValidationError
 
 
+class InvalidArguments(ValueError):
+    """Safe authored validation feedback, distinct from policy/callback failures."""
+
+
 @cache
 def definitions():
     """Compile SDK function tools once, offline, from locally declared functions."""
@@ -90,9 +94,19 @@ def validate(name: str, arguments: dict) -> dict:
         # Only authored validator messages; never include Pydantic input/context,
         # which can contain credentials supplied as malicious extra arguments.
         message = error.errors(include_input=False, include_context=False)[0]["msg"]
-        raise ValueError(f"Invalid account operation arguments; nothing was done. {message}") from None
-    except (ValidationError, TypeError):
-        raise ValueError("Invalid account operation arguments; nothing was done.") from None
+        raise InvalidArguments(f"Invalid account operation arguments; nothing was done. {message}") from None
+    except ValidationError as error:
+        message = "Invalid account operation arguments; nothing was done."
+        if error.validator == "required" and isinstance(error.instance, dict) and isinstance(error.schema, dict):
+            # Only names from our schema, never jsonschema's reflected input,
+            # unknown extra keys, or raw exception diagnostics.
+            missing = [field for field in error.schema.get("required", [])
+                       if field in error.schema.get("properties", {}) and field not in error.instance]
+            if missing:
+                message += f" Missing required fields: {', '.join(missing)}."
+        raise InvalidArguments(message) from None
+    except TypeError:
+        raise InvalidArguments("Invalid account operation arguments; nothing was done.") from None
 
 
 def describe_preview(name: str, arguments: dict, identity, language: str = "ru") -> str:

@@ -95,7 +95,7 @@ def test_a_rejected_action_is_not_done_and_the_root_is_told_so(music_room):
     assert not agent.get_state(config).interrupts
 
 
-def test_a_past_action_is_refused_by_mcp_even_after_host_consent(music_room):
+def test_a_past_action_is_refused_before_consent_and_by_direct_mcp(music_room):
     yesterday = (datetime.now(settings.tz) - timedelta(days=1)).date()
     script = [
         _call("call_api_tool", {"name": "music_book_music_room", "arguments": {
@@ -104,13 +104,10 @@ def test_a_past_action_is_refused_by_mcp_even_after_host_consent(music_room):
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "past"}}
-    agent.invoke({"messages": [{"role": "user", "content": "забронируй музкомнату вчера"}]}, config, context=SITE)
-    paused = agent.get_state(config).interrupts
-    assert len(paused) == 1 and not music_room
-    out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
+    out = agent.invoke({"messages": [{"role": "user", "content": "забронируй музкомнату вчера"}]}, config, context=SITE)
     assert not agent.get_state(config).interrupts and not music_room
-    report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "call_api_tool")
-    assert '"error"' in report.content, report.content
+    result = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "call_api_tool")
+    assert '"error"' in result.content and "already past" in result.content, result.content
     with pytest.raises(ToolError, match="already past"):
         call("music_book_music_room", {"day": yesterday.isoformat(), "time_from": "18:00", "time_to": "19:00"}, token="user-token")
     assert not music_room

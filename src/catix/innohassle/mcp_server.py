@@ -77,7 +77,12 @@ class _RequestPolicy(Middleware):
             if context.message.name not in {"search_tools", "service_status"}:
                 if not isinstance(name, str):
                     raise ValueError("Unknown API operation.")
-                mcp_domain.validate(name, arguments)
+                if context.message.name == "preview_tool":
+                    # Keep the envelope/name gate, but let the preview return
+                    # structured feedback for its untouched inner JSON dict.
+                    mcp_domain.policy(name)
+                else:
+                    mcp_domain.validate(name, arguments)
         except ValueError as error:
             raise ToolError(str(error)) from None
         try:
@@ -173,13 +178,13 @@ async def build_server() -> FastMCP:
     @root.tool(annotations={"readOnlyHint": True, "destructiveHint": False})
     async def preview_tool(name: str, arguments: dict, language: Literal["ru", "en"] = "ru") -> dict:
         """Authenticated read-only description of a proposed mutation."""
+        operation, identity = _authorized(name)
+        if not operation["write"]:
+            raise ToolError("Only mutations have a preview.")
         try:
             normalized = mcp_domain.validate(name, arguments)
-            operation, identity = _authorized(name)
-            if not operation["write"]:
-                raise ValueError("Only mutations have a preview.")
-        except ValueError as error:
-            raise ToolError(str(error)) from None
+        except mcp_domain.InvalidArguments as error:
+            return {"error": str(error), "code": "invalid_arguments"}
         try:
             description = await asyncio.to_thread(mcp_domain.describe_preview, name, normalized, identity, language)
         except Exception:

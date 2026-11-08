@@ -42,6 +42,7 @@ from catix.agent import claims, questions, roles, sources, web_tools
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
 from catix.agent.calendar_tools import _mutation_key
 from catix.agent.api_tools import API_APPROVAL
+from catix.agent.api_preflight import ApiPreflightMiddleware, requires_user_input
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS, READ_TOOLS as MCP_READ_TOOLS
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
@@ -853,6 +854,8 @@ class FallbackMiddleware(AgentMiddleware):
     @staticmethod
     def _next(request: ModelRequest) -> AIMessage | None:
         run = _this_run(request.messages)
+        if requires_user_input(request.state["messages"]):
+            return None  # Missing action arguments need the user, not another helper.
         calls = [c for m in run if isinstance(m, AIMessage) for c in m.tool_calls if c["name"].startswith("ask_")]
         asked = {c["name"] for c in calls}
         if len(asked) != 1 or (helper := next(iter(asked))) not in FALLBACK:
@@ -1272,7 +1275,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
                 ]
             ),
             LookUpFirstMiddleware(),
-            *([HumanInTheLoopMiddleware(approval)] if approval else []),
+            *([HumanInTheLoopMiddleware(approval), ApiPreflightMiddleware()] if approval else []),
             RunGuardMiddleware(role.tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
             PriorityMiddleware(),
@@ -1326,6 +1329,8 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
         }
         if read_evidence(messages):
             used["read_found"] = True
+        if requires_user_input(messages):
+            used["requires_user_input"] = True
         receipts = _action_receipts(messages)
         if receipts:
             if _failed_action_report(report):
@@ -1381,6 +1386,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             ),
             SourcesMiddleware(),
             HumanInTheLoopMiddleware({**LOCAL_CALENDAR_APPROVAL, **API_APPROVAL}),
+            ApiPreflightMiddleware(),  # after_model runs before HITL, in its own checkpointed node
             RunGuardMiddleware(t.name for t in main_tools),
             PlanThinkingMiddleware(),  # before PriorityMiddleware, which keeps the extra_body it sets
             PriorityMiddleware(),

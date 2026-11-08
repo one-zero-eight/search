@@ -399,6 +399,7 @@ def test_direct_mcp_does_not_block_docs_fallback_or_replace_its_question(direct_
             ToolMessage(content="Ничего не найдено.", name="ask_docs", tool_call_id="d1", artifact={"found": False})]
     request = Req(0)
     request.messages = [HumanMessage("Где аудитория и какие правила?"), *(docs + direct if direct_last else direct + docs)]
+    request.state["messages"] = request.messages
     fallback = core.FallbackMiddleware._next(request)
     assert fallback is not None
     assert fallback.tool_calls[0]["name"] == "ask_chats"
