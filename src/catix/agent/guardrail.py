@@ -42,7 +42,8 @@ finds music-room time windows that fit their personal schedule and booking limit
 enrols them in a university event, checks them in to a sport training, cancels their booking, shows \
 their calendar and their sport hours, adds, updates or removes a calendar event, and checks printer status (online, paper, toner;
 not printing files). It also uses When2Meet to list the user's meeting polls, read participants' availability and common \
-slots, create a poll to coordinate a university team meeting, and replace or clear the user's own available slots. \
+slots, check which poll intervals fit the user's personal schedule including AI Calendar, create a poll to coordinate \
+a university team meeting, and replace or clear the user's own available slots. \
 These are supported account actions, not generic survey writing. It also reads the user's uploaded PDF/TXT documents, \
 screenshots and photos: answers questions about their contents, extracts dates and requirements, explains visible service \
 errors and compares uploaded claims with university sources. Classify ONLY the current user message into exactly one category.

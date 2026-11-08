@@ -21,6 +21,7 @@ STATUS = {
     "get_my_available_trainings": "🏃 Подбираю тренировки без пересечений…",
     "get_my_available_music_windows": "🎵 Подбираю время в музкомнате без пересечений…",
     "get_my_available_rooms": "🚪 Проверяю доступные комнаты и ваше расписание…",
+    "get_my_available_meeting_slots": "👥 Проверяю варианты встречи по вашему расписанию…",
     "read_attachment": "📄 Читаю прикреплённый файл…",
     "view_attachment": "🖼 Рассматриваю изображение или страницу…",
     "add_to_ai_calendar": "🗓 Готовлю добавление в календарь…",

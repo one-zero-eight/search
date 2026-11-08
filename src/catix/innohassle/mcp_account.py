@@ -62,10 +62,32 @@ def _refused(e: innohassle.ServiceError, what: str) -> dict:
 def _calendar_items(text: str, kind: str, start: date, end: date) -> list[dict]:
     calendar = icalendar.Calendar.from_ical(text)
     now, seen, out = (_now(), set(), [])
-    for ev in recurring_ical_events.of(calendar).between(_at(start, time.min), _at(end + timedelta(days=1), time.min)):
+    first, last = _at(start, time.min), _at(end + timedelta(days=1), time.min)
+    originals = calendar.walk("VEVENT")
+    recurring_uids = {str(ev.get("UID", "")) for ev in originals
+                      if any(key in ev for key in ("RRULE", "RDATE", "EXRULE", "EXDATE", "RECURRENCE-ID"))}
+    unknown = [ev for ev in originals if isinstance(ev.decoded("DTSTART", None), datetime)
+               and "DTEND" not in ev and "DURATION" not in ev]
+    if any(str(ev.get("UID", "")) in recurring_uids for ev in unknown):
+        # A bounded expansion cannot prove that earlier occurrences ended;
+        # raw masters are not occurrences (EXDATE, detached/RANGE exceptions).
+        # Let the existing caller report this feed as incomplete instead.
+        raise ValueError("Coverage of recurring timed events with unknown ends cannot be verified.")
+    events = recurring_ical_events.of(calendar).between(first, last)
+    # Expansion treats a missing timed end as zero duration. In our agenda it
+    # remains unknown, so even an old start can overlap this query: no lookback
+    # or midnight boundary can establish that the event has finished.
+    for ev in unknown:
+        begin = ev.decoded("DTSTART")
+        if begin.utcoffset() is None:
+            raise ValueError("Coverage of timed events with unknown ends and floating starts cannot be verified.")
+        if begin < first:
+            events.append(ev)
+    for ev in events:
         begin = ev.decoded("DTSTART")
         title, place = (str(ev.get("SUMMARY", "")), str(ev.get("LOCATION", "")) or None)
-        if (key := (str(begin), title, place)) in seen:
+        if (key := (str(begin), title, place, str(ev.get("UID", "")),
+                    str(ev.decoded("DTEND", None)), str(ev.decoded("DURATION", None)))) in seen:
             continue
         seen.add(key)
         if not isinstance(begin, datetime):

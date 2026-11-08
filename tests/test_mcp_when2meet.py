@@ -492,6 +492,40 @@ def test_fractional_nonhour_offsets_preserved_and_readback_instant_equivalence(s
     assert body['slots' if operation == 'create' else 'availability'] == [slot]
 
 
+def test_native_meeting_read_reaches_personal_recommendation_as_actual_instants(signed, upstream, monkeypatch):
+    from types import SimpleNamespace
+    from pydantic import SecretStr
+    from catix.agent import meeting_tools
+    from catix.agent.schedule_tools import merge_schedule
+    from catix.agent.tools import AgentContext
+    from catix.innohassle import mcp_client
+
+    state, requests = upstream
+    state['reply'] = lambda request: httpx.Response(200, json=meeting(
+        slots=['2099-01-01T07:00:00Z', '2099-01-01T07:30:00Z'],
+        participants=[{'user_id': 'other', 'availability': SLOTS}],
+    ))
+    monkeypatch.setattr(mcp_client, '_connection', lambda token: connection(True, token))
+    def agenda(runtime, first, last):
+        assert first.isoformat() == last.isoformat() == '2099-01-01'
+        period = [first.isoformat(), last.isoformat()]
+        return merge_schedule(period, {'range': period, 'schedule': [
+            {'title': 'Class', 'starts_at': '2099-01-01T10:15:00+03:00', 'ends_at': '2099-01-01T10:30:00+03:00'}],
+            'bookings': []}, {'range': period, 'events': [], 'truncated': False})
+    monkeypatch.setattr(meeting_tools, 'read_my_schedule', agenda)
+    context = AgentContext(innohassle_id='signed-owner', innohassle_token=SecretStr(signed),
+                           asked_at=datetime.fromisoformat('2098-12-31T12:00:00+03:00'))
+    from langchain_core.tools import StructuredTool
+    assert isinstance(meeting_tools.get_my_available_meeting_slots, StructuredTool)
+    assert meeting_tools.get_my_available_meeting_slots.func is not None
+    result = meeting_tools.get_my_available_meeting_slots.func(SimpleNamespace(context=context), REF)
+    assert result['complete'] is True
+    assert result['available'] == result['common_available'] == [
+        {'starts_at': SLOTS[1], 'ends_at': '2099-01-01T11:00:00+03:00'}]
+    assert result['excluded'][0]['conflicts'][0]['title'] == 'Class'
+    assert [(request.method, request.url.path) for request in requests] == [('GET', f'/when2meet/v0/meetings/{REF}')]
+
+
 def test_registered_schema_has_exact_tools_defaults_formats_and_no_identity_controls():
     from tests.mcp_native_helpers import registered_tools
 

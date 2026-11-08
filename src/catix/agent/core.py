@@ -730,7 +730,8 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         if not call or call["name"] != message.name:
             continue
         if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings",
-                            "get_my_available_music_windows", "get_my_available_rooms", "read_attachment", "view_attachment"}:
+                            "get_my_available_music_windows", "get_my_available_meeting_slots", "get_my_available_rooms",
+                            "read_attachment", "view_attachment"}:
             target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
             target = call["args"].get("name")
@@ -753,6 +754,8 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
                     continue
                 if data.get("interval") != expected or data.get("range") != [arguments["day"], arguments["day"]]:
                     continue
+            if target == "get_my_available_meeting_slots" and data.get("meeting_ref") != call["args"].get("meeting_ref"):
+                continue
             if target in {"read_attachment", "view_attachment"}:
                 if (data.get("id") != call["args"].get("attachment_id")
                         or data.get("page") != call["args"].get("page", 1)
@@ -818,6 +821,30 @@ def _read_parts(target: str, data: dict) -> tuple | None:
         # by kind; preserve any successfully read component, not an all-failed shell.
         if parts is not None and (any(parts) or
                                   not failed.issuperset({"class", "sport", "event", "music room", "rooms"})):
+            return parts
+    elif target == "get_my_available_meeting_slots":
+        parts = lists("available", "excluded", "unverified")
+        common = data.get("common_available")
+        if (parts is not None and isinstance(common, list)
+                and all(isinstance(data.get(key), str) and data[key] for key in ("meeting_ref", "id", "slug", "name", "page"))
+                and data["meeting_ref"] in {data["id"], data["slug"]}
+                and data["page"] == f"https://innohassle.ru/when2meet/{data['slug']}"
+                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
+                and type(data.get("slots_count")) is int and data["slots_count"] >= data["total"]
+                and (_read_period(data.get("range")) or data.get("range") is None and data["total"] == 0)
+                and data.get("timezone") == "Europe/Moscow" and data.get("slot_duration_minutes") == 30
+                and type(data.get("participants_count")) is int and data["participants_count"] >= 0
+                and type(data.get("my_participation")) is bool and type(data.get("poll_complete")) is bool
+                and (data.get("calendar_complete") is None or type(data["calendar_complete"]) is bool)
+                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
+                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
+                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2] or not data["poll_complete"]))
+                and not (parts[0] and data.get("calendar_complete") is not True)
+                and all(isinstance(row, dict) and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at"))
+                        for part in parts for row in part)
+                and all(isinstance(row.get("reason"), str) for part in parts[1:] for row in part)
+                and all(row in parts[0] for row in common)
+                and not (common and data["participants_count"] == 0)):
             return parts
     elif target == "get_my_available_rooms" and _read_period(data.get("range")):
         parts = lists("available", "excluded", "unverified")

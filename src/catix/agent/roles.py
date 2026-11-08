@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from catix.settings import settings
 
 READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings",
-                        "get_my_available_music_windows", "get_my_available_rooms"})
+                        "get_my_available_music_windows", "get_my_available_meeting_slots", "get_my_available_rooms"})
 MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
                           "read_attachment", "view_attachment"}
 DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
@@ -230,7 +230,10 @@ base lacks: so both searches go together, in the same step, for every question a
 
 MCP_RULES = """\
 Shared InNoHassle tools:
-- Use search_api_tools to discover a tool's exact namespaced name and inputSchema, then call_api_tool with that name
+- Host tools named get_my_* are already available as direct tools. Call them by their own name, never through
+  call_api_tool or search_api_tools. In particular, personal When2Meet matching is a direct
+  get_my_available_meeting_slots call with meeting_ref, not call_api_tool(name="get_my_available_meeting_slots").
+- For namespaced MCP tools, use search_api_tools to discover the exact name and inputSchema, then call_api_tool with that name
   and arguments ({} if none), for both reads and mutations. No separate description call is needed.
   Discovery is only a catalogue, not evidence about the university. Never invent names, URLs, credentials,
   headers or account owners. Mutations require the signed-in user's approval before execution, in every agent context.
@@ -307,7 +310,8 @@ Shared InNoHassle tools:
   mention classes. can_check_in is NOT personal availability: it only says Sport permits signup.
   Compare the whole starts_at/ends_at intervals with their timezone offsets, not just start times. A slot beginning
   before a class can still overlap it. Unknown duration, partial calendars and failed reads are not free time.
-  get_my_available_trainings, get_my_available_music_windows and get_my_available_rooms include this check; do not repeat successful
+  get_my_available_trainings, get_my_available_music_windows, get_my_available_meeting_slots and get_my_available_rooms
+  include this check; do not repeat successful
   calendar reads after them. For Sport and Music Room bookings, the host checks this combined agenda before approval
   and reads it again before execution. On
   schedule_conflict, explain the conflicting events and offer only the returned non-overlapping alternatives;
@@ -315,9 +319,18 @@ Shared InNoHassle tools:
   complete reads or explain that availability could not be checked. Cancellations do not require a free interval.
 - When2Meet: when2meet_get_my_meetings lists owned/participating polls; when2meet_get_meeting reads a poll's slots,
   participants and common_slots. Common slots concern only participants who have responded, not everyone invited;
-  no responses means unknown availability, not everyone free. Preserve specific_time: date-only polls are not hourly slots.
+  no responses means unknown availability, not everyone free. specific_time selects manual slots versus a daily range,
+  not date-only versus timed voting: both use half-hour cells in Moscow time.
+  For "какие варианты подходят мне", "проверь опрос по моему расписанию", use get_my_available_meeting_slots(meeting_ref).
+  It reads the poll and the unified personal agenda including AI Calendar; do not separately repeat those reads.
+  available fits my calendar; common_available is its subset marked by all respondents, including my saved marks if I
+  responded. It does not mean all invited people agreed. excluded contains reasons and exact conflicting events;
+  unverified is unknown, never free time. Report incomplete/truncated results, including any verified available subset.
+  An unknown event end requires clarification, not an invented duration or repeated identical calendar reads.
+  Recommend only returned half-hour intervals, not gaps inferred between conflicts or a longer meeting across missing cells.
+  The read checks at most 31 calendar days and never marks availability, creates events or books rooms.
   when2meet_create_meeting creates a poll, not a confirmed meeting or room booking. Ask for missing name/dates/times;
-  never invent slots. Use RFC 3339 timestamps with timezone offsets and the poll's IANA timezone.
+  never invent slots. Use real RFC 3339 instants: Moscow wall-clock times have +03:00, not a fictitious Z suffix.
   when2meet_set_my_availability replaces ALL of the asker's marked slots; [] clears them. Read the poll first and
   preserve existing selections unless the user asks to replace/clear them. A free calendar gap is only a proposal:
   never publish availability inferred from calendars without the user's request and approval. No meeting deletion,
@@ -467,7 +480,8 @@ ROLES: dict[str, Role] = {
 ACCOUNT_OFFERS = ("in the asker's own InNoHassle account: their external calendar and bookings, live printer status; "
                   "booking the music room or a room, enrolling in an event and cancelling a booking, each after approval; "
                   "creating or editing event drafts after approval when organizer permissions allow it; "
-                  "reading When2Meet polls and common slots, creating a poll or changing their availability after approval; "
+                  "reading When2Meet polls and matching their half-hour slots against the personal agenda, separately showing "
+                  "which fit all respondents; creating a poll or changing availability only after approval; "
                   "with the separate Sport sign-in, their sport hours, eligible trainings and check-ins after approval")
 ON_THE_SITE = ("not here, but on the site innohassle.ru, signed in, in the chat with the assistant: the asker's own calendar, "
                "bookings and sport hours, booking the music room or a room, enrolling in an event, checking in to a sport training, "
