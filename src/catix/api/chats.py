@@ -11,7 +11,7 @@ The functions block: the API calls them with asyncio.to_thread.
 from psycopg.types.json import Jsonb
 
 from catix.api import state
-from catix.api.schemas import AskChat, AskChatHistory, AskResponses
+from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SignupOffer
 from catix.db import pg
 
 TITLE_MAX = 200  # characters of the first question kept as the chat's title
@@ -57,6 +57,8 @@ def save_answer(response: AskResponses, span_id: str | None, checkpoint: str | N
     checkpoint of the agent's thread after it, which the next question goes on from. `title` is the model's name of the
     chat: it is taken only while the chat is named by its question."""
     kept = response.model_dump(mode="json", exclude={"messages", "feedback", "feedback_comment"})
+    if response._signup_targets:
+        kept['_signup_targets'] = response._signup_targets
     with pg.connection() as conn:
         conn.execute(
             "INSERT INTO api_answers (chat_id, ask_query_id, span_id, response) VALUES (%s, %s, %s, %s)",
@@ -161,6 +163,68 @@ def asked(ask_query_id: str) -> tuple[str, str] | None:
             (ask_query_id,),
         ).fetchone()
     return None if row is None else (row["innohassle_id"], row["span_id"])
+
+
+def _signup_row(conn, chat_id, owner, offer_id):
+    """Ownership and serialization are in SQL, not a process-local click lock."""
+    if conn.execute('SELECT chat_id FROM api_chats WHERE chat_id = %s AND innohassle_id = %s FOR UPDATE',
+                    (chat_id, owner)).fetchone() is None:
+        return None
+    return conn.execute("""SELECT id, response FROM api_answers WHERE chat_id = %s
+                           AND response->'signup_offers' @> %s ORDER BY id LIMIT 1 FOR UPDATE""",
+                        (chat_id, Jsonb([{'id': offer_id}]))).fetchone()
+
+
+def claim_signup(chat_id: str, owner: str, offer_id: str) -> tuple[SignupOffer, dict | None] | None:
+    """Commit unknown before any I/O. A crashed/duplicate click never gets a target."""
+    from catix.api.signup import UNKNOWN
+
+    with pg.connection() as conn:
+        row = _signup_row(conn, chat_id, owner, offer_id)
+        if row is None:
+            return None
+        response = row['response']
+        item = next(item for item in response['signup_offers'] if item['id'] == offer_id)
+        offer = SignupOffer(**item)
+        target = response.get('_signup_targets', {}).get(offer_id)
+        if offer.status != 'available' or target is None:
+            return offer, None
+        item.update(status='unknown', message=UNKNOWN)
+        conn.execute('UPDATE api_answers SET response = %s WHERE id = %s', (Jsonb(response), row['id']))
+        conn.execute('UPDATE api_chats SET updated_at = now() WHERE chat_id = %s', (chat_id,))
+    return SignupOffer(**item), target
+
+
+def finish_signup(chat_id: str, owner: str, result: SignupOffer) -> SignupOffer | None:
+    """Persist the sole claimant's receipt, then read back the exact saved target."""
+    with pg.connection() as conn:
+        row = _signup_row(conn, chat_id, owner, result.id)
+        if row is None:
+            return None
+        response = row['response']
+        for index, item in enumerate(response['signup_offers']):
+            if item['id'] == result.id:
+                if item['status'] != 'unknown':
+                    return SignupOffer(**item)
+                response['signup_offers'][index] = result.model_dump(mode='json')
+                break
+        conn.execute('UPDATE api_answers SET response = %s WHERE id = %s', (Jsonb(response), row['id']))
+        conn.execute('UPDATE api_chats SET updated_at = now() WHERE chat_id = %s', (chat_id,))
+    with pg.connection() as conn:
+        saved = conn.execute('SELECT response FROM api_answers WHERE id = %s', (row['id'],)).fetchone()
+    if saved is None:
+        return None
+    return next(SignupOffer(**item) for item in saved['response']['signup_offers'] if item['id'] == result.id)
+
+
+def signup_receipts(chat_id: str, owner: str) -> list[dict]:
+    """Only server-maintained outcomes, never private arguments or credentials."""
+    with pg.connection() as conn:
+        rows = conn.execute('''SELECT a.response->'signup_offers' AS offers FROM api_answers a
+                               JOIN api_chats c USING (chat_id) WHERE c.chat_id = %s AND c.innohassle_id = %s
+                               ORDER BY a.id''', (chat_id, owner)).fetchall()
+    return [{key: item.get(key) for key in ('id', 'service', 'title', 'starts_at', 'ends_at', 'all_day', 'location', 'status', 'message')}
+            for row in rows for item in row['offers'] or [] if item.get('status') in {'confirmed', 'refused', 'unknown'}]
 
 
 def vote(ask_query_id: str, feedback: str, comment: str | None) -> None:

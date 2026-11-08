@@ -134,13 +134,17 @@ def test_room_music_and_event_domain_rules_survive_native_dispatch(monkeypatch):
     assert len(writes) == count
     monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
     assert call('music_book_music_room', music, **kwargs)['booked']['booking_id'] == '4'
-    monkeypatch.setattr(api, 'event', lambda *a: {'data': {'enrollment': {'type': 'external', 'url': 'https://organizer.test/join'}}})
+    monkeypatch.setattr(api, 'my_event', lambda *a: {'id': 'a' * 24, 'enrolled': False,
+                        'data': {'enrollment': {'type': 'external', 'url': 'https://organizer.test/join'}}})
     monkeypatch.setattr(api, 'enroll', lambda *a: writes.append(a))
     count = len(writes)
     result = call('events_enroll_in_event', {'event_id': 'a' * 24}, **kwargs)
-    assert result['done'] is False and 'https://organizer.test/join' in result['error']
+    assert result['done'] is False and 'external registration' in result['error']
     assert len(writes) == count
-    monkeypatch.setattr(api, 'event', lambda *a: {'data': {'enrollment': {'type': 'innohassle'}}})
+    monkeypatch.setattr(api, 'my_event', lambda *a: {'id': 'a' * 24, 'enrolled': len(writes) > count, 'enrolled_count': 0,
+                        'data': {'starts_at': '2099-01-01T10:00:00+03:00', 'duration_hours': 1.5,
+                                 'locales': {'en': {'name': 'Meeting'}}, 'location': {'display_name': '301'},
+                                 'enrollment': {'type': 'internal'}}})
     assert call('events_enroll_in_event', {'event_id': 'a' * 24}, **kwargs)['enrolled'] is True
     assert writes[-1] == ('ih-secret', 'a' * 24)
 

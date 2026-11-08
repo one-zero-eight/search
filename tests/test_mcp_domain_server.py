@@ -104,7 +104,10 @@ def test_every_native_write_authenticates_on_both_dispatch_paths(native, monkeyp
     monkeypatch.setattr(api, 'music_room_hours_left', lambda *a: (2, 3))
     monkeypatch.setattr(api, 'book_music_room', lambda *a: writes.append(a) or {'id': 1})
     monkeypatch.setattr(api, 'cancel_room', lambda *a: writes.append(a))
-    monkeypatch.setattr(api, 'event', lambda *a: {'data': {}})
+    monkeypatch.setattr(api, 'my_event', lambda *a: {'id': 'a' * 24, 'enrolled': bool(writes), 'enrolled_count': 0,
+                        'data': {'starts_at': '2099-01-01T10:00:00+03:00', 'duration_hours': 1.5,
+                                 'locales': {'en': {'name': 'Meeting'}}, 'location': {'display_name': '301'},
+                                 'enrollment': {'type': 'internal'}}})
     monkeypatch.setattr(api, 'enroll', lambda *a: writes.append(a))
     monkeypatch.setattr(sport, 'check_in', lambda *a: writes.append(a))
     async def run():

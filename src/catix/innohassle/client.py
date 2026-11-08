@@ -313,6 +313,23 @@ def cancel_room(token: str, outlook_booking_id: str) -> None:
     _as_user("DELETE", f"/room-booking/v0/bookings/{segment}", token)
 
 
+def my_event(token: str, event_id: str) -> dict:
+    """Fresh authenticated exact EventOut (Events v1); never project participant emails.
+
+    The live EventOut contract has `enrolled: bool | null`, visible only to the
+    authenticated user. A mutation acknowledgement alone is not this readback.
+    """
+    if not isinstance(event_id, str) or not re.fullmatch(r'[0-9a-f]{24}', event_id):
+        raise ValueError('Invalid event identifier.')
+    response = _as_user('GET', f'/events/v1/events/{event_id}', token)
+    if len(response.content) > 1_000_000:
+        raise ValueError('Unreadable event response.')
+    item = response.json()
+    if not isinstance(item, dict) or item.get('id') != event_id or type(item.get('enrolled')) is not bool:
+        raise ValueError('Unreadable own enrollment.')
+    return item
+
+
 def enroll(token: str, event_id: str) -> dict:
     return _as_user("POST", f"/events/v1/events/{event_id}/enroll", token).json()
 

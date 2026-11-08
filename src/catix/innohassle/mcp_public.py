@@ -74,11 +74,12 @@ def _event_item(item: dict) -> dict:
     who hosts it and how to enrol (`id` is what enroll_in_event takes)."""
     from catix.innohassle import client as innohassle
 
-    data = item["data"]
-    begin = datetime.fromisoformat(data["starts_at"])
-    locales = (innohassle.event(item["id"]).get("data") or {}).get("locales") or {}
-    names = {lang: loc.get("name") for lang, loc in locales.items() if loc.get("name")}
-    texts = [_doc_to_text(loc.get("description") or "") for loc in locales.values()]
+    event_id = item['id']
+    item = innohassle.event(event_id, fresh=True)
+    result = _event_details(item, event_id)
+    data = item['data']
+    locales = data['locales']
+    texts = [_doc_to_text(loc.get('description') or '') for loc in locales.values()]
     enrollment = data.get("enrollment") or {}
     if enrollment.get("type") == "external":
         enrol = f"on the organisers' page: {enrollment.get('url')}" if enrollment.get("url") else "with the organisers"
@@ -89,12 +90,7 @@ def _event_item(item: dict) -> dict:
         )
     location = data.get("location") or {}
     event = {
-        "id": item["id"],
-        "title": data.get("name") or next(iter(names.values()), ""),
-        "names": names if len(set(names.values())) > 1 else None,
-        "start": _fmt(begin),
-        "end": _fmt(begin + timedelta(hours=data.get("duration_hours") or 0)) if data.get("duration_hours") else None,
-        "location": location.get("display_name") or None,
+        **result,
         "map": location.get("url") or None,
         "hosts": [h["display_name"] for h in data.get("hosts") or []] or None,
         "enrollment": enrol,
@@ -281,16 +277,8 @@ def clubs_get_clubs(
     return result
 
 
-@tool(**metadata())
-@result_boundary()
-def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) -> dict:
-    """Read one exact published event: localized title, date, interval, location and page.
-
-    Public fresh read by event_id; does not enroll anyone or return participants.
-    """
-    from catix.innohassle import client as innohassle
-
-    item = innohassle.event(event_id, fresh=True)
+def _event_details(item: dict, event_id: str) -> dict:
+    """One snapshot for exact/list reads; typed enrollment is never parsed from prose."""
     if not isinstance(item, dict) or item.get("id") != event_id:
         raise ValueError("Unreadable event details.")
     data = item["data"]
@@ -323,7 +311,26 @@ def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) 
     if duration is not None:
         end = start + timedelta(hours=duration)
         result.update(end=_fmt(end), ends_at=end.isoformat())
-    return {"event": result}
+    enrollment = data.get('enrollment')
+    if (isinstance(enrollment, dict) and enrollment.get('type') in {'internal', 'external'}
+            and (enrollment.get('capacity') is None or type(enrollment['capacity']) is int and enrollment['capacity'] >= 0)
+            and (enrollment.get('url') is None or isinstance(enrollment['url'], str))
+            and type(item.get('enrolled_count')) is int and item['enrolled_count'] >= 0):
+        result['enrollment_info'] = {key: enrollment.get(key) for key in ('type', 'capacity', 'url')}
+        result['enrollment_info']['enrolled_count'] = item['enrolled_count']
+    return result
+
+
+@tool(**metadata())
+@result_boundary()
+def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) -> dict:
+    """Read one exact published event: title, interval, location, page and typed enrollment.
+
+    Public fresh read by event_id; does not enroll anyone or return participants.
+    """
+    from catix.innohassle import client as innohassle
+
+    return {'event': _event_details(innohassle.event(event_id, fresh=True), event_id)}
 
 
 @tool(**metadata())

@@ -44,6 +44,12 @@ class FakeChats:
                                "updated": datetime.now(timezone.utc)}
         return chat_id
 
+    def signup_receipts(self, chat_id: str, owner: str) -> list[dict]:
+        if self.owner(chat_id) != owner:
+            return []
+        return [offer.model_dump(mode='json') for row in self.answers if row['response'].chat_id == chat_id
+                for offer in row['response'].signup_offers if offer.status != 'available']
+
     def needs_title(self, chat_id: str) -> bool:
         return self.chats.get(chat_id, {}).get("title_by") == "question"
 

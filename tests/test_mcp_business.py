@@ -114,7 +114,8 @@ def test_event_details_enrolment_leave_and_music_cancel_keep_native_contract(mon
         'enrollment': {'type': 'innohassle', 'capacity': 20},
         'location': {'display_name': 'Room 108'}, 'hosts': [{'display_name': 'Club'}]}}
     monkeypatch.setattr(api, 'events', lambda *a: [event])
-    monkeypatch.setattr(api, 'event', lambda identifier: event)
+    monkeypatch.setattr(api, 'event', lambda identifier, **kw: event)
+    monkeypatch.setattr(api, 'my_event', lambda *a: {**event, 'enrolled': not writes})
     monkeypatch.setattr(api, 'unenroll', lambda *a: writes.append(a))
     monkeypatch.setattr(api, 'cancel_music_room', lambda *a: writes.append(a))
     listing = call('events_get_university_events', {'date_from': '2099-01-01', 'query': 'Workshop'})

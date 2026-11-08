@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Discriminator
+from pydantic import BaseModel, Discriminator, PrivateAttr
 
 from catix.attachments import AttachmentInfo
 
@@ -193,7 +193,26 @@ class AskApproval(BaseModel):
     "What the assistant is about to do for the user in InNoHassle. Nothing is done before the user decides: POST /ask/{chat_id}/decision."
 
 
+class SignupOffer(BaseModel):
+    """A verified service target; an external URL is a link, never consent to a write."""
+
+    id: str
+    service: Literal["events", "sport"]
+    title: str
+    starts_at: datetime
+    ends_at: datetime | None = None
+    all_day: bool = False
+    location: str | None = None
+    source_url: str | None = None
+    external_url: str | None = None
+    status: Literal["available", "confirmed", "refused", "unknown"] = "available"
+    message: str | None = None
+    expires_at: datetime
+
+
 class AskResponses(BaseModel):
+    _signup_targets: dict = PrivateAttr(default_factory=dict)
+    signup_offers: list[SignupOffer] = []
     query: str
     answer: str
     attachments: list[AttachmentInfo] = []

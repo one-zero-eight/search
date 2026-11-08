@@ -628,21 +628,38 @@ def events_enroll_in_event(
     Sign-in required; client hosts handle confirmation. Never retry unknown outcomes automatically.
     """
     from catix.innohassle import client as innohassle
+    from catix.innohassle.mcp_public import _event_details
 
     try:
-        event = innohassle.event(event_id)
+        event = innohassle.my_event(token, event_id)
         enrollment = (event.get("data") or {}).get("enrollment") or {}
         if not leave and enrollment.get("type") == "external":
-            return {
-                "done": False,
-                "error": f"This event is enrolled with its organisers: {enrollment.get('url') or 'no link given'}.",
-            }
-        (innohassle.unenroll if leave else innohassle.enroll)(token, event_id)
-    except innohassle.ServiceError as e:
-        return _refused(e, "InNoHassle Events")
+            return {"done": False, "error": "This event uses external registration; open the organisers' page."}
+        if not leave:
+            start = datetime.fromisoformat(event['data']['starts_at'])
+            capacity, count = enrollment.get('capacity'), event.get('enrolled_count')
+            if (enrollment.get('type') != 'internal' or start.utcoffset() is None or start <= datetime.now(settings.tz)
+                    or type(count) is not int or count < 0
+                    or capacity is not None and (type(capacity) is not int or capacity < 0)):
+                return {'done': False, 'error': 'Event enrollment is not available or could not be verified.'}
+            if event['enrolled'] is not True and capacity is not None and count >= capacity:
+                return {'done': False, 'error': 'Event is at capacity.'}
+    except Exception:  # noqa: BLE001 - this check is read-only, so no write happened
+        return {'done': False, 'error': 'The fresh enrollment check failed; nothing was written.'}
+    if event['enrolled'] is not (not leave):
+        try:
+            (innohassle.unenroll if leave else innohassle.enroll)(token, event_id)
+        except innohassle.ServiceError as e:
+            return _refused(e, "InNoHassle Events")
+        # Outside the definite-refusal handler: readback failure after POST is unknown.
+        event = innohassle.my_event(token, event_id)
+    if event['enrolled'] is not (not leave):
+        return {'done': None, 'outcome': 'unknown', 'error': 'Enrollment could not be confirmed. Do not retry automatically.'}
     return {
         "done": True,
         "event_id": event_id,
         "enrolled": not leave,
+        "enrollment_verified": True,
+        "event": _event_details(event, event_id),
         "note": "Done: tell the asker. Their enrolments are in their InNoHassle calendar.",
     }
