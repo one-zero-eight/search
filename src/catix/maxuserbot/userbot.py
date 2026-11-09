@@ -182,6 +182,8 @@ def main() -> None:
                 message = "catalog_pagination_unknown: catalog may be incomplete"
             else:
                 message = "protocol_error: MAX returned an unsupported response"
+                if exc.detail:
+                    message += f" ({exc.detail})"
         elif isinstance(exc, (SessionBusy, BlockingIOError)):
             message = "session_locked: another MAX command is using this session"
         elif getattr(exc, "code", None) == "worker_locked":

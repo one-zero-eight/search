@@ -560,13 +560,13 @@ def test_ids_never_accept_bool_float_opaque_or_non_ascii(value):
         normalize_id(value)
 
 
-@pytest.mark.parametrize("raw_id", [-10**13 + 1, -101, 0, 101, 10**13 - 1])
+@pytest.mark.parametrize("raw_id", [-10**15 + 1, -(2**46), -10**13, -101, 0, 101, 10**13, 10**15 - 1])
 def test_user_account_namespace_is_distinct_from_legacy(raw_id):
     assert db_chat_id(raw_id) == 4 * 10**15 + raw_id
     assert db_chat_id(raw_id) != 2 * 10**15 + raw_id
 
 
-@pytest.mark.parametrize("raw_id", [-10**13, 10**13, -(2**63), 2**63 - 1])
+@pytest.mark.parametrize("raw_id", [-10**15, 10**15, -(2**63), 2**63 - 1])
 def test_chat_identity_range_is_explicit(raw_id):
     with pytest.raises(ProtocolError) as raised:
         db_chat_id(raw_id)
@@ -902,7 +902,7 @@ def test_malformed_known_notification_is_safe_invalid_identity(opcode, payload):
 @pytest.mark.parametrize("opcode,payload", [
     (128, None), (128, []), (128, {"id": 7}),
     (128, {"chatId": True, "id": 7}), (142, {"chatId": "opaque", "messageIds": [7]}),
-    (135, {"chat": None}), (135, {"chat": chat(raw_id=10**13)}),
+    (135, {"chat": None}), (135, {"chat": chat(raw_id=10**15)}),
 ])
 def test_notification_without_safe_source_identity_raises(opcode, payload):
     with pytest.raises(ProtocolError):

@@ -4,13 +4,16 @@ from dataclasses import asdict, dataclass
 import re
 
 MAX_USER_CHAT_BASE = 4 * 10**15
+# Keep user-account DB IDs strictly in (3e15, 5e15), away from Telegram and legacy MAX.
+MAX_USER_RAW_LIMIT = 10**15
 
 
 class ProtocolError(Exception):
     code = "protocol_error"
 
-    def __init__(self, code: str = "protocol_error"):
+    def __init__(self, code: str = "protocol_error", *, detail: str | None = None):
         self.code = code
+        self.detail = detail
         super().__init__(code)
 
 
@@ -27,7 +30,7 @@ def normalize_id(value) -> int:
 
 def db_chat_id(raw_id: int) -> int:
     raw_id = normalize_id(raw_id)
-    if not -10**13 < raw_id < 10**13:
+    if not -MAX_USER_RAW_LIMIT < raw_id < MAX_USER_RAW_LIMIT:
         raise ProtocolError("identity_range")
     return MAX_USER_CHAT_BASE + raw_id
 
@@ -55,19 +58,24 @@ class MessageSnapshot:
 
 def normalize_chat(raw: dict) -> dict | None:
     if not isinstance(raw, dict):
-        raise ProtocolError()
+        raise ProtocolError(detail="chat.object: expected object")
     kind = raw.get("type")
     if kind == "DIALOG":
         return None
     if kind not in {"CHAT", "CHANNEL"}:
-        raise ProtocolError()
-    raw_id = normalize_id(raw.get("id"))
-    db_chat_id(raw_id)
+        raise ProtocolError(detail="chat.type: unsupported chat kind")
+    try:
+        raw_id = normalize_id(raw.get("id"))
+        db_chat_id(raw_id)
+    except ProtocolError as exc:
+        raise ProtocolError(exc.code, detail="chat.id: invalid native identity") from None
     title, status, link = raw.get("title"), raw.get("status"), raw.get("link")
     if title is not None and not isinstance(title, str):
-        raise ProtocolError()
-    if not isinstance(status, str) or (link is not None and not isinstance(link, str)):
-        raise ProtocolError()
+        raise ProtocolError(detail="chat.title: expected string or null")
+    if not isinstance(status, str):
+        raise ProtocolError(detail="chat.status: expected string")
+    if link is not None and not isinstance(link, str):
+        raise ProtocolError(detail="chat.link: expected string or null")
     return {"raw_chat_id": raw_id, "kind": kind.lower(), "title": title or str(raw_id),
             "status": status, "link": link}
 

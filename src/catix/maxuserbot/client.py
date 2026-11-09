@@ -174,7 +174,7 @@ class AccountClient:
         try:
             await self._client.connect()
             if not self._client.is_connected or self._client.me is None:
-                raise ProtocolError()
+                raise ProtocolError(detail="login: connection or profile unavailable")
         except ApiError as exc:
             if self._client._app._is_invalid_login_token_error(exc):
                 raise LoginRequired() from None
@@ -216,14 +216,14 @@ class AccountClient:
     async def _rpc(self, opcode, payload):
         frame = await self._client._app.invoke(opcode=opcode, payload=payload)
         if not isinstance(frame.payload, dict):
-            raise ProtocolError()
+            raise ProtocolError(detail="rpc.payload: expected object")
         return frame.payload
 
     async def catalog_page(self, marker: int):
         payload = await self._rpc(53, {"marker": normalize_id(marker)})
         chats = payload.get("chats")
         if not isinstance(chats, list):
-            raise ProtocolError()
+            raise ProtocolError(detail="catalog.chats: expected array")
         result = [chat for raw in chats if (chat := normalize_chat(raw)) is not None]
         if not chats:
             return result, None
@@ -231,7 +231,10 @@ class AccountClient:
             error = ProtocolError("catalog_pagination_unknown")
             error.page = result
             raise error
-        marker = normalize_id(payload["marker"])
+        try:
+            marker = normalize_id(payload["marker"])
+        except ProtocolError:
+            raise ProtocolError(detail="catalog.marker: expected int64 or ASCII decimal ID") from None
         return result, marker or None
 
     async def chat(self, raw_id: int):
