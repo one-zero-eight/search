@@ -160,19 +160,19 @@ def _training(data, training_id):
 
 
 def _busy(agenda, period):
-    if (not isinstance(agenda, dict) or "error" in agenda or not _covers(agenda, period)
-            or agenda.get("complete") is not True or agenda.get("truncated") is not False
-            or agenda.get("not_read") != [] or not isinstance(agenda.get("events"), list)
-            or type(agenda.get("total")) is not int or agenda["total"] != len(agenda["events"])):
-        raise _unknown(f"Read complete get_my_schedule with date_from={period['date_from']}, date_to={period['date_to']}.")
-    sources = agenda.get("sources")
-    if (not isinstance(sources, dict) or set(sources) != {"innohassle", "ai_calendar"}
-            or any(not isinstance(value, dict) or value.get("status") != "complete" or value.get("truncated") is not False
-                   for value in sources.values())):
-        raise _unknown("Both personal external calendars and AI Calendar must be fully read.")
-    for item in agenda["events"]:
-        _calendar_interval(item)
-    return agenda["events"]
+    """Best-effort busy list: unread, partial, all-day, open-ended or malformed events never block."""
+    events = agenda.get("events") if isinstance(agenda, dict) else None
+    busy = []
+    for item in events if isinstance(events, list) else []:
+        if not isinstance(item, dict) or item.get("all_day") is True:
+            continue
+        try:
+            _, end = _calendar_interval(item)
+        except ScheduleCheckError:
+            continue
+        if end is not None:
+            busy.append(item)
+    return busy
 
 
 def _calendar_conflicts(item, busy):

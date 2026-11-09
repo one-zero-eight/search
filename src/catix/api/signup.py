@@ -278,10 +278,13 @@ async def _book(offer, target, context):
             rooms = booking_offers._rooms(current, day, source['time_from'], source['time_to'])
             if target['room'] not in rooms['free']:
                 return outcome(offer, 'refused', REFUSED)
-        agenda = await schedule_tools.aread_my_schedule(runtime, day, day)
+        try:
+            agenda = await schedule_tools.aread_my_schedule(runtime, day, day)
+        except Exception:  # noqa: BLE001 - an unreadable calendar does not block booking
+            agenda = None
         interval = {'starts_at': offer.starts_at.isoformat(), 'ends_at': offer.ends_at.isoformat()}
-        conflicts, unknown = _calendar_conflicts(interval, _busy(agenda, {'date_from': day.isoformat(), 'date_to': day.isoformat()}))
-        if conflicts or unknown:
+        conflicts, _ = _calendar_conflicts(interval, _busy(agenda, None))
+        if conflicts:
             return outcome(offer, 'refused', 'Не удалось подтвердить отсутствие пересечений с календарём. Бронирование не выполнено.')
     except Exception:  # noqa: BLE001 - all checks above are read-only
         return outcome(offer, 'refused', REFUSED)
