@@ -1097,24 +1097,23 @@ def test_public_uncertain_join_is_reconciled_without_repeating_write(db):
 
 
 @pytest.mark.parametrize("audience", ["B26", "all"])
-def test_max_api_moderation_membership_and_scoped_activation(db, monkeypatch, audience):
+def test_max_proposal_is_record_only_until_separate_manual_catalog_confirmation(db, monkeypatch, audience):
     import asyncio
-    from types import SimpleNamespace
-    from unittest.mock import AsyncMock
+    from datetime import datetime, timezone
     from fastapi.testclient import TestClient
     from catix import groups, source_requests as requests
     from catix.api.app import app
     from catix.api.auth import UserTokenData, verify_user
-    from catix.maxbot import source_requests as worker
-    from catix.maxbot import bot
+    from catix.maxuserbot import state
+    from catix.maxuserbot.models import db_chat_id
+    from catix.tguserbot import source_requests as worker
 
     link = "https://max.ru/join/AbCd_private-123"
-    chat = {"chat_id": -456, "type": "chat", "status": "active", "title": "MAX source", "link": link}
-    messenger = SimpleNamespace(chat=AsyncMock(return_value=chat))
-    message = {"recipient": {"chat_id": -456, "chat_type": "chat"}, "sender": {},
-               "timestamp": 1800000000000, "body": {"seq": 1, "text": "Private course announcement"}}
-    monkeypatch.setattr(bot.writer, "put", AsyncMock())
-    monkeypatch.setattr(bot, "_load_history", lambda *args: None)
+    raw_id = -456
+    chat_id = db_chat_id(raw_id)
+    state.upsert_catalog([{"raw_chat_id": raw_id, "kind": "chat", "title": "MAX source", "link": None}],
+                         observed_at=datetime.now(timezone.utc))
+    original = state.get_source(chat_id)
     client = TestClient(app)
     monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org")
@@ -1122,82 +1121,177 @@ def test_max_api_moderation_membership_and_scoped_activation(db, monkeypatch, au
         created = client.post("/sources/requests", json={"invite_link": link, "group_code": audience, "consent": True})
         assert created.status_code == 201
         request_id = created.json()["id"]
-        assert worker.observe(chat) is False
+        assert created.json()["status"] == "pending"
+        assert requests.get_request(request_id) in requests.pending_requests()
         assert requests.claim() is None
-        assert requests.claim("max") is None
-        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
-        bot.writer.put.assert_not_awaited()
-        assert groups.website_chat_ids([]) == set()
         assert requests.approve(request_id, 7, audience)
+        assert not requests.approve(request_id, 7, audience)
+        assert state.get_source(chat_id) == original
 
-        async def call(method, path):
-            assert method == "GET"
-            if path == "/chats/-456":
-                return chat
-            assert path == "/chats/-456/members/me"
-            return {"is_admin": True, "permissions": ["read_all_messages"]}
+        class NoJoin:
+            async def __call__(self, *args, **kwargs):
+                pytest.fail("A MAX proposal must never cause a Telegram join or membership RPC")
 
-        assert asyncio.run(worker.process_one(SimpleNamespace(call=call)))
-        view = client.get("/sources/requests").json()["requests"][0]
-        assert view["status"] == "connected" and view["title"] == "MAX source"
-        assert "invite_link" not in view
-        chat_id = groups.MAX_CHAT_BASE - 456
-        assert groups.website_chat_ids([]) == ({chat_id} if audience == "all" else set())
-        assert chat_id in groups.website_chat_ids(["B26"])
-        assert worker.observe(chat) is True
-        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
-        stored_chat, stored_message = bot.writer.put.await_args.args
-        assert stored_chat.chat_id == chat_id and stored_message.text == "Private course announcement"
-        assert stored_chat.link is None
+        assert asyncio.run(worker.process_one(NoJoin())) is False
+        approved = client.get("/sources/requests").json()["requests"][0]
+        assert approved["status"] == "approved"
+        assert "manual" in approved["message"].lower()
+        assert "does not join or enable" in approved["message"]
+        assert "invite_link" not in approved
         assert requests.backfill_pending() == set()
-        assert requests.backfill_pending("max") == {chat_id}
+        assert groups.website_chat_ids(["B26"]) == set()
+
+        # Discovery and fresh access do not accept the proposal's audience or enable it.
+        with db() as conn:
+            conn.execute("TRUNCATE max_account")
+        state.account_connected(12345)
+        state.apply_access(chat_id, generation=original["generation"], access="ready",
+                           observed_at=datetime.now(timezone.utc))
+        ready = state.get_source(chat_id)
+        assert ready["enabled"] is False and ready["group_code"] == groups.ALL
+        assert ready["requires_verified_group"] is True
+        state.save_configuration(chat_id, "B26", enabled=True,
+                                 expected_version=ready["config_version"], expected_generation=ready["generation"])
+        enabled = state.get_source(chat_id)
+        assert enabled["enabled"] is True and enabled["history_status"] == "pending"
+        assert enabled["group_code"] == "B26" and enabled["requires_verified_group"] is True
+        assert groups.website_chat_ids([]) == set()
+        assert groups.website_chat_ids(["B26"]) == {chat_id}
+        assert requests.get_request(request_id)["status"] == "approved"
+        assert requests.get_request(request_id)["chat_id"] is None
+        assert requests.backfill_pending() == set()
         with db() as conn:
             assert not conn.execute("SELECT 1 FROM userbot_listen").fetchone()
-            assert conn.execute("SELECT link FROM chats WHERE chat_id = %s", (chat_id,)).fetchone()["link"] is None
-            source = conn.execute("SELECT * FROM max_sources WHERE chat_id = %s", (chat_id,)).fetchone()
-            assert source["enabled"] is True and source["history_status"] == "pending"
-        from catix.maxbot import state
-        state.save_configuration(chat_id, audience, enabled=False, expected_version=source["config_version"])
-        bot.writer.put.reset_mock()
-        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
-        bot.writer.put.assert_not_awaited()
+            assert not conn.execute("SELECT 1 FROM userbot_dialogs").fetchone()
+            assert not conn.execute("SELECT 1 FROM source_request_join_intents").fetchone()
     finally:
         app.dependency_overrides.pop(verify_user, None)
 
 
-@pytest.mark.parametrize("problem", ["missing", "permission", "link", "audience"])
-def test_max_proposals_never_enable_unconfirmed_or_broaden_existing_sources(db, problem):
+@pytest.mark.parametrize("status", ["approved", "joining", "waiting_join", "connected"])
+def test_max_proposal_records_never_enter_telegram_claims_or_backfills(db, status):
+    from catix import source_requests as requests
+
+    row = requests.submit("max-owner", "max@example.org", "https://max.ru/StudyGroup", "B26", consent=True)
+    with db() as conn:
+        conn.execute("UPDATE source_requests SET status=%s, chat_id=%s, backfill_pending=true WHERE id=%s",
+                     (status, 2 * 10**15 - 456, row["id"]))
+    assert requests.claim() is None
+    viewed = requests.get_request(row["id"])
+    assert viewed["status"] == status
+    assert "MAX catalog" in viewed["message"]
+    if status in {"joining", "waiting_join", "connected"}:
+        assert "legacy" in viewed["message"] and "not an active userbot connection" in viewed["message"]
+    assert requests.list_owned("max-owner") == [viewed]
+    assert requests.submit("max-owner", "max@example.org", "https://max.ru/StudyGroup", "B26", consent=True) == viewed
+    with db() as conn:
+        saved = conn.execute("SELECT * FROM source_requests WHERE id=%s", (row["id"],)).fetchone()
+        assert saved["status"] == status and saved["message"] is None
+    assert requests.backfill_pending() == set()
+    telegram = approved_request()
+    job = requests.claim()
+    assert job["id"] == telegram["id"]
+    assert requests.activate(job, -123, "Telegram source", None, False)
+    assert requests.backfill_pending() == {-123}
+    assert requests.get_request(row["id"])["status"] == status
+
+
+def test_stale_max_lease_cannot_join_activate_or_change_a_proposal(db):
+    from catix import source_requests as requests
+
+    row = requests.submit("owner", "o@example.org", "https://max.ru/StudyGroup", "B26", consent=True)
+    token = "old-max-worker"
+    with db() as conn:
+        job = conn.execute("""UPDATE source_requests SET status='joining', token=%s,
+                              lease_until=now()+interval '1 minute' WHERE id=%s RETURNING *""",
+                           (token, row["id"])).fetchone()
+        conn.execute("UPDATE source_request_lease SET token=%s, lease_until=now()+interval '1 minute' WHERE singleton", (token,))
+    assert requests.begin_join(job) is False
+    assert requests.activate(job, -123, "Not Telegram", None, False) is False
+    assert requests.defer(job, "Must not rewrite a MAX proposal") is False
+    viewed = requests.get_request(row["id"])
+    assert viewed["status"] == job["status"] and viewed["token"] == job["token"]
+    with db() as conn:
+        assert conn.execute("SELECT * FROM source_requests WHERE id=%s", (row["id"],)).fetchone() == job
+        assert not conn.execute("SELECT 1 FROM chats").fetchone()
+        assert not conn.execute("SELECT 1 FROM userbot_listen").fetchone()
+        assert not conn.execute("SELECT 1 FROM source_request_join_intents").fetchone()
+
+
+@pytest.mark.parametrize("status", ["pending", "approved", "joining", "waiting_join", "connected"])
+def test_max_moderation_dispatcher_exposes_manual_catalog_without_claiming_connection(monkeypatch, status):
     import asyncio
-    from types import SimpleNamespace
-    from catix import groups, source_requests as requests
-    from catix.maxbot import source_requests as worker
-    from catix.maxbot import state
+    from copy import deepcopy
+    from datetime import datetime, timezone
+    from aiogram import Bot, Dispatcher
+    from aiogram.client.session.base import BaseSession
+    from aiogram.methods import AnswerCallbackQuery, EditMessageText
+    from aiogram.types import CallbackQuery, Chat, Message, Update, User
+    from catix.tgbot import source_requests as moderation
 
-    link = "https://max.ru/StudyGroup"
-    row = requests.submit("owner", "o@example.org", link, "all", consent=True)
-    assert requests.approve(row["id"], 7, "all")
-    chat = {"chat_id": -456, "type": "chat", "status": "active", "title": "MAX source", "link": link}
-    worker.observe(chat)
-    chat_id = groups.MAX_CHAT_BASE - 456
-    if problem == "audience":
-        with db() as conn:
-            conn.execute("UPDATE max_sources SET access = 'ready' WHERE chat_id = %s", (chat_id,))
-        state.save_configuration(chat_id, "B26", enabled=True, expected_version=0)
-    if problem == "missing":
-        with db() as conn:
-            conn.execute("DELETE FROM chats WHERE chat_id = %s", (chat_id,))
+    request = {"id": "a" * 32, "email": "owner@example.org", "invite_link": "https://max.ru/StudyGroup",
+               "group_code": "B26", "comment": "Please review", "status": status,
+               "message": "Source enabled for search; history is being indexed." if status == "connected" else None}
+    approvals = []
+    screens = []
+    monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
+    monkeypatch.setattr(moderation.store, "get_request", lambda _: dict(request))
 
-    async def call(method, path):
-        if path == "/chats/-456":
-            return {**chat, "link": "https://max.ru/OtherGroup"} if problem == "link" else chat
-        return {"is_admin": problem != "permission", "permissions": ["read_all_messages"]}
+    def approve(request_id, admin_id, group_code):
+        approvals.append((request_id, admin_id, group_code))
+        request["status"] = "approved"
+        return True
 
-    assert asyncio.run(worker.process_one(SimpleNamespace(call=call)))
-    result = requests.get_request(row["id"])
-    assert result["status"] == ("failed" if problem == "audience" else "approved")
-    assert groups.website_chat_ids([]) == set()
-    source = state.get_source(chat_id)
-    if problem == "audience":
-        assert source["group_code"] == "B26" and source["requires_verified_group"] is True
-    elif source:
-        assert source["enabled"] is False
+    monkeypatch.setattr(moderation.store, "approve", approve)
+
+    class Telegram(BaseSession):
+        async def close(self):
+            pass
+
+        async def stream_content(self, *args, **kwargs):
+            raise AssertionError("No media downloads in source moderation")
+            yield b""
+
+        async def make_request(self, bot, method, timeout=None):
+            if isinstance(method, AnswerCallbackQuery):
+                return True
+            assert isinstance(method, EditMessageText)
+            screens.append(method)
+            return Message(message_id=1, date=datetime.now(timezone.utc),
+                           chat=Chat(id=7, type="private"), text=method.text)
+
+    async def scenario():
+        session = Telegram()
+        bot = Bot("123456:TEST_TOKEN", session=session)
+        dispatcher = Dispatcher()
+        router = deepcopy(moderation.router)
+        router._parent_router = None
+        dispatcher.include_router(router)
+        user = User(id=7, is_bot=False, first_name="Admin")
+        message = Message(message_id=1, date=datetime.now(timezone.utc),
+                          chat=Chat(id=7, type="private"), from_user=user, text="screen")
+
+        async def press(action, sequence):
+            query = CallbackQuery(id=str(sequence), from_user=user, chat_instance="private-test",
+                                  message=message, data=f"sr:{action}:{request['id']}")
+            await dispatcher.feed_update(bot, Update(update_id=sequence, callback_query=query))
+
+        try:
+            await press("show", 1)
+            screen = screens[-1]
+            assert "вручную" in screen.text and "одобрение не подключает" in screen.text
+            assert any(b.callback_data == "mx:list:0" for row in screen.reply_markup.inline_keyboard for b in row)
+            assert "Source enabled for search" not in screen.text
+            assert "Источник подключён" not in screen.text
+            if status == "pending":
+                await press("review", 2)
+                assert approvals == []
+                assert "автоматического вступления нет" in screens[-1].text
+                await press("approve", 3)
+                assert approvals == [(request["id"], 7, "B26")]
+                assert request["status"] == "approved"
+                assert any(b.callback_data == "mx:list:0" for row in screens[-1].reply_markup.inline_keyboard for b in row)
+        finally:
+            await session.close()
+
+    asyncio.run(scenario())

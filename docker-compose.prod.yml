@@ -1,7 +1,7 @@
 # Production / beta: everything cAtIx needs in one place.
 #   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, worker, api, phoenix
 #   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
-#   docker compose -f docker-compose.prod.yml --profile maxbot up -d    + the Max bot
+#   docker compose -f docker-compose.prod.yml --profile maxuserbot up -d + the MAX account listener (after QR login)
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
 name: catix-prod
@@ -10,10 +10,13 @@ name: catix-prod
 # itself: PHOENIX_ENDPOINT=http://localhost:6006 from .env.example sent no trace). The password is not in the URL (libpq
 # reads PGPASSWORD): a password with / @ : # ? would break the URL ('failed to resolve host'). A service with an
 # `environment` of its own merges these into it: its own replaces the whole block.
-x-env: &env
+x-account-env: &account-env
   DATABASE_URL: postgresql://ctx@db:5432/ctx
   PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
   REDIS_URL: redis://redis:6379/0
+
+x-env: &env
+  <<: *account-env
   INNOHASSLE_MCP_URL: http://mcp:8010/mcp
   PHOENIX_ENDPOINT: http://phoenix:6006
 
@@ -107,13 +110,15 @@ services:
       <<: *app-depends
       mcp: { condition: service_healthy }
 
-  maxbot:
+  # Passive account listener: no MCP dependency, HTTP endpoint or published ports.
+  maxuserbot:
     <<: *app
-    profiles: ["maxbot"]
-    command: ["catix-maxbot"]
+    profiles: ["maxuserbot"]
+    command: ["catix-maxuserbot", "listen"]
+    environment: *account-env
     depends_on:
-      <<: *app-depends
-      mcp: { condition: service_healthy }
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
 
   worker:
     <<: *app

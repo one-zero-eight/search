@@ -5,7 +5,7 @@ chat groups through the bot; users configure their study group on the website.
 A user of group `all` (the default) is answered from the chats of group
 `all` only; a user of another group from the chats of `all` and of their own group. A chat of a group is never searched for a
 user of another group, and the model cannot change that: the scope is worked out here, in code, from the user's key.
-Both bots use this module; only the admin check (is this user an admin of that chat?) differs by messenger.
+Telegram administration configures both Telegram and passive MAX account sources.
 """
 
 import logging
@@ -17,18 +17,13 @@ from catix.common import cache
 from catix.innohassle import client as innohassle
 from catix.db import pg
 from catix.settings import settings
-from catix.db.rows import ChatGroup
 
 log = logging.getLogger("catix.groups")
 
 ALL = "all"
-MAX_CHAT_BASE = 2 * 10**15  # Max chat ids are stored shifted by this, so they never collide with Telegram ids.
+MAX_CHAT_BASE = 2 * 10**15  # Legacy MAX Bot API archive namespace; userbot identities use a separate base.
 CODE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$")
 
-USAGE_GROUP = (
-    "Чтобы указать группу чата, напишите: /group номер группа\n"
-    f"Например: /group 2 B26-CSE-01. Группа {ALL} значит «для всех»."
-)
 
 
 def normalize(code: str) -> str | None:
@@ -39,16 +34,6 @@ def normalize(code: str) -> str | None:
     return ALL if code.lower() == ALL else code.upper()
 
 
-def list_chats(platform: str) -> list[ChatGroup]:
-    """Chats of one messenger the bot knows, in a stable order (the numbers in /group refer to this order)."""
-    condition = "chat_id >= %s" if platform == "max" else "bot_member AND chat_id < %s"
-    with pg.connection() as conn:
-        return pg.rows(
-            conn,
-            ChatGroup,
-            f"SELECT chat_id, title, group_code FROM chats WHERE {condition} ORDER BY title, chat_id",  # noqa: S608
-            (MAX_CHAT_BASE // 2,),
-        )
 
 
 def set_chat_group(chat_id: int, code: str) -> None:
@@ -125,8 +110,9 @@ def website_chat_ids(verified_groups: list[str]) -> set[int]:
     with pg.connection() as conn:
         return set(pg.column(conn,
             """SELECT chat_id FROM chats
-               WHERE (group_code = 'all' AND NOT requires_verified_group)
-                  OR (group_code <> 'all' AND group_code = ANY(%s))""", (verified_groups,)))
+               WHERE NOT max_legacy_archived
+                 AND ((group_code = 'all' AND NOT requires_verified_group)
+                      OR (group_code <> 'all' AND group_code = ANY(%s)))""", (verified_groups,)))
 
 
 def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int]:
@@ -135,26 +121,9 @@ def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int]:
     group = verified or user_group(user_key)
     with pg.connection() as conn:
         return set(pg.column(conn,
-            """SELECT chat_id FROM chats WHERE group_code IN (%s, %s)
+            """SELECT chat_id FROM chats WHERE NOT max_legacy_archived AND group_code IN (%s, %s)
                AND (NOT requires_verified_group OR (group_code <> 'all' AND group_code = %s))""", (ALL, group, verified)))
 
 
-def group_command(args: str, admin_chats: list[ChatGroup]) -> str:
-    """Reply to `/group [number group]` from a user who is admin of `admin_chats` (already filtered and ordered)."""
-    parts = args.split()
-    if not admin_chats:
-        return (
-            "Я не нашёл чатов, где вы администратор и где есть я. Добавьте меня в чат, сделайте администратором "
-            "и напишите там любое сообщение, а затем повторите /group здесь."
-        )
-    if len(parts) != 2 or not parts[0].isdigit() or not 1 <= int(parts[0]) <= len(admin_chats):
-        lines = [f"{i}. {c.title}: группа {c.group_code}" for i, c in enumerate(admin_chats, 1)]
-        return "Ваши чаты:\n" + "\n".join(lines) + "\n\n" + USAGE_GROUP
-    code = normalize(parts[1])
-    if not code:
-        return "Группа: латиница, цифры, точка, дефис и подчёркивание, до 40 символов, например B26-CSE-01."
-    chat = admin_chats[int(parts[0]) - 1]
-    set_chat_group(chat.chat_id, code)
-    return f"Готово: чат «{chat.title}» теперь в группе {code}."
 
 

@@ -15,33 +15,72 @@ MAX_ATTEMPTS = 3
 
 
 def claim(source: str) -> dict | None:
-    """Return message_id, chat_id, msg_id, topic_id, refs (list), token; None if busy/not ready.
+    """Return the current image metadata and token; None if busy/not ready.
 
-    Source is tguserbot, tgbot or maxbot; refs are opaque client-owned identifiers.
+    MAX account claims also capture source generation and the exact caption/album.
     """
     with pg.connection() as conn:
         # Serialize claim decisions across all three source processes, not the HTTP work.
         conn.execute("SELECT pg_advisory_xact_lock(727014, 1)")
         if conn.execute("SELECT 1 FROM image_queue_lease WHERE lease_until > now()").fetchone():
             return None
-        # A process killed on its last attempt cannot call fail(). Keep its failure visible.
-        conn.execute(
-            """UPDATE image_queue SET status = 'failed', token = NULL, lease_until = NULL
-               WHERE status = 'claimed' AND lease_until <= now() AND attempts >= %s""",
-            (MAX_ATTEMPTS,),
-        )
-        job = conn.execute(
-            """SELECT q.message_id, m.chat_id, m.msg_id, m.topic_id, m.image_refs AS refs
-               FROM image_queue q JOIN messages m ON m.id = q.message_id
-               WHERE m.image_source = %s
-                 AND ((q.status = 'pending' AND q.available_at <= now())
-                      OR (q.status = 'claimed' AND q.lease_until <= now()))
-               ORDER BY q.available_at, q.message_id LIMIT 1 FOR UPDATE OF q SKIP LOCKED""",
-            (source,),
-        ).fetchone()
-        if job is None:
-            return None
-        job = dict(job)
+        if source == "maxuserbot":
+            # Never lock an OCR row before its source: ingestion takes source -> message -> queue.
+            candidate = conn.execute(
+                """SELECT m.chat_id, q.message_id FROM image_queue q
+                   JOIN messages m ON m.id = q.message_id
+                   JOIN max_sources s ON s.chat_id = m.chat_id
+                   WHERE m.image_source = 'maxuserbot' AND s.enabled AND s.access = 'ready'
+                     AND ((q.status = 'pending' AND q.available_at <= now())
+                          OR (q.status = 'claimed' AND q.lease_until <= now()))
+                   ORDER BY q.available_at, q.message_id LIMIT 1""",
+            ).fetchone()
+            if candidate is None:
+                return None
+            account = conn.execute(
+                "SELECT enabled, access, generation, raw_chat_id FROM max_sources WHERE chat_id = %s FOR UPDATE",
+                (candidate["chat_id"],),
+            ).fetchone()
+            if account is None or not account["enabled"] or account["access"] != "ready":
+                return None
+            conn.execute(
+                """UPDATE image_queue SET status = 'failed', token = NULL, lease_until = NULL
+                   WHERE message_id = %s AND status = 'claimed' AND lease_until <= now() AND attempts >= %s""",
+                (candidate["message_id"], MAX_ATTEMPTS),
+            )
+            job = conn.execute(
+                """SELECT q.message_id, m.chat_id, m.msg_id, m.topic_id,
+                          m.image_refs AS refs, m.image_caption, m.image_source
+                   FROM image_queue q JOIN messages m ON m.id = q.message_id
+                   WHERE q.message_id = %s AND m.chat_id = %s AND m.image_source = 'maxuserbot'
+                     AND ((q.status = 'pending' AND q.available_at <= now())
+                          OR (q.status = 'claimed' AND q.lease_until <= now()))
+                   FOR UPDATE OF q""",
+                (candidate["message_id"], candidate["chat_id"]),
+            ).fetchone()
+            if job is None:
+                return None
+            job = dict(job, generation=account["generation"], raw_chat_id=account["raw_chat_id"])
+        else:
+            # A process killed on its last attempt cannot call fail(). Keep its failure visible.
+            conn.execute(
+                """UPDATE image_queue SET status = 'failed', token = NULL, lease_until = NULL
+                   WHERE status = 'claimed' AND lease_until <= now() AND attempts >= %s
+                     AND message_id IN (SELECT id FROM messages WHERE image_source != 'maxuserbot')""",
+                (MAX_ATTEMPTS,),
+            )
+            job = conn.execute(
+                """SELECT q.message_id, m.chat_id, m.msg_id, m.topic_id, m.image_refs AS refs
+                   FROM image_queue q JOIN messages m ON m.id = q.message_id
+                   WHERE m.image_source = %s
+                     AND ((q.status = 'pending' AND q.available_at <= now())
+                          OR (q.status = 'claimed' AND q.lease_until <= now()))
+                   ORDER BY q.available_at, q.message_id LIMIT 1 FOR UPDATE OF q SKIP LOCKED""",
+                (source,),
+            ).fetchone()
+            if job is None:
+                return None
+            job = dict(job)
         job["token"] = uuid4().hex
         conn.execute(
             """UPDATE image_queue SET status = 'claimed', token = %s,
@@ -68,6 +107,19 @@ def finish(job: dict, text: str) -> bool:
     """Save OCR only for the current claim. The normal text trigger queues its embedding."""
     text = text.strip()
     with pg.connection() as conn:
+        if job.get("image_source") == "maxuserbot":
+            source = conn.execute(
+                "SELECT enabled, access, generation FROM max_sources WHERE chat_id = %s FOR UPDATE",
+                (job["chat_id"],),
+            ).fetchone()
+            if (source is None or not source["enabled"] or source["access"] != "ready"
+                    or source["generation"] != job["generation"]):
+                conn.execute(
+                    "DELETE FROM image_queue WHERE message_id = %s AND token = %s",
+                    (job["message_id"], job["token"]),
+                )
+                _release(conn, job)
+                return False
         # Same lock order as write_batch and message deletion: message first, then its queue row.
         message = conn.execute(
             "SELECT image_caption FROM messages WHERE id = %s FOR UPDATE", (job["message_id"],),
@@ -92,6 +144,11 @@ def finish(job: dict, text: str) -> bool:
             "UPDATE messages SET image_text = %s, text = %s WHERE id = %s",
             (text, combined, job["message_id"]),
         )
+        if job.get("image_source") == "maxuserbot":
+            conn.execute(
+                "INSERT INTO max_publish_queue(chat_id, msg_id) VALUES (%s, %s)",
+                (job["chat_id"], job["msg_id"]),
+            )
         return True
 
 

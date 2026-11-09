@@ -32,6 +32,7 @@ from aiogram.types import (
 from catix.tgbot import abuse as abuse_commands
 from catix.tgbot import admin
 from catix.tgbot import listen
+from catix.tgbot import max_sources
 from catix.tgbot import official
 from catix.worker import changes
 from catix import bot_users, personal_calendar, userbot_config
@@ -340,6 +341,7 @@ async def run() -> None:
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
     dp.message.outer_middleware(remember_private)  # every private message, whichever router answers it
+    dp.include_router(max_sources.router)  # Slash filter clears MAX drafts and lets commands continue.
     dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
     dp.include_router(listen.router)
     dp.include_router(official.router)  # /official: an admin marks chats as official

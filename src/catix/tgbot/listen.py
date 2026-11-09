@@ -63,6 +63,9 @@ def cancel_pending(user_id: int) -> None:
     """Called by /admin and navigation: discard every unsaved choice and text prompt."""
     SESSIONS.pop(user_id, None)
     PENDING_GROUP.pop(user_id, None)
+    from catix.tgbot import max_sources
+
+    max_sources.cancel_pending(user_id)
 
 
 def _cancel_admin_prompt(user_id: int) -> None:
@@ -361,6 +364,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
     rows.append([_button("➕ Добавить группу", "ls:add")])
     rows.append([_button("🔄 Обновить список", "ls:r")])
     rows.append([_button("📥 Заявки на чаты", "sr:list:0")])
+    rows.append([_button("MAX", "mx:list:0")])
     rows.append([_button("← Администрирование", "adm:home")])
     text = (
         f"<b>Подключённые группы</b>: {len(dialogs)}.\n"

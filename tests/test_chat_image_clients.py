@@ -14,6 +14,7 @@ from telethon.tl.types import (
 )
 
 from catix.tguserbot import userbot
+from catix.ingest.images import download_url as real_download_url
 
 NOW = datetime(2026, 1, 1, tzinfo=timezone.utc)
 ENTITY = Chat(id=42, title="Study", photo=None, participants_count=2, date=NOW, version=1)
@@ -273,117 +274,149 @@ def test_tgbot_worker_cancelled_before_bot_session_and_db_close(tgbot, monkeypat
     assert set(order[1:]) == {"bot closed", "db closed"}
 
 
-def max_message(text="", attachments=None, chat_type="chat"):
-    return {"timestamp": int(NOW.timestamp() * 1000), "recipient": {"chat_id": 42, "chat_type": chat_type},
-            "sender": {"user_id": 3, "first_name": "Alice"},
-            "body": {"seq": 7, "mid": "mid-7", "text": text, "attachments": attachments or []}}
+def max_message(text="caption", attachments=None, **changes):
+    return {"id": 7, "chatId": 42, "time": int(NOW.timestamp() * 1000),
+            "sender": 3, "text": text, "attaches": attachments if attachments is not None else [MAX_IMAGE],
+            **changes}
+
+
+MAX_IMAGE = {"_type": "PHOTO", "photoId": 11, "baseUrl": "https://i.oneme.ru/fresh"}
 
 
 @pytest.fixture
-def maxbot(monkeypatch):
-    from catix.maxbot import bot
-    monkeypatch.setattr(bot.writer, "put", AsyncMock())
-    monkeypatch.setattr(bot.writer, "wait_idle", AsyncMock())
-    monkeypatch.setattr(bot.store, "delete_message", Mock())
-    monkeypatch.setattr(bot, "_load_history", lambda *args: None)
-    monkeypatch.setattr(bot.source_requests, "observe", lambda chat: True)
-    async def request_worker(*args):
-        await asyncio.Event().wait()
-    monkeypatch.setattr(bot.source_requests, "run", request_worker)
-    return bot
+def max_media(monkeypatch):
+    from catix.maxuserbot import media
+    from catix.maxuserbot.client import AccountClient
+    from catix.maxuserbot.models import db_chat_id
+
+    source = {"chat_id": db_chat_id(42), "raw_chat_id": 42, "enabled": True,
+              "access": "ready", "generation": 4}
+    monkeypatch.setattr(media.state, "get_source", Mock(return_value=source))
+    monkeypatch.setattr(media.state, "apply_snapshot", Mock(return_value=True))
+    monkeypatch.setattr(media.image_queue, "discard", Mock(return_value=True))
+    monkeypatch.setattr(media.images, "download_url", AsyncMock(return_value=b"image"))
+    client = AccountClient.__new__(AccountClient)
+    client._rpc = AsyncMock(return_value={"messages": [max_message()]})
+    job = {"message_id": 17, "chat_id": source["chat_id"], "raw_chat_id": 42, "msg_id": 7,
+           "generation": 4, "image_source": "maxuserbot", "image_caption": "caption",
+           "refs": ["photo:11"], "token": "claim"}
+    return media, client, job, source
 
 
-MAX_IMAGE = {"type": "image", "payload": {"url": "https://i.oneme.ru/image"}}
+@pytest.mark.parametrize("caption", ["", "caption", "/ask explain", "@catix explain"])
+def test_maxuserbot_native_photos_refetch_fresh_url(max_media, caption):
+    media, client, job, source = max_media
+    job["image_caption"] = caption
+    client._rpc.return_value = {"messages": [max_message(caption)]}
+    assert asyncio.run(media.download(client, job, "photo:11")) == b"image"
+    client._rpc.assert_awaited_once_with(71, {"chatId": 42, "messageIds": [7]})
+    media.images.download_url.assert_awaited_once_with(MAX_IMAGE["baseUrl"])
+    media.state.apply_snapshot.assert_not_called()
 
 
-@pytest.mark.parametrize("caption", ["", "caption"])
-def test_maxbot_image_metadata_and_caption(maxbot, caption):
-    client = NS(chat=AsyncMock(return_value={"title": "Study"}))
-    prepared = asyncio.run(maxbot._prepare(client, max_message(caption, [MAX_IMAGE]), 42))
-    assert prepared is not None
-    chat, row = prepared
-    assert row.text == caption and row.image_source == "maxbot"
-    assert row.image_refs == (MAX_IMAGE["payload"]["url"],)
-    assert row.chat_id == chat.chat_id == maxbot.db_chat_id(42)
-    assert row.date == NOW and row.edit_date is None and row.sender_name == "Alice"
+@pytest.mark.parametrize("changes", [
+    {"text": "edited caption"},
+    {"attaches": [{"_type": "PHOTO", "photoId": 12, "baseUrl": "https://i.oneme.ru/new"}]},
+    {"attaches": []},
+    {"status": "REMOVED"},
+])
+def test_maxuserbot_changed_or_removed_snapshot_invalidates_old_claim(max_media, changes):
+    media, client, job, source = max_media
+    client._rpc.return_value = {"messages": [max_message(**changes)]}
+    before = datetime.now(timezone.utc)
+    with pytest.raises(ValueError, match="message_changed"):
+        asyncio.run(media.download(client, job, "photo:11"))
+    args, kwargs = media.state.apply_snapshot.call_args
+    assert args[0] == job["chat_id"] and args[1]["message_id"] == 7
+    assert kwargs["generation"] == 4 and before <= kwargs["observed_at"] <= datetime.now(timezone.utc)
+    assert args[1]["deleted"] == (changes.get("status") == "REMOVED")
+    media.image_queue.discard.assert_called_once_with(job)
+    media.images.download_url.assert_not_awaited()
 
 
-def test_maxbot_does_not_truncate_image_list(maxbot):
-    attachments = [{"type": "image", "payload": {"url": f"https://i.oneme.ru/{i}"}} for i in range(11)]
-    client = NS(chat=AsyncMock(return_value={}))
-    _, row = asyncio.run(maxbot._prepare(client, max_message(attachments=attachments), 42))
-    assert len(row.image_refs) == 11  # The worker must fail the whole oversized job, not index a subset.
+def test_maxuserbot_reordered_album_rejects_old_claim(max_media):
+    media, client, job, source = max_media
+    job["refs"] = ["photo:11", "photo:12"]
+    client._rpc.return_value = {"messages": [max_message(attachments=[
+        {"_type": "PHOTO", "photoId": 12, "baseUrl": "https://i.oneme.ru/new"}, MAX_IMAGE])]} 
+    with pytest.raises(ValueError, match="message_changed"):
+        asyncio.run(media.download(client, job, "photo:11"))
+    assert list(media.state.apply_snapshot.call_args.args[1]["photos"]) == [{"photo_id": 12}, {"photo_id": 11}]
+    media.images.download_url.assert_not_awaited()
 
 
-@pytest.mark.parametrize("kind", ["photo", "video", "sticker", "file"])
-def test_maxbot_only_actual_image_type_is_ocr_source(maxbot, kind):
-    attachment = {"type": kind, "payload": {"url": "https://i.oneme.ru/image", "filename": "schedule.png"}}
-    client = NS(chat=AsyncMock(return_value={}))
-    _, row = asyncio.run(maxbot._prepare(client, max_message("caption", [attachment]), 42))
-    assert row.image_refs == ()
-    assert row.text == ("caption\n[file: schedule.png]" if kind == "file" else "caption")
+@pytest.mark.parametrize("rows", [[], [max_message(postId=9)]])
+def test_maxuserbot_missing_or_comment_message_never_implies_deletion(max_media, rows):
+    media, client, job, source = max_media
+    client._rpc.return_value = {"messages": rows}
+    with pytest.raises(ValueError, match="message_unavailable"):
+        asyncio.run(media.download(client, job, "photo:11"))
+    media.state.apply_snapshot.assert_not_called()
+    media.images.download_url.assert_not_awaited()
 
 
-def test_maxbot_empty_edit_removes_old_ocr(maxbot):
-    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}))
-    asyncio.run(maxbot._handle(client, {"update_type": "message_edited", "message": max_message()}))
-    row = maxbot.writer.put.await_args.args[1]
-    assert row.text == "" and row.image_refs == () and row.edit_date is None
-    maxbot.writer.put.reset_mock()
-    asyncio.run(maxbot._save(client, max_message(), 42))
-    maxbot.writer.put.assert_not_awaited()
+@pytest.mark.parametrize("change", [{"enabled": False}, {"access": "removed"}, {"generation": 6}])
+def test_maxuserbot_revoke_or_reenable_stops_before_rpc(max_media, change):
+    media, client, job, source = max_media
+    source.update(change)
+    assert not asyncio.run(media.allowed(job))
+    with pytest.raises(ValueError, match="source_unavailable"):
+        asyncio.run(media.download(client, job, "photo:11"))
+    client._rpc.assert_not_awaited()
 
 
-@pytest.mark.parametrize("text", ["@catix what is this?", "/ask what is this?", "what is this?"])
-def test_maxbot_does_not_store_or_answer_private_messages(maxbot, text):
-    client = NS(send=AsyncMock())
-    message = max_message(text, [MAX_IMAGE], "dialog")
-    asyncio.run(maxbot._handle(client, {"update_type": "message_created", "message": message}))
-    maxbot.writer.put.assert_not_awaited()
-    client.send.assert_not_awaited()
+def test_maxuserbot_revoke_during_refetch_stops_before_cdn(max_media):
+    media, client, job, source = max_media
+    async def response(*args):
+        source["enabled"] = False
+        return {"messages": [max_message()]}
+    client._rpc.side_effect = response
+    with pytest.raises(ValueError, match="source_unavailable"):
+        asyncio.run(media.download(client, job, "photo:11"))
+    media.images.download_url.assert_not_awaited()
 
 
-def test_maxbot_download_uses_unauthenticated_bounded_fetch_with_root_ca(maxbot, monkeypatch):
-    from catix.ingest import images
-    from unittest.mock import Mock
-    context = NS(load_verify_locations=Mock())
-    monkeypatch.setattr(maxbot.ssl, "create_default_context", lambda **kwargs: context)
-    fetch = AsyncMock(return_value=b"image")
-    monkeypatch.setattr(images, "download_url", fetch)
-    assert asyncio.run(maxbot._download_image({"chat_id": maxbot.db_chat_id(42)}, MAX_IMAGE["payload"]["url"])) == b"image"
-    fetch.assert_awaited_once_with(MAX_IMAGE["payload"]["url"], verify=context)
-    context.load_verify_locations.assert_called_once_with(cafile=str(maxbot.settings.max_root_ca))
+@pytest.mark.parametrize("ref", ["https://i.oneme.ru/legacy", "photo:011", "photo:12", "photo:opaque"])
+def test_maxuserbot_legacy_or_wrong_photo_ref_never_reaches_transport(max_media, ref):
+    from catix.maxuserbot.models import ProtocolError
+    media, client, job, source = max_media
+    with pytest.raises(ProtocolError):
+        asyncio.run(media.download(client, job, ref))
+    client._rpc.assert_not_awaited()
 
 
-def test_maxbot_worker_cancelled_before_http_and_db_close(maxbot, monkeypatch, tmp_path):
-    from catix.ingest import images
-    from pydantic import SecretStr
-    order, sources = [], []
-    client = NS(call=AsyncMock(return_value={"username": "catix"}),
-                http=NS(aclose=AsyncMock(side_effect=lambda: order.append("http closed"))))
-    ca = tmp_path / "ca.pem"
-    ca.write_text("")
-    monkeypatch.setattr(maxbot.settings, "max_bot_token", SecretStr("test-token"))
-    monkeypatch.setattr(maxbot.settings, "max_root_ca", ca)
-    monkeypatch.setattr(maxbot, "Max", lambda token: client)
-    monkeypatch.setattr(maxbot.pg, "close", lambda: order.append("db closed"))
-    async def idle():
-        await asyncio.Event().wait()
-    async def worker(source, download, allowed=None):
-        sources.append(source)
-        try:
-            await idle()
-        finally:
-            await asyncio.sleep(0)
-            order.append("worker stopped")
-    async def poll(*args):
-        await asyncio.sleep(0)
-    monkeypatch.setattr(maxbot, "poll", poll)
-    monkeypatch.setattr(maxbot.writer, "run", idle)
-    monkeypatch.setattr(images, "run", worker, raising=False)
-    asyncio.run(maxbot.run())
-    assert sources == ["maxbot"]
-    assert order == ["worker stopped", "http closed", "db closed"]
+@pytest.mark.parametrize("kind", ["VIDEO", "STICKER", "FILE"])
+def test_maxuserbot_only_native_photo_attachments_are_ocr_sources(kind):
+    from catix.maxuserbot.models import normalize_message
+    snapshot = normalize_message(max_message(attachments=[{"_type": kind, "photoId": 11,
+                                                         "baseUrl": MAX_IMAGE["baseUrl"]}]), 42)
+    assert snapshot.photos == ()
+
+
+def test_maxuserbot_does_not_truncate_native_album():
+    from catix.maxuserbot.models import normalize_message
+    snapshot = normalize_message(max_message(attachments=[dict(MAX_IMAGE, photoId=i) for i in range(11)]), 42)
+    assert len(snapshot.photos) == 11
+
+
+@pytest.mark.parametrize("command", ["/start", "/mygroup", "/calendar", "/clear", "/ask", "/new", "/group"])
+def test_maxuserbot_dialog_notifications_ignore_commands(command):
+    from catix.maxuserbot.models import normalize_event, normalize_chat
+    assert normalize_chat({"type": "DIALOG", "id": 42, "lastMessage": {"text": command}}) is None
+    assert normalize_event(135, {"chat": {"type": "DIALOG", "id": 42,
+                                          "lastMessage": {"text": command}}}) is None
+
+
+def test_maxuserbot_ocr_uses_transactional_outbox_not_best_effort_publish(max_media, monkeypatch):
+    from catix.ingest import publish
+    media, client, job, source = max_media
+    monkeypatch.setattr(media.images, "transcribe", AsyncMock(return_value="OCR"))
+    monkeypatch.setattr(media.image_queue, "finish", Mock(return_value=True))
+    monkeypatch.setattr(publish, "publish", AsyncMock())
+    async def download(job, ref):
+        return await media.download(client, job, ref)
+    assert asyncio.run(media.images.process(job, download, media.allowed))
+    publish.publish.assert_not_awaited()
 
 
 @pytest.mark.parametrize("caption", ["@catix explain", "/ask explain"])
@@ -425,36 +458,6 @@ def test_tgbot_excluded_edit_cannot_delete_outside_listener_or_topic(tgbot, monk
     tgbot.store.delete_message.assert_not_called()
 
 
-@pytest.mark.parametrize("kind", ["mention", "ask", "reply"])
-@pytest.mark.parametrize("update_type", ["message_created", "message_edited"])
-def test_maxbot_mentions_commands_and_replies_are_indexed(maxbot, kind, update_type):
-    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}), send=AsyncMock())
-    text = {"mention": "@catix explain", "ask": "/ask explain", "reply": "explain"}[kind]
-    message = max_message(text, [MAX_IMAGE])
-    if kind == "reply":
-        message["link"] = {"type": "reply", "sender": {"user_id": 99}, "message": {"seq": 6}}
-    asyncio.run(maxbot._handle(client, {"update_type": update_type, "message": message}))
-    maxbot.writer.put.assert_awaited_once()
-    row = maxbot.writer.put.await_args.args[1]
-    assert row.text == text
-    assert row.image_refs == (MAX_IMAGE["payload"]["url"],)
-    assert row.reply_to == (6 if kind == "reply" else None)
-    assert row.live_edit == (update_type == "message_edited")
-    assert isinstance(row.observed_at, datetime)
-    maxbot.store.delete_message.assert_not_called()
-    client.send.assert_not_awaited()
-
-
-@pytest.mark.parametrize("excluded", ["dialog", "bot-sender", "missing-seq"])
-def test_maxbot_non_indexable_image_edits_remain_excluded(maxbot, excluded):
-    message = max_message("@catix explain", [MAX_IMAGE], "dialog" if excluded == "dialog" else "chat")
-    if excluded == "bot-sender":
-        message["sender"]["is_bot"] = True
-    if excluded == "missing-seq":
-        del message["body"]["seq"]
-    asyncio.run(maxbot._handle(NS(), {"update_type": "message_edited", "message": message}))
-    maxbot.writer.put.assert_not_awaited()
-    maxbot.store.delete_message.assert_not_called()
 
 
 def test_userbot_sync_stream_checks_current_choice_before_reading(monkeypatch):
@@ -479,66 +482,6 @@ def test_userbot_backfill_checks_permissions_per_batch_not_per_message(monkeypat
     assert wanted.call_count == 2  # Before fetching and before committing, not two SQL reads per message.
 
 
-@pytest.mark.parametrize("text", ["caption", "/ask explain", "@catix explain"])
-def test_maxbot_backfill_conversion_excludes_dialogs(maxbot, text):
-    client = NS(chat=AsyncMock(return_value={}))
-    assert asyncio.run(maxbot._prepare(client, max_message(text, [MAX_IMAGE], "dialog"), 42)) is None
-    client.chat.assert_not_awaited()
-
-
-@pytest.mark.parametrize("text", ["/ask explain", "@catix explain"])
-def test_maxbot_backfill_keeps_mentions_and_former_commands(maxbot, monkeypatch, text):
-    monkeypatch.setattr(maxbot, "_latest_stored", lambda chat_id: NOW)
-    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}),
-                call=AsyncMock(return_value={"messages": [max_message(text, [MAX_IMAGE])]}))
-    asyncio.run(maxbot.backfill(client, 42))
-    maxbot.writer.put.assert_awaited_once()
-    row = maxbot.writer.put.await_args.args[1]
-    assert row.text == text and row.image_refs == (MAX_IMAGE["payload"]["url"],)
-
-
-@pytest.mark.parametrize("command", ["/mygroup", "/calendar", "/clear", "/ask", "/new"])
-def test_maxbot_removed_private_commands_are_ignored(maxbot, command):
-    client = NS(send=AsyncMock(), admin_chats=AsyncMock())
-    asyncio.run(maxbot._handle(client, {"update_type": "message_created",
-                                        "message": max_message(command, chat_type="dialog")}))
-    client.send.assert_not_awaited()
-    client.admin_chats.assert_not_awaited()
-    maxbot.writer.put.assert_not_awaited()
-
-
-@pytest.mark.parametrize("update_type", ["bot_started", "message_created"])
-def test_maxbot_greeting_directs_users_to_website(maxbot, update_type):
-    client = NS(send=AsyncMock())
-    update = {"update_type": update_type, "chat_id": 42}
-    if update_type == "message_created":
-        update["message"] = max_message("/start", chat_type="dialog")
-    asyncio.run(maxbot._handle(client, update))
-    client.send.assert_awaited_once()
-    chat_id, text = client.send.await_args.args
-    assert chat_id == 42
-    assert "сайте InNoHassle" in text
-    assert all(command not in text for command in ("/ask", "/mygroup", "/group", "/calendar", "/clear", "/new"))
-
-
-@pytest.mark.parametrize("is_admin", [False, True])
-def test_maxbot_manual_group_command_changes_only_admin_chats(maxbot, monkeypatch, is_admin):
-    chat = maxbot.ChatGroup(maxbot.db_chat_id(42), "Study", "all")
-    monkeypatch.setattr(maxbot.groups, "list_chats", lambda platform: [chat])
-    saved = Mock()
-    monkeypatch.setattr(maxbot.groups, "set_chat_group", saved)
-    call = AsyncMock(return_value={"members": [{"user_id": 3 if is_admin else 9}]})
-    client = NS(call=call, send=AsyncMock())
-    client.admin_chats = lambda user_id: maxbot.Max.admin_chats(client, user_id)
-    asyncio.run(maxbot._handle(client, {"update_type": "message_created",
-                                        "message": max_message("/group 1 B26-CSE-01", chat_type="dialog")}))
-    call.assert_awaited_once_with("GET", "/chats/42/members/admins")
-    client.send.assert_awaited_once()
-    if is_admin:
-        saved.assert_called_once_with(chat.chat_id, "B26-CSE-01")
-    else:
-        saved.assert_not_called()
-    maxbot.writer.put.assert_not_awaited()
 
 
 def test_userbot_sync_image_metadata_only_and_revoked_topic(monkeypatch):
@@ -601,23 +544,39 @@ def test_telegram_download_cancellation_closes_buffer(adapter, tgbot):
     assert buffers[0].closed
 
 
-def test_maxbot_real_download_transport_does_not_receive_bot_authorization(maxbot, monkeypatch):
+def test_maxuserbot_real_cdn_transport_has_no_account_authorization(max_media, monkeypatch):
     import httpx
-    from pathlib import Path
+    media, client, job, source = max_media
     seen = []
     def receive(request):
         seen.append(request)
         return httpx.Response(200, content=b"image")
     original = httpx.AsyncClient
     monkeypatch.setattr(httpx, "AsyncClient", lambda **kwargs: original(transport=httpx.MockTransport(receive), **kwargs))
-    monkeypatch.setattr(maxbot.settings, "max_root_ca", Path(maxbot.certifi.where()))
-    async def run():
-        client = maxbot.Max("must-not-forward")
-        try:
-            assert client.http.headers["Authorization"] == "must-not-forward"
-            assert await maxbot._download_image({}, MAX_IMAGE["payload"]["url"]) == b"image"
-        finally:
-            await client.http.aclose()
-    asyncio.run(run())
+    monkeypatch.setattr(media.images, "download_url", real_download_url)
+    assert asyncio.run(media.download(client, job, "photo:11")) == b"image"
     assert len(seen) == 1
-    assert "authorization" not in seen[0].headers
+    assert "authorization" not in seen[0].headers and "cookie" not in seen[0].headers
+
+
+def test_maxuserbot_cancelled_database_operation_drains_before_worker_exit():
+    from threading import Event
+    from catix.ingest import images
+    entered, release = Event(), Event()
+    order = []
+    def sql():
+        entered.set()
+        assert release.wait(2)
+        order.append("SQL done")
+    async def run():
+        operation = asyncio.create_task(images.database_call(sql))
+        assert await asyncio.to_thread(entered.wait, 2)
+        operation.cancel()
+        await asyncio.sleep(0)
+        assert not operation.done()
+        release.set()
+        with pytest.raises(asyncio.CancelledError):
+            await operation
+        order.append("worker done")
+    asyncio.run(run())
+    assert order == ["SQL done", "worker done"]

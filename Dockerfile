@@ -4,6 +4,11 @@ FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy PYTHONUNBUFFERED=1
 WORKDIR /app
 
+# Git is required by the pinned PyMax dependency during uv sync. Keep standard TLS trust.
+# Private attachment parsing needs Java 11+ and bounded PDF rendering through Poppler.
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libarchive13 openjdk-17-jre-headless poppler-utils \
+    && rm -rf /var/lib/apt/lists/*
+
 # Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
 COPY pyproject.toml uv.lock .python-version ./
 COPY vendor ./vendor
@@ -14,14 +19,8 @@ COPY db ./db
 COPY courses.toml ./
 RUN uv sync --frozen --no-dev
 
-# The Max API is served with a certificate of the Russian Ministry of Digital Development (see settings.max_root_ca).
-# Private attachment parsing: OpenDataLoader needs Java 11+; Poppler renders bounded PDF page images.
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl libarchive13 openjdk-17-jre-headless poppler-utils \
-    && rm -rf /var/lib/apt/lists/* \
-    && curl -fsSL https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt -o /app/russian_root_ca.crt
-
-ENV PATH="/app/.venv/bin:$PATH" MAX_ROOT_CA=/app/russian_root_ca.crt
-# The Telegram session of the userbot and other state live in a volume mounted at /app/data.
+ENV PATH="/app/.venv/bin:$PATH"
+# Telegram and MAX account sessions and other state live in the volume mounted at /app/data.
 RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
 USER app
 

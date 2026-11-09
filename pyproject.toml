@@ -1,7 +1,7 @@
 [project]
 name = "catix"
 version = "0.1.0"
-description = "cAtIx: a student assistant for Innopolis University (Telegram and Max bots, chat search, schedule changes)"
+description = "cAtIx: a student assistant for Innopolis University (passive Telegram/MAX chat sources, search, schedule changes)"
 authors = [
     { name = "mainStorne", email = "dbevzpr@mail.ru" }
 ]
@@ -42,6 +42,7 @@ dependencies = [
     "jsonschema[format-nongpl]>=4.23",
     "fastmcp>=4.1.6,<5",
     "httpx2>=2.5",
+    "maxapi-python==2.5.0",
 ]
 
 [project.scripts]
@@ -50,7 +51,7 @@ catix-api = "catix.api.app:main"
 catix-mcp = "catix.innohassle.mcp_server:main"
 catix-tgbot ="catix.tgbot.bot:main"
 catix-tguserbot = "catix.tguserbot.userbot:main"
-catix-maxbot = "catix.maxbot.bot:main"
+catix-maxuserbot = "catix.maxuserbot.userbot:main"
 catix-worker = "catix.worker.app:main"
 catix-embed = "catix.worker.embedder:main"
 catix-db = "catix.db.init:main"
@@ -78,3 +79,4 @@ dev = [
 # the wheel built from main 3ec91d3, "prepare 3.21.0" (xberg-io/html-to-markdown#970). Drop this table and vendor/ once 3.21.0 is released.
 [tool.uv.sources]
 html-to-markdown = { path = "vendor/html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
+maxapi-python = { git = "https://github.com/MaxApiTeam/PyMax", rev = "c4cb917d354a1179be625925530d72c8aaa969ff" }

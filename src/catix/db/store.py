@@ -7,6 +7,7 @@ Async code runs it with asyncio.to_thread.
 import logging
 import re
 from collections.abc import Collection, Iterable
+from contextlib import nullcontext
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, replace
 from datetime import datetime
@@ -127,14 +128,15 @@ def _accept_ingest(state: dict, edit_date: datetime | None, observed_at: datetim
     return True
 
 
-def write_batch(chats: Iterable[ChatInfo], messages: list[Message]) -> None:
+def write_batch(chats: Iterable[ChatInfo], messages: list[Message], *, conn=None) -> None:
     """Store chats, raw captions and image work atomically. Triggers enqueue OCR and changed-text embeddings.
 
     An unchanged caption/source/refs replay preserves OCR and the existing claim or retry state.
+    A supplied connection belongs to the caller: no commit, rollback or close is performed here.
     """
     latest = {c.chat_id: c for c in chats}
     drop_noise = noise.enabled()
-    with pg.connection() as conn, conn.cursor(row_factory=dict_row) as cur:
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn, conn.cursor(row_factory=dict_row) as cur:
         states = _lock_ingest_state(cur, ((m.chat_id, m.msg_id) for m in messages))
         accepted = []
         changed_states = {}
@@ -310,12 +312,13 @@ def clear_chat(chat_id: int) -> int:
 
 
 def delete_message(chat_id: int, msg_id: int, *, edit_date: datetime | None = None,
-                   observed_at: datetime | None = None) -> int:
+                   observed_at: datetime | None = None, conn=None) -> int:
     """Persist an exclusion and delete indexed content/work in the same transaction.
 
     The fence survives row deletion and delayed Writer retries. The live OCR lease stays.
+    A supplied connection belongs to the caller and keeps this mutation in its transaction.
     """
-    with pg.connection() as conn, conn.cursor(row_factory=dict_row) as cur:
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn, conn.cursor(row_factory=dict_row) as cur:
         state = _lock_ingest_state(cur, [(chat_id, msg_id)])[chat_id, msg_id]
         if not _accept_ingest(state, edit_date, observed_at, excluded=True):
             return 0
@@ -375,19 +378,24 @@ def last_msg_id(chat_id: int, topic_id: int | None = None) -> int | None:
 def _resolve_chats(chat: str | None, chat_ids: Collection[int] | None) -> list[int] | None:
     """Chats to search in: the allowed ones, narrowed to those matching `chat` (title part or @username)."""
     allowed = None if chat_ids is None else list(chat_ids)
-    if not chat:
-        return allowed
+    # _filters applies the mandatory archive exclusion to unrestricted searches.
+    if not chat and allowed is None:
+        return None
     with pg.connection() as conn:
-        found = pg.column(
-            conn, "SELECT chat_id FROM chats WHERE title ILIKE %s OR username = %s", (f"%{chat}%", chat.lstrip("@"))
+        return pg.column(
+            conn,
+            """SELECT chat_id FROM chats WHERE NOT max_legacy_archived
+               AND (%s::bigint[] IS NULL OR chat_id = ANY(%s::bigint[]))
+               AND (%s::text IS NULL OR title ILIKE %s OR username = %s)""",
+            (allowed, allowed, chat or None, f"%{chat}%", chat.lstrip("@") if chat else None),
         )
-    return found if allowed is None else [c for c in found if c in set(allowed)]
 
 
 def _filters(
     chat_col: str, date_col: str, ids: list[int] | None, date_from: str | None, date_to: str | None
 ) -> tuple[str, dict]:
-    sql, params = "", {}
+    sql = f" AND {chat_col} NOT IN (SELECT chat_id FROM chats WHERE max_legacy_archived)"
+    params = {}
     if ids is not None:
         sql += f" AND {chat_col} = ANY(%(ids)s::bigint[])"
         params["ids"] = ids
@@ -627,7 +635,8 @@ def visible_chats(chat_ids: Collection[int] | None) -> list[dict]:
         return [dict(r) for r in conn.execute(
             """SELECT title, username, group_code, official, EXISTS (SELECT 1 FROM messages m WHERE m.chat_id = c.chat_id) AS stored
                FROM chats c
-               WHERE %(ids)s::bigint[] IS NULL OR chat_id = ANY(%(ids)s::bigint[]) ORDER BY official DESC, title""",
+               WHERE NOT c.max_legacy_archived
+                 AND (%(ids)s::bigint[] IS NULL OR chat_id = ANY(%(ids)s::bigint[])) ORDER BY official DESC, title""",
             {"ids": None if chat_ids is None else list(chat_ids)},
         ).fetchall()]
 

@@ -67,6 +67,24 @@ def row(db, table="messages", msg_id=1):
         return conn.execute(f"SELECT * FROM {table}").fetchone()
 
 
+def native_snapshot(text="Original caption", *, msg_id=7, photos=(11,)):
+    return {"raw_chat_id": 42, "message_id": msg_id, "created_ms": 1767225600000,
+            "text": text, "sender_id": 9, "sender_name": "Author", "reply_to": None,
+            "photos": [{"photo_id": photo_id} for photo_id in photos], "deleted": False}
+
+
+def seed_max_source(db, *, text="Original caption"):
+    from catix.maxuserbot import state
+    from catix.maxuserbot.models import db_chat_id
+    chat_id = db_chat_id(42)
+    state.upsert_catalog([{"raw_chat_id": 42, "kind": "chat", "title": "MAX image test", "link": None}],
+                         observed_at=datetime.now(timezone.utc))
+    with db() as conn:
+        conn.execute("UPDATE max_sources SET enabled=true,access='ready',generation=4 WHERE chat_id=%s", (chat_id,))
+    state.apply_snapshot(chat_id, native_snapshot(text), generation=4, observed_at=datetime.now(timezone.utc))
+    return chat_id
+
+
 def test_empty_image_caption_is_stored_and_durably_queued(db):
     assert "image_source" in store.Message.__dataclass_fields__, "Message needs optional image metadata"
     write(message(text="", image_source="tguserbot", image_refs=("opaque-image-id",)))
@@ -108,9 +126,9 @@ def test_claim_finish_keeps_caption_separate_and_triggers_embedding(db):
 def test_unchanged_caption_refs_replay_preserves_claim_or_ocr(db, completed, metadata_edit):
     from catix.ingest import image_queue
 
-    original = message(image_source="maxbot", image_refs=("https://max.example/image",))
+    original = message(image_source="tguserbot", image_refs=("opaque-image",))
     write(original)
-    job = image_queue.claim("maxbot")
+    job = image_queue.claim("tguserbot")
     if completed:
         assert image_queue.finish(job, "Recognized text")
     before = row(db)
@@ -212,9 +230,10 @@ def test_only_one_global_live_claim_across_sources(db, parallel):
 
     from catix.ingest import image_queue
 
-    sources = ["tguserbot", "tgbot", "maxbot"]
+    sources = ["tguserbot", "tgbot", "maxuserbot"]
     write(*(message(msg_id=i, image_source=source, image_refs=(f"ref-{i}",))
-            for i, source in enumerate(sources, 1)))
+            for i, source in enumerate(sources[:2], 1)))
+    seed_max_source(db)
     if parallel:
         barrier = Barrier(3)
 
@@ -242,7 +261,7 @@ def test_invalidated_job_holds_global_lease_until_worker_returns(db, invalidate,
     from catix.ingest import image_queue
 
     original = message(image_source="tgbot", image_refs=("file-id",))
-    write(original, message(msg_id=2, image_source="maxbot", image_refs=("max-url",)))
+    write(original, message(msg_id=2, image_source="tguserbot", image_refs=("opaque-image",)))
     job = image_queue.claim("tgbot")
     if invalidate == "edit":
         write(replace(original, text="Edited caption"))
@@ -251,11 +270,11 @@ def test_invalidated_job_holds_global_lease_until_worker_returns(db, invalidate,
     else:
         with db() as conn:
             conn.execute("DELETE FROM messages WHERE id = %s", (job["message_id"],))
-    assert image_queue.claim("maxbot") is None
+    assert image_queue.claim("tguserbot") is None
     operation = getattr(image_queue, complete, None)
     assert operation is not None
     assert operation(job, *(["Stale text"] if complete == "finish" else [])) is False
-    assert image_queue.claim("maxbot") is not None
+    assert image_queue.claim("tguserbot") is not None
 
 
 def expire(db):
@@ -271,7 +290,7 @@ def test_expired_claim_is_recovered_after_process_restart(db, complete):
     from catix.ingest import image_queue
 
     write(message(image_source="tgbot", image_refs=("file-id",)),
-          message(msg_id=2, image_source="maxbot", image_refs=("max-url",)))
+          message(msg_id=2, image_source="tguserbot", image_refs=("opaque-image",)))
     stale = image_queue.claim("tgbot")
     expire(db)
     importlib.reload(image_queue)
@@ -280,7 +299,7 @@ def test_expired_claim_is_recovered_after_process_restart(db, complete):
     assert current["token"] != stale["token"]
     operation = getattr(image_queue, complete)
     assert operation(stale, *(["Late output"] if complete == "finish" else [])) is False
-    assert image_queue.claim("maxbot") is None  # A stale completion cannot release the new token.
+    assert image_queue.claim("tguserbot") is None  # A stale completion cannot release the new token.
     assert image_queue.finish(current, "Current output")
 
 
@@ -337,7 +356,7 @@ def test_discard_cancels_claim_without_writing_ocr_or_requeueing_replay(db):
 
     assert hasattr(image_queue, "discard"), "access-removal cancellation API is missing"
     original = message(image_source="tgbot", image_refs=("file-id",))
-    write(original, message(msg_id=2, image_source="maxbot", image_refs=("max-url",)))
+    write(original, message(msg_id=2, image_source="tguserbot", image_refs=("opaque-image",)))
     job = image_queue.claim("tgbot")
     before = row(db)
     assert image_queue.discard(job)
@@ -346,7 +365,7 @@ def test_discard_cancels_claim_without_writing_ocr_or_requeueing_replay(db):
     assert image_queue.finish(job, "Late text") is False
     write(original)
     assert image_queue.claim("tgbot") is None
-    assert image_queue.claim("maxbot") is not None
+    assert image_queue.claim("tguserbot") is not None
 
 
 def test_unversioned_snapshot_cannot_remove_previously_edited_image(db):
@@ -363,7 +382,7 @@ def test_unversioned_snapshot_cannot_remove_previously_edited_image(db):
     assert image_queue.finish(job, "Current text") is True
 
 
-@pytest.mark.parametrize("source", ["tgbot", "maxbot"])
+@pytest.mark.parametrize("source", ["tgbot", "tguserbot"])
 @pytest.mark.parametrize("completed", [False, True])
 def test_excluded_edit_deletes_row_and_ocr_but_keeps_live_worker_lease(db, monkeypatch, source, completed):
     import asyncio
@@ -414,7 +433,7 @@ def test_excluded_edit_only_deletes_matching_row_unless_newer_is_known(db, edit_
     assert image_queue.finish(job, "Current OCR") is not deleted
 
 
-@pytest.mark.parametrize("source", ["tgbot", "maxbot"])
+@pytest.mark.parametrize("source", ["tgbot", "tguserbot"])
 def test_exclusion_before_original_write_survives_replay(db, source):
     original = message(image_source=source, image_refs=("old-image",))
     # No chat/message row exists yet; the exclusion must still be durable.
@@ -425,9 +444,9 @@ def test_exclusion_before_original_write_survives_replay(db, source):
     assert row(db, "embedding_queue") is None
 
 
-@pytest.mark.parametrize("source", ["tgbot", "maxbot"])
+@pytest.mark.parametrize("source", ["tgbot", "tguserbot"])
 def test_newer_correction_reenters_but_stale_and_unknown_snapshots_do_not(db, source):
-    assert "observed_at" in store.Message.__dataclass_fields__, "MAX needs trusted pre-await observation ordering"
+    assert "observed_at" in store.Message.__dataclass_fields__, "Snapshots need trusted pre-await observation ordering"
     t0 = datetime(2026, 1, 1, tzinfo=timezone.utc)
     t1, t2, t3 = (t0 + timedelta(seconds=i) for i in (1, 2, 3))
     original = message(image_source=source, image_refs=("original",), observed_at=t0,
@@ -451,7 +470,7 @@ def test_newer_correction_reenters_but_stale_and_unknown_snapshots_do_not(db, so
     assert stored["image_refs"] == ["corrected"]
     for key in ("date", "topic_id", "sender_id", "reply_to", "link", "sender_link"):
         assert stored[key] == getattr(original, key), key
-    assert stored["edit_date"] == corrected.edit_date  # MAX creation time is never an edit version.
+    assert stored["edit_date"] == corrected.edit_date
     # A delayed exclusion, old preparation and unknown freshness cannot undo reentry.
     store.delete_message(100, 1, edit_date=t1 if source == "tgbot" else None, observed_at=t1)
     write(original)
@@ -465,54 +484,41 @@ def test_newer_correction_reenters_but_stale_and_unknown_snapshots_do_not(db, so
 @pytest.mark.parametrize("pause", ["request", "page-preparation"])
 def test_max_history_read_cannot_overwrite_later_live_edits(db, monkeypatch, pause):
     import asyncio
-    import contextlib
-    from types import SimpleNamespace as NS
-    from unittest.mock import AsyncMock
-    from catix.ingest import writer, publish
-    from catix.maxbot import bot
-    from tests.test_chat_image_clients import max_message, MAX_IMAGE
+    from catix.maxuserbot import state
 
-    ingest = writer.Writer()
-    monkeypatch.setattr(bot, "writer", ingest)
-    monkeypatch.setattr(bot, "_load_history", lambda *args: None)
-    monkeypatch.setattr(publish, "publish", AsyncMock())
+    chat_id = seed_max_source(db, text="Original caption")
+    with db() as conn:
+        conn.execute("UPDATE max_sources SET history_status='pending',history_before_ms=%s,history_started_at=now() WHERE chat_id=%s",
+                     (int(datetime.now(timezone.utc).timestamp()*1000)+1, chat_id))
+    job = state.next_history("full")
+    assert job is not None and job["chat_id"] == chat_id
 
     async def run():
         ready, release = asyncio.Event(), asyncio.Event()
-        old = max_message("Old history", [MAX_IMAGE])
-        first = max_message("Page first", [MAX_IMAGE])
-        first["body"]["seq"] = 6
-        async def call(*args, **kwargs):
+        async def history():
             if pause == "request":
                 ready.set()
                 await release.wait()
-            return {"messages": [first, old]}
-        async def chat(*args):
-            if pause == "page-preparation" and not ready.is_set():
+            snapshots = [native_snapshot("Page first", msg_id=6), native_snapshot("Old history")]
+            if pause == "page-preparation":
                 ready.set()
                 await release.wait()
-            return {"title": "Study"}
-        client = NS(call=call, chat=chat)
-        writing = asyncio.create_task(ingest.run())
-        history = asyncio.create_task(bot.backfill(client, 42))
-        try:
-            await asyncio.wait_for(ready.wait(), 2)
-            for text in ("/ask indexed like any message", "Correction"):
-                await bot._handle(client, {"update_type": "message_edited",
-                                           "message": max_message(text, [MAX_IMAGE])})
-                await ingest.wait_idle()
-                assert row(db, msg_id=7)["image_caption"] == text
-            release.set()
-            await history
-            await ingest.wait_idle()
-            assert row(db, msg_id=7)["image_caption"] == "Correction"
-            assert row(db, msg_id=6)["image_caption"] == "Page first"  # History still ingests other rows.
-        finally:
-            release.set()
-            await history
-            writing.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await writing
+            state.apply_history_page(job, snapshots)
+        reading = asyncio.create_task(history())
+        await asyncio.wait_for(ready.wait(), 2)
+        for ordinal, text in enumerate(("/ask indexed like any message", "Correction"), 1):
+            observation = datetime.now(timezone.utc)
+            state.receive_event({"kind": "message", "raw_chat_id": 42, "message_ids": [7]},
+                                observed_at=observation, event_key=f"live-{ordinal}")
+            event = state.next_event()
+            state.begin_fetch(event["id"], observation)
+            state.save_fetched(event["id"], native_snapshot(text))
+            state.apply_event(event["id"])
+            assert row(db, msg_id=7)["image_caption"] == text
+        release.set()
+        await reading
+        assert row(db, msg_id=7)["image_caption"] == "Correction"
+        assert row(db, msg_id=6)["image_caption"] == "Page first"
     asyncio.run(run())
 
 
@@ -663,7 +669,7 @@ def test_text_deduplication_does_not_merge_different_images_with_same_caption(db
     assert row(db, msg_id=3) is None and row(db, msg_id=4) is not None
 
 
-@pytest.mark.parametrize("source", ["tguserbot", "tgbot", "maxbot"])
+@pytest.mark.parametrize("source", ["tguserbot", "tgbot"])
 def test_writer_to_ocr_to_real_bm25_and_embedding_queue(db, monkeypatch, source):
     """Real storage/index and HTTP decoding; only the messenger bytes/model reply are synthetic."""
     import asyncio
@@ -709,3 +715,108 @@ def test_writer_to_ocr_to_real_bm25_and_embedding_queue(db, monkeypatch, source)
     assert row(db, "embedding_queue")["message_id"] == stored["id"]
     assert stored["id"] in store._bm25("робототехника", [100], None, None)
     assert store._bm25("робототехника", [999], None, None) == []
+
+
+def test_maxuserbot_claim_captures_native_identity_generation_and_caption(db):
+    from catix.ingest import image_queue
+    chat_id = seed_max_source(db)
+    job = image_queue.claim("maxuserbot")
+    assert job is not None
+    assert {key: job[key] for key in ("chat_id", "raw_chat_id", "msg_id", "generation", "image_source", "image_caption", "refs")} == {
+        "chat_id": chat_id, "raw_chat_id": 42, "msg_id": 7, "generation": 4,
+        "image_source": "maxuserbot", "image_caption": "Original caption", "refs": ["photo:11"],
+    }
+
+
+@pytest.mark.parametrize("change", ["off", "revoke", "reenable"])
+def test_maxuserbot_finish_rechecks_access_and_generation(db, change):
+    from catix.ingest import image_queue
+    chat_id = seed_max_source(db)
+    job = image_queue.claim("maxuserbot")
+    with db() as conn:
+        conn.execute("DELETE FROM max_publish_queue")
+        if change == "off":
+            conn.execute("UPDATE max_sources SET enabled=false,generation=generation+1 WHERE chat_id=%s", (chat_id,))
+        elif change == "revoke":
+            conn.execute("UPDATE max_sources SET access='removed',generation=generation+1 WHERE chat_id=%s", (chat_id,))
+        else:
+            conn.execute("UPDATE max_sources SET enabled=false,generation=generation+1 WHERE chat_id=%s", (chat_id,))
+            conn.execute("UPDATE max_sources SET enabled=true,generation=generation+1 WHERE chat_id=%s", (chat_id,))
+    assert not image_queue.finish(job, "Stale OCR")
+    assert row(db, msg_id=7)["image_text"] is None
+    assert row(db, "max_publish_queue") is None
+    assert row(db, "image_queue_lease")["token"] is None
+
+
+def test_maxuserbot_ocr_finish_enqueues_publication_atomically(db):
+    from catix.ingest import image_queue
+    chat_id = seed_max_source(db)
+    job = image_queue.claim("maxuserbot")
+    with db() as conn:
+        conn.execute("DELETE FROM max_publish_queue")
+        conn.execute("DELETE FROM embedding_queue")
+    assert image_queue.finish(job, "Native OCR")
+    stored = row(db, msg_id=7)
+    assert stored["image_text"] == "Native OCR"
+    assert stored["text"] == "Original caption\n\n[image text, OCR]\nNative OCR"
+    publication = row(db, "max_publish_queue")
+    assert (publication["chat_id"], publication["msg_id"]) == (chat_id, 7)
+    assert row(db, "embedding_queue")["message_id"] == stored["id"]
+    assert not image_queue.finish(job, "Duplicate")
+    with db() as conn:
+        assert conn.execute("SELECT count(*) AS n FROM max_publish_queue").fetchone()["n"] == 1
+
+
+def test_maxuserbot_ocr_outbox_failure_rolls_back_text_claim_and_lease(db, monkeypatch):
+    from contextlib import contextmanager
+    from catix.ingest import image_queue
+    seed_max_source(db)
+    job = image_queue.claim("maxuserbot")
+    with db() as conn:
+        conn.execute("DELETE FROM max_publish_queue")
+    class RejectPublication:
+        def __init__(self, connection):
+            self.connection = connection
+        def execute(self, sql, params=None):
+            if sql.startswith("INSERT INTO max_publish_queue"):
+                raise RuntimeError("publication unavailable")
+            return self.connection.execute(sql, params)
+    @contextmanager
+    def failing_connection():
+        with db() as conn:
+            yield RejectPublication(conn)
+    monkeypatch.setattr(pg, "connection", failing_connection)
+    with pytest.raises(RuntimeError, match="publication unavailable"):
+        image_queue.finish(job, "Must roll back")
+    assert row(db, msg_id=7)["image_text"] is None
+    assert row(db, "image_queue")["token"] == job["token"]
+    assert row(db, "image_queue_lease")["token"] == job["token"]
+
+
+@pytest.mark.parametrize("operation", ["claim", "finish"])
+def test_maxuserbot_ocr_waits_for_source_lock_before_locking_queue(db, operation):
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
+    from catix.ingest import image_queue
+    chat_id = seed_max_source(db)
+    job = image_queue.claim("maxuserbot") if operation == "finish" else None
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        with db() as source:
+            source.execute("SELECT chat_id FROM max_sources WHERE chat_id=%s FOR UPDATE", (chat_id,))
+            future = pool.submit(image_queue.finish, job, "OCR") if job else pool.submit(image_queue.claim, "maxuserbot")
+            with pytest.raises(FutureTimeout):
+                future.result(timeout=0.1)
+            # This is the ingest lock order; the blocked OCR operation must not own q.
+            source.execute("SET LOCAL lock_timeout='1s'")
+            source.execute("SELECT id FROM messages WHERE chat_id=%s FOR UPDATE", (chat_id,))
+            source.execute("SELECT q.message_id FROM image_queue q JOIN messages m ON m.id=q.message_id WHERE m.chat_id=%s FOR UPDATE OF q", (chat_id,))
+        result = future.result(timeout=3)
+    assert result
+
+
+def test_maxuserbot_claim_leaves_disabled_source_queue_unclaimed(db):
+    from catix.ingest import image_queue
+    chat_id = seed_max_source(db)
+    with db() as conn:
+        conn.execute("UPDATE max_sources SET enabled=false WHERE chat_id=%s", (chat_id,))
+    assert image_queue.claim("maxuserbot") is None
+    assert row(db, "image_queue")["status"] == "pending"

@@ -21,11 +21,6 @@ class ChatRow:
     bot_member: bool
 
 
-@dataclass(frozen=True, slots=True)
-class ChatGroup:
-    chat_id: int
-    title: str
-    group_code: str
 
 
 @dataclass(frozen=True, slots=True)

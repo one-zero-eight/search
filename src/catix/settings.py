@@ -127,11 +127,8 @@ class Settings(BaseSettings):
     # (adding it is the admins' consent) and answers in DMs, on @mention, reply or /ask.
     tg_bot_token: SecretStr | None = None
 
-    # Max messenger bot (https://dev.max.ru): token from the "MAX для бизнеса" bot. The Max API is served with a
-    # certificate of the Russian Ministry of Digital Development, which is not in the usual CA lists: the root
-    # certificate (https://gu-st.ru/content/lending/russian_trusted_root_ca_pem.crt) is added to the trusted ones.
-    max_bot_token: SecretStr | None = None
-    max_root_ca: Path = Path("data/russian_root_ca.crt")
+    # User-account session; independent of Telegram and never included in backups.
+    max_session: Path = Path("data/max/account.db")
 
     # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. Each goes to the users
     # of the chat's group, who put it in their own calendar or not.

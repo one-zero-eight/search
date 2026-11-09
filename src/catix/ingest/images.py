@@ -134,6 +134,24 @@ async def transcribe(data: bytes) -> str:
     return result["text"].strip()
 
 
+async def database_call(function, *args, **kwargs):
+    """Cancellation must not outlive a SQL thread when the worker closes its DB pool."""
+    operation = asyncio.create_task(asyncio.to_thread(function, *args, **kwargs))
+    try:
+        return await asyncio.shield(operation)
+    except asyncio.CancelledError:
+        while not operation.done():
+            try:
+                await asyncio.shield(operation)
+            except asyncio.CancelledError:
+                continue
+            except Exception:
+                break
+        if not operation.cancelled():
+            operation.exception()
+        raise
+
+
 async def process(job: dict, download: Callable[[dict, str], Awaitable[bytes]],
                   allowed: Callable[[dict], Awaitable[bool]] | None = None) -> bool:
     """Complete only this version/claim; a failed or incomplete reading never becomes indexed text."""
@@ -142,7 +160,7 @@ async def process(job: dict, download: Callable[[dict, str], Awaitable[bytes]],
     try:
         async with asyncio.timeout(JOB_TIMEOUT):
             if allowed is not None and not await allowed(job):
-                await asyncio.to_thread(image_queue.discard, job)
+                await database_call(image_queue.discard, job)
                 return False
             refs = job["refs"]
             if not 1 <= len(refs) <= MAX_IMAGES:
@@ -156,15 +174,15 @@ async def process(job: dict, download: Callable[[dict, str], Awaitable[bytes]],
             if len(text) > MAX_TEXT:
                 raise ValueError("OCR text limit")
             if allowed is not None and not await allowed(job):
-                await asyncio.to_thread(image_queue.discard, job)
+                await database_call(image_queue.discard, job)
                 return False
-            stored = await asyncio.to_thread(image_queue.finish, job, text)
+            stored = await database_call(image_queue.finish, job, text)
     except Exception:
         # Download exceptions may contain bot tokens, signed URLs or private message contents.
         log.warning("image OCR failed for message %s; recording bounded retry", job["message_id"])
-        await asyncio.to_thread(image_queue.fail, job)
+        await database_call(image_queue.fail, job)
         return False
-    if stored:
+    if stored and job.get("image_source") != "maxuserbot":
         # The database embedding trigger is authoritative even when the optional Redis stream is unavailable.
         try:
             await publish.publish([(job["chat_id"], job["msg_id"])])
@@ -180,7 +198,7 @@ async def run(source: str, download: Callable[[dict, str], Awaitable[bytes]],
 
     while True:
         try:
-            job = await asyncio.to_thread(image_queue.claim, source)
+            job = await database_call(image_queue.claim, source)
             if job is not None:
                 await process(job, download, allowed)
                 continue

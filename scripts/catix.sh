@@ -3,18 +3,20 @@
 #   scripts/catix.sh up [--tunnel]   docker (db, redis) -> schema -> SSH tunnel to the GPU server -> model check -> apps
 #   scripts/catix.sh down            stops the apps (docker and the SSH tunnel stay)
 #   scripts/catix.sh status          what runs and what answers
-#   scripts/catix.sh logs [app]      follows a log (mcp, tgbot, maxbot, worker, api, tguserbot; default: all)
+#   scripts/catix.sh logs [app]      follows a log (mcp, tgbot, maxuserbot, worker, api, tguserbot; default: all)
 # --tunnel also starts a `tuna` tunnel (tuna.am) to the HTTP API (catix-api, API_PORT) for the calendar
 # (https://<address>/users/my-calendar.ics) and prints the address.
 # TUNA_SUBDOMAIN (environment or .env) pins the address: your permanent free domain, shown by tuna on start, e.g. grand-tundra-5389.
 # The Telegram userbot (reads chats under your own account) starts only after `uv run catix-tguserbot login` was done once.
+# The MAX account listener starts only with an existing MAX_SESSION (operator QR login first).
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 LOGS=data/logs
-APPS=(catix-mcp catix-tgbot catix-maxbot catix-worker catix-api)
+APPS=(catix-mcp catix-tgbot catix-worker catix-api)
 USERBOT=catix-tguserbot
 USERBOT_SESSION=data/telegram.session
+MAX_ACCOUNT=catix-maxuserbot
 GPU_HOST=inh-compute
 mkdir -p "$LOGS"
 
@@ -27,6 +29,7 @@ tunnel_running() { pgrep -f "[t]una http" > /dev/null; }
 tunnel_url() { grep -o 'Forwarding https://[^ ]*' "$LOGS/tunnel.log" 2> /dev/null | tail -1 | cut -d' ' -f2 || true; }
 tuna_subdomain() { echo "${TUNA_SUBDOMAIN:-$(grep -E '^TUNA_SUBDOMAIN=' .env 2> /dev/null | cut -d= -f2- | tr -d "\"'")}"; }
 api_port() { local port="${API_PORT:-$(grep -E '^API_PORT=' .env 2> /dev/null | cut -d= -f2- | tr -d "\"'")}"; echo "${port:-8000}"; }
+max_account_session() { uv run --quiet python -c 'from catix.settings import settings; print(settings.max_session)'; }
 
 check_models() {
   local failed=0
@@ -82,6 +85,13 @@ up() {
   else
     echo "  $USERBOT skipped: no Telegram session yet (uv run catix-tguserbot login)"
   fi
+  local max_session
+  max_session=$(max_account_session)
+  if [ -f "$max_session" ]; then
+    start_app "$MAX_ACCOUNT" listen
+  else
+    echo "  $MAX_ACCOUNT skipped: no MAX session yet (uv run catix-maxuserbot login)"
+  fi
 
   if [ "${1:-}" = "--tunnel" ]; then
     if tunnel_running; then
@@ -104,7 +114,7 @@ up() {
 
 down() {
   # Stop callers before their MCP dependency.
-  for app in "${APPS[@]:1}" "$USERBOT" catix-mcp; do
+  for app in "${APPS[@]:1}" "$USERBOT" "$MAX_ACCOUNT" catix-mcp; do
     if running "$app"; then pkill -f "[b]in/$app( |\$)" && ok "$app stopped"; else echo "  $app not running"; fi
   done
 }
@@ -116,12 +126,15 @@ status() {
   for app in "${APPS[@]}"; do if running "$app"; then ok "$app"; else bad "$app is not running"; fi; done
   if [ "$(health 8010)" = 200 ]; then ok "MCP HTTP (localhost:8010)"; else bad "MCP HTTP (localhost:8010) does not answer"; fi
   if running "$USERBOT"; then ok "$USERBOT"; elif [ -f "$USERBOT_SESSION" ]; then bad "$USERBOT is not running"; else echo "  $USERBOT: no session yet (login first)"; fi
+  local max_session
+  max_session=$(max_account_session)
+  if running "$MAX_ACCOUNT"; then ok "$MAX_ACCOUNT"; elif [ -f "$max_session" ]; then bad "$MAX_ACCOUNT is not running"; else echo "  $MAX_ACCOUNT: no session yet (uv run catix-maxuserbot login)"; fi
   if tunnel_running; then ok "tuna: $(tunnel_url)"; else echo "  tuna not running (only needed for the calendar from outside: up --tunnel)"; fi
   echo "database:"; uv run --quiet catix-db status 2>&1 | grep -v WARNING | sed 's/^/  /' | head -8
 }
 
 logs() {
-  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{mcp,tgbot,maxbot,worker,api,tguserbot}.log 2> /dev/null; fi
+  if [ -n "${1:-}" ]; then tail -f "$LOGS/$1.log"; else tail -f "$LOGS"/{mcp,tgbot,maxuserbot,worker,api,tguserbot}.log 2> /dev/null; fi
 }
 
 case "${1:-}" in

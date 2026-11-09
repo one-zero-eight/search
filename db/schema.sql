@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS chats (
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS group_code text NOT NULL DEFAULT 'all';  -- tables created before this column existed
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS requires_verified_group boolean NOT NULL DEFAULT false;
+ALTER TABLE chats ADD COLUMN IF NOT EXISTS max_legacy_archived boolean NOT NULL DEFAULT false;
 -- An admin marks a chat as official (catix/official.py): only its messages may be called official in an answer.
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS official boolean NOT NULL DEFAULT false;
 
@@ -23,6 +24,112 @@ CREATE TABLE IF NOT EXISTS user_groups (
     group_code text NOT NULL
 );
 ALTER TABLE chats ADD COLUMN IF NOT EXISTS link text;  -- tables created before this column existed
+
+-- The never-deployed Bot API state may only be replaced when every MAX state table is empty.
+-- A DO block is one transaction: any failed guard leaves all state and indexed history untouched.
+DO $$
+DECLARE
+    table_name text;
+    occupied boolean;
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.columns c
+               WHERE c.table_schema = 'public' AND c.table_name = 'max_sources' AND c.column_name = 'membership_event_ms')
+       OR to_regclass('public.max_message_ids') IS NOT NULL THEN
+        FOREACH table_name IN ARRAY ARRAY['max_sources', 'max_inbox', 'max_message_ids',
+                                          'max_message_state', 'max_publish_queue', 'max_account'] LOOP
+            IF to_regclass('public.' || table_name) IS NOT NULL THEN
+                EXECUTE format('LOCK TABLE public.%I IN ACCESS EXCLUSIVE MODE', table_name);
+                EXECUTE format('SELECT EXISTS (SELECT 1 FROM public.%I)', table_name) INTO occupied;
+                IF occupied THEN
+                    RAISE EXCEPTION 'MAX userbot schema requires empty old MAX state tables; public.% contains data', table_name;
+                END IF;
+            END IF;
+        END LOOP;
+        DROP TABLE IF EXISTS public.max_inbox;
+        DROP TABLE IF EXISTS public.max_message_ids;
+        DROP TABLE IF EXISTS public.max_message_state;
+        DROP TABLE IF EXISTS public.max_publish_queue;
+        DROP TABLE IF EXISTS public.max_sources;
+        DROP TABLE IF EXISTS public.max_account;
+    END IF;
+END
+$$;
+
+-- MAX is an explicitly enabled source, independent of Telegram reader selection.
+CREATE TABLE IF NOT EXISTS max_sources (
+    chat_id bigint PRIMARY KEY REFERENCES chats(chat_id) ON DELETE CASCADE,
+    raw_chat_id bigint UNIQUE NOT NULL,
+    kind text NOT NULL CHECK (kind IN ('chat', 'channel')),
+    enabled boolean NOT NULL DEFAULT false,
+    access text NOT NULL DEFAULT 'unknown' CHECK (access IN ('unknown', 'ready', 'removed', 'no_permission')),
+    generation bigint NOT NULL DEFAULT 0,
+    config_version bigint NOT NULL DEFAULT 0,
+    legacy_chat_id bigint UNIQUE REFERENCES chats(chat_id),
+    metadata_pending boolean NOT NULL DEFAULT true,
+    checked_at timestamptz,
+    last_error text,
+    history_status text NOT NULL DEFAULT 'idle'
+        CHECK (history_status IN ('idle', 'pending', 'running', 'complete', 'failed', 'partial', 'cancelled')),
+    history_before_ms bigint,
+    history_started_at timestamptz,
+    history_last_id bigint,
+    history_available_at timestamptz NOT NULL DEFAULT now(),
+    metadata_available_at timestamptz NOT NULL DEFAULT now()
+);
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS catchup_before_ms bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS catchup_until_ms bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS catchup_after_ms bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS catchup_status text NOT NULL DEFAULT 'idle'
+    CHECK (catchup_status IN ('idle','pending','running','complete','partial','failed','cancelled'));
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS catchup_available_at timestamptz NOT NULL DEFAULT now();
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS sync_watermark_ms bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS deletion_scan_after_id bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS deletion_scan_until_id bigint;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS deletion_scan_pending boolean NOT NULL DEFAULT false;
+ALTER TABLE max_sources ADD COLUMN IF NOT EXISTS deletion_scan_available_at timestamptz NOT NULL DEFAULT now();
+
+CREATE TABLE IF NOT EXISTS max_inbox (
+    id bigserial PRIMARY KEY,
+    event_key text UNIQUE NOT NULL,
+    chat_id bigint NOT NULL REFERENCES max_sources(chat_id) ON DELETE CASCADE,
+    generation bigint NOT NULL,
+    payload jsonb,
+    received_at timestamptz NOT NULL DEFAULT now(),
+    available_at timestamptz NOT NULL DEFAULT now(),
+    attempts integer NOT NULL DEFAULT 0,
+    processed_at timestamptz,
+    error_code text
+);
+CREATE INDEX IF NOT EXISTS max_inbox_available ON max_inbox (available_at, id) WHERE processed_at IS NULL;
+CREATE INDEX IF NOT EXISTS max_inbox_chat_pending ON max_inbox (chat_id, id) WHERE processed_at IS NULL;
+CREATE TABLE IF NOT EXISTS max_message_state (
+    chat_id bigint NOT NULL REFERENCES max_sources(chat_id) ON DELETE CASCADE,
+    msg_id bigint NOT NULL,
+    last_received_at timestamptz NOT NULL,
+    last_live_id bigint,
+    deleted boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (chat_id, msg_id)
+);
+CREATE TABLE IF NOT EXISTS max_publish_queue (
+    id bigserial PRIMARY KEY,
+    chat_id bigint NOT NULL REFERENCES chats(chat_id) ON DELETE CASCADE,
+    msg_id bigint NOT NULL,
+    available_at timestamptz NOT NULL DEFAULT now(),
+    attempts integer NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS max_publish_available ON max_publish_queue (available_at, id);
+
+CREATE TABLE IF NOT EXISTS max_account (
+    singleton boolean PRIMARY KEY CHECK (singleton),
+    account_id bigint,
+    connected_at timestamptz,
+    heartbeat_at timestamptz,
+    catalog_requested boolean NOT NULL DEFAULT true,
+    catalog_status text NOT NULL DEFAULT 'idle'
+        CHECK (catalog_status IN ('idle', 'running', 'complete', 'partial', 'failed')),
+    catalog_error text,
+    catalog_checked_at timestamptz
+);
 
 -- Telegram users the bot may write to first (bot_users.py): Telegram lets a bot message only a person who opened a
 -- private chat with it (/start or any message there). Found schedule changes go to them. blocked_at: the user blocked
@@ -167,8 +274,11 @@ ALTER TABLE message_ingest_state ADD COLUMN IF NOT EXISTS original_metadata json
 
 -- Captions stay separate from derived OCR; messages.text is the searchable combination.
 ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_caption text; -- NULL only for legacy rows (fall back to text)
-ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_source text
-    CHECK (image_source IN ('tguserbot', 'tgbot', 'maxbot'));
+ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_source text;
+ALTER TABLE messages DROP CONSTRAINT IF EXISTS messages_image_source_check;
+-- 'maxbot' remains only for untouched legacy archive rows; no runtime handles its OCR.
+ALTER TABLE messages ADD CONSTRAINT messages_image_source_check
+    CHECK (image_source IN ('tguserbot', 'tgbot', 'maxbot', 'maxuserbot'));
 ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_refs text[] NOT NULL DEFAULT '{}';
 ALTER TABLE messages ADD COLUMN IF NOT EXISTS image_text text; -- NULL = not recognized, '' = recognized without text
 CREATE TABLE IF NOT EXISTS image_queue (
@@ -277,10 +387,10 @@ CREATE SCHEMA IF NOT EXISTS visible;
 
 CREATE OR REPLACE FUNCTION visible.allowed_chats() RETURNS bigint[]
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public, pg_catalog AS $$
-    SELECT CASE WHEN q.backend_pid IS NULL THEN ARRAY[]::bigint[]          -- no context: nothing is visible
-                WHEN q.chat_ids IS NULL THEN (SELECT coalesce(array_agg(chat_id), ARRAY[]::bigint[]) FROM chats)
-                ELSE q.chat_ids END
-    FROM (SELECT 1) AS one LEFT JOIN query_context q ON q.backend_pid = pg_backend_pid()
+    SELECT coalesce(array_agg(c.chat_id), ARRAY[]::bigint[])
+    FROM query_context q JOIN chats c
+      ON q.chat_ids IS NULL OR c.chat_id = ANY(q.chat_ids)
+    WHERE q.backend_pid = pg_backend_pid() AND NOT c.max_legacy_archived
 $$;
 REVOKE ALL ON FUNCTION visible.allowed_chats() FROM PUBLIC;
 -- A view's tables are checked as the view owner, but the functions it calls are checked as the caller.

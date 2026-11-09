@@ -39,7 +39,7 @@ class Outcome:
 
 
 def user_key(telegram_id: int | None) -> str | None:
-    """`tg:<id>` for Telegram users, `max:<id>` for Max users (they come with a negative id, see maxbot), None without a user."""
+    """Telegram key, or a preserved legacy MAX key for negative stored identities; None without a user."""
     if telegram_id is None or telegram_id == 0:
         return None
     return f"tg:{telegram_id}" if telegram_id > 0 else f"max:{-telegram_id}"
