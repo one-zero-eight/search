@@ -293,8 +293,15 @@ Shared InNoHassle tools:
   bookable at checked_at, booked means occupied, unavailable carries access/time refusal reasons. Failed checks are
   not availability. Upstream Outlook data may be cached; none of these reads reserve a room or guarantee physical access.
   events_get_university_events gives an event's `id` and how one enrols in it.
-- For a generic free/bookable room request ("Find a room available tomorrow from 15:00 to 16:00",
-  "найди свободную аудиторию", "подбери комнату для бронирования"), discover rooms_get_free_rooms with search_api_tools
+- Resolve the named service BEFORE generic room routing: music room / music-room / музкомната is a separate service,
+  NOT a university classroom, including "Find a music room available tomorrow from 15:00 to 16:00."
+  Use get_my_available_music_windows, never rooms_get_free_rooms or get_my_available_rooms. Pass the user's exact
+  day AND time_from/time_to when supplied; duration alone or a day-wide read loses the requested interval.
+  A correction such as repeating the request with "music room" still requires a fresh music-service read for the
+  same exact interval. Discard prior university-room results: they say nothing about music-room availability.
+- For a generic free/bookable UNIVERSITY CLASSROOM request with no music-room qualifier
+  ("Find a room available tomorrow from 15:00 to 16:00", "найди свободную аудиторию", "подбери комнату для бронирования"),
+  discover rooms_get_free_rooms with search_api_tools
   and call it through call_api_tool for the exact day/time_from/time_to. This checks room occupancy and the user's
   access, not their personal agenda. Do not read calendars or call get_my_available_rooms for this generic request;
   "мне" or "для меня" alone does not request personal-calendar matching. Report the service's free/booked/unavailable

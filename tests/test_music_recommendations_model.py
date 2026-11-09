@@ -1,12 +1,16 @@
 """Small real-model probes; all account reads are synthetic and writes forbidden."""
+import asyncio
 import json
 import re
+from copy import deepcopy
 
 import pytest
+from fastmcp import Client
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_openai import ChatOpenAI
 
-from catix.agent import core, roles
+from catix.agent import api_tools, core, roles
+from catix.innohassle import mcp_server
 from catix.settings import settings
 from tests.test_music_recommendations import CONTEXT, DAY, services  # noqa: F401 -- shared fixture
 
@@ -118,3 +122,121 @@ def test_model_preserves_exact_music_interval_without_unrelated_class_claims(mon
         assert any(text in lower for text in ("could not", "couldn't", "unable", "unknown", "not verif", "incomplete",
                                                "не удалось", "неполн", "не провер", "не могу", "неизвест"))
         assert not re.search(r"(?:music room|room|музкомната)\s+(?:is\s+)?(?:occupied|booked|занята)", lower)
+
+
+@pytest.mark.model
+@pytest.mark.parametrize("prior_misroute", [False, True], ids=["fresh-session", "recorded-wrong-room-history"])
+def test_model_music_service_session_preserves_exact_interval(monkeypatch, services, prior_misroute):
+    from tests.test_music_recommendations import exact_music, interval
+
+    original = "Find a music room available tomorrow from 15:00 to 16:00."
+    correction = "Find a music room available tomorrow from 15:00 to 16:00. music room"
+    exact_music(services)
+    services["agenda"]["schedule"] = [interval("09:00", "12:10", title="Unrelated morning class")]
+    services["local"] = []
+    discoveries = []
+
+    # Real catalogue ranking/schemas, but every service read is synthetic. Neither
+    # a mistaken classroom route nor any write can reach an upstream service.
+    async def discover(payload):
+        async with mcp_server.adapter() as root, Client(root) as client:
+            return {"tools": (await client.call_tool("search_tools", payload)).data,
+                    "services": (await client.call_tool("service_status", {})).data}
+
+    def service_read(method, payload, token, credentials):
+        assert method == "call_tool" and token == "synthetic-ih" and credentials == {}
+        services["requests"].append(deepcopy(payload))
+        if payload["name"] == "music_get_available_windows":
+            arguments = payload["arguments"]
+            assert {key: arguments.get(key) for key in ("day", "time_from", "time_to")} == {
+                "day": DAY, "time_from": "15:00", "time_to": "16:00"}
+            assert arguments.get("duration_minutes") in {None, 60}
+            assert set(arguments) <= {"day", "time_from", "time_to", "duration_minutes"}
+            return deepcopy(services["music"])
+        assert payload == {"name": "account_get_my_schedule", "arguments": {"date_from": DAY, "date_to": DAY}}, \
+            "Music requests must not call university rooms, unrelated services or mutations"
+        return deepcopy(services["agenda"])
+
+    def request(method, payload, token=None, **credentials):
+        if method == "search_tools":
+            assert token is None and not credentials
+            discoveries.append(deepcopy(payload))
+            return asyncio.run(discover(payload))
+        return service_read(method, payload, token, credentials)
+
+    async def arequest(method, payload, token=None, **credentials):
+        if method == "search_tools":
+            assert token is None and not credentials
+            discoveries.append(deepcopy(payload))
+            return await discover(payload)
+        return service_read(method, payload, token, credentials)
+
+    monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    monkeypatch.setattr(api_tools.mcp_client, "request", arequest)
+    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
+    monkeypatch.setattr(core, "tool_call_token", lambda: None)
+    model = ChatOpenAI(base_url=str(settings.llm_route), api_key="not-needed", model=settings.llm_model,
+                       max_tokens=2000, temperature=0, timeout=60, max_retries=0,
+                       extra_body={"chat_template_kwargs": {"enable_thinking": False}})
+    graph = core.build_agent(model, guardrail=False)
+    config = {"configurable": {"thread_id": f"music-service-session-{prior_misroute}"}}
+
+    def assert_turn(result, offset, occupied):
+        current = result["messages"][offset:]
+        calls = [call for message in current if isinstance(message, AIMessage) for call in message.tool_calls]
+        assert calls
+        assert all(call["name"] in {"search_api_tools", "call_api_tool", "get_my_available_music_windows"} for call in calls)
+        reads = [call for call in calls if call["name"] != "search_api_tools"]
+        assert reads
+        for call in reads:
+            arguments = call["args"]
+            if call["name"] == "call_api_tool":
+                assert arguments["name"] == "music_get_available_windows"
+                arguments = arguments["arguments"]
+            assert arguments["day"] == DAY
+            assert arguments["time_from"] == "15:00" and arguments["time_to"] == "16:00"
+        assert not graph.get_state(config).interrupts
+        assert [item["name"] for item in services["requests"]].count("music_get_available_windows") == 1
+        assert all(item["name"] in {"music_get_available_windows", "account_get_my_schedule"}
+                   for item in services["requests"])
+        payloads = [json.loads(message.content) for message in current if isinstance(message, ToolMessage)
+                    and message.name != "search_api_tools"]
+        assert payloads and all("error" not in payload for payload in payloads)
+        evidence = payloads[-1]
+        if occupied:
+            assert evidence.get("reason") == "room_occupied" or any(
+                item.get("reason") == "room_occupied" for item in evidence.get("excluded", []))
+        else:
+            assert evidence.get("available") or evidence.get("windows")
+        answer = core.final_answer(result["messages"], {}).answer
+        print({"prior_misroute": prior_misroute, "occupied": occupied, "calls": calls, "answer": answer})
+        lower = answer.lower().replace("**", "")
+        assert "15:00" in answer and "16:00" in answer
+        assert not any(text in lower for text in ("09:00", "12:10", "morning class", "meeting room 3.", "classroom 321"))
+        if occupied:
+            assert len(services["requests"]) == 1, "Service refusal must stop before any calendar reads"
+            assert any(text in lower for text in ("occupied", "booked", "not available", "unavailable", "занят", "недоступ"))
+        else:
+            assert any(text in lower for text in ("available", "free", "доступ", "свобод"))
+
+    if prior_misroute:
+        # Reproduce the original failure's service confusion, keeping its exact
+        # English user turns. Old room evidence is deliberately not music evidence.
+        history = [HumanMessage(original), AIMessage("", tool_calls=[{
+            "id": "old-classroom", "name": "call_api_tool", "args": {"name": "rooms_get_free_rooms",
+                "arguments": {"day": DAY, "time_from": "15:00", "time_to": "16:00"}}}]),
+            ToolMessage(json.dumps({"date": DAY, "range": "15:00-16:00", "timezone": "Europe/Moscow",
+                "free": [{"room_id": "3.2", "title": "Meeting Room 3.2"}], "booked": [], "unavailable": []}),
+                name="call_api_tool", tool_call_id="old-classroom"),
+            AIMessage("Meeting Room 3.2 is free and bookable for students. Would you like to book it?")]
+    else:
+        # answer_alone=False keeps the production first-call planner enabled.
+        result = graph.invoke({"messages": [HumanMessage(original)], "answer_alone": False}, config, context=CONTEXT)
+        assert_turn(result, 1, occupied=False)
+        history = []  # The successful first turn is already in the checkpointer.
+
+    services["requests"].clear()
+    exact_music(services, reason="room_occupied")
+    offset = len(history) + 1 if prior_misroute else len(result["messages"]) + 1
+    result = graph.invoke({"messages": [*history, HumanMessage(correction)], "answer_alone": False}, config, context=CONTEXT)
+    assert_turn(result, offset, occupied=True)
