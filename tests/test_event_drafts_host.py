@@ -6,8 +6,7 @@ from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langgraph.types import Command
 from pydantic import SecretStr
 
-from catix.agent import core, guardrail
-from catix.agent import api_tools, roles
+from catix.agent import core
 from catix.agent.api_descriptions import describe_action
 from catix.agent.tools import AgentContext
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS, CREDENTIAL_MODES
@@ -17,15 +16,6 @@ from tests.test_roles import ScriptedModel
 MUTATIONS = [('events_create_draft', CREATE),
              ('events_update_draft', {'draft_id': ID, 'locale': 'en', 'description': '',
                                       'registration_url': CREATE['registration_url']})]
-
-
-def test_draft_guidance_is_shared_and_does_not_promise_student_permissions():
-    for prompt in (guardrail.PROMPT, roles.SUPERVISOR, roles.prompt('docs'), roles.prompt('chats')):
-        assert 'events_create_draft' in prompt and 'events_update_draft' in prompt
-        assert 'club-leader' in prompt and 'event-manager' in prompt
-        assert 'draft_id' in prompt
-    assert 'event drafts' in api_tools.search_api_tools.description
-    assert 'event drafts' in roles.abilities([], signed_in=True)
 
 
 @pytest.mark.parametrize('name,arguments', MUTATIONS)

@@ -1,6 +1,6 @@
 """Repeated attacks: a warning, then a pause.
 
-The guardrail (agent/guardrail.py) stops a message that tries to change the agent's rules or is abuse. One such message
+The guardrail (agent/guardrail.py) stops explicit rule bypasses, harmful requests and unsolicited advertising. One such message
 gets the usual refusal. If the same user keeps trying, the refusals change and in the end the user is paused:
 
 - strikes are counted in a rolling window (ABUSE_WINDOW_HOURS), and only since the last pause;
@@ -25,7 +25,7 @@ from catix.settings import settings
 
 log = logging.getLogger("catix.abuse")
 
-COUNTED = {"prompt_injection", "abuse"}  # the attacks the screen stops; an off-topic task (off_topic) is refused, not counted
+COUNTED = {"prompt_injection", "abuse", "spam"}
 KEEP_DAYS = 30
 PREVIEW_CHARS = 200
 
