@@ -177,11 +177,12 @@ def _history(messages: list) -> list[dict]:
 
 
 async def stream_agent(inputs: dict, config: dict, context: AgentContext, events: asyncio.Queue) -> dict:
-    """Run the agent and return its final state; the tools it runs (`status`) and the answer as it is written (`answer`,
-    the whole text so far) are put to `events` as (name, data). As in the Telegram bot, only the supervisor's last model
-    call is the answer, and the refs of sources that are not numbered yet are hidden."""
+    """Run the agent, queueing statuses and the whole user-facing answer so far.
+    Supervisor chunks and explicitly final helper answer events hide unnumbered source refs;
+    ordinary helper model chunks are never user-facing."""
     state: dict = {"messages": []}
     call_id, call_text, shown, status = None, "", "", CHECKING
+    answer_stream_id: str | None = None
 
     async def show_status(text: str | None) -> None:
         nonlocal status
@@ -197,6 +198,22 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
         elif mode == "custom":
             if isinstance(data, dict):
                 await show_status(STATUS.get(data.get("tool") or ""))
+                answer_stream = data.get("answer_stream")
+                if (not isinstance(answer_stream, dict) or not isinstance(answer_stream.get("id"), str)
+                        or not answer_stream["id"].strip()):
+                    continue
+                if set(answer_stream) == {"id", "reset"} and answer_stream["reset"] is True:
+                    if answer_stream["id"] == answer_stream_id:
+                        answer_stream_id, shown = None, ""
+                        await events.put(("answer", {"text": ""}))
+                elif set(answer_stream) == {"id", "text"} and isinstance(answer_stream["text"], str):
+                    raw_text = answer_stream["text"]
+                    text = partial_text(raw_text)
+                    if text and "<tool_call>" not in raw_text:
+                        answer_stream_id = answer_stream["id"]
+                        if text != shown:
+                            shown = text
+                            await events.put(("answer", {"text": text}))
         else:
             chunk, metadata = data
             if isinstance(chunk, ToolMessage):  # A helper came back: the supervisor now writes the answer.
@@ -214,9 +231,11 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
                 call_id, call_text = chunk.id, ""
             call_text += chunk.text
             text = partial_text(call_text)
-            if text and "<tool_call>" not in call_text and text != shown:
-                shown = text
-                await events.put(("answer", {"text": text}))
+            if text and "<tool_call>" not in call_text:
+                answer_stream_id = None
+                if text != shown:
+                    shown = text
+                    await events.put(("answer", {"text": text}))
     return state
 
 

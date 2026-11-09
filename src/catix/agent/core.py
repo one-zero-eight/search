@@ -5,6 +5,7 @@ import logging
 import re
 import time
 import uuid
+from contextvars import ContextVar
 from datetime import datetime, timedelta
 from typing import Annotated, Iterable
 from urllib.parse import unquote
@@ -25,6 +26,7 @@ from langchain.agents.middleware import (
     ToolErrorMiddleware,
     dynamic_prompt,
 )
+from langchain_core.callbacks import BaseCallbackHandler, CallbackManager
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 from langchain_core.messages.utils import count_tokens_approximately
 from langchain_core.tools import BaseTool, tool
@@ -735,19 +737,27 @@ class PassReportMiddleware(AgentMiddleware):
     """
 
     @staticmethod
-    def _report(request: ModelRequest) -> str | None:
-        context = request.runtime.context if request.runtime else None
+    def _call(messages: list[BaseMessage], context: AgentContext | None) -> dict | None:
+        """The only helper whose report could replace the supervisor's next call."""
         if not settings.agent_pass_report or (context and context.brief):
             return None
-        run = _this_run(request.messages)
+        run = _this_run(messages)
         answers = [m for m in run if isinstance(m, AIMessage)]
         if any(not c["name"].startswith("ask_") for m in answers for c in m.tool_calls):
             return None  # Direct reads and helper reports need synthesis, even after an automatic fallback.
         if answers and any((c.get("id") or "").startswith(FALLBACK_ID) for c in answers[-1].tool_calls):
-            answers = answers[-1:]  # the helper asked first found nothing (FallbackMiddleware): the next one's report is all there is
+            answers = answers[-1:]  # The first helper found nothing; only the fallback's report is needed.
         if len(answers) != 1 or len(calls := answers[0].tool_calls) != 1 or not calls[0]["name"].startswith("ask_"):
             return None
-        result = next((m for m in run if isinstance(m, ToolMessage) and m.tool_call_id == calls[0]["id"]), None)
+        return calls[0]
+
+    @staticmethod
+    def _report(request: ModelRequest) -> str | None:
+        context = request.runtime.context if request.runtime else None
+        call = PassReportMiddleware._call(request.messages, context)
+        if call is None:
+            return None
+        result = next((m for m in _this_run(request.messages) if isinstance(m, ToolMessage) and m.tool_call_id == call["id"]), None)
         report = str(result.content).strip() if result is not None else ""
         if not SOURCED.search(report) or _language(report) != _last_question_language(request):
             return None
@@ -1515,6 +1525,111 @@ class AskArgs(BaseModel):
 NO_REPORT = "The helper could not find an answer. Say that nothing was found and offer to look with other words."
 
 
+class _HelperAnswerStream:
+    """One tool invocation's provisional answer; never kept on a shared model/agent."""
+
+    def __init__(self, runtime: ToolRuntime) -> None:
+        self.runtime = runtime
+        self.id = runtime.tool_call_id
+        self.language = _language(next((str(m.content) for m in reversed(runtime.state["messages"])
+                                        if isinstance(m, HumanMessage)), ""))
+        self.visible = False
+        self.active = True
+
+    def reset(self) -> None:
+        if self.visible:
+            self.runtime.stream_writer({"answer_stream": {"id": self.id, "reset": True}})
+            self.visible = False
+
+
+_HELPER_ANSWER_STREAM: ContextVar[_HelperAnswerStream | None] = ContextVar("helper_answer_stream", default=None)
+
+
+class _HelperAnswerTokens(BaseCallbackHandler):
+    run_inline = True
+
+    def __init__(self, stream: _HelperAnswerStream, messages: list[BaseMessage], refs: set[str]) -> None:
+        self.stream, self.messages, self.refs = stream, messages, refs
+        self.raw, self.sent, self.boundary = "", "", 0
+        self.blocked = False
+
+    def on_llm_new_token(self, token: str, *, chunk=None, **kwargs) -> None:
+        if not self.stream.active or self.blocked or chunk is None:
+            return
+        message = chunk.message
+        if message.tool_calls or getattr(message, "tool_call_chunks", None):
+            self.blocked = True
+            self.stream.reset()
+            return
+        # .text excludes structured reasoning blocks and reasoning_content metadata.
+        self.raw += message.text
+        plain = ANSWER_TAG.sub("", self.raw)
+        if "<" in plain or "[im_" in plain or "[start_" in plain:
+            self.blocked = True  # Tool markup, reasoning tags and incomplete tags stay private.
+            self.stream.reset()
+            return
+        if sum(c.isalpha() for c in plain) < 12:
+            return
+        if _language(plain) != self.stream.language:
+            self.stream.reset()
+            return
+        # Hold the unfinished sentence: neither an unfinished URL nor half an attribution
+        # may escape clean(). Coalesce at sentence boundaries, not on every model token.
+        matches = list(claims.SENTENCES.finditer(plain))
+        end = matches[-1].end() if matches else 0
+        if end <= self.boundary:
+            return
+        self.boundary = end
+        text = clean(self.messages, plain[:end])
+        text = sources.GROUP_RE.sub(
+            lambda match: "".join(f"[{ref}]" for ref in re.findall(r"m\d+", match.group()) if ref in self.refs), text)
+        if text and text != self.sent:
+            self.stream.runtime.stream_writer({"answer_stream": {"id": self.stream.id, "text": text}})
+            self.stream.visible, self.sent = True, text
+
+
+class HelperAnswerStreamMiddleware(AgentMiddleware):
+    """Observe only an already-final, sourced helper call; never shorten its research."""
+
+    @staticmethod
+    def _with(request: ModelRequest):
+        stream = _HELPER_ANSWER_STREAM.get()
+        if stream is None or not stream.active or request.tool_choice != "none":
+            return request, None
+        # State retains the retrieval turn even when a model-only final/repair hint
+        # becomes the last human message in request.messages.
+        messages = request.state["messages"]
+        refs = {ref for m in _this_run(messages) if isinstance(m, ToolMessage) and m.name in RETRIEVAL_TOOLS
+                for ref in RESULT_REF.findall(str(m.content))} & set(request.state.get("sources") or {})
+        if not refs:
+            return request, None
+        callback = _HelperAnswerTokens(stream, messages, refs)
+        callbacks = CallbackManager.configure(inheritable_callbacks=request.model.callbacks, local_callbacks=[callback])
+        model = request.model.model_copy(update={"callbacks": callbacks})
+        return request.override(model=model, model_settings={**request.model_settings, "stream": True}), callback
+
+    @staticmethod
+    def _finish(response, callback) -> None:
+        if callback is None:
+            return
+        last = RunGuardMiddleware._last(response)
+        if (last is None or last.tool_calls or "<tool_call>" in last.text
+                or not SOURCED.search(last.text) or _language(last.text) != callback.stream.language):
+            callback.stream.reset()
+
+    def wrap_model_call(self, request, handler):
+        request, callback = self._with(request)
+        response = handler(request)
+        self._finish(response, callback)
+        return response
+
+    async def awrap_model_call(self, request, handler):
+        request, callback = self._with(request)
+        response = await handler(request)
+        self._finish(response, callback)
+        return response
+
+
 def helper_tools(role: roles.Role) -> list[BaseTool]:
     """The tools of a helper: those of its role, the web search only with its key (web_tools.enabled)."""
     return [t for t in TOOLS if t.name in role.tools and (t.name not in web_tools.NAMES or web_tools.enabled())]
@@ -1554,6 +1669,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             *([HumanInTheLoopMiddleware(approval), ApiPreflightMiddleware()] if approval else []),
             RunGuardMiddleware(role.tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
+            HelperAnswerStreamMiddleware(),  # sees only RunGuard's explicit final no-tools requests
             PriorityMiddleware(),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),
@@ -1567,7 +1683,10 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
     @tool(f"ask_{role.name}", description=role.description, args_schema=AskArgs)
     def ask(question: str, runtime: ToolRuntime[AgentContext]) -> Command:
         out, announced, failed = {}, 0, False
-        # Streamed in "values" mode only to tell the user which tool the helper runs (a "custom" event, tgbot/stream.py).
+        call = PassReportMiddleware._call(runtime.state["messages"], runtime.context)
+        stream = _HelperAnswerStream(runtime) if call and call["id"] == runtime.tool_call_id else None
+        token = _HELPER_ANSWER_STREAM.set(stream)
+        # Values announce helper tools; the scoped final-call callback emits safe answer text.
         try:
             for out in helper.stream(
                 {"messages": [HumanMessage(question)], "sources": runtime.state.get("sources") or {}},
@@ -1580,14 +1699,24 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
                         runtime.stream_writer({"tool": call["name"]})
                 announced = len(out["messages"])
         except GraphBubbleUp:
+            if stream:
+                stream.reset()
             # GraphInterrupt inherits this Exception: consent/control flow must
             # propagate even if an earlier action already produced a receipt.
             raise
         except Exception:
+            if stream:
+                stream.reset()
             if not action_receipt(out.get("messages", [])):
                 raise
             log.warning("%s helper failed after an action result; preserving its receipt", role.name)
             failed = True
+        finally:
+            if stream:
+                if not out or not isinstance(out.get("messages", [None])[-1], AIMessage):
+                    stream.reset()
+                stream.active = False
+            _HELPER_ANSWER_STREAM.reset(token)
         messages = out["messages"]
         report = TOOL_FAILURE_ANSWER if failed else clean(messages, messages[-1].text.strip()) or NO_REPORT
         # Only retrieval tools issue source refs. MCP IDs/text cannot resurrect an old
@@ -1616,6 +1745,11 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
                 report = _action_fallback(runtime.state["messages"], receipts)
             used["action_receipts"] = receipts
         message = ToolMessage(content=report, tool_call_id=runtime.tool_call_id, name=f"ask_{role.name}", artifact=used)
+        if stream:
+            parent = [*runtime.state["messages"], message]
+            request = ModelRequest(model=model, messages=parent, state={"messages": parent}, runtime=runtime)
+            if FallbackMiddleware._next(request) is not None or PassReportMiddleware._report(request) is None:
+                stream.reset()
         return Command(update={"messages": [message], "sources": out.get("sources") or {}})
 
     return ask
