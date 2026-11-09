@@ -249,6 +249,10 @@ PyMax (`maxapi-python` 2.5.0, MIT) закреплён на revision
 history и gap recovery. Timestamp pagination без прогресса даёт partial, а не ложный
 успех. Crash до commit нашего inbox может потерять событие; reconnect не гарантирует
 восстановление всех offline edits/deletes.
+После каждой сохранённой страницы истории `listen` выводит в stdout название/ID
+чата и `+N messages processed` с видом загрузки (`full` или `catchup`). Это число
+обработанных сообщений страницы, не обязательно новых: повторные сообщения и
+обновления тоже учитываются. Вывод доступен через `docker compose logs -f maxuserbot`.
 
 Hermetic-проверки не заменяют live MAX. Реальные QR/2FA, статус доступа ACTIVE,
 доставку, поиск/OCR и визуальную Telegram-проверку оператор проверяет на согласованном

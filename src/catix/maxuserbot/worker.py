@@ -202,7 +202,11 @@ class _Worker:
             if snapshot is not None:
                 snapshots.append(snapshot.to_dict())
         page_job = {**job, "page_size": len(messages), "page_oldest_ms": oldest_ms if oldest_ms is not None else cursor}
-        await _sql(state.apply_history_page, page_job, snapshots)
+        if await _sql(state.apply_history_page, page_job, snapshots):
+            lower = job.get("catchup_after_ms") if job["kind"] == "catchup" else None
+            processed = sum(1 for item in snapshots if lower is None or item["created_ms"] >= lower)
+            chat = job.get("title") or job["raw_chat_id"]
+            print(f"MAX {chat} ({job['raw_chat_id']}): +{processed} messages processed ({job['kind']} history)", flush=True)
 
     async def history(self, client, kind):
         while True:
