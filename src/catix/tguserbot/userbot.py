@@ -6,7 +6,7 @@ Usage:
     catix-tguserbot chats    # list your groups/channels with ids
     catix-tguserbot topics <chat>   # list the topics of a forum chat
     catix-tguserbot sync     # fetch new history of the chats being listened to
-    catix-tguserbot listen   # keep running, store new and edited messages live
+    catix-tguserbot listen   # replay configured history while storing new and edited messages live
 
 What is listened to (chats, and which topics of a forum chat) is set by an admin in the Telegram bot: /listen.
 TG_CHATS and TG_TOPICS from .env are only the starting list: they are copied once, after that the bot decides.
@@ -495,8 +495,8 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
 
 
 async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channel | Chat], backfills: dict[int, asyncio.Task]) -> None:
-    """Keep `entities` equal to the chats chosen in the bot; fetch the history of a chat that was just turned on
-    (or got more topics). Durable source requests also resume unfinished backfills on restart."""
+    """Keep `entities` equal to the chats chosen in the bot; replay the configured history on startup and after
+    storage changes. Durable source requests also resume unfinished backfills on restart."""
     applied: dict | None = None
     last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
     while True:
@@ -521,8 +521,9 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
                         next_applied[chat_id] = applied[chat_id]
                     continue
                 changed = applied is not None and applied.get(chat_id, ...) != fingerprints.get(chat_id)
-                if changed or chat_id in requested_backfills:
+                if applied is None or changed or chat_id in requested_backfills:
                     print(f"Now listening to {utils.get_display_name(entity)}, fetching its history.")
+                    # Window replay must ignore the stored max id: live writes can advance it before history starts.
                     task = asyncio.create_task(_backfill(client, entity, topics))
                     backfills[chat_id] = task
                     task.add_done_callback(lambda done, c=chat_id: backfills.pop(c, None))

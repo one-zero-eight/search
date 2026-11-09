@@ -506,6 +506,10 @@ def prepare_recovery(until_ms: int) -> None:
     with _transaction() as conn:
         sources = conn.execute('SELECT * FROM max_sources WHERE enabled ORDER BY chat_id FOR UPDATE').fetchall()
         for source in sources:
+            # Older enabled sources may never have requested their first archive.
+            # Resume every existing full-history state without resetting its cursor.
+            if source['history_status'] == 'idle':
+                _history_reset(conn, source['chat_id'])
             pending = source['catchup_status'] in {'pending','running','partial','failed'}
             lower = source['catchup_after_ms'] if pending else (
                 source['sync_watermark_ms']-1 if source['sync_watermark_ms'] is not None else None)

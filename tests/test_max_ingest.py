@@ -899,6 +899,54 @@ def test_history_scheduler_rotates_sources_and_does_not_hold_up_live_inbox(db):
     assert again["history_before_ms"] == state.get_source(CHAT_ID)["history_before_ms"]
 
 
+def test_startup_initializes_unrequested_archive_and_indexes_past_messages_once(db):
+    enabled = save(ready_source())
+    disabled = ready_source(raw_id=RAW_CHAT_ID - 1)
+    official.set_official(CHAT_ID, True)
+    with db() as conn:
+        conn.execute("""UPDATE max_sources SET history_status='idle',history_before_ms=NULL,
+                        history_started_at=NULL,history_last_id=NULL WHERE chat_id=%s""", (CHAT_ID,))
+    before = state.get_source(CHAT_ID)
+    upper = enabled["sync_watermark_ms"] + 10000
+    state.prepare_recovery(upper)
+    started = state.get_source(CHAT_ID)
+    assert started["history_status"] == "pending"
+    assert started["history_started_at"] is not None
+    assert started["history_before_ms"] is not None
+    for key in ("enabled", "access", "generation", "config_version", "group_code",
+                "requires_verified_group", "legacy_chat_id", "official"):
+        assert started[key] == before[key]
+    assert state.get_source(disabled["chat_id"]) == disabled
+    job = state.next_history("full")
+    assert job is not None and job["chat_id"] == CHAT_ID
+    page = archive_page(job["history_before_ms"], 730, 1000)
+    assert state.apply_history_page(job, page)
+    cursor = state.get_source(CHAT_ID)["history_before_ms"]
+    state.prepare_recovery(upper + 10000)
+    resumed = state.next_history("full")
+    assert resumed["history_before_ms"] == cursor
+    assert resumed["history_started_at"] == started["history_started_at"]
+    assert state.apply_history_page(resumed, [])
+    assert archived(db, 1099) is not None
+    state.prepare_recovery(upper + 20000)
+    assert state.get_source(CHAT_ID)["history_status"] == "complete"
+    assert state.next_history("full") is None
+
+
+@pytest.mark.parametrize("status", ["pending", "running", "complete", "partial", "failed", "cancelled"])
+def test_startup_preserves_existing_full_history_status_and_durable_cursor(db, status):
+    enabled = save(ready_source())
+    with db() as conn:
+        conn.execute("""UPDATE max_sources SET history_status=%s,history_before_ms=123,
+                        history_last_id=456 WHERE chat_id=%s""", (status, CHAT_ID))
+    before = state.get_source(CHAT_ID)
+    state.prepare_recovery(enabled["sync_watermark_ms"] + 10000)
+    after = state.get_source(CHAT_ID)
+    for key in ("history_status", "history_before_ms", "history_last_id", "history_started_at",
+                "history_available_at", "generation", "config_version"):
+        assert after[key] == before[key]
+
+
 def test_gap_recovery_uses_watermark_and_completes_interval_without_finishing_full_archive(db):
     enabled = save(ready_source())
     full = state.next_history("full")

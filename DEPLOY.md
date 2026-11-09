@@ -15,7 +15,7 @@ cp .env.example .env          # заполнить; пароли: openssl rand -
 docker compose -f docker-compose.prod.yml up -d --build
 docker compose -f docker-compose.prod.yml ps
 ```
-Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `mcp`, `tgbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a); `maxuserbot` и `userbot` — с `--profile`. Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
+Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `wiki` (вики в базу из checkout ветки `wiki`, см. 2a), `mcp`, `tgbot`, `userbot`, `maxuserbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a). Оба userbot включены по умолчанию, без профилей; перед чтением чатов нужен однократный интерактивный вход в соответствующий аккаунт (раздел 4). Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
 
 `mcp` — отдельный HTTP-сервер инструментов. Он собирает каталог при старте, доступен приложениям как `http://mcp:8010/mcp` и не публикует порт наружу. API и боты ждут его `/health`. Подтверждения выполняет клиент cAtIx по списку имён инструментов; сервер проверяет пользовательские credentials и аргументы, но не требует билетов или Redis для согласия. Другой клиент с действительными credentials может вызвать изменение напрямую. Для обновления инструментов перезапускайте также `mcp`; при изменении клиентского списка подтверждений — приложения. Логи: `docker compose -f docker-compose.prod.yml logs -f mcp`. Локально вне Docker сервер запускается командой `uv run catix-mcp` на `127.0.0.1:8010`, а `scripts/catix.sh up` управляет им вместе с приложениями.
 
@@ -168,12 +168,14 @@ docker compose -f docker-compose.prod.yml up -d userbot
    либо `docker compose -f docker-compose.prod.yml run --rm migrate`.
    Сообщения и OCR старого источника не удаляются. Непустые таблицы незавершённой
    Bot API state-схемы блокируют миграцию: не очищайте их автоматически.
-3. В интерактивном TTY выполните QR-вход разрешённым аккаунтом:
+3. В интерактивном TTY выполните QR-вход разрешённым аккаунтом. Compose запускает
+   `maxuserbot` по умолчанию; перед входом остановите listener, чтобы освободить сессию:
 
    ```bash
    uv run catix-maxuserbot login
    # либо в общем томе catix_data (не добавляйте -T):
-   docker compose -f docker-compose.prod.yml --profile maxuserbot run --rm maxuserbot catix-maxuserbot login
+   docker compose -f docker-compose.prod.yml stop maxuserbot
+   docker compose -f docker-compose.prod.yml run --rm maxuserbot catix-maxuserbot login
    ```
 
    QR показывается только в терминале, пароль 2FA вводится через getpass и не хранится.
@@ -181,24 +183,26 @@ docker compose -f docker-compose.prod.yml up -d userbot
    SQLite и sidecars 0600. Она даёт доступ к полному аккаунту: не включайте её в
    backups, логи и артефакты без явного разрешения. `login --replace` удаляет только
    локальную сессию после подтверждения, не завершает другие сеансы MAX.
-4. Проверьте каталог без повторного входа:
+4. Пока listener остановлен, проверьте каталог без повторного входа:
 
    ```bash
    uv run catix-maxuserbot chats
    # либо после Docker login:
-   docker compose -f docker-compose.prod.yml --profile maxuserbot run --rm maxuserbot catix-maxuserbot chats
+   docker compose -f docker-compose.prod.yml run --rm maxuserbot catix-maxuserbot chats
    ```
 
-5. Запустите `listen` и обновлённый Telegram-бот:
+5. Запустите `listen` и обновлённый Telegram-бот (профиль MAX больше не нужен):
 
    ```bash
-   docker compose -f docker-compose.prod.yml --profile maxuserbot up -d maxuserbot tgbot
+   docker compose -f docker-compose.prod.yml up -d maxuserbot tgbot
    # локально: uv run catix-maxuserbot listen (или scripts/catix.sh up)
    ```
 
    Локальный launcher читает только путь сессии через Settings и пропускает MAX,
-   если файла нет. `chats` и `listen` не запускают QR/2FA; при `login_required`
-   оператор останавливает listener и входит вручную. Одновременно сессией владеет
+   если файла нет. Compose сервис не пропускает: без сессии `listen` завершается с
+   `login_required` и перезапускается согласно restart policy. `chats` и `listen`
+   не запускают QR/2FA; при `login_required` оператор останавливает listener и входит
+   вручную, затем снова запускает сервис. Одновременно сессией владеет
    одна команда (flock); daemon также держит отдельный advisory lock Postgres.
 6. В Telegram `/admin` → «Группы и источники» → «MAX» (или `/listen` → MAX)
    обновите каталог, выберите чат/канал и **явно** задайте аудиторию. Для этого пути
@@ -221,7 +225,7 @@ docker compose -f docker-compose.prod.yml up -d userbot
    При таймауте join worker сверяет текущее членство без слепого повторного вступления.
 
    **При обновлении существующей установки перезапустите MAX worker новым кодом**
-   (Compose: `docker compose -f docker-compose.prod.yml --profile maxuserbot up -d --build --force-recreate maxuserbot`).
+   (Compose: `docker compose -f docker-compose.prod.yml up -d --build --force-recreate maxuserbot`).
    Уже одобренные заявки будут обработаны из очереди; ручная правка БД не нужна.
    Этот порядок не означает, что реальное вступление в живой MAX уже проверено.
 
@@ -234,10 +238,17 @@ webhook, scraping браузера или изменение production `.env` �
 PyMax (`maxapi-python` 2.5.0, MIT) закреплён на revision
 `c4cb917d354a1179be625925530d72c8aaa969ff`. API неофициальный: возможны изменения
 протокола и блокировка аккаунта. При enable/re-enable загружается вся история,
-доступная аккаунту через API, без возрастного ограничения; обычный restart продолжает
-cursor. UI отдельно показывает full history и gap recovery. Timestamp pagination без
-прогресса даёт partial, а не ложный успех. Crash до commit нашего inbox может потерять
-событие; reconnect не гарантирует восстановление всех offline edits/deletes.
+доступная аккаунту через API, без возрастного ограничения. При старте `listen`
+для уже включённых источников с ещё не запрошенной историей запускается первая
+полная загрузка; незавершённая загрузка продолжается с durable cursor, завершённая
+не переигрывается, а остановленные, partial/failed full history не сбрасываются
+автоматически. Для повторной полной загрузки используйте «Повторить историю».
+Отдельно при каждом подключении восстанавливается разрыв от сохранённого watermark
+(без watermark — вся доступная история). Выключенные источники не подключаются
+автоматически; аудитория и официальность не меняются. UI отдельно показывает full
+history и gap recovery. Timestamp pagination без прогресса даёт partial, а не ложный
+успех. Crash до commit нашего inbox может потерять событие; reconnect не гарантирует
+восстановление всех offline edits/deletes.
 
 Hermetic-проверки не заменяют live MAX. Реальные QR/2FA, статус доступа ACTIVE,
 доставку, поиск/OCR и визуальную Telegram-проверку оператор проверяет на согласованном
