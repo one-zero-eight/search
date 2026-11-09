@@ -27,6 +27,7 @@ from catix.db import store
 from catix.common.render import to_html
 from catix.db.rows import ChatGroup
 from catix.settings import settings
+from catix.maxbot import source_requests
 
 log = logging.getLogger("catix.max")
 
@@ -159,9 +160,12 @@ async def _prepare(max_: Max, message: dict, chat_id: int, *, edited: bool = Fal
     title = chat.get("title") or str(chat_id)
     link = message.get("link") or {}
     reply = (link.get("message") or {}).get("seq") if link.get("type") == "reply" else None
+    chat_link = chat.get("link")
+    if chat_link and chat_link.startswith(("https://max.ru/join/", "max.ru/join/")):
+        chat_link = None
     db_id = db_chat_id(chat_id)
     return (
-        store.ChatInfo(db_id, title, None, via_bot=False, link=chat.get("link")),
+        store.ChatInfo(db_id, title, None, via_bot=False, link=chat_link),
         store.Message(
             chat_id=db_id,
             msg_id=seq,
@@ -193,8 +197,11 @@ def _latest_stored(chat_id: int) -> datetime | None:
         return pg.scalar(conn, "SELECT max(date) FROM messages WHERE chat_id = %s", (db_chat_id(chat_id),))
 
 
-async def backfill(max_: Max, chat_id: int) -> None:
+async def backfill(max_: Max, chat_id: int) -> bool:
     """Load the history of a chat the bot has just met: everything since the newest stored message, or TG_SYNC_DAYS."""
+    chat = await max_.chat(chat_id)
+    if not chat or not await asyncio.to_thread(source_requests.observe, chat):
+        return False
     now = datetime.now(timezone.utc)
     since = await asyncio.to_thread(_latest_stored, chat_id) or now - timedelta(days=settings.tg_sync_days)
     until, total = int(now.timestamp() * 1000), 0
@@ -218,8 +225,9 @@ async def backfill(max_: Max, chat_id: int) -> None:
             until = oldest - 1
     except httpx.HTTPError as e:
         log.warning("history of chat %s could not be loaded: %s", chat_id, e)
-        return
+        return False
     log.info("history of chat %s: %d messages since %s", chat_id, total, since.date())
+    return True
 
 
 SEEN: set[int] = set()  # Chats whose history was requested during this run.
@@ -240,7 +248,9 @@ async def _handle(max_: Max, update: dict) -> None:
     observed_at = datetime.now(timezone.utc)  # Before any preparation/metadata await.
     kind = update["update_type"]
     if kind == "bot_added":
-        _load_history(max_, update["chat_id"])
+        chat = await max_.chat(update["chat_id"])
+        if chat and await asyncio.to_thread(source_requests.observe, chat):
+            _load_history(max_, update["chat_id"])
         return
     if kind == "bot_started":
         await max_.send(update["chat_id"], GREETING)
@@ -265,6 +275,11 @@ async def _handle(max_: Max, update: dict) -> None:
         return
 
     chat_id = recipient["chat_id"]
+    if (message.get("body") or {}).get("seq") is None:
+        return
+    chat = await max_.chat(chat_id)
+    if not chat or not await asyncio.to_thread(source_requests.observe, chat):
+        return
     _load_history(max_, chat_id)
     await _save(max_, message, chat_id, edited=kind == "message_edited", observed_at=observed_at)
 
@@ -302,9 +317,13 @@ async def run() -> None:
     log.info("Running as @%s", me.get("username"))
     writing = asyncio.create_task(writer.run())
     recognizing = asyncio.create_task(images.run("maxbot", _download_image))
+    requests = asyncio.create_task(source_requests.run(max_, backfill))
     try:
         await poll(max_)
     finally:
+        requests.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await requests
         recognizing.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await recognizing

@@ -286,6 +286,10 @@ def maxbot(monkeypatch):
     monkeypatch.setattr(bot.writer, "wait_idle", AsyncMock())
     monkeypatch.setattr(bot.store, "delete_message", Mock())
     monkeypatch.setattr(bot, "_load_history", lambda *args: None)
+    monkeypatch.setattr(bot.source_requests, "observe", lambda chat: True)
+    async def request_worker(*args):
+        await asyncio.Event().wait()
+    monkeypatch.setattr(bot.source_requests, "run", request_worker)
     return bot
 
 
@@ -321,7 +325,7 @@ def test_maxbot_only_actual_image_type_is_ocr_source(maxbot, kind):
 
 
 def test_maxbot_empty_edit_removes_old_ocr(maxbot):
-    client = NS(chat=AsyncMock(return_value={}))
+    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}))
     asyncio.run(maxbot._handle(client, {"update_type": "message_edited", "message": max_message()}))
     row = maxbot.writer.put.await_args.args[1]
     assert row.text == "" and row.image_refs == () and row.edit_date is None
@@ -424,7 +428,7 @@ def test_tgbot_excluded_edit_cannot_delete_outside_listener_or_topic(tgbot, monk
 @pytest.mark.parametrize("kind", ["mention", "ask", "reply"])
 @pytest.mark.parametrize("update_type", ["message_created", "message_edited"])
 def test_maxbot_mentions_commands_and_replies_are_indexed(maxbot, kind, update_type):
-    client = NS(chat=AsyncMock(return_value={}), send=AsyncMock())
+    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}), send=AsyncMock())
     text = {"mention": "@catix explain", "ask": "/ask explain", "reply": "explain"}[kind]
     message = max_message(text, [MAX_IMAGE])
     if kind == "reply":
@@ -485,7 +489,7 @@ def test_maxbot_backfill_conversion_excludes_dialogs(maxbot, text):
 @pytest.mark.parametrize("text", ["/ask explain", "@catix explain"])
 def test_maxbot_backfill_keeps_mentions_and_former_commands(maxbot, monkeypatch, text):
     monkeypatch.setattr(maxbot, "_latest_stored", lambda chat_id: NOW)
-    client = NS(chat=AsyncMock(return_value={}),
+    client = NS(chat=AsyncMock(return_value={"chat_id": 42, "type": "chat", "title": "Study"}),
                 call=AsyncMock(return_value={"messages": [max_message(text, [MAX_IMAGE])]}))
     asyncio.run(maxbot.backfill(client, 42))
     maxbot.writer.put.assert_awaited_once()

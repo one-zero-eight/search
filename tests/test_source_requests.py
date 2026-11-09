@@ -870,6 +870,8 @@ def test_topic_change_during_source_backfill_is_not_lost(db, monkeypatch):
     ("https://t.me/joinchat/AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
     ("t.me/joinchat/AbCdEfGhIjKlMnOp", "https://t.me/+AbCdEfGhIjKlMnOp"),
     ("  t.me/UniversityInnopolis  ", "https://t.me/universityinnopolis"),
+    ("max.ru/UniversityInnopolis", "https://max.ru/UniversityInnopolis"),
+    (" https://max.ru/join/AbCd_123-xyz ", "https://max.ru/join/AbCd_123-xyz"),
 ])
 def test_public_and_private_links_normalize_to_canonical_https(raw, canonical):
     from catix import source_requests as requests
@@ -882,6 +884,11 @@ def test_public_and_private_links_normalize_to_canonical_https(raw, canonical):
     "https://t.me/joinchat", "https://t.me/Share",
     "https://t.me/1abcde", "https://t.me/ab", "https://t.me/user.",
     "https://t.me/%75ser",
+    "http://max.ru/channel", "https://max.ru/join", "https://max.ru/join/",
+    "https://max.ru/channel?x=1", "https://max.ru/channel#x", "https://max.ru/channel/123",
+    "https://max.ru@evil.test/channel", "https://max.ru.evil.test/channel",
+    "https://max.ru/%63hannel", "https://max.ru/канал", "https://max.ru:443/channel",
+    "https://max.ru/" + "a" * 129,
 ])
 def test_source_link_normalizer_rejects_noncanonical_or_reserved_links(raw):
     from catix import source_requests as requests
@@ -1087,3 +1094,110 @@ def test_public_uncertain_join_is_reconciled_without_repeating_write(db):
     assert asyncio.run(worker.process_one(telegram))
     assert requests.get_request(request["id"])["status"] == "connected"
     assert calls.count(JoinChannelRequest) == 1
+
+
+@pytest.mark.parametrize("audience", ["B26", "all"])
+def test_max_api_moderation_membership_and_scoped_activation(db, monkeypatch, audience):
+    import asyncio
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock
+    from fastapi.testclient import TestClient
+    from catix import groups, source_requests as requests
+    from catix.api.app import app
+    from catix.api.auth import UserTokenData, verify_user
+    from catix.maxbot import source_requests as worker
+    from catix.maxbot import bot
+
+    link = "https://max.ru/join/AbCd_private-123"
+    chat = {"chat_id": -456, "type": "chat", "status": "active", "title": "MAX source", "link": link}
+    messenger = SimpleNamespace(chat=AsyncMock(return_value=chat))
+    message = {"recipient": {"chat_id": -456, "chat_type": "chat"}, "sender": {},
+               "timestamp": 1800000000000, "body": {"seq": 1, "text": "Private course announcement"}}
+    monkeypatch.setattr(bot.writer, "put", AsyncMock())
+    monkeypatch.setattr(bot, "_load_history", lambda *args: None)
+    client = TestClient(app)
+    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
+    app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org")
+    try:
+        created = client.post("/sources/requests", json={"invite_link": link, "group_code": audience, "consent": True})
+        assert created.status_code == 201
+        request_id = created.json()["id"]
+        assert worker.observe(chat) is False
+        assert requests.claim() is None
+        assert requests.claim("max") is None
+        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
+        bot.writer.put.assert_not_awaited()
+        assert groups.website_chat_ids([]) == set()
+        assert requests.approve(request_id, 7, audience)
+
+        async def call(method, path):
+            assert method == "GET"
+            if path == "/chats/-456":
+                return chat
+            assert path == "/chats/-456/members/me"
+            return {"is_admin": True, "permissions": ["read_all_messages"]}
+
+        assert asyncio.run(worker.process_one(SimpleNamespace(call=call)))
+        view = client.get("/sources/requests").json()["requests"][0]
+        assert view["status"] == "connected" and view["title"] == "MAX source"
+        assert "invite_link" not in view
+        chat_id = groups.MAX_CHAT_BASE - 456
+        assert groups.website_chat_ids([]) == ({chat_id} if audience == "all" else set())
+        assert chat_id in groups.website_chat_ids(["B26"])
+        assert worker.observe(chat) is True
+        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
+        stored_chat, stored_message = bot.writer.put.await_args.args
+        assert stored_chat.chat_id == chat_id and stored_message.text == "Private course announcement"
+        assert stored_chat.link is None
+        assert requests.backfill_pending() == set()
+        assert requests.backfill_pending("max") == {chat_id}
+        with db() as conn:
+            assert not conn.execute("SELECT 1 FROM userbot_listen").fetchone()
+            assert conn.execute("SELECT link FROM chats WHERE chat_id = %s", (chat_id,)).fetchone()["link"] is None
+            source = conn.execute("SELECT * FROM max_sources WHERE chat_id = %s", (chat_id,)).fetchone()
+            assert source["enabled"] is True and source["history_status"] == "pending"
+        from catix.maxbot import state
+        state.save_configuration(chat_id, audience, enabled=False, expected_version=source["config_version"])
+        bot.writer.put.reset_mock()
+        asyncio.run(bot._handle(messenger, {"update_type": "message_created", "message": message}))
+        bot.writer.put.assert_not_awaited()
+    finally:
+        app.dependency_overrides.pop(verify_user, None)
+
+
+@pytest.mark.parametrize("problem", ["missing", "permission", "link", "audience"])
+def test_max_proposals_never_enable_unconfirmed_or_broaden_existing_sources(db, problem):
+    import asyncio
+    from types import SimpleNamespace
+    from catix import groups, source_requests as requests
+    from catix.maxbot import source_requests as worker
+    from catix.maxbot import state
+
+    link = "https://max.ru/StudyGroup"
+    row = requests.submit("owner", "o@example.org", link, "all", consent=True)
+    assert requests.approve(row["id"], 7, "all")
+    chat = {"chat_id": -456, "type": "chat", "status": "active", "title": "MAX source", "link": link}
+    worker.observe(chat)
+    chat_id = groups.MAX_CHAT_BASE - 456
+    if problem == "audience":
+        with db() as conn:
+            conn.execute("UPDATE max_sources SET access = 'ready' WHERE chat_id = %s", (chat_id,))
+        state.save_configuration(chat_id, "B26", enabled=True, expected_version=0)
+    if problem == "missing":
+        with db() as conn:
+            conn.execute("DELETE FROM chats WHERE chat_id = %s", (chat_id,))
+
+    async def call(method, path):
+        if path == "/chats/-456":
+            return {**chat, "link": "https://max.ru/OtherGroup"} if problem == "link" else chat
+        return {"is_admin": problem != "permission", "permissions": ["read_all_messages"]}
+
+    assert asyncio.run(worker.process_one(SimpleNamespace(call=call)))
+    result = requests.get_request(row["id"])
+    assert result["status"] == ("failed" if problem == "audience" else "approved")
+    assert groups.website_chat_ids([]) == set()
+    source = state.get_source(chat_id)
+    if problem == "audience":
+        assert source["group_code"] == "B26" and source["requires_verified_group"] is True
+    elif source:
+        assert source["enabled"] is False

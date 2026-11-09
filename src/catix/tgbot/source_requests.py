@@ -1,4 +1,4 @@
-"""Private admin moderation of proposed Telegram sources, linked from /listen."""
+"""Private admin moderation of proposed chat sources, linked from /listen."""
 
 import asyncio
 import html
@@ -19,8 +19,8 @@ router = Router()
 REQUEST_ID = re.compile(r"[0-9a-f]{32}")
 PAGE_SIZE = 8
 STATUS = {
-    "pending": "На рассмотрении", "approved": "Заявка одобрена; ожидает userbot",
-    "joining": "Подключается", "waiting_join": "Ожидает вступления в Telegram",
+    "pending": "На рассмотрении", "approved": "Заявка одобрена; ожидает подключения",
+    "joining": "Подключается", "waiting_join": "Ожидает подтверждения доступа к чату",
     "connected": "Источник подключён; история может ещё загружаться",
     "failed": "Не удалось подключить", "rejected": "Отклонена",
 }
@@ -40,7 +40,7 @@ def list_screen(page: int) -> tuple[str, Keyboard]:
     if len(found) > PAGE_SIZE:
         nav.append(_button("▶", f"sr:list:{page + 1}"))
     rows.extend([nav, [_button("← Чаты", "ls:l:keep")]])
-    text = "<b>Заявки на Telegram-чаты</b>\n" + ("Выберите заявку для проверки." if found else "На этой странице заявок нет.")
+    text = "<b>Заявки на чаты</b>\n" + ("Выберите заявку для проверки." if found else "На этой странице заявок нет.")
     return text, rows
 
 
@@ -53,13 +53,13 @@ def request_screen(request: dict) -> tuple[str, Keyboard]:
         "Сообщения увидят все пользователи с подтверждённой принадлежностью к этой учебной группе, не только участники чата."
     )
     text = (
-        f"<b>Заявка на Telegram-чат</b>\n"
+        f"<b>Заявка на чат</b>\n"
         f"От: {html.escape(request['email'])}\n"
         f"Ссылка: {html.escape(request['invite_link'])}\n"
         f"Аудитория: <b>{group}</b>\n"
         f"Статус: {STATUS[request['status']]}\n"
         f"Комментарий: {html.escape(request['comment'][:1000]) or '—'}{'…' if len(request['comment']) > 1000 else ''}\n\n"
-        "Отправитель подтвердил согласие администратора Telegram-чата. "
+        "Отправитель подтвердил согласие администратора чата. "
         f"Перед подключением проверьте это согласие и целевую аудиторию. {visibility}"
     )
     if request.get("message"):
@@ -88,8 +88,10 @@ def review_screen(request: dict) -> tuple[str, Keyboard]:
     text, _ = request_screen(request)
     audience = "всех пользователей cAtIx" if request["group_code"] == groups.ALL else f"группы <b>{html.escape(request['group_code'])}</b>"
     text += (
-        "\n\nПодтверждая, вы проверили согласие администратора Telegram-чата и разрешаете "
-        f"вступление userbot и поиск для {audience}."
+        "\n\nПодтверждая, вы проверили согласие администратора чата и разрешаете "
+        f"подключение источника и поиск для {audience}."
+        + (" Для MAX администратор чата должен добавить бота cAtIx с правом чтения сообщений."
+           if request["invite_link"].startswith("https://max.ru/") else " В Telegram вступает аккаунт userbot.")
     )
     return text, [
         [_button("Согласие проверено — подключить", f"sr:approve:{request_id}")],

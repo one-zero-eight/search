@@ -1,4 +1,4 @@
-"""Durable, moderated Telegram source requests. Never log invitations or exception payloads."""
+"""Durable, moderated chat source requests. Never log invitations or exception payloads."""
 import re
 import uuid
 
@@ -9,6 +9,7 @@ from catix.db import pg
 
 INVITE_RE = re.compile(r"(?:https://)?t\.me/(?:\+|joinchat/)([A-Za-z0-9_-]{16,128})", re.ASCII)
 PUBLIC_RE = re.compile(r"[A-Za-z][A-Za-z0-9_]{3,30}[A-Za-z0-9]", re.ASCII)
+MAX_LINK_RE = re.compile(r"(?:https://)?max\.ru/((?:join/)?[A-Za-z0-9_-]{1,128})", re.ASCII)
 RESERVED_USERNAMES = frozenset({
     "joinchat", "share", "proxy", "socks", "login", "confirmphone", "setlanguage",
     "addstickers", "addemoji", "addtheme", "bg", "invoice", "giftcode", "addlist",
@@ -47,9 +48,12 @@ def public_username(link: str) -> str | None:
 
 
 def normalize_link(link: str) -> str:
-    """Validate the entire submitted link and return canonical HTTPS Telegram URL."""
+    """Validate the entire submitted link and return its canonical HTTPS URL."""
     if isinstance(link, str):
         link = link.strip()
+        if match := MAX_LINK_RE.fullmatch(link):
+            if match[1] != "join":
+                return f"https://max.ru/{match[1]}"
     username = public_username(link)
     if username is not None:
         return f"https://t.me/{username}"
@@ -130,7 +134,9 @@ def reject(id: str, admin_id: int, reason: str) -> bool:
 LEASE_SECONDS = 120  # Worker RPC deadline is shorter; crashes only resume by reconciliation.
 
 
-def claim() -> dict | None:
+def claim(messenger: str = "telegram") -> dict | None:
+    if messenger not in {"telegram", "max"}:
+        raise ValueError("Unknown messenger")
     with pg.connection() as conn:
         lease = conn.execute(
             """SELECT * FROM source_request_lease WHERE singleton AND available_at <= now()
@@ -141,7 +147,9 @@ def claim() -> dict | None:
         job = conn.execute(
             """SELECT * FROM source_requests WHERE status IN ('approved', 'joining', 'waiting_join')
                AND available_at <= now() AND (lease_until IS NULL OR lease_until < now())
+               AND starts_with(invite_link, %s)
                ORDER BY available_at, created_at, id FOR UPDATE SKIP LOCKED LIMIT 1""",
+            ("https://max.ru/" if messenger == "max" else "https://t.me/",),
         ).fetchone()
         if not job:
             return None
@@ -249,9 +257,56 @@ def activate(job: dict, chat_id: int, title: str, username: str | None, forum: b
     return True
 
 
-def backfill_pending() -> set[int]:
+def activate_max(job: dict, chat: dict, membership: dict) -> bool:
+    """Enable only a confirmed MAX bot membership, preserving configured audiences."""
+    from catix.maxbot import state
+
+    if (chat.get("type") not in {"chat", "channel"} or chat.get("status") != "active"
+            or membership.get("is_admin") is not True
+            or "read_all_messages" not in (membership.get("permissions") or [])):
+        return False
+    try:
+        link = normalize_link(chat.get("link"))
+    except ValueError:
+        return False
+    if link != job["invite_link"]:
+        return False
     with pg.connection() as conn:
-        return set(pg.column(conn, "SELECT chat_id FROM source_requests WHERE status = 'connected' AND backfill_pending"))
+        current = _owned(conn, job)
+        if not current:
+            return False
+        source = state._discover(conn, chat["chat_id"], chat["type"])
+        pristine = (not source["enabled"] and source["config_version"] == 0
+                    and source["history_status"] == "idle" and source["group_code"] == groups.ALL
+                    and source["requires_verified_group"])
+        same_audience = (source["group_code"] == current["group_code"]
+                         and source["requires_verified_group"] == (current["group_code"] != groups.ALL))
+        if not pristine and not same_audience:
+            conn.execute("""UPDATE source_requests SET status = 'failed', message = %s,
+                            token = NULL, lease_until = NULL WHERE id = %s""",
+                         ("Chat already configured; manual review required. Existing access was not changed.", job["id"]))
+            _release(conn, job)
+            return False
+        conn.execute("""UPDATE chats SET title = %s, link = %s, group_code = %s, requires_verified_group = %s
+                        WHERE chat_id = %s""",
+                     (chat.get("title") or str(chat["chat_id"]), None if "/join/" in link else link, current["group_code"],
+                      current["group_code"] != groups.ALL, source["chat_id"]))
+        conn.execute("""UPDATE max_sources SET enabled = true, access = 'ready', generation = generation + 1,
+                        config_version = config_version + 1, checked_at = now(), metadata_pending = false,
+                        last_error = NULL WHERE chat_id = %s""", (source["chat_id"],))
+        state._history_reset(conn, source["chat_id"])
+        conn.execute("""UPDATE source_requests SET status = 'connected', title = %s, chat_id = %s,
+                        message = %s, backfill_pending = true, token = NULL, lease_until = NULL WHERE id = %s""",
+                     (chat.get("title"), source["chat_id"], "Source enabled for search; history is being indexed.", job["id"]))
+        _release(conn, job)
+        return True
+
+
+def backfill_pending(messenger: str = "telegram") -> set[int]:
+    with pg.connection() as conn:
+        return set(pg.column(conn, """SELECT chat_id FROM source_requests WHERE status = 'connected' AND backfill_pending
+                            AND starts_with(invite_link, %s)""",
+                             ("https://max.ru/" if messenger == "max" else "https://t.me/",)))
 
 
 def backfill_done(chat_id: int) -> None:
