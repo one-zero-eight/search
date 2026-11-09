@@ -1,4 +1,4 @@
-"""Durable moderated proposals; only Telegram requests join automatically, MAX uses its manual catalog."""
+"""Durable moderated Telegram and MAX source requests with leased join intents."""
 import re
 import uuid
 
@@ -15,21 +15,6 @@ RESERVED_USERNAMES = frozenset({
     "addstickers", "addemoji", "addtheme", "bg", "invoice", "giftcode", "addlist",
     "boost", "contact",
 })
-MAX_MANUAL_MESSAGE = (
-    "MAX proposals are records only. An administrator must separately select the account's source manually "
-    "and confirm its audience in the MAX catalog; approval does not join or enable a chat."
-)
-
-
-def _proposal_view(row: dict | None) -> dict | None:
-    """Preserve recorded statuses without implying current account connectivity."""
-    if row and row["invite_link"].startswith("https://max.ru/") and row["status"] not in {"failed", "rejected"}:
-        row = dict(row)
-        historical = row["status"] in {"joining", "waiting_join", "connected"}
-        row["message"] = (
-            "This is a legacy MAX proposal record, not an active userbot connection. " if historical else ""
-        ) + MAX_MANUAL_MESSAGE
-    return row
 
 
 class RateLimited(ValueError):
@@ -92,35 +77,35 @@ def submit(owner: str, email: str, invite_link: str, group_code: str, comment: s
         if existing:
             if existing["status"] in ("rejected", "failed"):
                 raise ExistingRequest("The existing request was rejected or failed. Contact an administrator or submit a new invitation.")
-            return _proposal_view(existing)
+            return existing
         if pg.scalar(conn, "SELECT count(*) FROM source_requests WHERE owner = %s AND created_at > now() - interval '1 day'", (owner,)) >= 5:
             raise RateLimited("At most five new requests per day")
-        return _proposal_view(conn.execute(
+        return conn.execute(
             """INSERT INTO source_requests (id, owner, email, invite_link, group_code, comment, consented_at)
                VALUES (%s, %s, %s, %s, %s, %s, now())
                ON CONFLICT (owner, invite_link) DO UPDATE SET owner = excluded.owner RETURNING *""",
             (uuid.uuid4().hex, owner, email, link, code, comment),
-        ).fetchone())
+        ).fetchone()
 
 
 def list_owned(owner: str) -> list[dict]:
     with pg.connection() as conn:
-        return [_proposal_view(row) for row in conn.execute(
+        return conn.execute(
             "SELECT * FROM source_requests WHERE owner = %s ORDER BY created_at DESC, id", (owner,),
-        ).fetchall()]
+        ).fetchall()
 
 
 def pending_requests(offset: int = 0, limit: int = 8) -> list[dict]:
     with pg.connection() as conn:
-        return [_proposal_view(row) for row in conn.execute(
+        return conn.execute(
             "SELECT * FROM source_requests WHERE status = 'pending' ORDER BY created_at, id OFFSET %s LIMIT %s",
             (max(0, offset), min(100, max(1, limit))),
-        ).fetchall()]
+        ).fetchall()
 
 
 def get_request(id: str) -> dict | None:
     with pg.connection() as conn:
-        return _proposal_view(conn.execute("SELECT * FROM source_requests WHERE id = %s", (id,)).fetchone())
+        return conn.execute("SELECT * FROM source_requests WHERE id = %s", (id,)).fetchone()
 
 
 def approve(id: str, admin_id: int, group_code: str) -> bool:
@@ -136,9 +121,8 @@ def approve(id: str, admin_id: int, group_code: str) -> bool:
                 raise ValueError("A group-only request cannot be made public without a new public-audience request")
         return conn.execute(
             """UPDATE source_requests SET status = 'approved', group_code = %s, decided_by = %s, decided_at = now(),
-               message = CASE WHEN starts_with(invite_link, 'https://max.ru/') THEN %s ELSE message END
-               WHERE id = %s AND status = 'pending'""",
-            (code, admin_id, MAX_MANUAL_MESSAGE, id),
+               message = NULL WHERE id = %s AND status = 'pending'""",
+            (code, admin_id, id),
         ).rowcount == 1
 
 
@@ -153,8 +137,9 @@ def reject(id: str, admin_id: int, reason: str) -> bool:
 LEASE_SECONDS = 120  # Worker RPC deadline is shorter; crashes only resume by reconciliation.
 
 
-def claim() -> dict | None:
-    """Claim only Telegram work; MAX proposals are records, never automatic account actions."""
+def claim(messenger: str = 'telegram') -> dict | None:
+    """Share the account lease, selecting only the caller's platform queue."""
+    prefix = _platform_prefix(messenger)
     with pg.connection() as conn:
         lease = conn.execute(
             """SELECT * FROM source_request_lease WHERE singleton AND available_at <= now()
@@ -165,8 +150,8 @@ def claim() -> dict | None:
         job = conn.execute(
             """SELECT * FROM source_requests WHERE status IN ('approved', 'joining', 'waiting_join')
                AND available_at <= now() AND (lease_until IS NULL OR lease_until < now())
-               AND starts_with(invite_link, 'https://t.me/')
-               ORDER BY available_at, created_at, id FOR UPDATE SKIP LOCKED LIMIT 1""",
+               AND starts_with(invite_link, %s)
+               ORDER BY available_at, created_at, id FOR UPDATE SKIP LOCKED LIMIT 1""", (prefix,),
         ).fetchone()
         if not job:
             return None
@@ -178,7 +163,14 @@ def claim() -> dict | None:
         ).fetchone()
 
 
+def _platform_prefix(messenger: str) -> str:
+    if messenger not in {'telegram', 'max'}:
+        raise ValueError('invalid_messenger')
+    return 'https://max.ru/' if messenger == 'max' else 'https://t.me/'
+
+
 def _owned(conn, job: dict) -> dict | None:
+    prefix = 'https://max.ru/' if job['invite_link'].startswith('https://max.ru/') else 'https://t.me/'
     lease = conn.execute(
         "SELECT token FROM source_request_lease WHERE singleton AND token = %s AND lease_until > now() FOR UPDATE", (job["token"],),
     ).fetchone()
@@ -186,8 +178,8 @@ def _owned(conn, job: dict) -> dict | None:
         return None
     return conn.execute(
         """SELECT * FROM source_requests WHERE id = %s AND token = %s AND lease_until > now()
-           AND status = 'joining' AND starts_with(invite_link, 'https://t.me/')
-           FOR UPDATE""", (job["id"], job["token"]),
+           AND status = 'joining' AND starts_with(invite_link, %s)
+           FOR UPDATE""", (job["id"], job["token"], prefix),
     ).fetchone()
 
 
@@ -238,6 +230,8 @@ def defer(job: dict, message: str, *, delay: int = 300, failed: bool = False, fl
 
 def activate(job: dict, chat_id: int, title: str, username: str | None, forum: bool) -> bool:
     """Publish access policy and listener choice in ONE transaction, before any messages can be ingested."""
+    if not job['invite_link'].startswith('https://t.me/'):
+        return False
     with pg.connection() as conn:
         current = _owned(conn, job)
         if not current:
@@ -273,6 +267,110 @@ def activate(job: dict, chat_id: int, title: str, username: str | None, forum: b
         _release(conn, job)
     userbot_config._forget()
     return True
+
+
+def _max_link(chat: dict, proposal: str) -> str:
+    """Keep a validated public URL, otherwise the current consented invitation."""
+    link = chat.get('link')
+    if isinstance(link, str):
+        try:
+            link = normalize_link(link)
+        except ValueError:
+            link = None
+        if link and link.startswith('https://max.ru/') and '/join/' not in link:
+            return link
+    return normalize_link(proposal)
+
+
+def _fail_owned(conn, current: dict, message: str) -> None:
+    conn.execute("""UPDATE source_requests SET status='failed',message=%s,token=NULL,lease_until=NULL
+                    WHERE id=%s""", (message, current['id']))
+    _release(conn, current)
+
+
+def remember_max(job: dict, chat: dict) -> dict | None:
+    """Bind native identity under the lease, before any join write; discovery stays off."""
+    from .maxuserbot import state
+    from .maxuserbot.models import db_chat_id
+
+    if not job['invite_link'].startswith('https://max.ru/'):
+        return None
+    chat_id = db_chat_id(chat['raw_chat_id'])
+    if chat.get('kind') not in {'chat', 'channel'}:
+        raise ValueError('invalid_source_kind')
+    with pg.connection() as conn:
+        current = _owned(conn, job)
+        if not current:
+            return None
+        if current['chat_id'] is not None and current['chat_id'] != chat_id:
+            _fail_owned(conn, current, 'MAX source identity changed; manual review required.')
+            return None
+        conn.execute('SELECT chat_id FROM max_sources WHERE chat_id=%s FOR UPDATE', (chat_id,))
+        conn.execute("""INSERT INTO chats(chat_id,title,link,group_code,requires_verified_group)
+                        VALUES(%s,%s,%s,'all',true) ON CONFLICT(chat_id) DO NOTHING""",
+                     (chat_id, chat['title'], _max_link(chat, current['invite_link'])))
+        conn.execute("""INSERT INTO max_sources(chat_id,raw_chat_id,kind) VALUES(%s,%s,%s)
+                        ON CONFLICT(chat_id) DO NOTHING""", (chat_id, chat['raw_chat_id'], chat['kind']))
+        source = conn.execute(state.SOURCE + ' WHERE s.chat_id=%s FOR UPDATE OF s, c', (chat_id,)).fetchone()
+        same_audience = (source['enabled'] and source['group_code'] == current['group_code']
+                         and source['requires_verified_group'] == (current['group_code'] != groups.ALL))
+        if not same_audience and (source['config_version'] != 0 or source['enabled'] or source['legacy_chat_id'] is not None):
+            _fail_owned(conn, current, 'MAX source already configured; manual review required. Existing access was not changed.')
+            return None
+        conn.execute('UPDATE source_requests SET chat_id=%s,title=%s WHERE id=%s',
+                     (chat_id, chat['title'], current['id']))
+        return source
+
+
+def activate_max(job: dict, chat: dict, *, expected_version: int, expected_generation: int, observed_at) -> bool:
+    """Atomically publish MAX audience, full history and connected status after a fresh probe."""
+    from datetime import datetime, timedelta, timezone
+    from .maxuserbot import state
+    from .maxuserbot.models import db_chat_id
+
+    if not job['invite_link'].startswith('https://max.ru/') or chat.get('status') != 'ACTIVE':
+        return False
+    chat_id = db_chat_id(chat['raw_chat_id'])
+    with pg.connection() as conn:
+        current = _owned(conn, job)
+        if not current or current['chat_id'] != chat_id:
+            return False
+        source = conn.execute(state.SOURCE + ' WHERE s.chat_id=%s FOR UPDATE OF s, c', (chat_id,)).fetchone()
+        if not source:
+            return False
+        if source['config_version'] != expected_version or source['generation'] != expected_generation:
+            _fail_owned(conn, current, 'MAX source configuration changed; manual review required. Existing access was not changed.')
+            return False
+        same_audience = (source['enabled'] and source['group_code'] == current['group_code']
+                         and source['requires_verified_group'] == (current['group_code'] != groups.ALL))
+        if not same_audience and (source['config_version'] != 0 or source['enabled'] or source['legacy_chat_id'] is not None):
+            _fail_owned(conn, current, 'MAX source already configured; manual review required. Existing access was not changed.')
+            return False
+        now = datetime.now(timezone.utc)
+        account = conn.execute('SELECT heartbeat_at FROM max_account WHERE singleton').fetchone()
+        if (not account or account['heartbeat_at'] is None or account['heartbeat_at'] < now - timedelta(seconds=60)
+                or observed_at < now - timedelta(seconds=60)
+                or (source['checked_at'] is not None and source['checked_at'] > observed_at and source['access'] != 'ready')):
+            conn.execute("""UPDATE source_requests SET status='waiting_join',message=%s,available_at=now()+interval '1 minute',
+                            token=NULL,lease_until=NULL WHERE id=%s""",
+                         ('Waiting for fresh MAX account access confirmation.', current['id']))
+            _release(conn, current)
+            return False
+        conn.execute('UPDATE chats SET title=%s,link=%s,group_code=%s,requires_verified_group=%s WHERE chat_id=%s',
+                     (chat['title'], _max_link(chat, current['invite_link']), current['group_code'],
+                      current['group_code'] != groups.ALL, chat_id))
+        conn.execute("""UPDATE max_sources SET enabled=true,access='ready',checked_at=%s,last_error=NULL,
+                        metadata_pending=false,kind=%s,generation=generation+%s,config_version=config_version+%s
+                        WHERE chat_id=%s""", (observed_at, chat['kind'], int(not same_audience), int(not same_audience), chat_id))
+        if not same_audience:
+            state._history_reset(conn, chat_id)
+            conn.execute("""UPDATE max_sources SET catchup_status='idle',catchup_before_ms=NULL,catchup_after_ms=NULL,
+                            catchup_until_ms=NULL,sync_watermark_ms=%s WHERE chat_id=%s""", (int(now.timestamp()*1000), chat_id))
+        conn.execute("""UPDATE source_requests SET status='connected',title=%s,message=%s,backfill_pending=false,
+                        token=NULL,lease_until=NULL WHERE id=%s""",
+                     (chat['title'], 'Source enabled for search; all available MAX history is being indexed.', current['id']))
+        _release(conn, current)
+        return True
 
 
 def backfill_pending() -> set[int]:

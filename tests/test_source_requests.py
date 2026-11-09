@@ -88,6 +88,7 @@ def db(source_database, monkeypatch):
         conn.execute("TRUNCATE chats, userbot_listen, userbot_dialogs, user_groups, personal_events, calendar_proposals CASCADE")
         if conn.execute("SELECT to_regclass('source_requests') AS name").fetchone()["name"]:
             conn.execute("TRUNCATE source_requests")
+        conn.execute('TRUNCATE max_account')
         conn.execute("TRUNCATE source_request_join_intents")
         if conn.execute("SELECT to_regclass('source_request_lease') AS name").fetchone()["name"]:
             conn.execute("UPDATE source_request_lease SET token = NULL, lease_until = NULL, available_at = now()")
@@ -1096,130 +1097,103 @@ def test_public_uncertain_join_is_reconciled_without_repeating_write(db):
     assert calls.count(JoinChannelRequest) == 1
 
 
-@pytest.mark.parametrize("audience", ["B26", "all"])
-def test_max_proposal_is_record_only_until_separate_manual_catalog_confirmation(db, monkeypatch, audience):
+@pytest.mark.parametrize('audience', ['B26', 'all'])
+@pytest.mark.parametrize('already_member', [False, True])
+def test_max_approved_request_activates_exact_audience_and_full_history(db, monkeypatch, audience, already_member):
     import asyncio
     from datetime import datetime, timezone
-    from fastapi.testclient import TestClient
-    from catix import groups, source_requests as requests
-    from catix.api.app import app
-    from catix.api.auth import UserTokenData, verify_user
-    from catix.maxuserbot import state
+    from catix import groups, source_requests as queue
+    from catix.maxuserbot import requests as worker, state
     from catix.maxuserbot.models import db_chat_id
-    from catix.tguserbot import source_requests as worker
 
-    link = "https://max.ru/join/AbCd_private-123"
-    raw_id = -456
-    chat_id = db_chat_id(raw_id)
-    state.upsert_catalog([{"raw_chat_id": raw_id, "kind": "chat", "title": "MAX source", "link": None}],
-                         observed_at=datetime.now(timezone.utc))
-    original = state.get_source(chat_id)
-    client = TestClient(app)
-    monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
-    app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org")
-    try:
-        created = client.post("/sources/requests", json={"invite_link": link, "group_code": audience, "consent": True})
-        assert created.status_code == 201
-        request_id = created.json()["id"]
-        assert created.json()["status"] == "pending"
-        assert requests.get_request(request_id) in requests.pending_requests()
-        assert requests.claim() is None
-        assert requests.approve(request_id, 7, audience)
-        assert not requests.approve(request_id, 7, audience)
-        assert state.get_source(chat_id) == original
+    row = queue.submit('max-owner', 'max@example.org', 'https://max.ru/join/private_token', audience, consent=True)
+    assert queue.claim(messenger='max') is None
+    assert queue.approve(row['id'], 7, audience)
+    assert queue.claim() is None
+    state.account_connected(12345)
+    calls = []
 
-        class NoJoin:
-            async def __call__(self, *args, **kwargs):
-                pytest.fail("A MAX proposal must never cause a Telegram join or membership RPC")
+    class Client:
+        member = already_member
 
-        assert asyncio.run(worker.process_one(NoJoin())) is False
-        approved = client.get("/sources/requests").json()["requests"][0]
-        assert approved["status"] == "approved"
-        assert "manual" in approved["message"].lower()
-        assert "does not join or enable" in approved["message"]
-        assert "invite_link" not in approved
-        assert requests.backfill_pending() == set()
-        assert groups.website_chat_ids(["B26"]) == set()
+        async def resolve_link(self, link):
+            calls.append('resolve')
+            return dict(raw_chat_id=-456, title='MAX source', kind='chat', status='ACTIVE', link=None)
 
-        # Discovery and fresh access do not accept the proposal's audience or enable it.
-        with db() as conn:
-            conn.execute("TRUNCATE max_account")
-        state.account_connected(12345)
-        state.apply_access(chat_id, generation=original["generation"], access="ready",
-                           observed_at=datetime.now(timezone.utc))
-        ready = state.get_source(chat_id)
-        assert ready["enabled"] is False and ready["group_code"] == groups.ALL
-        assert ready["requires_verified_group"] is True
-        state.save_configuration(chat_id, "B26", enabled=True,
-                                 expected_version=ready["config_version"], expected_generation=ready["generation"])
-        enabled = state.get_source(chat_id)
-        assert enabled["enabled"] is True and enabled["history_status"] == "pending"
-        assert enabled["group_code"] == "B26" and enabled["requires_verified_group"] is True
-        assert groups.website_chat_ids([]) == set()
-        assert groups.website_chat_ids(["B26"]) == {chat_id}
-        assert requests.get_request(request_id)["status"] == "approved"
-        assert requests.get_request(request_id)["chat_id"] is None
-        assert requests.backfill_pending() == set()
-        with db() as conn:
-            assert not conn.execute("SELECT 1 FROM userbot_listen").fetchone()
-            assert not conn.execute("SELECT 1 FROM userbot_dialogs").fetchone()
-            assert not conn.execute("SELECT 1 FROM source_request_join_intents").fetchone()
-    finally:
-        app.dependency_overrides.pop(verify_user, None)
+        async def chat(self, raw_id):
+            calls.append('chat')
+            return dict(raw_chat_id=raw_id, title='MAX source', kind='chat', status='ACTIVE', link=None) if self.member else {}
 
+        async def history(self, raw_id, before_ms, *, backward):
+            assert backward == 1
+            source = state.get_source(db_chat_id(raw_id))
+            assert source['enabled'] is False
+            calls.append('probe')
+            return [{'discarded': 'probe body'}]
 
-@pytest.mark.parametrize("status", ["approved", "joining", "waiting_join", "connected"])
-def test_max_proposal_records_never_enter_telegram_claims_or_backfills(db, status):
-    from catix import source_requests as requests
+        async def join_link(self, link):
+            calls.append('join')
+            current = queue.get_request(row['id'])
+            assert current['chat_id'] == db_chat_id(-456) and current['join_started_at'] is not None
+            assert state.get_source(current['chat_id'])['enabled'] is False
+            state.receive_event({'kind': 'message', 'raw_chat_id': -456, 'message_ids': [1]},
+                                observed_at=datetime.now(timezone.utc),
+                                event_key='before-activation')
+            self.member = True
+            return await self.resolve_link(link)
 
-    row = requests.submit("max-owner", "max@example.org", "https://max.ru/StudyGroup", "B26", consent=True)
+    assert asyncio.run(worker.process_one(Client()))
+    connected = queue.get_request(row['id'])
+    assert connected['status'] == 'connected' and not connected['backfill_pending']
+    source = state.get_source(db_chat_id(-456))
+    assert source['enabled'] and source['access'] == 'ready' and source['history_status'] == 'pending'
+    assert source['group_code'] == audience and source['requires_verified_group'] == (audience != 'all')
+    assert source['link'] == row['invite_link'] and source['legacy_chat_id'] is None
+    assert calls.count('join') == (0 if already_member else 1)
+    assert groups.website_chat_ids([]) == ({source['chat_id']} if audience == 'all' else set())
+    assert groups.website_chat_ids(['B26']) == {source['chat_id']}
+    assert queue.backfill_pending() == set()
     with db() as conn:
-        conn.execute("UPDATE source_requests SET status=%s, chat_id=%s, backfill_pending=true WHERE id=%s",
-                     (status, 2 * 10**15 - 456, row["id"]))
-    assert requests.claim() is None
-    viewed = requests.get_request(row["id"])
-    assert viewed["status"] == status
-    assert "MAX catalog" in viewed["message"]
-    if status in {"joining", "waiting_join", "connected"}:
-        assert "legacy" in viewed["message"] and "not an active userbot connection" in viewed["message"]
-    assert requests.list_owned("max-owner") == [viewed]
-    assert requests.submit("max-owner", "max@example.org", "https://max.ru/StudyGroup", "B26", consent=True) == viewed
+        assert not conn.execute('SELECT 1 FROM userbot_listen').fetchone()
+        assert not conn.execute('SELECT 1 FROM userbot_dialogs').fetchone()
+        assert not conn.execute('SELECT 1 FROM max_inbox').fetchone()
+        assert not conn.execute('SELECT 1 FROM messages').fetchone()
+
+
+@pytest.mark.parametrize('status', ['approved', 'joining', 'waiting_join', 'connected'])
+def test_max_records_never_enter_telegram_claims_or_backfills(db, status):
+    from catix import source_requests as queue
+    row = queue.submit('max-owner', 'max@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
     with db() as conn:
-        saved = conn.execute("SELECT * FROM source_requests WHERE id=%s", (row["id"],)).fetchone()
-        assert saved["status"] == status and saved["message"] is None
-    assert requests.backfill_pending() == set()
+        conn.execute('UPDATE source_requests SET status=%s,backfill_pending=true WHERE id=%s', (status, row['id']))
+    assert queue.claim() is None and queue.backfill_pending() == set()
     telegram = approved_request()
-    job = requests.claim()
-    assert job["id"] == telegram["id"]
-    assert requests.activate(job, -123, "Telegram source", None, False)
-    assert requests.backfill_pending() == {-123}
-    assert requests.get_request(row["id"])["status"] == status
+    job = queue.claim()
+    assert job['id'] == telegram['id']
+    assert queue.activate(job, -123, 'TG', None, False)
+    assert queue.get_request(row['id'])['status'] == status
 
 
-def test_stale_max_lease_cannot_join_activate_or_change_a_proposal(db):
-    from catix import source_requests as requests
-
-    row = requests.submit("owner", "o@example.org", "https://max.ru/StudyGroup", "B26", consent=True)
-    token = "old-max-worker"
+def test_max_lease_ownership_and_telegram_activation_are_platform_fenced(db):
+    from catix import source_requests as queue
+    row = queue.submit('owner', 'o@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
+    assert queue.approve(row['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    assert not queue.activate(job, -123, 'Not Telegram', None, False)
+    assert queue.begin_join(job)
+    assert not queue.begin_join(job)
     with db() as conn:
-        job = conn.execute("""UPDATE source_requests SET status='joining', token=%s,
-                              lease_until=now()+interval '1 minute' WHERE id=%s RETURNING *""",
-                           (token, row["id"])).fetchone()
-        conn.execute("UPDATE source_request_lease SET token=%s, lease_until=now()+interval '1 minute' WHERE singleton", (token,))
-    assert requests.begin_join(job) is False
-    assert requests.activate(job, -123, "Not Telegram", None, False) is False
-    assert requests.defer(job, "Must not rewrite a MAX proposal") is False
-    viewed = requests.get_request(row["id"])
-    assert viewed["status"] == job["status"] and viewed["token"] == job["token"]
+        conn.execute("UPDATE source_request_lease SET lease_until=now()-interval '1 second'")
+    assert not queue.begin_join(job)
+    assert not queue.defer(job, 'stale')
+    assert queue.remember_max(job, dict(raw_chat_id=-456, kind='chat', title='MAX', link=None)) is None
     with db() as conn:
-        assert conn.execute("SELECT * FROM source_requests WHERE id=%s", (row["id"],)).fetchone() == job
-        assert not conn.execute("SELECT 1 FROM chats").fetchone()
-        assert not conn.execute("SELECT 1 FROM userbot_listen").fetchone()
-        assert not conn.execute("SELECT 1 FROM source_request_join_intents").fetchone()
+        assert not conn.execute('SELECT 1 FROM chats').fetchone()
+        assert not conn.execute('SELECT 1 FROM userbot_listen').fetchone()
 
 
 @pytest.mark.parametrize("status", ["pending", "approved", "joining", "waiting_join", "connected"])
-def test_max_moderation_dispatcher_exposes_manual_catalog_without_claiming_connection(monkeypatch, status):
+def test_max_moderation_dispatcher_exposes_automatic_join_consent(monkeypatch, status):
     import asyncio
     from copy import deepcopy
     from datetime import datetime, timezone
@@ -1279,14 +1253,13 @@ def test_max_moderation_dispatcher_exposes_manual_catalog_without_claiming_conne
         try:
             await press("show", 1)
             screen = screens[-1]
-            assert "вручную" in screen.text and "одобрение не подключает" in screen.text
-            assert any(b.callback_data == "mx:list:0" for row in screen.reply_markup.inline_keyboard for b in row)
-            assert "Source enabled for search" not in screen.text
-            assert "Источник подключён" not in screen.text
+            assert 'одобрение не подключает' not in screen.text and 'вручную' not in screen.text
+            assert any(b.callback_data == 'mx:list:0' for row in screen.reply_markup.inline_keyboard for b in row)
+            assert ('Источник подключён' in screen.text) == (status == 'connected')
             if status == "pending":
                 await press("review", 2)
                 assert approvals == []
-                assert "автоматического вступления нет" in screens[-1].text
+                assert 'MAX userbot вступить' in screens[-1].text and 'вся доступная' in screens[-1].text
                 await press("approve", 3)
                 assert approvals == [(request["id"], 7, "B26")]
                 assert request["status"] == "approved"
@@ -1295,3 +1268,287 @@ def test_max_moderation_dispatcher_exposes_manual_catalog_without_claiming_conne
             await session.close()
 
     asyncio.run(scenario())
+
+
+@pytest.fixture
+def max_request_boundary(monkeypatch):
+    """Domain fake only: no SQL matching, network or production credentials."""
+    from types import SimpleNamespace
+    from unittest.mock import AsyncMock, Mock
+    from catix.maxuserbot import requests as worker
+    from catix.maxuserbot.models import db_chat_id
+    chat = dict(raw_chat_id=-456, title='MAX', kind='chat', status='ACTIVE', link=None)
+    source = dict(chat, chat_id=db_chat_id(-456), enabled=False, config_version=0, generation=0)
+    job = dict(id='a'*32, token='lease', invite_link='https://max.ru/join/private_token',
+               group_code='B26', chat_id=None, join_started_at=None)
+    b = SimpleNamespace(worker=worker, chat=chat, source=source, job=job, deferrals=[], activations=[])
+
+    async def sql(function, *args, **kwargs):
+        return function(*args, **kwargs)
+
+    def claim(*, messenger):
+        assert messenger == 'max'
+        return dict(job)
+
+    def remember(current, resolved):
+        assert resolved['raw_chat_id'] == source['raw_chat_id']
+        job['chat_id'] = source['chat_id']
+        return dict(source)
+
+    def begin(current):
+        if job['join_started_at'] is not None:
+            return False
+        job['join_started_at'] = 'durable-intent'
+        return True
+
+    def defer(current, message, **kwargs):
+        b.deferrals.append((message, kwargs))
+        return True
+
+    def activate(current, resolved, **kwargs):
+        b.activations.append((resolved, kwargs))
+        return True
+
+    monkeypatch.setattr(worker, 'database_call', sql)
+    monkeypatch.setattr(worker.queue, 'claim', claim)
+    monkeypatch.setattr(worker.queue, 'remember_max', remember)
+    monkeypatch.setattr(worker.queue, 'begin_join', begin)
+    monkeypatch.setattr(worker.queue, 'defer', defer)
+    monkeypatch.setattr(worker.queue, 'activate_max', activate)
+    monkeypatch.setattr(worker.state, 'get_source', lambda _: dict(source))
+    b.catalog = Mock()
+    monkeypatch.setattr(worker.state, 'request_catalog', b.catalog)
+    b.client = SimpleNamespace(resolve_link=AsyncMock(return_value=dict(chat)), chat=AsyncMock(return_value=dict(chat)),
+                               history=AsyncMock(return_value=[]), join_link=AsyncMock(return_value=dict(chat)))
+    return b
+
+
+def test_max_existing_member_skips_join_and_discards_probe(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.history.return_value = [{'secret': 'discarded probe content'}]
+    assert asyncio.run(b.worker.process_one(b.client))
+    b.client.join_link.assert_not_awaited()
+    assert b.job['join_started_at'] is None and len(b.activations) == 1
+    assert b.activations[0][0] == b.chat and 'secret' not in repr(b.activations)
+    assert b.client.history.await_args.kwargs == {'backward': 1}
+
+
+def test_max_join_persists_intent_identity_before_write(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.chat.side_effect = [{}, dict(b.chat)]
+
+    async def join(link):
+        assert b.job['chat_id'] == b.source['chat_id'] and b.job['join_started_at']
+        assert not b.activations
+        return dict(b.chat)
+
+    b.client.join_link.side_effect = join
+    assert asyncio.run(b.worker.process_one(b.client))
+    b.client.join_link.assert_awaited_once()
+    assert len(b.activations) == 1 and not b.deferrals
+    b.catalog.assert_called_once()
+
+
+@pytest.mark.parametrize('error', [TimeoutError, RuntimeError, ValueError])
+def test_max_uncertain_join_never_repeats_across_retries(max_request_boundary, error, caplog):
+    import asyncio
+    b = max_request_boundary
+    b.client.chat.return_value = {}
+    b.client.join_link.side_effect = error('secret private_token protocol body')
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert b.job['chat_id'] == b.source['chat_id'] and b.job['join_started_at']
+    assert asyncio.run(b.worker.process_one(b.client))
+    b.client.join_link.assert_awaited_once()
+    assert not b.activations and b.deferrals
+    assert not any(options.get('failed') for _, options in b.deferrals)
+    assert 'secret' not in caplog.text and 'private_token' not in caplog.text
+
+
+def test_max_join_response_is_not_membership_proof(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.chat.return_value = {}
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert not b.activations and b.deferrals[-1][0] == b.worker.WAITING
+    b.client.join_link.assert_awaited_once()
+
+
+def test_max_join_mismatched_identity_fails_without_activation(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.chat.return_value = {}
+    b.client.join_link.return_value = dict(b.chat, raw_chat_id=-999)
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert not b.activations and b.deferrals[-1][1]['failed']
+    assert b.job['join_started_at']
+
+
+@pytest.mark.parametrize('operation', ['resolve_link', 'chat', 'history'])
+def test_max_unknown_read_error_does_not_authorize_join(max_request_boundary, operation):
+    import asyncio
+    b = max_request_boundary
+    getattr(b.client, operation).side_effect = RuntimeError('unknown upstream secret')
+    assert asyncio.run(b.worker.process_one(b.client))
+    b.client.join_link.assert_not_awaited()
+    assert not b.activations and b.deferrals[-1][0] == b.worker.RETRY
+
+
+def test_max_bound_uncertain_join_recovers_without_expired_link(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.job.update(chat_id=b.source['chat_id'], join_started_at='durable-intent')
+    b.client.resolve_link.side_effect = RuntimeError('expired invitation')
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert len(b.activations) == 1
+    b.client.resolve_link.assert_not_awaited()
+    b.client.join_link.assert_not_awaited()
+
+
+@pytest.mark.parametrize('resolution', [None, 'malformed'])
+def test_max_invalid_or_missing_link_fails_without_join(max_request_boundary, resolution):
+    import asyncio
+    b = max_request_boundary
+    if resolution == 'malformed':
+        b.job['invite_link'] = 'https://evil.example/join/private_token'
+    else:
+        b.client.resolve_link.return_value = None
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert b.deferrals[-1][1]['failed'] and not b.activations
+    b.client.join_link.assert_not_awaited()
+
+
+def test_max_lost_lease_cannot_join_or_activate(max_request_boundary, monkeypatch):
+    import asyncio
+    b = max_request_boundary
+    monkeypatch.setattr(b.worker.queue, 'remember_max', lambda *args: None)
+    assert asyncio.run(b.worker.process_one(b.client))
+    b.client.join_link.assert_not_awaited()
+    assert not b.activations
+
+
+def test_max_cancelled_join_keeps_intent_for_read_only_recovery(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.chat.return_value = {}
+    b.client.join_link.side_effect = asyncio.CancelledError()
+    with pytest.raises(asyncio.CancelledError):
+        asyncio.run(b.worker.process_one(b.client))
+    assert b.job['join_started_at'] and b.job['chat_id'] == b.source['chat_id']
+    b.client.chat.return_value = dict(b.chat)
+    assert asyncio.run(b.worker.process_one(b.client))
+    assert len(b.activations) == 1
+    b.client.join_link.assert_awaited_once()
+
+
+def test_max_login_required_stops_request_worker(max_request_boundary):
+    import asyncio
+    b = max_request_boundary
+    b.client.resolve_link.side_effect = b.worker.LoginRequired()
+    with pytest.raises(b.worker.LoginRequired):
+        asyncio.run(b.worker.process_one(b.client))
+    assert not b.deferrals and not b.activations
+
+
+@pytest.mark.parametrize('configured', ['off', 'other_audience', 'linked_archive'])
+def test_max_configured_source_is_not_reenabled_or_reassigned(db, configured):
+    from datetime import datetime, timezone
+    from catix import source_requests as queue
+    from catix.maxuserbot import state
+    from catix.maxuserbot.models import db_chat_id
+    chat = dict(raw_chat_id=-456, title='MAX', kind='chat', status='ACTIVE', link=None)
+    state.upsert_catalog([chat], observed_at=datetime.now(timezone.utc))
+    chat_id = db_chat_id(-456)
+    with db() as conn:
+        if configured == 'linked_archive':
+            legacy_id = 2*10**15-456
+            conn.execute("INSERT INTO chats(chat_id,title,group_code) VALUES(%s,'legacy','B27')", (legacy_id,))
+            conn.execute('UPDATE max_sources SET legacy_chat_id=%s WHERE chat_id=%s', (legacy_id, chat_id))
+        else:
+            conn.execute('UPDATE max_sources SET enabled=%s,config_version=1 WHERE chat_id=%s', (configured == 'other_audience', chat_id))
+            conn.execute("UPDATE chats SET group_code='B27' WHERE chat_id=%s", (chat_id,))
+    before = state.get_source(chat_id)
+    row = queue.submit('owner', 'o@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
+    queue.approve(row['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    assert queue.remember_max(job, chat) is None
+    assert queue.get_request(row['id'])['status'] == 'failed'
+    assert state.get_source(chat_id) == before
+
+
+def test_max_activation_configuration_race_does_not_change_audience(db):
+    from datetime import datetime, timezone
+    from catix import source_requests as queue
+    from catix.maxuserbot import state
+    chat = dict(raw_chat_id=-456, title='MAX', kind='chat', status='ACTIVE', link=None)
+    row = queue.submit('owner', 'o@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
+    queue.approve(row['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    source = queue.remember_max(job, chat)
+    state.account_connected(12345)
+    with db() as conn:
+        conn.execute("UPDATE chats SET group_code='B27' WHERE chat_id=%s", (source['chat_id'],))
+        conn.execute('UPDATE max_sources SET config_version=config_version+1 WHERE chat_id=%s', (source['chat_id'],))
+    assert not queue.activate_max(job, chat, expected_version=source['config_version'],
+                                  expected_generation=source['generation'], observed_at=datetime.now(timezone.utc))
+    after = state.get_source(source['chat_id'])
+    assert after['group_code'] == 'B27' and not after['enabled'] and after['history_status'] == 'idle'
+    assert queue.get_request(row['id'])['status'] == 'failed'
+
+
+def test_max_cross_owner_intent_survives_request_deletion(db):
+    from catix import source_requests as queue
+    link = 'https://max.ru/join/private_token'
+    first = queue.submit('first', 'first@example.org', link, 'B26', consent=True)
+    queue.approve(first['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    assert queue.begin_join(job)
+    started = queue.get_request(first['id'])['join_started_at']
+    with db() as conn:
+        conn.execute('DELETE FROM source_requests WHERE id=%s', (first['id'],))
+        conn.execute("UPDATE source_request_lease SET lease_until=now()-interval '1 second'")
+    second = queue.submit('second', 'second@example.org', link, 'B26', consent=True)
+    queue.approve(second['id'], 7, 'B26')
+    next_job = queue.claim(messenger='max')
+    assert not queue.begin_join(next_job)
+    assert queue.get_request(second['id'])['join_started_at'] == started
+
+
+def test_max_same_enabled_audience_connects_without_resetting_history_or_legacy(db):
+    from datetime import datetime, timezone
+    from catix import source_requests as queue
+    from catix.maxuserbot import state
+    chat = dict(raw_chat_id=-456, title='MAX', kind='chat', status='ACTIVE', link=None)
+    first = queue.submit('first', 'first@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
+    queue.approve(first['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    source = queue.remember_max(job, chat)
+    state.account_connected(12345)
+    assert queue.activate_max(job, chat, expected_version=source['config_version'],
+                              expected_generation=source['generation'], observed_at=datetime.now(timezone.utc))
+    before = state.get_source(source['chat_id'])
+    second = queue.submit('second', 'second@example.org', 'https://max.ru/join/another_token', 'B26', consent=True)
+    queue.approve(second['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    remembered = queue.remember_max(job, chat)
+    assert remembered['config_version'] == before['config_version']
+    assert queue.activate_max(job, chat, expected_version=remembered['config_version'],
+                              expected_generation=remembered['generation'], observed_at=datetime.now(timezone.utc))
+    after = state.get_source(source['chat_id'])
+    for name in ('generation', 'config_version', 'history_started_at', 'history_before_ms', 'legacy_chat_id'):
+        assert after[name] == before[name]
+    assert queue.get_request(second['id'])['status'] == 'connected'
+
+
+def test_max_resolution_identity_change_fails_without_new_source(db):
+    from catix import source_requests as queue
+    row = queue.submit('owner', 'owner@example.org', 'https://max.ru/StudyGroup', 'B26', consent=True)
+    queue.approve(row['id'], 7, 'B26')
+    job = queue.claim(messenger='max')
+    chat = dict(raw_chat_id=-456, title='MAX', kind='chat', status='ACTIVE', link=None)
+    assert queue.remember_max(job, chat)
+    assert queue.remember_max(job, dict(chat, raw_chat_id=-999)) is None
+    assert queue.get_request(row['id'])['status'] == 'failed'
+    with db() as conn:
+        assert conn.execute('SELECT count(*) AS n FROM max_sources').fetchone()['n'] == 1

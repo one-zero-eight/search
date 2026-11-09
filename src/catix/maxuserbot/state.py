@@ -127,7 +127,7 @@ def upsert_catalog(chats: list[dict], *, observed_at: datetime) -> None:
             conn.execute("SELECT chat_id FROM max_sources WHERE chat_id=%s FOR UPDATE", (chat_id,))
             conn.execute("""INSERT INTO chats(chat_id,title,link,group_code,requires_verified_group)
                             VALUES(%s,%s,%s,'all',true) ON CONFLICT(chat_id) DO UPDATE
-                            SET title=excluded.title,link=excluded.link""", (chat_id, title, chat.get("link")))
+                            SET title=excluded.title,link=coalesce(excluded.link,chats.link)""", (chat_id, title, chat.get("link")))
             conn.execute("""INSERT INTO max_sources(chat_id,raw_chat_id,kind) VALUES(%s,%s,%s)
                             ON CONFLICT(chat_id) DO UPDATE SET kind=excluded.kind, metadata_pending=true,
                             metadata_available_at=least(max_sources.metadata_available_at,now())""", (chat_id, raw_id, chat["kind"]))

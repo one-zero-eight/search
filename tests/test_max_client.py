@@ -962,3 +962,65 @@ def test_strict_publication_propagates_redis_failure_and_best_effort_stays_safe(
 
     asyncio.run(scenario())
     assert_no_secrets(caplog.text)
+
+
+@pytest.mark.parametrize('link,wire_link', [
+    ('https://max.ru/PublicCourse', 'https://max.ru/PublicCourse'),
+    ('https://max.ru/join/PrivateToken', 'join/PrivateToken'),
+])
+def test_moderated_link_resolution_and_join_use_pinned_wire_protocol(tmp_path, wire, link, wire_link):
+    wire.reply(Opcode.LINK_INFO, {'chat': chat(555, lastMessage=message(text=SECRET_TEXT))})
+    wire.reply(Opcode.CHAT_JOIN, {'chat': chat(555, kind='CHANNEL')})
+
+    async def scenario():
+        path = tmp_path / 'account.db'
+        await save_session(path)
+        client = AccountClient(path)
+        try:
+            await client.connect()
+            resolved = await client.resolve_link(link)
+            assert resolved['raw_chat_id'] == 555 and resolved['kind'] == 'chat'
+            assert SECRET_TEXT not in repr(resolved)
+            joined = await client.join_link(link)
+            assert joined['raw_chat_id'] == 555 and joined['kind'] == 'channel'
+        finally:
+            await client.close()
+
+    asyncio.run(scenario())
+    assert wire.sent(Opcode.LINK_INFO) == [{'link': wire_link}]
+    assert wire.sent(Opcode.CHAT_JOIN) == [{'link': wire_link}]
+    assert not wire.sent(Opcode.MSG_SEND) and not wire.sent(Opcode.CHAT_MARK)
+
+
+@pytest.mark.parametrize('payload', [{}, {'chat': []}, {'chat': chat(kind='DIALOG')}])
+def test_request_link_resolution_rejects_missing_or_private_chat_results(tmp_path, wire, payload):
+    wire.reply(Opcode.LINK_INFO, payload)
+
+    async def scenario():
+        path = tmp_path / 'account.db'
+        await save_session(path)
+        client = AccountClient(path)
+        try:
+            await client.connect()
+            with pytest.raises(ProtocolError):
+                await client.resolve_link('https://max.ru/StudyCourse')
+        finally:
+            await client.close()
+
+    asyncio.run(scenario())
+    assert not wire.sent(Opcode.CHAT_JOIN)
+
+
+@pytest.mark.parametrize('link', ['https://evil.test/join/token', 'https://max.ru/join',
+    'https://user:secret@max.ru/StudyCourse', 'https://max.ru/StudyCourse?token=secret'])
+def test_request_join_rejects_untrusted_urls_before_transport(tmp_path, wire, link):
+    async def scenario():
+        client = AccountClient(tmp_path / 'account.db')
+        try:
+            with pytest.raises(ProtocolError):
+                await client.join_link(link)
+        finally:
+            await client.close()
+
+    asyncio.run(scenario())
+    assert not wire.requests

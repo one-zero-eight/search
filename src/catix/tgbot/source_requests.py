@@ -49,8 +49,6 @@ def request_screen(request: dict) -> tuple[str, Keyboard]:
     group = "все пользователи cAtIx" if request["group_code"] == groups.ALL else html.escape(request["group_code"])
     max_proposal = request["invite_link"].startswith("https://max.ru/")
     status = STATUS[request["status"]]
-    if max_proposal and request["status"] not in {"pending", "failed", "rejected"}:
-        status = "Заявка сохранена; подключение проверяется отдельно в каталоге MAX"
     visibility = (
         "Сообщения увидят все пользователи cAtIx, не только участники чата."
         if request["group_code"] == groups.ALL else
@@ -66,19 +64,11 @@ def request_screen(request: dict) -> tuple[str, Keyboard]:
         "Отправитель подтвердил согласие администратора чата. "
         f"Перед подключением проверьте это согласие и целевую аудиторию. {visibility}"
     )
-    if max_proposal:
-        text += (
-            "\n\nЗаявка MAX — только запись для модерации: одобрение не подключает чат "
-            "и не меняет его аудиторию. Аккаунт должен уже иметь доступ к чату; "
-            "источник и аудиторию администратор отдельно подтверждает вручную в каталоге MAX."
-        )
-        if request["status"] in {"joining", "waiting_join", "connected"}:
-            text += " Прежний статус заявки не подтверждает подключение пользовательского аккаунта."
-    if request.get("message") and not (max_proposal and request["status"] in {"joining", "waiting_join", "connected"}):
+    if request.get("message"):
         text += "\n\n" + html.escape(request["message"])
     rows: Keyboard = []
     if request["status"] == "pending":
-        rows.append([_button("Проверить заявку…" if max_proposal else "Проверить и подключить…", f"sr:review:{request_id}")])
+        rows.append([_button("Проверить и подключить…", f"sr:review:{request_id}")])
         rows.append([_button("Отклонить…", f"sr:reject:{request_id}")])
         text += (
             "\n\nДругая группа (команда сразу одобряет; сначала проверьте согласие):\n"
@@ -90,7 +80,7 @@ def request_screen(request: dict) -> tuple[str, Keyboard]:
     else:
         rows.append([_button("Обновить статус", f"sr:show:{request_id}")])
     if max_proposal:
-        rows.append([_button("Каталог MAX — настроить вручную", "mx:list:0")])
+        rows.append([_button("Каталог MAX", "mx:list:0")])
     rows.append([_button("← Заявки", "sr:list:0")])
     return text, rows
 
@@ -104,10 +94,10 @@ def review_screen(request: dict) -> tuple[str, Keyboard]:
     max_proposal = request["invite_link"].startswith("https://max.ru/")
     if max_proposal:
         text += (
-            "\n\nПодтверждая, вы проверили согласие администратора чата "
-            f"на поиск для {audience}. Одобрение сохраняет только заявку. "
-            "Для подключения отдельно выберите источник и подтвердите аудиторию вручную "
-            "в каталоге MAX; автоматического вступления нет."
+            "\n\nПодтверждая, вы проверили согласие администратора чата и разрешаете "
+            f"аккаунту MAX userbot вступить по ссылке, подключить источник и поиск для {audience}. "
+            "После подтверждения доступа будут читаться новые сообщения и вся доступная аккаунту история. "
+            "Уже настроенный источник не будет переназначен другой аудитории или повторно включён без ручной проверки."
         )
     else:
         text += (
@@ -115,7 +105,7 @@ def review_screen(request: dict) -> tuple[str, Keyboard]:
             f"подключение источника и поиск для {audience}. В Telegram вступает аккаунт userbot."
         )
     return text, [
-        [_button("Согласие проверено — одобрить заявку" if max_proposal else "Согласие проверено — подключить", f"sr:approve:{request_id}")],
+        [_button("Согласие проверено — подключить", f"sr:approve:{request_id}")],
         [_button("← Назад", f"sr:show:{request_id}")],
     ]
 

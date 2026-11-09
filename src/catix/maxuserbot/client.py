@@ -1,6 +1,7 @@
 """All pinned PyMax internals live here. No interactive authentication in daemons."""
 
 import asyncio
+import re
 from contextlib import AbstractContextManager
 from datetime import datetime, timezone
 import fcntl
@@ -236,6 +237,33 @@ class AccountClient:
         except ProtocolError:
             raise ProtocolError(detail="catalog.marker: expected int64 or ASCII decimal ID") from None
         return result, marker or None
+
+    @staticmethod
+    def _request_link(link: str) -> str:
+        # Fixed MAX domain/path only: never forward a foreign URL or credentials.
+        match = re.fullmatch(r'https://max\.ru/(join/[A-Za-z0-9_-]{1,128}|[A-Za-z0-9_-]{1,128})', link, re.ASCII)
+        if match is None or match[1].lower() in {'join', 'joinchat'}:
+            raise ProtocolError(detail='request.link: invalid MAX chat link')
+        return match[1] if match[1].startswith('join/') else link
+
+    @staticmethod
+    def _linked_chat(payload: dict) -> dict | None:
+        if 'chat' not in payload:
+            raise ProtocolError(detail='request.chat: missing chat result')
+        raw = payload['chat']
+        if raw is None:
+            return None
+        chat = normalize_chat(raw)
+        if chat is None:
+            raise ProtocolError(detail='request.chat: personal dialogs are not sources')
+        return chat
+
+    async def resolve_link(self, link: str) -> dict | None:
+        return self._linked_chat(await self._rpc(89, {'link': self._request_link(link)}))
+
+    async def join_link(self, link: str) -> dict | None:
+        """Only the approved-request worker calls this, after durable join intent."""
+        return self._linked_chat(await self._rpc(57, {'link': self._request_link(link)}))
 
     async def chat(self, raw_id: int):
         raw_id = normalize_id(raw_id)

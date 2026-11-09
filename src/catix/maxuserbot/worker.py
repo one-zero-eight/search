@@ -17,7 +17,7 @@ from catix.db import pg
 from catix.ingest import images, publish
 from catix.settings import settings
 
-from . import media, state
+from . import media, requests, state
 from .client import AccountClient, LoginRequired, classify_error
 from .models import ProtocolError, normalize_event, normalize_id, normalize_message
 
@@ -383,6 +383,7 @@ class _Worker:
                 self.catalog(client), self.metadata(client), self.heartbeat(client), self.prune(),
                 self.history(client, "full"), self.history(client, "catchup"),
                 self.deletion_scans(client),
+                requests.run(client),
                 images.run('maxuserbot', partial(media.download, client), allowed=media.allowed),
             )]
             done, _ = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)

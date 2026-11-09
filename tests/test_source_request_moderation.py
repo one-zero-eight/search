@@ -230,3 +230,22 @@ def test_inaccessible_callback_is_refused_without_database_io(monkeypatch):
     asyncio.run(module.request_callback(callback))
     assert not store.mock_calls
     callback.answer.assert_awaited_once()
+
+
+@pytest.mark.parametrize('audience', ['B26', 'all'])
+def test_max_review_authorizes_join_and_full_history_with_exact_scope(audience):
+    text, rows = moderation().review_screen(request(invite_link='https://max.ru/join/private_token', group_code=audience))
+    assert 'MAX userbot вступить' in text
+    assert 'вся доступная аккаунту история' in text
+    assert 'не будет переназначен' in text and 'повторно включён' in text
+    assert 'только заявку' not in text and 'автоматического вступления нет' not in text
+    assert ('все пользователи cAtIx' if audience == 'all' else 'B26') in text
+    assert any(button.callback_data == 'sr:approve:' + 'a'*32 for row in rows for button in row)
+
+
+def test_max_connected_detail_reports_real_queue_status_and_safe_message():
+    text, rows = moderation().request_screen(request(invite_link='https://max.ru/StudyGroup', status='connected',
+                                                   message='Source enabled for search; all available MAX history is being indexed.'))
+    assert 'Источник подключён' in text and 'all available MAX history' in text
+    assert 'вручную' not in text and 'только запись' not in text
+    assert any(button.callback_data == 'mx:list:0' for row in rows for button in row)
