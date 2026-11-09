@@ -7,6 +7,7 @@ WORKDIR /app
 # Git is required by the pinned PyMax dependency during uv sync. Keep standard TLS trust.
 # Private attachment parsing needs Java 11+ and bounded PDF rendering through Poppler.
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libarchive13 openjdk-17-jre-headless poppler-utils \
+    tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus \
     && rm -rf /var/lib/apt/lists/*
 
 # Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
