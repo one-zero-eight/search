@@ -260,11 +260,8 @@ class GuardrailMiddleware(AgentMiddleware):
     Repeated attacks escalate (abuse.py): a warning, then a pause during which every message of that user is answered with a
     notice, without a model call. Admins are never counted.
 
-    Small talk (a greeting, a question about cAtIx) goes on with `answer_alone`, and the agent answers it without a helper
-    (core.RunGuardMiddleware, core.QuestionNoteMiddleware); an off-topic task (a translation, a maths problem) gets a refusal
-    here, not counted as an attack. Sage, told after the user's message to call a helper every time, asked one for "привет!"
-    and three for "что ты умеешь?", and translated "добрый день" or solved the integral from the course pages it had the docs
-    helper find; refusing the integral itself, without helpers, it wrote 3 of 6 refusals in English.
+    Small talk (a greeting, a question about cAtIx) goes on with `answer_alone`; RunGuardMiddleware disables tools,
+    and the system prompt specifies the response. An off-topic task gets a refusal here, not counted as an attack.
     """
 
     state_schema = GuardState

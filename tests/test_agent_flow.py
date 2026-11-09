@@ -176,16 +176,14 @@ def test_a_helper_that_reported_with_sources_is_not_asked_again_and_the_next_cal
 
 
 def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_has_to_write_one():
-    """Rewriting a report took the supervisor 2 to 10 s, and it copied 10 of 30 unchanged. It still writes the answer in
-    brief mode, when the report cites nothing or is in another language, and when several helpers reported."""
+    """One cited report is passed through; uncited, foreign-language or multiple reports require synthesis."""
     from catix.agent.core import SUPERVISOR_NAME, PassReportMiddleware
 
-    def req(question: str, *reports: tuple[str, str], brief: bool = False) -> Req:
+    def req(question: str, *reports: tuple[str, str]) -> Req:
         calls = [{"name": name, "args": {"question": question}, "id": f"a{i}", "type": "tool_call"} for i, (name, _) in enumerate(reports)]
         request = Req(0)
         request.messages = [HumanMessage(question), AIMessage(content="", tool_calls=calls),
                             *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name) for i, (name, text) in enumerate(reports))]
-        request.runtime = types.SimpleNamespace(context=types.SimpleNamespace(brief=brief))
         return request
 
     report = "Пересдать экзамен можно не более двух раз [m1]."
@@ -194,8 +192,7 @@ def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_
     model = lambda request: seen.append(request) or written
     result = PassReportMiddleware().wrap_model_call(req("сколько раз можно пересдавать экзамен", ("ask_docs", report)), model)
     assert result.result[-1].content == report and result.result[-1].name == SUPERVISOR_NAME and not seen
-    for request in (req("сколько раз можно пересдавать экзамен", ("ask_docs", report), brief=True),
-                    req("сколько раз можно пересдавать экзамен", ("ask_docs", "Ничего не найдено о пересдачах.")),
+    for request in (req("сколько раз можно пересдавать экзамен", ("ask_docs", "Ничего не найдено о пересдачах.")),
                     req("how many times can I retake an exam", ("ask_docs", report)),
                     req("когда пересдача по матану и сколько попыток", ("ask_docs", report), ("ask_chats", "Пересдача 12 ноября [m2]."))):
         assert PassReportMiddleware().wrap_model_call(request, model) is written
@@ -242,7 +239,6 @@ def test_after_the_fallback_its_report_is_the_answer():
             AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "что такое пчз?"}, "id": second_id, "type": "tool_call"}]),
             ToolMessage(content="ПЧЗ — «Полезная часть зоопарка», канал первокурсников [m6].", tool_call_id=second_id, name="ask_chats"),
         ]
-        request.runtime = types.SimpleNamespace(context=types.SimpleNamespace(brief=False))
         return request
 
     written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
@@ -317,9 +313,7 @@ def test_a_call_carries_the_priority_of_its_question_with_the_models_extra_body(
 
 
 def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypatch):
-    """The screen said small_talk ("привет!", "что ты умеешь?"): the supervisor's call may not call tools, with no order to answer
-    (it is not out of budget), and the reminder after the message is the one for answering alone."""
-    from catix.agent.core import ALONE_REMINDER, ROLE_REMINDER, QuestionNoteMiddleware
+    """Small talk disables tools without adding synthetic user instructions or a budget-exhaustion message."""
 
     monkeypatch.setattr(core, "tool_call_token", lambda: 248058)
     alone = Req(0)
@@ -327,10 +321,7 @@ def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypa
     seen = []
     RunGuardMiddleware().wrap_model_call(alone, lambda request: seen.append(request) or ModelResponse(result=[AIMessage(content="Привет!")]))
     assert seen[0].tool_choice == "none" and seen[0].messages == alone.messages and seen[0].model_settings == {"logit_bias": {"248058": -100}}
-    note = QuestionNoteMiddleware(reminder=ROLE_REMINDER, alone=ALONE_REMINDER)
     asked = Req(0)
-    assert note._with_hint(alone).messages[0].content.endswith(f"[{ALONE_REMINDER.format(language='Russian')}]")  # ("вопрос")
-    assert note._with_hint(asked).messages[0].content.endswith(f"[{ROLE_REMINDER}]")
     assert RunGuardMiddleware()._final(asked).tool_choice is None
 
 

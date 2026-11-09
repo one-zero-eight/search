@@ -38,8 +38,10 @@ class AvailableTrainingsArgs(BaseModel):
 
 @tool(args_schema=AvailableTrainingsArgs, response_format="content_and_artifact")
 def get_my_available_trainings(runtime: ToolRuntime, day: date, sport: str | None = None) -> tuple[dict, dict | None]:
-    """Recommend Sport trainings on ONE explicit day, checked against the full personal agenda including AI Calendar.
-    Предложи/подбери тренировки без пересечений с занятиями. Use this host tool, not raw Sport eligibility, for recommendations.
+    """Sport trainings ONLY for explicit personal-calendar matching on ONE day, including AI Calendar.
+    Без пересечений с моими занятиями / which trainings fit my personal schedule.
+    Ordinary training lists or recommendations use sport_get_sport_trainings instead, without calendar filtering.
+    "For me" or "what can I sign up for" alone does not request calendar matching. Call this native tool directly.
     Only available contains calendar-compatible, signup-eligible alternatives; excluded has reasons/conflicts;
     unverified is NOT free time. Report complete=false/truncated; this is not a reservation or an automatic signup.
     unknown_duration_events identifies events with no known end; ask when they end, not for another calendar read.

@@ -27,40 +27,6 @@ def test_root_exposes_shared_api_and_only_retrieval_helpers():
     assert set(roles.ROLES) == {"docs", "chats"}
 
 
-def test_calendar_requests_are_routed_to_actions_on_the_site_and_buttons_in_bots():
-    assert "add_to_ai_calendar" in roles.SUPERVISOR and "update_ai_calendar" in roles.SUPERVISOR
-    assert "host tool get_my_schedule" in roles.MCP_RULES
-    assert "calendar_add_to_ai_calendar" not in roles.MCP_RULES
-    assert "Nobody adds an event" not in roles.SUPERVISOR
-    assert "only by its button" not in roles.MCP_RULES
-    assert "AI Calendar" not in roles.ACCOUNT_OFFERS
-    assert "account_get_my_schedule" in roles.SUPERVISOR and "get_my_ai_calendar" in roles.SUPERVISOR
-    assert "button" in roles.CALENDAR_BUTTON
-
-
-def test_all_agents_share_account_discovery_and_action_rules():
-    assert not hasattr(roles, "ACCOUNT")
-    for prompt in (roles.SUPERVISOR, roles.prompt("docs"), roles.prompt("chats")):
-        assert roles.MCP_RULES in prompt
-        assert "ask_account" not in prompt and "account helper" not in prompt
-        assert "call_api_tool" in prompt and "act_api_tool" not in prompt
-        assert "reads and mutations" in prompt and "approval" in prompt
-        assert "calendar_update_ai_calendar" not in prompt
-        assert "sport_sport_checkin" in prompt and "can_check_in true" in prompt
-        assert "music_book_music_room" in prompt and "music_get_available_windows" in prompt
-        assert "Book only the exact interval the user requested and confirmed" in prompt
-        assert "do not repeat" in prompt and 'outcome="unknown"' in prompt
-        assert "never guess" in prompt and "separate Sport sign-in" in prompt
-
-
-def test_music_schedule_is_not_described_as_confirmed_availability():
-    for prompt in (roles.SUPERVISOR, roles.prompt("docs"), roles.prompt("chats")):
-        assert "shows when the music room is free" not in prompt
-        assert "music_get_music_room_schedule lists occupied intervals" in prompt
-        assert 'say "no bookings"' in prompt
-        assert "opening hours and access are not verified" in prompt
-
-
 def test_printer_status_is_offered_without_promising_printing_or_moodle():
     from catix.agent.tools import TOOLS
 

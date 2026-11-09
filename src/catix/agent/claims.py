@@ -2,10 +2,11 @@
 
 A small model fills gaps with plausible attributions: "the administration says", "ask the head of the building", "it was
 not announced". The prompt forbids it and the model still does it, so the sentences are checked here against what the
-tools returned in this turn. A claim stays only if the same words appear in the results, or (for "official") a result
-comes from a chat an admin marked official. Everything else is cut out of the answer and logged.
+tools returned in this turn. Attributions require support in the cited records; official status requires every cited
+record to have trusted `official: true` metadata. Unresolved or conflicting refs cannot establish an attribution.
 """
 
+import json
 import logging
 import re
 
@@ -24,21 +25,57 @@ CLAIMS: list[tuple[str, str, str]] = [
     (r"\bне\s+(?:анонсир|объявл|публиковал)\w*|\bnot\s+(?:been\s+)?announced\b", "it was not announced", r"\bне\s+(?:анонсир|объявл|публиковал)|\bnot\s+(?:been\s+)?announced"),
     (r"\bофициальн\w+\s+(?:объявлени|анонс|сообщени|информаци|источник|данн|заявлени)\w*|\bofficial\s+(?:announcement|source|information|statement|notice|message)s?\b", "it is official", r"\bофициальн|\bofficial\b"),
 ]
-OFFICIAL_RESULT = re.compile(r'"official"\s*:\s*true')
-OFFICIAL_KEY = re.compile(r'"official"\s*:\s*(?:true|false)')
+REFS = re.compile(r"\[\s*(m\d+(?:\s*[,;]\s*m\d+)*)\s*\]")
 SENTENCES = re.compile(r"((?<=[.!?])\s+|\n+)")
+
+
+def _records(evidence: str) -> dict[str, list[dict]]:
+    """Index structured tool records only; JSON-looking text inside a record is never metadata."""
+    records: dict[str, list[dict]] = {}
+
+    def walk(value):
+        if isinstance(value, dict):
+            ref = value.get("ref")
+            if isinstance(ref, str) and re.fullmatch(r"m\d+", ref):
+                records.setdefault(ref, []).append(value)
+                return
+            for child in value.values():
+                walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    decoder = json.JSONDecoder()
+    position = 0
+    while position < len(evidence):
+        position += len(evidence[position:]) - len(evidence[position:].lstrip())
+        if position == len(evidence):
+            break
+        try:
+            value, position = decoder.raw_decode(evidence, position)
+        except json.JSONDecodeError:
+            # An unstructured helper report is not a source record.
+            end = evidence.find("\n", position)
+            if end < 0:
+                break
+            position = end + 1
+        else:
+            walk(value)
+    return records
 
 
 def check(answer: str, evidence: str) -> tuple[str, list[str]]:
     """The answer without the unsupported sentences, and those sentences. `evidence` is what the tools returned."""
-    official_seen = bool(OFFICIAL_RESULT.search(evidence))
-    text = OFFICIAL_KEY.sub("", evidence).lower()  # the key `"official": false` is not a statement about anything
+    records = _records(evidence)
     parts = SENTENCES.split(answer)  # sentence, separator, sentence, ...
     kept: list[str] = []
     dropped: list[str] = []
     for i in range(0, len(parts), 2):
         sentence, separator = parts[i], parts[i + 1] if i + 1 < len(parts) else ""
-        reason = _unsupported(sentence, text, official_seen)
+        refs = {ref for match in REFS.finditer(sentence) for ref in re.findall(r"m\d+", match.group(1))}
+        cited = [record for ref in refs for record in records.get(ref, [])]
+        resolved = bool(refs) and all(ref in records for ref in refs)
+        reason = _unsupported(sentence, cited if resolved else [])
         if reason:
             dropped.append(f"{sentence.strip()}  ({reason})")
         else:
@@ -52,14 +89,15 @@ def check(answer: str, evidence: str) -> tuple[str, list[str]]:
     return cleaned, dropped
 
 
-def _unsupported(sentence: str, evidence: str, official_seen: bool) -> str | None:
+def _unsupported(sentence: str, records: list[dict]) -> str | None:
     lowered = sentence.lower()
     for pattern, claim, support in CLAIMS:
         if not re.search(pattern, lowered):
             continue
-        if claim == "it is official" and official_seen:
-            continue
-        if re.search(support, evidence):  # the results mention the same thing (a message signed by the administration…)
+        if claim == "it is official":
+            if records and all(record.get("official") is True for record in records):
+                continue
+        elif records and all(re.search(support, str(record.get("text", "")).lower()) for record in records):
             continue
         return claim
     return None

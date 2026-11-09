@@ -51,7 +51,7 @@ def services(monkeypatch):
             assert credentials == {"sport_token": "synthetic-sport"}
             return state["trainings"]
         assert payload["name"] == "account_get_my_schedule", "Read-only tool must never sign up"
-        assert credentials == {}
+        assert credentials == {"sport_token": "synthetic-sport"}
         return state["agenda"]
     monkeypatch.setattr(mcp_client, "request_sync", request)
     monkeypatch.setattr(calendar_tools, "events_between", lambda *a: state["local"])

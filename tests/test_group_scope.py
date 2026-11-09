@@ -44,13 +44,18 @@ def test_the_chats_of_other_groups_are_cut_by_code(grouped_chat):
 
 
 def test_a_user_of_group_all_gets_only_the_chats_of_group_all(grouped_chat):
-    """`all` is not "everything": it sees the chats of group `all` and none of a study group."""
+    """`all` sees public, non-tombstoned chats, never study-group or protected sources."""
     scope = groups.scoped_chat_ids("tg:999000003")  # nobody set a group for this key: `all`
     assert scope is not None and grouped_chat not in scope
     with pg.connection() as conn:
-        for_everybody = set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code = 'all'"))
+        # A chat's audience alone does not grant access: requested private
+        # sources can still be labelled `all`, and migrated archives stay hidden.
+        for_everybody = set(pg.column(conn, """SELECT chat_id FROM chats
+            WHERE group_code = 'all' AND NOT requires_verified_group AND NOT max_legacy_archived"""))
         of_a_group = set(pg.column(conn, "SELECT chat_id FROM chats WHERE group_code <> 'all'"))
-    assert scope == for_everybody and not scope & of_a_group
+        hidden = set(pg.column(conn, """SELECT chat_id FROM chats
+            WHERE requires_verified_group OR max_legacy_archived"""))
+    assert scope == for_everybody and not scope & (of_a_group | hidden)
     assert not store.search(["орнитологии"], chat_ids=scope, limit=5) or all(h.chat_id != grouped_chat for h in store.search(["орнитологии"], chat_ids=scope, limit=5))
 
 

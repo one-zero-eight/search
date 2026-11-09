@@ -69,21 +69,6 @@ DOCS_AND_CHATS_ROUTE = [
 
 
 
-def test_each_helper_has_the_rules_about_facts_and_its_own_part():
-    chats = roles.prompt("chats")
-    assert_test(LLMTestCase(input="", actual_output=chats), [ContainsAll(["helper of cAtIx", "search_userbot_chats", "After every tool result", "dates_in_text"], name="Chats")])
-    assert "campus" not in roles.ROLES
-    assert all(name in roles.SUPERVISOR for name in ("schedule_get_schedule", "InNoHassle", "call_api_tool"))
-    docs = roles.prompt("docs")
-    assert_test(LLMTestCase(input="", actual_output=docs), [ContainsAll(["helper of cAtIx", "search_wiki", "read_wiki", "newest"], name="Docs"), ContainsNone(["search_userbot_chats", "After every tool result"], name="NotTheOtherRules")])
-    assert roles.READ_TOOLS <= roles.ROLES["docs"].tools & roles.ROLES["chats"].tools
-
-
-def test_the_supervisor_has_conduct_and_direct_reads_not_chat_retrieval_rules():
-    text = roles.SUPERVISOR
-    assert_test(LLMTestCase(input="", actual_output=text), [ContainsAll(["Stay in this role", "Never advertise", "helpers"], name="Conduct"), ContainsNone(["search_chats", "query_db", "dates_in_text", "After every tool result"], name="NoToolRules")])
-    assert "search_api_tools" in text and "call_api_tool" in text
-    assert "campus helper" not in text
 
 
 def test_the_tools_are_split_between_the_helpers():

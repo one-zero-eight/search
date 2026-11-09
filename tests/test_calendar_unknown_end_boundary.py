@@ -65,7 +65,10 @@ def services(monkeypatch, request):
             return when2meet.details(meeting, "owner")
         assert payload["name"] == "account_get_my_schedule", "Recommendations must not write"
         assert payload["arguments"] == {"date_from": DAY, "date_to": DAY}
-        state["external"] = reader(date.fromisoformat(DAY), date.fromisoformat(DAY), token=token)
+        # Calling .fn bypasses FastMCP dependency injection: no separate Sport
+        # credential was delegated, so exercise the mocked InNoHassle ICS feed.
+        state["external"] = reader(date.fromisoformat(DAY), date.fromisoformat(DAY),
+                                   token=token, sport_token=None)
         return state["external"]
 
     def agenda(*args):

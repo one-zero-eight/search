@@ -44,8 +44,6 @@ class AgentContext:
     allowed_chat_ids: frozenset[int] | None = None
     # Telegram id of the asker; None in the local CLI.
     user_telegram_id: int | None = None
-    # The answer goes into an inline-mode card: it must be as short as possible.
-    brief: bool = False
     # The asker's study group (from InNoHassle or their own choice); None when unknown (the default `all`).
     study_group: str | None = None
     # All memberships verified by the website; singular study_group is only an unambiguous timetable default.
@@ -91,8 +89,8 @@ class SearchChatsArgs(BaseModel):
     date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages WRITTEN on or before this day.")
     event_from: date | None = Field(
         None,
-        description="YYYY-MM-DD: only messages about a day on or after this one, whenever they were written. A post of "
-        "5 October announcing a midterm on 23 October counts for this week of October. Use for 'this week', 'tomorrow', 'upcoming'.",
+        description="YYYY-MM-DD: only messages about an event on or after this day, regardless of publication date. "
+        "Use for when an event happens or work is due; combine with publication filters only if both axes are explicitly requested.",
     )
     event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
 
@@ -115,11 +113,15 @@ def search_chats(
     event_from: date | None = None,
     event_to: date | None = None,
 ) -> Command:
-    """Search student Telegram chats by words and by meaning: announcements, exam and deadline dates, homework,
-    reschedules, campus news, tips. Give several queries from different angles in ONE call: messages found by
-    several of them rank first. Messages may be outdated, jokes or contradict each other. Each carries `official`: true only
-    for a chat an admin marked as the university's official one; all the rest is students talking.
-    Results are ranked by relevance only, not by date: read the dates and prefer the latest information."""
+    """Search knowledge-base chats by words and meaning for topical facts or discussions. For primary topical retrieval,
+    call together with search_userbot_chats in the same step. Lists, counts, newest messages and messages by a person use
+    read_chats first instead, even when a topic is named. Follow up only for a concrete unanswered part or missing source
+    or synonym; use the tool that addresses that gap, not both searches automatically. Search matches are not exhaustive
+    lists or counts. Give several queries from different angles in ONE call: messages found by several rank first.
+    date_from/date_to constrain publication; event_from/event_to constrain when events happen or work is due. Keep these
+    axes independent: event-only requests must include earlier announcements, so omit publication filters; combine axes
+    only when both are explicitly requested. Messages may be outdated, jokes or contradictory. Each carries `official`:
+    true only for a chat an admin marked official. Results rank by relevance, not date: read dates and prefer latest information."""
     allowed = runtime.context.allowed_chat_ids if runtime.context else None
     now = datetime.now(settings.tz)
     question = _question(runtime)
@@ -207,9 +209,9 @@ class ReadChatsArgs(BaseModel):
     date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages written on or before this day.")
     event_from: date | None = Field(
         None,
-        description="YYYY-MM-DD: only messages ABOUT a day on or after this one, whenever written (an olympiad of 15 November "
-        "announced on 13 October), the soonest first. With event_to, for 'what is on next week': every message about those "
-        "days, whatever its words.",
+        description="YYYY-MM-DD: only messages ABOUT an event on or after this day, regardless of publication date "
+        "(an olympiad of 15 November announced on 13 October), soonest first. Use for when events happen or work is due; "
+        "combine with publication filters only if both axes are explicitly requested.",
     )
     event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
     limit: int = Field(10, description=f"How many of the newest messages to return, 1 to {MAX_READ}.")
@@ -236,12 +238,16 @@ def read_chats(
     event_to: date | None = None,
     limit: int = 10,
 ) -> Command:
-    """The newest messages of the chats, newest first, and how many pass the filters in all (`total`). For "what is new",
-    the latest announcements (official_only), the last messages of one chat or of one person, what was written today, a
-    full list of the messages with some words over a period ("all tests since September") and counts ("how many messages
-    about deadlines this month"). With event_from/event_to, what is on in a period: every message about its days, the
-    soonest first ("какие мероприятия будут на следующей неделе"). Not for a question about a topic: search_chats finds
-    messages by meaning, whatever their date."""
+    """Primary retrieval for lists, ALL, counts, newest messages and messages by a person, even with a named topic:
+    use before either search tool, not automatically alongside them. Returns filtered knowledge-base messages and their
+    total; normally newest first, or soonest event first with event_from/event_to. Use limit 50 for lists, Russian and
+    English words for a named topic, no words for a general period overview, official_only for news/announcements, and
+    sender for a person. date_from/date_to filter publication; event_from/event_to filter when events happen or work is
+    due. Event-only requests omit publication filters to include earlier announcements; combine axes only when explicitly
+    requested. Topical facts/discussions that are not lists/counts/newest/person requests use both searches instead.
+    Follow up only for a concrete unanswered part or missing synonym/source: prefer corrected words/filters here for a
+    list/count; search tools may supplement a specific semantic or live-chat gap. Searches are not exhaustive counts;
+    do not add overlapping read totals. Disclose coverage limits: some live chats are not in the knowledge base."""
     collector = Collector(runtime)
     now = datetime.now(settings.tz)
     if asks_upcoming(_question(runtime)):  # As in search_chats: what is coming starts today, whenever it was written.
@@ -332,8 +338,8 @@ class SearchUserbotArgs(BaseModel):
         description="1 to 4 short queries of ONE or TWO words each (Telegram's search matches words and their forms, not phrases)."
     )
     chat: str | None = Field(None, description="Only the chat whose title contains this text, or @username.")
-    date_from: date | None = Field(None, description="Only messages on or after this day (YYYY-MM-DD).")
-    date_to: date | None = Field(None, description="Only messages on or before this day (YYYY-MM-DD).")
+    date_from: date | None = Field(None, description="Only messages WRITTEN on or after this day (YYYY-MM-DD); publication, not event date.")
+    date_to: date | None = Field(None, description="Only messages WRITTEN on or before this day (YYYY-MM-DD inclusive); publication, not event date.")
 
 
 @tool(args_schema=SearchUserbotArgs)
@@ -344,10 +350,15 @@ def search_userbot_chats(
     date_from: date | None = None,
     date_to: date | None = None,
 ) -> Command:
-    """Search chats with Telegram's own search, through the userbot: every chat an admin chose in /listen, official or not,
-    whether or not the knowledge base stores it (it also reaches messages the knowledge base does not have). It matches
-    whole words and their forms, not meaning, and lists the newest first: give 1-4 queries of one or two words each, never a
-    sentence. Read the dates and `official` of each message."""
+    """Search chats with Telegram's own search through the userbot: every chat an admin chose in /listen, official or not,
+    whether or not stored in the knowledge base. For primary topical facts/discussions, call together with search_chats
+    in the same step. Lists, counts, newest messages and messages by a person use read_chats first instead, even with a
+    named topic; do not add live search automatically. Follow up only for a concrete unanswered part or missing source
+    or synonym, using whichever tool addresses that gap. Search matches are not exhaustive lists or counts.
+    Matches whole words and their forms, not meaning, newest first: give 1-4 queries of one or two words, never a sentence.
+    date_from/date_to constrain publication only, not events: omit for event-only requests and check returned event dates
+    against the requested period. Only add publication filters if explicitly requested; do not claim server-side event
+    filtering. Read the dates and `official` of each message."""
     from catix import live_search, userbot_config
 
     collector = Collector(runtime)

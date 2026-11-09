@@ -171,9 +171,12 @@ def sport_get_sport_trainings(
     sport: Annotated[str | None, Field(max_length=60)] = None,
     *, token: str = Depends(require_sport),
 ) -> dict:
-    """Sport trainings in a date range, optionally filtered by sport, with signup availability.
+    """Sport service training list and signup eligibility for a date range, optionally filtered by sport.
 
-    Requires InNoHassle sign-in and the separate Sport credential.
+    Default for ordinary training lists/recommendations, including "what can I sign up for" or "подбери мне тренировки".
+    Does not read classes, bookings or AI Calendar and does not filter by personal free time.
+    A specific requested day uses date_from=date_to. checked_in/can_check_in describe Sport eligibility, not calendar fit.
+    Read-only: does not sign up. Requires InNoHassle sign-in and the separate Sport credential.
     """
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError

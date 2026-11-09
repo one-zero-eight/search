@@ -140,11 +140,11 @@ def test_final_answer_is_delivered_before_last_token_and_graph_completion(retrie
     assert model.callbacks is None, "The shared model must not retain invocation callbacks"
 
 
-@pytest.mark.parametrize("case", ["brief", "disabled", "multiple", "direct", "optional", "stale"])
+@pytest.mark.parametrize("case", ["disabled", "multiple", "direct", "optional", "stale"])
 def test_ineligible_helper_text_stays_private(retrieval, monkeypatch, case):
     steps = script([AIMessageChunk(content=FIRST), AIMessageChunk(content=LAST)])
     inputs = None
-    context = AgentContext(brief=case == "brief")
+    context = AgentContext()
     if case == "disabled":
         monkeypatch.setattr(core.settings, "agent_pass_report", False)
     if case == "optional":
