@@ -1,22 +1,29 @@
-"""User-visible chat sources, scoped like the website assistant (not an admin directory)."""
-from catix import groups, userbot_config
+"""User-visible Telegram and MAX sources, scoped like the website assistant (not an admin directory)."""
+from typing import Literal
+
+from catix import groups, source_requests, userbot_config
 from catix.db import pg
 
 
 def website_sources(verified_groups: list[str]) -> list[dict]:
-    allowed = {chat_id for chat_id in groups.website_chat_ids(verified_groups) if chat_id < groups.MAX_CHAT_BASE // 2}
+    allowed = groups.website_chat_ids(verified_groups)
     if not allowed:
         return []
     with pg.connection() as conn:
         rows = conn.execute(
-            """SELECT c.chat_id, c.title, c.group_code, c.bot_member, d.forum,
+            """SELECT c.chat_id, c.title, c.group_code, c.bot_member, c.link,
+                      COALESCE(c.username, d.username) AS username, d.forum,
                       d.chat_id IS NOT NULL AS userbot_member,
                       l.topic_ids, l.reader, l.topic_policy,
+                      mx.chat_id IS NOT NULL AS is_max, mx.enabled, mx.access,
                       EXISTS (SELECT 1 FROM messages m WHERE m.chat_id = c.chat_id) AS has_stored_messages
                FROM chats c LEFT JOIN userbot_listen l USING (chat_id)
                LEFT JOIN userbot_dialogs d USING (chat_id)
+               LEFT JOIN max_sources mx USING (chat_id)
                WHERE c.chat_id = ANY(%s::bigint[])
-               ORDER BY lower(c.title), c.chat_id""", (sorted(allowed),),
+                 AND (mx.chat_id IS NOT NULL
+                      OR (c.chat_id < %s AND (d.chat_id IS NULL OR d.kind IN ('group', 'channel'))))
+               ORDER BY lower(c.title), c.chat_id""", (sorted(allowed), groups.MAX_CHAT_BASE // 2),
         ).fetchall()
         found_topics = conn.execute(
             "SELECT chat_id, topic_id, title FROM userbot_topics WHERE chat_id = ANY(%s::bigint[]) ORDER BY topic_id",
@@ -27,6 +34,17 @@ def website_sources(verified_groups: list[str]) -> list[dict]:
         topic_titles.setdefault(topic["chat_id"], {})[topic["topic_id"]] = topic["title"]
     result = []
     for row in rows:
+        if row["is_max"]:
+            mode = "store" if row["enabled"] and row["access"] == "ready" else "off"
+            if mode == "off" and not row["has_stored_messages"]:
+                continue
+            result.append({
+                "chat_id": str(row["chat_id"]), "title": row["title"], "group_code": row["group_code"],
+                "platform": "max", "link": _source_link(row["link"], "max"),
+                "forum": False, "default_mode": mode, "topics": [],
+                "has_stored_messages": row["has_stored_messages"],
+            })
+            continue
         policy = (userbot_config._policy((row["topic_ids"], row["reader"], row["topic_policy"]))
                   if row["reader"] is not None else {"default": "off", "topics": {}})
         reader = userbot_config.effective_reader(row["reader"], row["userbot_member"]) if row["reader"] else None
@@ -50,10 +68,41 @@ def website_sources(verified_groups: list[str]) -> list[dict]:
                 })
         result.append({
             "chat_id": str(row["chat_id"]), "title": row["title"], "group_code": row["group_code"],
+            "platform": "telegram",
+            "link": _source_link(row["link"], "telegram", username=row["username"]),
             "forum": forum, "default_mode": policy["default"], "topics": topics,
             "has_stored_messages": row["has_stored_messages"],
         })
     return result
+
+
+def _source_link(link: str | None, platform: Literal["telegram", "max"], *, username: str | None = None) -> str | None:
+    """Prefer a public username, otherwise validate a saved HTTPS chat link or invitation."""
+    if platform == "telegram" and username:
+        try:
+            public_name = source_requests.public_username(f"https://t.me/{username}")
+        except ValueError:
+            public_name = None
+        if public_name is not None:
+            return f"https://t.me/{public_name}"
+    if not isinstance(link, str):
+        return None
+    if platform == "telegram":
+        if not link.startswith("https://t.me/"):
+            return None
+        try:
+            username = source_requests.public_username(link)
+            if username is not None:
+                return f"https://t.me/{username}"
+            return f"https://t.me/+{source_requests.invite_hash(link)}"
+        except ValueError:
+            return None
+    if not link.startswith("https://max.ru/"):
+        return None
+    match = source_requests.MAX_LINK_RE.fullmatch(link)
+    if not match or match[1].lower() in {"join", "joinchat"}:
+        return None
+    return f"https://max.ru/{match[1]}"
 
 
 def _available_mode(mode: str, can_store: bool, can_search: bool) -> str:

@@ -1,8 +1,8 @@
-"""Read-only catalogue of the current user's Telegram sources and configured modes."""
+"""Read-only catalogue of the current user's Telegram and MAX sources and configured modes."""
 from typing import Literal
 
 from fastapi import APIRouter, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, StrictStr
 
 from catix import groups, sources
 from catix.api.auth import VerifiedDep
@@ -20,6 +20,8 @@ class SourceView(BaseModel):
     chat_id: str
     title: str
     group_code: str
+    platform: Literal["telegram", "max"]
+    link: StrictStr | None
     forum: bool
     default_mode: Literal["store", "search", "off"]
     topics: list[SourceTopicView]
