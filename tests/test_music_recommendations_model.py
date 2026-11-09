@@ -33,7 +33,7 @@ def test_model_uses_personal_music_windows_without_booking(monkeypatch, services
     config = {"configurable": {"thread_id": f"music-model-{case}"}}
     result = graph.invoke({"messages": [HumanMessage(question)]}, config, context=CONTEXT)
     calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
-    answer = core.final_answer(result["messages"], {})
+    answer = core.final_answer(result["messages"], {}).answer
     print({"case": case, "calls": calls, "answer": answer})
     assert len(calls) == 1 and calls[0]["name"] == "get_my_available_music_windows"
     assert calls[0]["args"] == {"day": DAY, **({"duration_minutes": 60} if case != "no_duration" else {})}

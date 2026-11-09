@@ -48,6 +48,7 @@ from catix.innohassle.mcp_access import CONFIRMATION_TOOLS, READ_TOOLS as MCP_RE
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import MAX_READS, TOOLS, AgentContext, reads_done
 from catix.common import courses, dates
+from catix.common.citations import CitedAnswer
 from catix.db import store
 from catix.settings import settings
 
@@ -1439,8 +1440,8 @@ def _action_fallback(messages: list[BaseMessage], receipts: list[dict]) -> str:
     return "Выполнение части действий подтверждено сервисом; результат других действий неизвестен. Не повторяйте действия; сначала проверьте их состояние в сервисе."
 
 
-def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
-    """Text of the last answer: invented URLs removed, source refs turned into a numbered list.
+def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> CitedAnswer:
+    """The last answer with invented URLs removed and backend-numbered sources.
 
     The helpers' reports were already cleaned against their own tool results; here the answer is checked against the
     reports, so that the supervisor cannot add a link or an attribution of its own.
@@ -1450,14 +1451,14 @@ def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
     receipts = _action_receipts(turn)
     if receipts and (any(r.get("report_failed") is True for r in receipts)
                      or _failed_action_report(messages[-1].text)):
-        return _action_fallback(turn, receipts)
+        return CitedAnswer(answer=_action_fallback(turn, receipts))
     reports = [str(m.content) for m in turn if isinstance(m, ToolMessage) and (m.name or "").startswith("ask_")]
     if (reports and all(r.strip() == TOOL_FAILURE_ANSWER for r in reports)
             and not successful_read(turn) and not receipts):
         # No helper finished: whatever the supervisor wrote comes from its own memory (it once made up the rules of
         # admission this way). The user is told that it did not work.
         log.warning("every helper failed this turn; the supervisor's answer is replaced")
-        return TOOL_FAILURE_ANSWER
+        return CitedAnswer(answer=TOOL_FAILURE_ANSWER)
     answer = clean(turn, messages[-1].text)
     # The supervisor may cite only what a helper reported in this very turn. The registry holds the sources of the whole
     # conversation, so a ref the supervisor made up ("m0") could otherwise name an unrelated message found earlier.
@@ -1468,7 +1469,7 @@ def final_answer(messages: list[BaseMessage], registry: dict[str, dict]) -> str:
         # The supervisor retold the reports without their refs (2 of 5 answers about admission): the answer rests on
         # what the helpers cited, so their sources go under it, at the end of the answer.
         answer = f"{answer.rstrip()} [{']['.join(dict.fromkeys(in_reports))}]"
-    # After the URL check: the source list adds links of its own, taken from the database.
+    # After the URL check: structured sources add only links from trusted tool results or the database.
     return sources.cite(answer, {ref: source for ref, source in registry.items() if ref in reported})
 
 

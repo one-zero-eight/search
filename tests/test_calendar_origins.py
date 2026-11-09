@@ -12,6 +12,7 @@ from catix import personal_calendar
 from catix.agent import events
 from catix.api import ask
 from catix.api.app import app
+from catix.common.citations import AnswerSource
 from catix.innohassle import token
 from catix.settings import settings
 from tests.test_api import FakeChats
@@ -185,7 +186,7 @@ def test_real_helper_graph_preserves_calendar_origin(monkeypatch, extraction, he
                 {'configurable': {'thread_id': f'calendar-origins-{helper}'}}, context=AgentContext())
     report = next(m for m in result['messages'] if isinstance(m, ToolMessage))
     assert report.artifact.get('calendar_origins', {}).get('service') is True
-    assert events.extract(core.final_answer(result['messages'], {}), origins=events.origins(result['messages'])) == []
+    assert events.extract(core.final_answer(result['messages'], {}).answer, origins=events.origins(result['messages'])) == []
     assert calls == []
 
 
@@ -246,14 +247,14 @@ def test_decorated_service_event_cannot_borrow_independent_evidence(extraction, 
         answer = 'Tomorrow Football and Open robotics lecture at 20:00.'
     else:
         display, source = 'Homework deadline: Mathematical Analysis', 1
-        answer = ('Tomorrow Football at 20:00; Homework deadline: Mathematical Analysis tomorrow at 20:00 [1].'
-                  '\n\nSources:\n[1] https://example.org/homework')
+        answer = 'Tomorrow Football at 20:00; Homework deadline: Mathematical Analysis tomorrow at 20:00 [1].'
     messages = service_turn(day, 'events_get_university_events', {'events': items})
     result.events[:] = [
         events.Event(title=f'Football: {decoration}', day=day, start_time=time(20), end_time=None, room=None, source=source),
         events.Event(title=display, day=day, start_time=time(20), end_time=None, room=None, source=source),
     ]
-    found = events.extract(answer, origins=events.origins(messages))
+    sources = [AnswerSource(number=1, title='Homework', url='https://example.org/homework', kind='chat')] if source else []
+    found = events.extract(answer, sources=sources, origins=events.origins(messages))
     assert [item['title'] for item in found] == [display]
     assert found[0]['source_url'] == ('https://example.org/homework' if source else None)
     assert len(calls) == 1
@@ -330,9 +331,9 @@ def test_cited_same_subject_reminder_is_independent(extraction, deadline_time, r
     ]
     clock = f' at {deadline_time:%H:%M}' if deadline_time else ''
     answer = ('Tomorrow Mathematical Analysis at 10:00; '
-              f'{reminder_title} tomorrow{clock} [1].'
-              '\n\nSources:\n[1] https://example.org/homework')
-    found = events.extract(answer, origins=events.origins(messages))
+              f'{reminder_title} tomorrow{clock} [1].')
+    sources = [AnswerSource(number=1, title='Homework', url='https://example.org/homework', kind='chat')]
+    found = events.extract(answer, sources=sources, origins=events.origins(messages))
     assert [item['title'] for item in found] == [reminder_title]
     assert found[0]['all_day'] is (deadline_time is None)
     assert found[0]['source_url'] == 'https://example.org/homework'
@@ -342,7 +343,20 @@ def test_cited_same_subject_reminder_is_independent(extraction, deadline_time, r
 def test_cited_chat_without_public_link_keeps_its_deadline(extraction):
     day, result, _, _ = extraction
     result.events[:] = [events.Event(title='Дедлайн', day=day, start_time=None, end_time=None, room=None, source=1)]
-    answer = 'Завтра Football в 18:30. Дедлайн завтра [1].\n\nИсточники:\n[1] «Закрытый чат»'
-    found = events.extract(answer, origins=events.origins(service_turn(day)))
+    answer = 'Завтра Football в 18:30. Дедлайн завтра [1].'
+    sources = [AnswerSource(number=1, title='Закрытый чат', kind='chat')]
+    found = events.extract(answer, sources=sources, origins=events.origins(service_turn(day)))
     assert [item['title'] for item in found] == ['Дедлайн']
     assert found[0]['source_url'] is None and found[0]['all_day'] is True
+
+
+@pytest.mark.parametrize('marker,sources', [
+    ('[1]', []),
+    ('[1]', [AnswerSource(number=2, title='Other', url='https://example.org/other', kind='chat')]),
+    ('', [AnswerSource(number=1, title='Unused', url='https://example.org/unused', kind='chat')]),
+])
+def test_only_sources_cited_in_answer_allow_independent_calendar_extraction(extraction, marker, sources):
+    day, _, calls, _ = extraction
+    answer = f'Завтра Football в 18:30. Дедлайн завтра {marker}.'
+    assert events.extract(answer, sources=sources, origins=events.origins(service_turn(day))) == []
+    assert calls == []

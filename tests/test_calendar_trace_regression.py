@@ -83,7 +83,7 @@ def test_real_model_explains_exact_trace_without_calling_it_an_empty_day(monkeyp
     config = {"configurable": {"thread_id": "unknown-end-trace-model"}}
     out = graph.invoke({"messages": [HumanMessage("какая есть свободная музыкальная комната на завтра")]}, config, context=CONTEXT)
     calls = [call for m in out["messages"] if isinstance(m, AIMessage) for call in m.tool_calls]
-    answer = core.final_answer(out["messages"], {})
+    answer = core.final_answer(out["messages"], {}).answer
     print({"calls": calls, "answer": answer})
     assert len(calls) == 1 and calls[0]["name"] == "get_my_available_music_windows"
     assert calls[0]["args"] == {"day": DAY} and len(trace_services) == 2

@@ -125,7 +125,7 @@ def test_approval_resume_retains_files_and_followups_remain_private(client, monk
         assert tracing.is_private()
         seen.append(kwargs["current_attachment_ids"])
         if len(seen) == 1:
-            return ask.Waiting("В файле указана встреча.", [], None, "cp-wait",
+            return ask.Waiting("В файле указана встреча.", [], [], None, "cp-wait",
                                AskApproval(id="cp-wait", actions=[AskAction(name="add_to_ai_calendar", description="Добавить встречу")]),
                                [{"id": "interrupt", "actions": 1}])
         return "Ответ", [], [], "phoenix-span-followup", "cp-done"

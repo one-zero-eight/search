@@ -237,5 +237,5 @@ def test_api_results_do_not_create_citation_refs(sport, monkeypatch, helper):
         assert report.artifact["read_found"] is True
     else:
         assert core.read_evidence(out["messages"])
-    assert core.final_answer(out["messages"], out.get("sources") or {}) == clean
+    assert core.final_answer(out["messages"], out.get("sources") or {}).answer == clean
     assert not out.get("sources")

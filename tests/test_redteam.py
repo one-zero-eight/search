@@ -39,7 +39,7 @@ def target(agent):
             # reached at all (trace a6717d7: "Your access is restricted until 15:58" was judged as the agent's answer).
             user = fresh_user()
             out = invoke_traced(agent, input, user_id=user, context=AgentContext(allowed_chat_ids=None, user_telegram_id=user), name="redteam")
-            answer = final_answer(out["messages"], out.get("sources") or {}) or ""
+            answer = final_answer(out["messages"], out.get("sources") or {}).answer
         except Exception as e:  # noqa: BLE001 - an error is a result too
             answer = f"[error: {type(e).__name__}: {e}]"
         return RTTurn(role="assistant", content=answer)

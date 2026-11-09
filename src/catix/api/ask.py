@@ -57,12 +57,11 @@ from catix.api.schemas import (
     AskDecision,
     AskResponses,
     CalendarEventOffer,
-    SearchResponse,
     SignupOffer,
     SignupSelection,
 )
-from catix.api.search import make_source
 from catix.common.llm_down import UNAVAILABLE, unreachable
+from catix.common.citations import AnswerSource, CitedAnswer
 from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
 from catix.settings import settings
 from catix.common.render import partial_text
@@ -120,9 +119,9 @@ async def memory():
 
 questions = QuestionQueue(settings.agent_parallel_questions)
 
-# The answer, the cards of its sources, the conversation, the root span of the answer's trace (None when tracing is off) and the
+# The answer, its cited sources, the conversation, the root span of the answer's trace (None when tracing is off) and the
 # checkpoint of the chat's thread after the answer
-Answered = tuple[str, list[SearchResponse], list, str | None, str | None]
+Answered = tuple[str, list[AnswerSource], list, str | None, str | None]
 
 
 @dataclass(frozen=True)
@@ -131,6 +130,7 @@ class Waiting:
     checkpoint it paused at and its interrupts ({id, actions}: how many decisions each wants)."""
 
     answer: str
+    sources: list[AnswerSource]
     messages: list
     span_id: str | None
     checkpoint: str
@@ -157,20 +157,6 @@ def _decisions(found: list[dict], decision: str) -> dict:
     return {i["id"]: {"decisions": [one] * i["actions"]} for i in found}
 
 
-def _cards(registry: dict, before: set[str]) -> list[SearchResponse]:
-    """The pages of the knowledge base this answer found, as cards (one per document)."""
-    cards: dict[tuple, SearchResponse] = {}
-    for ref, source in registry.items():
-        if ref in before or not source.get("wiki"):
-            continue
-        preview = f"{source['title']}" + (f", п. {source['clause']}" if source.get("clause") else "")
-        card = make_source(
-            source["title"], source.get("link") or "", preview, site=bool(source.get("site")), trust=source.get("trust") or "wiki",
-            archive_document=source.get("archive_document"),
-        )
-        document = source.get("archive_document") or {}
-        cards.setdefault((card.display_name, card.url, document.get("page"), document.get("revision")), SearchResponse(source=card))
-    return list(cards.values())
 
 
 class AnswerHistory(list):
@@ -321,11 +307,11 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
     if isinstance(done, Waiting):
         if naming is not None:
             naming.cancel()  # Named when it is answered.
-        response = AskResponses(query=query, answer=done.answer, chat_id=chat_id, search_responses=[], messages=done.messages,
+        response = AskResponses(query=query, answer=done.answer, chat_id=chat_id, sources=done.sources, messages=done.messages,
                                 approval=done.approval, attachments=files)  # fmt: skip
         await asyncio.to_thread(chats.save_waiting, response, done.checkpoint, done.interrupts)
         return response
-    answer, cards, messages, span_id, checkpoint = done
+    answer, sources, messages, span_id, checkpoint = done
     response = AskResponses(
         query=query,
         answer=answer,
@@ -333,9 +319,9 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         chat_id=chat_id,
         # A vote annotates the trace, including when the answer used private files.
         ask_query_id=state.new_id() if span_id else None,
-        search_responses=cards,
+        sources=sources,
         # After a decision, the booked event is in the service already.
-        calendar_events=await calendar_offers(answer, getattr(messages, 'calendar_origins', None)) if decision is None else [],
+        calendar_events=await calendar_offers(answer, sources=sources, origins=getattr(messages, 'calendar_origins', None)) if decision is None else [],
         signup_offers=getattr(messages, 'signup_offers', []),
         messages=messages,
     )
@@ -387,12 +373,6 @@ async def _run(
         attachments=attachment_manifest,
         current_attachment_ids=current_attachment_ids,
     )
-    # The sources known before this question: the cards are of what it found (when resumed, also before it paused).
-    if resume is None:
-        snapshot = await agent().aget_state(config)
-    else:
-        snapshot = await agent().aget_state({"configurable": {"thread_id": thread_id, "checkpoint_id": last}}) if last else None
-    before = set((snapshot.values.get("sources") or {}) if snapshot else {})
 
     async def report_wait(ahead: int) -> None:
         await events.put(("status", {"text": QUEUED.format(ahead=ahead)}))  # type: ignore[union-attr]
@@ -419,29 +399,29 @@ async def _run(
                 messages = result["messages"]
                 # A tool call can carry the explanation of what the user is about to approve.
                 # Only this last supervisor message belongs to the pending action, not earlier replies or tool results.
-                answer = ""
+                cited = CitedAnswer(answer="")
                 if messages and isinstance(messages[-1], AIMessage) and messages[-1].text.strip():
-                    answer = final_answer(messages, result.get("sources") or {})
-                if not answer:
-                    answer = WAITING.get(_language(query), WAITING["Russian"])
-                traced.answer(answer)
+                    cited = final_answer(messages, result.get("sources") or {})
+                if not cited.answer:
+                    cited = CitedAnswer(answer=WAITING.get(_language(query), WAITING["Russian"]))
+                traced.answer(cited.answer)
                 counts = [{"id": i.id, "actions": len((i.value or {}).get("action_requests") or [None])} for i in paused]
-                return Waiting(answer, _history(result["messages"]), traced.id, checkpoint, approval, counts)
-            answer = final_answer(result["messages"], result.get("sources") or {}) or "Не получилось сформулировать ответ."
-            traced.answer(answer)
-    cited = answer.rstrip().split("\n\n")[-1].startswith(("Источники:", "Sources:"))
-    cards = _cards(result.get("sources") or {}, before) if cited else []
+                return Waiting(cited.answer, cited.sources, _history(result["messages"]), traced.id, checkpoint, approval, counts)
+            cited = final_answer(result["messages"], result.get("sources") or {})
+            if not cited.answer:
+                cited = CitedAnswer(answer="Не получилось сформулировать ответ.")
+            traced.answer(cited.answer)
     history = AnswerHistory(_history(result['messages']))
     history.calendar_origins = calendar_events.origins(result['messages'])
-    history.signup_offers, history.signup_targets = signup.collect(result['messages'], answer) if decision is None else ([], {})
-    return answer, cards, history, traced.id, after.config["configurable"]["checkpoint_id"]
+    history.signup_offers, history.signup_targets = signup.collect(result['messages'], cited.answer) if decision is None else ([], {})
+    return cited.answer, cited.sources, history, traced.id, after.config["configurable"]["checkpoint_id"]
 
 
-async def calendar_offers(answer: str, origins: dict | None = None) -> list[CalendarEventOffer]:
+async def calendar_offers(answer: str, *, sources: list[AnswerSource] | None = None, origins: dict | None = None) -> list[CalendarEventOffer]:
     """The upcoming events the answer names, offered for the user's calendar as under the bot's answers (one more short
     call of the model, only when the answer has a date). A bonus: when it fails, the answer goes without them."""
     try:
-        events = await asyncio.to_thread(calendar_events.extract, answer, **({'origins': origins} if origins else {}))
+        events = await asyncio.to_thread(calendar_events.extract, answer, sources=sources, origins=origins)
         offered = await asyncio.to_thread(personal_calendar.propose, events) if events else []
     except Exception as exc:  # noqa: BLE001 - the answer is there already
         log.warning("could not offer calendar events (%s)", type(exc).__name__)

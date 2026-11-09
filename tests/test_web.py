@@ -197,8 +197,10 @@ def test_a_web_source_names_its_site_and_one_off_the_official_ones_is_from_the_w
         "m1": {"key": f"web:{BLOG}", "web": True, "title": "Blog", "link": BLOG, "official_site": False},
     }
     cited = sources.cite("Корпус откроется 1 декабря [m0], а в блоге пишут иначе [m1].", registry)
-    assert f"[1] [«Новый корпус»]({NEWS}) (media.innopolis.university)" in cited
-    assert f"[2] [«Blog»]({BLOG}) (blog.example.com, из интернета)" in cited
+    assert cited.answer == "Корпус откроется 1 декабря [1], а в блоге пишут иначе [2]."
+    assert [(source.number, source.title, source.url, source.kind, source.official) for source in cited.sources] == [
+        (1, "Новый корпус", NEWS, "web", True), (2, "Blog", BLOG, "web", False),
+    ]
 
 
 @pytest.mark.parametrize(("url", "official"), [

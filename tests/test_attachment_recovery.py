@@ -16,7 +16,7 @@ from tests.test_attachments import disposable_db  # noqa: F401 - real isolated S
 
 @pytest.fixture(autouse=True)
 def no_calendar_model(monkeypatch):
-    monkeypatch.setattr(ask.calendar_events, "extract", lambda *args: [])
+    monkeypatch.setattr(ask.calendar_events, "extract", lambda *args, **kwargs: [])
 
 
 @pytest.mark.parametrize("path", ["/ask/", "/ask/stream"])

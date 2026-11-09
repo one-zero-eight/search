@@ -97,7 +97,7 @@ def test_api_offer_marker_is_boolean_with_false_default():
 def test_api_offer_pipeline_keeps_visible_suggestion_and_serialized_interval(storage, monkeypatch):
     from catix.api import ask
 
-    monkeypatch.setattr(ask.calendar_events, "extract", lambda answer: [event()])
+    monkeypatch.setattr(ask.calendar_events, "extract", lambda answer, **kwargs: [event()])
     [offer] = asyncio.run(ask.calendar_offers("Study on 8 November at 23:30"))
     payload = offer.model_dump(mode="json")
     assert payload["end_suggested"] is True

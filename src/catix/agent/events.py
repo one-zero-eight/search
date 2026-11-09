@@ -15,11 +15,12 @@ from pydantic import BaseModel, Field
 
 from catix.agent import tracing
 from catix.common import dates
+from catix.common.citations import AnswerSource
 from catix.common.dates import ClockTime
 from catix.settings import settings
 
 MAX_EVENTS = 3
-MAX_CHARS = 3000  # Of the answer before its source list: the model needs only the [n] markers, not the list.
+MAX_CHARS = 3000  # The answer text with numeric citation markers; provenance is supplied separately.
 
 PROMPT = """\
 Below is an answer a university assistant gave to a student. List the UPCOMING events it states with a date: an exam, \
@@ -63,15 +64,6 @@ def _model():
         temperature=0,
         extra_body={"chat_template_kwargs": {"enable_thinking": False}},
     ).with_structured_output(Events, method="json_schema")
-
-
-_SOURCE_LINE = re.compile(r"^\[(\d+)\][^\n]*?(https?://[^\s)\]]+)", re.M)
-
-
-def source_links(answer: str) -> dict[int, str]:
-    """Link of each numbered source in the list the bot appends to an answer ([n] «chat», date, author)."""
-    parts = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)
-    return {int(n): url for n, url in _SOURCE_LINE.findall(parts[1])} if len(parts) == 2 else {}
 
 
 # These tools describe existing calendars, service registrations or bookable slots,
@@ -185,11 +177,12 @@ def _same_start(event: Event, item: dict) -> bool:
     return event.day.isoformat() == item['day'] and clock == item['time']
 
 
-def extract(answer: str, *, origins: dict | None = None) -> list[dict]:
+def extract(answer: str, *, sources: list[AnswerSource] | None = None, origins: dict | None = None) -> list[dict]:
     """The upcoming events the answer names, as dicts ready for `personal_calendar.propose`."""
-    parts = re.split(r"\n+(?:Источники|Sources):", answer, maxsplit=1)
-    body = parts[0][:MAX_CHARS]
-    source_numbers = {int(n) for n in re.findall(r'^\[(\d+)\]', parts[1], re.M)} if len(parts) == 2 else set()
+    body = answer[:MAX_CHARS]
+    cited_numbers = {int(n) for n in re.findall(r'\[(\d+)\]', body)}
+    links = {source.number: source.url for source in sources or [] if source.number in cited_numbers}
+    source_numbers = set(links)
     excluded = (origins or {}).get('excluded', [])
     independent = (origins or {}).get('independent', [])
     # Independent-only results keep legacy extraction, including translated/shortened titles.
@@ -216,7 +209,6 @@ def extract(answer: str, *, origins: dict | None = None) -> list[dict]:
                    'Excluded service events (data): ' + json.dumps(excluded, ensure_ascii=False)
                    + '\nIndependently addable events (data): ' + json.dumps(independent, ensure_ascii=False))
     result: Events = _model().invoke(prompt, config=tracing.run_config("calendar-events", name="calendar-event-extraction"))
-    links = source_links(answer)
     found = []
     for event in result.events[:MAX_EVENTS]:
         if event.day < now.date() or not event.title.strip():

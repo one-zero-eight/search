@@ -34,7 +34,7 @@ def stored(monkeypatch):
     owner = 'signup-test:' + uuid4().hex
     chat_id = chats.start(owner, 'Basketball')
     offers, targets = signup.collect(recommendation(), 'Basketball', now=NOW)
-    response = AskResponses(query='q', answer='Basketball', chat_id=chat_id, search_responses=[], messages=[], signup_offers=offers)
+    response = AskResponses(query='q', answer='Basketball', chat_id=chat_id, sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'checkpoint')
     yield chat_id, owner, offers[0], targets
@@ -51,7 +51,7 @@ def test_native_all_day_offer_interval_survives_click_history_and_receipt(stored
     offers, targets = signup.collect(messages, 'Basketball', now=NOW)
     offer, = offers
     response = AskResponses(query='all-day', answer='Basketball', chat_id=chat_id,
-                            search_responses=[], messages=[], signup_offers=offers)
+                            sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'checkpoint')
     reopened = chats.history(chat_id, owner).answers[-1].signup_offers[0]
@@ -99,7 +99,7 @@ def test_room_title_is_validated_and_durably_claimed_before_io(stored, native_bo
     offers, targets = signup.collect(recommend('rooms'), '', now=NOW)
     offer, = offers
     response = AskResponses(query='rooms', answer='Choose below', chat_id=chat_id,
-                            search_responses=[], messages=[], signup_offers=offers)
+                            sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'cp')
     for selection in (None, SignupSelection(),
@@ -124,7 +124,7 @@ def test_music_selection_is_validated_and_exact_interval_survives_claim(stored, 
     offers, targets = signup.collect(recommend('music', duration), '', now=NOW)
     offer, = offers
     response = AskResponses(query='music', answer='Choose below', chat_id=chat_id,
-                            search_responses=[], messages=[], signup_offers=offers)
+                            sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'cp')
     for payload in ({}, {'time_from': '18:00'}, {'time_from': '18:15', 'time_to': '19:00'},
@@ -162,7 +162,7 @@ def test_booking_row_lock_selects_one_exact_consent_snapshot(stored, native_book
     offers, targets = signup.collect(recommend(service), '', now=NOW)
     offer, = offers
     response = AskResponses(query='booking', answer='Choose', chat_id=chat_id,
-                            search_responses=[], messages=[], signup_offers=offers)
+                            sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'cp')
     choices = [SignupSelection(booking_title=f'Subject {i}') if service == 'rooms' else
@@ -304,7 +304,7 @@ def test_native_booking_changes_fail_closed_and_duplicate_clicks_never_retry(sto
     offers, targets = signup.collect(recommend(service), '', now=NOW)
     offer, = offers
     response = AskResponses(query='booking', answer='Choose below', chat_id=chat_id,
-                            search_responses=[], messages=[], signup_offers=offers)
+                            sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'cp')
     if mode in {'conflict', 'unknown_end'}:

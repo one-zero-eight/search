@@ -12,7 +12,7 @@ from deepeval import assert_test
 from deepeval.test_case import LLMTestCase
 
 from catix import official
-from catix.agent import claims, sources
+from catix.agent import claims
 from catix.db import store
 from tests.helpers import ContainsAll, ContainsNone
 
@@ -84,13 +84,6 @@ def test_chats_are_unofficial_until_an_admin_marks_them(chat):
         official.set_official(chat, False)
 
 
-def test_the_source_list_says_when_a_chat_is_official():
-    line = sources._line(1, {"chat_title": "Campus Information", "official": True, "date": None})
-    other = sources._line(2, {"chat_title": "Dorm chat", "official": False, "date": None})
-    assert_test(LLMTestCase(input="", actual_output=line), [ContainsAll(["(официальный чат)"], name="MarkedOfficial")])
-    assert_test(LLMTestCase(input="", actual_output=other), [ContainsNone(["официальный"], name="NotMarked")])
-
-
 def test_command_lists_and_switches_chats(chat):
     listing = official.command("")
     number = next(i for i, c in enumerate(official.chats(), 1) if c.chat_id == chat)
@@ -160,14 +153,6 @@ def test_a_link_in_bold_or_without_its_closing_slash_is_the_same_link_and_an_inv
     assert clean(turn, "Зайдите на **https://sport.invented.example/login** и запишитесь [m6].") == "Зайдите на и запишитесь [m6]."
     assert clean(turn, "**Сайт: https://sport.invented.example**\nЗапись открыта [m6].") == "Запись открыта [m6]."
     assert clean(turn, "Есть бот для записи [m6].\nБот: `https://t.me/invented_bot`.") == "Есть бот для записи [m6]."
-
-
-def test_a_tool_name_written_as_a_ref_goes():
-    """The campus helper cited find_room, whose results have no refs: '… в корпусе «East» [find_room].'"""
-    from catix.agent.core import clean
-
-    assert clean([], "Кабинет 108 — большая лекционная аудитория на 1 этаже [find_room].") == "Кабинет 108 — большая лекционная аудитория на 1 этаже."
-    assert clean([], "Пересдача 12 ноября [m2], см. также [ask_docs]") == "Пересдача 12 ноября [m2], см. также"
 
 
 def test_an_answer_tag_goes():

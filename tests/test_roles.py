@@ -137,7 +137,7 @@ def test_a_question_goes_to_the_helper_and_its_report_comes_back(monkeypatch):
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert "invented.example" not in report.content, "an invented link in a helper's report must be cut"
     assert report.artifact == {"tools": [], "calls": [], "results": [], "found": None}
-    assert final_answer(out["messages"], out.get("sources") or {}) == "Мидтерм 22 октября."
+    assert final_answer(out["messages"], out.get("sources") or {}).answer == "Мидтерм 22 октября."
 
 
 def test_the_helper_keeps_its_own_context_and_has_no_memory_between_calls(monkeypatch):
@@ -226,9 +226,9 @@ def test_the_supervisor_cannot_cite_a_ref_that_no_helper_reported_in_this_turn()
         AIMessage(content="Бурмяков упоминается в чатах [m0]."),
     ]
     answer = final_answer(messages, registry)
-    assert "Источники" not in answer and "Sources" not in answer and "[1]" not in answer, answer
+    assert answer.sources == [] and "[1]" not in answer.answer, answer
     messages[2] = ToolMessage(content="Бурмяков рассказывал [m0].", tool_call_id="c1", name="ask_chats")
-    assert "Analytical Geometry" in final_answer(messages, registry)  # the same ref, reported this turn, is honoured
+    assert final_answer(messages, registry).sources[0].title == "Analytical Geometry"  # a ref reported this turn is honoured
 
 
 @pytest.mark.model
@@ -273,10 +273,10 @@ def test_when_every_helper_failed_the_answer_says_so_instead_of_what_the_supervi
         ToolMessage(content=TOOL_FAILURE_ANSWER, tool_call_id="c1", name="ask_docs"),
         AIMessage(content="Вступительных испытаний нет, приём по портфолио."),
     ]
-    assert final_answer(messages, {}) == TOOL_FAILURE_ANSWER
+    assert final_answer(messages, {}).answer == TOOL_FAILURE_ANSWER
     messages[2] = ToolMessage(content="Компьютерное тестирование [m0].", tool_call_id="c1", name="ask_docs")
     messages[3] = AIMessage(content="Компьютерное тестирование [m0].")
-    assert "тестирование" in final_answer(messages, {"m0": {"wiki": True, "title": "Правила приема", "clause": "", "link": None, "trust": "official"}})
+    assert "тестирование" in final_answer(messages, {"m0": {"wiki": True, "title": "Правила приема", "clause": "", "link": None, "trust": "official"}}).answer
 
 
 def test_refs_the_supervisor_left_out_go_under_the_answer():
@@ -288,8 +288,10 @@ def test_refs_the_supervisor_left_out_go_under_the_answer():
     ]
     rules = {"wiki": True, "title": "Правила приема 2026/2027", "clause": "", "link": "https://innopolis.university/r.pdf", "trust": "official"}
     answer = final_answer(messages, {"m7": rules, "m9": rules})
-    assert answer.startswith("Компьютерное тестирование, минимальный балл 40. [1]")
-    assert answer.endswith("[1] [«Правила приема 2026/2027»](https://innopolis.university/r.pdf) (документ университета)")
+    assert answer.answer == "Компьютерное тестирование, минимальный балл 40. [1]"
+    assert len(answer.sources) == 1
+    assert answer.sources[0].number == 1 and answer.sources[0].title == "Правила приема 2026/2027"
+    assert answer.sources[0].url == "https://innopolis.university/r.pdf" and answer.sources[0].kind == "official_document"
 
 
 def test_a_run_of_refs_keeps_at_most_five_sources():
@@ -308,11 +310,12 @@ def test_a_run_of_refs_keeps_at_most_five_sources():
         AIMessage(content="ПЧЗ — канал первокурсников."),
     ]
     answer = final_answer(messages, registry)
-    assert answer.startswith("ПЧЗ — канал первокурсников. [1][2][3][4][5]\n"), answer
-    assert answer.count("innopolis.university/") == MAX_RUN == 5 and "/5.pdf" not in answer
+    assert answer.answer == "ПЧЗ — канал первокурсников. [1][2][3][4][5]", answer
+    assert len(answer.sources) == MAX_RUN == 5
+    assert [source.url for source in answer.sources] == [f"https://innopolis.university/{i}.pdf" for i in range(MAX_RUN)]
     messages[3] = AIMessage(content=f"ПЧЗ — канал [m0][m1], первокурсников {run}.")
     answer = final_answer(messages, registry)
-    assert "канал [1][2], первокурсников [1][2][3][4][5]." in answer  # two runs, each cut by itself
+    assert "канал [1][2], первокурсников [1][2][3][4][5]." in answer.answer  # two runs, each cut by itself
 
 
 def test_a_report_without_refs_is_asked_again_only_when_the_tools_gave_sources():

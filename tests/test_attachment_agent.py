@@ -31,7 +31,7 @@ def test_attachment_read_is_evidence_without_invented_refs(name):
     assert core.read_evidence(messages)
     assert core.successful_read(messages)
     assert core.found_anything(messages) is True
-    assert "18 ноября" in core.final_answer([*messages, AIMessage("В syllabus.pdf, стр. 1: 18 ноября.")], {})
+    assert "18 ноября" in core.final_answer([*messages, AIMessage("В syllabus.pdf, стр. 1: 18 ноября.")], {}).answer
 
 
 @pytest.mark.parametrize("changes", [{"id": "another-file"}, {"page": 2}, {"page": True}, {"pages": 0},
@@ -87,7 +87,7 @@ def test_short_action_request_inspects_current_image_before_asking_for_details(m
     args = ({"messages": [HumanMessage("Создай ивент")]}, {"configurable": {"thread_id": "implicit-image"}})
     result = asyncio.run(graph.ainvoke(*args, context=context)) if asynchronous else graph.invoke(*args, context=context)
     assert reads == [("owner", "chat", FILE_ID, 1)]
-    assert "512" in core.final_answer(result["messages"], {})
+    assert "512" in core.final_answer(result["messages"], {}).answer
 
 
 @pytest.mark.parametrize(("messages", "current", "state", "choice", "expected"), [
@@ -193,7 +193,7 @@ def test_real_graph_reads_attachment_without_retrieval_helper(monkeypatch, async
     result = asyncio.run(graph.ainvoke(*args, context=context)) if asynchronous else graph.invoke(*args, context=context)
     assert reads == [("owner", "chat", FILE_ID, 1)]
     assert [m.name for m in result["messages"] if isinstance(m, ToolMessage)] == ["read_attachment"]
-    assert "18 ноября" in core.final_answer(result["messages"], result.get("sources") or {})
+    assert "18 ноября" in core.final_answer(result["messages"], result.get("sources") or {}).answer
 
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])

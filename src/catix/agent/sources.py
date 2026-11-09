@@ -3,7 +3,7 @@
 The sources of a conversation live in the graph state (`sources`, next to `messages`): a tool that finds a chat message
 registers it and puts the ref it gets (m0, m1, ... in the order the messages reach the model, over the whole
 conversation) next to the message; the registry is saved with the history and dropped with it (`/clear`). The model copies
-refs next to the facts it uses; `cite` replaces them by [1], [2], ... and appends the source list. Only refs of this
+refs next to the facts it uses; `cite` replaces them by [1], [2], ... and returns structured sources. Only refs of this
 conversation's registry are honoured, so a made-up or injected ref can neither leak a message nor produce a fake source.
 A source is described by its fields, not by a database row, so a message found live in Telegram can be cited too.
 """
@@ -13,14 +13,13 @@ import re
 import threading
 import time
 from datetime import datetime
-from urllib.parse import urlsplit
 
 from langchain.tools import ToolRuntime
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 
+from catix.common.citations import AnswerSource, CitationLink, CitedAnswer
 from catix.db import store
-from catix.settings import settings
 from catix.wiki import previews
 
 log = logging.getLogger("catix.sources")
@@ -115,7 +114,7 @@ def _identity(ref: str, source: dict) -> object:
     if source.get("web"):
         return ("web", source.get("link"))
     if document := source.get("archive_document"):
-        return ("archive", document["page"], document["revision"])
+        return ("archive", document["page"], document["revision"], document["member"])
     return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
 
 
@@ -131,120 +130,67 @@ def _capped(run: re.Match, registry: dict[str, dict]) -> str:
     return "".join(f"[{ref}]" for ref in dict.fromkeys(refs) if ref in registry and _identity(ref, registry[ref]) in kept)
 
 
-def cite(answer: str, registry: dict[str, dict]) -> str:
-    """Replace refs in the answer by numbers and append the numbered source list."""
-    numbers: dict[object, int] = {}
-    first: dict[object, str] = {}  # identity -> the first ref of it (its source fields)
-    clauses: dict[object, list[str]] = {}
-    sections: dict[object, list[str]] = {}  # the headings of the pages quoted from a document that has no clauses (a site, a table)
-
-    def renumber(match: re.Match) -> str:
-        used: set[int] = set()
-        for item in re.findall(r"m\d+", match.group(1)):
-            if item in registry:
-                key = _identity(item, registry[item])
-                used.add(numbers.setdefault(key, len(numbers) + 1))
-                first.setdefault(key, item)
-                clause = registry[item].get("clause")
-                if clause and clause not in clauses.setdefault(key, []):
-                    clauses[key].append(clause)
-                section = registry[item].get("section")
-                if section and not clause and section not in sections.setdefault(key, []):
-                    sections[key].append(section)
-            else:
-                log.warning("dropping unknown source ref %s", item)
-        return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
-
-    answer = GROUP_RE.sub(renumber, RUN_RE.sub(lambda run: _capped(run, registry), answer))
-    answer = re.sub(r"(\[\d+(?:, \d+)*\])(?:\s*\1)+", r"\1", answer)  # [1][1]: two clauses of one document became one number
-    answer = re.sub(r"[ \t]+([.,;:!?])", r"\1", answer)  # Where a dropped ref left a gap.
-    if not numbers:
-        return answer.strip()
-
-    stored = store.message_sources([s["message_id"] for key in numbers if (s := registry[first[key]]).get("message_id")])
-    lines = []
-    for key, number in numbers.items():
-        source = registry[first[key]]
-        if source.get("wiki"):
-            source = {**source, "clause": ", ".join(clauses.get(key, [])), "sections": sections.get(key, [])}
+def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
+    """Number only cited, resolvable sources and return their structured provenance."""
+    # Resolve before capping and numbering: a deleted database row must neither leave
+    # a dangling citation nor consume one of the MAX_RUN slots.
+    referenced = {ref for group in GROUP_RE.findall(answer) for ref in re.findall(r"m\d+", group)}
+    cited = {ref: source for ref, source in registry.items() if ref in referenced}
+    message_ids = list(dict.fromkeys(source["message_id"] for source in cited.values() if source.get("message_id")))
+    stored = store.message_sources(message_ids) if message_ids else {}
+    resolved = {}
+    for ref, source in cited.items():
         if source.get("message_id"):
             row = stored.get(source["message_id"])
             if not row:
                 continue
             source = {
-                "chat_title": row.chat_title, "link": row.link or row.chat_link,  # The chat's own link when the message has none.
+                "chat_title": row.chat_title, "link": row.link or row.chat_link,
                 "date": row.date, "author": row.sender_name, "sender_link": row.sender_link, "official": row.chat_official,
             }
-        lines.append(_line(number, source))
-    if not lines:
-        return answer.strip()
-    title = "Источники" if re.search(r"[а-яё]", answer.lower()) else "Sources"
-    return f"{answer.strip()}\n\n{title}:\n" + "\n".join(lines)
+        resolved[ref] = source
+
+    numbers: dict[object, int] = {}
+    entries: dict[object, AnswerSource] = {}
+
+    def renumber(match: re.Match) -> str:
+        used: set[int] = set()
+        for ref in re.findall(r"m\d+", match.group(1)):
+            if ref not in resolved:
+                log.warning("dropping unknown or unavailable source ref %s", ref)
+                continue
+            source = resolved[ref]
+            key = _identity(ref, source)
+            number = numbers.setdefault(key, len(numbers) + 1)
+            used.add(number)
+            if key not in entries:
+                entries[key] = _source(number, source)
+            entry = entries[key]
+            clause, section = source.get("clause"), source.get("section")
+            if clause and clause not in entry.clauses:
+                entry.clauses.append(clause)
+            if section and not clause and section not in entry.sections:
+                entry.sections.append(section)
+            for based in source.get("based_on") or []:
+                if based.get("link") and not any(item.title == based["title"] and item.url == based["link"] for item in entry.based_on):
+                    entry.based_on.append(CitationLink(title=based["title"], url=based["link"]))
+        return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
+
+    answer = GROUP_RE.sub(renumber, RUN_RE.sub(lambda run: _capped(run, resolved), answer))
+    answer = re.sub(r"(\[\d+(?:, \d+)*\])(?:\s*\1)+", r"\1", answer)
+    answer = re.sub(r"[ \t]+([.,;:!?])", r"\1", answer)
+    return CitedAnswer(answer=answer.strip(), sources=list(entries.values()))
 
 
-def _link(title: str, link: str | None) -> str:
-    title = f"«{title}»"
-    return f"[{title.replace('[', '(').replace(']', ')')}]({link})" if link else title
-
-
-MAX_SECTIONS = 3  # headings named in one line
-SECTION_CHARS = 90
-
-
-def _place(source: dict) -> str:
-    """Where in the document the facts are: the clauses (", п. 5.3"), or, for a page without clauses (a site, a table of staff
-    and their contacts), the headings of its sections (', раздел «Информация о руководителе…»'): a link to a whole page does
-    not say where on it to look."""
-    if source.get("clause"):
-        return f", п. {source['clause']}"
-    if source.get("trust") == "guide":
-        return ""  # (a card's own headings are not a place in a document of the university)
-    shown = []
-    for heading in source.get("sections") or []:
-        heading = re.sub(r"\s+", " ", heading).strip(" :.#").replace("[", "(").replace("]", ")")
-        if heading and heading != source.get("title") and heading not in shown:
-            shown.append(heading if len(heading) <= SECTION_CHARS else heading[:SECTION_CHARS].rstrip() + "…")
-    if not shown:
-        return ""
-    return (", разделы " if len(shown) > 1 else ", раздел ") + ", ".join(f"«{h}»" for h in shown[:MAX_SECTIONS])
-
-
-def _wiki_line(number: int, source: dict) -> str:
-    """[n] «Положение о …», п. 5.3 (документ университета) — or a guide with the documents it rests on, a page of a site
-    (its host: media.innopolis.university) or an eduwiki page."""
-    line = f"[{number}] {_link(source['title'], source.get('link'))}" + _place(source)
-    if source.get("trust") == "official":
-        return line + " (документ университета)"
-    if source.get("trust") == "guide":
-        based = ", ".join(_link(b["title"], b["link"]) for b in source.get("based_on") or [])
-        return line + " (сводка cAtIx" + (f" по документам: {based})" if based else ")")
-    if source.get("site"):
-        return line + (f" ({host})" if (host := urlsplit(source.get("link") or "").hostname) else " (сайт)")
-    return line + " (eduwiki)"
-
-
-def _web_line(number: int, source: dict) -> str:
-    """[n] «Title» (innopolis.university): a page the docs helper found on the web, with its host; a site that is not the
-    university's or the city's is said to be from the web."""
-    host = (urlsplit(source.get("link") or "").hostname or "").removeprefix("www.")
-    where = host if source.get("official_site") else f"{host}, из интернета" if host else "из интернета"
-    return f"[{number}] {_link(source.get('title') or host, source.get('link'))} ({where})"
-
-
-def _line(number: int, source: dict) -> str:
+def _source(number: int, source: dict) -> AnswerSource:
     if source.get("web"):
-        return _web_line(number, source)
+        return AnswerSource(number=number, title=source.get("title") or source.get("link") or "", url=source.get("link"),
+                            kind="web", official=bool(source.get("official_site")))
     if source.get("wiki"):
-        return _wiki_line(number, source)
-    date = source.get("date")
-    when = (datetime.fromisoformat(date) if isinstance(date, str) else date).astimezone(settings.tz) if date else None
-    author = FORWARDER_RE.sub("", source.get("author") or "")
-    title = f"«{source['chat_title']}»"
-    if link := source.get("link"):
-        title = f"[{title.replace('[', '(').replace(']', ')')}]({link})"
-    line = f"[{number}] {title}" + (" (официальный чат)" if source.get("official") else "") + (f", {when:%d.%m.%Y}" if when else "")
-    if author and source.get("sender_link"):
-        line += f", [{author.replace('[', '(').replace(']', ')')}]({source['sender_link']})"
-    elif author:
-        line += f", {author}"
-    return line
+        trust = source.get("trust")
+        kind = "official_document" if trust == "official" else "guide" if trust == "guide" else "website" if source.get("site") else "eduwiki"
+        return AnswerSource(number=number, title=source["title"], url=source.get("link"), kind=kind,
+                            archive_document=source.get("archive_document"), official=trust == "official")
+    return AnswerSource(number=number, title=source["chat_title"], url=source.get("link"), kind="chat",
+                        date=source.get("date"), author=FORWARDER_RE.sub("", source.get("author") or "") or None,
+                        author_url=source.get("sender_link"), official=bool(source.get("official")))

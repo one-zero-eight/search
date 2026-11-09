@@ -80,7 +80,7 @@ def test_helper_failed_prose_preserves_executed_action(mutation, receipt, helper
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert json.loads(report.artifact["results"][0]) == receipt
     assert core.action_receipt(out["messages"]) is True
-    answer = core.final_answer(out["messages"], {})
+    answer = core.final_answer(out["messages"], {}).answer
     assert answer != core.TOOL_FAILURE_ANSWER
     assert "Не повторяйте" in answer
     assert ("могло выполниться" if receipt == UNKNOWN else "подтверждено сервисом") in answer
@@ -117,7 +117,7 @@ def test_helper_model_exception_retains_streamed_receipt(mutation, helper, recei
     assert core.action_receipt(out["messages"])
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert report.artifact["action_receipts"]
-    answer = core.final_answer(out["messages"], {})
+    answer = core.final_answer(out["messages"], {}).answer
     assert "Не повторяйте" in answer
     assert ("могло выполниться" if receipt == UNKNOWN else "подтверждено сервисом") in answer
 
@@ -145,7 +145,7 @@ def test_mixed_receipts_preserve_unknown_and_second_consent(mutation, helper, re
     assert not agent.get_state(config).interrupts
     report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
     assert {r["outcome"] for r in report.artifact["action_receipts"]} == {"confirmed", "unknown"}
-    answer = core.final_answer(out["messages"], {})
+    answer = core.final_answer(out["messages"], {}).answer
     if question.startswith("Cancel"):
         assert "confirmed some actions" in answer and "unknown outcomes" in answer and "Do not repeat" in answer
     else:
@@ -211,7 +211,7 @@ def test_helper_only_propagates_matched_mutation_results(monkeypatch, role, targ
     root = [HumanMessage("Act"), call(f"ask_{role}", {"question": "Act"}, "h1"), report,
             AIMessage(content="Completed.")]
     assert not core.action_receipt(root)
-    assert core.final_answer(root, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(root, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 def test_old_or_unmatched_helper_artifacts_do_not_resurrect_receipts(monkeypatch):
@@ -220,7 +220,7 @@ def test_old_or_unmatched_helper_artifacts_do_not_resurrect_receipts(monkeypatch
     report = helper_result(monkeypatch, messages)
     root = [HumanMessage("Act"), call("ask_docs", {"question": "Act"}, "h1"), report, AIMessage(content=".")]
     assert core.action_receipt(root)  # Positive control: this artifact is valid in its own turn.
-    assert "confirmed" in core.final_answer(root, {})
+    assert "confirmed" in core.final_answer(root, {}).answer
     mismatched = [root[0], call("ask_docs", {"question": "Act"}, "other"), report, root[-1]]
     assert not core.action_receipt(mismatched)
     wrong_name = [root[0], call("ask_chats", {"question": "Act"}, "h1"), report, root[-1]]
@@ -228,7 +228,7 @@ def test_old_or_unmatched_helper_artifacts_do_not_resurrect_receipts(monkeypatch
     root += [HumanMessage("Any announcements?"), call("ask_docs", {"question": "Announcements?"}, "h2"),
              ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_docs", tool_call_id="h2"), AIMessage(content="All done.")]
     assert not core.action_receipt(root)
-    assert core.final_answer(root, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(root, {}).answer == core.TOOL_FAILURE_ANSWER
     report = helper_result(monkeypatch, [*messages, HumanMessage("Another question"), AIMessage(content=core.TOOL_FAILURE_ANSWER)])
     assert "action_receipts" not in report.artifact
 
@@ -263,4 +263,4 @@ def test_exhausted_helper_budget_returns_receipt_not_limit_text(monkeypatch, rec
     assert "Do not repeat" in report.content
     root = [HumanMessage("Cancel booking."), call("ask_docs", {"question": "Act"}, "h1"), report,
             AIMessage(content="The action failed. Retry.")]
-    assert core.final_answer(root, {}) == report.content
+    assert core.final_answer(root, {}).answer == report.content

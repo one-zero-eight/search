@@ -69,7 +69,7 @@ def test_discovered_schema_rejects_missing_title_locally_before_approval(
         elif message.name == helper:
             results.extend(json.loads(value) for value in message.artifact["results"])
     assert any(isinstance(result, dict) and "title" in str(result.get("error", "")).lower() for result in results)
-    assert "название" in core.final_answer(out["messages"], {}).lower()
+    assert "название" in core.final_answer(out["messages"], {}).answer.lower()
 
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
@@ -105,7 +105,7 @@ def test_title_clarification_then_local_description_and_explicit_consent(
     first = agent.invoke({"messages": [HumanMessage(QUESTION)]}, config, context=context)
     assert not agent.get_state(config).interrupts and writes == []
     assert requests == ["search_tools"]
-    assert "название" in core.final_answer(first["messages"], {}).lower()
+    assert "название" in core.final_answer(first["messages"], {}).answer.lower()
 
     agent.invoke({"messages": [HumanMessage("Название: Заседание студсовета.")]}, config, context=context)
     pending = agent.get_state(config).interrupts

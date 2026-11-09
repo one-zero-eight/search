@@ -57,7 +57,7 @@ def test_short_event_request_reads_image_with_real_model(monkeypatch):
     with tracing.private(), tracing.question(thread, "synthetic-owner", question) as traced:
         graph = core.build_agent()
         result = graph.invoke({"messages": [HumanMessage(question)]}, tracing.run_config(thread), context=context)
-        answer = core.final_answer(result["messages"], result.get("sources") or {})
+        answer = core.final_answer(result["messages"], result.get("sources") or {}).answer
         traced.answer(answer)
     tracing.flush()
     calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]

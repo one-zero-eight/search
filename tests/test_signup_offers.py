@@ -122,7 +122,7 @@ def test_matched_recommendation_produces_opaque_offer_and_private_snapshot():
     target = targets[offer.id]
     assert target['arguments'] == {'training_id': 7}
     assert target['schedule_check']['training_filters'] == {'sport': 'Basketball'}
-    response = schemas.AskResponses(query='q', answer='a', search_responses=[], messages=[], signup_offers=offers)
+    response = schemas.AskResponses(query='q', answer='a', sources=[], messages=[], signup_offers=offers)
     assert response.model_dump(mode='json')['signup_offers'][0]['id'] == offer.id
     assert 'training_id' not in response.model_dump_json()
 

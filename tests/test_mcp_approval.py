@@ -187,7 +187,7 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
     paused = agent.get_state(config).interrupts[0]
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config, context=context)
     assert sent == [args]
-    assert core.final_answer(out["messages"], {}) == answer
+    assert core.final_answer(out["messages"], {}).answer == answer
     assert core.read_evidence(out["messages"]) is False
     assert core.successful_read(out["messages"]) is False
     assert core.found_anything(out["messages"]) is not True
@@ -213,7 +213,7 @@ def test_action_receipts_are_matched_and_never_read_evidence(name, target, recei
                 ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Action result.")]
     assert core.action_receipt(messages) is expected
-    assert core.final_answer(messages, {}) == ("Action result." if expected else core.TOOL_FAILURE_ANSWER)
+    assert core.final_answer(messages, {}).answer == ("Action result." if expected else core.TOOL_FAILURE_ANSWER)
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
 

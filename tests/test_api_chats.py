@@ -13,6 +13,7 @@ from catix.agent.core import build_agent
 from catix.api import ask, chats
 from catix.api.auth import UserTokenData
 from catix.api.schemas import AskDecision, AskResponses
+from catix.common.citations import AnswerSource, ArchiveDocument, CitationLink
 from catix.db import pg
 from catix.settings import settings
 from tests.test_account import DAY, _call, music_room  # noqa: F401 - music_room is a fixture
@@ -36,7 +37,7 @@ def owner():
 
 
 def answer(chat_id: str, text: str, ask_query_id: str | None = None) -> AskResponses:
-    return AskResponses(query=f"q:{text}", answer=text, chat_id=chat_id, ask_query_id=ask_query_id, search_responses=[], messages=[{"a": 1}])
+    return AskResponses(query=f"q:{text}", answer=text, chat_id=chat_id, ask_query_id=ask_query_id, sources=[], messages=[{"a": 1}])
 
 
 def test_a_chat_is_named_by_the_model_until_the_user_renames_it(owner):
@@ -60,7 +61,12 @@ def test_a_chat_keeps_its_answers_and_votes(owner):
     assert chats.owner(chat_id) == owner and chats.owner("nope") is None
     assert chats.checkpoint(chat_id) is None
 
-    chats.save_answer(answer(chat_id, "first", ask_query_id=f"{chat_id}-1"), "span-1", "cp-1")
+    first = answer(chat_id, "first", ask_query_id=f"{chat_id}-1")
+    first.sources = [AnswerSource(number=1, title="Programme", url="https://example.org/archive.zip", kind="official_document",
+                                  clauses=["4.2"], sections=["Exams"], official=True,
+                                  based_on=[CitationLink(title="Rules", url="https://example.org/rules")],
+                                  archive_document=ArchiveDocument(page="/raw/programme.md", revision="sha-1", member="2026/course.pdf"))]
+    chats.save_answer(first, "span-1", "cp-1")
     chats.save_answer(answer(chat_id, "second"), None, "cp-2")  # tracing was off: nothing to vote on
     assert chats.checkpoint(chat_id) == "cp-2"
     assert [c.chat_id for c in chats.of_user(owner)] == [chat_id]  # a chat without an answer is not listed
@@ -74,6 +80,8 @@ def test_a_chat_keeps_its_answers_and_votes(owner):
         ("first", "dislike", "wrong date", []),
         ("second", None, None, []),
     ]
+    assert history.answers[0].sources == first.sources
+    assert history.answers[1].sources == []
     assert chats.history(chat_id, "somebody else") is None
     assert chats.history(empty, owner).answers == []  # type: ignore[union-attr]
 

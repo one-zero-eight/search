@@ -59,19 +59,14 @@ CONFIGS = {
 # with no visible gain on these questions.
 
 
-def body(answer: str) -> str:
-    """The answer without its source list, whose dates would match by accident."""
-    return re.split(r"\n\n(?:Источники|Sources):", answer)[0]
-
-
 def judge(answer: str, must: list[str], forbid: str | None) -> bool:
-    text = body(answer)
+    text = answer
     return bool(answer.strip()) and all(re.search(p, text, re.I) for p in must) and not (forbid and re.search(forbid, text, re.I))
 
 
 def reason(answer: str, must: list[str], forbid: str | None) -> str:
     """Why an answer was judged wrong: what is missing, or which wrong wording matched."""
-    text = body(answer)
+    text = answer
     if not answer.strip():
         return "empty answer"
     if forbid and (m := re.search(forbid, text, re.I)):
@@ -100,7 +95,7 @@ def main() -> None:
                 started = time.monotonic()
                 try:
                     out = agent.invoke({"messages": [{"role": "user", "content": question}]}, config)
-                    answer = final_answer(out["messages"], out.get("sources") or {})
+                    answer = final_answer(out["messages"], out.get("sources") or {}).answer
                 except Exception as e:  # noqa: BLE001
                     answer = ""
                     print(f"   error: {type(e).__name__}: {str(e)[:100]}", flush=True)

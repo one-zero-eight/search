@@ -8,6 +8,7 @@ from langchain_core.messages import AIMessage
 from catix.agent import tracing
 from catix.agent.core import build_agent, final_answer
 from catix.agent.tools import AgentContext
+from catix.common.citations import render_cited_answer
 
 
 def ask(agent, question: str, thread_id: str) -> str:
@@ -22,8 +23,8 @@ def ask(agent, question: str, thread_id: str) -> str:
                             print(f"  → {call['name']}({call['args']})", file=sys.stderr)
         values = agent.get_state(config).values
         answer = final_answer(values["messages"], values.get("sources") or {})
-        traced.answer(answer)
-    return answer
+        traced.answer(answer.answer)
+    return render_cited_answer(answer)
 
 
 def main() -> None:

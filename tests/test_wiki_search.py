@@ -30,7 +30,11 @@ def test_an_official_piece_is_marked_official_and_cited_with_its_clause():
     item = tools._wiki_item(hit(), collector)
     assert item["official"] is True and item["clause"] == "6.1–6.3" and item["date"] == "2025-06-30"
     answer = sources.cite(f"Две пересдачи [{item['ref']}].", collector.new)
-    assert "[1] [«Положение о контроле»](https://innopolis.university/x.pdf), п. 6.1–6.3 (документ университета)" in answer
+    assert answer.answer == "Две пересдачи [1]."
+    assert len(answer.sources) == 1
+    source = answer.sources[0]
+    assert (source.number, source.title, source.url, source.kind, source.official) == (1, hit().title, hit().resource, "official_document", True)
+    assert source.clauses == ["6.1–6.3"]
 
 
 def test_a_guide_is_cited_with_the_documents_it_rests_on_and_never_called_official():
@@ -39,8 +43,10 @@ def test_a_guide_is_cited_with_the_documents_it_rests_on_and_never_called_offici
     collector = tools.Collector(runtime())
     item = tools._wiki_item(guide, collector)
     assert "official" not in item and item["based_on"] == [{"document": "Положение о контроле", "page": "/raw/regulations/att.md"}]
-    line = sources.cite(f"Две пересдачи [{item['ref']}].", collector.new).splitlines()[-1]
-    assert line == "[1] «Retakes» (сводка cAtIx по документам: [«Положение о контроле»](https://innopolis.university/x.pdf))"
+    answer = sources.cite(f"Две пересдачи [{item['ref']}].", collector.new)
+    source = answer.sources[0]
+    assert source.kind == "guide" and not source.official and source.url is None
+    assert [(link.title, link.url) for link in source.based_on] == [("Положение о контроле", "https://innopolis.university/x.pdf")]
 
 
 def test_warnings_say_what_is_not_to_be_trusted():
@@ -55,8 +61,8 @@ def test_clauses_of_one_document_share_one_line_of_the_source_list():
     a = tools._wiki_item(hit(id=1, clause="5.3"), collector)
     b = tools._wiki_item(hit(id=2, clause="5.18"), collector)
     answer = sources.cite(f"Не более двух раз [{a['ref']}], потом отчисление [{b['ref']}].", collector.new)
-    assert "Не более двух раз [1], потом отчисление [1]." in answer
-    assert answer.splitlines()[-1].endswith("п. 5.3, 5.18 (документ университета)") and "[2]" not in answer
+    assert answer.answer == "Не более двух раз [1], потом отчисление [1]."
+    assert len(answer.sources) == 1 and answer.sources[0].clauses == ["5.3", "5.18"]
 
 
 def test_a_field_of_study_code_is_not_a_clause():
@@ -69,7 +75,7 @@ def test_a_field_of_study_code_is_not_a_clause():
 def test_two_clauses_of_one_document_side_by_side_become_one_mark():
     collector = tools.Collector(runtime())
     a, b = tools._wiki_item(hit(id=1, clause="5.3"), collector), tools._wiki_item(hit(id=2, clause="5.4"), collector)
-    assert sources.cite(f"Компьютерное тестирование [{a['ref']}][{b['ref']}].", collector.new).startswith("Компьютерное тестирование [1].")
+    assert sources.cite(f"Компьютерное тестирование [{a['ref']}][{b['ref']}].", collector.new).answer == "Компьютерное тестирование [1]."
 
 
 def test_only_a_title_with_an_academic_year_makes_a_series_of_versions():
@@ -170,9 +176,9 @@ def test_a_page_without_clauses_is_cited_with_its_section():
     a = tools._wiki_item(hit(**page, heading=heading), collector)
     b = tools._wiki_item(hit(**page, id=8, seq=4, heading="Информация о руководителях филиалов образовательной организации:"), collector)
     c = tools._wiki_item(hit(**page, id=9, seq=5, heading="Руководство"), collector)  # (the heading of the title itself says nothing)
-    line = sources.cite(f"Ректор: rector@innopolis.ru [{a['ref']}].", collector.new).splitlines()[-1]
-    assert line == ("[1] [«Руководство»](https://innopolis.university/sveden/managers), раздел «Информация о руководителе "
-                    "образовательной организации, его заместителях» (innopolis.university)")
-    both = sources.cite(f"Ректор [{a['ref']}], филиалы [{b['ref']}][{c['ref']}].", collector.new).splitlines()[-1]
-    assert ", разделы «Информация о руководителе" in both and "«Информация о руководителях филиалов" in both and "«Руководство»]" in both
-    assert both.count("«Руководство»") == 1  # (only as the title)
+    answer = sources.cite(f"Ректор: rector@innopolis.ru [{a['ref']}].", collector.new)
+    assert answer.sources[0].kind == "website"
+    assert answer.sources[0].sections == [heading]
+    both = sources.cite(f"Ректор [{a['ref']}], филиалы [{b['ref']}][{c['ref']}].", collector.new)
+    assert len(both.sources) == 1
+    assert both.sources[0].sections == [heading, "Информация о руководителях филиалов образовательной организации:", "Руководство"]

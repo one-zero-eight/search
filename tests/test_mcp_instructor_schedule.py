@@ -122,7 +122,7 @@ def test_host_accepts_dated_read_and_valid_empty_result(source, empty):
     messages = mixed_read_messages(NAME, payload)
     assert core.successful_read(messages)
     assert core.read_evidence(messages) is not empty
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
 
 
 @pytest.mark.parametrize("changes", [

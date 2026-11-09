@@ -107,9 +107,8 @@ def test_timeout_and_cache_error_are_not_internal_server_errors(archive, monkeyp
     assert "private path" not in response.text
 
 
-def test_search_and_agent_cards_keep_the_exact_member(archive, monkeypatch):
-    from catix.agent.sources import Collector
-    from catix.api.ask import _cards
+def test_search_and_answer_sources_keep_the_exact_member(archive, monkeypatch):
+    from catix.agent.sources import Collector, cite
 
     expected = {**archive.params, "member": archive.meta["archive_member"]}
     monkeypatch.setattr(search.wiki_store, "search", lambda *args, **kwargs: [archive.hit])
@@ -122,7 +121,7 @@ def test_search_and_agent_cards_keep_the_exact_member(archive, monkeypatch):
     collector = Collector(runtime)
     ref = collector.add_wiki(archive.hit)
     assert collector.new[ref]["archive_document"] == expected
-    saved = _cards(collector.new, set())[0].source.model_dump()
+    saved = cite(f"Programme [{ref}].", collector.new).sources[0].model_dump()
     assert saved["archive_document"] == expected
     assert "file" not in saved["archive_document"]
     assert saved["url"] == ARCHIVE
@@ -131,7 +130,6 @@ def test_search_and_agent_cards_keep_the_exact_member(archive, monkeypatch):
 def test_same_title_members_are_not_collapsed(archive):
     from dataclasses import replace
     from catix.agent import sources
-    from catix.api.ask import _cards
 
     from catix.wiki.search_index import fingerprint
 
@@ -146,9 +144,10 @@ def test_same_title_members_are_not_collapsed(archive):
     assert len(cards) == 2
     collector = sources.Collector(SimpleNamespace(state={"sources": {}}, config={}))
     first_ref, second_ref = collector.add_wiki(archive.hit), collector.add_wiki(second)
-    assert len(_cards(collector.new, set())) == 2
-    text = sources.cite(f"First [{first_ref}], second [{second_ref}].", collector.new)
-    assert text.startswith("First [1], second [2].")
+    answer = sources.cite(f"First [{first_ref}], second [{second_ref}].", collector.new)
+    assert answer.answer == "First [1], second [2]."
+    assert len(answer.sources) == 2
+    assert [source.archive_document.member for source in answer.sources] == [MEMBER, member]
 
 
 @pytest.mark.parametrize("change", ["file_changed", "file_missing", "page_changed", "index_changed", "wrong_revision", "wrong_page"])
@@ -238,18 +237,18 @@ def test_retained_chunk_gets_a_new_source_identity_for_a_new_revision(archive):
     assert second.new[new_ref]["archive_document"]["revision"] == fingerprint(text)
 
 
-def test_old_saved_cards_keep_their_identity_when_checkout_changes(archive):
-    from catix.agent.sources import Collector
-    from catix.api.ask import _cards
+def test_saved_answer_sources_keep_their_identity_when_checkout_changes(archive):
+    from catix.agent.sources import Collector, cite
     from catix.api.schemas import AskResponses
 
     collector = Collector(SimpleNamespace(state={"sources": {}}, config={}))
-    collector.add_wiki(archive.hit)
-    response = AskResponses(query="programme", answer="Answer", search_responses=_cards(collector.new, set()), messages=[])
+    ref = collector.add_wiki(archive.hit)
+    cited = cite(f"Answer [{ref}].", collector.new)
+    response = AskResponses(query="programme", answer=cited.answer, sources=cited.sources, messages=[])
     saved = response.model_dump_json()
     archive.page.write_text(archive.text + "New version.")
     restored = AskResponses.model_validate_json(saved)
-    descriptor = restored.search_responses[0].source.archive_document
+    descriptor = restored.sources[0].archive_document
     assert descriptor is not None
     assert descriptor.revision == archive.params["revision"]
     assert TestClient(app).get("/search/archive-document", params={"page": descriptor.page, "revision": descriptor.revision}, headers=AUTH).status_code == 404

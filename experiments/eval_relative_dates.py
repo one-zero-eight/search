@@ -22,7 +22,7 @@ from catix.agent.core import build_agent, final_answer
 from catix.settings import settings
 
 sys.path.insert(0, "experiments")
-from eval_dates import PAST, body, judge, reason  # noqa: E402
+from eval_dates import PAST, judge, reason  # noqa: E402
 
 CHAT_ID = -999000222
 FUTURE_ONLY = PAST  # for events after "today" (2026-10-15 by the clock of the run) a past-tense word is wrong
@@ -95,7 +95,7 @@ def main() -> None:
                         out = agent.invoke(
                             {"messages": [{"role": "user", "content": question}]}, {"configurable": {"thread_id": uuid.uuid4().hex}}
                         )
-                        answer = final_answer(out["messages"], out.get("sources") or {})
+                        answer = final_answer(out["messages"], out.get("sources") or {}).answer
                     except Exception as e:  # noqa: BLE001
                         answer = ""
                         print(f"   error: {type(e).__name__}", flush=True)
@@ -104,7 +104,7 @@ def main() -> None:
                     passed += ok
                     marks.append("✓" if ok else "✗")
                     if not ok:
-                        lines.append(f"    ✗ {question}\n        {reason(answer, must, forbid)} | {body(answer)[:150]!r}")
+                        lines.append(f"    ✗ {question}\n        {reason(answer, must, forbid)} | {answer[:150]!r}")
                 print(f"[{name}] {''.join(marks)}  {question}", flush=True)
             total = len(cases) * reps
             summary[name] = (passed, total, statistics.median(times))

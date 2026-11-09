@@ -7,6 +7,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Discriminator, Field, PrivateAttr
 
 from catix.attachments import AttachmentInfo
+from catix.common.citations import AnswerSource, ArchiveDocument
 
 
 class InfoSources(StrEnum):
@@ -72,13 +73,6 @@ class SiteBaseSource(BaseModel):
     preview_text: str
 
 
-class ArchiveDocument(BaseModel):
-    page: str
-    "Exact wiki page of the cited archive member."
-    revision: str
-    "Indexed page fingerprint; a different revision must not be substituted."
-    member: str
-    "Original filename including its path inside the archive."
 
 
 class EduwikiSource(SiteBaseSource):
@@ -242,8 +236,8 @@ class AskResponses(BaseModel):
     "Assigned chat index"
     ask_query_id: str | None = None
     "Assigned ask query index"
-    search_responses: list[SearchResponse]
-    "Responses to the search query."
+    sources: list[AnswerSource] = []
+    "Numbered sources cited by the answer, in citation order."
     calendar_events: list[CalendarEventOffer] = []
     "Upcoming events the answer names (an exam, a deadline), offered for the user's calendar: a button each."
     messages: list

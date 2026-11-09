@@ -345,7 +345,7 @@ def test_live_model_routes_to_meeting_read_without_writes(monkeypatch, services,
     config = {"configurable": {"thread_id": f"meeting-model-{incomplete}"}}
     out = graph.invoke({"messages": [HumanMessage("Какие варианты встречи в When2Meet team-poll подходят мне по расписанию и какие из них отметили все ответившие? Ничего не отмечай.")]}, config, context=CONTEXT)
     calls = [call for message in out["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
-    answer = core.final_answer(out["messages"], {})
+    answer = core.final_answer(out["messages"], {}).answer
     print({"calls": calls, "answer": answer})
     assert offered and NAME in offered[0], "The live model must actually be offered the new native tool"
     assert len(calls) == 1 and calls[0]["name"] == NAME and calls[0]["args"] == {"meeting_ref": REF}

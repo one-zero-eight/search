@@ -65,7 +65,7 @@ def test_real_model_reports_failed_personal_check_without_raw_fallback(monkeypat
                 ToolMessage(content=json.dumps(content), artifact=artifact, name=tool.name, tool_call_id="checked")]
     result = graph.invoke({"messages": messages}, config, context=context)
     tool_calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
-    answer = core.final_answer(result["messages"], {})
+    answer = core.final_answer(result["messages"], {}).answer
     print({"case": case, "calls": tool_calls, "answer": answer})
     assert len(tool_calls) == 1 and tool_calls[0]["name"] == tool.name
     assert len(calls) == 1 and not graph.get_state(config).interrupts

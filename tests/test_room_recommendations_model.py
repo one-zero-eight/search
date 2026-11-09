@@ -31,7 +31,7 @@ def test_model_uses_personal_room_read_or_asks_for_missing_time(monkeypatch, ser
     config = {"configurable": {"thread_id": f"rooms-model-{case}"}}
     result = graph.invoke({"messages": [HumanMessage(question)]}, config, context=CONTEXT)
     calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
-    answer = core.final_answer(result["messages"], {})
+    answer = core.final_answer(result["messages"], {}).answer
     print({"case": case, "calls": calls, "answer": answer})
     assert not graph.get_state(config).interrupts
     if case == "missing_end":

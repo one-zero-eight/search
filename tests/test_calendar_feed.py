@@ -100,7 +100,11 @@ def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
     monkeypatch.setattr(ask, "chats", kept)
     monkeypatch.setattr(ask.titles, "name", lambda question: None)
     monkeypatch.setattr(ask, "_run", _run)
-    monkeypatch.setattr(ask.calendar_events, "extract", lambda answer: [event])
+    def extract(answer, *, sources, origins):
+        assert answer == "Экзамен 20 ноября в 10:00" and sources == [] and origins is None
+        return [event]
+
+    monkeypatch.setattr(ask.calendar_events, "extract", extract)
     monkeypatch.setattr(personal_calendar, "propose", lambda events: [("p1", e) for e in events])
     monkeypatch.setattr(innohassle_token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"})
     offers = client.post("/ask/", json={"query": "когда экзамен"}, headers={"Authorization": "Bearer x"}).json()["calendar_events"]
@@ -112,7 +116,7 @@ def test_an_answer_whose_events_cannot_be_read_still_comes(client, monkeypatch):
     async def _run(query, chat_id, user, events=None, decision=None):
         return "Экзамен 20 ноября", [], [], None, "cp-1"
 
-    def broken(answer):
+    def broken(answer, **kwargs):
         raise RuntimeError("the model is down")
 
     monkeypatch.setattr(ask, "chats", FakeChats())

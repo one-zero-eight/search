@@ -98,7 +98,7 @@ def test_local_action_result_survives_unrelated_helper_failure(calendar, monkeyp
     assert calendar.writes == []
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert len(calendar.writes) == 1
-    assert core.final_answer(out["messages"], {}) == answer
+    assert core.final_answer(out["messages"], {}).answer == answer
     assert core.action_receipt(out["messages"])
     assert not core.read_evidence(out["messages"]) and not core.successful_read(out["messages"])
 

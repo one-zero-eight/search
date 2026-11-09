@@ -50,7 +50,7 @@ def test_supervisor_discovers_and_reads_without_a_campus_helper(public_read):
     assert [m.name for m in results] == ["search_api_tools", "call_api_tool"]
     assert json.loads(results[-1].content)["areas"][0]["title"] == "301"
     assert "campus" not in roles.ROLES
-    assert core.final_answer(out["messages"], {}) == "Аудитория 301 на третьем этаже."
+    assert core.final_answer(out["messages"], {}).answer == "Аудитория 301 на третьем этаже."
 
 
 @pytest.mark.parametrize("helper", ["docs", "chats"])
@@ -121,7 +121,7 @@ def test_api_identifiers_cannot_resurrect_old_citations():
                             name="call_api_tool", tool_call_id="r1"),
                 AIMessage(content="Аудитория 301 [m0].")]
     old = {"m0": {"wiki": True, "title": "Old unrelated page", "link": None, "trust": "official"}}
-    answer = core.final_answer(messages, old)
+    answer = core.final_answer(messages, old).answer
     assert "Old unrelated page" not in answer and "[1]" not in answer
 
 
@@ -131,9 +131,9 @@ def test_failed_helpers_do_not_discard_a_successful_direct_read():
                 ToolMessage(content='{"total": 1, "areas": [{"title": "301"}]}', name="call_api_tool", tool_call_id="r1"),
                 ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Аудитория 301. Объявления проверить не удалось.")]
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
     messages[2] = ToolMessage(content='{"error": "unavailable"}', name="call_api_tool", tool_call_id="r1")
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("kind", ["schedule", "bot_calendar"])
@@ -166,7 +166,7 @@ def test_empty_calendar_read_survives_failed_helper_in_full_graph(mcp_http_proto
     assert results[1].content == core.TOOL_FAILURE_ANSWER
     assert core.successful_read(out["messages"]) is True
     assert core.read_evidence(out["messages"]) is False  # Empty reads still leave retrieval fallback available.
-    assert core.final_answer(out["messages"], {}) == answer
+    assert core.final_answer(out["messages"], {}).answer == answer
 
 
 @pytest.mark.parametrize("tool_name,changes,status", [
@@ -195,7 +195,7 @@ def test_failed_or_malformed_empty_reads_do_not_hide_helper_failure(tool_name, c
                 ToolMessage(content=json.dumps(payload), name=tool_name, tool_call_id="r1", status=status),
                 ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Пар нет. Объявления проверить не удалось.")]
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("payload", [
@@ -211,7 +211,7 @@ def test_metadata_or_error_reads_do_not_hide_helper_failure(payload):
                 ToolMessage(content=json.dumps(payload), name="call_api_tool", tool_call_id="r1"),
                 ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Пар нет. Объявления проверить не удалось.")]
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("target,call_id", [
@@ -234,7 +234,7 @@ def test_empty_calendar_preserves_partial_answer_only_for_exact_local_read(targe
     assert core.read_evidence(messages) is False
     valid = local and call_id == "r1"
     assert core.successful_read(messages) is valid
-    assert core.final_answer(messages, {}) == (answer if valid else core.TOOL_FAILURE_ANSWER)
+    assert core.final_answer(messages, {}).answer == (answer if valid else core.TOOL_FAILURE_ANSWER)
 
 
 @pytest.mark.parametrize("empty", [False, True])
@@ -267,7 +267,7 @@ def test_web_ai_calendar_survives_failed_helper_without_mcp(monkeypatch, empty):
     assert len(reads) == 1 and reads[0][0] == "ih:u1"
     assert core.successful_read(out["messages"]) is True
     assert core.read_evidence(out["messages"]) is not empty
-    assert core.final_answer(out["messages"], {}) == answer
+    assert core.final_answer(out["messages"], {}).answer == answer
 
 
 def test_malformed_local_calendar_never_consults_mcp_declarations(monkeypatch):
@@ -291,7 +291,7 @@ def test_previous_turn_empty_read_does_not_hide_current_helper_failure():
                 AIMessage(content="Пар нет."), HumanMessage("Какие объявления?"),
                 ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Ничего нового.")]
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("helper", ["docs", "chats"])
@@ -379,7 +379,7 @@ def test_mixed_mcp_and_chat_report_are_synthesized_not_short_circuited(public_re
         AIMessage(content="Аудитория 301 на третьем этаже. Тест завтра [m0]."),
     ])
     assert out["messages"][-1].text == "Аудитория 301 на третьем этаже. Тест завтра [m0]."
-    assert "Synthetic announcement" in core.final_answer(out["messages"], out["sources"])
+    assert core.final_answer(out["messages"], out["sources"]).sources[0].title == "Synthetic announcement"
 
 
 @pytest.mark.parametrize("direct_name,args,payload", [
@@ -434,7 +434,7 @@ def test_uncited_api_identifier_in_a_helper_report_is_not_a_source():
                 ToolMessage(content="Аудитория 301, ID m0.", name="ask_docs", tool_call_id="h1"),
                 AIMessage(content="Аудитория 301 [m0].")]
     registry = {"m0": {"wiki": True, "title": "Old unrelated page", "link": None, "trust": "official"}}
-    assert "Old unrelated page" not in core.final_answer(messages, registry)
+    assert "Old unrelated page" not in core.final_answer(messages, registry).answer
 
 
 def test_discovered_read_is_not_cut_off_after_two_sourced_helper_rounds():
@@ -482,7 +482,7 @@ def test_native_map_read_through_http_in_main_and_helpers(mcp_http_protocol, mon
     else:
         payload = json.loads(results[-1].content)
     assert payload["areas"][0]["where"] == "Third floor"
-    assert core.final_answer(out["messages"], {}) == "Аудитория 301 на третьем этаже."
+    assert core.final_answer(out["messages"], {}).answer == "Аудитория 301 на третьем этаже."
 
 
 def test_discovery_is_not_evidence_even_if_it_describes_a_result():
@@ -506,7 +506,7 @@ def test_room_read_evidence_never_imports_server_policy(monkeypatch):
         "free": [], "booked": ["313"], "date": "2099-01-01 Thu", "range": "10:00-11:00"})
     assert core.read_evidence(messages) is True
     assert core.successful_read(messages) is True
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
     raw = {"action_id": "maps.scenes_scenes", "data": [{"scene_id": "m0", "title": "Third floor", "ru_title": None}],
            "total": 1, "truncated": False, "note": "Map scenes only"}
     assert core.read_evidence(mixed_read_messages("maps_scenes_scenes", raw))
@@ -541,7 +541,7 @@ def test_real_room_availability_survives_failed_helper(mcp_http_protocol, monkey
                                if availability == "free" else [])
     assert payload["booked"] == (["313"] if availability == "booked" else [])
     assert [args[:2] for args in permissions] == ([('synthetic-user', '313')] if availability == 'free' else [])
-    assert core.final_answer(out["messages"], {}) == answer
+    assert core.final_answer(out["messages"], {}).answer == answer
     assert core.successful_read(out["messages"]) is True
     assert core.read_evidence(out["messages"]) is (availability != "empty")
 
@@ -613,7 +613,7 @@ def test_personal_read_contracts_preserve_partial_answers(monkeypatch, target, k
     if kind == "zero_hours":
         assert payload["hours"]["done"] == 0 and payload["checked_in"] == []
     messages = mixed_read_messages(target, payload)
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
     assert core.successful_read(messages) is True
     assert core.read_evidence(messages) is (kind not in {"empty", "partial", "schedule_only_empty"})
 
@@ -639,7 +639,7 @@ def test_all_external_schedule_components_failed_is_not_a_success(monkeypatch, i
     messages = mixed_read_messages("account_get_my_schedule", payload)
     assert core.successful_read(messages) is False
     assert core.read_evidence(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("target,payload,call_id,status", [
@@ -661,7 +661,7 @@ def test_only_matching_successful_read_results_are_evidence(target, payload, cal
     assert core.successful_read(messages) is False
     # A matched successful write is not read evidence, but its action result must
     # survive an unrelated helper failure now that the supervisor can act too.
-    assert core.final_answer(messages, {}) == (messages[-1].text if target == "rooms_book_room" else core.TOOL_FAILURE_ANSWER)
+    assert core.final_answer(messages, {}).answer == (messages[-1].text if target == "rooms_book_room" else core.TOOL_FAILURE_ANSWER)
 
 
 def test_previous_turn_nonempty_read_does_not_support_current_failure():
@@ -672,7 +672,7 @@ def test_previous_turn_nonempty_read_does_not_support_current_failure():
                  AIMessage(content="Ничего нового.")]
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("target,args", [
@@ -697,7 +697,7 @@ def test_other_native_read_empty_contracts(monkeypatch, target, args):
     payload = native_call(target, args, token="synthetic-user", sport_token="synthetic-sport", uid="u1")
     assert "error" not in payload
     messages = mixed_read_messages(target, payload)
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
     assert core.successful_read(messages) is True
     # Music returns one real dated observation ("nothing booked"), not an empty search.
     assert core.read_evidence(messages) is (target == "music_get_music_room_schedule")
@@ -736,11 +736,11 @@ def test_native_read_envelopes_from_declared_functions(monkeypatch, empty):
         messages = mixed_read_messages(target, payload)
         assert core.successful_read(messages) is True, target
         assert core.read_evidence(messages) is not empty, target
-        assert core.final_answer(messages, {}) == messages[-1].text
+        assert core.final_answer(messages, {}).answer == messages[-1].text
         # API IDs which resemble retrieval refs cannot revive an unrelated source.
         messages[-1] = AIMessage(content="Данные получены [m0].")
         assert "Old unrelated page" not in core.final_answer(messages, {
-            "m0": {"wiki": True, "title": "Old unrelated page", "link": None, "trust": "official"}})
+            "m0": {"wiki": True, "title": "Old unrelated page", "link": None, "trust": "official"}}).answer
 
 
 @pytest.mark.parametrize("target,wrapper", [
@@ -760,7 +760,7 @@ def test_raw_envelope_cannot_impersonate_another_read_or_nested_metadata(target,
     messages = mixed_read_messages(target, {wrapper: payload} if wrapper else payload)
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("changes", [
@@ -775,7 +775,7 @@ def test_raw_envelope_must_validate_the_declared_output_contract(changes):
     messages = mixed_read_messages("maps_scenes_scenes", payload)
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 @pytest.mark.parametrize("changes", [
@@ -789,7 +789,7 @@ def test_room_read_contract_rejects_malformed_and_failed_payloads(changes):
     messages = mixed_read_messages("rooms_get_free_rooms", payload)
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER
 
 
 def test_room_timetable_with_only_occupied_rooms_is_nonempty_evidence(monkeypatch):
@@ -805,7 +805,7 @@ def test_room_timetable_with_only_occupied_rooms_is_nonempty_evidence(monkeypatc
     assert payload["free_of_classes"] == [] and payload["with_classes"] == ["313"]
     messages = mixed_read_messages("timetable_get_room_timetable", payload)
     assert core.read_evidence(messages) is True
-    assert core.final_answer(messages, {}) == messages[-1].text
+    assert core.final_answer(messages, {}).answer == messages[-1].text
 
 
 @pytest.mark.parametrize("target,payload", [
@@ -820,4 +820,4 @@ def test_personal_reads_require_their_own_result_collections(target, payload):
     messages = mixed_read_messages(target, payload)
     assert core.read_evidence(messages) is False
     assert core.successful_read(messages) is False
-    assert core.final_answer(messages, {}) == core.TOOL_FAILURE_ANSWER
+    assert core.final_answer(messages, {}).answer == core.TOOL_FAILURE_ANSWER

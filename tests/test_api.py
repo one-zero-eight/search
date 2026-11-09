@@ -17,6 +17,7 @@ from pydantic import SecretStr
 from catix.api import ask, chats, search, state
 from catix.api.app import app
 from catix.api.schemas import AskAction, AskApproval, AskChat, AskChatHistory, AskDecision, AskResponses
+from catix.common.citations import AnswerSource, ArchiveDocument
 from catix.db.wiki import WikiHit
 from catix.innohassle import token
 
@@ -304,17 +305,20 @@ def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch, kep
     async def _run(query, chat_id, user, events, decision=None):
         await events.put(("status", {"text": "checking"}))
         await events.put(("answer", {"text": "ans"}))
-        return "answer", [], [], "span-1", "cp-1"
+        return "answer [1]", [AnswerSource(number=1, title="Rules", url="https://example.org/rules", kind="official_document")], [], "span-1", "cp-1"
 
     monkeypatch.setattr(ask, "_run", _run)
     response = client.post("/ask/stream", json={"query": "hi"}, headers=AUTH)
     assert response.headers["content-type"].startswith("text/event-stream")
     names = [line.removeprefix("event: ") for line in response.text.splitlines() if line.startswith("event: ")]
     assert names == ["chat", "status", "answer", "done"]
-    assert '"answer": "answer"' in response.text
+    assert '"answer": "answer [1]"' in response.text
     done = json.loads(response.text.split("event: done\ndata: ")[1])
     assert kept.asked(done["ask_query_id"]) == ("u1", "span-1")  # the 👍/👎 on it annotates its trace
     assert kept.checkpoint(done["chat_id"]) == "cp-1"  # kept with the answer: the next question goes on from it
+    assert done["sources"][0]["title"] == "Rules" and "search_responses" not in done
+    history = client.get(f'/ask/chats/{done["chat_id"]}', headers=AUTH).json()
+    assert history["answers"][0]["sources"] == done["sources"]
 
 
 def test_ask_stream_runs_through_the_queue(client, monkeypatch):
@@ -384,14 +388,12 @@ def test_history_has_only_questions_and_answers():
     assert ask._history(messages) == [{"role": "user", "content": "q"}, {"role": "assistant", "content": "a"}]
 
 
-def test_cards_of_the_sources_found_in_this_turn():
-    registry = {
-        "m0": {"wiki": True, "title": "Old", "link": "https://o", "trust": "official"},
-        "m1": {"wiki": True, "title": "News", "link": "https://media.innopolis.university/n", "site": True, "trust": "wiki"},
-        "m2": {"message_id": 5},
-    }
-    cards = ask._cards(registry, before={"m0"})
-    assert [c.source.display_name for c in cards] == ["News"]
+def test_legacy_saved_answers_default_to_no_structured_sources():
+    response = AskResponses.model_validate({"query": "q", "answer": "Old [1].\n\nИсточники:\n[1] Old", "messages": [],
+                                            "search_responses": []})
+    assert response.sources == []
+    assert response.answer == "Old [1].\n\nИсточники:\n[1] Old"
+    assert "search_responses" not in response.model_dump()
 
 
 def test_mocks(client):
@@ -653,7 +655,9 @@ def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch,
 
     async def _run(query, chat_id, user, events=None, decision=None):
         if decision is None:
-            return ask.Waiting("Нужно ваше подтверждение", [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
+            source = AnswerSource(number=1, title="Programme", url="https://example.org/archive.zip", kind="eduwiki",
+                                  archive_document=ArchiveDocument(page="/raw/programme.md", revision="sha-1", member="2026/course.pdf"))
+            return ask.Waiting("Нужно ваше подтверждение [1]", [source], [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
         decided.append((query, decision.decision, decision.approval_id, user.token.get_secret_value()))
         return "Забронировано.", [], [], None, "cp-2"
 
@@ -665,6 +669,8 @@ def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch,
     assert client.get("/ask/chats", headers=AUTH).json()[0]["chat_id"] == chat_id  # it is listed, to come back to it
     history = client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()
     assert history["answers"] == [] and history["waiting"]["approval"]["id"] == "cp-paused"
+    assert history["waiting"]["sources"] == first["sources"]
+    assert first["sources"][0]["archive_document"] == {"page": "/raw/programme.md", "revision": "sha-1", "member": "2026/course.pdf"}
 
     done = client.post(f"/ask/{chat_id}/decision", json={"decision": "approve", "approval_id": "cp-paused"}, headers=AUTH)
     assert done.status_code == 200 and done.json()["answer"] == "Забронировано." and done.json()["approval"] is None
@@ -681,7 +687,7 @@ def test_the_sites_sport_token_reaches_the_agent_with_the_question_and_the_decis
     async def _run(query, chat_id, user, events=None, decision=None):
         seen.append(user.sport_token and user.sport_token.get_secret_value())
         if decision is None:
-            return ask.Waiting("Нужно ваше подтверждение", [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
+            return ask.Waiting("Нужно ваше подтверждение", [], [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
         return "Записал.", [], [], None, "cp-2"
 
     monkeypatch.setattr(ask, "_run", _run)

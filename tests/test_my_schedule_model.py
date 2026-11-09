@@ -38,7 +38,7 @@ def test_real_model_uses_one_agenda_read_and_local_only_when_explicit(monkeypatc
     result = graph.invoke({"messages": [HumanMessage(question)]},
                           {"configurable": {"thread_id": f"combined-agenda-model-{local_only}"}}, context=context)
     calls = [call for m in result["messages"] if isinstance(m, AIMessage) for call in m.tool_calls]
-    answer = core.final_answer(result["messages"], {})
+    answer = core.final_answer(result["messages"], {}).answer
     print({"local_only": local_only, "calls": calls, "answer": answer})
     assert [call["name"] for call in calls] == ["get_my_ai_calendar" if local_only else "get_my_schedule"]
     assert "Созвон" in answer
