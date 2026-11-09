@@ -1,6 +1,5 @@
 # Production / beta: everything cAtIx needs in one place.
-#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, worker, api, phoenix
-#   docker compose -f docker-compose.prod.yml --profile userbot up -d   + the Telegram userbot (after its login, see DEPLOY.md)
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, schema, wiki, tgbot, userbot, worker, api, phoenix
 #   docker compose -f docker-compose.prod.yml --profile maxuserbot up -d + the MAX account listener (after QR login)
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
@@ -152,7 +151,6 @@ services:
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:
     <<: *app
-    profiles: ["userbot"]
     command: ["catix-tguserbot", "listen"]
 
   # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎 (they are annotations

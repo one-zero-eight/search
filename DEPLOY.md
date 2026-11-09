@@ -149,10 +149,10 @@ docker compose -f docker-compose.prod.yml --profile tunnel up -d
 ```
 
 ## 4. Userbot (чтение чатов аккаунтом)
-Вход интерактивный (код из Telegram), делается один раз, сессия хранится в томе `catix_data`:
+Userbot запускается по умолчанию вместе с остальными сервисами. Перед первым запуском выполните интерактивный вход (код из Telegram); он делается один раз, сессия хранится в томе `catix_data`:
 ```bash
 docker compose -f docker-compose.prod.yml run --rm userbot catix-tguserbot login
-docker compose -f docker-compose.prod.yml --profile userbot up -d
+docker compose -f docker-compose.prod.yml up -d userbot
 ```
 Настройка — в личном чате с Telegram-ботом: авторизованный администратор вручную вводит `/admin` → «Группы и источники» или «Администраторы».
 `/listen` остаётся ручным быстрым входом в группы. Административных команд нет в меню даже у админов; `/id` доступна только им. Новый администратор должен один раз написать боту `/start`.
@@ -414,8 +414,8 @@ curl -sS -o /dev/null -w "%{http_code}\n" -x http://user:password@host:3128 http
 ```
 Прокси нужен и для `login`:
 ```bash
-docker compose -f docker-compose.prod.yml --profile userbot run --rm userbot catix-tguserbot login
-docker compose -f docker-compose.prod.yml --profile userbot up -d
+docker compose -f docker-compose.prod.yml run --rm userbot catix-tguserbot login
+docker compose -f docker-compose.prod.yml up -d userbot
 ```
 Затем в `docker compose -f docker-compose.prod.yml logs userbot` не должно быть `Attempt 1 at connecting failed`.
 
