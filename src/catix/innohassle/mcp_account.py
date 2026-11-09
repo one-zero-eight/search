@@ -21,7 +21,7 @@ from pydantic import AfterValidator, Field
 from catix.common.dates import ClockTime
 from catix.innohassle.identifiers import validate_outlook_id, validate_room_id
 from catix.innohassle.mcp_declarations import (
-    invalid_arguments, metadata, require_innohassle, result_boundary,
+    invalid_arguments, metadata, optional_sport, require_innohassle, result_boundary,
 )
 from catix.settings import settings
 
@@ -196,7 +196,65 @@ def _class_calendar(token: str, start: date, end: date) -> tuple[list[dict], lis
     return items, problems, errors
 
 
-def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str, str], dict[str, str]]:
+def _sport_calendar(token: str, start: date, end: date) -> list[dict]:
+    """Normalize checked-in Sport rows through the shared calendar overlap reader.
+
+    Sport all-day end dates are inclusive in its ICS export. No credential or
+    upstream payload is embedded in the generated, trusted calendar.
+    """
+    from catix.innohassle import sport
+    from catix.innohassle.mcp_sport import training_name
+
+    rows = sport.my_trainings(token, _at(start, time.min), _at(end + timedelta(days=1), time.min))
+    if not isinstance(rows, list):
+        raise ValueError("Unreadable Sport schedule.")
+    calendar = icalendar.Calendar()
+    for row in rows:
+        if not isinstance(row, dict) or type(row.get("checked_in")) is not bool:
+            raise ValueError("Unreadable Sport check-in status.")
+        if not row["checked_in"]:
+            continue
+        training = row.get("training")
+        if (not isinstance(training, dict) or type(training.get("id")) is not int or training["id"] <= 0
+                or type(training.get("is_all_day")) is not bool):
+            raise ValueError("Unreadable Sport training.")
+        names = [training.get(key) for key in ("training_custom_name", "sport_name", "display_name", "group_name")]
+        if (any(name is not None and not isinstance(name, str) for name in names)
+                or not any(isinstance(name, str) and name.strip() for name in names)):
+            raise ValueError("Unreadable Sport training name.")
+        bounds = []
+        for key in ("start", "end"):
+            value = training.get(key)
+            if not isinstance(value, str):
+                raise ValueError("Unreadable Sport training date.")
+            stamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            if stamp.utcoffset() is None:
+                raise ValueError("Unreadable Sport training timezone.")
+            bounds.append(stamp.astimezone(settings.tz))
+        begin, finish = bounds
+        if training["is_all_day"]:
+            begin, finish = begin.date(), finish.date()
+            if finish < begin:
+                raise ValueError("Unreadable Sport training interval.")
+            finish += timedelta(days=1)
+        elif finish <= begin:
+            raise ValueError("Unreadable Sport training interval.")
+        location = training.get("training_location")
+        if location is not None and (not isinstance(location, dict)
+                or not isinstance(location.get("name"), str) or not location["name"].strip()):
+            raise ValueError("Unreadable Sport training location.")
+        event = icalendar.Event()
+        event.add("uid", str(training["id"]))
+        event.add("summary", training_name(training))
+        event.add("dtstart", begin)
+        event.add("dtend", finish)
+        if location:
+            event.add("location", location["name"])
+        calendar.add_component(event)
+    return _calendar_items(calendar.to_ical(), "sport", start, end)
+
+
+def _calendar(token: str, start: date, end: date, sport_token: str | None = None) -> tuple[list[dict], dict[str, str], dict[str, str]]:
     """The asker's InNoHassle calendars in the period (classes, sport, the events they enrolled in), each
     item with its `kind`; and what could not be read, by kind. Read concurrently rather than waiting on each service in turn.
     Raises ServiceError 401 when InNoHassle does not accept the token."""
@@ -205,7 +263,9 @@ def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str,
     with ThreadPoolExecutor(max_workers=len(innohassle.MY_CALENDARS) + 1) as pool:
         asked: dict[str, Future] = {"class": pool.submit(_read_source, "class_calendar", _class_calendar, token, start, end)}
         asked.update({kind: pool.submit(_read_source, f"{kind}_calendar", innohassle.my_calendar_ics, token, kind)
-                      for kind in innohassle.MY_CALENDARS})
+                      for kind in innohassle.MY_CALENDARS if kind != "sport" or not sport_token})
+        if sport_token:
+            asked["sport"] = pool.submit(_read_source, "sport_calendar", _sport_calendar, sport_token, start, end)
     items, problems, errors = ([], {}, {})
     for kind, future in asked.items():
         try:
@@ -215,10 +275,12 @@ def _calendar(token: str, start: date, end: date) -> tuple[list[dict], dict[str,
                 errors.update(class_errors)
                 if missing:
                     problems[kind] = "; ".join(missing)
+            elif kind == "sport" and sport_token:
+                items += future.result()
             else:
                 items += _calendar_items(future.result(), kind, start, end)
         except innohassle.ServiceError as e:
-            if e.status == 401:
+            if e.status == 401 and not (kind == "sport" and sport_token):
                 raise
             problems[kind] = f"{e.status}: {e.detail}"
         except httpx.TimeoutException as e:
@@ -282,7 +344,7 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
 @result_boundary()
 def account_get_my_schedule(
     date_from: date | None = None, date_to: date | None = None,
-    *, token: str = Depends(require_innohassle),
+    *, token: str = Depends(require_innohassle), sport_token: str | None = Depends(optional_sport),
 ) -> dict:
     """The signed-in user's CURRENT PERSONAL schedule: selected/subscribed class calendars,
     including English and course selections, sport, event enrolments, and personal room/music bookings.
@@ -299,7 +361,7 @@ def account_get_my_schedule(
     end = date_to or start + timedelta(days=DEFAULT_DAYS - 1)
     result: dict = {"now": _now().strftime("%Y-%m-%d %H:%M"), "range": [start.isoformat(), end.isoformat()]}
     try:
-        schedule, problems, errors = _calendar(token, start, end)
+        schedule, problems, errors = _calendar(token, start, end, sport_token)
     except innohassle.ServiceError as e:
         return {"error": _why(e, "The InNoHassle schedule")}
     result["schedule"] = schedule[:MAX_ITEMS]
@@ -337,12 +399,16 @@ def rooms_get_free_rooms(
     time_from: ClockTime, time_to: ClockTime, day: date | None = None,
     *, token: str = Depends(require_innohassle),
 ) -> dict:
-    """Room booking availability: find a free room or classroom for a reservation.
-    Найти свободные аудитории и комнаты для бронирования.
+    """Room booking availability: find a free room or classroom for an exact interval.
+    Найти свободные аудитории и комнаты для бронирования на указанное время.
 
-    Check room booking times, occupancy and the signed-in user's access for the exact interval.
-    Returns free, booked and unavailable rooms with refusal reasons; does not create a booking.
-    Availability depends on the interval: ask for the end time or duration if unknown.
+    Default for generic free/bookable room requests, including "find a room for me".
+    Check room booking times, occupancy and the signed-in user's access, without reading their personal agenda.
+    Returns free, booked and unavailable rooms with refusal reasons; does not create a booking or check calendar conflicts.
+    Personal-schedule matching is separate and only needed when explicitly requested; booking still requires scheduling checks.
+    Ask for missing day/start/end or duration before checking; never invent a duration from a start time alone.
+    A find/list/recommend request is read-only, not permission to book. After this result, report choices and stop;
+    do not call rooms_book_room or open approval unless the user explicitly requested booking.
     """
     from catix.innohassle import client as innohassle
 
@@ -555,6 +621,8 @@ def _music_windows(day: date, now: datetime, occupied: list[tuple[datetime, date
 def music_get_available_windows(
     day: date,
     duration_minutes: Annotated[int | None, Field(ge=30, le=1440, multiple_of=30)] = None,
+    time_from: ClockTime | None = None,
+    time_to: ClockTime | None = None,
     *, token: str = Depends(require_innohassle),
 ) -> dict:
     """Find personal music room booking availability and free time windows for one day.
@@ -563,17 +631,36 @@ def music_get_available_windows(
     Requires InNoHassle sign-in and Music Room registration. Calculates from fresh occupied
     intervals and daily/weekly quotas using local bot-derived 07:00–22:30 / 30-minute rules
     and a conservative rolling seven-day start horizon; not an upstream availability promise.
-    Omit duration to see windows without inventing the user's duration. latest_start is for
-    duration_minutes, or a 30-minute booking if omitted. max_duration_minutes is a limit at
+    For a requested time interval pass both time_from and time_to exactly as stated by the
+    user, not duration alone. The pair must be ordered on the same day and on the half-hour
+    grid; duration is derived from it and any supplied duration must match. Exact mode
+    returns only that interval or an explicit exclusion, never alternatives elsewhere that day.
+    Omit both times for day-wide windows. Omit duration to avoid inventing it. latest_start
+    is for duration_minutes, or 30 minutes if omitted. max_duration_minutes is a limit at
     the window's start, not permission to book the whole window. No reservation is made.
     """
-    return _music_availability(day, duration_minutes, token)
+    return _music_availability(day, duration_minutes, token, time_from=time_from, time_to=time_to)
 
 
-def _music_availability(day: date, duration_minutes: int | None, token: str) -> dict:
+def _music_availability(day: date, duration_minutes: int | None, token: str, *,
+                        time_from: time | None = None, time_to: time | None = None) -> dict:
     """Shared fresh personal checks for the availability read and booking write."""
     from catix.innohassle import client as innohassle
 
+    if (time_from is None) != (time_to is None):
+        return invalid_arguments("Pass both time_from and time_to for an exact Music Room interval.")
+    start = end = None
+    if time_from is not None and time_to is not None:
+        if any(clock.tzinfo is not None or clock.second or clock.microsecond or clock.minute % 30
+               for clock in (time_from, time_to)):
+            return invalid_arguments("Music Room intervals must use the local 30-minute grid.")
+        if time_to <= time_from:
+            return invalid_arguments("Music Room interval must end after it starts on the same day.")
+        start, end = _at(day, time_from), _at(day, time_to)
+        canonical_duration = int((end - start).total_seconds() // 60)
+        if duration_minutes is not None and duration_minutes != canonical_duration:
+            return invalid_arguments("duration_minutes must match the requested Music Room interval.")
+        duration_minutes = canonical_duration
     now = _now()
     result = {
         "date": day.isoformat(), "timezone": str(settings.tz), "checked_at": now.isoformat(),
@@ -586,13 +673,22 @@ def _music_availability(day: date, duration_minutes: int | None, token: str) -> 
                 "not live upstream policy, a reservation or guaranteed physical access. "
                 "Windows are alternatives sharing the same quota. Availability may change before confirmation.",
     }
+    if start is not None:
+        result["requested_interval"] = {"starts_at": start.isoformat(), "ends_at": end.isoformat()}
+        if start <= now:
+            return {**result, "reason": "past"}
+        if start > now + _MUSIC_HORIZON:
+            return {**result, "reason": "outside_booking_horizon"}
+        if time_from < _MUSIC_OPEN or time_to > _MUSIC_CLOSE:
+            return {**result, "reason": "outside_opening_hours"}
     if not now.date() <= day <= (now + _MUSIC_HORIZON).date():
         return {**result, "reason": "outside_booking_horizon"}
     try:
         profile = innohassle.my_music_room_profile(token)
     except innohassle.ServiceError as error:
         if error.status in {403, 404}:
-            return {"error": "Music Room registration/access could not be verified. "
+            return {**(result if start is not None else {}),
+                    "error": "Music Room registration/access could not be verified. "
                              "Check your registration in @InnoMusicRoomBot.", "code": "access_unverified"}
         raise
     status = profile.get("status") if isinstance(profile, dict) else None
@@ -606,16 +702,39 @@ def _music_availability(day: date, duration_minutes: int | None, token: str) -> 
         raise ValueError("Invalid Music Room bookings response.")
     occupied = []
     for booking in bookings:
-        start, end = _local(booking["time_start"]), _local(booking["time_end"])
-        if end <= start:
+        booking_start, booking_end = _local(booking["time_start"]), _local(booking["time_end"])
+        if booking_end <= booking_start:
             raise ValueError("Invalid Music Room booking interval.")
-        occupied.append((start, end))
+        occupied.append((booking_start, booking_end))
     now = _now()
     result["checked_at"] = now.isoformat()
     result["rules"]["latest_booking_start"] = (now + _MUSIC_HORIZON).isoformat()
     daily_minutes, weekly_minutes = max(0, int(daily * 60)), max(0, int(weekly * 60))
     result["remaining_daily_minutes"], result["remaining_weekly_minutes"] = daily_minutes, weekly_minutes
     quota = min(daily_minutes, weekly_minutes)
+    if start is not None:
+        if start <= now:
+            result["reason"] = "past"
+        elif start > now + _MUSIC_HORIZON:
+            result["reason"] = "outside_booking_horizon"
+        elif quota < duration_minutes:
+            result["reason"] = "insufficient_quota"
+        elif any(begin < end and start < finish for begin, finish in occupied):
+            result["reason"] = "room_occupied"
+            overlaps = []
+            for begin, finish in sorted((max(start, begin), min(end, finish))
+                                        for begin, finish in occupied if begin < end and start < finish):
+                if overlaps and begin <= overlaps[-1][1]:
+                    overlaps[-1] = (overlaps[-1][0], max(overlaps[-1][1], finish))
+                else:
+                    overlaps.append((begin, finish))
+            result["occupied_intervals"] = [{"starts_at": begin.isoformat(), "ends_at": finish.isoformat()}
+                                            for begin, finish in overlaps]
+        else:
+            result["windows"] = [{"start": time_from.strftime("%H:%M"), "end": time_to.strftime("%H:%M"),
+                                  "latest_start": time_from.strftime("%H:%M"),
+                                  "max_duration_minutes": duration_minutes}]
+        return result
     result["windows"] = _music_windows(day, now, occupied, quota, duration_minutes)
     if not result["windows"]:
         result["reason"] = "insufficient_quota" if quota < (duration_minutes or 30) else "no_matching_window"

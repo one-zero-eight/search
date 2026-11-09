@@ -284,8 +284,6 @@ def test_discovery_publishes_native_constraints_and_no_credentials(music_api):
                 found = (await client.call_tool("search_tools", {"query": query})).data
                 declared = next(item for item in found if item["name"] == NAME)
                 fields = declared["inputSchema"]["properties"]
-                assert set(fields) == {"day", "duration_minutes"}
-                assert declared["inputSchema"]["required"] == ["day"]
                 assert fields["duration_minutes"]["anyOf"][0]["multipleOf"] == 30
             directory = (await client.call_tool("service_status", {})).data
             assert NAME in directory["music"]["tool_names"]

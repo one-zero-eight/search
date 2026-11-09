@@ -8,6 +8,7 @@ import pytest
 from icalendar import Calendar, Event
 
 from catix.innohassle import client as backend, mcp_server
+from catix.innohassle import sport
 from catix.settings import settings
 from tests.mcp_native_helpers import call, connection
 
@@ -15,6 +16,7 @@ TOKEN = "synthetic-schedule-timeout-token"
 DAY = "2026-11-09"
 ARGS = {"date_from": DAY, "date_to": DAY}
 SECRET = "private-timeout-detail-and-token"
+SPORT_TOKEN = "synthetic-direct-sport-token"
 
 
 def feed(title):
@@ -45,6 +47,8 @@ def sources(monkeypatch):
             return state["responses"][path]
         if path in state["fail"] or path in state["booking_fail"]:
             raise httpx.ReadTimeout(SECRET, request=request)
+        if path == "/users/me/schedule":
+            return httpx.Response(200, json=state.get("trainings", []))
         if path == "/schedule/v0/users/me":
             return httpx.Response(200, json={"id": 73, "favorite_event_groups": ["core", "lab"], "hidden_event_groups": []})
         if path == "/schedule/v0/users/me/predefined":
@@ -63,14 +67,15 @@ def sources(monkeypatch):
 
     with backend._http_client("https://schedule-timeouts.test", transport=httpx.MockTransport(respond)) as client:
         monkeypatch.setattr(backend, "_client", client)
+        monkeypatch.setattr(sport, "_client", client)
         yield state
 
 
-def invoke(remote=False, generic=False) -> dict:
+def invoke(remote=False, generic=False, sport_token=None) -> dict:
     if not remote and not generic:
-        return call("account_get_my_schedule", ARGS, token=TOKEN)
+        return call("account_get_my_schedule", ARGS, token=TOKEN, sport_token=sport_token)
     async def run():
-        async with connection(remote=remote, token=TOKEN) as mcp:
+        async with connection(remote=remote, token=TOKEN, sport_token=sport_token) as mcp:
             if generic:
                 result = await mcp.call_tool("call_tool", {"name": "account_get_my_schedule", "arguments": ARGS}, raise_on_error=False)
             else:
@@ -157,6 +162,105 @@ def test_non_timeout_control_has_no_timeout_code(sources, caplog):
     result = invoke()
     assert "source_errors" not in result
     assert "Schedule source timed out" not in caplog.text
+
+
+def training_row(training_id=51, *, checked_in=True, **overrides):
+    return {"checked_in": checked_in, "can_check_in": False, "training": {
+        "id": training_id, "is_all_day": False, "sport_name": "Swimming",
+        "start": f"{DAY}T08:00:00+03:00", "end": f"{DAY}T09:30:00+03:00", **overrides}}
+
+
+@pytest.mark.parametrize("remote,generic", [(False, False), (False, True), (True, False), (True, True)])
+def test_direct_sport_uses_request_credential_exact_bounds_and_checked_in_only(sources, remote, generic):
+    sources["trainings"] = [training_row(), training_row(52, checked_in=False)]
+    result = invoke(remote, generic, SPORT_TOKEN)
+    sport_rows = [row for row in result["schedule"] if row["kind"] == "sport"]
+    assert len(sport_rows) == 1 and sport_rows[0]["title"] == "Swimming"
+    assert sport_rows[0]["calendar_uid"] == "51"
+    assert sport_rows[0]["starts_at"] == f"{DAY}T08:00:00+03:00"
+    requests = [r for r in sources["requests"] if r.url.path == "/users/me/schedule"]
+    assert len(requests) == 1
+    assert requests[0].headers["Authorization"] == f"Bearer {SPORT_TOKEN}"
+    assert dict(requests[0].url.params) == {"start": f"{DAY}T00:00:00+03:00", "end": "2026-11-10T00:00:00+03:00"}
+    assert not any(r.url.path.endswith("sport.ics") for r in sources["requests"])
+    assert SPORT_TOKEN not in str(result)
+    assert "not_read" not in result
+
+
+def test_missing_sport_token_keeps_existing_personal_feed_without_acquiring_identity(sources):
+    result = invoke()
+    assert any(row["kind"] == "sport" and row["title"] == "Sport" for row in result["schedule"])
+    assert sum(r.url.path.endswith("sport.ics") for r in sources["requests"]) == 1
+    assert not any(r.url.path == "/users/me/schedule" or "accounts" in r.url.path for r in sources["requests"])
+
+
+@pytest.mark.parametrize("remote,generic", [(False, False), (False, True), (True, False), (True, True)])
+def test_direct_sport_timeout_is_partial_without_retry_or_ics_fallback(sources, caplog, remote, generic):
+    sources["fail"].add("/users/me/schedule")
+    sources["booking_payloads"]["/room-booking/v0/bookings/my"] = [{
+        "outlook_booking_id": "room-id", "room_id": "314", "title": "Study",
+        "start": f"{DAY}T14:00:00+03:00", "end": f"{DAY}T15:00:00+03:00"}]
+    result = invoke(remote, generic, SPORT_TOKEN)
+    assert {row["kind"] for row in result["schedule"]} == {"class", "event"}
+    assert result["bookings"][0]["booking_id"] == "room-id"
+    assert result["source_errors"] == {"sport": "upstream_timeout"}
+    assert any(value.startswith("sport:") for value in result["not_read"])
+    assert sum(r.url.path == "/users/me/schedule" for r in sources["requests"]) == 1
+    assert not any(r.url.path.endswith("sport.ics") for r in sources["requests"])
+    assert SECRET not in str(result) and SPORT_TOKEN not in str(result)
+    assert SECRET not in caplog.text and SPORT_TOKEN not in caplog.text
+
+
+def test_direct_sport_overlap_and_inclusive_all_day_end(sources):
+    sources["trainings"] = [
+        training_row(51, start="2026-11-08T23:30:00+03:00", end=f"{DAY}T00:30:00+03:00"),
+        training_row(52, is_all_day=True, start="2026-11-08T00:00:00+03:00", end=f"{DAY}T00:00:00+03:00"),
+        training_row(53, is_all_day=True, start="2026-11-08T00:00:00+03:00", end="2026-11-08T00:00:00+03:00"),
+    ]
+    result = invoke(sport_token=SPORT_TOKEN)
+    rows = {row["calendar_uid"]: row for row in result["schedule"] if row["kind"] == "sport"}
+    assert set(rows) == {"51", "52"}
+    assert rows["51"]["starts_at"] == "2026-11-08T23:30:00+03:00"
+    assert rows["51"]["ends_at"] == f"{DAY}T00:30:00+03:00"
+    assert rows["52"]["all_day"] is True and "time" not in rows["52"]
+    assert rows["52"]["ends_at"] == "2026-11-10T00:00:00+03:00"
+
+
+@pytest.mark.parametrize("bad", [
+    {}, [None], [{"checked_in": "false"}], [{"checked_in": 1}],
+    [training_row(id=True)], [training_row(id=0)], [training_row(is_all_day="false")],
+    [training_row(sport_name=[])], [training_row(sport_name=" ")],
+    [training_row(start="invalid")], [training_row(start=f"{DAY}T08:00:00")],
+    [training_row(end=f"{DAY}T07:00:00+03:00")], [training_row(training_location=[])],
+])
+def test_invalid_direct_sport_data_never_proves_empty_or_complete(sources, bad):
+    sources["trainings"] = bad
+    result = invoke(sport_token=SPORT_TOKEN)
+    assert any(value.startswith("sport: unreadable calendar:") for value in result["not_read"])
+    assert {row["kind"] for row in result["schedule"]} == {"class", "event"}
+    assert not any(r.url.path.endswith("sport.ics") for r in sources["requests"])
+    from catix.agent.schedule_tools import merge_schedule
+
+    merged = merge_schedule([DAY, DAY], result, {"range": [DAY, DAY], "events": []})
+    assert merged["complete"] is False
+
+
+def test_native_agenda_credential_dependencies_are_not_model_arguments():
+    from tests.mcp_native_helpers import input_schema
+
+    schema = input_schema("account_get_my_schedule")
+    assert "token" not in schema["properties"]
+    assert "sport_token" not in schema["properties"]
+
+
+@pytest.mark.parametrize("status", [401, 403, 503])
+def test_direct_sport_service_failure_keeps_other_sources_without_fallback(sources, status):
+    sources["responses"]["/users/me/schedule"] = httpx.Response(status, json={"detail": SECRET})
+    result = invoke(sport_token=SPORT_TOKEN)
+    assert {row["kind"] for row in result["schedule"]} == {"class", "event"}
+    assert any(value.startswith(f"sport: {status}:") for value in result["not_read"])
+    assert "source_errors" not in result
+    assert not any(r.url.path.endswith("sport.ics") for r in sources["requests"])
 
 
 @pytest.mark.parametrize("selected", [False, True])

@@ -214,6 +214,7 @@ class SignupOffer(BaseModel):
     title: str
     booking_title: str | None = None
     music_window: MusicBookingWindow | None = None
+    personal_schedule_checked: bool = False
     starts_at: datetime
     ends_at: datetime | None = None
     all_day: bool = False

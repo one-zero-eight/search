@@ -102,7 +102,7 @@ def collect(messages, answer, *, now=None):
         elif isinstance(message, AIMessage):
             calls.update((call['id'], call) for call in message.tool_calls)
         elif isinstance(message, ToolMessage):
-            call = calls.get(message.tool_call_id)
+            call = calls.pop(message.tool_call_id, None)
             if not call or message.name != call['name']:
                 continue
             name = call['args'].get('name') if call['name'] == 'call_api_tool' else call['name']
@@ -125,6 +125,10 @@ def collect(messages, answer, *, now=None):
                 candidates['rooms'] = booking_offers.room_candidates(_data(message), message.artifact, call['args'])
             elif message.name == 'get_my_available_music_windows':
                 candidates['music'] = booking_offers.music_candidates(_data(message), message.artifact, call['args'])
+            elif call['name'] == 'call_api_tool' and name == 'rooms_get_free_rooms':
+                candidates['rooms'] = booking_offers.raw_room_candidates(_data(message), call['args'].get('arguments'))
+            elif call['name'] == 'call_api_tool' and name == 'music_get_available_windows':
+                candidates['music'] = booking_offers.raw_music_candidates(_data(message), call['args'].get('arguments'))
             elif message.name == 'get_my_available_trainings':
                 candidates['sport'] = []
                 data = _data(message)
@@ -200,7 +204,7 @@ def collect(messages, answer, *, now=None):
             if location is not None and not isinstance(location, str):
                 continue
             offer = SignupOffer(id=secrets.token_urlsafe(24), service=service, title=title, starts_at=start,
-                                music_window=window,
+                                music_window=window, personal_schedule_checked=item.get('personal_schedule_checked') is True,
                                 ends_at=end, all_day=item.get('all_day') is True, location=location,
                                 source_url='https://innohassle.ru/sport' if service == 'sport' else safe_url(item.get('page')),
                                 external_url=safe_url(item.get('enrollment_info', {}).get('url'))

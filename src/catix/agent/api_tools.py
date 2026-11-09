@@ -132,6 +132,8 @@ def _prepare(name: str, arguments: dict | None, runtime: ToolRuntime):
         parsed = CallApiToolArgs(name=name, arguments={} if arguments is None else arguments)
         mode = _credential_mode(parsed.name)
         token, credentials = _credentials(mode, runtime)
+        if parsed.name == "account_get_my_schedule":
+            credentials = _sport_credentials(runtime)
         arguments = _arguments(parsed.name, parsed.arguments, runtime)
     except (ValueError, TypeError, KeyError) as error:
         return {"error": str(error)}

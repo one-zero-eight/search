@@ -41,8 +41,8 @@ def services(monkeypatch):
         state["requests"].append(deepcopy(payload))
         assert method == "call_tool" and token == "synthetic-ih" and credentials == {}
         if payload["name"] == "music_get_available_windows":
-            assert payload["arguments"] == {"day": DAY, **({"duration_minutes": state["music"]["duration_minutes"]}
-                                                        if state["music"]["duration_minutes"] is not None else {})}
+            assert payload["arguments"] == state.get("expected_arguments", {"day": DAY, **(
+                {"duration_minutes": state["music"]["duration_minutes"]} if state["music"]["duration_minutes"] is not None else {})})
             return deepcopy(state["music"])
         assert payload == {"name": "account_get_my_schedule", "arguments": {"date_from": DAY, "date_to": DAY}}
         return deepcopy(state["agenda"])
@@ -356,3 +356,137 @@ def test_real_recommendation_snapshot_reaches_consent_and_fresh_booking_check(mo
     invoke(Command(resume={pending.interrupts[0].id: {"decisions": [{"type": decision}]}}))
     assert len(writes) == (1 if decision == "approve" and not changed else 0)
     assert len(services["requests"]) == (3 if decision == "approve" else 2)
+
+
+def exact_music(services, *, reason=None):
+    services["expected_arguments"] = {"day": DAY, "duration_minutes": 60, "time_from": "15:00", "time_to": "16:00"}
+    services["music"].update(requested_interval=interval("15:00", "16:00"), reason=reason,
+                             windows=[] if reason else [{"start": "15:00", "end": "16:00",
+                                                         "latest_start": "15:00", "max_duration_minutes": 60}])
+    if reason == "room_occupied":
+        services["music"]["occupied_intervals"] = [interval("15:00", "16:00")]
+
+
+@pytest.mark.parametrize("reason", ["room_occupied", "no_matching_window", "outside_opening_hours", "past",
+                                  "outside_booking_horizon", "access_denied", "insufficient_quota"])
+def test_exact_music_service_refusal_never_reads_or_reports_unrelated_classes(services, monkeypatch, reason):
+    exact_music(services, reason=reason)
+    services["agenda"]["schedule"] = [interval("09:00", "12:10", title="Unrelated morning class")]
+    monkeypatch.setattr("catix.agent.music_tools.read_my_schedule", lambda *a: pytest.fail("Service refused before agenda"))
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY),
+                                   time_from="15:00", time_to="16:00")
+    assert result["available"] == result["unverified"] == [] and result["complete"] is True
+    assert result["excluded"] == [{**interval("15:00", "16:00"), "reason": reason,
+                                   **({"occupied_intervals": [interval("15:00", "16:00")]} if reason == "room_occupied" else {})}]
+    assert "Unrelated morning class" not in str(result)
+    assert all("conflicts" not in item for item in result["excluded"])
+    assert len(services["requests"]) == 1 and artifact["agenda"] is None
+    assert artifact["music_arguments"] == services["expected_arguments"]
+
+
+def test_exact_music_rejects_recorded_morning_only_service_shape_without_inventing_occupancy(services, monkeypatch):
+    services["expected_arguments"] = {"day": DAY, "duration_minutes": 60, "time_from": "15:00", "time_to": "16:00"}
+    services["music"].update(remaining_weekly_minutes=240, windows=[
+        {"start": "10:00", "end": "11:00", "latest_start": "10:00", "max_duration_minutes": 60}])
+    monkeypatch.setattr("catix.agent.music_tools.read_my_schedule", lambda *a: pytest.fail("Wrong interval must stop before agenda"))
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY),
+                                   time_from="15:00", time_to="16:00")
+    assert result["code"] == "music_unverified" and result["complete"] is False
+    assert "room_occupied" not in str(result) and "conflicts" not in str(result)
+    assert artifact["music"] == services["music"] and artifact["agenda"] is None
+    assert len(services["requests"]) == 1
+
+
+@pytest.mark.parametrize("case", ["free", "conflict", "partial", "unknown_end"])
+def test_exact_music_reports_only_requested_span_and_real_overlaps(services, case):
+    exact_music(services)
+    services["agenda"]["schedule"] = [interval("09:00", "12:10", title="Unrelated morning class")]
+    services["local"] = []
+    if case == "conflict":
+        services["local"] = [interval("15:30", "16:30", title="Actual overlap")]
+    elif case == "partial":
+        services["agenda"]["not_read"] = ["Selected calendar unavailable"]
+    elif case == "unknown_end":
+        services["local"] = [{**interval("14:30", "15:00", title="Unknown end"), "ends_at": None}]
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY),
+                                   time_from="15:00", time_to="16:00")
+    assert result["duration_minutes"] == 60 and result["requested_interval"] == interval("15:00", "16:00")
+    assert "Unrelated morning class" not in str(result) and "Unrelated morning class" in str(artifact["agenda"])
+    if case == "free":
+        assert result["available"] == [{**interval("15:00", "16:00"), "start": "15:00", "end": "16:00",
+                                        "latest_start": "15:00", "max_duration_minutes": 60}]
+        assert result["excluded"] == result["unverified"] == [] and result["complete"] is True
+    elif case == "conflict":
+        assert result["available"] == result["unverified"] == []
+        assert [c["title"] for item in result["excluded"] for c in item["conflicts"]] == ["Actual overlap"]
+        assert result["excluded"][0]["conflicts"][0]["ends_at"] == DAY + "T16:30:00+03:00"
+    else:
+        assert result["available"] == result["excluded"] == [] and result["unverified"] and result["complete"] is False
+
+
+@pytest.mark.parametrize("times", [{"time_from": "15:00"}, {"time_to": "16:00"},
+    {"time_from": "15:10", "time_to": "16:00"}, {"time_from": "16:00", "time_to": "15:00"},
+    {"time_from": "15:00", "time_to": "15:00"}, {"time_from": "15:00", "time_to": "16:00", "duration_minutes": 30}])
+def test_exact_music_schema_rejects_unpaired_offgrid_reversed_and_mismatched_duration(times):
+    from pydantic import ValidationError
+    with pytest.raises(ValidationError):
+        tool().args_schema.model_validate({"day": DAY, **times})
+
+
+def test_exact_music_schema_normalizes_duration_from_requested_times():
+    args = tool().args_schema.model_validate({"day": DAY, "time_from": "15:00", "time_to": "16:00"})
+    assert args.duration_minutes == 60
+
+
+@pytest.mark.parametrize("fault", ["missing_interval", "wrong_interval", "morning_window", "broader_window",
+                                  "latest_start", "maximum", "occupied_outside", "occupied_identity", "occupied_missing"])
+def test_exact_music_rejects_wrong_interval_and_unproven_occupancy(services, fault):
+    exact_music(services, reason="room_occupied" if fault.startswith("occupied_") else None)
+    if fault == "missing_interval":
+        services["music"].pop("requested_interval")
+    elif fault == "wrong_interval":
+        services["music"]["requested_interval"] = interval("10:00", "11:00")
+    elif fault in {"morning_window", "broader_window"}:
+        services["music"]["windows"] = [{"start": "10:00", "end": "11:00" if fault == "morning_window" else "18:00",
+                                          "latest_start": "10:00", "max_duration_minutes": 60}]
+    elif fault == "latest_start":
+        services["music"]["windows"][0]["latest_start"] = "15:30"
+    elif fault == "maximum":
+        services["music"]["windows"][0]["max_duration_minutes"] = 30
+    elif fault == "occupied_outside":
+        services["music"]["occupied_intervals"] = [interval("09:00", "10:00")]
+    elif fault == "occupied_identity":
+        services["music"]["occupied_intervals"][0]["title"] = "Private booking owner"
+    elif fault == "occupied_missing":
+        services["music"].pop("occupied_intervals")
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY),
+                                   time_from="15:00", time_to="16:00")
+    assert result["code"] == "music_unverified" and len(services["requests"]) == 1
+    assert artifact["music"] == services["music"] and artifact["agenda"] is None
+
+
+@pytest.mark.parametrize("changed", [None, "call_interval", "result_interval", "duration", "daywide_call"])
+def test_exact_music_service_refusal_is_paired_evidence_without_booking_offer(services, changed):
+    import json
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+    from catix.agent import core
+    from catix.api import signup
+    exact_music(services, reason="room_occupied")
+    result, artifact = tool().func(SimpleNamespace(context=CONTEXT), date.fromisoformat(DAY),
+                                   time_from="15:00", time_to="16:00")
+    arguments = {"day": DAY, "time_from": "15:00", "time_to": "16:00"}
+    if changed == "call_interval":
+        arguments.update(time_from="10:00", time_to="11:00")
+    elif changed == "result_interval":
+        result["requested_interval"] = interval("10:00", "11:00")
+    elif changed == "duration":
+        result["duration_minutes"] = 30
+    elif changed == "daywide_call":
+        arguments = {"day": DAY, "duration_minutes": 60}
+    messages = [HumanMessage("Find a music room tomorrow 15:00–16:00"),
+        AIMessage("", tool_calls=[{"id": "exact-read", "name": tool().name, "args": arguments}]),
+        ToolMessage(json.dumps(result), name=tool().name, tool_call_id="exact-read", artifact=artifact)]
+    assert core.successful_read(messages) is (changed is None)
+    assert core.read_evidence(messages) is (changed is None)
+    assert core.found_anything(messages) is (True if changed is None else None)
+    assert signup.collect(messages, "", now=CONTEXT.asked_at) == ([], {})

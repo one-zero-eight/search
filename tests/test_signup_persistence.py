@@ -289,20 +289,22 @@ def test_native_booking_http_sse_generation_selection_click_history_receipt(stor
     assert ('Study group' if service == 'rooms' else 'Music room') in receipt
 
 
+@pytest.mark.parametrize('raw', [False, True])
 @pytest.mark.parametrize('service,mode', [
     (service, mode) for service in ('rooms', 'music') for mode in
     ('success', 'conflict', 'unknown_end', 'partial', 'occupied', 'lost_write', 'lost_readback', 'changed_interval', 'changed_id', 'changed_missing_end', 'lost_receipt')
 ] + [('rooms', mode) for mode in ('permission', 'changed_title', 'changed_room', 'changed_owner')]
   + [('music', mode) for mode in ('quota', 'banned')])
-def test_native_booking_changes_fail_closed_and_duplicate_clicks_never_retry(stored, native_bookings, monkeypatch, service, mode):
+def test_native_booking_changes_fail_closed_and_duplicate_clicks_never_retry(stored, native_bookings, monkeypatch, service, mode, raw):
     from copy import deepcopy
     from catix.api import ask
     from catix.api.auth import UserTokenData
     from catix.api.schemas import SignupSelection
     chat_id, owner, _, _ = stored
     state, context, recommend = native_bookings
-    offers, targets = signup.collect(recommend(service), '', now=NOW)
+    offers, targets = signup.collect(recommend(service, raw=raw), '', now=NOW)
     offer, = offers
+    assert offer.personal_schedule_checked is (not raw)
     response = AskResponses(query='booking', answer='Choose below', chat_id=chat_id,
                             sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets

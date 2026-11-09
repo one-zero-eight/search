@@ -1,4 +1,4 @@
-"""Host-owned booking choices, derived from native recommendation evidence only."""
+"""Host-owned booking choices, derived from paired, validated service evidence."""
 from copy import deepcopy
 from datetime import UTC, date, datetime, time
 
@@ -27,7 +27,7 @@ def room_candidates(data, artifact, arguments):
                 or data.get('range') != [source['day'], source['day']]
                 or data.get('timezone') != str(settings.tz) or data.get('available') != rooms['free']):
             return []
-        return [({**room, **interval, 'location': room['room_id']},
+        return [({**room, **interval, 'location': room['room_id'], 'personal_schedule_checked': True},
                  {'arguments': {**source, 'room_id': room['room_id']}, 'room': deepcopy(room)})
                 for room in rooms['free']]
     except (ScheduleCheckError, KeyError, TypeError, ValueError, AttributeError):
@@ -42,18 +42,75 @@ def music_candidates(data, artifact, arguments):
         source = args.model_dump(mode='json', exclude_none=True)
         if artifact.get('music_arguments') != source:
             return []
-        windows = _windows(artifact['music'], args.day, args.duration_minutes)
+        windows = _windows(artifact['music'], args.day, args.duration_minutes, args.time_from, args.time_to)
+        if not windows:
+            return []
         period = {'date_from': source['day'], 'date_to': source['day']}
-        available, _, _ = _fit_windows(args.day, args.duration_minutes, windows, _busy(artifact['agenda'], period))
+        available, _, _ = _fit_windows(args.day, args.duration_minutes, windows, _busy(artifact['agenda'], period),
+                                       args.time_from, args.time_to)
         if (data.get('available') != available or data.get('duration_minutes') != args.duration_minutes
                 or data.get('range') != [source['day'], source['day']] or data.get('timezone') != str(settings.tz)):
             return []
-        return [({**window, 'title': 'Music room', 'location': 'Music room', 'music_window': {
+        if args.time_from is not None and data.get('requested_interval') != artifact['music']['requested_interval']:
+            return []
+        return [({**window, 'title': 'Music room', 'location': 'Music room', 'personal_schedule_checked': True, 'music_window': {
                     'starts_at': window['starts_at'], 'ends_at': window['ends_at'],
                     'latest_start_at': _at(args.day, window['latest_start']).isoformat(),
                     'max_duration_minutes': window['max_duration_minutes'], 'duration_minutes': args.duration_minutes}},
-                 {'arguments': {'day': source['day']}}) for window in available]
+                 {'arguments': {key: value for key, value in source.items() if key != 'duration_minutes'}}) for window in available]
     except (ScheduleCheckError, KeyError, TypeError, ValueError, AttributeError):
+        return []
+
+
+def _service_day(data, arguments, *, rooms=False):
+    """Use the service's resolved date, never the host's current date or prose."""
+    if not isinstance(data, dict) or not isinstance(arguments, dict):
+        raise ValueError('Missing paired service evidence.')
+    value = data['date']
+    day = date.fromisoformat(value.split(' ')[0] if rooms else value)
+    if arguments.get('day') is not None:
+        if date.fromisoformat(arguments['day']) != day:
+            raise ValueError('Service date differs from the requested day.')
+    else:
+        checked = datetime.fromisoformat(data['checked_at'])
+        if checked.utcoffset() is None or checked.astimezone(settings.tz).date() != day:
+            raise ValueError('The default service day is unverified.')
+    return day
+
+
+def raw_room_candidates(data, arguments):
+    """Only the service's free list authorizes an exact-interval room choice."""
+    try:
+        day = _service_day(data, arguments, rooms=True)
+        args = AvailableRoomsArgs.model_validate({**arguments, 'day': day})
+        source = args.model_dump(mode='json')
+        rooms = _rooms(data, day, args.time_from, args.time_to)
+        interval = {key: datetime.combine(day, time.fromisoformat(clock), settings.tz).isoformat()
+                    for key, clock in (('starts_at', args.time_from), ('ends_at', args.time_to))}
+        return [({**room, **interval, 'title': room.get('title', '').strip() or room['room_id'],
+                  'location': room['room_id'], 'personal_schedule_checked': False},
+                 {'arguments': {**source, 'room_id': room['room_id']}, 'room': deepcopy(room)})
+                for room in rooms['free']]
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return []
+
+
+def raw_music_candidates(data, arguments):
+    """Keep service windows and bounds without claiming personal agenda fit."""
+    try:
+        day = _service_day(data, arguments)
+        args = AvailableMusicArgs.model_validate({**arguments, 'day': day})
+        windows = _windows(data, day, args.duration_minutes, args.time_from, args.time_to)
+        return [({'title': 'Music room', 'location': 'Music room',
+                  'personal_schedule_checked': False, 'starts_at': _at(day, window['start']).isoformat(),
+                  'ends_at': _at(day, window['end']).isoformat(),
+                  'music_window': {'starts_at': _at(day, window['start']).isoformat(),
+                                   'ends_at': _at(day, window['end']).isoformat(),
+                                   'latest_start_at': _at(day, window['latest_start']).isoformat(),
+                                   'max_duration_minutes': window['max_duration_minutes'],
+                                   'duration_minutes': args.duration_minutes}},
+                 {'arguments': args.model_dump(mode='json', exclude_none=True, exclude={'duration_minutes'})}) for window in windows]
+    except (KeyError, TypeError, ValueError, AttributeError):
         return []
 
 

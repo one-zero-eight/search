@@ -66,14 +66,18 @@ def _rooms(data, day, time_from, time_to):
 
 @tool(args_schema=AvailableRoomsArgs, response_format="content_and_artifact")
 def get_my_available_rooms(runtime: ToolRuntime, day: date, time_from: str, time_to: str) -> tuple[dict, dict | None]:
-    """Find bookable university rooms for ONE exact interval that fits MY full personal agenda including AI Calendar.
-    Подбери доступные комнаты/аудитории для бронирования без пересечений с моими занятиями.
+    """Find bookable university rooms for ONE exact interval ONLY when explicitly asked to fit MY personal agenda.
+    Без пересечений с моими занятиями / чтобы подходило по моему расписанию, including AI Calendar.
+    NOT the default for finding free rooms, even "for me": discover/call rooms_get_free_rooms for generic availability
+    without reading personal calendars. Use this tool only for explicit personal-schedule compatibility.
+    Call this combined read DIRECTLY, with no preliminary get_my_schedule, get_my_ai_calendar or raw room read.
     Call ONLY when the user supplied BOTH start and end (or start and duration). A start alone is NOT enough:
     ask how long BEFORE any availability call; never assume one hour. day, time_from and time_to are required.
     Only available contains verified choices. excluded/unverified are NOT available recommendations.
     Conflicts are shared for the requested interval, not evidence that a room itself is occupied.
     complete=false means some checks are unknown, not that all rooms are booked. Do not repeat these reads this turn.
     unknown_duration_events identifies events whose end needs clarification; never invent an end or another free slot.
+    Finding/recommending rooms is read-only: answer with the result and stop, without a booking or approval.
     This read never books anything and does not require approval.
     """
     try:

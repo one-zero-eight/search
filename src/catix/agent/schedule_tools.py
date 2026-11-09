@@ -123,9 +123,11 @@ def read_my_schedule(runtime, date_from: date | None = None, date_to: date | Non
         return {"error": "date_to must not be before date_from."}
     period = {"date_from": start.isoformat(), "date_to": end.isoformat()}
     secret = getattr(context, "innohassle_token", None)
+    sport_secret = getattr(context, "sport_token", None)
+    credentials = {"sport_token": sport_secret.get_secret_value()} if sport_secret else {}
     try:
         external = (mcp_client.request_sync("call_tool", {"name": "account_get_my_schedule", "arguments": period},
-                                            secret.get_secret_value()) if secret else {"error": "unavailable", "sign_in_required": True})
+                                            secret.get_secret_value(), **credentials) if secret else {"error": "unavailable", "sign_in_required": True})
     except GraphBubbleUp:
         raise
     except Exception:

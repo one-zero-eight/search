@@ -46,7 +46,7 @@ def music_room(monkeypatch):
     made: list[tuple[str, datetime, datetime]] = []
     from catix.innohassle import mcp_account
 
-    def calendar(token, start, end):
+    def calendar(token, start, end, sport_token=None):
         assert token == "user-token" and start == end
         return [], {}, {}
 

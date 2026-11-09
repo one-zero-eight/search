@@ -45,6 +45,15 @@ def require_sport() -> str:
     return identity.sport_token
 
 
+def optional_sport() -> str | None:
+    """Capture the request's optional Sport credential before schedule workers start."""
+    from catix.innohassle.mcp_server import _identity
+
+    require_innohassle()
+    identity = _identity.get()
+    return identity.sport_token if identity else None
+
+
 def invalid_arguments(message: str = "Invalid account operation arguments; nothing was done.") -> dict:
     """Authored refusal, returned explicitly BEFORE any service I/O."""
     return {"done": False, "code": "invalid_arguments", "error": message}
