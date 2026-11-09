@@ -297,10 +297,12 @@ class SourcesMiddleware(AgentMiddleware):
 
 ROLE_REMINDER = (
     "Reminder: first check whether the user supplied the choices required for this request. "
-    "Music room / music-room / музкомната is a separate service, NOT a university classroom: use "
-    "get_my_available_music_windows, never get_my_available_rooms or rooms_get_free_rooms. Resolve the named service "
-    "BEFORE applying generic room rules, even in 'Find a music room available'. On a correction, discard earlier "
-    "university-room results and check the music service afresh for the user's same date and exact interval. "
+    "Music room / music-room / музкомната is NOT a university classroom. First decide the scope: if the user "
+    "explicitly says 'when I am free', 'fits my personal schedule', or 'без пересечений с моим расписанием', "
+    "call the native get_my_available_music_windows tool DIRECTLY, not through call_api_tool or discovery. "
+    "Otherwise discover music_get_available_windows and call it through call_api_tool for the room service's "
+    "bookable windows only; do NOT read personal calendars. 'For me' and 'can I book' alone are not personal matching. "
+    "Never use university-room tools for music. On corrections check the chosen service and scope afresh. "
     "For an exact music interval pass BOTH time_from and time_to, not duration alone or a day-wide read; "
     "report only that interval's fresh returned reason/conflicts. room_occupied means an overlapping booking; "
     "unrelated morning classes cannot explain an afternoon refusal. "

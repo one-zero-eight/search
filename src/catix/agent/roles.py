@@ -295,8 +295,10 @@ Shared InNoHassle tools:
   events_get_university_events gives an event's `id` and how one enrols in it.
 - Resolve the named service BEFORE generic room routing: music room / music-room / музкомната is a separate service,
   NOT a university classroom, including "Find a music room available tomorrow from 15:00 to 16:00."
-  Use get_my_available_music_windows, never rooms_get_free_rooms or get_my_available_rooms. Pass the user's exact
-  day AND time_from/time_to when supplied; duration alone or a day-wide read loses the requested interval.
+  If the user explicitly asks to fit their personal calendar, call the native get_my_available_music_windows directly;
+  it is NOT an MCP operation and must never be passed to call_api_tool or search_api_tools.
+  Otherwise discover music_get_available_windows and use call_api_tool for service bookability without calendar reads.
+  "For me", "can I book", and being signed in do not imply personal matching. Pass exact day/time_from/time_to when given.
   A correction such as repeating the request with "music room" still requires a fresh music-service read for the
   same exact interval. Discard prior university-room results: they say nothing about music-room availability.
 - For a generic free/bookable UNIVERSITY CLASSROOM request with no music-room qualifier
@@ -390,12 +392,16 @@ Shared InNoHassle tools:
   unless the result says "done": true. Report a decline or refusal exactly, in one sentence.
 - If ANY mutation returns outcome="unknown", do not repeat it: use a fresh read to check the result. If still unclear,
   say the outcome could not be confirmed. Never claim success or that nothing was changed.
-- For music-room recommendations ("когда могу поиграть", "подбери время в музкомнате") and before booking, use the host
-  get_my_available_music_windows for one explicit day. It combines music_get_available_windows service access/quotas
-  with the full personal agenda including AI Calendar. Recommend only available; excluded/unverified are not free time.
+- For ordinary Music Room availability, free windows, or "когда можно забронировать музкомнату", discover and call
+  music_get_available_windows. It checks service bookings, access and the user's quota, NOT personal free time.
+  Do not call get_my_schedule, get_my_ai_calendar or get_my_available_music_windows for such generic requests.
+  Use the host get_my_available_music_windows ONLY when the asker explicitly wants times fitting their own agenda
+  ("when I am free", "fits my personal schedule", "без пересечений с моими занятиями"). Call this native tool directly,
+  NOT through call_api_tool. It combines service checks with the full personal agenda including AI Calendar.
+  Recommend only its available entries, not excluded/unverified.
   Music room / музкомната is NOT a university classroom: never route it to get_my_available_rooms or rooms_get_free_rooms.
   If the user gives an exact interval (e.g. tomorrow 15:00–16:00), pass BOTH time_from="15:00" and time_to="16:00"
-  to get_my_available_music_windows (or the explicitly service-only music read); duration_minutes=60 alone is NOT equivalent.
+  to the selected service-only or explicitly personal tool; duration_minutes=60 alone is NOT equivalent.
   Exact results apply only to requested_interval. If the service refuses it, explain only its returned reason; the agenda
   was not read. Never infer room occupancy from no_matching_window, quotas, access restrictions or failed checks.
   Never mention unrelated morning classes as obstacles to an afternoon request, or claim another interval is free.
@@ -409,8 +415,8 @@ Shared InNoHassle tools:
   This read does not book anything or need approval. Quotas apply to the requested date, not necessarily today.
   Available music windows follow the half-hour booking grid. If explaining a conflict, take the event's actual
   start/end from conflicts, never infer class times from the gaps between available windows.
-  Use the raw music_get_available_windows only for explicitly service-only availability without calendar matching;
-  for university rooms, follow the generic versus explicitly personal room routes above. Public music_get_music_room_schedule shows occupied intervals only.
+  Service-only reads must not claim personal calendar compatibility. Actual booking still retains fresh calendar,
+  access, quota and occupancy checks after explicit consent. Public music_get_music_room_schedule shows occupied intervals only.
   Availability windows are calculated with local rules, not a reservation or guaranteed physical access. Preserve the
   checked date/time, latest_start, duration and remaining quota; a long free window does not permit using all its hours.
   For day-wide requests pass duration_minutes only if the user specified it; otherwise omit it and ask for their chosen interval.

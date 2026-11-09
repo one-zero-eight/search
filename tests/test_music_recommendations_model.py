@@ -18,7 +18,7 @@ from tests.test_music_recommendations import CONTEXT, DAY, services  # noqa: F40
 @pytest.mark.model
 @pytest.mark.parametrize("case", ["hour", "no_duration", "partial"])
 def test_model_uses_personal_music_windows_without_booking(monkeypatch, services, case):
-    question = "Когда завтра могу поиграть час в музкомнате?"
+    question = "Когда завтра могу поиграть час в музкомнате без пересечений с моим расписанием?"
     if case == "no_duration":
         question = "Подбери мне свободные окна в музкомнате на завтра с учётом моего расписания."
         services["music"]["duration_minutes"] = None
@@ -95,7 +95,7 @@ def test_model_preserves_exact_music_interval_without_unrelated_class_claims(mon
             "free": [{"room_id": "321", "title": "University classroom 321"}], "booked": [], "unavailable": []}),
             name="call_api_tool", tool_call_id="prior-rooms"), AIMessage("University classroom 321 is available.")]
     result = graph.invoke({"messages": [*history, HumanMessage(
-        "Find a music room available tomorrow from 15:00 to 16:00.")], "answer_alone": False}, config, context=CONTEXT)
+        "Find a music room available tomorrow from 15:00 to 16:00 that fits my personal schedule.")], "answer_alone": False}, config, context=CONTEXT)
     current = result["messages"][len(history) + 1:]
     calls = [call for message in current if isinstance(message, AIMessage) for call in message.tool_calls]
     answer = core.final_answer(result["messages"], {}).answer
@@ -132,7 +132,7 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
     original = "Find a music room available tomorrow from 15:00 to 16:00."
     correction = "Find a music room available tomorrow from 15:00 to 16:00. music room"
     exact_music(services)
-    services["agenda"]["schedule"] = [interval("09:00", "12:10", title="Unrelated morning class")]
+    services["agenda"]["schedule"] = [interval("15:00", "16:00", title="Personal class must not filter service availability")]
     services["local"] = []
     discoveries = []
 
@@ -153,9 +153,7 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
             assert arguments.get("duration_minutes") in {None, 60}
             assert set(arguments) <= {"day", "time_from", "time_to", "duration_minutes"}
             return deepcopy(services["music"])
-        assert payload == {"name": "account_get_my_schedule", "arguments": {"date_from": DAY, "date_to": DAY}}, \
-            "Music requests must not call university rooms, unrelated services or mutations"
-        return deepcopy(services["agenda"])
+        raise AssertionError("Generic music availability must not read calendars, university rooms or mutations")
 
     def request(method, payload, token=None, **credentials):
         if method == "search_tools":
@@ -181,11 +179,13 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
     graph = core.build_agent(model, guardrail=False)
     config = {"configurable": {"thread_id": f"music-service-session-{prior_misroute}"}}
 
-    def assert_turn(result, offset, occupied):
-        current = result["messages"][offset:]
+    def assert_turn(result, occupied):
+        # Summarization can replace earlier history between turns.
+        last_question = max(i for i, message in enumerate(result["messages"]) if isinstance(message, HumanMessage))
+        current = result["messages"][last_question + 1:]
         calls = [call for message in current if isinstance(message, AIMessage) for call in message.tool_calls]
         assert calls
-        assert all(call["name"] in {"search_api_tools", "call_api_tool", "get_my_available_music_windows"} for call in calls)
+        assert all(call["name"] in {"search_api_tools", "call_api_tool"} for call in calls)
         reads = [call for call in calls if call["name"] != "search_api_tools"]
         assert reads
         for call in reads:
@@ -197,8 +197,8 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
             assert arguments["time_from"] == "15:00" and arguments["time_to"] == "16:00"
         assert not graph.get_state(config).interrupts
         assert [item["name"] for item in services["requests"]].count("music_get_available_windows") == 1
-        assert all(item["name"] in {"music_get_available_windows", "account_get_my_schedule"}
-                   for item in services["requests"])
+        assert all(item["name"] == "music_get_available_windows" for item in services["requests"])
+        assert not any(message.name == "get_my_available_music_windows" for message in current if isinstance(message, ToolMessage))
         payloads = [json.loads(message.content) for message in current if isinstance(message, ToolMessage)
                     and message.name != "search_api_tools"]
         assert payloads and all("error" not in payload for payload in payloads)
@@ -212,7 +212,7 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
         print({"prior_misroute": prior_misroute, "occupied": occupied, "calls": calls, "answer": answer})
         lower = answer.lower().replace("**", "")
         assert "15:00" in answer and "16:00" in answer
-        assert not any(text in lower for text in ("09:00", "12:10", "morning class", "meeting room 3.", "classroom 321"))
+        assert not any(text in lower for text in ("09:00", "12:10", "personal class", "morning class", "meeting room 3.", "classroom 321"))
         if occupied:
             assert len(services["requests"]) == 1, "Service refusal must stop before any calendar reads"
             assert any(text in lower for text in ("occupied", "booked", "not available", "unavailable", "занят", "недоступ"))
@@ -232,11 +232,10 @@ def test_model_music_service_session_preserves_exact_interval(monkeypatch, servi
     else:
         # answer_alone=False keeps the production first-call planner enabled.
         result = graph.invoke({"messages": [HumanMessage(original)], "answer_alone": False}, config, context=CONTEXT)
-        assert_turn(result, 1, occupied=False)
+        assert_turn(result, occupied=False)
         history = []  # The successful first turn is already in the checkpointer.
 
     services["requests"].clear()
     exact_music(services, reason="room_occupied")
-    offset = len(history) + 1 if prior_misroute else len(result["messages"]) + 1
     result = graph.invoke({"messages": [*history, HumanMessage(correction)], "answer_alone": False}, config, context=CONTEXT)
-    assert_turn(result, offset, occupied=True)
+    assert_turn(result, occupied=True)

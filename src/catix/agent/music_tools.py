@@ -186,9 +186,10 @@ def _fit_windows(day, duration_minutes, windows, busy, time_from=None, time_to=N
 @tool(args_schema=AvailableMusicArgs, response_format="content_and_artifact")
 def get_my_available_music_windows(runtime: ToolRuntime, day: date, duration_minutes: int | None = None,
                                    time_from: str | None = None, time_to: str | None = None) -> tuple[dict, dict | None]:
-    """Find music room windows that fit MY full personal agenda, including AI Calendar, for ONE explicit day.
-    Когда мне можно поиграть / подбери свободное время в музкомнате без пересечений с занятиями.
-    Combines Music Room access, quotas and occupied intervals with get_my_schedule. No separate calendar read needed.
+    """Find Music Room windows ONLY when the user explicitly asks to fit their personal agenda, including AI Calendar.
+    Без пересечений с моими занятиями / когда я свободен по личному расписанию.
+    For ordinary Music Room availability or bookable windows use music_get_available_windows instead; "for me" alone
+    does not request personal matching. Combines service checks with get_my_schedule; no separate calendar read needed.
     Recommend only available; excluded/unverified are NOT free time. Omit duration_minutes unless the user specified it.
     When the user specifies an exact interval, pass BOTH time_from and time_to, not just its duration.
     Exact mode checks only that interval; a service refusal does not imply room occupancy or personal conflicts.

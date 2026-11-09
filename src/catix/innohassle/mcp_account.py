@@ -625,8 +625,11 @@ def music_get_available_windows(
     time_to: ClockTime | None = None,
     *, token: str = Depends(require_innohassle),
 ) -> dict:
-    """Find personal music room booking availability and free time windows for one day.
-    Свободные окна музыкальной комнаты: когда можно записаться или забронировать музкомнату.
+    """Music Room service availability: bookable intervals and free windows for one day, NOT the user's personal free time.
+    Свободные окна музыкальной комнаты без проверки личного расписания.
+
+    Default for ordinary Music Room availability, including "find a music room" or "can I book".
+    Does not read classes, Sport or AI Calendar; service access and personal booking quotas still apply.
 
     Requires InNoHassle sign-in and Music Room registration. Calculates from fresh occupied
     intervals and daily/weekly quotas using local bot-derived 07:00–22:30 / 30-minute rules
