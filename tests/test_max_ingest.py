@@ -12,9 +12,9 @@ import psycopg
 import pytest
 from psycopg.rows import dict_row
 
-from catix import groups
+from catix import groups, official
 from catix.db import pg, store
-from catix.ingest import noise
+from catix.ingest import image_queue, noise
 from catix.maxuserbot import state
 from catix.maxuserbot.models import normalize_message
 
@@ -1139,3 +1139,168 @@ def test_off_source_defers_range_rpc_but_does_not_block_known_explicit_removal(d
     state.apply_deletion_scan(resumed, [archive_snapshot(1000, 0, deleted=True)], resumed["ids"])
     assert archived(db, 1000) is None
     assert not state.get_source(CHAT_ID)["deletion_scan_pending"]
+
+
+def clear_native(source):
+    return state.clear_history(source["chat_id"], expected_version=source["config_version"],
+                               expected_generation=source["generation"])
+
+
+def test_clear_preserves_policy_tombstones_legacy_and_other_sources_but_fences_all_work(db):
+    seed_legacy()
+    source = save(ready_source(), legacy_chat_id=LEGACY_ID)
+    other = save(ready_source(raw_id=RAW_CHAT_ID + 1), group="B27")
+    official.set_official(CHAT_ID, True)
+    official.set_official(LEGACY_ID, True)
+    anchor = int(now().timestamp() * 1000) - 1000
+    live = archive_snapshot(101, anchor, photos=(123,))
+    admit("clear-live-photo")
+    accepted = fetch_event(live)
+    state.apply_event(accepted["id"])
+    other_snapshot = archive_snapshot(201, anchor, raw_id=other["raw_chat_id"])
+    assert state.apply_snapshot(other["chat_id"], other_snapshot,
+                                generation=other["generation"], observed_at=now())
+    admit("clear-tombstone", kind="removed", msg_id=777)
+    removal = state.next_event()
+    state.apply_event(removal["id"])
+    tombstone = fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=777", (CHAT_ID,))
+    assert tombstone["deleted"]
+    job = image_queue.claim("maxuserbot")
+    assert job is not None and job["chat_id"] == CHAT_ID
+    with db() as conn:
+        conn.execute("""INSERT INTO schedule_changes(message_id,kind,starts_at,summary)
+                        VALUES (%s,'announcement',now(),'Synthetic course change')""", (job["message_id"],))
+    admit("clear-fetched-before-confirm", msg_id=102)
+    pending = fetch_event(native_snapshot(msg_id=102))
+    full = state.next_history("full")
+    assert full is not None and full["chat_id"] == CHAT_ID
+    state.prepare_recovery(source["sync_watermark_ms"] + 10000)
+    catchup = state.next_history("catchup")
+    assert catchup is not None and catchup["chat_id"] == CHAT_ID
+    before = state.get_source(CHAT_ID)
+    legacy_before = fetch(db, "SELECT * FROM chats WHERE chat_id=%s", (LEGACY_ID,))
+    other_before = state.get_source(other["chat_id"])
+    assert clear_native(before) == 1
+    cleared = state.get_source(CHAT_ID)
+    for key in ("enabled", "access", "raw_chat_id", "group_code", "requires_verified_group", "legacy_chat_id"):
+        assert cleared[key] == before[key]
+    assert cleared["enabled"] and official.flags([CHAT_ID])[CHAT_ID]
+    assert cleared["generation"] == before["generation"] + 1
+    assert cleared["config_version"] == before["config_version"] + 1
+    assert cleared["history_status"] == cleared["catchup_status"] == "cancelled"
+    assert stored(db) is None and stored(db, LEGACY_ID) is not None
+    assert archived(db, 201, other["chat_id"]) is not None
+    assert state.get_source(other["chat_id"]) == other_before
+    assert fetch(db, "SELECT * FROM chats WHERE chat_id=%s", (LEGACY_ID,)) == legacy_before
+    assert fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=777", (CHAT_ID,)) == tombstone
+    assert fetch(db, "SELECT count(*) AS n FROM max_publish_queue WHERE chat_id=%s", (CHAT_ID,))["n"] == 0
+    assert count(db, "image_queue") == count(db, "schedule_changes") == 0
+    assert fetch(db, "SELECT 1 FROM embedding_queue WHERE message_id=%s", (job["message_id"],)) is None
+    assert fetch(db, "SELECT 1 FROM message_embeddings WHERE message_id=%s", (job["message_id"],)) is None
+    assert state.next_history("full")["chat_id"] == other["chat_id"]
+    assert state.next_history("catchup")["chat_id"] == other["chat_id"]
+    assert not state.history_current(full) and not state.history_current(catchup)
+    assert not state.apply_history_page(full, [archive_snapshot(301, anchor)])
+    assert not state.apply_history_page(catchup, [archive_snapshot(302, anchor)])
+    state.apply_event(pending["id"])
+    assert inbox(db, pending["id"])["processed_at"] is not None
+    assert archived(db, 102) is None
+    assert not state.apply_snapshot(CHAT_ID, native_snapshot(msg_id=103),
+                                    generation=before["generation"], observed_at=now())
+    assert not image_queue.finish(job, "Stale recognition must never resurrect cleared content")
+    assert stored(db) is None and archived(db, 103) is None
+    assert fetch(db, "SELECT count(*) AS n FROM max_publish_queue WHERE chat_id=%s", (CHAT_ID,))["n"] == 0
+
+
+def test_clear_cancels_archive_recovery_and_range_scan_until_explicit_repeat(db):
+    source = save(ready_source())
+    anchor = int(now().timestamp() * 1000) - 1000
+    admit("clear-repeat-initial")
+    accepted = fetch_event(archive_snapshot(101, anchor))
+    state.apply_event(accepted["id"])
+    admit("clear-repeat-tombstone", kind="removed", msg_id=777)
+    state.apply_event(state.next_event()["id"])
+    schedule_deletion_marker("clear-range")
+    scan = state.next_deletion_scan()
+    assert scan is not None
+    full = state.next_history("full")
+    state.prepare_recovery(source["sync_watermark_ms"] + 10000)
+    catchup = state.next_history("catchup")
+    assert clear_native(state.get_source(CHAT_ID)) == 1
+    assert state.allowed(CHAT_ID)
+    assert state.next_history("full") is None and state.next_history("catchup") is None
+    assert state.next_deletion_scan() is None
+    assert not state.history_current(full) and not state.history_current(catchup)
+    assert not state.deletion_scan_current(scan)
+    state.apply_deletion_scan(scan, [archive_snapshot(101, anchor, deleted=True)], [101])
+    identity = fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=101", (CHAT_ID,))
+    assert identity is None or not identity["deleted"]
+    request_native_history()
+    repeat = state.next_history("full")
+    assert repeat is not None and repeat["generation"] > full["generation"]
+    assert state.apply_history_page(repeat, [archive_snapshot(101, anchor), archive_snapshot(777, anchor)])
+    assert stored(db) is not None, "manual reload must restore cleared former live content"
+    assert archived(db, 777) is None, "manual reload cannot revive deletion tombstones"
+    assert fetch(db, "SELECT deleted FROM max_message_state WHERE chat_id=%s AND msg_id=777", (CHAT_ID,))["deleted"]
+    # New ingress remains enabled independently of the cancelled old archive.
+    admit("after-clear-new-message", msg_id=102)
+    fresh = fetch_event(native_snapshot(msg_id=102))
+    state.apply_event(fresh["id"])
+    assert archived(db, 102) is not None
+
+
+@pytest.mark.parametrize("field", ["config_version", "generation"])
+def test_clear_rejects_stale_expected_configuration_without_partial_deletion(db, field):
+    source = save(ready_source())
+    store.write_batch([], [message(image=True)])
+    official.set_official(CHAT_ID, True)
+    before = state.get_source(CHAT_ID)
+    expected = dict(source)
+    expected[field] -= 1
+    with pytest.raises(state.ConfigurationConflict):
+        clear_native(expected)
+    assert state.get_source(CHAT_ID) == before
+    assert stored(db) is not None and count(db, "image_queue") == 1
+    assert official.flags([CHAT_ID])[CHAT_ID]
+
+
+def test_clear_commit_failure_rolls_back_content_policy_jobs_and_outbox(db, monkeypatch):
+    save(ready_source())
+    official.set_official(CHAT_ID, True)
+    anchor = int(now().timestamp() * 1000) - 1000
+    admit("clear-rollback-photo")
+    accepted = fetch_event(archive_snapshot(101, anchor, photos=(123,)))
+    state.apply_event(accepted["id"])
+    before = state.get_source(CHAT_ID)
+    content = stored(db)
+    identity = fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=101", (CHAT_ID,))
+
+    @contextmanager
+    def failing_commit():
+        with db() as conn:
+            yield conn
+            raise psycopg.OperationalError("synthetic clear transaction commit failure")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(pg, "connection", failing_commit)
+        with pytest.raises(psycopg.OperationalError):
+            clear_native(before)
+    assert state.get_source(CHAT_ID) == before and stored(db) == content
+    assert fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=101", (CHAT_ID,)) == identity
+    assert count(db, "image_queue") == count(db, "max_publish_queue") == 1
+    assert official.flags([CHAT_ID])[CHAT_ID]
+    assert clear_native(before) == 1
+    assert stored(db) is None and count(db, "image_queue") == count(db, "max_publish_queue") == 0
+
+
+def test_clear_disabled_source_keeps_it_disabled_and_missing_source_cannot_clear_legacy(db):
+    source = save(ready_source())
+    store.write_batch([], [message(image=True)])
+    disabled = save(source, enabled=False)
+    assert clear_native(disabled) == 1
+    assert not state.allowed(CHAT_ID) and not state.get_source(CHAT_ID)["enabled"]
+    assert state.next_history("full") is None and state.next_history("catchup") is None
+    seed_legacy()
+    with pytest.raises(state.SourceNotFound):
+        state.clear_history(LEGACY_ID, expected_version=0, expected_generation=0)
+    assert stored(db, LEGACY_ID) is not None

@@ -11,8 +11,8 @@ from aiogram.enums import ChatType, MessageEntityType
 from aiogram.methods import AnswerCallbackQuery, EditMessageText, SendMessage
 from aiogram.types import CallbackQuery, Chat, Message, MessageEntity, Update, User
 
-from catix import admins, groups, userbot_config
-from catix.db import pg
+from catix import admins, groups, official, userbot_config
+from catix.db import pg, store
 from catix.maxuserbot import state
 from catix.tgbot import admin, bot as general, listen, max_sources
 
@@ -38,6 +38,7 @@ class MemorySources:
             metadata_pending=False, history_status="idle", history_before_ms=None,
             catchup_status="idle", catchup_before_ms=None, catchup_until_ms=None,
             catchup_after_ms=None, legacy_chat_id=None,
+            official=False,
         )}
         self.account = dict(account_id=123, connected_at=now, heartbeat_at=now,
                             catalog_status="complete", catalog_error=None,
@@ -48,6 +49,35 @@ class MemorySources:
         self.refreshes = 0
         self.failure = None
         self.admin_ids = {OWNER, 72}
+        self.known_groups = ["all", "B26"]
+        self.changes = {CHAT: 2}
+
+    def flags(self, chat_ids):
+        return {cid: self.sources[cid]["official"] for cid in chat_ids if cid in self.sources}
+
+    def set_official(self, chat_id, value):
+        if self.failure:
+            raise self.failure
+        if chat_id not in self.sources:
+            return False
+        self.sources[chat_id]["official"] = value
+        self.writes.append(("official", chat_id, value))
+        return True
+
+    def chat_message_counts(self, chat_id):
+        return len(self.messages.get(chat_id, [])), self.changes.get(chat_id, 0)
+
+    def clear_history(self, chat_id, *, expected_version, expected_generation):
+        source = self._source(chat_id, expected_version, expected_generation)
+        deleted = len(self.messages.get(chat_id, []))
+        self.messages[chat_id] = []
+        self.changes[chat_id] = 0
+        source["config_version"] += 1
+        source["generation"] += 1
+        source["history_status"] = "cancelled"
+        source["catchup_status"] = "cancelled"
+        self.writes.append(("clear", chat_id))
+        return deleted
 
     def list_sources(self):
         return deepcopy(list(self.sources.values()))
@@ -226,11 +256,19 @@ class UI:
     def edit(self):
         self.press(f"mx:edit:{CHAT}")
 
-    def review(self, *, code=None, legacy=None):
-        self.edit()
+    def choose_audience(self, code=None):
         self.press(self.action("group" if code else "all"))
         if code:
+            self.press(self.action("custom"))
             self.send(code)
+
+    def review(self, *, code=None, legacy=None, mode=None):
+        self.edit()
+        self.choose_audience(code)
+        if mode is not None:
+            self.press(self.action("default"))
+            self.press(self.action("mode", mode))
+        self.press(self.action("review"))
         if any(":legacy:" in (b.callback_data or "") for b in self.buttons):
             self.press(self.action("legacy", legacy if legacy is not None else "none"))
         return self.action("save")
@@ -246,7 +284,7 @@ def env(monkeypatch):
     admin.PENDING.clear()
     monkeypatch.setattr(admins, "everyone", lambda: set(domain.admin_ids))
     for name in ("list_sources", "get_source", "list_legacy", "save_configuration",
-                 "request_history", "request_catalog"):
+                 "request_history", "request_catalog", "clear_history"):
         monkeypatch.setattr(state, name, getattr(domain, name))
     monkeypatch.setattr(state, "get_account", lambda: deepcopy(domain.account))
     monkeypatch.setattr(state, "allowed", lambda cid: bool(
@@ -256,8 +294,12 @@ def env(monkeypatch):
     monkeypatch.setattr(userbot_config, "listened", lambda: {})
     monkeypatch.setattr(userbot_config, "readers", lambda: {})
     monkeypatch.setattr(listen, "_groups_of", lambda ids: {})
-    monkeypatch.setattr(listen, "_known_groups", lambda: ["all", "B26"])
-    monkeypatch.setattr(listen.official, "flags", lambda ids: {})
+    from catix.tgbot import group_settings
+    monkeypatch.setattr(group_settings, "known_groups", lambda: list(domain.known_groups))
+    monkeypatch.setattr(listen, "_known_groups", lambda: list(domain.known_groups))
+    monkeypatch.setattr(official, "flags", domain.flags)
+    monkeypatch.setattr(official, "set_official", domain.set_official)
+    monkeypatch.setattr(store, "chat_message_counts", domain.chat_message_counts)
     def no_database(*args, **kwargs):
         raise AssertionError("UI handlers must use the patched public state boundary")
     monkeypatch.setattr(pg, "connection", no_database)
@@ -309,7 +351,8 @@ def test_review_is_read_only_and_save_is_nonce_bound_exactly_once(env):
 
 
 @pytest.mark.parametrize("scope", [dict(user_id=999), dict(kind=ChatType.GROUP, chat_id=-7)])
-@pytest.mark.parametrize("payload", ["mx:list:0", f"mx:edit:{CHAT}", "mx:refresh", f"mx:off:{CHAT}"])
+@pytest.mark.parametrize("payload", ["mx:list:0", f"mx:edit:{CHAT}", "mx:refresh", f"mx:off:{CHAT}",
+                                     f"mx:adv:{CHAT}", f"mx:official:{CHAT}", f"mx:clear:{CHAT}"])
 def test_every_navigation_requires_current_admin_and_private_chat(env, scope, payload):
     domain, ui = env
     ui.press(payload, **scope)
@@ -344,6 +387,7 @@ def test_group_input_is_bound_to_private_chat_and_owner(env, scope):
     domain, ui = env
     ui.edit()
     ui.press(ui.action("group"))
+    ui.press(ui.action("custom"))
     ui.send("B27", **scope)
     assert max_sources.SESSIONS[OWNER].group_code is None
     assert domain.writes == []
@@ -353,11 +397,13 @@ def test_invalid_group_stays_in_wizard_and_valid_retry_normalizes(env):
     domain, ui = env
     ui.edit()
     ui.press(ui.action("group"))
+    ui.press(ui.action("custom"))
     ui.send("not a group / invalid")
     assert OWNER in max_sources.SESSIONS and domain.writes == []
     assert max_sources.SESSIONS[OWNER].group_code is None
     ui.send(" b26.cse-01 ")
     assert "B26.CSE-01" in ui.text
+    ui.press(ui.action("review"))
     ui.press(ui.action("save"))
     assert domain.sources[CHAT]["group_code"] == "B26.CSE-01"
 
@@ -366,6 +412,7 @@ def test_group_text_rechecks_dynamic_admin_membership(env):
     domain, ui = env
     ui.edit()
     ui.press(ui.action("group"))
+    ui.press(ui.action("custom"))
     domain.admin_ids.remove(OWNER)
     ui.send("B27")
     assert domain.writes == []
@@ -412,6 +459,7 @@ def test_explicit_legacy_selection_only_archives_after_review_save(env):
     legacy = domain.add_legacy()
     ui.edit()
     ui.press(ui.action("all"))
+    ui.press(ui.action("review"))
     assert legacy["title"] in ui.text or any(legacy["title"] in b.text for b in ui.buttons)
     assert domain.sources[CHAT]["legacy_chat_id"] is None
     assert not legacy["max_legacy_archived"]
@@ -439,6 +487,7 @@ def test_forged_legacy_id_cannot_be_selected_or_saved(env, forged):
     domain.add_legacy()
     ui.edit()
     ui.press(ui.action("all"))
+    ui.press(ui.action("review"))
     nonce = max_sources.SESSIONS[OWNER].nonce
     ui.press(f"mx:d:{nonce}:legacy:{forged}")
     assert domain.writes == []
@@ -451,6 +500,7 @@ def test_legacy_linked_to_another_source_is_not_selectable(env):
     domain.add_legacy(linked_chat_id=CHAT + 1)
     ui.edit()
     ui.press(ui.action("all"))
+    ui.press(ui.action("review"))
     assert all((b.callback_data or "").split(":")[-1] != str(LEGACY) for b in ui.buttons)
     assert domain.writes == []
 
@@ -578,6 +628,7 @@ def test_legacy_picker_paginates_and_stale_save_cannot_archive(env):
         domain.add_legacy(LEGACY + offset, f"Old course {offset:02}")
     ui.edit()
     ui.press(ui.action("all"))
+    ui.press(ui.action("review"))
     picks = [b for b in ui.buttons if ":legacy:" in (b.callback_data or "")
              and not (b.callback_data or "").endswith(":none")]
     assert len(picks) == 8
@@ -629,6 +680,7 @@ def test_group_chat_text_cannot_finish_private_group_prompt(env, monkeypatch):
     monkeypatch.setattr(general, "_save", capture_group)
     ui.edit()
     ui.press(ui.action("group"))
+    ui.press(ui.action("custom"))
     ui.send("B27", kind=ChatType.GROUP, chat_id=-900)
     assert max_sources.SESSIONS[OWNER].group_code is None
     assert domain.writes == []
@@ -698,3 +750,264 @@ def test_disappeared_source_after_review_cannot_be_saved(env):
     ui.press(save)
     assert domain.writes == []
     assert_not_saved(ui)
+
+
+def test_known_group_picker_uses_shared_codes_and_pagination(env):
+    domain, ui = env
+    domain.known_groups = ["all", *[f"B{index:02}" for index in range(20, 31)]]
+    ui.edit()
+    ui.press(ui.action("group"))
+    picks = [b for b in ui.buttons if ":group_pick:" in (b.callback_data or "")]
+    assert [b.text for b in picks] == domain.known_groups[:8]
+    assert "MAX &lt;course&gt;" in ui.text
+    assert domain.writes == []
+    ui.press(ui.action("group_page", 1))
+    picks = [b for b in ui.buttons if ":group_pick:" in (b.callback_data or "")]
+    assert [b.text for b in picks] == domain.known_groups[8:]
+    ui.press(ui.action("group_pick", 9))
+    assert max_sources.SESSIONS[OWNER].group_code == domain.known_groups[9]
+    assert max_sources.SESSIONS[OWNER].stage == "mode"
+    assert domain.writes == []
+    ui.press(ui.action("review"))
+    ui.press(ui.action("save"))
+    assert domain.sources[CHAT]["group_code"] == domain.known_groups[9]
+    assert domain.sources[CHAT]["enabled"]
+
+
+def test_known_groups_all_choice_preserves_explicit_audience_flow(env):
+    domain, ui = env
+    ui.edit()
+    ui.press(ui.action("group"))
+    ui.press(ui.action("group_pick", 0))
+    assert max_sources.SESSIONS[OWNER].group_code == "all"
+    assert max_sources.SESSIONS[OWNER].stage == "mode"
+    assert domain.writes == []
+    ui.press(ui.action("review"))
+    ui.press(ui.action("save"))
+    assert domain.sources[CHAT]["group_code"] == "all"
+    assert not domain.sources[CHAT]["requires_verified_group"]
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+@pytest.mark.parametrize("mode", ["off", "store"])
+def test_whole_chat_modes_require_review_and_preserve_content(env, enabled, mode):
+    domain, ui = env
+    source = domain.sources[CHAT]
+    source.update(enabled=enabled, history_status="complete", config_version=7, generation=3)
+    original = deepcopy(domain.messages)
+    save = ui.review(code="B26", mode=mode)
+    assert "Весь чат" not in [b.text for b in ui.buttons]
+    assert domain.writes == [] and source["enabled"] is enabled
+    assert domain.messages == original
+    ui.press(save)
+    assert source["enabled"] is (mode == "store")
+    assert source["group_code"] == "B26"
+    assert source["generation"] == 3 + int(enabled != (mode == "store"))
+    assert domain.messages == original
+    if enabled and mode == "store":
+        assert source["history_status"] == "complete"
+    elif not enabled and mode == "store":
+        assert source["history_status"] == "pending"
+
+
+def test_mode_and_advanced_controls_do_not_offer_telegram_only_capabilities(env):
+    domain, ui = env
+    ui.edit()
+    ui.choose_audience()
+    assert max_sources.SESSIONS[OWNER].stage == "mode"
+    assert ui.data("Весь чат") == ui.action("default")
+    ui.press(ui.action("default"))
+    assert {b.text for b in ui.buttons} == {"Хранить", "Выключен", "Отмена"}
+    nonce = max_sources.SESSIONS[OWNER].nonce
+    for action in ("mode:search", "reader:bot", "topics", "official", "clear"):
+        ui.press(f"mx:d:{nonce}:{action}")
+    assert domain.writes == []
+    assert max_sources.SESSIONS[OWNER].stage == "mode_pick"
+    ui.press(f"mx:adv:{CHAT}")
+    callbacks = [b.callback_data for b in ui.buttons]
+    assert not any(any(word in data for word in ("topic", "search", "reader")) for data in callbacks)
+    assert "MAX userbot" in ui.text
+    assert "Сообщений в базе: 1" in ui.text
+
+
+def test_official_toggle_both_ways_uses_existing_chat_without_restarting_history(env):
+    domain, ui = env
+    source = domain.sources[CHAT]
+    source.update(enabled=True, history_status="complete", catchup_status="partial")
+    before = deepcopy(source)
+    messages = deepcopy(domain.messages)
+    ui.press(f"mx:chat:{CHAT}")
+    ui.click("Дополнительно")
+    ui.click("Сделать официальным")
+    assert source["official"] and "Официальный чат: да" in ui.text
+    assert any("отмечен официальным" in text for text in ui.notices)
+    ui.click("Снять отметку")
+    assert not source["official"] and "Официальный чат: нет" in ui.text
+    assert source == before and domain.messages == messages
+    assert domain.writes == [("official", CHAT, True), ("official", CHAT, False)]
+
+
+def test_official_toggle_requires_persisted_readback(env, monkeypatch):
+    domain, ui = env
+    monkeypatch.setattr(official, "set_official", lambda chat_id, value: False)
+    ui.press(f"mx:official:{CHAT}")
+    assert not domain.sources[CHAT]["official"] and domain.writes == []
+    assert any("Не удалось подтвердить" in text for text in ui.notices)
+
+
+def test_official_database_failure_does_not_mutate_source(env):
+    domain, ui = env
+    before = deepcopy(domain.sources)
+    domain.failure = RuntimeError("database offline")
+    ui.press(f"mx:official:{CHAT}")
+    assert domain.sources == before and domain.writes == []
+    assert not any("отмечен официальным" in text for text in ui.notices)
+
+
+def test_clear_is_reviewed_once_and_removes_only_native_content(env):
+    domain, ui = env
+    legacy = domain.add_legacy(linked_chat_id=CHAT, max_legacy_archived=True)
+    source = domain.sources[CHAT]
+    source.update(enabled=True, official=True, group_code="B26", requires_verified_group=True,
+                  legacy_chat_id=LEGACY, history_status="running", catchup_status="running")
+    before = deepcopy(source)
+    ui.press(f"mx:adv:{CHAT}")
+    ui.click("Очистить сообщения")
+    assert domain.sources[CHAT] == before and domain.writes == []
+    assert domain.messages[CHAT] and domain.messages[LEGACY]
+    assert "необратимо" in ui.text and "эмбеддинги" in ui.text
+    assert "изменения расписания: 2" in ui.text
+    assert "учебная группа" in ui.text and "Повторить историю" in ui.text
+    clear = ui.action("clear")
+    ui.press(clear)
+    assert domain.messages[CHAT] == []
+    assert domain.messages[LEGACY] == ["old archive message"]
+    assert legacy["max_legacy_archived"] and legacy["linked_chat_id"] == CHAT
+    for key in ("enabled", "official", "group_code", "requires_verified_group", "legacy_chat_id"):
+        assert source[key] == before[key]
+    assert source["generation"] == before["generation"] + 1
+    assert source["config_version"] == before["config_version"] + 1
+    assert source["history_status"] == source["catchup_status"] == "cancelled"
+    assert OWNER not in max_sources.SESSIONS
+    assert any("Удалено сообщений: 1" in text for text in ui.notices)
+    assert ui.data("Повторить историю") == f"mx:history:{CHAT}"
+    ui.press(clear)
+    assert domain.writes == [("clear", CHAT)]
+
+
+@pytest.mark.parametrize("attack", ["foreign_owner", "other_private_chat", "group_chat", "nonce",
+                                    "version", "generation", "revoked"])
+def test_clear_rejects_foreign_stale_or_revoked_confirmation(env, attack):
+    domain, ui = env
+    ui.press(f"mx:clear:{CHAT}")
+    clear = ui.action("clear")
+    scope = {}
+    if attack == "foreign_owner":
+        scope = dict(user_id=72, chat_id=72)
+    elif attack == "other_private_chat":
+        scope = dict(chat_id=999)
+    elif attack == "group_chat":
+        scope = dict(chat_id=-9, kind=ChatType.GROUP)
+    elif attack == "nonce":
+        clear = clear.replace(clear.split(":")[2], "deadbeef")
+    elif attack in {"version", "generation"}:
+        domain.sources[CHAT]["config_version" if attack == "version" else "generation"] += 1
+    else:
+        domain.admin_ids.remove(OWNER)
+    before = deepcopy(domain.sources)
+    messages = deepcopy(domain.messages)
+    ui.press(clear, **scope)
+    assert domain.sources == before and domain.messages == messages and domain.writes == []
+    assert not any("Удалено сообщений" in text for text in ui.notices)
+
+
+@pytest.mark.parametrize("failure", [RuntimeError("database offline"), state.ConfigurationConflict()])
+def test_clear_database_failure_keeps_content_and_expected_draft_for_retry(env, failure):
+    domain, ui = env
+    ui.press(f"mx:clear:{CHAT}")
+    clear = ui.action("clear")
+    session = deepcopy(max_sources.SESSIONS[OWNER])
+    before = deepcopy(domain.sources)
+    messages = deepcopy(domain.messages)
+    domain.failure = failure
+    ui.press(clear)
+    assert domain.sources == before and domain.messages == messages and domain.writes == []
+    assert max_sources.SESSIONS[OWNER] == session
+    assert not any("Удалено сообщений" in text for text in ui.notices)
+    domain.failure = None
+    ui.press(clear)
+    assert domain.messages[CHAT] == [] and domain.writes == [("clear", CHAT)]
+
+
+@pytest.mark.parametrize("exit_action", ["cancel", "navigation", "slash"])
+def test_leaving_clear_confirmation_invalidates_its_nonce(env, exit_action):
+    domain, ui = env
+    ui.press(f"mx:clear:{CHAT}")
+    clear = ui.action("clear")
+    if exit_action == "cancel":
+        ui.press(ui.action("cancel"))
+    elif exit_action == "navigation":
+        ui.press(f"mx:chat:{CHAT}")
+    else:
+        ui.send("/cancel")
+    assert OWNER not in max_sources.SESSIONS
+    ui.press(clear)
+    assert domain.messages[CHAT] and domain.writes == []
+
+
+@pytest.mark.parametrize("payload", [f"mx:official:{LEGACY}", f"mx:clear:{LEGACY}", f"mx:adv:{LEGACY}"])
+def test_legacy_chat_cannot_be_targeted_as_native_source_control(env, payload):
+    domain, ui = env
+    domain.add_legacy()
+    before = deepcopy(domain.messages)
+    ui.press(payload)
+    assert domain.messages == before and domain.writes == []
+    assert OWNER not in max_sources.SESSIONS
+
+
+def test_group_picker_rejects_out_of_range_indices_and_obsolete_page_nonce(env):
+    domain, ui = env
+    domain.known_groups = ["all", *[f"B{index:02}" for index in range(20, 31)]]
+    ui.edit()
+    ui.press(ui.action("group"))
+    old_pick = ui.action("group_pick", 1)
+    nonce = max_sources.SESSIONS[OWNER].nonce
+    ui.press(f"mx:d:{nonce}:group_pick:999")
+    ui.press(f"mx:d:{nonce}:group_page:999")
+    assert max_sources.SESSIONS[OWNER].group_code is None
+    assert domain.writes == []
+    ui.press(ui.action("group_page", 1))
+    ui.press(old_pick)
+    assert max_sources.SESSIONS[OWNER].stage == "groups"
+    assert max_sources.SESSIONS[OWNER].group_code is None
+    assert domain.writes == []
+
+
+def test_selecting_offline_off_mode_does_not_archive_legacy_or_request_history(env):
+    domain, ui = env
+    legacy = domain.add_legacy()
+    domain.account["heartbeat_at"] = None
+    before = deepcopy(domain.messages)
+    save = ui.review(code="B26", legacy=LEGACY, mode="off")
+    assert not legacy["max_legacy_archived"] and domain.writes == []
+    ui.press(save)
+    source = domain.sources[CHAT]
+    assert not source["enabled"] and source["group_code"] == "B26"
+    assert source["legacy_chat_id"] == LEGACY
+    assert source["history_status"] == "idle"
+    assert not legacy["max_legacy_archived"] and domain.messages == before
+    assert domain.refreshes == 0
+
+
+def test_clear_action_is_not_valid_in_other_wizard_stages(env):
+    domain, ui = env
+    ui.edit()
+    nonce = max_sources.SESSIONS[OWNER].nonce
+    ui.press(f"mx:d:{nonce}:clear")
+    assert max_sources.SESSIONS[OWNER].stage == "audience"
+    assert domain.messages[CHAT] and domain.writes == []
+    ui.choose_audience()
+    nonce = max_sources.SESSIONS[OWNER].nonce
+    ui.press(f"mx:d:{nonce}:clear")
+    assert max_sources.SESSIONS[OWNER].stage == "mode"
+    assert domain.messages[CHAT] and domain.writes == []

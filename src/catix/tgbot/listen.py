@@ -19,7 +19,7 @@ from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMar
 
 from catix import groups, official, userbot_config
 from catix.db import pg, store
-from catix.tgbot import source_requests
+from catix.tgbot import group_settings, source_requests
 from catix.worker import changes
 
 log = logging.getLogger("catix.listen")
@@ -143,18 +143,11 @@ def _draft_body(s: Session) -> tuple[str, Keyboard]:
     if s.stage == "group":
         pages = max(1, (len(s.codes) + PAGE_SIZE - 1) // PAGE_SIZE)
         s.page = max(0, min(s.page, pages - 1))
-        nav = []
-        if s.page:
-            nav.append(_draft_button(s, "◀", "page", s.page - 1))
-        nav.append(_button(f"{s.page + 1}/{pages}", "ls:n"))
-        if s.page < pages - 1:
-            nav.append(_draft_button(s, "▶", "page", s.page + 1))
-        return f"<b>{title}</b>\nУчебная группа: {html.escape(s.group)}", [
-            *[[_draft_button(s, code, "group", i)] for i, code in enumerate(s.codes)
-              if s.page * PAGE_SIZE <= i < (s.page + 1) * PAGE_SIZE], nav,
-            [_draft_button(s, "🎓 Другая группа…", "custom")],
-            [_draft_button(s, "Отмена", "cancel")],
-        ]
+        return group_settings.group_picker(
+            dialog.title, s.group, s.codes, s.page,
+            lambda label, action, value="": (_button(label, "ls:n") if action == "noop" else
+                                            _draft_button(s, label, action, value)),
+        )
     if s.stage == "reader":
         options = [("auto", "Авто")]
         if dialog and not dialog.bot_only:
@@ -325,10 +318,8 @@ def _groups_of(chat_ids: list[int]) -> dict[int, str]:
 
 
 def _known_groups() -> list[str]:
-    """`all` first, then the other codes in use, the most used first."""
-    with pg.connection() as conn:
-        used = pg.column(conn, "SELECT group_code FROM chats WHERE group_code <> %s GROUP BY 1 ORDER BY count(*) DESC, 1", (groups.ALL,))
-    return [groups.ALL, *used]
+    """Telegram entry point, retained for draft group discovery."""
+    return group_settings.known_groups()
 
 
 def _ensure_chat(dialog: userbot_config.Dialog) -> None:
@@ -426,15 +417,10 @@ def _advanced_screen(chat_id: int) -> tuple[str, Keyboard]:
 
 def _clear_screen(chat_id: int) -> tuple[str, Keyboard]:
     dialog = userbot_config.dialog(chat_id)
-    title = html.escape(dialog.title) if dialog else str(chat_id)
+    title = dialog.title if dialog else str(chat_id)
     stored, changes = store.chat_message_counts(chat_id)
-    text = (
-        f"Удалить все <b>{stored}</b> сообщений чата «{title}» и их эмбеддинги? Это необратимо.\n"
-        + (f"Вместе с ними удалятся найденные в них изменения расписания: {changes}.\n" if changes else "")
-        + "Сам чат, его учебная группа и выбор «слушать» остаются. "
-        + ("Пока чат включён, новые сообщения продолжат сохраняться." if chat_id in userbot_config.listened() else "")
-    )
-    return text.strip(), []  # Confirmation buttons are bound to the active draft nonce.
+    text = group_settings.clear_text(title, stored, changes, chat_id in userbot_config.listened())
+    return text, []  # Confirmation buttons are bound to the active draft nonce.
 
 
 async def _show(query: CallbackQuery, screen: tuple[str, Keyboard]) -> None:
@@ -476,11 +462,7 @@ def _toggle_official(chat_id: int) -> str | None:
     if dialog is None:
         return None
     _ensure_chat(dialog)  # the chat row holds the mark and may not exist yet
-    value = not official.flags([chat_id]).get(chat_id, False)
-    official.set_official(chat_id, value)
-    if official.flags([chat_id]).get(chat_id, False) != value:
-        return "Не удалось подтвердить изменение отметки."
-    return "Чат отмечен официальным: его сообщения можно называть официальными" if value else "Отметка «официальный» снята"
+    return group_settings.official_notice(chat_id)
 
 
 @router.callback_query(F.data.startswith("ls:"))

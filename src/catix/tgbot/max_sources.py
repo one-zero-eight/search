@@ -18,6 +18,9 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from catix import admins, groups
+from catix import official
+from catix.db import store
+from catix.tgbot import group_settings
 from catix.maxuserbot import state
 
 log = logging.getLogger("catix.max_sources")
@@ -49,7 +52,7 @@ REASONS = {
     "deletion_reconciliation_partial": "Не все массовые удаления удалось подтвердить.",
     "publication_error": "Обновление поискового индекса ожидает повторной отправки.",
 }
-REPEATABLE = {"complete", "partial", "failed"}
+REPEATABLE = {"complete", "partial", "failed", "cancelled"}
 ID = re.compile(r"-?[0-9]{1,19}\Z", re.ASCII)
 
 
@@ -66,6 +69,8 @@ class Session:
     legacy_chat_id: int | None = None
     page: int = 0
     busy: bool = False
+    codes: list[str] = field(default_factory=list)
+    mode: str = 'store'
 
 
 SESSIONS: dict[int, Session] = {}
@@ -139,7 +144,7 @@ def _list_screen(user_id: int) -> tuple[str, Keyboard]:
                      f"{html.escape(_audience(source.get('group_code')))} · "
                      f"{'включён' if source['enabled'] else 'выключен'} · {ACCESS.get(source['access'], 'доступ неизвестен')}\n"
                      f"История: {HISTORY.get(source.get('history_status'), 'статус неизвестен')}")
-        rows.append([_button(f"{_title(source, 28)} · {source['raw_chat_id']}", f"mx:chat:{source['chat_id']}")])
+        rows.append([_button(f"{'🏛 ' if source.get('official') else ''}{_title(source, 28)} · {source['raw_chat_id']}", f"mx:chat:{source['chat_id']}")])
     if not sources:
         lines.append("\nВыполните catix-maxuserbot login, добавьте аккаунт в нужные чаты и обновите список. "
                      "Показываются группы и каналы, не личные диалоги. Права администратора MAX не требуются.")
@@ -161,7 +166,8 @@ def _source_lines(source: dict) -> list[str]:
             f"MAX raw ID: <code>{source['raw_chat_id']}</code>",
             f"ID в базе: <code>{source['chat_id']}</code>",
             f"Аудитория: {html.escape(_audience(source.get('group_code')))}",
-            f"Чтение: {'включено' if source['enabled'] else 'выключено'}; {ACCESS.get(source['access'], 'доступ неизвестен')}."]
+            f"Чтение: {'включено' if source['enabled'] else 'выключено'}; {ACCESS.get(source['access'], 'доступ неизвестен')}.",
+            f"Официальный чат: {'да' if source.get('official') else 'нет'}"]
 
 
 def _chat_screen(source: dict) -> tuple[str, Keyboard]:
@@ -174,13 +180,32 @@ def _chat_screen(source: dict) -> tuple[str, Keyboard]:
     if source.get("legacy_chat_id") is not None:
         lines.append(f"Связанный старый источник: <code>{source['legacy_chat_id']}</code>. "
                      "Привязка неизменна; скрытый архив не возвращается в поиск после выключения.")
-    rows = [[_button("Настроить", f"mx:edit:{source['chat_id']}")]]
+    rows = [[_button("Настроить", f"mx:edit:{source['chat_id']}")],
+            [_button("⚙️ Дополнительно", f"mx:adv:{source['chat_id']}")]]
     if source["enabled"]:
         rows.append([_button("Выключить", f"mx:off:{source['chat_id']}")])
         if source["access"] == "ready" and source.get("history_status") in REPEATABLE:
             rows.append([_button("Повторить историю", f"mx:history:{source['chat_id']}")])
     rows.extend([[_button("Обновить сведения", "mx:refresh")], [_button("← Источники MAX", "mx:list:0")]])
     return "\n".join(lines), rows
+
+
+def _advanced_screen(source: dict) -> tuple[str, Keyboard]:
+    chat_id = source['chat_id']
+    marked = official.flags([chat_id]).get(chat_id, False)
+    stored, _ = store.chat_message_counts(chat_id)
+    lines = _source_lines(source) + [
+        'Читает: MAX userbot (с историей).',
+        f"Официальный чат: {'да' if marked else 'нет'} (только такие сообщения агент называет официальными)",
+        f'Сообщений в базе: {stored}',
+        'Выключение сохраняет сообщения. Очистка удаляет сообщения, но не настройки источника.']
+    rows = [[_button('🏛 Снять отметку «официальный»' if marked else '🏛 Сделать официальным', f'mx:official:{chat_id}')]]
+    if stored:
+        rows.append([_button(f'🗑 Очистить сообщения ({stored})', f'mx:clear:{chat_id}')])
+    if source['enabled']:
+        rows.append([_button('🔕 Отключить группу', f'mx:off:{chat_id}')])
+    rows.append([_button('← Назад', f'mx:chat:{chat_id}')])
+    return '\n'.join(lines), rows
 
 
 def _legacy_candidates(s: Session, source: dict, legacy: list[dict]) -> list[dict]:
@@ -202,6 +227,22 @@ def _draft_screen(s: Session, source: dict, legacy: list[dict]) -> tuple[str, Ke
         rows.extend([[_draft_button(s, "Для всех", "all")], [_draft_button(s, "Учебная группа", "group")]])
     elif s.stage == "group":
         lines.append("\nПришлите код учебной группы. Латиница, цифры, точка, дефис или подчёркивание, до 40 символов.")
+    elif s.stage == 'groups':
+        def button(label, action, value=''):
+            mapped = {'group': 'group_pick', 'page': 'group_page'}.get(action, action)
+            return _draft_button(s, label, mapped, value) if value != '' else _draft_button(s, label, mapped)
+        text, rows = group_settings.group_picker(_title(source), s.group_code or source['group_code'], s.codes, s.page, button)
+        rows.append([_draft_button(s, 'Отмена', 'cancel')])
+        return text, rows
+    elif s.stage == 'mode':
+        lines.append(f"Выбранная аудитория: {html.escape(_audience(s.group_code))}")
+        lines.append(f"\nВесь чат: {'Хранить' if s.mode == 'store' else 'Выключен'}")
+        lines.append('MAX не предоставляет подключённый поиск без хранения; топики не настраиваются.')
+        rows.extend([[_draft_button(s, 'Весь чат — выбрать режим', 'default')],
+                     [_draft_button(s, 'Проверить →', 'review')]])
+    elif s.stage == 'mode_pick':
+        rows.extend([[_draft_button(s, 'Хранить', 'mode', 'store')],
+                     [_draft_button(s, 'Выключен', 'mode', 'off')]])
     elif s.stage == "legacy":
         candidates = _legacy_candidates(s, source, legacy)
         page = min(max(s.page, 0), max((len(candidates) - 1) // PAGE_SIZE, 0))
@@ -224,7 +265,8 @@ def _draft_screen(s: Session, source: dict, legacy: list[dict]) -> tuple[str, Ke
     elif s.stage == "review":
         lines.extend(["\n<b>Проверьте перед сохранением</b>",
                       f"Аудитория: {html.escape(_audience(s.group_code))}",
-                      "Читать новые сообщения и всю доступную историю.",
+                      'Читать новые сообщения и всю доступную историю.' if s.mode == 'store' else
+                      'Выключить чтение. Сохранённые сообщения остаются в базе.',
                       "Изменение только аудитории уже включённого источника не перезагружает историю."])
         if s.legacy_chat_id is None:
             lines.append("Старый источник: не выбран; старые сообщения не будут скрыты.")
@@ -234,8 +276,10 @@ def _draft_screen(s: Session, source: dict, legacy: list[dict]) -> tuple[str, Ke
                          f"MAX raw ID: <code>{s.legacy_chat_id - groups.MAX_CHAT_BASE}</code>\n"
                          f"ID в базе: <code>{s.legacy_chat_id}</code>\n"
                          f"Сообщений: {old['message_count'] if old else 'неизвестно'}")
-            lines.append("При подтверждении старый архив будет скрыт из поиска. Сообщения и прежняя аудитория "
-                         "сохранятся в базе; выключение нового источника не вернёт архив в поиск. Привязку изменить нельзя.")
+            lines.append(('При подтверждении старый архив будет скрыт из поиска. ' if s.mode == 'store' else
+                          'При выключенном чтении новый архив не скрывается. ')
+                         + 'Сообщения и прежняя аудитория сохранятся в базе; выключение нового источника '
+                         'не вернёт уже скрытый архив в поиск. Привязку изменить нельзя.')
         rows.extend([[_draft_button(s, "Сохранить", "save")], [_draft_button(s, "Обновить сведения", "refresh")]])
     elif s.stage == "off":
         lines.append("\n<b>Выключить чтение?</b> Новые сообщения не будут индексироваться. "
@@ -245,6 +289,11 @@ def _draft_screen(s: Session, source: dict, legacy: list[dict]) -> tuple[str, Ke
         lines.append("\n<b>Повторить всю доступную историю?</b> Возрастного ограничения нет. "
                      "Существующие сообщения не очищаются. Состояние восстановления разрыва учитывается отдельно.")
         rows.append([_draft_button(s, "Подтвердить повтор истории", "history")])
+    elif s.stage == 'clear':
+        stored, changes = store.chat_message_counts(s.chat_id)
+        lines.append(group_settings.clear_text(_title(source), stored, changes, source['enabled']))
+        lines.append('Текущая загрузка архива остановится. Для новой загрузки используйте «Повторить историю».')
+        rows.append([_draft_button(s, '✅ Да, удалить', 'clear')])
     rows.append([_draft_button(s, "Отмена", "cancel")])
     return "\n".join(lines), rows
 
@@ -299,8 +348,11 @@ async def _draft_callback(query: CallbackQuery, args: list[str]) -> None:
         if query.data not in {button.callback_data for row in rows for button in row}:
             await query.answer("Недопустимая или устаревшая кнопка", show_alert=True)
             return
-        if action in {"save", "off", "history"}:
-            if action == "history":
+        if action in {"save", "off", "history", "clear"}:
+            if action == 'clear':
+                deleted = await asyncio.to_thread(state.clear_history, s.chat_id,
+                    expected_version=s.config_version, expected_generation=s.generation)
+            elif action == "history":
                 if not source["enabled"] or source["access"] != "ready" or source.get("history_status") not in REPEATABLE:
                     await query.answer("Повтор истории сейчас недоступен", show_alert=True)
                     return
@@ -320,13 +372,14 @@ async def _draft_callback(query: CallbackQuery, args: list[str]) -> None:
                         return
                 await asyncio.to_thread(state.save_configuration, s.chat_id,
                                         s.group_code if action == "save" else source["group_code"],
-                                        enabled=action == "save", expected_version=s.config_version,
+                                        enabled=action == "save" and s.mode == 'store', expected_version=s.config_version,
                                         expected_generation=s.generation, legacy_chat_id=s.legacy_chat_id)
             committed = True
             if SESSIONS.get(user_id) is s:
                 cancel_pending(user_id)
             await query.answer({"save": "Сохранено", "off": "Выключено. Сохранённая история остаётся.",
-                                "history": "Загрузка всей доступной истории запрошена"}[action])
+                                "history": "Загрузка всей доступной истории запрошена",
+                                "clear": f"Удалено сообщений: {deleted}" if action == 'clear' else ''}[action])
             current = await asyncio.to_thread(state.get_source, s.chat_id)
             await _show(query, _chat_screen(current) if current else await asyncio.to_thread(_list_screen, user_id))
             return
@@ -336,9 +389,27 @@ async def _draft_callback(query: CallbackQuery, args: list[str]) -> None:
             return
         if action == "all":
             s.group_code = groups.ALL
-            _after_audience(s, source, legacy)
+            s.stage = 'mode'
         elif action == "group":
-            s.stage = "group"
+            s.stage = 'groups'
+            s.page = 0
+        elif action == 'group_pick':
+            s.group_code = s.codes[int(args[2])]
+            s.stage = 'mode'
+        elif action == 'group_page':
+            s.page = int(args[2])
+        elif action == 'custom':
+            s.stage = 'group'
+        elif action == 'default':
+            s.stage = 'mode_pick'
+        elif action == 'mode':
+            s.mode = args[2]
+            s.stage = 'mode'
+        elif action == 'review':
+            _after_audience(s, source, legacy)
+        elif action == 'noop':
+            await query.answer()
+            return
         elif action == "legacy":
             value = args[2]
             s.legacy_chat_id = None if value == "none" else int(value)
@@ -385,7 +456,7 @@ async def max_sources_callback(query: CallbackQuery) -> None:
         return
     valid = ((action == "refresh" and not args) or
              (action == "list" and len(args) == 1 and args[0].isascii() and args[0].isdigit() and len(args[0]) <= 9) or
-             (action in {"chat", "edit", "off", "history"} and len(args) == 1 and ID.fullmatch(args[0])))
+             (action in {"chat", "edit", "off", "history", "adv", "official", "clear"} and len(args) == 1 and ID.fullmatch(args[0])))
     if not valid:
         await query.answer("Недопустимая кнопка", show_alert=True)
         return
@@ -410,6 +481,11 @@ async def max_sources_callback(query: CallbackQuery) -> None:
                 return
             if action == "chat":
                 screen = _chat_screen(source)
+            elif action == 'adv':
+                screen = await asyncio.to_thread(_advanced_screen, source)
+            elif action == 'official':
+                notice = await asyncio.to_thread(group_settings.official_notice, chat_id)
+                screen = await asyncio.to_thread(_advanced_screen, source)
             else:
                 if action == "off" and not source["enabled"]:
                     await query.answer("Источник уже выключен", show_alert=True)
@@ -420,8 +496,9 @@ async def max_sources_callback(query: CallbackQuery) -> None:
                     return
                 s = Session(user_id=user_id, private_chat_id=query.message.chat.id, chat_id=chat_id,
                             config_version=source["config_version"], generation=source["generation"],
-                            stage={"edit": "audience", "off": "off", "history": "history"}[action],
-                            legacy_chat_id=source.get("legacy_chat_id"))
+                            stage={"edit": "audience", "off": "off", "history": "history", "clear": "clear"}[action],
+                            legacy_chat_id=source.get("legacy_chat_id"),
+                            codes=await asyncio.to_thread(group_settings.known_groups))
                 legacy = await asyncio.to_thread(state.list_legacy)
                 SESSIONS[user_id] = s
                 screen = _draft_screen(s, source, legacy)
@@ -468,7 +545,7 @@ async def group_code(message: Message) -> None:
             await message.answer("Настройки или доступ изменились. Откройте карточку заново.")
             return
         s.group_code = code
-        _after_audience(s, source, legacy)
+        s.stage = 'mode'
         s.nonce = secrets.token_hex(4)
         text, rows = _draft_screen(s, source, legacy)
         await message.answer(text, parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))

@@ -25,7 +25,7 @@ class AccountMismatch(Exception):
     code = "account_mismatch"
 
 
-SOURCE = """SELECT s.*, c.title, c.link, c.group_code, c.requires_verified_group
+SOURCE = """SELECT s.*, c.title, c.link, c.group_code, c.requires_verified_group, c.official
             FROM max_sources s JOIN chats c USING (chat_id)"""
 ERRORS = frozenset({"login_required", "account_mismatch", "identity_range", "protocol_error", "processing_error",
     "metadata_error", "source_status_unknown", "catalog_pagination_unknown", "catalog_cursor_stalled",
@@ -224,6 +224,22 @@ def request_history(chat_id: int, *, expected_version: int, expected_generation:
             conn.execute("UPDATE max_sources SET config_version=config_version+1 WHERE chat_id=%s", (chat_id,))
     if unavailable:
         raise SourceUnavailable()
+
+
+def clear_history(chat_id: int, *, expected_version: int, expected_generation: int) -> int:
+    """Clear content, not source policy/tombstones; fence all reads already in flight."""
+    with _transaction() as conn:
+        source = _source(conn, chat_id)
+        _version(source, expected_version, expected_generation)
+        deleted = store.clear_chat(chat_id, conn=conn)
+        conn.execute('DELETE FROM max_publish_queue WHERE chat_id=%s', (chat_id,))
+        # Cleared live identities must be restorable by an explicit full reload.
+        # Permanent deletion tombstones remain authoritative.
+        conn.execute('DELETE FROM max_message_state WHERE chat_id=%s AND NOT deleted', (chat_id,))
+        conn.execute("""UPDATE max_sources SET generation=generation+1, config_version=config_version+1,
+            history_status='cancelled',catchup_status='cancelled',deletion_scan_pending=false
+            WHERE chat_id=%s""", (chat_id,))
+        return deleted
 
 
 def apply_access(chat_id: int, *, generation: int, access: str, observed_at: datetime,

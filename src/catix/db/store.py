@@ -304,10 +304,10 @@ def chat_message_counts(chat_id: int) -> tuple[int, int]:
     return row["messages"], row["changes"]
 
 
-def clear_chat(chat_id: int) -> int:
+def clear_chat(chat_id: int, *, conn=None) -> int:
     """Delete every stored message of a chat. Their vectors, queue entries and the schedule changes found in them go
     with them (cascade); the chat itself, its study group and the choice in /listen stay."""
-    with pg.connection() as conn:
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn:
         return conn.execute("DELETE FROM messages WHERE chat_id = %s", (chat_id,)).rowcount
 
 
