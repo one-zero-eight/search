@@ -28,16 +28,14 @@ longer linked is kept as it was until the next run finds it so too: written over
 the page out of the search. The sites are read once a week, so a page that really went is gone a week later.
 """
 
-import asyncio
 import contextlib
 import functools
 import hashlib
 import json
+import logging
 import os
 import re
 import shutil
-import socket
-import subprocess
 import sys
 import time
 from argparse import Namespace
@@ -51,10 +49,12 @@ from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
 import httpx
-import websockets
 import yaml
 from html_to_markdown import ConversionOptions, NodeContext, PreprocessingOptions, convert
 from html_to_markdown.exceptions import ConversionError
+from usp.exceptions import SitemapException
+from usp.fetch_parse import SitemapFetcher
+from usp.web_client.abstract_client import AbstractWebClient, AbstractWebClientResponse, AbstractWebClientSuccessResponse, WebClientErrorResponse
 
 from catix.docs import files
 from catix.docs.sources import regulations
@@ -81,6 +81,9 @@ SHORT_READ = 0.5  # a page read with less than this share of its own words is ke
 RETRY = timedelta(days=6)  # a link a run asked and got nothing from (a 404, a file, a host down, a login) waits this long before a run of
 # new links asks it again: 280 of the 474 links no run had read answered 404, and every 6-hourly run would ask them. Less than the
 # week between two runs of every site: the weekly run asks again what the last one could not get (it reads every link of a site anyway).
+
+logging.getLogger("usp").setLevel(logging.CRITICAL)
+# (a site without a sitemap is no error: USP logs every 404 and every HTML robots.txt)
 
 
 def recent(at: str | None, now: datetime | None = None) -> bool:
@@ -286,6 +289,65 @@ def get_through(client: httpx.Client, url: str) -> httpx.Response:
     return page
 
 
+class _SitemapAnswer(AbstractWebClientSuccessResponse):
+    def __init__(self, page: httpx.Response):
+        self.page = page
+
+    def status_code(self) -> int:
+        return self.page.status_code
+
+    def status_message(self) -> str:
+        return self.page.reason_phrase
+
+    def header(self, case_insensitive_name: str) -> str | None:
+        return self.page.headers.get(case_insensitive_name)
+
+    def raw_data(self) -> bytes:
+        return self.page.content
+
+    def url(self) -> str:
+        return str(self.page.url)
+
+
+class _SitemapClient(AbstractWebClient):
+    """What Ultimate Sitemap Parser asks, through the crawl's client: the bot-check retries of get_through, the site's pause
+    after every request, each address once (robots.txt names /sitemap.xml, which is also read as the site's own)."""
+
+    def __init__(self, client: httpx.Client, site: "Site"):
+        self.client, self.pause, self.answers = client, PAUSE if site.pause is None else site.pause, {}
+
+    def set_max_response_data_length(self, max_response_data_length: int | None) -> None:
+        pass  # (httpx reads the whole answer; USP's own limit bounds what it decompresses)
+
+    def get(self, url: str) -> AbstractWebClientResponse:
+        if url not in self.answers:
+            try:
+                page = get_through(self.client, url)
+            except httpx.HTTPError as e:
+                self.answers[url] = WebClientErrorResponse(f"{type(e).__name__}: {e}", retryable=False)
+            else:
+                self.answers[url] = _SitemapAnswer(page) if page.is_success else WebClientErrorResponse(f"{page.status_code} {page.reason_phrase}", retryable=False)
+            time.sleep(self.pause)
+        return self.answers[url]
+
+
+def sitemap_pages(site: "Site", client: httpx.Client) -> list[str]:
+    """The page addresses a site's sitemaps list, in their order and once each: the sitemaps its robots.txt names (Tilda's
+    sitemap-store.xml: the cards of courses and events, that no page links) and its own (Site.sitemap, /sitemap.xml when
+    True; the English copy's too), read by Ultimate Sitemap Parser (indexes, gzip, text and RSS sitemaps)."""
+    path = site.sitemap if isinstance(site.sitemap, str) else "sitemap.xml"
+    roots = [urljoin(site.base, "/robots.txt"), urljoin(site.base, path), *([urljoin(site.base, f"{site.english}/{path}")] if site.english else [])]
+    web, found = _SitemapClient(client, site), {}
+    for root in roots:
+        try:
+            tree = SitemapFetcher(url=root, recursion_level=0, web_client=web, quiet_404=True).sitemap()
+        except SitemapException as e:
+            print(f"  {root}: {e}", flush=True)
+            continue
+        found.update(dict.fromkeys(page.url for page in tree.all_pages()))
+    return list(found)
+
+
 LIVE_WAIT = 30  # seconds: the longest a page of an app behind a login is given to finish loading
 LOGIN_FORM = re.compile(r"""<input[^>]+type=["']?password""", re.I)
 
@@ -295,43 +357,38 @@ class LiveBrowser:
     lives longer in one browser than in a new one for every page (the pages are opened in one tab, one after another)."""
 
     def __init__(self, profile: str):
+        from playwright.sync_api import Error, sync_playwright
+
         if not CHROMIUM:
             raise RuntimeError("a site with a profile needs Chromium (chromium, chromium-browser or google-chrome on the PATH)")
-        with socket.socket() as probe:
-            probe.bind(("127.0.0.1", 0))
-            port = probe.getsockname()[1]
         self.profile = profile
-        self.process = subprocess.Popen([CHROMIUM, "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={profile}", f"--remote-debugging-port={port}", "about:blank"],
-                                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        self.loop = asyncio.new_event_loop()
+        self.playwright = sync_playwright().start()
         try:
-            for _ in range(100):
-                try:
-                    tab = next(t for t in httpx.get(f"http://127.0.0.1:{port}/json").json() if t["type"] == "page")
-                    break
-                except (httpx.HTTPError, StopIteration):
-                    time.sleep(0.2)
-            else:
-                raise httpx.TransportError("the browser did not start")
-            self.ws = self.loop.run_until_complete(websockets.connect(tab["webSocketDebuggerUrl"], max_size=None))
-        except BaseException:
-            self.close()
-            raise
-        self.ids = iter(range(1, 10**9))
+            # (Playwright passes --password-store=basic and --use-mock-keychain by default; the plain launch did not, and on a desktop
+            #  with a keyring the login cookies of the profile would not decrypt with them)
+            self.context = self.playwright.chromium.launch_persistent_context(
+                profile, executable_path=CHROMIUM, headless=True, args=["--disable-gpu", "--no-sandbox"],
+                ignore_default_args=["--password-store=basic", "--use-mock-keychain"])
+            self.page = self.context.pages[0] if self.context.pages else self.context.new_page()
+        except Error as e:
+            self.playwright.stop()
+            raise httpx.TransportError(f"the browser did not start: {str(e).splitlines()[0]}") from e
 
-    async def call(self, method: str, **params) -> dict:
-        n = next(self.ids)
-        await self.ws.send(json.dumps({"id": n, "method": method, "params": params}))
-        while (answer := json.loads(await self.ws.recv())).get("id") != n:
-            pass
-        return answer
+    def _load(self, url: str) -> str:
+        from playwright.sync_api import Error
 
-    async def load(self, url: str) -> str:
-        await self.call("Page.navigate", url=url)
+        try:
+            self.page.goto(url, wait_until="commit", timeout=LIVE_WAIT * 1000)
+        except Error as e:
+            raise httpx.TransportError(f"the browser did not read {url}: {str(e).splitlines()[0]}") from e
         last, still = "", 0
         for second in range(LIVE_WAIT):
-            await asyncio.sleep(1)
-            html = (await self.call("Runtime.evaluate", expression="document.documentElement.outerHTML", returnByValue=True))["result"]["result"]["value"]
+            self.page.wait_for_timeout(1000)
+            try:
+                html = self.page.content()
+            except Error:  # (the page is navigating: no document to read yet)
+                still = 0
+                continue
             still = still + 1 if html == last else 0
             last = html
             if still >= 3 and second >= 4:  # (unchanged for three seconds, and not the empty shell of the first ones)
@@ -340,14 +397,13 @@ class LiveBrowser:
 
     def evaluate(self, script: str) -> str:
         """What a script returns in the page that is open (a promise is waited for)."""
-        answer = self.loop.run_until_complete(self.call("Runtime.evaluate", expression=script, awaitPromise=True, returnByValue=True))
-        return answer["result"]["result"]["value"]
+        return self.page.evaluate(script)
 
     def get(self, url: str) -> str:
         """The page after it stopped changing. Raises when the page asks for a password or did not finish loading (its title is still '{eventName}')."""
-        html = self.loop.run_until_complete(self.load(url))
+        html = self._load(url)
         if re.search(r"<title>[^<]*\{\w+\}", html):  # (the page asked for its data and had no answer yet: once more)
-            html = self.loop.run_until_complete(self.load(url))
+            html = self._load(url)
         if LOGIN_FORM.search(html):
             raise RuntimeError(f"the profile {self.profile} is not logged in: {url} asks for a password")
         if re.search(r"<title>[^<]*\{\w+\}", html):
@@ -355,11 +411,10 @@ class LiveBrowser:
         return html
 
     def close(self) -> None:
-        if hasattr(self, "ws"):
-            self.loop.run_until_complete(self.ws.close())
-        self.process.terminate()
-        self.process.wait()
-        self.loop.close()
+        try:
+            self.context.close()
+        finally:
+            self.playwright.stop()
 
 
 LIVE: dict[str, LiveBrowser] = {}  # profile -> its browser, open during a crawl
@@ -960,21 +1015,10 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             todo.append(link)
 
     if site.sitemap and not partial:
-        try:
-            path = site.sitemap if isinstance(site.sitemap, str) else "sitemap.xml"
-            maps = [urljoin(site.base, path)] + ([urljoin(site.base, f"{site.english}/{path}")] if site.english else [])
-            for _ in range(100):  # (a sitemap may list sitemaps: Bitrix keeps one per block of the site)
-                if not maps:
-                    break
-                for loc in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", get_through(client, maps.pop(0)).text):
-                    if loc.endswith(".xml"):
-                        maps.append(loc)
-                    else:
-                        put(repaired(site, loc))
-                time.sleep(PAUSE if site.pause is None else site.pause)
-        except httpx.HTTPError as e:
-            print(f"  {name}: no sitemap ({e})")
-        time.sleep(PAUSE if site.pause is None else site.pause)
+        if not (listed := sitemap_pages(site, client)):
+            print(f"  {name}: no sitemap")
+        for loc in listed:
+            put(repaired(site, loc))
     if site.discover and not partial:  # (the pages no link leads to: the browser lists them)
         render_live(site.base, profile_of(site))
         for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover)):

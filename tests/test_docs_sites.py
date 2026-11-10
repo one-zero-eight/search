@@ -228,6 +228,27 @@ def test_a_site_may_keep_its_sitemap_elsewhere(monkeypatch):
     assert "team-ivanov" in sites.load("wp")["pages"]  # (no link leads there: the sitemap does)
 
 
+def test_the_sitemaps_robots_txt_names_are_read_and_each_is_asked_once(monkeypatch):
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    site = sites.Site("https://shop.example/", "ru", "a shop", r"^nothing$", max_pages=10)
+    ns = 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+    maps = {"/robots.txt": ("text/plain", "User-agent: *\nSitemap: https://shop.example/sitemap.xml\nSitemap: https://shop.example/sitemap-store.xml\n"),
+            "/sitemap.xml": ("application/xml", f"<urlset {ns}><url><loc>https://shop.example/a/</loc></url></urlset>"),
+            "/sitemap-store.xml": ("application/xml", f"<urlset {ns}><url><loc>https://shop.example/tproduct/1-card</loc></url></urlset>")}
+    asked = []
+
+    class Client:
+        def get(self, url):
+            path = httpx.URL(url).path
+            asked.append(path)
+            kind, text = maps.get(path, ("text/html", f"<html><p>{WORDS} {path}</p></html>"))
+            return httpx.Response(200, headers={"content-type": kind}, text=text, request=httpx.Request("GET", url))
+
+    sites.fetch_site("shop", site, Client())
+    assert {"a", "tproduct-1-card"} <= set(sites.load("shop")["pages"])
+    assert asked.count("/sitemap.xml") == 1
+
+
 WALLED = '<html><head><title>Вы не робот?</title></head><body><div class="smart-captcha">Подтвердите, что вы не робот</div></body></html>'
 
 

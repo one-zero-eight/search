@@ -851,7 +851,7 @@ sites:
     base: https://iustore.innopolis.ru/
     language: ru
     about: 'the merchandise store of Innopolis University: clothes, sizes, delivery, returns'
-    skip: ^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$
+    skip: ^(tilda|members)/|(^|/)tproduct/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$
     sitemap: true
     max_pages: 30
     english: null

@@ -434,8 +434,8 @@ dependencies = [
     { name = "redis" },
     { name = "segno" },
     { name = "telethon" },
+    { name = "ultimate-sitemap-parser" },
     { name = "uvicorn" },
-    { name = "websockets" },
 ]
 
 [package.dev-dependencies]
@@ -483,8 +483,8 @@ requires-dist = [
     { name = "redis", specifier = ">=8.1.0" },
     { name = "segno", specifier = ">=1.6.6" },
     { name = "telethon", specifier = ">=1.45.0" },
+    { name = "ultimate-sitemap-parser", specifier = ">=1.8.1" },
     { name = "uvicorn", specifier = ">=0.54.0" },
-    { name = "websockets", specifier = ">=16.1.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -4030,6 +4030,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d9/68/f1b440335057bfce71b6e50a9d09445aa2ecbd08359a337976627b8409e7/tzdata-2026.5.tar.gz", hash = "sha256:8cc73c0a0bfca7dbfa59235d60b2eff82231dee33f53d206db1acd9173cfc0a7", size = 200404, upload-time = "2026-10-03T09:23:14.143Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/94/21/1e5995a1c920cce14e4bffae20c665ec10e7ed03ab25e006cd741092b718/tzdata-2026.5-py2.py3-none-any.whl", hash = "sha256:b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac", size = 347996, upload-time = "2026-10-03T09:23:12.535Z" },
+]
+
+[[package]]
+name = "ultimate-sitemap-parser"
+version = "1.8.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "python-dateutil" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c3/95/4b4bfd9bc572fdfd5c0ff70c85cd1b220181aaa6eb7cc70a0d2255444c10/ultimate_sitemap_parser-1.8.1.tar.gz", hash = "sha256:6cf5ae0cfd83a2af5650402fc0ec462c83ac7558ef781fba9c012d1db123344f", size = 39859, upload-time = "2026-06-16T10:36:52.117Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c7/bc/a34d6033f30bef4cdefe8597106ea375479a2006631042ce28e4f2133522/ultimate_sitemap_parser-1.8.1-py3-none-any.whl", hash = "sha256:7fe9347983ca9ca1f8960e7d5bf08cb49679b20d32532a9c7843e20fe31c0840", size = 44610, upload-time = "2026-06-16T10:36:50.783Z" },
 ]
 
 [[package]]
