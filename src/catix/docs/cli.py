@@ -7,7 +7,7 @@
     catix-docs eduwiki fetch [NAMESPACE ...]|status     # the eduwiki snapshot; default namespace 0 (articles)
     catix-docs regs fetch|refresh|queue                 # official regulations (PDF), see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
     catix-docs rpd fetch|refresh|status                 # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
-    catix-docs sites fetch [SITE ...]|new|status|docs   # the sites of the university, its services and the city, see sources/sites.py
+    catix-docs sites fetch [SITE ...]|new|status|unvisited|docs   # the sites of the university, its services and the city, see sources/sites.py
     catix-docs papers fetch|status                      # past exam papers from the students' Notion database, see sources/pastpapers.py
 
 Everything lives in Postgres (DATABASE_URL): the sources' state and extracted text in source_files, the documents in documents.
@@ -57,7 +57,7 @@ def parser() -> argparse.ArgumentParser:
         ("regs", "Official regulations", None, ("fetch", "refresh", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "status")),
-        ("sites", "University and city sites", "status", ("fetch", "new", "status", "docs", "catalog")),
+        ("sites", "University and city sites", "status", ("fetch", "new", "status", "unvisited", "docs", "catalog")),
     ):
         group = command(commands, name, about)
         actions_parser = group.add_subparsers(dest="action", required=default is None)
@@ -79,6 +79,12 @@ def parser() -> argparse.ArgumentParser:
                     leaf.add_argument("--only-new", action="store_true", help="Fetch only trusted-provider page links no run has read or tried lately")
                 elif action == "new":
                     leaf.add_argument("names", nargs="*", metavar="SITE")
+                elif action == "unvisited":
+                    leaf.add_argument("names", nargs="*", metavar="SITE")
+                    leaf.add_argument("--summary", action="store_true", help="Only the number of addresses per site and host")
+                    which = leaf.add_mutually_exclusive_group()
+                    which.add_argument("--known", dest="only", action="store_const", const="known", help="Only the sites of the catalog")
+                    which.add_argument("--unknown", dest="only", action="store_const", const="unknown", help="Only the hosts the catalog does not have")
                 elif action == "catalog":
                     catalog = leaf.add_subparsers(dest="catalog_action", required=True)
                     command(catalog, "import", "Replace the catalog with a file (sites.yaml)").add_argument("file", type=Path)

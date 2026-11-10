@@ -954,6 +954,80 @@ def unread_links(names: list[str] | None = None) -> dict[str, set[str]]:
     return found
 
 
+def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
+    """host -> the links of cached pages of `names` (every site when None) to hosts that no site of the catalog covers and that
+    are not blocked: the places the sites send to and no run goes (a link to a site's own host that its `skip` refuses is no
+    unknown: the catalog decided it)."""
+    from catix.docs.sources import crawl
+
+    reload_catalog()
+    ours = {host for site in SITES.values() for host in crawl._site_hosts(site)}
+    found: dict[str, set[str]] = {}
+    judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
+
+    def host_of(link: str) -> str | None:
+        try:
+            host = (urlsplit(link).hostname or "").lower().rstrip(".")
+        except ValueError:
+            return None
+        if not host or any(host == b or host.endswith("." + b) for b in BLOCKED) or any(host == h or host.endswith("." + h) for h in ours):
+            return None
+        return host
+
+    for source in names or list(SITES):
+        if source not in SITES:
+            continue
+        for path in files.list(f"{ROOT}/{source}/", ".md"):
+            for raw in crawl.PAGE.findall(files.read_text(path) or ""):
+                link = canonical(raw.rstrip(crawl.TRAILING))
+                if link not in judged:
+                    judged[link] = host_of(link)
+                if host := judged[link]:
+                    found.setdefault(host, set()).add(link)
+    return found
+
+
+def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
+    """provider -> the links of cached pages of `names` (every site when None) to files of trusted sites (crawl.provider: a PDF,
+    a Word file, an archive) that are not among the documents read: no document of regulations.all_docs has the address, or
+    its text is not there yet (regs fetch downloads it)."""
+    from catix.docs.sources import crawl
+
+    reload_catalog()
+    read = {canonical(d["url"]) for key, d in regulations.all_docs().items() if files.exists(f"{d['root']}/{key}.txt")}
+    judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
+    found: dict[str, set[str]] = {}
+    for source in names or list(SITES):
+        if source not in SITES:
+            continue
+        for path in files.list(f"{ROOT}/{source}/", ".md"):
+            for raw in crawl.PAGE.findall(files.read_text(path) or ""):
+                link = canonical(raw.rstrip(crawl.TRAILING))
+                if link not in judged:
+                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and link not in read else None
+                if name := judged[link]:
+                    found.setdefault(name, set()).add(link)
+    return found
+
+
+def unvisited(names: list[str] | None = None, summary: bool = False, only: str | None = None) -> None:
+    """Print the addresses no run has gone to: of the sites of the catalog (their pages that a cached page or a document links
+    and no run read or tried lately: unread_links; their files that no document read has: unread_files), and of the hosts the
+    catalog does not have (foreign_links). `only`: 'known' or 'unknown' prints one of the two (the other is not searched)."""
+    blocks = []
+    if only != "unknown":
+        blocks += [("Known sites, pages", unread_links(names), "sites"), ("Known sites, files", unread_files(names), "sites")]
+    if only != "known":
+        blocks.append(("Unknown hosts", foreign_links(names), "hosts"))
+    for title, groups, kind in blocks:
+        print(f"{title}: {sum(map(len, groups.values()))} addresses in {len(groups)} {kind}")
+        for group, urls in sorted(groups.items(), key=lambda item: (-len(item[1]), item[0])):
+            print(f"  {group}: {len(urls)}")
+            if not summary:
+                for url in sorted(urls):
+                    print(f"    {url}")
+
+
 def known_urls(index: dict) -> set[str]:
     """The addresses of a site's index, gone ones too (a page that went, a copy of another under a second address: not new)."""
     return {address(page["url"]) for page in index["pages"].values() if page.get("url")}
@@ -1608,6 +1682,8 @@ def main(args: Namespace) -> None:
         print(f"{fetch_new(args.names, documents=True)} pages new or changed and documents read")
     elif cmd == "status":
         status()
+    elif cmd == "unvisited":
+        unvisited(args.names, args.summary, args.only)
     elif cmd == "catalog":
         catalog_main(args)
     elif cmd == "docs":
