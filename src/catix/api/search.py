@@ -5,10 +5,12 @@ import json
 import logging
 import re
 import time
+from collections.abc import Callable
 from typing import Literal
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
 import httpx
+from bs4 import BeautifulSoup, Comment
 from fastapi import APIRouter, HTTPException, Query, Response
 
 from catix.agent import tracing
@@ -21,7 +23,6 @@ from catix.api.schemas import (
     EduwikiSource,
     HotelSource,
     InfoSources,
-    PageText,
     ResidentsSource,
     SearchResponse,
     SearchResponses,
@@ -29,6 +30,7 @@ from catix.api.schemas import (
 )
 from catix.db import wiki as wiki_store
 from catix.wiki import previews
+from catix.wiki.sources import sites as site_source
 from catix.wiki.sources.archives import ArchiveError
 
 log = logging.getLogger("catix.api")
@@ -101,16 +103,7 @@ async def search_by_query(
     return SearchResponses(searched_for=query, responses=responses, search_query_id=state.remember_search(len(responses)))
 
 
-# A row, the blank line after it, and a heading the chunker repeated at the start of a piece (which a row cannot be under)
-TABLE_ROWS = re.compile(r"^(\|.*\|)\n\n(?:#{1,6} .*\n\n)?(?=\|)", re.M)
 TABLE_CELLS = re.compile(r"(?<!\\)\|")
-
-
-def join_pieces(texts: list[str]) -> str:
-    """The pieces of a page as one text. The wiki keeps every block apart by a blank line, the rows of a table too, and a
-    table with blank lines between its rows (or a heading the chunker repeated there) is not a table in markdown: the rows
-    go together again."""
-    return TABLE_ROWS.sub(r"\1\n", "\n\n".join(texts))
 
 
 def table_as_text(text: str) -> str:
@@ -126,23 +119,14 @@ def table_as_text(text: str) -> str:
     return "\n".join(lines)
 
 
-@router.get("/page", responses={200: {"description": "Success"}, 404: {"description": "The knowledge base has no copy of the page"}})
-async def page_by_url(_auth: VerifiedDep, url: str) -> PageText:
-    """The text of a page of the knowledge base by the address of its original: for sites that cannot be shown in a frame."""
-    hits = await asyncio.to_thread(wiki_store.page_of_resource, url)
-    if not hits:
-        raise HTTPException(status_code=404, detail="Page not found")
-    return PageText(title=hits[0].title, url=url, text=join_pieces([hit.text for hit in hits]))
+DOWNLOAD_MAX_BYTES = 25_000_000  # the wiki reads no bigger document either (wiki/sources/regulations.MAX_BYTES)
+DOWNLOAD_TIMEOUT = 60  # seconds for the whole download
+DOWNLOAD_REDIRECTS = 5
+DOWNLOAD_HEADERS = {"User-Agent": "catix-api/0.1 (Innopolis University assistant; preview)"}
 
 
-PDF_MAX_BYTES = 25_000_000  # the wiki reads no bigger document either (wiki/sources/regulations.MAX_BYTES)
-PDF_TIMEOUT = 60  # seconds for the whole download
-PDF_REDIRECTS = 5
-PDF_HEADERS = {"User-Agent": "catix-api/0.1 (Innopolis University assistant; document preview)"}
-
-
-def pdf_http() -> httpx.AsyncClient:
-    return httpx.AsyncClient(headers=PDF_HEADERS, timeout=PDF_TIMEOUT, follow_redirects=False)
+def site_http() -> httpx.AsyncClient:
+    return httpx.AsyncClient(headers=DOWNLOAD_HEADERS, timeout=DOWNLOAD_TIMEOUT, follow_redirects=False)
 
 
 def same_site(url: str, original: str) -> bool:
@@ -153,13 +137,20 @@ def same_site(url: str, original: str) -> bool:
             and "." in base and (host == base or host.endswith("." + base)))
 
 
-async def download_pdf(url: str) -> bytes:
-    """The PDF at `url`, redirects followed on its own site; 502 if the site gives no PDF (a login page, an error)."""
+def same_host(url: str, original: str) -> bool:
+    """A redirect of a page stays on its host (www. aside): another host of the site is a login (SSO), not the page."""
+    parts = urlsplit(url)
+    return (parts.scheme in {"http", "https"} and parts.port is None and not parts.username and not parts.password
+            and (parts.hostname or "").lower().removeprefix("www.") == original.lower().removeprefix("www."))
+
+
+async def download(url: str, stays: Callable[[str, str], bool]) -> httpx.Response:
+    """The answer at `url` read whole, redirects followed while `stays(next url, original host)`; 502 if the site gives no 200."""
     original = urlsplit(url).hostname or ""
-    async with asyncio.timeout(PDF_TIMEOUT), pdf_http() as http:
-        for _ in range(PDF_REDIRECTS + 1):
-            if not same_site(url, original):
-                raise HTTPException(status_code=502, detail="The document moved off its site")
+    async with asyncio.timeout(DOWNLOAD_TIMEOUT), site_http() as http:
+        for _ in range(DOWNLOAD_REDIRECTS + 1):
+            if not stays(url, original):
+                raise HTTPException(status_code=502, detail="The address moved off its site")
             async with http.stream("GET", url) as response:
                 if response.is_redirect:
                     url = urljoin(url, response.headers.get("location", ""))
@@ -167,17 +158,24 @@ async def download_pdf(url: str) -> bytes:
                 if response.status_code != 200:
                     raise HTTPException(status_code=502, detail=f"The site answered {response.status_code}")
                 declared = response.headers.get("content-length", "")
-                if declared.isdigit() and int(declared) > PDF_MAX_BYTES:
-                    raise HTTPException(status_code=502, detail="The document is too big")
+                if declared.isdigit() and int(declared) > DOWNLOAD_MAX_BYTES:
+                    raise HTTPException(status_code=502, detail="The answer is too big")
                 body = bytearray()
                 async for chunk in response.aiter_bytes():
                     body += chunk
-                    if len(body) > PDF_MAX_BYTES:
-                        raise HTTPException(status_code=502, detail="The document is too big")
-                if b"%PDF-" not in body[:1024]:
-                    raise HTTPException(status_code=502, detail="The site gave no PDF")
-                return bytes(body)
+                    if len(body) > DOWNLOAD_MAX_BYTES:
+                        raise HTTPException(status_code=502, detail="The answer is too big")
+                return httpx.Response(200, content=bytes(body), headers={"content-type": response.headers.get("content-type", "")},
+                                      request=httpx.Request("GET", url))
     raise HTTPException(status_code=502, detail="Too many redirects")
+
+
+async def download_pdf(url: str) -> bytes:
+    """The PDF at `url`, redirects followed on its own site; 502 if the site gives no PDF (a login page, an error)."""
+    body = (await download(url, same_site)).content
+    if b"%PDF-" not in body[:1024]:
+        raise HTTPException(status_code=502, detail="The site gave no PDF")
+    return body
 
 
 @router.get("/pdf", response_class=Response, responses={
@@ -203,6 +201,81 @@ async def pdf_by_url(_auth: VerifiedDep, url: str) -> Response:
     return Response(body, media_type="application/pdf", headers={
         "Content-Disposition": f"inline; filename*=UTF-8''{quote(name)}",
         "Cache-Control": "private, max-age=3600",
+    })
+
+
+PAGE_CSP = "script-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'"
+UNSHOWN = ["script", "noscript", "iframe", "frame", "frameset", "object", "embed", "base", "portal"]
+LAZY = ("data-src", "data-original", "data-lazy-src")  # the address of a picture that the page's scripts would load
+PASSWORD = re.compile(r"""<input[^>]+type=["']?password""", re.I)
+
+
+def framed_page(page: httpx.Response) -> str:
+    """The page as a sandboxed frame on the site shows it: no scripts, frames or handlers, its addresses resolved against
+    the original (<base>), its links opened in a new tab. 502 for what is not the page: not HTML, a bot check, a login,
+    an app's empty shell (site_source.convert_page: its <noscript> asks for JavaScript or it has next to no words)."""
+    if "text/html" not in page.headers.get("content-type", ""):
+        raise HTTPException(status_code=502, detail="The site gave no page")
+    title, _, _, script = site_source.convert_page(page.text, str(page.url))
+    if site_source.WALL_TITLE.search(title):
+        raise HTTPException(status_code=502, detail="A bot check answered")
+    if PASSWORD.search(page.text):
+        raise HTTPException(status_code=502, detail="The page asks to sign in")
+    if script:
+        raise HTTPException(status_code=502, detail="The page needs its scripts")
+    soup = BeautifulSoup(page.content, "html.parser", from_encoding=page.charset_encoding)
+    for comment in soup.find_all(string=lambda text: isinstance(text, Comment)):
+        comment.extract()
+    for tag in soup.find_all(UNSHOWN):
+        tag.decompose()
+    for tag in soup.find_all("meta"):
+        if tag.get("http-equiv") or tag.get("charset"):
+            tag.decompose()
+    for tag in soup.find_all(True):
+        for name in [name for name in tag.attrs if name.lower().startswith("on")]:
+            del tag[name]
+        for name in ("href", "src", "action", "formaction", "xlink:href"):
+            if str(tag.get(name, "")).strip().lower().startswith("javascript:"):
+                del tag[name]
+        lazy = next((str(tag[name]) for name in LAZY if tag.get(name)), "")
+        if lazy and tag.name == "img":
+            tag["src"] = lazy
+        elif lazy and tag.get("data-original"):  # (Tilda: a block's picture is its background)
+            tag["style"] = f'{tag.get("style", "")};background-image:url("{lazy.replace(chr(34), "%22")}")'
+    head = soup.head
+    if head is None:
+        head = soup.new_tag("head")
+        (soup.html or soup).insert(0, head)
+    for tag in reversed([soup.new_tag("meta", attrs={"charset": "utf-8"}),
+                         soup.new_tag("meta", attrs={"http-equiv": "Content-Security-Policy", "content": PAGE_CSP}),
+                         soup.new_tag("base", attrs={"href": str(page.url), "target": "_blank"})]):
+        head.insert(0, tag)
+    return str(soup)
+
+
+@router.get("/html", response_class=Response, responses={
+    200: {"description": "The page without its scripts", "content": {"text/html": {}}},
+    404: {"description": "The knowledge base has no copy of the page"},
+    502: {"description": "The site gave no page that can be shown without its scripts"},
+    504: {"description": "The site did not answer in time"},
+})
+async def html_by_url(_auth: VerifiedDep, url: str) -> Response:
+    """The original of a page of the knowledge base, for a sandboxed frame on the site: the university's sites forbid showing
+    their pages in a frame of another site (X-Frame-Options: SAMEORIGIN) and give no CORS. Only pages the knowledge base
+    has a copy of: not a proxy to anywhere."""
+    if not await asyncio.to_thread(wiki_store.has_resource, url):
+        raise HTTPException(status_code=404, detail="Page not found")
+    try:
+        body = await asyncio.to_thread(framed_page, await download(url, same_host))
+    except TimeoutError:
+        raise HTTPException(status_code=504, detail="The site did not answer in time") from None
+    except httpx.HTTPError as error:
+        log.warning("html %s: %r", url, error)
+        raise HTTPException(status_code=502, detail="The site did not answer") from None
+    return Response(body, media_type="text/html", headers={
+        "Cache-Control": "private, max-age=3600",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "sandbox; " + PAGE_CSP,
     })
 
 

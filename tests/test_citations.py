@@ -45,16 +45,26 @@ def test_uncited_database_rows_are_not_read(monkeypatch):
 def test_chat_metadata_survives_database_resolution_and_live_messages(monkeypatch):
     date = datetime(2026, 11, 9, tzinfo=timezone.utc)
     row = SimpleNamespace(chat_title="Official chat", link=None, chat_link="https://t.me/official", date=date,
-                          sender_name="Author (forwarded by Other)", sender_link="https://t.me/author", chat_official=True)
+                          sender_name="Author (forwarded by Other)", sender_link="https://t.me/author", chat_official=True,
+                          text="Экзамен перенесён")
     monkeypatch.setattr(sources.store, "message_sources", lambda ids: {41: row})
     registry = {"m0": {"message_id": 41}, "m1": {"chat_title": "Live chat", "link": "https://t.me/live/1",
-                "date": date.isoformat(), "author": "Live author", "sender_link": "https://t.me/live_author"}}
+                "date": date.isoformat(), "author": "Live author", "sender_link": "https://t.me/live_author", "text": "Live text"}}
     result = sources.cite("First [m0], live [m1].", registry)
     first, live = result.sources
     assert (first.kind, first.url, first.date, first.author, first.author_url, first.official) == (
         "chat", row.chat_link, date, "Author", row.sender_link, True)
     assert (live.title, live.date, live.author, live.author_url, live.official) == (
         "Live chat", date, "Live author", "https://t.me/live_author", False)
+    assert first.text == "Экзамен перенесён" and live.text == "Live text"
+
+
+def test_a_chat_source_carries_the_message_for_a_preview_and_a_document_does_not():
+    live = {"chat_title": "Chat", "link": "https://t.me/c/1/2", "date": datetime(2026, 11, 9, tzinfo=timezone.utc).isoformat(), "author": "A"}
+    registry = {"m0": {**live, "text": "x" * (sources.MESSAGE_CHARS + 10)}, "m1": {**live, "link": "https://t.me/c/1/3"}, "m2": document()}
+    long, saved_before, rules = sources.cite("Long [m0], old [m1], rules [m2].", registry).sources
+    assert long.text == "x" * sources.MESSAGE_CHARS
+    assert saved_before.text is None and rules.text is None
 
 
 def test_archive_identity_includes_page_revision_and_member():

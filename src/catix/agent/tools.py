@@ -394,6 +394,7 @@ def search_userbot_chats(
                 date=hit.date,
                 author=hit.author,
                 sender_link=hit.sender_link,
+                text=hit.text,
             ),
             "chat": hit.chat_title,
             "official": hit.chat_id in official_ids,

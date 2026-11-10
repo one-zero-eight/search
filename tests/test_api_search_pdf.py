@@ -30,7 +30,7 @@ def site(monkeypatch):
         asked.append(str(request.url))
         return answers.get(str(request.url), httpx.Response(404))
 
-    monkeypatch.setattr(search, "pdf_http", lambda: httpx.AsyncClient(transport=httpx.MockTransport(handle), follow_redirects=False))
+    monkeypatch.setattr(search, "site_http", lambda: httpx.AsyncClient(transport=httpx.MockTransport(handle), follow_redirects=False))
     site = type("Site", (), {"answers": answers, "asked": asked})
     return site
 
@@ -72,6 +72,6 @@ def test_no_pdf_is_an_error(client, site):
 
 
 def test_a_document_too_big_is_not_given(client, site, monkeypatch):
-    monkeypatch.setattr(search, "PDF_MAX_BYTES", 10)
+    monkeypatch.setattr(search, "DOWNLOAD_MAX_BYTES", 10)
     site.answers[str(httpx.URL(DOC))] = pdf()
     assert client.get("/search/pdf", params={"url": DOC}, headers=AUTH).status_code == 502

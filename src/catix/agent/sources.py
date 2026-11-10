@@ -30,6 +30,7 @@ RUN_RE = re.compile(rf"{GROUP_RE.pattern}(?:[ \t]*{GROUP_RE.pattern})*")  # [m6]
 MAX_RUN = 5  # Sources at one place: a claim needs a few, and of 28 in a row ("что такое пчз?") none would be opened.
 FORWARDER_RE = re.compile(r"\s*\(forwarded by .*\)$")
 MAX_SOURCES = 300  # A very long conversation forgets its oldest sources (their refs are then dropped as unknown).
+MESSAGE_CHARS = 4096  # of a cited message go to its preview on the site: the longest Telegram message (a stored one may carry more)
 
 
 def merge_sources(left: dict | None, right: dict | None) -> dict:
@@ -80,8 +81,8 @@ class Collector:
     def add_db(self, message_id: int | None) -> str | None:
         return self._add(f"db:{message_id}", {"message_id": message_id}) if message_id else None
 
-    def add_live(self, chat_id: int, msg_id: int, *, chat_title: str, link: str | None, date: datetime, author: str | None, sender_link: str | None = None) -> str:
-        fields = {"chat_title": chat_title, "link": link, "date": date.isoformat(), "author": author, "sender_link": sender_link}
+    def add_live(self, chat_id: int, msg_id: int, *, chat_title: str, link: str | None, date: datetime, author: str | None, sender_link: str | None = None, text: str = "") -> str:
+        fields = {"chat_title": chat_title, "link": link, "date": date.isoformat(), "author": author, "sender_link": sender_link, "text": text}
         return self._add(f"live:{chat_id}:{msg_id}", fields)
 
     def add_wiki(self, hit) -> str:
@@ -146,7 +147,7 @@ def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
                 continue
             source = {
                 "chat_title": row.chat_title, "link": row.link or row.chat_link,
-                "date": row.date, "author": row.sender_name, "sender_link": row.sender_link, "official": row.chat_official,
+                "date": row.date, "author": row.sender_name, "sender_link": row.sender_link, "official": row.chat_official, "text": row.text,
             }
         resolved[ref] = source
 
@@ -193,4 +194,5 @@ def _source(number: int, source: dict) -> AnswerSource:
                             archive_document=source.get("archive_document"), official=trust == "official")
     return AnswerSource(number=number, title=source["chat_title"], url=source.get("link"), kind="chat",
                         date=source.get("date"), author=FORWARDER_RE.sub("", source.get("author") or "") or None,
-                        author_url=source.get("sender_link"), official=bool(source.get("official")))
+                        author_url=source.get("sender_link"), official=bool(source.get("official")),
+                        text=(source.get("text") or "")[:MESSAGE_CHARS] or None)

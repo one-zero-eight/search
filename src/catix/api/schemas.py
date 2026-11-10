@@ -143,14 +143,6 @@ class SearchResponses(BaseModel):
     "Assigned search query index"
 
 
-class PageText(BaseModel):
-    title: str
-    url: str
-    "Address of the original page."
-    text: str
-    "The page as markdown."
-
-
 class CalendarEventOffer(BaseModel):
     id: str
     "Pass it to POST /users/my-calendar/events/{proposal_id} to add the event to the user's calendar (for 48 hours)."

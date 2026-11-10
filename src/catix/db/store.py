@@ -658,7 +658,7 @@ def message_sources(ids: list[int]) -> dict[int, SourceRow]:
         rows = pg.rows(
             conn,
             SourceRow,
-            """SELECT m.id, m.date, m.sender_name, m.sender_link, m.link, c.link AS chat_link, c.official AS chat_official, c.title AS chat_title
+            """SELECT m.id, m.date, m.sender_name, m.sender_link, m.link, m.text, c.link AS chat_link, c.official AS chat_official, c.title AS chat_title
                FROM messages m JOIN chats c ON c.chat_id = m.chat_id WHERE m.id = ANY(%s::bigint[])""",
             (ids,),
         )

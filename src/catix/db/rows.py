@@ -53,6 +53,7 @@ class SourceRow:
     sender_name: str | None
     sender_link: str | None
     link: str | None
+    text: str
     chat_official: bool
     chat_link: str | None
     chat_title: str

@@ -37,6 +37,7 @@ class AnswerSource(BaseModel):
     date: datetime | None = None
     author: str | None = None
     author_url: str | None = None
+    text: str | None = None  # the cited chat message (kind `chat`), for its preview on the site
     official: bool = False
 
 
