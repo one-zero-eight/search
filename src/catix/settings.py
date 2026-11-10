@@ -227,7 +227,7 @@ class Settings(BaseSettings):
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
-    sites_file: Path = Path("sites.yaml")  # the catalog of the sites the documents are read from (docs/sources/sites.py)
+    sites_file: Path = Path("sites.yaml")  # the seed of the catalog of sites: `catix-docs sites catalog import` loads it into Postgres (docs/sources/sites.py)
     timezone: str = "Europe/Moscow"
 
     @field_validator("innohassle_events_api", "innohassle_clubs_api", mode="before")

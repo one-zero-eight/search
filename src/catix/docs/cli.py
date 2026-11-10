@@ -57,7 +57,7 @@ def parser() -> argparse.ArgumentParser:
         ("regs", "Official regulations", None, ("fetch", "refresh", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "refresh", "status")),
         ("papers", "Past exam papers", "status", ("fetch", "status")),
-        ("sites", "University and city sites", "status", ("fetch", "new", "status", "docs")),
+        ("sites", "University and city sites", "status", ("fetch", "new", "status", "docs", "catalog")),
     ):
         group = command(commands, name, about)
         actions_parser = group.add_subparsers(dest="action", required=default is None)
@@ -79,6 +79,16 @@ def parser() -> argparse.ArgumentParser:
                     leaf.add_argument("--only-new", action="store_true", help="Fetch only trusted-provider page links no run has read or tried lately")
                 elif action == "new":
                     leaf.add_argument("names", nargs="*", metavar="SITE")
+                elif action == "catalog":
+                    catalog = leaf.add_subparsers(dest="catalog_action", required=True)
+                    command(catalog, "import", "Replace the catalog with a file (sites.yaml)").add_argument("file", type=Path)
+                    command(catalog, "export", "Print the catalog as YAML")
+                    add = command(catalog, "add", "Add or replace a site")
+                    add.add_argument("name")
+                    add.add_argument("fields", nargs="+", metavar="KEY=VALUE", help="base=https://x/ language=ru about=... skip=''; lists as YAML")
+                    command(catalog, "remove", "Remove a site").add_argument("name")
+                    command(catalog, "block", "Never read a host").add_argument("host")
+                    command(catalog, "unblock", "Read a blocked host again").add_argument("host")
     return root
 
 

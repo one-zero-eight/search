@@ -30,14 +30,13 @@ def memory_files(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
-def site_catalog(tmp_path_factory, monkeypatch):
-    """Unit tests use a catalog in temporary data, never the sites.yaml of the repository."""
+def site_catalog(monkeypatch, memory_files):
+    """Unit tests use the catalog of tests/fixtures/sites.yaml in the in-memory files, never the one of the database."""
     from catix.docs.sources import sites
 
-    config = tmp_path_factory.mktemp("site-registry") / "sites.yaml"
-    config.write_bytes(Path(__file__).with_name("fixtures").joinpath("sites.yaml").read_bytes())
-    monkeypatch.setattr(sites, "CONFIG", config)
-    monkeypatch.setattr(sites, "_catalog_version", None)
+    sites.save_catalog(sites.read_yaml(Path(__file__).with_name("fixtures") / "sites.yaml"))
+    monkeypatch.setattr(sites, "CATALOG_TTL", 0.0)  # (a test that edits the catalog sees it at once)
+    monkeypatch.setattr(sites, "_catalog_raw", None)
     sites.reload_catalog()
 
 

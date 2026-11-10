@@ -28,7 +28,12 @@ docker compose -f docker-compose.prod.yml ps
 
 Сервис `docs` (`catix-docs run --loop`) опрашивает источники по расписанию, пишет только в Postgres и обслуживает заявки `POST /{section}/parse`. Образ содержит Chromium (сайты, которым нужен скрипт) и LibreOffice (Word/RTF в PDF). Сайт за входом (`profile` в `sites.yaml`) требует профиля Chromium с выполненным входом: скопируйте его в `/app/data/chromium-profile` тома `catix_data`; без него такие сайты падают, остальные обходятся.
 
-Каталог сайтов — `sites.yaml` в корне репозитория (попадает в образ). Новые сайты добавляются правкой этого файла и коммитом; автоматического поиска сайтов нет.
+Каталог сайтов лежит в Postgres (`source_files`, путь `catalog/sites.json`); `sites.yaml` в корне репозитория — только начальное содержимое. Загрузить его: `catix-docs sites catalog import sites.yaml`. Дальше каталог правится удалённо, без деплоя; процессы подхватывают изменения за 15 секунд:
+```bash
+docker compose -f docker-compose.prod.yml run --rm docs catix-docs sites catalog add lab base=https://lab.example/ language=en about='Lab' skip='' 'aliases=[old.lab.example]'
+docker compose -f docker-compose.prod.yml run --rm docs catix-docs sites catalog remove lab    # также block HOST, unblock HOST, export
+```
+Автоматического поиска сайтов нет.
 
 Первый запуск на существующей установке: `catix-db init` (один раз переименует таблицы `wiki_*` в `documents`/`document_chunks`/…, перепишет пути без `/raw/` и `.md`; векторы сохраняются), затем одноразовый импорт состояния прежней вики:
 ```bash

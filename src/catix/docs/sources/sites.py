@@ -120,23 +120,25 @@ class Site:
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
 
-CONFIG = settings.sites_file
+CATALOG = "catalog/sites.json"  # in source_files: {"sites": {name: record}, "blocked": [host, ...]}; `catix-docs sites catalog` edits it
+CATALOG_TTL = 15.0  # seconds a process trusts what it read: crawl.provider asks for the catalog for every link
 
 
-def load_config(path: Path | None = None) -> tuple[dict[str, dict[str, Any]], frozenset[str]]:
-    path = CONFIG if path is None else path
+def read_yaml(path: Path) -> dict[str, Any]:
+    """A catalog file (sites.yaml of the repository): the records by name, and the blocked hosts."""
     raw = cast(dict[str, Any], yaml.safe_load(path.read_text(encoding="utf-8")) or {})
-    return cast(dict[str, dict[str, Any]], raw.get("sites", raw)), frozenset(raw.get("blocked", ()))
+    return {"sites": raw.get("sites", {}), "blocked": list(raw.get("blocked", ()))}
 
 
-def load_sites(path: Path | None = None) -> dict[str, Site]:
-    """Load the trusted site catalog (sites.yaml in the repository)."""
-    raw, _ = load_config(path)
-    return {name: make_site(values) for name, values in raw.items()}
+def load_config() -> dict[str, Any]:
+    raw = files.read_json(CATALOG)
+    if not isinstance(raw, dict):
+        raise FileNotFoundError(f"the site catalog is empty: `catix-docs sites catalog import {settings.sites_file}`")
+    return raw
 
 
 def make_site(values: dict[str, Any]) -> Site:
-    """The typed settings of a site from its YAML record."""
+    """The typed settings of a site from its record."""
     names = {field.name for field in fields(Site)}
     tuple_fields = {"audience", "aliases", "feeds"}
     kwargs: dict[str, Any] = {key: tuple(value) if key in tuple_fields and isinstance(value, list) else value
@@ -144,33 +146,69 @@ def make_site(values: dict[str, Any]) -> Site:
     return Site(**kwargs)
 
 
-def load_blocked(path: Path | None = None) -> frozenset[str]:
-    return load_config(path)[1]
-
-
-
+def save_catalog(raw: dict[str, Any]) -> None:
+    """The catalog into the database; every record must make a Site, a bad one is refused before anything is written."""
+    sites = {str(name): dict(values) for name, values in raw.get("sites", {}).items()}
+    for name, values in sites.items():
+        try:
+            make_site(values)
+        except TypeError as error:
+            raise ValueError(f"site {name}: {error}") from None
+    files.write_json(CATALOG, {"sites": sites, "blocked": sorted(set(raw.get("blocked", ())))})
+    global _catalog_checked
+    _catalog_checked = 0.0
 
 
 SITES: dict[str, Site] = {}
 BLOCKED: frozenset[str] = frozenset()
-_catalog_version: tuple | None = None
+_catalog_raw: dict[str, Any] | None = None
+_catalog_checked = 0.0
 
 
 def reload_catalog() -> None:
-    """Refresh the approved snapshot when its data file changes, including a git checkout or another process's approval.
-    Imports never read or create data. Parsing is cached; readers check the file's identity before each operation."""
-    global BLOCKED, _catalog_version
-    try:
-        stamp = CONFIG.stat()
-    except FileNotFoundError:
-        raise FileNotFoundError(f"site catalog missing: {CONFIG}") from None
-    version = (CONFIG, stamp.st_dev, stamp.st_ino, stamp.st_mtime_ns, stamp.st_size)
-    if version != _catalog_version:
-        raw, blocked = load_config()
-        loaded = {name: make_site(values) for name, values in raw.items()}
+    """Refresh the snapshot when the catalog in the database changed (an edit from another machine); read again at most every
+    CATALOG_TTL seconds. Imports never read data."""
+    global BLOCKED, _catalog_raw, _catalog_checked
+    if _catalog_raw is not None and time.monotonic() - _catalog_checked < CATALOG_TTL:
+        return
+    raw = load_config()
+    _catalog_checked = time.monotonic()
+    if raw != _catalog_raw:
+        loaded = {name: make_site(values) for name, values in raw.get("sites", {}).items()}
         SITES.clear()
         SITES.update(loaded)
-        BLOCKED, _catalog_version = blocked, version
+        BLOCKED, _catalog_raw = frozenset(raw.get("blocked", ())), raw
+
+
+def catalog_main(args: Namespace) -> None:
+    """`catix-docs sites catalog import FILE | export | add NAME KEY=VALUE ... | remove NAME | block HOST | unblock HOST`."""
+    action = args.catalog_action
+    raw = files.read_json(CATALOG) or {"sites": {}, "blocked": []}
+    if action == "import":
+        save_catalog(read_yaml(args.file))
+        print(f"{len(read_yaml(args.file)['sites'])} sites imported from {args.file}")
+        return
+    if action == "export":
+        print(yaml.safe_dump(raw, allow_unicode=True, sort_keys=False), end="")
+        return
+    if action == "add":
+        record = {}
+        for pair in args.fields:
+            key, _, value = pair.partition("=")
+            if not _:
+                raise SystemExit(f"{pair!r}: write KEY=VALUE (base, language, about, skip, ...; a list or a number as YAML: aliases=[a.example])")
+            record[key] = yaml.safe_load(value)
+        raw["sites"][args.name] = record
+        raw["sites"][args.name].setdefault("skip", "")
+    elif action == "remove":
+        if raw["sites"].pop(args.name, None) is None:
+            raise SystemExit(f"no site {args.name}")
+    elif action == "block":
+        raw["blocked"] = [*raw.get("blocked", []), args.host]
+    elif action == "unblock":
+        raw["blocked"] = [h for h in raw.get("blocked", []) if h != args.host]
+    save_catalog(raw)
+    print(f"{len(raw['sites'])} sites, {len(raw['blocked'])} blocked hosts")
 
 
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
@@ -1526,5 +1564,7 @@ def main(args: Namespace) -> None:
         print(f"{fetch_new(args.names, documents=True)} pages new or changed and documents read")
     elif cmd == "status":
         status()
+    elif cmd == "catalog":
+        catalog_main(args)
     elif cmd == "docs":
         print(f"{collect_linked_docs()} documents added; `catix-docs regs fetch` downloads and reads them")

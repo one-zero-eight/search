@@ -19,7 +19,7 @@ def provider(url: str, *, page: bool = False) -> str | None:
     """The configured provider name for a safe URL, or None. Documents may use a provider's subdomains;
     HTML pages require an explicit site/alias and that site's page rules (the same rules as fetch_site).
 
-    SITES is the catalog sites.yaml of the repository, refreshed when the file changes.
+    SITES is the catalog of the database (sites.catalog_main edits it), read again every few seconds.
     """
     sites.reload_catalog()
     try:

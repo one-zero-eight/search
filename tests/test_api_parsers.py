@@ -79,7 +79,7 @@ def test_site_choices_come_from_the_configured_catalog(client):
 
 def test_api_reloads_approved_sites_after_external_catalog_change(client, parse_queue):
     assert "lab" not in {item["name"] for item in client.get("/sites", headers=AUTH).json()}
-    sites.CONFIG.write_text("blocked: []\nsites:\n  lab:\n    base: https://lab.example/\n    language: en\n    about: Lab\n    skip: ^private\n")
+    sites.save_catalog({"sites": {"lab": {"base": "https://lab.example/", "language": "en", "about": "Lab", "skip": "^private"}}})
     assert [item["name"] for item in client.get("/sites", headers=AUTH).json()] == ["lab"]
     response = client.post("/sites/parse?sites=lab", headers=AUTH)
     assert response.status_code == 202 and [r.sites for r in queued(parse_queue)] == [["lab"]]

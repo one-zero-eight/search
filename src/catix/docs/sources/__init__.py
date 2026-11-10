@@ -62,7 +62,7 @@ def _new_pages() -> int:
     to a week later at the run of `sites`. With them every trusted link no run has processed: the documents not read yet and
     the pages that cached pages and documents link (sites.unread_links); one that gave nothing waits sites.RETRY. The
     documents are read by their text layer alone: scans stay queued for a manual OCR run, so the OCR model need not be up
-    every 6 hours. The disclosure section is among the feeds of the university's site (sites.yaml): a document it
+    every 6 hours. The disclosure section is among the feeds of the university's site (the catalog of sites): a document it
     lists is in the search hours later, the course programmes of a new archive too (rpd.fetch)."""
     from catix.docs.sources import rpd, sites
 

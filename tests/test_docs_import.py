@@ -23,7 +23,7 @@ def test_only_the_sources_state_and_text_are_imported(tmp_path, monkeypatch, mem
     monkeypatch.setattr(build, "rebuild", lambda: rebuilt.append(1) or {})
     monkeypatch.setattr(import_wiki.store, "queued", lambda: 0)
     import_wiki.main(tmp_path)
-    assert sorted(memory_files.items) == ["regulations/x.txt", "sites/hotel/a.md", "sites/hotel/index.json"]
+    assert sorted(p for p in memory_files.items if not p.startswith("catalog/")) == ["regulations/x.txt", "sites/hotel/a.md", "sites/hotel/index.json"]
     assert files.read_json("sites/hotel/index.json") == {"pages": {}}
     assert rebuilt == [1]
 

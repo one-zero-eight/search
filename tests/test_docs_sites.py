@@ -1010,14 +1010,32 @@ def test_what_lives_in_the_attributes_of_an_element_is_read_as_the_page_writes_i
     assert ("https://vk.com/video-1_2", "▶ video") in links
 
 
-def test_catalog_reloads_after_another_process_changes_the_data_file(tmp_path, monkeypatch):
-    config = tmp_path / "sites.yaml"
-    monkeypatch.setattr(sites, "CONFIG", config)
-    monkeypatch.setattr(sites, "SITES", {})
-    config.write_text("blocked: []\nsites: {}\n")
+def test_catalog_reloads_after_another_process_changes_the_catalog():
+    sites.save_catalog({"sites": {}, "blocked": []})
     assert crawl.provider("https://lab.example/") is None
-    config.write_text("blocked: []\nsites:\n  lab:\n    base: https://lab.example/\n    language: en\n    about: Lab\n    skip: ''\n")
+    sites.save_catalog({"sites": {"lab": {"base": "https://lab.example/", "language": "en", "about": "Lab", "skip": ""}}})
     assert crawl.provider("https://lab.example/") == "lab"
-    config.write_text("blocked: [lab.example]\nsites: {}\n")
+    sites.save_catalog({"sites": {}, "blocked": ["lab.example"]})
     assert crawl.provider("https://lab.example/") is None
     assert "lab" not in sites.SITES
+
+
+def test_a_site_is_added_and_removed_from_the_command_line():
+    from argparse import Namespace
+
+    add = Namespace(catalog_action="add", name="lab", fields=["base=https://lab.example/", "language=en", "about=Lab", "aliases=[old.lab.example]"])
+    sites.catalog_main(add)
+    sites.reload_catalog()
+    assert sites.SITES["lab"].aliases == ("old.lab.example",)
+    sites.catalog_main(Namespace(catalog_action="remove", name="lab"))
+    sites.reload_catalog()
+    assert "lab" not in sites.SITES
+
+
+def test_a_record_that_makes_no_site_is_refused_and_nothing_is_written():
+    import pytest
+
+    before = sites.files.read_json(sites.CATALOG)
+    with pytest.raises(ValueError, match="lab"):
+        sites.save_catalog({"sites": {"lab": {"base": "https://lab.example/"}}})
+    assert sites.files.read_json(sites.CATALOG) == before
