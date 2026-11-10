@@ -6,7 +6,7 @@ innopolis.university/sveden among them): their text (kept in Postgres: source_fi
                                 # documents link and no run has read (sites.fetch, only_new) and their documents, until nothing new comes
                                 # (N: at most N documents, and no pages; --no-ocr: a scan is queued for a run with OCR, as the 6-hourly run does)
     catix-docs regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
-    catix-docs regs queue       # the OCR queue (every source's scans waiting for chandra) and the scans too long for it (ocr_queue.py)
+    catix-docs regs queue       # the OCR queue (every source's scans waiting for lighton) and the scans too long for it (ocr_queue.py)
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
 and the clause numbers stay, so that an answer can cite 'п. 5.3'. No model writes any of the page (compile_all). The originals live only in a temporary folder while a run reads them.
@@ -355,28 +355,28 @@ def queued() -> dict[str, int]:
 
 
 class NotRead(RuntimeError):
-    """chandra did not read a scan. `away`: its server is gone (not the scan's fault); else a page of it failed."""
+    """lighton did not read a scan. `away`: its server is gone (not the scan's fault); else a page of it failed."""
 
     def __init__(self, away: bool) -> None:
-        super().__init__("chandra's server went away" if away else "chandra could not read a page of it")
+        super().__init__("lighton's server went away" if away else "lighton could not read a page of it")
         self.away = away
 
 
 def ocr_text(pdf: Path) -> tuple[str, str]:
-    """(text, method) of a scan by chandra alone; NotRead leaves the scan queued for a later attempt."""
-    from catix.docs.sources import chandra
+    """(text, method) of a scan by lighton alone; NotRead leaves the scan queued for a later attempt."""
+    from catix.docs.sources import lighton
 
-    text = chandra.text_of_pdf(pdf)
+    text = lighton.text_of_pdf(pdf)
     if text is None or not text.strip():
-        raise NotRead(away=not chandra.available())
-    return text, chandra.METHOD
+        raise NotRead(away=not lighton.available())
+    return text, lighton.METHOD
 
 
 def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[Path], tuple[str, str]] | None = None) -> Iterator[tuple[T, Future]]:
     """The scans read several at once, each (scan, its future of `read`, ocr_text by default) as it is done. As many scans as the OCR server
-    has slots are open at a time, their pages in one queue (chandra.page_pool): a scan of 3 pages does not leave the other
+    has slots are open at a time, their pages in one queue (lighton.page_pool): a scan of 3 pages does not leave the other
     slots idle while it is read, as one at a time did (1Cat vLLM: 16.3 pages a minute at 16 at once, 11.8 at 6)."""
-    from catix.docs.sources import chandra
+    from catix.docs.sources import lighton
 
     pool, finished = ThreadPoolExecutor(settings.ocr_parallel, thread_name_prefix="scan"), False
     try:
@@ -386,7 +386,7 @@ def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[P
         finished = True
     finally:
         if not finished:  # a stopped run (Ctrl-C) does not wait for the scans and pages queued behind the ones being read
-            chandra.cancel_pages()
+            lighton.cancel_pages()
         pool.shutdown(wait=finished, cancel_futures=not finished)
 
 
@@ -407,7 +407,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
     layer gives too little of) is not read: it is queued (`"ocr": "queued"` in its note) for a run with OCR, which downloads it again
     and reads it; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
-    A scan chandra does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
+    A scan lighton does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
     is not queued: it is put aside (`"ocr": "too long"`), and no run reads it or asks its text layer again until the limit
     covers it or the file changes on the site (ocr_state; `catix-docs regs queue` lists them apart).
 
@@ -522,6 +522,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             old = {k: v for k, v in old.items() if k not in ("refetch", "failed", "tried_at")}
             files.write_json(meta, {**old, "title": d["title"], "url": d["url"], "ocr": state, "pages": pages, "remote": remote,
                                     "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more})
+            if state == QUEUED:
+                from catix.docs import ocr_worker
+                ocr_worker.wake()
 
         ocr_left, done, scans = OCR_BUDGET, list(removed), []
         with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
@@ -560,7 +563,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 text, method = future.result()
             except NotRead as e:
                 failed = item[5].get("ocr_failed", 0) + (not e.away)
-                print(f"{item[0]}: {e}: stays queued for the next run with OCR" + (f" (chandra failed on it {failed} times)" if failed else ""), flush=True)
+                print(f"{item[0]}: {e}: stays queued for the next run with OCR" + (f" (lighton failed on it {failed} times)" if failed else ""), flush=True)
                 queue(item, pages_of(item[3]), **({"ocr_failed": failed} if failed else {}))
                 continue
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
@@ -594,7 +597,7 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
 
 def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
     """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
-    `ocr` the scans are queued for a run with OCR; those chandra does not read stay queued too (_fetch_once).
+    `ocr` the scans are queued for a run with OCR; those lighton does not read stay queued too (_fetch_once).
 
     The existing SITES entries decide which providers and paths are trusted. A
     newly found document is persisted before the next pass, so an interrupted
@@ -674,7 +677,7 @@ def refresh(prefix: str = "") -> int:
 
 def to_markdown(text: str) -> str:
     """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables.
-    A text whose headings the OCR marked ('## 4 Процесс …', chandra) keeps them, and no line is guessed a chapter from its number:
+    A text whose headings the OCR marked ('## 4 Процесс …', lighton) keeps them, and no line is guessed a chapter from its number:
     the guess took '1. Начало процесса:' (an item of a list) for one and missed '4 Процесс …' (a chapter with no dot)."""
     out, para, table, made = [], [], [], []
     text = GLUED.sub(lambda m: f"{m.group(1) or m.group(2)} ", text)  # a clause's number glued to its words (the text layer, OCR)

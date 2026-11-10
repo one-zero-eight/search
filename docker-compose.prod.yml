@@ -131,6 +131,8 @@ services:
     environment:
       <<: *env
       CATIX_CHROMIUM_PROFILE: /app/data/chromium-profile
+      OCR_ROUTE: http://host.docker.internal:9931/v1   # LightOnOCR (llama.cpp) on the host; it must listen on an address the container reaches
+      OCR_PARALLEL: "4"
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:

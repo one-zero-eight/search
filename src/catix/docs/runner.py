@@ -16,6 +16,7 @@ OCR: the sources queue scans for a manual run with OCR and put aside those too l
 either grows, the admins are told in Telegram, of each scan once.
 Runs one at a time (an advisory lock of Postgres). Its state (when each source was asked, the scans the admins were told of,
 whether a rebuild is owed) is in docs_meta, key 'runner'. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
+Under `--loop` an OCR thread (ocr_worker.py) reads the scans the sources queue as they arrive, by LightOnOCR, and rebuilds.
 """
 
 import json
@@ -235,6 +236,9 @@ def main(args: Namespace) -> None:
     lock.autocommit = True
     if not lock.execute("SELECT pg_try_advisory_lock(%s) AS got", (LOCK_ID,)).fetchone()["got"]:
         sys.exit("another run of catix-docs is going on")
+    if args.loop:
+        from catix.docs import ocr_worker
+        ocr_worker.start()  # (the OCR queue is read as scans arrive, beside the sources)
     while True:
         started = datetime.now(timezone.utc)
         if requests := parse_requests.take():

@@ -6,7 +6,7 @@ Materials", Past Papers [EN programs]), with the subject, the year, the name of 
 
 Not an official source: the students collected the papers, a paper may be a variant or a reconstruction. The pages are
 made by code only (no model): the list of a subject's papers, newest first, each with a link to its row in Notion and the
-text of its file (the text layer; scans wait for a manual run with chandra, those over MAX_SCAN_PAGES are put aside:
+text of its file (the text layer; scans wait for a manual run with lighton, those over MAX_SCAN_PAGES are put aside:
 `catix-docs regs queue` shows both). They answer "what was on the exam", not "what are the rules".
 """
 
@@ -92,8 +92,8 @@ TOO_LONG_FOR_OCR = "scan too long for OCR"
 
 
 def read_pdf(path, ocr_left: int = 20) -> tuple[str | None, str]:
-    """The text layer, else chandra within the page budget. None means queued, or put aside when the scan is longer than
-    MAX_SCAN_PAGES (TOO_LONG_FOR_OCR); NotRead means chandra failed."""
+    """The text layer, else lighton within the page budget. None means queued, or put aside when the scan is longer than
+    MAX_SCAN_PAGES (TOO_LONG_FOR_OCR); NotRead means lighton failed."""
     pages = regulations.pages_of(path)
     text = subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True).stdout
     if len(re.findall(r"[^\W\d_]{3,}", text)) >= 15 * max(1, pages) or len(text.strip()) > 300 * pages:
@@ -152,6 +152,9 @@ def fetch(ocr: bool = True) -> int:
                     ocr_left -= pages
                 if text is None:
                     entry["files"][key] = {"name": name, "ocr": regulations.TOO_LONG if method == TOO_LONG_FOR_OCR else regulations.QUEUED, "pages": pages}
+                    if entry["files"][key]["ocr"] == regulations.QUEUED:
+                        from catix.docs import ocr_worker
+                        ocr_worker.wake()
                 else:
                     files.write_text(f"{ROOT}/{key}.txt", text)
                     entry["files"][key] = {"name": name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "method": method, "chars": len(text)}

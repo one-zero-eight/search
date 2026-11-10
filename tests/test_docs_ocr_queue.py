@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from catix.docs import files, runner
-from catix.docs.sources import chandra, ocr_queue, opendataloader, pastpapers, regulations, sites
+from catix.docs.sources import lighton, ocr_queue, opendataloader, pastpapers, regulations, sites
 
 LONG = regulations.MAX_OCR_PAGES + 1
 
@@ -37,7 +37,7 @@ def _one_scan(monkeypatch, tmp_path, pages):
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: pages)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: layers.append(pdf.name))  # (None: a scan)
-    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, chandra.METHOD))
+    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, lighton.METHOD))
     return key, asked, layers, read
 
 
@@ -85,7 +85,7 @@ def test_a_past_paper_too_long_for_ocr_is_put_aside(monkeypatch):
     monkeypatch.setattr(pastpapers.httpx, "Client", lambda **kw: contextlib.nullcontext(client))
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: pastpapers.MAX_SCAN_PAGES + 1)
     monkeypatch.setattr(pastpapers.subprocess, "run", lambda *a, **kw: SimpleNamespace(stdout=""))
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("a scan too long for OCR was read"))
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda *a, **kw: pytest.fail("a scan too long for OCR was read"))
     try:
         assert pastpapers.fetch() == 1 and pastpapers.load()["r1"]["files"][key]["ocr"] == "too long"
         assert pastpapers.fetch() == 0 and len(requests) == 1
@@ -118,7 +118,7 @@ def test_the_queue_shows_the_scans_waiting_and_apart_the_long_ones(monkeypatch, 
     ocr_queue.show(found)
     out = capsys.readouterr().out
     queue, apart = out.split("Too long for OCR")
-    assert queue.startswith("OCR queue: 2 scans, 5 pages") and "short" in queue and "chandra failed 2x" in queue and "regs fetch" in queue and "papers fetch" in queue
+    assert queue.startswith("OCR queue: 2 scans, 5 pages") and "short" in queue and "lighton failed 2x" in queue and "regs fetch" in queue and "papers fetch" in queue
     assert "long" not in queue and "p2" not in queue and "2 scans, 71 pages" in apart and "https://u.example/long.pdf" in apart
 
 
@@ -172,8 +172,8 @@ def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypat
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     up = [True]
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: None)
-    monkeypatch.setattr(chandra, "available", lambda: up[0])
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: None)
+    monkeypatch.setattr(lighton, "available", lambda: up[0])
     monkeypatch.setattr(regulations.subprocess, "run", lambda *a, **k: pytest.fail("another OCR engine was started"))
     note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
 
@@ -186,15 +186,15 @@ def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypat
         assert regulations.read_new() == []
         assert note()["ocr"] == "queued" and note()["ocr_failed"] == failed
         assert not files.exists(f"r/{key}.txt")
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: "1. Общие положения " * 50)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: "1. Общие положения " * 50)
     assert regulations.read_new() == [key]
-    assert "ocr" not in note() and note()["method"] == chandra.METHOD
+    assert "ocr" not in note() and note()["method"] == lighton.METHOD
 
 
 @pytest.mark.parametrize("text", [None, "", "  \n"])
 def test_an_unreadable_scan_is_not_successful_text(monkeypatch, tmp_path, text):
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: text)
-    monkeypatch.setattr(chandra, "available", lambda: True)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: text)
+    monkeypatch.setattr(lighton, "available", lambda: True)
     with pytest.raises(regulations.NotRead):
         regulations.ocr_text(tmp_path / "scan.pdf")
 

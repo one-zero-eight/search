@@ -10,7 +10,7 @@ import zipfile
 import httpx
 import pytest
 
-from catix.docs.sources import chandra, regulations, sites
+from catix.docs.sources import lighton, regulations, sites
 
 
 @pytest.mark.parametrize("extension", ["zip", "7z", "pdf"])
@@ -33,7 +33,7 @@ def test_real_archive_documents_reach_the_store_without_ocr(tmp_path, monkeypatc
     monkeypatch.setattr(sites, "SITES", {"unit": sites.Site("https://unit.example/", "en", "Unit", "^nothing$", sitemap=False)})
     monkeypatch.setattr(regulations, "DOCS", {})
     monkeypatch.setattr(regulations, "PAUSE", 0)
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("a text document called OCR"))
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda *a, **kw: pytest.fail("a text document called OCR"))
     work = tmp_path / "work"
     work.mkdir()
     monkeypatch.setattr(tempfile, "tempdir", str(work))

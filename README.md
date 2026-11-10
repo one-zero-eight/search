@@ -546,4 +546,4 @@ experiments/   скрипты оценки качества поиска и да
 - move exporting ai calendar to schedule system
 - add union groups (for example first year students groups)
 - remove legacy code and settings, db tables
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits for the LightOnOCR server (one slot). Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

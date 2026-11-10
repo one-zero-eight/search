@@ -173,11 +173,11 @@ def test_scans_are_read_several_at_once(monkeypatch):
 
 
 def test_the_pages_of_two_short_scans_are_read_side_by_side(monkeypatch, tmp_path):
-    """chandra reads the pages of every scan in one queue (page_pool): two scans of 2 pages have 4 pages in flight."""
+    """lighton reads the pages of every scan in one queue (page_pool): two scans of 2 pages have 4 pages in flight."""
     import threading
     from concurrent.futures import ThreadPoolExecutor
     from pathlib import Path
-    from catix.docs.sources import chandra, opendataloader
+    from catix.docs.sources import lighton, opendataloader
 
     monkeypatch.setattr(opendataloader, "corpus_words", lambda: frozenset())  # (the words of the stored documents: the database)
 
@@ -186,11 +186,11 @@ def test_the_pages_of_two_short_scans_are_read_side_by_side(monkeypatch, tmp_pat
             Path(f"{args[-1]}-{n}.png").write_bytes(b"")
 
     together = threading.Barrier(4, timeout=10)
-    monkeypatch.setattr(chandra, "available", lambda: True)
-    monkeypatch.setattr(chandra.subprocess, "run", pdftoppm)
-    monkeypatch.setattr(chandra, "read_page", lambda png: (together.wait(), f'<div data-label="Text"><p>{png.stem}</p></div>')[1])
+    monkeypatch.setattr(lighton, "available", lambda: True)
+    monkeypatch.setattr(lighton.subprocess, "run", pdftoppm)
+    monkeypatch.setattr(lighton, "read_page", lambda png: (together.wait(), png.stem)[1])
     with ThreadPoolExecutor(2) as scans:
-        texts = list(scans.map(chandra.text_of_pdf, [tmp_path / "a.pdf", tmp_path / "b.pdf"]))
+        texts = list(scans.map(lighton.text_of_pdf, [tmp_path / "a.pdf", tmp_path / "b.pdf"]))
     assert [t.split() for t in texts] == [["p-1", "p-2"], ["p-1", "p-2"]]
 
 
@@ -228,25 +228,22 @@ def test_a_short_table_of_data_is_worth_a_page_and_a_form_of_lines_is_not():
     assert not readable("Заявление\n\nФамилия ____ Имя ____ Отчество ____\n\nПодпись ____ Дата ____")
 
 
-def test_a_scan_as_chandra_reads_it_is_text_as_a_text_layer_is():
-    from catix.docs.sources.chandra import nodes_of
+def test_a_scan_as_lighton_reads_it_is_text_as_a_text_layer_is():
+    from catix.docs.sources.lighton import nodes_of
     from catix.docs.sources.opendataloader import text_of
 
-    page1 = ('<div data-bbox="1 1 9 9" data-label="Page-Header"><p>Положение о практике</p></div>'
-             '<div data-label="Section-Header"><h2><b>1. Общие положения</b></h2></div>'
-             '<div data-label="Table"><table border="1"><tr><th rowspan="2">Вид</th><th colspan="2">Сроки</th></tr>'
-             '<tr><td>начало</td><td>конец</td></tr><tr><td>учебная</td><td>1 июля</td><td>14 июля</td></tr></table></div>'
-             '<div data-label="Text"><p>1.1. Студент проходит практику в</p></div>'
-             '<div data-label="Image"><img alt="Official seal"/>Round seal of the university.</div>')
-    page2 = ('<div data-label="Page-Header">2</div><div data-label="Page-Header"><p>Положение о практике</p></div>'
-             '<div data-label="Text"><p>организации.</p></div>'
-             '<div data-label="List-Group"><ul><li>– отчёт;</li><li>– дневник.</li></ul></div>'
-             '<div data-label="Text"><p>Директор</p><img alt="Signature"/>A handwritten signature in black ink.<p>К.В. Семенихин</p></div>')
+    page1 = ("# 1. Общие положения\n\n"
+             '<table border="1"><tr><th rowspan="2">Вид</th><th colspan="2">Сроки</th></tr>'
+             "<tr><td>начало</td><td>конец</td></tr><tr><td>учебная</td><td>1 июля</td><td>14 июля</td></tr></table>\n\n"
+             "| Вид | Срок |\n| --- | --- |\n| итоговая | 1 августа |\n\n"
+             "1.1. Студент проходит практику в\n\n![image](image_1.png)")
+    page2 = "организации.\n\n- отчёт;\n- дневник.\n\nДиректор\n\n![image](image_2.png)\n\nК.В. Семенихин"
     text = text_of({"kids": nodes_of(page1) + nodes_of(page2)}, set())
     assert text.split("\n\n") == [
-        "Положение о практике", "1. Общие положения",
+        "1. Общие положения",
         "| Вид | Сроки |  |\n| --- | --- | --- |\n| Вид | начало | конец |\n| учебная | 1 июля | 14 июля |",
-        "1.1. Студент проходит практику в\nорганизации.", "– отчёт;", "– дневник.", "Директор", "К.В. Семенихин"]
+        "| Вид | Срок |\n| --- | --- |\n| итоговая | 1 августа |",
+        "1.1. Студент проходит практику в\nорганизации.", "- отчёт;\n- дневник.", "Директор", "К.В. Семенихин"]
 
 
 def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_waits(monkeypatch):
@@ -336,21 +333,16 @@ def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_docume
     assert asked == dead
 
 
-def test_the_headings_chandra_found_are_the_headings_of_the_page_and_none_is_guessed_from_a_number():
+def test_the_headings_lighton_found_are_the_headings_of_the_page_and_none_is_guessed_from_a_number():
     """The regulation of IT help: its chapter '4 Процесс …' has no dot, so the guess missed it, and took the items of a list
-    '1. Начало процесса:' for chapters; chandra's Section-Header blocks say which is which (their h2/h3/h4 do not). A section
-    of a chapter stays a clause, by its number, as the cards cite it."""
-    from catix.docs.sources.chandra import nodes_of
+    '1. Начало процесса:' for chapters; the '#' lines of the model say which is which. A section of a chapter stays a clause,
+    by its number, as the cards cite it."""
+    from catix.docs.sources.lighton import nodes_of
     from catix.docs.sources.opendataloader import text_of
     from catix.docs.sources.regulations import to_markdown
 
-    page = ('<div data-label="Text"><p>3.3.2 Списание техники.</p></div>'
-            '<div data-label="Section-Header"><h2><b>4 Процесс получения технической поддержки</b></h2></div>'
-            '<div data-label="Section-Header"><h4>4.1 Описание процесса</h4></div>'
-            '<div data-label="Text"><p>1. Начало процесса: возникшая необходимость в ИТ-поддержке.</p></div>'
-            '<div data-label="Text"><p>3. Результат процесса:</p></div>'
-            '<div data-label="List-Group"><ul><li>– заявка закрыта.</li></ul></div>'
-            '<div data-label="Section-Header"><h2>Приложение 1</h2></div>')
+    page = ("3.3.2 Списание техники.\n\n# 4 Процесс получения технической поддержки\n\n## 4.1 Описание процесса\n\n"
+            "1. Начало процесса: возникшая необходимость в ИТ-поддержке.\n\n3. Результат процесса:\n\n– заявка закрыта.\n\n# Приложение 1")
     md = to_markdown(text_of({"kids": nodes_of(page)}, set(), headings=True))
     assert md.split("\n\n") == ["**3.3.2** Списание техники.", "## 4 Процесс получения технической поддержки", "**4.1** Описание процесса",
                                 "1. Начало процесса: возникшая необходимость в ИТ-поддержке.", "3. Результат процесса:", "- – заявка закрыта.",
@@ -386,7 +378,7 @@ def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_a_run_with_it_which_d
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: layers.append(pdf.name))  # (None: too little text, a scan)
-    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, "ocr (chandra-ocr-2)"))
+    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, "ocr (LightOnOCR)"))
 
     assert regulations.read_new(ocr=False) == []
     meta = files.read_json(f"r/{key}.json")
@@ -395,7 +387,7 @@ def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_a_run_with_it_which_d
     assert not list(tmp_path.iterdir())  # (the original lived only in the run's temporary folder)
     assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and layers == [f"{key}.pdf"] and asked == [url, url]  # (the run with OCR downloads it again)
     meta = files.read_json(f"r/{key}.json")
-    assert "ocr" not in meta and meta["method"] == "ocr (chandra-ocr-2)" and meta["remote"]["etag"] == "v1" and "sha256" in meta
+    assert "ocr" not in meta and meta["method"] == "ocr (LightOnOCR)" and meta["remote"]["etag"] == "v1" and "sha256" in meta
     assert files.read_text(f"r/{key}.txt").startswith("1. Общие положения") and not list(tmp_path.iterdir())
     assert regulations.read_new() == [] and asked == [url, url]  # (read: nothing more)
 

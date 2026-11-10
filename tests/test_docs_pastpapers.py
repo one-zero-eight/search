@@ -7,7 +7,7 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from catix.docs.sources import chandra, pastpapers, regulations
+from catix.docs.sources import lighton, pastpapers, regulations
 
 SCHEMA = {"GXY<": {"name": "Subject", "type": "select"}, "Isak": {"name": "File", "type": "file"}, "M_lr": {"name": "Year", "type": "select"},
           "title": {"name": "Exam", "type": "title"}}
@@ -56,7 +56,7 @@ def test_a_subject_is_one_page_newest_paper_first(memory_files):
     assert f"({pastpapers.SITE}/a)" in doc.body  # the row in Notion: the file's own link expires
 
 
-def test_paper_scans_use_only_chandra(monkeypatch, tmp_path):
+def test_paper_scans_use_only_lighton(monkeypatch, tmp_path):
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 2)
 
     def text_layer(args, **kwargs):
@@ -64,10 +64,10 @@ def test_paper_scans_use_only_chandra(monkeypatch, tmp_path):
         return SimpleNamespace(stdout="")
 
     monkeypatch.setattr(pastpapers.subprocess, "run", text_layer)
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: "Find the determinant")
-    assert pastpapers.read_pdf(tmp_path / "exam.pdf") == ("Find the determinant", chandra.METHOD)
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: None)
-    monkeypatch.setattr(chandra, "available", lambda: False)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: "Find the determinant")
+    assert pastpapers.read_pdf(tmp_path / "exam.pdf") == ("Find the determinant", lighton.METHOD)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: None)
+    monkeypatch.setattr(lighton, "available", lambda: False)
     with pytest.raises(regulations.NotRead):
         pastpapers.read_pdf(tmp_path / "exam.pdf")
 
@@ -77,7 +77,7 @@ def test_paper_scans_use_only_chandra(monkeypatch, tmp_path):
 def test_paper_scans_respect_disabled_ocr_and_page_limits(monkeypatch, tmp_path, pages, budget, why):
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: pages)
     monkeypatch.setattr(pastpapers.subprocess, "run", lambda *a, **kw: SimpleNamespace(stdout=""))
-    monkeypatch.setattr(chandra, "text_of_pdf", lambda *a, **kw: pytest.fail("OCR ran outside its budget"))
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda *a, **kw: pytest.fail("OCR ran outside its budget"))
     assert pastpapers.read_pdf(tmp_path / "exam.pdf", ocr_left=budget) == (None, why)
 
 
@@ -98,8 +98,8 @@ def test_paper_queue_downloads_a_scan_again_only_for_a_run_with_ocr(monkeypatch,
         attempts.append(pdf)
         return None
 
-    monkeypatch.setattr(chandra, "text_of_pdf", unavailable)
-    monkeypatch.setattr(chandra, "available", lambda: False)
+    monkeypatch.setattr(lighton, "text_of_pdf", unavailable)
+    monkeypatch.setattr(lighton, "available", lambda: False)
     try:
         assert pastpapers.fetch(ocr=False) == 1
         assert pastpapers.load()["r1"]["files"][key]["ocr"] == "queued"
@@ -108,10 +108,10 @@ def test_paper_queue_downloads_a_scan_again_only_for_a_run_with_ocr(monkeypatch,
         assert pastpapers.fetch() == 0  # a run with OCR downloads it again; unavailable: still queued, not permanently skipped
         assert len(attempts) == 1 and len(requests) == 2 and layers == ["pdftotext"]
         assert pastpapers.load()["r1"]["files"][key]["ocr"] == "queued"
-        monkeypatch.setattr(chandra, "text_of_pdf", lambda pdf: "Find the determinant")
+        monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf: "Find the determinant")
         assert pastpapers.fetch() == 1
         note = pastpapers.load()["r1"]["files"][key]
-        assert "ocr" not in note and note["method"] == chandra.METHOD
+        assert "ocr" not in note and note["method"] == lighton.METHOD
         assert memory_files.read_text(f"past-papers/{key}.txt") == "Find the determinant"
         assert pastpapers.fetch() == 0 and len(requests) == 3  # read: not downloaded any more
         assert list(tmp_path.iterdir()) == []  # the originals are gone with their temporary folder
