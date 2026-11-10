@@ -20,9 +20,10 @@ SOURCE_OF = {"wiki": "eduwiki", "eduwiki": "eduwiki", "sites": "sites", "resourc
 class ParseRequest(BaseModel):
     id: str
     section: str
-    source: Literal["eduwiki", "sites"]
-    sites: list[str] = Field(default_factory=list, description="The sites the run reads (names of GET /sites)")
+    source: Literal["eduwiki", "sites", "new-site"]
+    sites: list[str] = Field(default_factory=list, description="The sites the run reads (names of GET /sites); new-site: the name it gets")
     parsing: bool = Field(True, description="False: no source is asked, the run rebuilds the documents from the data it holds")
+    url: str = Field("", description="new-site: the base of the site the run adds to the catalog")
     status: Literal["queued", "running", "done", "failed"]
     outcome: Literal["", "changed", "unchanged", "error"] = Field(
         "", description="done: changed (the search has the new documents) or unchanged; failed: error")
@@ -96,6 +97,27 @@ def run_parse_route(
         raise HTTPException(400, "Enable parsing or indexing")
     try:
         request = parse_requests.submit(section, SOURCE_OF[section], names, parsing_is_needed)
+    except parse_requests.Unavailable as e:
+        raise HTTPException(503, str(e)) from None
+    return ParseRequest.of(request)
+
+
+@router.post("/sites/new", status_code=202, tags=["Parsers"], responses={
+    400: {"description": "Not an address of a site, a blocked host, a site the catalog has, or a name taken"},
+    401: {"description": "Unauthorized"},
+    503: {"description": "The queue of the docs run (Redis) is not configured or does not answer"},
+})
+def request_new_site_route(
+    _auth: VerifiedDep,
+    url: str = Query(..., description="The site's address: https://host/"),
+    name: str | None = Query(None, description="Its name in the catalog; the host with dashes when omitted"),
+) -> ParseRequest:
+    """Queue a new site for `catix-docs run`: the run adds it to the catalog, reads it and its documents, and says in the
+    request (GET /parse/{id}) and to the admins what it read and what went wrong. A site the catalog has: /sites/parse."""
+    try:
+        request = site_source.request_new_site(url, name)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from None
     except parse_requests.Unavailable as e:
         raise HTTPException(503, str(e)) from None
     return ParseRequest.of(request)

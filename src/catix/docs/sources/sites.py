@@ -214,6 +214,86 @@ def catalog_main(args: Namespace) -> None:
     print(f"{len(raw['sites'])} sites, {len(raw['blocked'])} blocked hosts")
 
 
+NEW_SITE_SKIP = r"^(tilda|members)/|(^|/)((\w+[-_])?form|thank_?you\w*|test\w*|\w+_test)$"  # (the skip of the sites the wiki's run found)
+
+
+def new_site_record(url: str, name: str | None = None) -> tuple[str, dict[str, Any]]:
+    """The name and the catalog record of a site asked for by a request (POST /sites/new, `catix-docs sites request`): the
+    template of the sites the wiki's run found (Tilda's skip, 30 pages, robots.txt, 3 s between requests). The name is the host
+    with dashes ('digitalinnopolisdays-ru') unless one is given. Raises ValueError: not an address of a site, a blocked host,
+    a host the catalog has (its name: read it again with /sites/parse), a name taken or not of [a-z0-9-]."""
+    from catix.docs.sources import crawl
+
+    reload_catalog()
+    try:
+        parts = urlsplit(url.strip())
+        host = (parts.hostname or "").lower().rstrip(".")
+    except ValueError:
+        host, parts = "", None
+    if not parts or parts.scheme not in ("http", "https") or not host or "." not in host:
+        raise ValueError(f"{url!r} is not the address of a site: https://host/")
+    if any(host == b or host.endswith("." + b) for b in BLOCKED):
+        raise ValueError(f"{host} is blocked")
+    if known := next((other for other, site in SITES.items() if host in crawl._site_hosts(site)), None):
+        raise ValueError(f"{host} is in the catalog already: {known} (POST /sites/parse?sites={known} reads it again)")
+    name = name or re.sub(r"^www-", "", host.replace(".", "-"))
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", name):
+        raise ValueError(f"{name!r} is not a name of a site: a-z, 0-9 and dashes")
+    if name in SITES:
+        raise ValueError(f"the name {name} is taken: {SITES[name].base}")
+    return name, {"base": f"{parts.scheme}://{host}/", "language": "ru", "about": f"{host}, added by a request",
+                  "skip": NEW_SITE_SKIP, "max_pages": 30, "robots": True, "pause": 3}
+
+
+def request_new_site(url: str, name: str | None = None) -> "parse_requests.Request":
+    """Queue a request for a new site (the run adds and reads it). Raises ValueError (new_site_record) or parse_requests.Unavailable."""
+    from catix.docs import parse_requests
+
+    name, record = new_site_record(url, name)
+    return parse_requests.submit("sites", "new-site", [name], url=record["base"])
+
+
+@dataclass
+class NewSite:
+    name: str
+    base: str
+    pages: int  # read and kept
+    documents: int  # the documents its pages link, read
+    problems: Counter  # why an address gave no page (the index's `tried`, addresses cut out) -> how many
+
+    def report(self) -> str:
+        what = f"{self.name} ({self.base}): {self.pages} pages read, {self.documents} documents"
+        return what + (f"; not read: {', '.join(f'{n}× {why}' for why, n in self.problems.most_common())}" if self.problems else "")
+
+
+def read_new_site(url: str, name: str | None = None) -> NewSite:
+    """Add the site of a request to the catalog and read it whole, and the documents its pages link (text layers only). Only the
+    site: the pages of other sites of the catalog it links are not read (no waves; the weekly run and the run of new links reach
+    them). It stays in the catalog whatever the read brings: what went wrong is the report's, to be handled later (skip, render,
+    profile, ...)."""
+    name, record = new_site_record(url, name)
+    raw = load_config()
+    raw["sites"][name] = record
+    save_catalog(raw)
+    reload_catalog()
+    no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # (as fetch: every page as a new visitor sees it)
+    with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
+        try:
+            fetch_site(name, SITES[name], client, run=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+        finally:
+            close_live()
+    documents = regulations.read_new(prefixes=(f"site-{name}-",), ocr=False)
+    index = load(name)
+    pages = sum(not page.get("gone") for page in index["pages"].values())
+    problems = Counter(re.sub(r"https?://\S+", "…", mark["why"])[:80] for mark in index.get("tried", {}).values())
+    if title := index["pages"].get("home", {}).get("title"):
+        raw = load_config()
+        raw["sites"][name] = {**raw["sites"][name], "about": f"{record['about']}: {title}"}  # (as the wiki's run named its sites)
+        save_catalog(raw)
+        reload_catalog()
+    return NewSite(name, record["base"], pages, len(documents), problems)
+
+
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
 RENDER_WAIT = 15  # seconds: the longest the browser gives a page's scripts to fill it
 RENDER_IDLE = 5  # seconds of it the browser waits for the page's requests to end (an app asks for its data after it loaded; Tilda's counters never end)
@@ -954,6 +1034,12 @@ def unread_links(names: list[str] | None = None) -> dict[str, set[str]]:
     return found
 
 
+def wave_reads(name: str) -> bool:
+    """Whether a wave of new links enters a site: not behind a login (the person's browser once a week) and read whole once (the
+    weekly run reads a new site whole, not 50 pages)."""
+    return not SITES[name].profile and files.exists(f"{ROOT}/{name}/index.json")
+
+
 def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
     """host -> the links of cached pages of `names` (every site when None) to hosts that no site of the catalog covers and that
     are not blocked: the places the sites send to and no run goes (a link to a site's own host that its `skip` refuses is no
@@ -970,7 +1056,7 @@ def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
             host = (urlsplit(link).hostname or "").lower().rstrip(".")
         except ValueError:
             return None
-        if not host or any(host == b or host.endswith("." + b) for b in BLOCKED) or any(host == h or host.endswith("." + h) for h in ours):
+        if not host or any(host == b or host.endswith("." + b) for b in BLOCKED) or host in ours:
             return None
         return host
 
@@ -989,12 +1075,12 @@ def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
 
 def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
     """provider -> the links of cached pages of `names` (every site when None) to files of trusted sites (crawl.provider: a PDF,
-    a Word file, an archive) that are not among the documents read: no document of regulations.all_docs has the address, or
-    its text is not there yet (regs fetch downloads it)."""
+    a Word file, an archive) that a run of documents still has to read: not registered, or regulations.settled_doc is false
+    (regs fetch downloads it)."""
     from catix.docs.sources import crawl
 
     reload_catalog()
-    read = {canonical(d["url"]) for key, d in regulations.all_docs().items() if files.exists(f"{d['root']}/{key}.txt")}
+    docs = {canonical(d["url"]): (key, d) for key, d in regulations.all_docs().items() if not d.get("member")}
     judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
     found: dict[str, set[str]] = {}
     for source in names or list(SITES):
@@ -1004,7 +1090,7 @@ def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
             for raw in crawl.PAGE.findall(files.read_text(path) or ""):
                 link = canonical(raw.rstrip(crawl.TRAILING))
                 if link not in judged:
-                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and link not in read else None
+                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and not ((kd := docs.get(link)) and regulations.settled_doc(*kd)) else None
                 if name := judged[link]:
                     found.setdefault(name, set()).add(link)
     return found
@@ -1026,6 +1112,14 @@ def unvisited(names: list[str] | None = None, summary: bool = False, only: str |
             if not summary:
                 for url in sorted(urls):
                     print(f"    {url}")
+
+
+def backlog() -> int:
+    """How many of the links `unvisited --known` shows a run of new links reads now: the pages of unread_links on the sites a
+    wave enters (wave_reads) and the files of unread_files. 0: nothing to ask."""
+    reload_catalog()
+    pages = sum(len(urls) for name, urls in unread_links().items() if name in SITES and wave_reads(name))
+    return pages + sum(map(len, unread_files().values()))
 
 
 def known_urls(index: dict) -> set[str]:
@@ -1287,7 +1381,7 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
             urls = urls - visited  # (read since the link was found: by its site's run)
             if name in whole:
                 return sorted(urls)
-            if SITES[name].profile or not files.exists(f"{ROOT}/{name}/index.json"):
+            if not wave_reads(name):
                 return []
             known = settled(load(name))
             return sorted(url for url in urls if address(url) not in known)
@@ -1348,7 +1442,7 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
     if unknown := [n for n in names or [] if n not in SITES]:
         sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
     run = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    readable = {name for name, site in SITES.items() if not site.profile and files.exists(f"{ROOT}/{name}/index.json")}
+    readable = {name for name in SITES if wave_reads(name)}
     wave = {name: entries(SITES[name]) for name in SITES if name in readable and (not names or name in names)}
     feeds = set(wave)
     backlog = {name: sorted(urls) for name, urls in unread_links(names).items() if name in readable}
@@ -1468,6 +1562,8 @@ def collect_linked_docs() -> int:
 
 def docs() -> dict[str, dict]:
     """The documents the sites link, as regulations.all_docs wants them. A file several sites link is one document (owner), not one a site."""
+    from catix.docs.sources import crawl
+
     reload_catalog()
     copies: dict[str, list[tuple[str, str, dict]]] = {}
     for name, site in SITES.items():
@@ -1475,6 +1571,8 @@ def docs() -> dict[str, dict]:
         unlisted = {url: mark for url, mark in index.get("unlisted", {}).items() if url not in index["docs"]
                     and any(files.exists(f"{ROOT}/{name}/docs/{doc_key(name, url)}{end}") for end in (".txt", ".archive.json"))}  # (one never read has nothing to keep)
         for url, anchor in [*index["docs"].items(), *((url, mark["anchor"]) for url, mark in unlisted.items())]:
+            if crawl.provider(url) is None:
+                continue  # (a subdomain or a host blocked since: not the catalog's)
             file = unquote(urlsplit(url).path.rsplit("/", 1)[-1])
             stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
             if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
@@ -1680,6 +1778,12 @@ def main(args: Namespace) -> None:
         print(f"{fetch(args.names, only_new=only_new, documents=not only_new)} pages new, changed or gone" + ("" if only_new else " and documents read"))
     elif cmd == "new":
         print(f"{fetch_new(args.names, documents=True)} pages new or changed and documents read")
+    elif cmd == "request":
+        try:
+            request = request_new_site(args.url, args.name)
+        except ValueError as e:
+            raise SystemExit(str(e)) from None
+        print(f"request {request.describe()} queued: `catix-docs run` adds and reads it")
     elif cmd == "status":
         status()
     elif cmd == "unvisited":

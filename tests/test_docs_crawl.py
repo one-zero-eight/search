@@ -21,7 +21,8 @@ def test_existing_providers_and_skip_rules_are_the_policy(providers):
     assert crawl.provider("https://a.example/news") == "a"
     assert crawl.provider("https://old-a.example/news") == "a"
     assert crawl.provider("https://b.example/news") == "b"
-    assert crawl.provider("https://child.a.example/news") == "a"
+    assert crawl.provider("https://child.a.example/news") is None
+    assert crawl.provider("https://child.a.example/rules.pdf") is None  # (a document on a subdomain is not a's either)
     assert crawl.provider("https://other.example/") == "other"
     assert crawl.provider("https://unknown.example/") is None
     assert crawl.provider("https://unknown.innopolis.university/") is None

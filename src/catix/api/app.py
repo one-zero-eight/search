@@ -7,6 +7,7 @@
     PATCH /ask/chats/{id}                  the user renames a chat (the model names it by its first question)
     DELETE /ask/chats/{id}                 the user deletes a chat with the agent's memory of it
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
+    POST /sites/new                      a new site for the wiki's run (Redis queue)
     GET  /users/my-calendar.ics          the user's personal calendar (the events they added under the answers)
     POST /users/my-calendar/events/{id}  the "➕ В мой календарь" button under an answer of /ask/ (its calendar_events)
 """

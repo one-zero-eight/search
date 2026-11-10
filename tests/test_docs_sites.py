@@ -468,6 +468,26 @@ def test_a_wave_of_the_weekly_run_reads_what_the_run_has_not_read_and_keeps_a_pa
         assert not any("missing" in pages[slug] or pages[slug].get("gone") for slug in ("hidden", "deeper"))
 
 
+def test_a_new_site_is_read_alone_and_says_what_it_could_not_read(monkeypatch):
+    from catix.docs.sources import regulations
+
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    monkeypatch.setattr(sites.time, "sleep", lambda s: None)
+    read = []
+    monkeypatch.setattr(regulations, "read_new", lambda **kw: read.append(kw) or [])
+    web = Web({"new.example": {"/": ["/a/", "/gone/", "https://hotel.innopolis.university/rules/"], "/a/": []}})
+    web.serve(monkeypatch)
+    found = sites.read_new_site("https://new.example/x")
+    assert found.name == "new-example" and found.pages == 2
+    assert "404" in found.report() and "0 documents" in found.report()
+    assert {host for host, _ in web.asked} == {"new.example"}
+    assert read == [{"prefixes": ("site-new-example-",), "ocr": False}]
+    assert sites.SITES["new-example"].base == "https://new.example/"
+    assert sites.SITES["new-example"].about.startswith("new.example, added by a request: ")
+    with pytest.raises(ValueError, match="in the catalog already: new-example"):
+        sites.new_site_record("https://new.example/")
+
+
 def test_the_run_of_new_pages_reads_the_feeds_and_what_is_new_there_on_any_trusted_site(monkeypatch):
     monkeypatch.setattr(sites, "PAUSE", 0)
     unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=True)  # (no feed: its start page is one)

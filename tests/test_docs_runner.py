@@ -1,16 +1,16 @@
 """The queue of the API's requests to the run of catix-docs (parse_requests.py) and how the run serves them (runner.py), in memory."""
 
-from datetime import datetime, timedelta, timezone
+from collections import Counter
+from datetime import timedelta
 
 import pytest
 
 from argparse import Namespace
 
 from catix.docs import build, parse_requests, runner, sources, store
+from catix.docs.sources import sites as site_source
 from catix.docs.parse_requests import Request
 
-NOW = datetime(2026, 11, 4, 12, tzinfo=timezone.utc)
-NOTHING_DUE = {"asked": {s.name: NOW.isoformat() for s in sources.SOURCES}}
 JUST_ASKED = {"asked": {s.name: "2999-01-01T00:00:00+00:00" for s in sources.SOURCES}}  # (due for no clock)
 
 
@@ -56,25 +56,19 @@ def test_only_known_sources_are_queued():
         parse_requests.submit("moodle", "moodle", [])
 
 
-def test_requests_add_their_sources_to_the_due_ones():
-    assert runner.with_requests(None, None, [], NOTHING_DUE, NOW) == (None, None)
-    assert runner.with_requests(None, None, [request("eduwiki")], NOTHING_DUE, NOW) == (["eduwiki"], None)
-    due = {"asked": {**NOTHING_DUE["asked"], "papers": (NOW - timedelta(days=8)).isoformat()}}
-    assert runner.with_requests(None, None, [request("sites", ["hotel"])], due, NOW) == (["papers", "sites"], ["hotel"])
+def test_requests_ask_only_their_own_sources():
+    assert runner.with_requests([request("eduwiki")]) == (["eduwiki"], None)
+    assert runner.with_requests([request("sites", ["hotel"])]) == (["sites"], ["hotel"])
 
 
 def test_sites_of_several_requests_are_read_together_and_every_site_wins():
     two = [request("sites", ["hotel"]), request("sites", ["campuslife", "hotel"])]
-    assert runner.with_requests(None, None, two, NOTHING_DUE, NOW) == (["sites"], ["hotel", "campuslife"])
-    assert runner.with_requests(["sites"], None, two, NOTHING_DUE, NOW) == (["sites"], None)  # (--source sites reads every site)
-    assert runner.with_requests(["sites"], ["media"], two, NOTHING_DUE, NOW) == (["sites"], ["media", "hotel", "campuslife"])
-    weekly = {"asked": {**NOTHING_DUE["asked"], "sites": (NOW - timedelta(days=8)).isoformat()}}
-    assert runner.with_requests(None, None, two, weekly, NOW) == (["sites"], None)
+    assert runner.with_requests(two) == (["sites"], ["hotel", "campuslife"])
+    assert runner.with_requests([request("sites"), request("sites", ["hotel"])]) == (["sites"], None)
 
 
 def test_a_request_without_parsing_asks_no_source():
-    assert runner.with_requests(None, None, [request("sites", ["hotel"], parsing=False)], NOTHING_DUE, NOW) == (["build-only"], None)
-    assert runner.with_requests(["eduwiki"], None, [request("sites", ["hotel"], parsing=False)], NOTHING_DUE, NOW) == (["eduwiki"], None)
+    assert runner.with_requests([request("sites", ["hotel"], parsing=False)]) == (["build-only"], None)
 
 
 def test_a_request_whose_source_failed_fails(parse_queue):
@@ -133,9 +127,10 @@ def test_the_run_serves_the_request_with_what_it_did(parse_queue, monkeypatch, l
     asked = parse_requests.submit("sites", "sites", ["hotel"])
     calls = []
     monkeypatch.setattr(runner, "load_state", lambda: JUST_ASKED)
-    monkeypatch.setattr(runner, "run_once", lambda names, sites=None: calls.append((names, sites)) or runner.Outcome("unchanged", "nothing new"))
+    monkeypatch.setattr(runner, "run_once", lambda names=None, sites=None, backlog=False, wait_for=None:
+                        calls.append((names, sites, backlog)) or runner.Outcome("unchanged", "nothing new"))
     runner.main(args())
-    assert calls == [(["sites"], ["hotel"])]
+    assert calls == [(["sites"], ["hotel"], False), (None, None, True)]
     done = parse_requests.get(asked.id)
     assert (done.status, done.outcome, done.result) == ("done", "unchanged", "nothing new")
 
@@ -143,7 +138,8 @@ def test_the_run_serves_the_request_with_what_it_did(parse_queue, monkeypatch, l
 def test_site_option_is_the_source_sites_limited(monkeypatch, lock):
     calls = []
     monkeypatch.setattr(runner, "load_state", lambda: JUST_ASKED)
-    monkeypatch.setattr(runner, "run_once", lambda names, sites=None: calls.append((names, sites)) or runner.Outcome("unchanged", "x"))
+    monkeypatch.setattr(runner, "run_once", lambda names=None, sites=None, backlog=False, wait_for=None:
+                        calls.append((names, sites)) or runner.Outcome("unchanged", "x"))
     runner.main(args(site=["hotel", "campuslife"]))
     runner.main(args(build=True))
     assert calls == [(["sites"], ["hotel", "campuslife"]), (["build-only"], None)]
@@ -217,6 +213,22 @@ def test_a_failed_source_does_not_stop_the_others_and_is_named(monkeypatch):
     assert run.asked == ["eduwiki", "papers"] and "eduwiki" not in run.state["asked"] and "papers" in run.state["asked"]
 
 
+def test_a_waiting_request_is_next_after_the_source_that_runs(monkeypatch):
+    run = Run(monkeypatch, {"pages new": 1}, {"eduwiki": 3, "papers": 2})
+    line = runner.run_once(["eduwiki", "papers"], wait_for=lambda: True)
+    assert line.kind == "deferred" and "papers" in line
+    assert run.asked == ["eduwiki"] and run.built == 0
+    assert run.state["rebuild"] is True
+    assert "eduwiki" in run.state["asked"] and "papers" not in run.state["asked"]
+
+
+def test_the_backlog_runs_before_the_due_sources(monkeypatch):
+    run = Run(monkeypatch, {}, {"eduwiki": 0})
+    monkeypatch.setattr(sources, "BACKLOG", sources.Source("unvisited", timedelta(0), lambda: run.asked.append("unvisited") or 0, "x"))
+    runner.run_once(backlog=True)
+    assert run.asked == ["unvisited", "eduwiki"] and "unvisited" not in run.state["asked"]
+
+
 def test_the_sleep_of_the_loop_ends_for_a_request(monkeypatch):
     slept = []
     monkeypatch.setattr(runner.time, "sleep", lambda s: slept.append(s) or (len(slept) == 2 and parse_requests.submit("eduwiki", "eduwiki", [])))
@@ -238,3 +250,27 @@ def test_named_sites_are_read_as_the_weekly_source_without_its_schedule(monkeypa
     assert source.update() == 3
     assert asked == [("refresh", "site-hotel-"), ("fetch", ["hotel"], {"documents": True, "ocr": False})]
     assert sources.sites_of(["gone"]).update() == 0  # (never sites.fetch with a name it does not know: it would exit)
+
+
+def test_a_new_site_request_says_what_went_wrong(parse_queue, monkeypatch, lock):
+    told = []
+    monkeypatch.setattr(runner, "tell_admins", told.append)
+    monkeypatch.setattr(runner, "load_state", lambda: JUST_ASKED)
+    monkeypatch.setattr(sources, "BACKLOG", sources.Source("unvisited", timedelta(0), lambda: 0, "x"))
+    calls = []
+    monkeypatch.setattr(runner, "run_once", lambda names=None, sites=None, backlog=False, wait_for=None:
+                        calls.append(names) or runner.Outcome("changed", "documents: 3 new"))
+    monkeypatch.setattr(site_source, "read_new_site", lambda url, name: site_source.NewSite("new-example", url, 0, 0, Counter({"a bot check": 2})))
+    failed = parse_requests.submit("sites", "new-site", ["new-example"], url="https://new.example/")
+    runner.main(args())
+    got = parse_requests.get(failed.id)
+    assert (got.status, got.outcome) == ("failed", "error") and "2× a bot check" in got.result
+    assert ["build-only"] not in calls
+    assert "не прочитан" in told[-1]
+
+    monkeypatch.setattr(site_source, "read_new_site", lambda url, name: site_source.NewSite(name, url, 3, 1, Counter()))
+    done = parse_requests.submit("sites", "new-site", ["other-example"], url="https://other.example/")
+    runner.main(args())
+    got = parse_requests.get(done.id)
+    assert (got.status, got.outcome) == ("done", "changed") and "3 pages read" in got.result
+    assert ["build-only"] in calls

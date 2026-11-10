@@ -1,5 +1,6 @@
 """Requests to update a source of the documents (POST /{section}/parse): the API queues them in Redis, `catix-docs run`
-takes them and asks the named sources (runner.py). The API never reads sources itself: the run does, and writes only to Postgres.
+takes them and asks the named sources (runner.py). A request names a source of SOURCES; `new-site` carries `url` (the base
+of a site the run adds to the catalog and reads), and its `sites` is the name the site gets. The API never reads sources itself: the run does, and writes only to Postgres.
 
     ctx:docs:parse:<id>               a request (hash): its source, sites, status, and what the run that served it did
     ctx:docs:parse:queued             the ids waiting for a run (list, oldest first)
@@ -25,7 +26,7 @@ RUNNING = f"{PREFIX}:running"
 NEXT = f"{PREFIX}:next"
 KEEP = 30 * 24 * 3600  # seconds a finished request keeps its status
 ATTEMPTS = 3  # runs that may die while serving a request before it fails (a request that brings the run down is not taken for ever)
-SOURCES = ("eduwiki", "sites")  # the sources a request may name (sources/__init__.py)
+SOURCES = ("eduwiki", "sites", "new-site")  # the sources a request may name (sources/__init__.py; new-site: runner.serve_new_site)
 
 
 class Unavailable(RuntimeError):
@@ -36,9 +37,10 @@ class Unavailable(RuntimeError):
 class Request:
     id: str
     section: str  # the path it was asked by: 'sites', 'resources', 'hotel', 'eduwiki', ...
-    source: str  # 'eduwiki' or 'sites'
-    sites: list[str] = field(default_factory=list)  # the sites `sites` reads (names of the catalog)
+    source: str  # 'eduwiki', 'sites' or 'new-site'
+    sites: list[str] = field(default_factory=list)  # the sites `sites` reads (names of the catalog); new-site: the name it gets
     parsing: bool = True  # False: no source is asked, the run builds and checks what the data already holds
+    url: str = ""  # new-site: the base of the site
     status: str = "queued"  # queued | running | done | failed
     outcome: str = ""  # changed | unchanged (done), error (failed)
     result: str = ""  # the run's line: 'documents: 3 new, 2 changed, 0 removed; ...'
@@ -51,7 +53,7 @@ class Request:
         return f"{PREFIX}:{self.id}"
 
     def waiting_key(self) -> str:
-        what = json.dumps([self.source, sorted(self.sites), self.parsing])
+        what = json.dumps([self.source, sorted(self.sites), self.parsing, self.url])
         return f"{PREFIX}:waiting:{hashlib.sha1(what.encode()).hexdigest()[:16]}"
 
     def fields(self) -> dict[str, str]:
@@ -65,6 +67,8 @@ class Request:
                       "attempts": int(fields.get("attempts") or 0)})
 
     def describe(self) -> str:
+        if self.source == "new-site":
+            return f"#{self.id} new site {self.sites[0] if self.sites else ''} ({self.url})"
         what = "build only" if not self.parsing else self.source + (f" ({', '.join(self.sites)})" if self.sites else "")
         return f"#{self.id} {what}"
 
@@ -86,12 +90,12 @@ def connect() -> redis.Redis:
     return _client
 
 
-def submit(section: str, source: str, sites: list[str], parsing: bool = True) -> Request:
+def submit(section: str, source: str, sites: list[str], parsing: bool = True, url: str = "") -> Request:
     """Queue a request, or the same one if it still waits. Raises Unavailable without Redis."""
     if source not in SOURCES:
         raise ValueError(f"no source {source!r} for a request: {', '.join(SOURCES)}")
-    request = Request(id="", section=section, source=source, sites=list(dict.fromkeys(sites)) if source == "sites" else [],
-                      parsing=parsing, created_at=now())
+    request = Request(id="", section=section, source=source, sites=list(dict.fromkeys(sites)) if source in ("sites", "new-site") else [],
+                      parsing=parsing, url=url, created_at=now())
     try:
         r = connect()
         if (same := r.get(request.waiting_key())) and (old := _get(r, same)) and old.status == "queued":

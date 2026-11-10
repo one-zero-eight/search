@@ -6,6 +6,7 @@
     sites.py        the sites of the university and its services (its disclosure section sveden/ too): documents under sites/, their documents as regulations;
                     the pages that appeared on them every 6 hours (new-pages), all their pages again every week (sites)
     pastpapers.py   past exam papers the students keep in Notion: documents under past-papers/, one per subject, by code only
+    unvisited       (not scheduled) the links of known sites no run has read, before the schedule on every turn
     ocr_queue.py    the scans the sources queue for a manual run with OCR (no scheduled model switching), and apart from it
                     those too long for OCR; `catix-docs regs queue` shows them, the run tells the admins when they grow
 
@@ -83,6 +84,21 @@ SOURCES = [
     Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),
     Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
+
+
+def _unvisited() -> int:
+    """What `catix-docs sites unvisited --known` shows: the pages of known sites that cached pages and documents link and no run
+    read, and the files no run read yet (sites.backlog); read as the run of new links reads them (text layers only)."""
+    from catix.docs.sources import rpd, sites
+
+    if not (waiting := sites.backlog()):
+        return 0
+    print(f"  {waiting} links of known sites no run has read", flush=True)
+    return sites.fetch(only_new=True, documents=True, ocr=False) + rpd.fetch()
+
+
+BACKLOG = Source("unvisited", timedelta(0), _unvisited, "the links of known sites no run has read (catix-docs sites unvisited --known), "
+                 "before the schedule on every turn of the loop")
 
 
 def sites_of(names: list[str]) -> Source:

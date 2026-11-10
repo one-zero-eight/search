@@ -145,8 +145,20 @@ def test_the_run_serves_the_request(client, monkeypatch):
                                                                          lambda: asked.append(names) or 2, "the named sites"))
     monkeypatch.setattr(build, "rebuild", lambda: built.append(1) or {"pages new": 2, "pages changed": 0, "pages removed": 0})
     monkeypatch.setattr(runner.store, "queued", lambda: 5)
+    monkeypatch.setattr(sources, "BACKLOG", sources.Source("unvisited", sources.timedelta(0), lambda: 0, "stub"))
     runner.main(Namespace(source=None, site=None, build=False, loop=False))
     assert asked == [["hotel"]] and built == [1]
     status = client.get(f"/parse/{request['id']}", headers=AUTH).json()
     assert (status["status"], status["outcome"]) == ("done", "changed")
     assert status["result"] == "documents: 2 new, 0 changed, 0 removed; 5 pieces wait for a vector"
+
+
+def test_a_new_site_request_is_queued_with_its_name(client, parse_queue):
+    response = client.post("/sites/new?url=https://new.example/path", headers=AUTH)
+    assert response.status_code == 202, response.text
+    body = response.json()
+    assert (body["source"], body["sites"], body["url"]) == ("new-site", ["new-example"], "https://new.example/")
+    taken = client.post("/sites/new?url=https://hotel.innopolis.university/", headers=AUTH)
+    assert taken.status_code == 400 and "hotel" in taken.json()["detail"]
+    assert client.post("/sites/new?url=notaurl", headers=AUTH).status_code == 400
+    assert len(queued(parse_queue)) == 1

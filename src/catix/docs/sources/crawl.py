@@ -16,8 +16,8 @@ def _site_hosts(site) -> set[str]:
 
 
 def provider(url: str, *, page: bool = False) -> str | None:
-    """The configured provider name for a safe URL, or None. Documents may use a provider's subdomains;
-    HTML pages require an explicit site/alias and that site's page rules (the same rules as fetch_site).
+    """The configured provider name for a safe URL, or None: its host is a site's own or one of its aliases (a subdomain is not: it
+    is a site of its own when the catalog names it); an HTML page also passes that site's page rules (the same rules as fetch_site).
 
     SITES is the catalog of the database (sites.catalog_main edits it), read again every few seconds.
     """
@@ -32,7 +32,7 @@ def provider(url: str, *, page: bool = False) -> str | None:
     if any(host == blocked or host.endswith("." + blocked) for blocked in sites.BLOCKED):
         return None
     matches = [(name, site, trusted) for name, site in sites.SITES.items()
-               for trusted in _site_hosts(site) if host == trusted or not page and host.endswith("." + trusted)]
+               for trusted in _site_hosts(site) if host == trusted]
     for name, site, _ in sorted(matches, key=lambda item: (len(item[2]), host == urlsplit(item[1].base).hostname), reverse=True):
         if page:
             return name if sites._taken(site, url) else None

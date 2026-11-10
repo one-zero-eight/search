@@ -115,14 +115,14 @@ GLUED = re.compile(r"^(\s*\d{1,2}(?:\.\d{1,2}){1,4}\.)(?=[^\W\d_]|«)|^(\s*\d{1,
 def all_docs() -> dict[str, dict]:
     """Every document of the bundle: the first regulations (DOCS), those the sites link (the disclosure section of the
     university's site among them: sites.docs) and those the documents' own text names (linked_documents)."""
-    from catix.docs.sources import sites
+    from catix.docs.sources import crawl, sites
 
     docs = {k: {"title": t, "url": BASE + p, "root": ROOT, "section": "document"} for k, (t, p) in DOCS.items()}
     have = {sites.canonical(d["url"]) for d in docs.values()}
     docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # (one of DOCS the site links too is not read twice)
     have |= {sites.canonical(d["url"]) for d in docs.values()}
     for url, found in linked_documents().items():
-        if url in have:
+        if url in have or crawl.provider(url) is None:
             continue
         provider = found["provider"]
         docs[found["key"]] = {"title": found["title"], "url": url, "root": f"{sites.ROOT}/{provider}/docs",
@@ -571,6 +571,20 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             done.append(item[0])
         print(f"{len(done)} documents fetched" + (f"; OCR pages left in the budget: {ocr_left}" if ocr else "; scans wait for a run with OCR"))
         return done
+
+
+def settled_doc(key: str, d: dict) -> bool:
+    """Whether a run without OCR passes the document by (the rules of _fetch_once): read (its text; an archive: its manifest),
+    skipped, a scan queued for OCR or put aside, or no file came lately (failed, sites.RETRY). One refresh found changed is not."""
+    from catix.docs.sources import archive_documents, sites
+
+    if archive_documents.is_archive(key, d):
+        return files.exists(archive_documents.manifest_path(key, d))
+    old = files.read_json(f"{d['root']}/{key}.json") or {}
+    if old.get("refetch"):
+        return False
+    return (bool(old) and (files.exists(f"{d['root']}/{key}.txt") or "skipped" in old) or ocr_state(old) in (QUEUED, TOO_LONG)
+            or bool(old.get("failed")) and sites.recent(old.get("tried_at")))
 
 
 def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> int:
