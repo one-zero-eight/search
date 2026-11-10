@@ -1,4 +1,4 @@
-"""How well the agent's wiki search finds the piece that answers a question (catix/db/wiki.py).
+"""How well the agent's wiki search finds the piece that answers a question (catix/db/doc_store.py).
 
 Questions of every kind of reader (student, postgraduate, applicant, teacher/staff, management/public), worded as a person
 would ask, not as the document says. A piece is relevant when its page (path or title) matches `page` and its text (with the title and headings) matches `text` (both
@@ -15,12 +15,12 @@ import time
 
 from catix.db import pg
 from catix.db import store
-from catix.db import wiki
-from catix.wiki import quality
+from catix.db import docs as doc_store
+from catix.docs import quality
 
 TOP = 10
 
-QUESTIONS = quality.QUESTIONS  # (reader, question, page regex, text regex): src/catix/wiki/quality.py
+QUESTIONS = quality.QUESTIONS  # (reader, question, page regex, text regex): src/catix/docs/quality.py
 relevant = quality.relevant
 
 
@@ -32,12 +32,12 @@ def main() -> None:
             print(f"{n:>4}  {reader:<12} {q}")
         return
     pg.embed(["warm-up"])
-    trust = list(wiki.TRUST)
+    trust = list(doc_store.TRUST)
     methods = {
-        "words": lambda q: wiki._bm25(store._words(q), trust)[:TOP],
-        "meaning": lambda q: wiki._vector(pg.embed([q])[0], trust)[:TOP],
-        "fused": lambda q: store._combine([store._rrf(wiki._bm25(store._words(q), trust), wiki._vector(pg.embed([q])[0], trust))], TOP),
-        "reranked": lambda q: [h.id for h in wiki.search([q], limit=TOP)],
+        "words": lambda q: doc_store._bm25(store._words(q), trust)[:TOP],
+        "meaning": lambda q: doc_store._vector(pg.embed([q])[0], trust)[:TOP],
+        "fused": lambda q: store._combine([store._rrf(doc_store._bm25(store._words(q), trust), doc_store._vector(pg.embed([q])[0], trust))], TOP),
+        "reranked": lambda q: [h.id for h in doc_store.search([q], limit=TOP)],
     }
     ranks = {m: [] for m in methods}
     times = {m: [] for m in methods}

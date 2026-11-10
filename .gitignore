@@ -16,14 +16,12 @@ wheels/
 data/
 raw/*.db*
 
-# The wiki's data lives on the orphan branch `wiki` (a checkout of it is WIKI_ROOT, see src/catix/wiki/paths.py), never in
-# the code: an old copy of it here (from before WIKI_ROOT was required) is not committed.
+# Old local copies of the former wiki's files (the documents live in Postgres now); never committed.
 /wiki/
 /raw/
 experiments/.wiki-demo-site/
-wiki-index.tar.gz
+wiki-index*.tar.gz
 /secrets/
-wiki-index.2026-10-24.tar.gz
 
 # Playwright
 node_modules/

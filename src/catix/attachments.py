@@ -59,7 +59,7 @@ def _worker(data: bytes, suffix: str, page: int = 0) -> bytes:
         # Do not inherit account tokens, database credentials or model endpoints.
         env = {k: os.environ[k] for k in ("PATH", "LANG") if k in os.environ}
         env["TMPDIR"] = work.name
-        env["WIKI_ROOT"] = work.name  # text_of imports wiki modules; never the real corpus.
+        env["DATABASE_URL"] = ""  # text_of imports docs modules; an empty URL stops them (and .env) from reaching the corpus.
         env["PYTHONPATH"] = str(Path(__file__).resolve().parent.parent)
         process = subprocess.Popen(
             [sys.executable, str(Path(__file__).with_name("attachment_reader.py")), suffix, str(page)],

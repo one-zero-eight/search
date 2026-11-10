@@ -16,7 +16,7 @@ PDF = b"%PDF-1.7\n1 0 obj\n...%%EOF"
 @pytest.fixture
 def client(monkeypatch):
     monkeypatch.setattr(token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university", "telegram_id": 7} if t == "good" else None)
-    monkeypatch.setattr(search.wiki_store, "has_resource", lambda url: url == DOC)
+    monkeypatch.setattr(search.doc_store, "has_resource", lambda url: url == DOC)
     return TestClient(app)
 
 

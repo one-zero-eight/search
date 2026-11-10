@@ -28,10 +28,10 @@ from catix.api.schemas import (
     SearchResponses,
     Sources,
 )
-from catix.db import wiki as wiki_store
-from catix.wiki import previews
-from catix.wiki.sources import sites as site_source
-from catix.wiki.sources.archives import ArchiveError
+from catix.db import docs as doc_store
+from catix.docs import previews
+from catix.docs.sources import sites as site_source
+from catix.docs.sources.archives import ArchiveError
 
 log = logging.getLogger("catix.api")
 router = APIRouter(prefix="/search", tags=["Search"])
@@ -45,7 +45,7 @@ HOSTS = {  # the sites of the old sources that the wiki holds
 
 
 def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, archive_document: dict | None = None) -> Sources:
-    """A page of the wiki as a card. What the old sources do not have (the university's documents, other sites) is an
+    """A document as a card. What the old sources do not have (the university's documents, other sites) is an
     EduWiki card whose breadcrumbs say where it comes from."""
     fields = {"display_name": title, "url": url, "preview_text": table_as_text(preview)[:PREVIEW_CHARS]}
     if site:
@@ -54,17 +54,17 @@ def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, a
         return card(**fields, breadcrumbs=[name])
     if trust == "wiki":
         return EduwikiSource(**fields, archive_document=ArchiveDocument.model_validate(archive_document) if archive_document else None)
-    return EduwikiSource(**fields, breadcrumbs=["Сводка cAtIx" if trust == "guide" else "Документы университета"],
+    return EduwikiSource(**fields, breadcrumbs=["Документы университета"],
                          archive_document=ArchiveDocument.model_validate(archive_document) if archive_document else None)
 
 
-def to_source(hit: wiki_store.WikiHit) -> Sources:
-    document = previews.describe(hit.path, hit.page_sha, hit.resource or "")
-    return make_source(hit.title, hit.resource or "", hit.text, site=hit.path.startswith("/raw/sites/"), trust=hit.trust,
+def to_source(hit: doc_store.DocHit) -> Sources:
+    document = previews.describe(hit)
+    return make_source(hit.title, hit.resource or "", hit.text, site=hit.path.startswith("sites/"), trust=hit.trust,
                        archive_document=document)
 
 
-def to_responses(hits: list[wiki_store.WikiHit], sources: list[InfoSources]) -> list[SearchResponse]:
+def to_responses(hits: list[doc_store.DocHit], sources: list[InfoSources]) -> list[SearchResponse]:
     """One card per document: the scores of its pieces go together, as the search service did for the chunks of a page."""
     cards: dict[tuple, SearchResponse] = {}
     for hit in hits:
@@ -82,7 +82,7 @@ def to_responses(hits: list[wiki_store.WikiHit], sources: list[InfoSources]) -> 
 
 
 async def find(query: str, sources: list[InfoSources], limit: int) -> list[SearchResponse]:
-    hits = await asyncio.to_thread(wiki_store.search, query, limit=limit)
+    hits = await asyncio.to_thread(doc_store.search, query, limit=limit)
     return to_responses(hits, sources or ALL_SOURCES)
 
 
@@ -119,7 +119,7 @@ def table_as_text(text: str) -> str:
     return "\n".join(lines)
 
 
-DOWNLOAD_MAX_BYTES = 25_000_000  # the wiki reads no bigger document either (wiki/sources/regulations.MAX_BYTES)
+DOWNLOAD_MAX_BYTES = 25_000_000  # the documents are read no bigger either (docs/sources/regulations.MAX_BYTES)
 DOWNLOAD_TIMEOUT = 60  # seconds for the whole download
 DOWNLOAD_REDIRECTS = 5
 DOWNLOAD_HEADERS = {"User-Agent": "catix-api/0.1 (Innopolis University assistant; preview)"}
@@ -188,7 +188,7 @@ async def pdf_by_url(_auth: VerifiedDep, url: str) -> Response:
     """The original PDF of a page of the knowledge base, for a preview in a frame: the university's sites forbid showing
     their files in a frame of another site (X-Frame-Options: SAMEORIGIN), this answer does not. Only documents the
     knowledge base has a page of: not a proxy to anywhere."""
-    if not await asyncio.to_thread(wiki_store.has_resource, url):
+    if not await asyncio.to_thread(doc_store.has_resource, url):
         raise HTTPException(status_code=404, detail="Document not found")
     try:
         body = await download_pdf(url)
@@ -263,7 +263,7 @@ async def html_by_url(_auth: VerifiedDep, url: str) -> Response:
     """The original of a page of the knowledge base, for a sandboxed frame on the site: the university's sites forbid showing
     their pages in a frame of another site (X-Frame-Options: SAMEORIGIN) and give no CORS. Only pages the knowledge base
     has a copy of: not a proxy to anywhere."""
-    if not await asyncio.to_thread(wiki_store.has_resource, url):
+    if not await asyncio.to_thread(doc_store.has_resource, url):
         raise HTTPException(status_code=404, detail="Page not found")
     try:
         body = await asyncio.to_thread(framed_page, await download(url, same_host))
@@ -288,11 +288,11 @@ async def html_by_url(_auth: VerifiedDep, url: str) -> Response:
 })
 async def archive_document(_auth: VerifiedDep, page: str, revision: str) -> Response:
     """Download and safely unpack the source archive on demand; cache the exact verified PDF."""
-    hits = await asyncio.to_thread(wiki_store.page, page)
+    hits = await asyncio.to_thread(doc_store.page, page)
     if not hits or hits[0].page_sha != revision:
         raise HTTPException(status_code=404, detail="This document revision is unavailable")
     try:
-        found = await asyncio.to_thread(previews.read, page, revision, hits[0].resource or "")
+        found = await asyncio.to_thread(previews.read, hits[0])
     except (TimeoutError, httpx.TimeoutException):
         raise HTTPException(status_code=504, detail="The archive download timed out") from None
     except (httpx.HTTPError, ArchiveError):

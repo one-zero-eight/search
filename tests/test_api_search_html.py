@@ -17,7 +17,7 @@ WORDS = "Ректор университета Иннополис руковод
 @pytest.fixture
 def client(monkeypatch):
     monkeypatch.setattr(token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university", "telegram_id": 7} if t == "good" else None)
-    monkeypatch.setattr(search.wiki_store, "has_resource", lambda url: url == PAGE)
+    monkeypatch.setattr(search.doc_store, "has_resource", lambda url: url == PAGE)
     return TestClient(app)
 
 

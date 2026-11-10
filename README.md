@@ -444,29 +444,27 @@ cAtIx заменил сервис поиска InNoHassle и отвечает п
 | `POST /ask/{chat_id}/cancel` | отмена работы агента в чате: идущего вопроса и ждущих своей очереди вопросов этого чата. Их запросы завершаются `409` (в `/ask/stream` событием `cancelled`), диалог остаётся таким, каким был до отменённых вопросов |
 | `POST /act/` | заглушка: действий в сервисах InNoHassle в cAtIx нет |
 | `GET /sites` | доверенные настроенные сайты (`name`, `url`, `about`) из каталога `sites.SITES` |
-| `POST /{section}/parse` | заявка на обновление источника для собственного прогона вики (autopilot): `wiki` / `eduwiki`, `sites` / `resources`; прежние `hotel` и `campuslife` выбирают соответствующий сайт |
-| `GET /parse/{id}` | состояние заявки: `queued`, `running`, `done` (`outcome`: `committed`, `review`, `unchanged`) или `failed` |
+| `POST /{section}/parse` | заявка на обновление источника для прогона `catix-docs run`: `wiki` / `eduwiki`, `sites` / `resources`; прежние `hotel` и `campuslife` выбирают соответствующий сайт |
+| `GET /parse/{id}` | состояние заявки: `queued`, `running`, `done` (`outcome`: `changed`, `unchanged`) или `failed` |
 | `GET /users/my-calendar.ics` | личный календарь пользователя (iCalendar): события, добавленные кнопкой «➕ В мой календарь» или агентом на сайте после подтверждения. Календарь принадлежит аккаунту InNoHassle (`uid` токена; email не нужен). Бот узнаёт аккаунт по Telegram id через `INNOHASSLE_SERVICE_TOKEN`; события, добавленные в боте, пока аккаунт не был известен, переходят в него, как только он найден (или токен аккаунта покажет этот `telegram_id`) |
 | `POST /users/my-calendar/events/{proposal_id}` | кнопка под ответом: событие из `calendar_events` (его `id`) в календарь пользователя. Предложение живёт 48 часов, потом `404`; повторное нажатие не создаёт второе событие |
 
 `POST /ask/stream` и `POST /ask/{chat_id}/decision/stream` передают `answer` с полным текстом ответа на данный момент, не с дельтой. Помимо финального ответа супервизора, поток может показывать финальный ответ единственного помощника без дополнительного переписывания: только из явно завершающего вызова модели без инструментов, после поиска и проверки свежих ссылок. Промежуточные черновики и рассуждения помощников не передаются. Ненумерованные внутренние ссылки скрыты; если частичный ответ отозван и требуется синтез, `answer` с `text: ""` очищает его перед продолжением. Итоговые источники и результат приходят в прежнем `done`; события статуса, ошибки и отмены не меняются.
 Частичные ответы помощника объединяются по завершённым предложениям: незавершённые ссылки и атрибуции не показываются до проверки. Это не искусственная печать готового ответа: обновления приходят во время генерации. Одно короткое предложение или отчёт, завершённый без заранее запрещённых инструментов, может по-прежнему появиться только целиком.
 
-Парсинг требует того же Bearer-токена. API сам в вики не пишет (в `docker-compose.prod.yml` её checkout смонтирован
-только для чтения): он ставит заявку в очередь в Redis (`src/catix/wiki/parse_requests.py`) и сразу отвечает `202`
-с заявкой. `catix-wiki autopilot` берёт заявку, спрашивает названный источник и прогоняет то, что пришло, через
-обычную цепочку: сборка, агент вики, проверки (lint, карточки, поиск, ответы), коммит в ветку `wiki` и push.
-Если проверка не прошла, изменения уходят в `wiki-review/<время>` и ждут человека (`outcome: review`).
-Поиск на сервере получает изменения, когда `scripts/wiki-pull.sh` подтягивает ветку.
+Парсинг требует того же Bearer-токена. API сам документы не пишет: он ставит заявку в очередь в Redis
+(`src/catix/docs/parse_requests.py`) и сразу отвечает `202` с заявкой. `catix-docs run` (сервис `docs`) берёт заявку,
+спрашивает названный источник и пересобирает документы в Postgres: поиск видит новые документы сразу, векторы
+досчитывает `worker` (`outcome: changed`; ничего нового — `unchanged`, сбой — `failed` с `error`).
 
-`POST /sites/parse?sites=hotel&sites=campuslife` — это `catix-wiki autopilot --site hotel --site campuslife`:
+`POST /sites/parse?sites=hotel&sites=campuslife` — это `catix-docs run --site hotel --site campuslife`:
 источник `sites` только для этих сайтов, то есть их документы (HEAD), страницы и документы, на которые они ссылаются
-(только текстовый слой, сканы ждут OCR). У других сайтов, на которые они ведут, читаются только страницы, которых в вики
+(только текстовый слой, сканы ждут OCR). У других сайтов, на которые они ведут, читаются только страницы, которых в базе
 ещё нет. Без `sites` берётся весь доверенный каталог `GET /sites`. Произвольные URL
 и неизвестные имена получают `400`, а имя, пропавшее из каталога до прогона, прогон пропускает. `POST /eduwiki/parse` —
 источник `eduwiki` (страницы, у которых сменилась ревизия). Заявки, которые ждут вместе, обслуживает один прогон
 (сайты разных заявок читаются вместе). Та же заявка, пока она ждёт, ставится один раз: повторный запрос возвращает её.
-`autopilot --loop` просыпается ради заявки за полминуты; если идёт другой прогон, заявка ждёт, пока он закончится.
+`catix-docs run --loop` просыпается ради заявки за полминуты; если идёт другой прогон, заявка ждёт, пока он закончится.
 
 `parsing_is_needed=false` ни один источник не спрашивает: прогон собирает и проверяет то, что уже лежит в данных.
 `indexing_is_needed` оставлен для совместимости и ничего не меняет: прогон индексирует всегда, а индекс сервера следует
@@ -541,6 +539,4 @@ experiments/   скрипты оценки качества поиска и да
 - move exporting ai calendar to schedule system
 - add union groups (for example first year students groups)
 - remove legacy code and settings, db tables
-- Remove unused features (clean code) maybe delete the whole wiki 😱
-- Redesign autopilot implementation and logic (for now it's not working)
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/wiki/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-wiki regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits when a dedicated chandra server is available. Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

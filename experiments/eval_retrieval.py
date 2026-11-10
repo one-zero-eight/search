@@ -1,4 +1,4 @@
-"""The wiki's search on quality.QUESTIONS or a generated set, optionally against a saved wiki.py implementation."""
+"""The wiki's search on quality.QUESTIONS or a generated set, optionally against a saved doc_store.py implementation."""
 
 import argparse
 import importlib.util
@@ -36,8 +36,8 @@ def main() -> None:
     if args.limit <= 0:
         parser.error("--limit must be positive")
     settings.phoenix_endpoint = None
-    from catix.db import pg, wiki
-    from catix.wiki.quality import QUESTIONS, relevant
+    from catix.db import docs as doc_store, pg
+    from catix.docs.quality import QUESTIONS, relevant
 
     baseline = None
     if args.baseline_source:
@@ -56,7 +56,7 @@ def main() -> None:
                 words = re.findall(r"[^\W_]+", question["answer"].lower().replace("ё", "е"))
                 pattern = re.compile(r"[\W_]+".join(re.escape(word) for word in words))
                 with pg.connection() as conn:
-                    sources = pg.column(conn, "SELECT search_text FROM wiki_chunks WHERE path = %s", (question["source"],))
+                    sources = pg.column(conn, "SELECT search_text FROM document_chunks WHERE path = %s", (question["source"],))
                 labelled = bool(words) and any(pattern.search(text.lower().replace("ё", "е")) for text in sources)
                 matches = lambda hit: bool(pattern.search(f"{hit.title}\n{hit.heading}\n{hit.text}".lower().replace("ё", "е")))
             else:
@@ -70,7 +70,7 @@ def main() -> None:
             firsts = []
             for mode, rows in results.items():
                 started = time.monotonic()
-                hits = (baseline if mode == "baseline" else wiki).search(question["question"], limit=args.limit)
+                hits = (baseline if mode == "baseline" else doc_store).search(question["question"], limit=args.limit)
                 relevance = [matches(hit) for hit in hits]
                 rows.append({"query": question["question"], "reader": question.get("reader"), "ids": [hit.id for hit in hits],
                              "relevance": relevance, "seconds": time.monotonic() - started})

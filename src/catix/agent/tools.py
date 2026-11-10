@@ -28,7 +28,7 @@ from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
 from catix.db import store
-from catix.db import wiki as wiki_store
+from catix.db import docs as doc_store
 from catix.innohassle import client as innohassle
 from catix.settings import settings
 
@@ -466,20 +466,19 @@ class GetScheduleArgs(BaseModel):
     )
 
 
-# ---- the wiki: documents of the university, guides, eduwiki ------------------------------------------------------
+# ---- the wiki: documents of the university, eduwiki ------------------------------------------------------
 
 MAX_WIKI = 8
 WIKI_TEXT = 1000  # characters of a piece in the search results
 READ_BUDGET = 5000  # characters read_wiki returns at most
 KINDS = {
     "official": "official document of the university",
-    "guide": "guide: a summary that cAtIx wrote from the documents it names (check the clause in the document)",
     "wiki": "eduwiki page (the university's teaching wiki, edited by staff; may be outdated)",
 }
 # Most pages of the kind `wiki` are not the eduwiki but the pages of the sites (news, olympiads, admission, the city):
 # 4061 of 4490 on 2026-11-01. Labelled eduwiki, a news item of media.innopolis.university was cited as an eduwiki page.
 SITE_KIND = "a page of a site of the university or of Innopolis (news, events, admission, courses; may be outdated)"
-SITES = "/raw/sites/"
+SITES = "sites/"
 
 
 def _kind(hit) -> str:
@@ -503,7 +502,7 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     item = {"ref": collector.add_wiki(hit), "document": hit.title, "kind": _kind(hit)}
     # (A site page's date is the day it was read, or the 1st of January of a past year it is about: its text has its own.)
     if hit.issued and not hit.path.startswith(SITES):
-        item["date"] = f"{hit.issued:%Y-%m-%d}"  # of the document (or of the guide): a newer one replaces an older one
+        item["date"] = f"{hit.issued:%Y-%m-%d}"  # of the document: a newer one replaces an older one
     if hit.trust == "official":
         item["official"] = True  # a document of the university: "official" may be said of it
     if hit.clause:
@@ -516,7 +515,7 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     if hit.based_on:
         item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
     if also := getattr(hit, "also_in", None):  # the same text in other documents (the programme of other intakes, other courses)
-        shown = wiki_store.ALSO_SHOWN
+        shown = doc_store.ALSO_SHOWN
         item["same_text_also_in"] = [{"document": a["title"], "page": a["page"]} for a in also[:shown]] + (
             [f"and {len(also) - shown} more"] if len(also) > shown else [])
     if warnings := _warnings(hit):
@@ -529,13 +528,13 @@ class SearchWikiArgs(BaseModel):
     queries: list[str] = Field(
         min_length=1,
         max_length=8,
-        description="2 to 6 search queries from different angles, in Russian AND English (the documents are Russian, the guides "
-        "English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake'). One of them is "
+        description="2 to 6 search queries from different angles, in Russian AND English (the documents are Russian, the course "
+        "pages English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake'). One of them is "
         "a sentence as the document itself would say the answer ('Обучающийся вправе пройти повторную промежуточную аттестацию "
         "не более ...'): its numbers may be guesses, its wording finds the clause.",
     )
-    kinds: list[Literal["official", "guide", "wiki"]] | None = Field(
-        None, description="Only these kinds of pages: official (documents of the university), guide (summaries), wiki (eduwiki and the "
+    kinds: list[Literal["official", "wiki"]] | None = Field(
+        None, description="Only these kinds of pages: official (documents of the university), wiki (eduwiki and the "
         "pages of the sites: news, olympiads, admission, the city). Default: all."
     )
 
@@ -548,25 +547,25 @@ class SearchWikiArgs(BaseModel):
 @tool(args_schema=SearchWikiArgs)
 def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: list[str] | None = None) -> Command:
     """Search the university's knowledge base: its official documents (regulations, orders, rules of admission, study plans,
-    programmes, reports), guides that summarise them, the eduwiki (courses, teachers, procedures) and the pages of the
+    programmes, reports), the eduwiki (courses, teachers, procedures) and the pages of the
     sites (the news and events of media.innopolis.university, olympiads, admission, courses, campus life, the city of
     Innopolis). Returns pieces of pages with the document, the clause number and a ref to cite. For rules, rights,
     deadlines, procedures, programmes, courses, admission, structure of the university, news."""
-    hits = wiki_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
+    hits = doc_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
     collector = Collector(runtime)
     result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
     # The first piece of each document lists its chapters: asked about IT support, the helper read chapters 1 and 2 of the
     # regulation in order and never reached chapter 4, the procedure and its deadlines.
-    contents = wiki_store.chapters({h.path for h in hits}) if hits else {}
+    contents = doc_store.chapters({h.path for h in hits}) if hits else {}
     for item in result["pieces"]:
         if len(headings := contents.pop(item["page"], [])) > 1:
-            shown = wiki_store.CHAPTERS_SHOWN
+            shown = doc_store.CHAPTERS_SHOWN
             item["chapters"] = [h[:80] for h in headings[:shown]] + ([f"and {len(headings) - shown} more"] if len(headings) > shown else [])
     if not hits:
         result["note"] = "Nothing found: try other words, in Russian and in English."
     # The refs of the pieces about the question, for the guard (as in search_chats).
     scored = any(h.relevance is not None for h in hits)
-    relevant = [item["ref"] for item, h in zip(result["pieces"], hits) if h.relevance is not None and h.relevance >= settings.wiki_relevant_score]
+    relevant = [item["ref"] for item, h in zip(result["pieces"], hits) if h.relevance is not None and h.relevance >= settings.docs_relevant_score]
     return collector.result(result, "search_wiki", {"relevant": relevant} if scored else None)
 
 
@@ -600,7 +599,7 @@ def _words(text: str) -> str:
 
 
 class ReadWikiArgs(BaseModel):
-    page: str = Field(description="The `page` of a search result ('/raw/regulations/attestation-regulation.md'), or words of a document's title.")
+    page: str = Field(description="The `page` of a search result ('regulations/attestation-regulation'), or words of a document's title.")
     clause: str | None = Field(None, description="A clause number to read ('5.3'; '5' reads chapter 5).")
     section: str | None = Field(None, description="Words of a section heading to read.")
 
@@ -613,15 +612,15 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     if _reads_this_turn(runtime) >= MAX_READS:
         # The prompt says so too, but a small model keeps reading and runs out of its budget without a report.
         return collector.result({"error": "No more reading in this question: report now with what you have, and say what is missing."}, "read_wiki")
-    path = wiki_store.find_page(page)
+    path = doc_store.find_page(page)
     if not path:
         return collector.result({"error": f"No page {page!r}: use the `page` of a search result."}, "read_wiki")
-    pieces = wiki_store.page(path)
+    pieces = doc_store.page(path)
     if clause:
         # A clause numbered in the text (**5.3.**) or a heading that starts with the number ("32. Вступительные испытания"):
         # documents with flat numbering carry their numbers in headings.
         number = clause.strip().rstrip(".")
-        chosen = [p for p in pieces if wiki_store.holds(p.clause, number)
+        chosen = [p for p in pieces if doc_store.holds(p.clause, number)
                   or any(re.match(rf"{re.escape(number)}(?:\.\d+)*\.?\s", h) for h in p.heading.split(" > "))]
     elif section:
         # From the first piece whose heading has the words, or else a line of its text (not a row of a table first: a table of

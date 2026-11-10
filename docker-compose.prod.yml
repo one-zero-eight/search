@@ -1,5 +1,5 @@
 # Production / beta: everything cAtIx needs in one place.
-#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, migrate, wiki, mcp, tgbot, userbot, maxuserbot, worker, api, phoenix
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, migrate, docs, mcp, tgbot, userbot, maxuserbot, worker, api, phoenix
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
 name: catix-prod
@@ -76,19 +76,6 @@ services:
     depends_on:
       db: { condition: service_healthy }
 
-  # Puts the wiki into the database: only pages that changed since the last time, then exits. The wiki is a checkout of
-  # its own branch `wiki` next to the code (WIKI_DIR, see DEPLOY.md 2a), committed by the wiki's own run; scripts/wiki-pull.sh
-  # pulls it and runs this service. The worker computes the vectors in the background; until then pieces are found by words.
-  wiki:
-    <<: *app
-    restart: "no"
-    command: ["catix-wiki", "index", "--no-embed"]
-    environment:
-      <<: *env
-      WIKI_ROOT: /wiki-data
-    volumes:
-      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
-
   # Private MCP process: builds its catalogue once, shares Redis approval capabilities with the apps.
   # No published ports; only this Compose network can reach it.
   mcp:
@@ -120,12 +107,6 @@ services:
   worker:
     <<: *app
     command: ["catix-worker"]
-    environment: # (it imports the wiki's code, which needs WIKI_ROOT; it reads no file of it)
-      <<: *env
-      WIKI_ROOT: /wiki-data
-    volumes:
-      - catix_data:/app/data
-      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
 
   # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
   # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;
@@ -139,12 +120,17 @@ services:
     environment:
       <<: *env
       API_HOST: 0.0.0.0
-      WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse queues a request in Redis, the wiki's own run serves and commits it
-    volumes:
-      - catix_data:/app/data
-      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
     ports:
       - "0.0.0.0:8004:8000"
+
+  # Reads the sources of the documents on their schedule and serves POST /{section}/parse; writes only to Postgres.
+  # A site behind a login (sites.yaml `profile`) needs a Chromium profile a person logged in to, copied to the volume.
+  docs:
+    <<: *app
+    command: ["catix-docs", "run", "--loop"]
+    environment:
+      <<: *env
+      CATIX_CHROMIUM_PROFILE: /app/data/chromium-profile
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:

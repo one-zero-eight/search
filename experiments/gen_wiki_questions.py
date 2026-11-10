@@ -27,11 +27,11 @@ MAX_RELEVANT = 20
 STRATA = [
     ("regulations", "official", 0.45, ["student", "applicant", "postgraduate", "staff", "teacher"]),
     ("course-programmes", "official", 0.17, ["student", "teacher", "applicant"]),
-    ("courses", "wiki", 0.11, ["student", "teacher"]),
+    ("eduwiki/courses", "wiki", 0.11, ["student", "teacher"]),
     ("sites", "wiki", 0.16, ["applicant", "public", "student"]),
     ("past-papers", "wiki", 0.03, ["student"]),
-    ("people", "wiki", 0.03, ["student", "public"]),
-    ("procedures|programs|pages|schedules|calendars", "wiki", 0.05, ["student", "applicant"]),
+    ("eduwiki/people", "wiki", 0.03, ["student", "public"]),
+    ("eduwiki/(procedures|programs|pages|schedules|calendars)", "wiki", 0.05, ["student", "applicant"]),
 ]
 PROMPT = """Below is a piece of a page of the wiki of Innopolis University. Write ONE question that a {reader} could ask a
 university assistant and that this piece answers, then copy from the piece the words that answer it.
@@ -63,10 +63,10 @@ def sample(conn, n: int) -> list[dict]:
     rng = random.Random(SEED)
     chosen = []
     for folder, trust, share, readers in STRATA:
-        pages = pg.column(conn, "SELECT path FROM wiki_pages WHERE split_part(path, '/', 2) ~ %s AND trust = %s ORDER BY path",
-                          (f"^({folder})$", trust))
+        pages = pg.column(conn, "SELECT path FROM documents WHERE path ~ %s AND trust = %s ORDER BY path",
+                          (f"^({folder})/", trust))
         for path in rng.sample(pages, min(len(pages), round(n * share))):  # one piece a page: many documents, not many pieces of one
-            rows = conn.execute("SELECT c.id, c.path, c.text, p.title FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path "
+            rows = conn.execute("SELECT c.id, c.path, c.text, p.title FROM document_chunks c JOIN documents p ON p.path = c.path "
                                 "WHERE c.path = %s AND length(c.text) > 300 ORDER BY c.seq", (path,)).fetchall()
             if rows:
                 piece = dict(rng.choice(rows))
@@ -105,7 +105,7 @@ def main() -> None:
             if not reason:
                 question, answer = made["question"].strip(), made["answer"].strip()
                 regex = span_regex(answer)
-                relevant = pg.scalar(conn, "SELECT count(*) FROM wiki_chunks WHERE translate(lower(search_text), 'ё', 'е') ~ %s", (regex,))
+                relevant = pg.scalar(conn, "SELECT count(*) FROM document_chunks WHERE translate(lower(search_text), 'ё', 'е') ~ %s", (regex,))
                 reason = ("not copied" if not re.search(regex, piece["text"].lower().replace("ё", "е"))  # (not in the piece as it stands)
                           else "too common" if not 1 <= relevant <= MAX_RELEVANT else "")
             if reason:
@@ -122,9 +122,9 @@ def main() -> None:
 
 def relevant(conn, answer: str):
     """The pieces that hold the answer's words in a row (and when a piece the search finds in their place answers: quality.Relevant)."""
-    from catix.wiki.quality import Relevant
+    from catix.docs.quality import Relevant
 
-    return Relevant.of(conn.execute("SELECT c.id, c.path, p.title, c.copy_of FROM wiki_chunks c JOIN wiki_pages p ON p.path = c.path "
+    return Relevant.of(conn.execute("SELECT c.id, c.path, p.title, c.copy_of FROM document_chunks c JOIN documents p ON p.path = c.path "
                                     "WHERE translate(lower(c.search_text), 'ё', 'е') ~ %s", (span_regex(answer),)).fetchall())
 
 

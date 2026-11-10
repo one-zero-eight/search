@@ -18,12 +18,6 @@ class Settings(BaseSettings):
     # llama.cpp serves whatever model it was started with, the name is informational.
     llm_model: str = "local"
     llm_max_tokens: int = Field(4096, gt=0)
-    # The model that builds the wiki (src/catix/wiki/: page conversion, descriptions, the knowledge cards), when it is not the
-    # agent's: any OpenAI-compatible API, e.g. a larger model the wiki can wait for. Unset: LLM_ROUTE and LLM_MODEL.
-    # The wiki sends it only public documents of the university, never the chats.
-    wiki_llm_route: HttpUrl | None = None
-    wiki_llm_model: str | None = None
-    wiki_llm_api_key: SecretStr | None = None
     # The agent's. 0: the same question gets the same answer; with 0.3 the model chose other searches each time, and they
     # found other messages. Still not exact: the server batches several questions, which moves the numbers a little.
     llm_temperature: float = Field(0.0, ge=0)
@@ -75,9 +69,6 @@ class Settings(BaseSettings):
     # tracing (agent/tracing.py).
     phoenix_endpoint: HttpUrl | None = None
     phoenix_project: str = "catix"
-    wiki_phoenix_project: str = (
-        "catix-wiki"  # the wiki's builds (catix-wiki), apart from the assistant's questions
-    )
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
     # Optional complete API roots replacing /events/v1 and /clubs/v0, not the gateway or Accounts/JWKS.
@@ -160,9 +151,9 @@ class Settings(BaseSettings):
         ""  # before a query (not a document), for a model that wants an instruction; bge-m3 does not
     )
     search_candidates: int = Field(30, gt=0)
-    wiki_search_candidates: int = Field(30, gt=0)
+    docs_search_candidates: int = Field(30, gt=0)
     search_ef: int = Field(400, ge=1, le=1000)
-    # OCR of scanned documents (wiki/sources/chandra.py): chandra-ocr-2 behind an OpenAI-compatible server (llama.cpp) on
+    # OCR of scanned documents (docs/sources/chandra.py): chandra-ocr-2 behind an OpenAI-compatible server (llama.cpp) on
     # the GPU machine. Without one, or when it does not answer or cannot read a scan, the scan stays queued.
     ocr_route: HttpUrl | None = HttpUrl("http://localhost:8082/v1")
     ocr_model: str = "chandra"
@@ -174,7 +165,7 @@ class Settings(BaseSettings):
     reranker_route: HttpUrl = HttpUrl("http://localhost:8083/v1")
     reranker_model: str = "bge-reranker-v2-m3"
     rerank_candidates: int = Field(30, gt=0)
-    wiki_rerank_candidates: int = Field(30, gt=0)
+    docs_rerank_candidates: int = Field(30, gt=0)
     rerank_queries: int = Field(9, gt=0)
     # How much of a piece the reranker reads. At 1000 the answer of a piece that puts it near the end was cut off: on the
     # 57-question set 2000 kept hit@5 as it was and found the answer in the top 8 for 1.8 points more of the questions,
@@ -202,7 +193,7 @@ class Settings(BaseSettings):
     # a piece the docs helper cited in its report scored as low as -1.86, and searches it cited nothing of scored as high
     # as 2.64. Of 159 generated questions, the 90 that found their source page found it at -0.63 or above; the two
     # below -2.5 did not find it.
-    wiki_relevant_score: float = -2.5
+    docs_relevant_score: float = -2.5
     # Longer messages are cut before embedding: the start carries the meaning, and cost grows with length.
     embeddings_max_chars: int = Field(2000, gt=0)
     embed_workers: int = Field(2, gt=0, description="Parallel embedding requests; ~2-4 saturates the GPU server.")
@@ -228,25 +219,15 @@ class Settings(BaseSettings):
     # Messages that arrive while a write is running are written together, up to this many per transaction.
     ingest_max_batch: int = Field(500, gt=0)
 
-    # The wiki's data, wiki/ (the bundle) and raw/ (what it is made from): a checkout of the orphan `wiki` branch, which
-    # only the wiki's own run writes to (wiki/autopilot.py). Required by everything that reads the wiki's files
-    # (catix.wiki.paths: catix-wiki, the API, the worker), which stops without it; the bots do not need it.
-    wiki_root: Path | None = None
-    archive_preview_cache: Path = Path("data/archive-previews")  # Writable API cache, separate from read-only WIKI_ROOT.
-    wiki_branch: str = "wiki"
-    wiki_remote: str = "origin"
-    wiki_push: bool = True  # push a commit that passed every check; one that failed goes to a review branch
-    # The search must keep finding the answers of experiments/eval_wiki.py: a commit below this is not pushed to `wiki`.
-    wiki_min_hit5: float = Field(0.80, ge=0, le=1)
-    # A web listing of documents that stands in for the university's site (wiki/sources/mock.py): the source `mock` of the wiki's run.
-    wiki_mock_site: str | None = None
-    # Course programmes (wiki/sources/rpd.py) of every cohort on the site, not only the latest one of each programme: a student of
+    archive_preview_cache: Path = Path("data/archive-previews")  # a cache of previewed archive members (api/search.py), not a store of documents
+    # Course programmes (docs/sources/rpd.py) of every cohort on the site, not only the latest one of each programme: a student of
     # 2024 studies by the programme of 2024.
-    wiki_rpd_all_years: bool = True
+    docs_rpd_all_years: bool = True
 
     # Old SQLite file, only read by `catix-db migrate`.
     messages_db: Path = Path("raw/telegram.db")
     courses_file: Path = Path("courses.toml")
+    sites_file: Path = Path("sites.yaml")  # the catalog of the sites the documents are read from (docs/sources/sites.py)
     timezone: str = "Europe/Moscow"
 
     @field_validator("innohassle_events_api", "innohassle_clubs_api", mode="before")

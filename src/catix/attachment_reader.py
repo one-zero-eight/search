@@ -71,7 +71,7 @@ def _page_nodes(nodes: list[dict], page: int, inherited: int | None = None) -> l
 def _pdf_text(data: bytes) -> dict:
     import opendataloader_pdf
     from contextlib import redirect_stdout, redirect_stderr
-    from catix.wiki.sources.opendataloader import text_of
+    from catix.docs.sources.opendataloader import text_of
 
     with _pdf(data) as pdf:
         count = len(pdf.pages)

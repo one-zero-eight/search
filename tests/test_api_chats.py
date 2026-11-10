@@ -65,7 +65,7 @@ def test_a_chat_keeps_its_answers_and_votes(owner):
     first.sources = [AnswerSource(number=1, title="Programme", url="https://example.org/archive.zip", kind="official_document",
                                   clauses=["4.2"], sections=["Exams"], official=True,
                                   based_on=[CitationLink(title="Rules", url="https://example.org/rules")],
-                                  archive_document=ArchiveDocument(page="/raw/programme.md", revision="sha-1", member="2026/course.pdf"))]
+                                  archive_document=ArchiveDocument(page="course-programmes/programme", revision="sha-1", member="2026/course.pdf"))]
     chats.save_answer(first, "span-1", "cp-1")
     chats.save_answer(answer(chat_id, "second"), None, "cp-2")  # tracing was off: nothing to vote on
     assert chats.checkpoint(chat_id) == "cp-2"

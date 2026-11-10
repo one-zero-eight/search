@@ -12,7 +12,7 @@ import random
 import sys
 from pathlib import Path
 
-from catix.db import pg, wiki
+from catix.db import docs as doc_store, pg
 
 sys.path.insert(0, str(Path(__file__).parent))
 from gen_wiki_questions import OUT, relevant  # noqa: E402
@@ -22,7 +22,7 @@ TOP = 10
 
 def pools(other: int):
     """The 30 places for the reranker: `other` for pages that are not course programmes, the rest for those (now 15/15)."""
-    original = wiki._combine
+    original = doc_store._combine
 
     def combine(per_query, limit):
         if len(per_query) % 2:
@@ -36,31 +36,31 @@ def pools(other: int):
         chosen += [x for x in top(merged[1], limit) if x not in chosen][:limit - len(chosen)]
         return chosen + [x for x in top(merged[0], limit) if x not in chosen][:limit - len(chosen)]
 
-    wiki._combine = combine
+    doc_store._combine = combine
 
 
 def one_pool():
     """No pools: BM25 and the vector search over all pieces and one RRF, as before the course programmes had a pool of their own."""
-    bm25, vector = wiki._bm25, wiki._vector
+    bm25, vector = doc_store._bm25, doc_store._vector
     everything = lambda sql: sql.replace("AND (path LIKE %(c)s) = %(courses)s", "").replace("AND (c.path LIKE %(c)s) = %(courses)s", "")  # noqa: E731
     real = pg.column
     def column(conn, sql, params=()):
         return real(conn, everything(sql), params)
-    wiki._bm25 = lambda words, trust, courses=False: [] if courses else bm25(words, trust)
-    wiki._vector = lambda v, trust, courses=False: [] if courses else vector(v, trust)
-    wiki.pg.column = column
+    doc_store._bm25 = lambda words, trust, courses=False: [] if courses else bm25(words, trust)
+    doc_store._vector = lambda v, trust, courses=False: [] if courses else vector(v, trust)
+    doc_store.pg.column = column
 
 
 def with_copies():
-    """The copies of a piece searched too (search_index.mark_copies), as before they were marked."""
+    """The copies of a piece searched too (store.mark_copies), as before they were marked."""
     real = pg.column
-    wiki.pg.column = lambda conn, sql, params=(): real(conn, sql.replace(" AND copy_of IS NULL", "").replace(" AND c.copy_of IS NULL", ""), params)
+    doc_store.pg.column = lambda conn, sql, params=(): real(conn, sql.replace(" AND copy_of IS NULL", "").replace(" AND c.copy_of IS NULL", ""), params)
 
 
 def one_pool_with_copies():
     one_pool()
-    inner = wiki.pg.column
-    wiki.pg.column = lambda conn, sql, params=(): inner(conn, sql.replace(" AND copy_of IS NULL", "").replace(" AND c.copy_of IS NULL", ""), params)
+    inner = doc_store.pg.column
+    doc_store.pg.column = lambda conn, sql, params=(): inner(conn, sql.replace(" AND copy_of IS NULL", "").replace(" AND c.copy_of IS NULL", ""), params)
 
 
 VARIANTS = {
@@ -74,16 +74,16 @@ VARIANTS = {
 
 
 def run(name: str, questions: list[dict], conn) -> list[int | None]:
-    saved = wiki._combine, wiki._bm25, wiki._vector, wiki.pg.column
+    saved = doc_store._combine, doc_store._bm25, doc_store._vector, doc_store.pg.column
     VARIANTS[name]()
     try:
         firsts = []
         for q in questions:
-            hits = wiki.search([q["question"]], limit=TOP)
+            hits = doc_store.search([q["question"]], limit=TOP)
             firsts.append(next((i for i, h in enumerate(hits, 1) if h in q["rel"]), None))
         return firsts
     finally:
-        wiki._combine, wiki._bm25, wiki._vector, wiki.pg.column = saved
+        doc_store._combine, doc_store._bm25, doc_store._vector, doc_store.pg.column = saved
 
 
 def interval(values: list[float], draws: int = 2000) -> tuple[float, float]:
@@ -109,7 +109,7 @@ def main() -> None:
     names = list(dict.fromkeys(a for a in args if a in VARIANTS)) or ["now"]  # (the first is the one broken down)
     def stop(*args, **kwargs):  # search keeps going without the reranker: the numbers would be of another method
         raise SystemExit("the reranker does not answer")
-    wiki.log.warning = stop
+    doc_store.log.warning = stop
     conn = pg.connect()
     questions = [json.loads(line) for line in Path(OUT).read_text().splitlines()]
     for q in questions:

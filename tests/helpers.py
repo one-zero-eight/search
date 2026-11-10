@@ -1,5 +1,6 @@
 """Shared pieces of the test suite: the local model as DeepEval judge, a way to ask the real agent, small metrics."""
 
+import json
 import os
 import random
 import re
@@ -260,7 +261,7 @@ class MatchesAny(_Deterministic):
 
 
 class FakeRedis:
-    """The few Redis commands of the queue of the wiki's run (catix.wiki.parse_requests) and of the shared cache
+    """The few Redis commands of the queue of the wiki's run (catix.docs.parse_requests) and of the shared cache
     (catix.common.cache), in memory; `ttl` keeps what expire and set's `ex` set (nothing expires)."""
 
     def __init__(self) -> None:
@@ -342,3 +343,39 @@ class FakeRedis:
                 return [getattr(fake, name)(*a, **k) for name, a, k in self.calls]
 
         return Pipeline()
+
+
+class MemoryFiles:
+    """catix.docs.files.Files on a dict: path -> ("json" | "text", value)."""
+
+    def __init__(self) -> None:
+        self.items: dict[str, tuple[str, object]] = {}
+
+    def read_json(self, path):
+        kind, value = self.items.get(path, ("", None))
+        return json.loads(json.dumps(value)) if kind == "json" else None
+
+    def write_json(self, path, data):
+        self.items[path] = ("json", json.loads(json.dumps(data, ensure_ascii=False)))
+
+    def read_text(self, path):
+        kind, value = self.items.get(path, ("", None))
+        return value if kind == "text" else None
+
+    def write_text(self, path, text):
+        self.items[path] = ("text", text)
+
+    def exists(self, path):
+        return path in self.items
+
+    def delete(self, path):
+        self.items.pop(path, None)
+
+    def delete_prefix(self, prefix):
+        gone = [p for p in self.items if p.startswith(prefix)]
+        for p in gone:
+            del self.items[p]
+        return len(gone)
+
+    def list(self, prefix, suffix=""):
+        return sorted(p for p in self.items if p.startswith(prefix) and p.endswith(suffix))

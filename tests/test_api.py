@@ -18,14 +18,14 @@ from catix.api import ask, chats, search, state
 from catix.api.app import app
 from catix.api.schemas import AskAction, AskApproval, AskChat, AskChatHistory, AskDecision, AskResponses
 from catix.common.citations import AnswerSource, ArchiveDocument
-from catix.db.wiki import WikiHit
+from catix.db.docs import DocHit
 from catix.innohassle import token
 
 AUTH = {"Authorization": "Bearer good"}
 
 
-def hit(path: str, title: str, resource: str, trust: str = "wiki", relevance: float | None = 0.9) -> WikiHit:
-    return WikiHit(id=1, path=path, seq=0, heading="", clause="", sha="", text="text of " + title, cites=[], title=title, type="page",
+def hit(path: str, title: str, resource: str, trust: str = "wiki", relevance: float | None = 0.9) -> DocHit:
+    return DocHit(id=1, path=path, seq=0, heading="", clause="", sha="", text="text of " + title, cites=[], title=title, type="page",
                    trust=trust, audience=[], resource=resource, status=None, review=None, source_warning=None, stale_after=None,
                    issued=None, relevance=relevance)
 
@@ -154,12 +154,12 @@ def test_token_is_required(client):
 
 def test_search_cards(client, monkeypatch):
     hits = [
-        hit("/raw/eduwiki/a.md", "Retake", "https://eduwiki.innopolis.university/a"),
-        hit("/raw/eduwiki/a.md", "Retake", "https://eduwiki.innopolis.university/a", relevance=0.5),
-        hit("/raw/sites/hotel/x.md", "Rooms", "https://hotel.innopolis.university/x"),
-        hit("/raw/regulations/r.md", "Regulation", "https://example.org/r.pdf", trust="official", relevance=None),
+        hit("eduwiki/a", "Retake", "https://eduwiki.innopolis.university/a"),
+        hit("eduwiki/a", "Retake", "https://eduwiki.innopolis.university/a", relevance=0.5),
+        hit("sites/hotel/x", "Rooms", "https://hotel.innopolis.university/x"),
+        hit("regulations/r", "Regulation", "https://example.org/r.pdf", trust="official", relevance=None),
     ]
-    monkeypatch.setattr(search.wiki_store, "search", lambda query, limit: hits)
+    monkeypatch.setattr(search.doc_store, "search", lambda query, limit: hits)
     body = client.get("/search/search", params={"query": "retake", "response_types": "link_to_source"}, headers=AUTH).json()
     assert body["searched_for"] == "retake"
     assert [(r["source"]["type"], r["source"]["display_name"]) for r in body["responses"]] == [
@@ -172,7 +172,7 @@ def test_search_cards(client, monkeypatch):
 
 
 def test_search_feedback(client, monkeypatch):
-    monkeypatch.setattr(search.wiki_store, "search", lambda query, limit: [hit("/raw/eduwiki/a.md", "A", "https://e/a")])
+    monkeypatch.setattr(search.doc_store, "search", lambda query, limit: [hit("eduwiki/a", "A", "https://e/a")])
     search_id = client.get("/search/search", params={"query": "q", "response_types": "pdf"}, headers=AUTH).json()["search_query_id"]
     url = f"/search/search/{search_id}/feedback"
     assert client.post(url, params={"response_index": 0, "feedback": "like"}, headers=AUTH).json()["status"] == "success"
@@ -781,7 +781,7 @@ def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch,
     async def _run(query, chat_id, user, events=None, decision=None):
         if decision is None:
             source = AnswerSource(number=1, title="Programme", url="https://example.org/archive.zip", kind="eduwiki",
-                                  archive_document=ArchiveDocument(page="/raw/programme.md", revision="sha-1", member="2026/course.pdf"))
+                                  archive_document=ArchiveDocument(page="course-programmes/programme", revision="sha-1", member="2026/course.pdf"))
             return ask.Waiting("Нужно ваше подтверждение [1]", [source], [], None, "cp-paused", APPROVAL, [{"id": "i1", "actions": 1}])
         decided.append((query, decision.decision, decision.approval_id, user.token.get_secret_value()))
         return "Забронировано.", [], [], None, "cp-2"
@@ -795,7 +795,7 @@ def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch,
     history = client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()
     assert history["answers"] == [] and history["waiting"]["approval"]["id"] == "cp-paused"
     assert history["waiting"]["sources"] == first["sources"]
-    assert first["sources"][0]["archive_document"] == {"page": "/raw/programme.md", "revision": "sha-1", "member": "2026/course.pdf"}
+    assert first["sources"][0]["archive_document"] == {"page": "course-programmes/programme", "revision": "sha-1", "member": "2026/course.pdf"}
 
     done = client.post(f"/ask/{chat_id}/decision", json={"decision": "approve", "approval_id": "cp-paused"}, headers=AUTH)
     assert done.status_code == 200 and done.json()["answer"] == "Забронировано." and done.json()["approval"] is None

@@ -1,4 +1,4 @@
-"""POST /{section}/parse queues a request for the wiki's own run: the API never reads a source nor writes the wiki."""
+"""POST /{section}/parse queues a request for `catix-docs run`: the API never reads a source nor builds documents."""
 
 from argparse import Namespace
 
@@ -7,9 +7,8 @@ from fastapi.testclient import TestClient
 
 from catix.api.app import app
 from catix.innohassle import token
-from catix.wiki import autopilot, parse_requests
-from catix.wiki import compile as compiler
-from catix.wiki.sources import eduwiki, sites
+from catix.docs import build, parse_requests, runner, sources
+from catix.docs.sources import eduwiki, sites
 
 AUTH = {"Authorization": "Bearer good"}
 
@@ -20,9 +19,9 @@ def client(monkeypatch):
     monkeypatch.setattr(sites, "SITES", {name: sites.SITES[name] for name in ("hotel", "campuslife")})
 
     def never(*args, **kwargs):
-        pytest.fail("the API read a source or wrote the wiki")
+        pytest.fail("the API read a source or built documents")
 
-    for module, name in ((sites, "fetch"), (sites, "compile_all"), (eduwiki, "fetch"), (compiler, "compile_pages"), (compiler, "link")):
+    for module, name in ((sites, "fetch"), (sites, "compile_all"), (eduwiki, "fetch"), (eduwiki, "compile_all"), (build, "rebuild")):
         monkeypatch.setattr(module, name, never)
     return TestClient(app)
 
@@ -55,9 +54,9 @@ def test_status_follows_the_request(client):
     assert client.get(f"/parse/{request['id']}", headers=AUTH).json()["status"] == "queued"
     taken = parse_requests.take()
     assert client.get(f"/parse/{request['id']}", headers=AUTH).json()["status"] == "running"
-    parse_requests.finish(taken, "committed", "committed 1a2b3c: 4 files and pushed")
+    parse_requests.finish(taken, "changed", "documents: 4 new, 0 changed, 0 removed; 9 pieces wait for a vector")
     done = client.get(f"/parse/{request['id']}", headers=AUTH).json()
-    assert (done["status"], done["outcome"], done["result"]) == ("done", "committed", "committed 1a2b3c: 4 files and pushed")
+    assert (done["status"], done["outcome"], done["result"]) == ("done", "changed", "documents: 4 new, 0 changed, 0 removed; 9 pieces wait for a vector")
     assert done["started_at"] and done["finished_at"]
     assert client.get("/parse/999", headers=AUTH).status_code == 404
 
@@ -84,15 +83,6 @@ def test_api_reloads_approved_sites_after_external_catalog_change(client, parse_
     assert [item["name"] for item in client.get("/sites", headers=AUTH).json()] == ["lab"]
     response = client.post("/sites/parse?sites=lab", headers=AUTH)
     assert response.status_code == 202 and [r.sites for r in queued(parse_queue)] == [["lab"]]
-
-
-@pytest.mark.parametrize("method,path", [("get", "/sites"), ("post", "/sites/parse")])
-def test_site_routes_work_without_every_site(client, monkeypatch, method, path):
-    monkeypatch.delattr(sites, "every_site", raising=False)
-    response = client.request(method, path, headers=AUTH)
-    assert response.status_code in (200, 202), response.text
-    names = [site["name"] for site in response.json()] if method == "get" else response.json()["sites"]
-    assert names == ["campuslife", "hotel"]
 
 
 @pytest.mark.parametrize("section,names,status", [
@@ -133,17 +123,30 @@ def test_neither_parse_nor_index_is_a_bad_request(client, parse_queue):
     assert response.status_code == 400 and queued(parse_queue) == []
 
 
-def test_the_wiki_run_serves_the_request_with_its_checks_and_commit(client, monkeypatch, tmp_path):
-    """The request reaches autopilot.main: it asks the named sites as the source `sites` and the queue gets what the run did."""
-    first = client.post("/sites/parse?sites=hotel", headers=AUTH).json()
-    second = client.post("/eduwiki/parse", headers=AUTH).json()
-    calls = []
-    monkeypatch.setattr(autopilot, "ready", lambda: None)
-    monkeypatch.setattr(autopilot, "LOCK", tmp_path / "lock")
-    monkeypatch.setattr(autopilot, "load_state", lambda: {"asked": {s.name: "2999-01-01T00:00:00+00:00" for s in autopilot.sources.SOURCES}})
-    monkeypatch.setattr(autopilot, "run_once", lambda *a, **kw: calls.append((a, kw)) or autopilot.Outcome("committed", "committed 1a2b3c: 2 files and pushed"))
-    autopilot.main(Namespace(action="run", source=None, site=None, only_new=False, build=False, no_push=False, no_answers=False, loop=False))
-    assert calls == [((["sites", "eduwiki"],), {"push": True, "answers": True, "sites": ["hotel"]})]
-    for request in (first, second):
-        status = client.get(f"/parse/{request['id']}", headers=AUTH).json()
-        assert (status["status"], status["outcome"], status["result"]) == ("done", "committed", "committed 1a2b3c: 2 files and pushed")
+class Lock:
+    autocommit = False
+
+    def execute(self, sql, params=None):
+        return self
+
+    def fetchone(self):
+        return {"got": True}
+
+
+def test_the_run_serves_the_request(client, monkeypatch):
+    """The request reaches runner.main: it asks the named sites as the source `sites`, the run rebuilds, the queue gets what it did."""
+    request = client.post("/sites/parse?sites=hotel", headers=AUTH).json()
+    asked, built = [], []
+    monkeypatch.setattr(runner.pg, "connect", lambda: Lock())
+    monkeypatch.setattr(runner, "load_state", lambda: {"asked": {s.name: "2999-01-01T00:00:00+00:00" for s in sources.SOURCES}})
+    monkeypatch.setattr(runner, "save_state", lambda state: None)
+    monkeypatch.setattr(runner, "tell_ocr_queue", lambda state: None)
+    monkeypatch.setattr(sources, "sites_of", lambda names: sources.Source(f"sites ({', '.join(names)})", sources.timedelta(days=1),
+                                                                         lambda: asked.append(names) or 2, "the named sites"))
+    monkeypatch.setattr(build, "rebuild", lambda: built.append(1) or {"pages new": 2, "pages changed": 0, "pages removed": 0})
+    monkeypatch.setattr(runner.store, "queued", lambda: 5)
+    runner.main(Namespace(source=None, site=None, build=False, loop=False))
+    assert asked == [["hotel"]] and built == [1]
+    status = client.get(f"/parse/{request['id']}", headers=AUTH).json()
+    assert (status["status"], status["outcome"]) == ("done", "changed")
+    assert status["result"] == "documents: 2 new, 0 changed, 0 removed; 5 pieces wait for a vector"

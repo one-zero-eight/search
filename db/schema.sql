@@ -555,78 +555,117 @@ CREATE TABLE IF NOT EXISTS abuse_state (
 ALTER TABLE abuse_state DROP COLUMN IF EXISTS alert_pending;  -- admins used to be messaged; they are not any more
 
 -- ---------------------------------------------------------------------------------------------------------
--- The wiki (catix-wiki index, src/catix/wiki/search_index.py): the pages of the OKF bundle in wiki/ and the pieces
--- the agent searches. A page is cut again only when its file (or the cutting scheme) changed; a piece whose text
--- stayed the same keeps its row and its vector, so an update of the wiki embeds only what is new.
+-- The documents of the sources (catix-docs, src/catix/docs/): a document is a markdown body with its meta, cut into the
+-- pieces the agent searches. A document is cut again only when it (or the cutting scheme) changed; a piece whose text
+-- stayed the same keeps its row and its vector, so an update embeds only what is new.
 -- ---------------------------------------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS wiki_pages (
-    path           text PRIMARY KEY,                -- '/regulations/attestation-regulation.md'
-    sha            text NOT NULL,                   -- of the file and the cutting scheme
+-- The tables were called wiki_*, and their documents were keyed by the files of a wiki ('/raw/regulations/x.md').
+-- Renamed once: the pieces follow their document's new path (ON UPDATE CASCADE), their vectors stay.
+DO $$
+BEGIN
+    IF to_regclass('public.wiki_pages') IS NOT NULL AND to_regclass('public.documents') IS NULL THEN
+        ALTER TABLE wiki_pages RENAME TO documents;
+        ALTER TABLE wiki_chunks RENAME TO document_chunks;
+        ALTER TABLE wiki_chunk_embeddings RENAME TO document_chunk_embeddings;
+        ALTER TABLE wiki_embedding_queue RENAME TO document_embedding_queue;
+        ALTER TABLE wiki_meta RENAME TO docs_meta;
+        ALTER INDEX wiki_chunks_path_idx RENAME TO document_chunks_path_idx;
+        ALTER INDEX wiki_chunks_copy_of_idx RENAME TO document_chunks_copy_of_idx;
+        ALTER INDEX wiki_chunk_embeddings_hnsw RENAME TO document_chunk_embeddings_hnsw;
+        DROP INDEX wiki_chunks_search;
+        DROP TRIGGER wiki_chunks_enqueue_insert ON document_chunks;
+        DROP TRIGGER wiki_chunks_enqueue_edit ON document_chunks;
+        DROP FUNCTION enqueue_wiki_embedding();
+        ALTER TABLE documents ADD COLUMN body text NOT NULL DEFAULT '', ADD COLUMN meta jsonb NOT NULL DEFAULT '{}'::jsonb;
+        ALTER TABLE documents DROP CONSTRAINT IF EXISTS wiki_pages_trust_check;
+        ALTER TABLE documents ADD CONSTRAINT documents_trust_check CHECK (trust IN ('official', 'wiki'));
+        ALTER TABLE document_chunks DROP CONSTRAINT IF EXISTS wiki_chunks_path_fkey;
+        ALTER TABLE document_chunks ADD CONSTRAINT document_chunks_path_fkey
+            FOREIGN KEY (path) REFERENCES documents (path) ON DELETE CASCADE ON UPDATE CASCADE;
+        UPDATE documents SET path = CASE
+            WHEN resource LIKE 'https://eduwiki.innopolis.university/%' THEN 'eduwiki/' || regexp_replace(path, '^/raw/(.*)\.md$', '\1')
+            ELSE regexp_replace(path, '^/raw/(.*)\.md$', '\1') END
+        WHERE path ~ '^/raw/.*\.md$';
+    END IF;
+END $$;
+CREATE TABLE IF NOT EXISTS documents (
+    path           text PRIMARY KEY,                -- 'regulations/attestation-regulation', 'sites/hotel/roomfund', 'eduwiki/courses/…'
+    sha            text NOT NULL,                   -- of the document and the cutting scheme
     title          text NOT NULL,
     type           text NOT NULL,
-    trust          text NOT NULL CHECK (trust IN ('official', 'guide', 'wiki')),  -- a document of the university, a guide written from evidence, eduwiki
+    trust          text NOT NULL CHECK (trust IN ('official', 'wiki')),  -- a document of the university, a page of eduwiki or of a site
     audience       text[] NOT NULL DEFAULT '{}',
     resource       text,                            -- the original: a PDF on the university's site or an eduwiki page
     status         text,
-    review         text,                            -- what on the page nobody checked, if anything
+    review         text,                            -- what in the document nobody checked, if anything
     source_warning text,
     stale_after    date,
     issued         date,                            -- when the source was issued or last edited (newer documents replace older ones)
-    indexed_at     timestamptz NOT NULL DEFAULT now()
+    indexed_at     timestamptz NOT NULL DEFAULT now(),
+    body           text NOT NULL DEFAULT '',        -- the markdown
+    meta           jsonb NOT NULL DEFAULT '{}'      -- what the source knows of it (sources, archive member, ...)
 );
-ALTER TABLE wiki_pages ADD COLUMN IF NOT EXISTS issued date;  -- tables created before this column existed
-CREATE TABLE IF NOT EXISTS wiki_chunks (
+CREATE TABLE IF NOT EXISTS document_chunks (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    path        text NOT NULL REFERENCES wiki_pages (path) ON DELETE CASCADE,
-    trust       text NOT NULL,                      -- copied from the page: the search filters by it inside the index
-    seq         int NOT NULL,                       -- order on the page
+    path        text NOT NULL REFERENCES documents (path) ON DELETE CASCADE ON UPDATE CASCADE,
+    trust       text NOT NULL,                      -- copied from the document: the search filters by it inside the index
+    seq         int NOT NULL,                       -- order in the document
     heading     text NOT NULL,                      -- 'Chapter > Section'
     clause      text NOT NULL,                      -- '5.3' or '5.3–5.5' or ''
     sha         text NOT NULL,                      -- of heading and text
     text        text NOT NULL,
     search_text text NOT NULL,                      -- title, headings and text: what is searched and embedded
-    cites       jsonb NOT NULL DEFAULT '[]'         -- a guide's [n] resolved to the pages it cites
+    cites       jsonb NOT NULL DEFAULT '[]',        -- the [n] of the text resolved to the pages the document cites
+    -- A piece whose text another document holds too (the course programme of every intake, a site's header): the search finds
+    -- only the piece it is a copy of, and shows where else it stands (docs/store.py mark_copies).
+    copy_of     bigint REFERENCES document_chunks (id) ON DELETE SET NULL
 );
-CREATE INDEX IF NOT EXISTS wiki_chunks_path_idx ON wiki_chunks (path);
--- A piece whose text another page holds too (the course programme of every intake, a site's header): the search finds only
--- the piece it is a copy of, and shows where else it stands (search_index.mark_copies).
-ALTER TABLE wiki_chunks ADD COLUMN IF NOT EXISTS copy_of bigint REFERENCES wiki_chunks (id) ON DELETE SET NULL;
-CREATE INDEX IF NOT EXISTS wiki_chunks_copy_of_idx ON wiki_chunks (copy_of) WHERE copy_of IS NOT NULL;
-CREATE TABLE IF NOT EXISTS wiki_chunk_embeddings (
-    chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
+CREATE INDEX IF NOT EXISTS document_chunks_path_idx ON document_chunks (path);
+CREATE INDEX IF NOT EXISTS document_chunks_copy_of_idx ON document_chunks (copy_of) WHERE copy_of IS NOT NULL;
+CREATE TABLE IF NOT EXISTS document_chunk_embeddings (
+    chunk_id  bigint PRIMARY KEY REFERENCES document_chunks (id) ON DELETE CASCADE,
     embedding vector(1024) NOT NULL
 );
--- (harrier-oss-v1 was tried as a second vector space and found worse than bge-m3 on the wiki: its table is gone.)
+-- (harrier-oss-v1 was tried as a second vector space and found worse than bge-m3: its table is gone.)
 DROP TABLE IF EXISTS wiki_chunk_embeddings_harrier;
--- Retired experimental model profiles; the active vectors stay in wiki_chunk_embeddings.
+-- Retired experimental model profiles; the active vectors stay in document_chunk_embeddings.
 DROP TABLE IF EXISTS public.wiki_model_embeddings;
-CREATE TABLE IF NOT EXISTS wiki_embedding_queue (
-    chunk_id  bigint PRIMARY KEY REFERENCES wiki_chunks (id) ON DELETE CASCADE,
+CREATE TABLE IF NOT EXISTS document_embedding_queue (
+    chunk_id  bigint PRIMARY KEY REFERENCES document_chunks (id) ON DELETE CASCADE,
     queued_at timestamptz NOT NULL DEFAULT now()
 );
--- Which embeddings model made the vectors: another model makes them all invalid.
-CREATE TABLE IF NOT EXISTS wiki_meta (
+-- Which embeddings model made the vectors: another model makes them all invalid. Also the state of `catix-docs run`.
+CREATE TABLE IF NOT EXISTS docs_meta (
     key   text PRIMARY KEY,
     value text NOT NULL
 );
-CREATE OR REPLACE FUNCTION enqueue_wiki_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION enqueue_document_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
-    INSERT INTO wiki_embedding_queue (chunk_id) VALUES (NEW.id)
+    INSERT INTO document_embedding_queue (chunk_id) VALUES (NEW.id)
         ON CONFLICT (chunk_id) DO UPDATE SET queued_at = excluded.queued_at;
     RETURN NEW;
 END $$;
-DROP TRIGGER IF EXISTS wiki_chunks_enqueue_insert ON wiki_chunks;
-CREATE TRIGGER wiki_chunks_enqueue_insert AFTER INSERT ON wiki_chunks
-    FOR EACH ROW EXECUTE FUNCTION enqueue_wiki_embedding();
-DROP TRIGGER IF EXISTS wiki_chunks_enqueue_edit ON wiki_chunks;
-CREATE TRIGGER wiki_chunks_enqueue_edit AFTER UPDATE OF search_text ON wiki_chunks
-    FOR EACH ROW WHEN (OLD.search_text IS DISTINCT FROM NEW.search_text) EXECUTE FUNCTION enqueue_wiki_embedding();
--- BM25 with the Russian and the English stemmer, as for messages: the documents are Russian, the guides English.
-CREATE INDEX IF NOT EXISTS wiki_chunks_search ON wiki_chunks USING paradedb (
+DROP TRIGGER IF EXISTS document_chunks_enqueue_insert ON document_chunks;
+CREATE TRIGGER document_chunks_enqueue_insert AFTER INSERT ON document_chunks
+    FOR EACH ROW EXECUTE FUNCTION enqueue_document_embedding();
+DROP TRIGGER IF EXISTS document_chunks_enqueue_edit ON document_chunks;
+CREATE TRIGGER document_chunks_enqueue_edit AFTER UPDATE OF search_text ON document_chunks
+    FOR EACH ROW WHEN (OLD.search_text IS DISTINCT FROM NEW.search_text) EXECUTE FUNCTION enqueue_document_embedding();
+-- BM25 with the Russian and the English stemmer, as for messages.
+CREATE INDEX IF NOT EXISTS document_chunks_search ON document_chunks USING paradedb (
     id,
     (search_text::pdb.simple('stemmer=russian')),
     (search_text::pdb.simple('stemmer=english', 'alias=search_text_en')),
     trust
 ) WITH (mutable_segment_rows = 100);
-CREATE INDEX IF NOT EXISTS wiki_chunk_embeddings_hnsw ON wiki_chunk_embeddings
+CREATE INDEX IF NOT EXISTS document_chunk_embeddings_hnsw ON document_chunk_embeddings
     USING hnsw (embedding vector_cosine_ops);
+-- What the sources kept as files in raw/: the state of a crawl (JSON), the text read from a document, the cache of the pages
+-- of a site. The originals (PDF, Word, archives, pictures) are not kept: they are downloaded again when they are needed.
+CREATE TABLE IF NOT EXISTS source_files (
+    path       text PRIMARY KEY,        -- the old path below raw/: 'sites/hotel/index.json', 'regulations/x.txt'
+    data       jsonb,                   -- a .json file
+    text       text,                    -- a .txt or .md file
+    updated_at timestamptz NOT NULL DEFAULT now(),
+    CHECK ((data IS NULL) <> (text IS NULL))
+);

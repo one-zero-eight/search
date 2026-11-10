@@ -20,7 +20,7 @@ from langgraph.types import Command
 
 from catix.common.citations import AnswerSource, CitationLink, CitedAnswer
 from catix.db import store
-from catix.wiki import previews
+from catix.docs import previews
 
 log = logging.getLogger("catix.sources")
 
@@ -86,12 +86,12 @@ class Collector:
         return self._add(f"live:{chat_id}:{msg_id}", fields)
 
     def add_wiki(self, hit) -> str:
-        """A piece of the wiki (db/wiki.py WikiHit): the document, the clause and the original, so that the source line
-        points to the university's own document; a guide's piece names the documents it rests on."""
+        """A piece of the wiki (db/docs.py DocHit): the document, the clause and the original, so that the source line
+        points to the university's own document; a piece that cites pages names them."""
         fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "section": hit.heading, "link": hit.resource, "trust": hit.trust,
-                  "site": hit.path.startswith("/raw/sites/"),
+                  "site": hit.path.startswith("sites/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
-        if document := previews.describe(hit.path, hit.page_sha, hit.resource or ""):
+        if document := previews.describe(hit):
             fields["archive_document"] = document
             return self._add(f"wiki:{hit.id}:{hit.page_sha}", fields)
         return self._add(f"wiki:{hit.id}", fields)
@@ -189,7 +189,7 @@ def _source(number: int, source: dict) -> AnswerSource:
                             kind="web", official=bool(source.get("official_site")))
     if source.get("wiki"):
         trust = source.get("trust")
-        kind = "official_document" if trust == "official" else "guide" if trust == "guide" else "website" if source.get("site") else "eduwiki"
+        kind = "official_document" if trust == "official" else "website" if source.get("site") else "eduwiki"
         return AnswerSource(number=number, title=source["title"], url=source.get("link"), kind=kind,
                             archive_document=source.get("archive_document"), official=trust == "official")
     return AnswerSource(number=number, title=source["chat_title"], url=source.get("link"), kind="chat",

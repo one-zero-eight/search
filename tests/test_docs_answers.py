@@ -1,6 +1,6 @@
 """Answers of the real agent from the university's documents (the docs helper and the wiki search).
 
-The facts are read from the documents themselves (wiki/regulations): the regulation on interim assessment, п. 5.3 (at most two
+The facts are read from the documents themselves (the regulations of the store): the regulation on interim assessment, п. 5.3 (at most two
 retakes within one year), the regulation on academic leave, п. 2.2 (12 months, two years for military service or medical
 reasons), the admission rules (master's 09.04.01: computer testing, at least 40 of 100). Deterministic checks only: the number,
 the clause, the source line, the language. A changed document changes these tests: read the document before the test.

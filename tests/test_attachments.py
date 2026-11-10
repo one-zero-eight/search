@@ -405,7 +405,7 @@ def test_timeout_kills_worker_and_its_child_and_releases_slot(monkeypatch, tmp_p
     script = ("import subprocess,sys,time,pathlib; p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(30)']); "
               f"pathlib.Path({str(pidfile)!r}).write_text(str(p.pid)); time.sleep(30)")
     def slow(*args, **kwargs):
-        assert set(kwargs["env"]) <= {"PATH", "LANG", "TMPDIR", "WIKI_ROOT", "PYTHONPATH"}
+        assert set(kwargs["env"]) <= {"PATH", "LANG", "TMPDIR", "DATABASE_URL", "PYTHONPATH"}
         process = popen([sys.executable, "-c", script], **kwargs)
         processes.append(process)
         return process

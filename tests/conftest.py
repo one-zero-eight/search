@@ -1,10 +1,7 @@
-"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections; the wiki's data of
-the run in a folder of its own."""
+"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections; the sources' files
+(docs/files.py) in memory."""
 
 import os
-import shutil
-import sys
-import tempfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -18,35 +15,36 @@ from catix.db import pg, store
 from catix.settings import settings
 from tests.helpers import TRACES, LocalModel
 
-# The wiki's data of a test run: a folder of its own, never the WIKI_ROOT of .env (the real checkout of `wiki`) nor the code.
-# Set before anything imports catix.wiki (paths.py reads it once); in the environment too, for the processes a test starts.
-assert "catix.wiki.paths" not in sys.modules, "catix.wiki was imported before the tests' WIKI_ROOT was set"
-WIKI_ROOT = Path(tempfile.mkdtemp(prefix="catix-test-wiki-"))
-settings.wiki_root = WIKI_ROOT
-os.environ["WIKI_ROOT"] = str(WIKI_ROOT)
-
 CHAT_ID = -999000999
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
 
 
 @pytest.fixture(autouse=True)
-def wiki_site_catalog(tmp_path_factory, monkeypatch):
-    """Unit tests use a catalog in temporary data, never the mutable wiki checkout."""
-    from catix.wiki.sources import sites
+def memory_files(monkeypatch):
+    """What the sources keep as files (docs/files.py) in memory, never the database of .env."""
+    from catix.docs import files
 
-    config = tmp_path_factory.mktemp("site-registry") / "raw" / "sites.yaml"
-    config.parent.mkdir(parents=True)
+    memory = helpers.MemoryFiles()
+    monkeypatch.setattr(files, "BACKEND", memory)
+    return memory
+
+
+@pytest.fixture(autouse=True)
+def site_catalog(tmp_path_factory, monkeypatch):
+    """Unit tests use a catalog in temporary data, never the sites.yaml of the repository."""
+    from catix.docs.sources import sites
+
+    config = tmp_path_factory.mktemp("site-registry") / "sites.yaml"
     config.write_bytes(Path(__file__).with_name("fixtures").joinpath("sites.yaml").read_bytes())
     monkeypatch.setattr(sites, "CONFIG", config)
-    monkeypatch.setattr(sites, "DISCOVERED", config.with_name("sites-discovered.json"))
     monkeypatch.setattr(sites, "_catalog_version", None)
     sites.reload_catalog()
 
 
 @pytest.fixture(autouse=True)
 def parse_queue(monkeypatch):
-    """The queue of the API's requests to the wiki's run (parse_requests) in memory, never the Redis of .env."""
-    from catix.wiki import parse_requests
+    """The queue of the API's requests to the run of catix-docs (parse_requests) in memory, never the Redis of .env."""
+    from catix.docs import parse_requests
 
     fake = helpers.FakeRedis()
     monkeypatch.setattr(parse_requests, "connect", lambda: fake)
@@ -76,10 +74,6 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "model: the test calls the model server directly")
 
 
-def pytest_unconfigure(config):
-    shutil.rmtree(WIKI_ROOT, ignore_errors=True)
-
-
 FAILED_TRACES: dict[str, list[str]] = {}  # test id -> the Phoenix links of the questions it asked
 _project_id: str | None = None
 
@@ -106,12 +100,12 @@ def _hermetic(request, monkeypatch):
     from catix import live_search
 
     monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
-    monkeypatch.setattr(settings, "tg_bot_token", None)  # (the wiki's run tells the admins of new sites and of the OCR queue: not from a test)
+    monkeypatch.setattr(settings, "tg_bot_token", None)  # (the run of catix-docs tells the admins of new sites and of the OCR queue: not from a test)
     # Operator-local service roots must not change synthetic upstream paths in unrelated tests.
     # Routing tests install their own explicit Settings or override these after this autouse fixture.
     monkeypatch.setattr(settings, "innohassle_events_api", None)
     monkeypatch.setattr(settings, "innohassle_clubs_api", None)
-    from catix.wiki.sources import sites
+    from catix.docs.sources import sites
 
     def no_browser(url: str) -> str:
         raise httpx.TransportError("no browser in the tests")  # (a page of few words would start Chromium: it is read as the site sent it)
