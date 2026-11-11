@@ -180,6 +180,7 @@ class MoodleModuleIn(_UrlChecked):
     name: str = Field(max_length=1000)
     module: str = Field(max_length=50)
     url: str | None = Field(None, max_length=2000)
+    external_url: str | None = Field(None, max_length=2000, description="Where a `url` module points; read for chat links only, not stored")
     html: str = Field("", max_length=HTML_MAX)
     files: list[MoodleFileIn] = Field(default_factory=list, max_length=200)
 

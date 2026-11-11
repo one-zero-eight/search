@@ -2,6 +2,7 @@
 
     PUT    /users/my-moodle/overview                  courses, calendar, grades, assignments, quizzes, completion, groups
     PUT    /users/my-moodle/courses/{id}/content      the text, files (names, links, sha256) and announcements of one course
+    (the Telegram/MAX chats it links to are requested for moderation: moodle_chats.py)
     GET    /users/my-moodle                           what the extension sent, without the course texts
     GET    /users/my-moodle/courses/{id}              the texts of one course
     PUT    /users/my-moodle/files/{sha256}            the bytes of a listed course file (PDF, Office, text, image; up to 25 MiB)
@@ -13,12 +14,13 @@ Private to the user: every route works on the rows of the token's account only.
 """
 
 import hashlib
+import logging
 from urllib.parse import quote
 
 from fastapi import APIRouter, HTTPException, Path, Query, Request, Response
 from starlette.concurrency import run_in_threadpool
 
-from catix import moodle_files, moodle_sync
+from catix import moodle_chats, moodle_files, moodle_sync
 from catix.api.attachments import BINARY
 from catix.api.auth import VerifiedDep
 from catix.moodle_sync import (
@@ -31,6 +33,7 @@ from catix.moodle_sync import (
     MoodleSyncResult,
 )
 
+log = logging.getLogger("catix.api")
 router = APIRouter(prefix="/users/my-moodle", tags=["Moodle"])
 
 SHA256 = r"^[0-9a-f]{64}$"
@@ -59,6 +62,11 @@ def put_course_content(user: VerifiedDep, course_id: int, body: MoodleCourseCont
     missing = moodle_sync.replace_course_content(user.innohassle_id, course_id, body)
     if missing is None:
         raise HTTPException(404, "Send the overview with this course first")
+    try:
+        moodle_chats.request_chats(user.innohassle_id, user.email, user.token.get_secret_value() if user.token else None,
+                                   course_id, body)
+    except Exception:  # The sync is stored; a chat request must not fail it
+        log.warning("moodle course %s: chat requests failed", course_id, exc_info=True)
     return MoodleContentResult(files_missing=missing)
 
 

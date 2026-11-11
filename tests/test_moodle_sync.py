@@ -6,7 +6,7 @@ import hashlib
 import pytest
 from fastapi.testclient import TestClient
 
-from catix import moodle_files, moodle_sync
+from catix import groups, moodle_files, moodle_sync
 from catix.api.app import app
 from catix.db import pg
 from catix.worker import moodle_reader
@@ -19,15 +19,23 @@ B = {"Authorization": "Bearer other"}
 FILE_URL = "https://moodle.innopolis.university/pluginfile.php/1/mod_resource/content/0/slides.pdf"
 
 
+def _clear_requests():
+    with pg.connection() as conn:
+        conn.execute("DELETE FROM source_requests WHERE owner IN (%s, %s)", (U1, U2))
+        conn.execute("DELETE FROM source_requests WHERE invite_link LIKE 'https://t.me/+catixMoodleTest%%'")
+
+
 @pytest.fixture
 def client(monkeypatch):
     claims = {"good": {"uid": U1, "email": "a@innopolis.university"}, "other": {"uid": U2, "email": "b@innopolis.university"}}
     monkeypatch.setattr(token, "claims", lambda t: claims.get(t))
     monkeypatch.setattr(settings, "reranker_route", None)
     monkeypatch.setattr(pg, "embed", lambda texts, query=False: [[1.0] + [0.0] * 1023 for _ in texts])
+    _clear_requests()
     for uid in (U1, U2):
         moodle_sync.forget(uid)
     yield TestClient(app)
+    _clear_requests()
     for uid in (U1, U2):
         moodle_sync.forget(uid)
 
@@ -234,3 +242,34 @@ def test_reader_reads_text_and_refuses_binary():
     assert moodle_files.read_file(b"hello", ".txt").text == "hello"
     with pytest.raises(moodle_files.ReadFailed):
         moodle_files.read_file(b"\x00\x01", ".txt")
+
+
+def test_course_chat_links_become_pending_requests(client, monkeypatch):
+    link = "https://t.me/+catixMoodleTest" + "A" * 8
+    content = {"sections": [{
+        "section_id": 1, "summary_html": f'<a href="{link}">chat</a>',
+        "modules": [
+            {"module_id": 2, "name": "Chat", "module": "url", "external_url": link.replace("t.me", "telegram.me")},
+            {"module_id": 3, "name": "L", "module": "label", "html": "https://t.me/some_bot https://t.me/durov/1"},
+        ],
+    }]}
+
+    def rows():
+        with pg.connection() as conn:
+            return conn.execute("SELECT * FROM source_requests WHERE invite_link = %s", (link,)).fetchall()
+
+    monkeypatch.setattr(groups, "website_groups", lambda token: [])
+    assert client.put("/users/my-moodle/overview", headers=A, json=overview()).status_code == 200
+    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 200
+    assert rows() == []
+
+    monkeypatch.setattr(groups, "website_groups", lambda token: ["B24-SD-01"])
+    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 200
+    [row] = rows()
+    assert (row["owner"], row["status"], row["group_code"], row["comment"], row["decided_by"]) == (
+        U1, "pending", "B24-SD-01", "Moodle: Course one", None)
+    assert row["decided_at"] is None
+
+    assert client.put("/users/my-moodle/overview", headers=B, json=overview("b@innopolis.university")).status_code == 200
+    assert client.put("/users/my-moodle/courses/1/content", headers=B, json=content).status_code == 200
+    assert len(rows()) == 1

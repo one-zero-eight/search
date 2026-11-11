@@ -541,9 +541,10 @@ experiments/   скрипты оценки качества поиска и да
 См. `LICENSE` в корне репозитория.
 
 ## TODO
+- add parallel handlers to different hosts to speed up crawling and parsing process
 - add highlighting on search results
 - when2meet cards
 - move exporting ai calendar to schedule system
 - add union groups (for example first year students groups)
-- remove legacy code and settings, db tables
+- connect grafana/prometeus with opentelemetry logs
 - OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits for the LightOnOCR server (one slot). Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

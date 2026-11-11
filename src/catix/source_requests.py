@@ -88,6 +88,33 @@ def submit(owner: str, email: str, invite_link: str, group_code: str, comment: s
         ).fetchone()
 
 
+def submit_found(owner: str, email: str, invite_link: str, group_code: str, comment: str) -> dict | None:
+    """A chat a course of the owner's own Moodle links to, queued for moderation with the owner's study group as its audience.
+    None when any request (any owner, any status) already has the link, or a source already has its public username
+    (Telegram) or link (MAX): a link is requested once, and a rejected or failed one is not requested again."""
+    link = normalize_link(invite_link)
+    code = groups.normalize(group_code)
+    if not code or code == groups.ALL:
+        raise ValueError("A verified study group is required")
+    with pg.connection() as conn:
+        conn.execute("SELECT pg_advisory_xact_lock(hashtextextended(%s, 8174))", (link,))
+        if conn.execute("SELECT 1 FROM source_requests WHERE invite_link = %s", (link,)).fetchone():
+            return None
+        if link.startswith("https://t.me/"):
+            username = public_username(link)
+            if username and conn.execute("SELECT 1 FROM chats WHERE lower(username) = %s", (username,)).fetchone():
+                return None
+        elif link.startswith("https://max.ru/"):
+            if conn.execute("SELECT 1 FROM chats WHERE link = %s", (link,)).fetchone():
+                return None
+        return conn.execute(
+            """INSERT INTO source_requests (id, owner, email, invite_link, group_code, comment, consented_at)
+               VALUES (%s, %s, %s, %s, %s, %s, now())
+               ON CONFLICT (owner, invite_link) DO NOTHING RETURNING *""",
+            (uuid.uuid4().hex, owner, email, link, code, comment[:2000]),
+        ).fetchone()
+
+
 def list_owned(owner: str) -> list[dict]:
     with pg.connection() as conn:
         return conn.execute(
