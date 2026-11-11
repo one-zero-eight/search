@@ -349,6 +349,11 @@ def ocr_refused(pages: int, ocr_left: float, limit: float = MAX_OCR_PAGES) -> st
     return "ocr deferred" if pages > ocr_left else None
 
 
+def limits(note: dict) -> tuple[float, float, float]:
+    """(bytes, pages, OCR pages) a document may take: no limit for one a person asked for (the note's `force`, regs fetch --key)."""
+    return (float("inf"),) * 3 if note.get("force") else (MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES)
+
+
 def ocr_state(note: dict, limit: int | None = None) -> str | None:
     """What a document's note says of its scan: QUEUED (it waits for a run with OCR), TOO_LONG (longer than `limit` pages,
     MAX_OCR_PAGES by default: put aside, out of the queue, no run reads it), None (not a scan waiting). By the pages, not the
@@ -356,6 +361,8 @@ def ocr_state(note: dict, limit: int | None = None) -> str | None:
     limit covers it."""
     if note.get("ocr") not in (QUEUED, TOO_LONG):
         return None
+    if note.get("force"):  # (a person asked for this very document: no page limit puts it aside)
+        return QUEUED
     return TOO_LONG if note.get("pages", 0) > (MAX_OCR_PAGES if limit is None else limit) else QUEUED
 
 
@@ -418,8 +425,7 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return *ocr_text(pdf), pages
 
 
-def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True,
-                unlimited: bool = False) -> list[str]:
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
     """Download the documents not read yet (and those `refresh` found changed) into a temporary folder, then read them: the text layers all at once
     (one run of opendataloader's JVM, not one a file), the scans after them; the keys of those read. `prefixes`: only the
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
@@ -434,9 +440,6 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     no address any more, university.innopolis.ru/files/ sends to the university's start page). A host that fails
     MAX_FAILURES times in a row is let be for the rest of the run; the other hosts are read (a dead host stopped the whole run)."""
     from catix.docs.sources import archive_documents, opendataloader, sites
-
-    inf = float("inf")  # (`unlimited`: a person asked for this very document, so no size, page or OCR budget limit holds)
-    max_bytes, max_pages, max_ocr, budget = (inf,) * 4 if unlimited else (MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES, OCR_BUDGET)
 
     # Pick up university-hosted files already present in the cached site pages;
     # the site crawl itself records the links it saw while reading a page.
@@ -488,7 +491,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     hosts.turn(d["url"])
                     resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                     resp.raise_for_status()
-                    if len(resp.content) > max_bytes:
+                    if len(resp.content) > limits(old)[0]:
                         print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
                         skip(d, meta, "file too big")
                         continue
@@ -521,7 +524,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 time.sleep(PAUSE)
             try:
                 pdf = to_pdf(src)
-                if not pdf.exists() or pages_of(pdf) > max_pages:
+                if not pdf.exists() or pages_of(pdf) > limits(old)[1]:
                     raise ValueError("cannot read or too long")
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                 print(f"  skipped: {e}")
@@ -550,7 +553,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 from catix.docs import ocr_worker
                 ocr_worker.wake()
 
-        ocr_left, ocr_used, done, scans = budget, 0, list(removed), []
+        ocr_left, ocr_used, done, scans = OCR_BUDGET, 0, list(removed), []
         with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
             for item in downloaded:
                 key, d, src, pdf, meta, old, remote = item
@@ -566,16 +569,16 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                         done.append(key)
                         continue
                 pages = pages_of(pdf)  # a scan: its pages are taken from the budget now, it is read with the others after the loop
-                if pages > max_ocr:  # (not queued: it would wait in the queue for ever)
-                    print(f"{key}: a scan of {pages} pages, longer than {max_ocr}: put aside, not queued for OCR")
+                if pages > limits(old)[2]:  # (not queued: it would wait in the queue for ever)
+                    print(f"{key}: a scan of {pages} pages, longer than {limits(old)[2]}: put aside, not queued for OCR")
                     queue(item, pages, TOO_LONG)
                     continue
                 if not ocr:
                     print(f"{key}: a scan of {pages} pages, queued for a run with OCR")
-                elif why := ocr_refused(pages, ocr_left, max_ocr):
+                elif why := ocr_refused(pages, float("inf") if old.get("force") else ocr_left, limits(old)[2]):
                     print(f"{key}: {why}")
                 else:
-                    ocr_left -= pages
+                    ocr_left -= 0 if old.get("force") else pages
                     ocr_used += pages
                     scans.append(item)
                     continue
@@ -621,18 +624,23 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
 
 
 @locked
-def force(key: str, ocr: bool = True) -> list[str]:
-    """Read one document again whatever its note says (read, skipped, put aside as too long, failed), with no limit of size, pages
-    or OCR budget: mark it `refetch` and run one pass over the keys that start with `key` (no pass over the documents it names).
-    The keys read; KeyError for an unknown key."""
+def force(key: str, now: bool = False, ocr: bool = True) -> None:
+    """Queue one document to be read again whatever its note says (read, skipped, put aside as too long, failed), with no limit of
+    size, pages or OCR budget (the note's `force`, see limits): `docs-loop` reads it (its document thread, then its OCR thread
+    for a scan) and rebuilds the pages, its vectors come from the queue. `now`: this process reads it at once, one pass over
+    the keys that start with `key` (no pass over the documents it names). KeyError for an unknown key."""
+    from catix.docs import document_worker, ocr_worker
     from catix.docs.sources import archive_documents
 
     d = all_docs()[key]
     if archive_documents.is_archive(key, d):
         raise KeyError(f"{key}: an archive, read by rpd or the archives' reader, not by regs")
     meta = f"{d['root']}/{key}.json"
-    files.write_json(meta, {**(files.read_json(meta) or {}), "refetch": True, "failed": False})
-    return _fetch_once(prefixes=(key,), ocr=ocr, unlimited=True)
+    files.write_json(meta, {**(files.read_json(meta) or {}), "refetch": True, "force": True, "failed": False})
+    if now:
+        print(f"{len(_fetch_once(prefixes=(key,), ocr=ocr))} documents read")
+    else:
+        print(f"{key}: queued; docs-loop reads it within {document_worker.RESCAN // 60} minutes (its scan within {ocr_worker.RESCAN // 60})")
 
 
 @locked
@@ -842,7 +850,7 @@ def main(args: Namespace) -> None:
         ocr = not getattr(args, "no_ocr", False)
         if args.key:  # (one document, again, whatever its note says)
             try:
-                print(f"{len(force(args.key, ocr))} documents read")
+                force(args.key, now=args.now, ocr=ocr)
             except KeyError as e:
                 raise SystemExit(str(e.args[0])) from None
             return

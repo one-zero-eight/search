@@ -208,3 +208,15 @@ def test_the_scan_is_not_kept_after_a_run_and_a_run_without_ocr_does_not_downloa
     assert not list(tmp_path.iterdir())  # (the original lived in the temporary folder of the run)
     assert regulations.read_new() == [key] and len(asked) == 2 and read == [f"{key}.pdf"]  # (a run with OCR downloads it again)
     assert files.read_text(f"r/{key}.txt") and not list(tmp_path.iterdir())
+
+
+def test_a_document_forced_by_a_person_is_queued_for_the_loop_and_read_with_no_limit(monkeypatch, tmp_path):
+    key, asked, layers, read = _one_scan(monkeypatch, tmp_path, LONG)
+    note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
+    assert regulations.read_new() == [] and note()["ocr"] == "too long"  # (put aside: no run reads it)
+
+    regulations.force(key)  # (queue only: this process reads nothing)
+    assert len(asked) == 1 and regulations.queued() == {key: LONG}
+    monkeypatch.setattr(regulations, "OCR_BUDGET", 1)  # (the OCR thread's run: neither the budget nor the page limit holds for it)
+    assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and len(asked) == 2
+    assert "force" not in note() and "ocr" not in note()  # (read: it is an ordinary document again)
