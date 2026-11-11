@@ -1,6 +1,6 @@
-"""The course files users uploaded, read as they arrive: a thread of `catix-docs run --loop` (start). It claims one blob of
+"""The course files users uploaded, read as they arrive: a thread of catix-worker (start, called by worker/app.py run). It claims one blob of
 `moodle_blobs` at a time, reads its text in the sandbox of moodle_files.read_file (text layer, LibreOffice, LightOnOCR) and
-stores its pieces; the embeddings worker embeds them."""
+stores its pieces; the embedding threads beside it embed them."""
 
 import threading
 import time
@@ -55,7 +55,7 @@ def loop() -> None:
 
 
 def start() -> threading.Thread:
-    """The moodle-files thread, a daemon: it ends with the run."""
+    """The moodle-files thread, a daemon: it ends with the worker."""
     thread = threading.Thread(target=loop, name="moodle-files", daemon=True)
     thread.start()
     return thread

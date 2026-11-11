@@ -107,6 +107,10 @@ services:
   worker:
     <<: *app
     command: ["catix-worker"]
+    environment:
+      <<: *env
+      OCR_ROUTE: http://host.docker.internal:9931/v1   # LightOnOCR (llama.cpp) on the host, for the course files (worker/moodle_reader.py)
+      OCR_PARALLEL: "4"
 
   # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
   # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;

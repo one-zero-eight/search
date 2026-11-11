@@ -1,8 +1,8 @@
 """The course files the InNoHassle browser extension uploaded (api/moodle.py), their text and their search.
 
 A file is stored once per distinct content (`moodle_blobs`, keyed by the sha256 of its bytes) however many students have it,
-and is reachable only through the user's own `moodle_files` rows. The `moodle-files` thread of `catix-docs run --loop`
-(docs/moodle_files_worker.py) claims a blob, reads its text in a sandboxed subprocess (moodle_file_reader.py: PDF text
+and is reachable only through the user's own `moodle_files` rows. The `moodle-files` thread of `catix-worker`
+(worker/moodle_reader.py) claims a blob, reads its text in a sandboxed subprocess (moodle_file_reader.py: PDF text
 layer, LibreOffice to PDF, LightOnOCR for scans and images), and cuts it into `moodle_blob_chunks`; the embeddings worker
 (`embed_batch`) embeds them. `search` looks only in the chunks of the files the user lists."""
 

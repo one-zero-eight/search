@@ -5,7 +5,8 @@
                                                                         started the Telegram bot (bot_users.py)
 
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
-are woken by the same stream. The bots only store messages, they compute nothing.
+are woken by the same stream. The bots only store messages, they compute nothing. A moodle-files thread (moodle_reader.py) reads the text of the
+course files users uploaded (moodle_blobs) as they arrive.
 
 The changes part reads the stream in a consumer group, so a crash or a model outage loses nothing: a message is acknowledged only
 after it was looked at, and unacknowledged ones are read again. The users' buttons are handled by the Telegram bot
@@ -26,6 +27,7 @@ from catix import bot_users
 from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import health
+from catix.worker import moodle_reader
 from catix.db import pg
 from catix.agent import tracing
 from catix.settings import settings
@@ -123,6 +125,7 @@ async def run() -> None:
     tracing.log_status()
     stop, wake = threading.Event(), threading.Event()
     embedder.start(stop, wake)
+    moodle_reader.start()  # the course files the browser extension uploaded (moodle_files.py)
     monitoring = asyncio.create_task(health.run())  # Alerts to the admins, independent of Redis and the changes part.
     if not settings.redis_url:
         log.warning("REDIS_URL is not set: only embeddings run (polling the queue); schedule changes need Redis")

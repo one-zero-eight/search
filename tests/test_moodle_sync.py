@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from catix import moodle_files, moodle_sync
 from catix.api.app import app
 from catix.db import pg
-from catix.docs import moodle_files_worker
+from catix.worker import moodle_reader
 from catix.innohassle import token
 from catix.settings import settings
 
@@ -172,7 +172,7 @@ def put_file(client, headers, sha, data):
 
 def read_all():
     """Read every queued file (the dev database may hold others), then embed them."""
-    while moodle_files_worker.read_once():
+    while moodle_reader.read_once():
         pass
     while moodle_files.embed_batch():
         pass

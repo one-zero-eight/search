@@ -687,7 +687,7 @@ CREATE INDEX IF NOT EXISTS moodle_announcements_text_idx ON moodle_announcements
 ALTER TABLE moodle_files ADD COLUMN IF NOT EXISTS sha256 text;        -- of the file's bytes; none: not offered (type or size)
 CREATE INDEX IF NOT EXISTS moodle_files_sha256_idx ON moodle_files (sha256) WHERE sha256 IS NOT NULL;
 -- The course files the extension uploaded, once per distinct file (sha256 of the bytes), with their extraction state: a queue
--- read by the moodle-files thread of `catix-docs run --loop` (docs/moodle_files_worker.py). Deleted once no moodle_files row
+-- read by the moodle-files thread of `catix-worker` (worker/moodle_reader.py). Deleted once no moodle_files row
 -- of any user has its sha256 (moodle_sync._gc_files).
 CREATE TABLE IF NOT EXISTS moodle_blobs (
     sha256       text PRIMARY KEY,
