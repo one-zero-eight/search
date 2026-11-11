@@ -431,7 +431,7 @@ class LookUpFirstMiddleware(AgentMiddleware):
 
 
 RETRIEVAL_TOOLS = frozenset({"search_chats", "search_userbot_chats", "read_chats", "search_wiki", "read_wiki",
-                             "search_web", "read_web_page", "search_my_moodle_files"})
+                             "search_web", "read_web_page", "search_my_moodle"})
 RESULT_REF = re.compile(r'"ref"\s*:\s*"(m\d+)"')
 
 CITE_HINT = (
@@ -754,7 +754,7 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
             continue
         if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings",
                             "get_my_available_music_windows", "get_my_available_meeting_slots", "get_my_available_rooms",
-                            "read_attachment", "view_attachment"}:
+                            "read_attachment", "view_attachment", "get_my_moodle"}:
             target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
             target = call["args"].get("name")
@@ -837,6 +837,8 @@ def _read_parts(target: str, data: dict) -> tuple | None:
                 and 1 <= data["page"] <= data["pages"]
                 and isinstance(data.get("text"), str) and type(data.get("truncated")) is bool):
             return (data["text"],)
+    elif target == "get_my_moodle":
+        return counted("items")
     elif target == "rooms_get_free_rooms":
         if data.get("date") and data.get("range"):
             if "unavailable" in data:

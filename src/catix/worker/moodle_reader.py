@@ -1,6 +1,7 @@
 """The course files users uploaded, read as they arrive: a thread of catix-worker (start, called by worker/app.py run). It claims one blob of
 `moodle_blobs` at a time, reads its text in the sandbox of moodle_files.read_file (text layer, LibreOffice, LightOnOCR) and
-stores its pieces; the embedding threads beside it embed them."""
+stores its pieces; it also cuts the course texts (module texts, section summaries, announcements) into pieces. The embedding
+threads beside it embed them."""
 
 import threading
 import time
@@ -47,7 +48,7 @@ def loop() -> None:
     is printed and the loop goes on."""
     while True:
         try:
-            if read_once():
+            if moodle_files.chunk_texts() or read_once():
                 continue
         except Exception:  # noqa: BLE001 - the thread must not die; the next pass tries again
             traceback.print_exc()

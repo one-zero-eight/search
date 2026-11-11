@@ -327,18 +327,19 @@ def plumbed(pdf: Path) -> tuple[str, str]:
         return subprocess.run(["pdftotext", "-layout", str(pdf), "-"], capture_output=True, text=True, check=True).stdout, "text layer"
 
 
-def layer_text(pdf: Path, converted: Path | None = None) -> tuple[str, str] | None:
+def layer_text(pdf: Path, converted: Path | None = None, *, marked: bool = False) -> tuple[str, str] | None:
     """(text, method) of the text layer when the PDF has one (opendataloader; pdfplumber when it could not read it, or read
-    too little); None for a scan. `converted`: the PDF's JSON when many were converted at once."""
+    too little); None for a scan. `converted`: the PDF's JSON when many were converted at once. `marked`: a `\\f<n>` line before
+    each page's text (opendataloader.split_pages)."""
     from catix.docs.sources import opendataloader
 
-    pages = pages_of(pdf)
-    text = opendataloader.text_of_pdf(pdf, converted)
-    if text is not None and len(text.strip()) > 300 * pages:
+    count = pages_of(pdf)
+    text = opendataloader.text_of_pdf(pdf, converted, marked=marked)
+    if text is not None and len(text.strip()) > 300 * count:
         return text, TEXT_LAYER
     text, method = plumbed(pdf)
-    if len(text.strip()) > 300 * pages:
-        return text, method
+    if len(text.strip()) > 300 * count:
+        return (opendataloader.mark_pages(text.split("\f")) if marked else text), method
     return None
 
 
@@ -386,11 +387,11 @@ class NotRead(RuntimeError):
         self.away = away
 
 
-def ocr_text(pdf: Path) -> tuple[str, str]:
+def ocr_text(pdf: Path, *, marked: bool = False) -> tuple[str, str]:
     """(text, method) of a scan by lighton alone; NotRead leaves the scan queued for a later attempt."""
     from catix.docs.sources import lighton
 
-    text = lighton.text_of_pdf(pdf)
+    text = lighton.text_of_pdf(pdf, marked=marked)
     if text is None or not text.strip():
         raise NotRead(away=not lighton.available())
     return text, lighton.METHOD

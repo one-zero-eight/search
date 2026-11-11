@@ -14,11 +14,12 @@ from catix.settings import settings
 READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_trainings",
                         "get_my_available_music_windows", "get_my_available_meeting_slots", "get_my_available_rooms"})
 MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
-                          "read_attachment", "view_attachment", "search_my_moodle_files"}
+                          "read_attachment", "view_attachment", "search_my_moodle", "get_my_moodle"}
 DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
                  "published university events, music room bookings, and room, office, canteen and printer locations; "
                  "read the asker's personal agenda including AI Calendar on the site or linked in bots"
-                 "; search the text of the asker's own Moodle course files (with Moodle sync on in the InNoHassle browser extension)")
+                 "; read the asker's Moodle deadlines, grades, announcements and courses, and search their Moodle course files and course pages, "
+                 "including the course materials their verified study group shares (with Moodle sync on in the InNoHassle browser extension)")
 
 SUPERVISOR = """\
 You are cAtIx, the assistant of Innopolis University for anyone who asks about it: students, postgraduates, applicants,

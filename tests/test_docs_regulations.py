@@ -117,6 +117,22 @@ def test_a_paragraph_going_on_after_a_page_break_is_one_paragraph():
     assert text_of(doc, set()).split("\n\n") == ["Работник обязан соблюдать\nправила охраны труда.", "а) иное."]
 
 
+def test_marked_pages_keep_a_paragraph_on_its_own_page():
+    from catix.docs.sources.opendataloader import split_pages, text_of
+
+    doc = {"kids": [{"type": "paragraph", "content": "Работник обязан соблюдать", "page number": 1},
+                    {"type": "paragraph", "content": "правила охраны труда.", "page number": 2}]}
+    assert split_pages(text_of(doc, set(), marked=True)) == [(1, "Работник обязан соблюдать"), (2, "правила охраны труда.")]
+
+
+def test_lighton_pages_are_marked():
+    from catix.docs.sources import lighton
+    from catix.docs.sources.opendataloader import split_pages
+
+    pages = split_pages(lighton.text_of_pages(["# Intro\n\nfirst", "", "third"], marked=True))
+    assert [page for page, _ in pages] == [1, 3]
+
+
 def test_the_paragraphs_of_a_list_item_stay_where_they_stand_beside_its_inner_list():
     # the laundry's rules: '✓ Две стиральные машины' follows 1.4 on the page, a paragraph of item 1 after its inner list
     from catix.docs.sources.opendataloader import text_of
@@ -154,7 +170,7 @@ def test_a_pdf_opendataloader_cannot_read_is_read_by_pdfplumber(monkeypatch, tmp
     from catix.docs.sources import opendataloader, regulations
 
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 1)
-    monkeypatch.setattr(opendataloader, "text_of_pdf", lambda pdf, converted=None: None)
+    monkeypatch.setattr(opendataloader, "text_of_pdf", lambda pdf, converted=None, marked=False: None)
     monkeypatch.setattr(regulations, "text_layer", lambda pdf: "1.1. Текст " * 50)
     text, method, ocr_pages = regulations.extract(tmp_path / "x.pdf", 0)
     assert method == regulations.PDFPLUMBER and ocr_pages == 0 and text.startswith("1.1.")

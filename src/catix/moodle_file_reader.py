@@ -1,6 +1,7 @@
 """Isolated reader of a course file a user uploaded (moodle_files.read_file runs it). Only the parent chooses its arguments.
 
-argv[1] is the file's suffix, stdin its bytes; stdout is one JSON object {"text", "method", "pages", "skipped"}. Exit 75:
+argv[1] is the file's suffix, stdin its bytes; stdout is one JSON object {"page_texts", "method", "pages", "skipped"}, where
+page_texts is a list of [page or null, text] (a PDF page or slide each; null: not paged) or null. Exit 75:
 the OCR server did not answer (retry later); any other failure exits 1 without saying anything about the file."""
 
 import io
@@ -9,7 +10,7 @@ import resource
 import sys
 from pathlib import Path
 
-MAX_BYTES = 25 * 1024 * 1024
+MAX_BYTES = 100 * 1024 * 1024
 MAX_PIXELS = 40_000_000
 AWAY = 75
 IMAGE_FORMATS = {".png": "PNG", ".jpg": "JPEG", ".jpeg": "JPEG", ".webp": "WEBP"}
@@ -33,7 +34,7 @@ def _plain(data: bytes) -> dict:
     text = data.decode("utf-8-sig")
     if any(ord(c) < 32 and c not in "\t\r\n" for c in text):
         raise ValueError("not plain text")
-    return {"text": text, "method": "plain text", "pages": 1}
+    return {"page_texts": [[None, text]], "method": "plain text", "pages": 1}
 
 
 def _ocr_image(data: bytes, suffix: str) -> dict:
@@ -53,27 +54,27 @@ def _ocr_image(data: bytes, suffix: str) -> dict:
         if not lighton.available():
             sys.exit(AWAY)
         raise
-    return {"text": lighton.text_of_pages([markdown]), "method": lighton.METHOD, "pages": 1}
+    return {"page_texts": [[1, lighton.text_of_pages([markdown])]], "method": lighton.METHOD, "pages": 1}
 
 
 def _pdf(pdf: Path) -> dict:
-    from catix.docs.sources import regulations
+    from catix.docs.sources import opendataloader, regulations
 
     pages = regulations.pages_of(pdf)
     if pages > regulations.MAX_PAGES:
-        return {"text": None, "method": "", "pages": pages, "skipped": f"more than {regulations.MAX_PAGES} pages"}
-    layer = regulations.layer_text(pdf)
+        return {"page_texts": None, "method": "", "pages": pages, "skipped": f"more than {regulations.MAX_PAGES} pages"}
+    layer = regulations.layer_text(pdf, marked=True)
     if layer is not None:
-        return {"text": layer[0], "method": layer[1], "pages": pages}
+        return {"page_texts": opendataloader.split_pages(layer[0]), "method": layer[1], "pages": pages}
     if pages > regulations.MAX_OCR_PAGES:
-        return {"text": None, "method": "", "pages": pages, "skipped": "scan too long for OCR"}
+        return {"page_texts": None, "method": "", "pages": pages, "skipped": "scan too long for OCR"}
     try:
-        text, method = regulations.ocr_text(pdf)
+        text, method = regulations.ocr_text(pdf, marked=True)
     except regulations.NotRead as e:
         if e.away:
             sys.exit(AWAY)
         raise
-    return {"text": text, "method": method, "pages": pages}
+    return {"page_texts": opendataloader.split_pages(text), "method": method, "pages": pages}
 
 
 def read(data: bytes, suffix: str) -> dict:

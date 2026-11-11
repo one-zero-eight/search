@@ -683,6 +683,10 @@ CREATE TABLE IF NOT EXISTS moodle_files (                 -- names and links onl
 CREATE INDEX IF NOT EXISTS moodle_sections_text_idx ON moodle_sections (summary_sha256);
 CREATE INDEX IF NOT EXISTS moodle_modules_text_idx ON moodle_modules (text_sha256);
 CREATE INDEX IF NOT EXISTS moodle_announcements_text_idx ON moodle_announcements (text_sha256);
+ALTER TABLE moodle_accounts ADD COLUMN IF NOT EXISTS study_groups text[] NOT NULL DEFAULT '{}';  -- InNoHassle-verified study groups at the last overview sync: they read the shareable materials of this user's courses
+CREATE INDEX IF NOT EXISTS moodle_accounts_groups_idx ON moodle_accounts USING gin (study_groups);
+ALTER TABLE moodle_sections ADD COLUMN IF NOT EXISTS shareable boolean NOT NULL DEFAULT false;  -- visible to every student of the course (the extension decides)
+ALTER TABLE moodle_modules ADD COLUMN IF NOT EXISTS shareable boolean NOT NULL DEFAULT false;   -- visible to every student, and in a shareable section
 
 ALTER TABLE moodle_files ADD COLUMN IF NOT EXISTS sha256 text;        -- of the file's bytes; none: not offered (type or size)
 CREATE INDEX IF NOT EXISTS moodle_files_sha256_idx ON moodle_files (sha256) WHERE sha256 IS NOT NULL;
@@ -706,6 +710,7 @@ CREATE TABLE IF NOT EXISTS moodle_blobs (
     extracted_at timestamptz
 );
 CREATE INDEX IF NOT EXISTS moodle_blobs_queue_idx ON moodle_blobs (available_at) WHERE status IN ('pending', 'claimed');
+-- Pieces of a file (sha256) or of a course text (text_sha256).
 CREATE TABLE IF NOT EXISTS moodle_blob_chunks (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     sha256      text NOT NULL REFERENCES moodle_blobs ON DELETE CASCADE,
@@ -715,6 +720,18 @@ CREATE TABLE IF NOT EXISTS moodle_blob_chunks (
     search_text text NOT NULL                               -- filename, headings and text: what is searched and embedded
 );
 CREATE INDEX IF NOT EXISTS moodle_blob_chunks_sha256_idx ON moodle_blob_chunks (sha256);
+ALTER TABLE moodle_blob_chunks ADD COLUMN IF NOT EXISTS page integer;   -- the PDF page (slide) of a file's piece; none: not paged (.txt/.md, course text)
+ALTER TABLE moodle_blob_chunks ADD COLUMN IF NOT EXISTS text_sha256 text REFERENCES moodle_texts ON DELETE CASCADE;  -- a piece of a course text instead of a file
+ALTER TABLE moodle_blob_chunks ALTER COLUMN sha256 DROP NOT NULL;
+ALTER TABLE moodle_blob_chunks DROP CONSTRAINT IF EXISTS moodle_blob_chunks_one_source;
+ALTER TABLE moodle_blob_chunks ADD CONSTRAINT moodle_blob_chunks_one_source CHECK (num_nonnulls(sha256, text_sha256) = 1);
+CREATE INDEX IF NOT EXISTS moodle_blob_chunks_text_idx ON moodle_blob_chunks (text_sha256) WHERE text_sha256 IS NOT NULL;
+ALTER TABLE moodle_texts ADD COLUMN IF NOT EXISTS chunked boolean NOT NULL DEFAULT false;  -- its pieces are in moodle_blob_chunks (moodle_files.chunk_texts)
+CREATE INDEX IF NOT EXISTS moodle_texts_unchunked_idx ON moodle_texts (sha256) WHERE NOT chunked;
+-- Files read before pieces had pages are read again once (a re-read sets page on every piece of a PDF or image).
+UPDATE moodle_blobs b SET status = 'pending', attempts = 0, available_at = now(), note = NULL
+WHERE b.status = 'done' AND b.suffix NOT IN ('.txt', '.md')
+  AND EXISTS (SELECT 1 FROM moodle_blob_chunks c WHERE c.sha256 = b.sha256 AND c.page IS NULL);
 CREATE TABLE IF NOT EXISTS moodle_blob_chunk_embeddings (
     chunk_id  bigint PRIMARY KEY REFERENCES moodle_blob_chunks (id) ON DELETE CASCADE,
     embedding vector(1024) NOT NULL
@@ -731,11 +748,13 @@ END $$;
 DROP TRIGGER IF EXISTS moodle_blob_chunks_enqueue ON moodle_blob_chunks;
 CREATE TRIGGER moodle_blob_chunks_enqueue AFTER INSERT ON moodle_blob_chunks
     FOR EACH ROW EXECUTE FUNCTION enqueue_moodle_blob_embedding();
-CREATE INDEX IF NOT EXISTS moodle_blob_chunks_search ON moodle_blob_chunks USING paradedb (
+DROP INDEX IF EXISTS moodle_blob_chunks_search;
+CREATE INDEX IF NOT EXISTS moodle_blob_chunks_search_2 ON moodle_blob_chunks USING paradedb (
     id,
     (search_text::pdb.simple('stemmer=russian')),
     (search_text::pdb.simple('stemmer=english', 'alias=search_text_en')),
-    sha256
+    sha256,
+    text_sha256
 ) WITH (mutable_segment_rows = 100);
 CREATE INDEX IF NOT EXISTS moodle_blob_chunk_embeddings_hnsw ON moodle_blob_chunk_embeddings USING hnsw (embedding vector_cosine_ops);
 

@@ -3,8 +3,9 @@
 A file is stored once per distinct content (`moodle_blobs`, keyed by the sha256 of its bytes) however many students have it,
 and is reachable only through the user's own `moodle_files` rows. The `moodle-files` thread of `catix-worker`
 (worker/moodle_reader.py) claims a blob, reads its text in a sandboxed subprocess (moodle_file_reader.py: PDF text
-layer, LibreOffice to PDF, LightOnOCR for scans and images), and cuts it into `moodle_blob_chunks`; the embeddings worker
-(`embed_batch`) embeds them. `search` looks only in the chunks of the files the user lists."""
+layer, LibreOffice to PDF, LightOnOCR for scans and images), and cuts it into `moodle_blob_chunks` one piece-run per page; it also
+cuts the course texts (`chunk_texts`) into the same table. The embeddings worker (`embed_batch`) embeds them. `search` looks
+in the pieces of the user's course files and texts and of those their study group shares."""
 
 import logging
 import os
@@ -13,12 +14,14 @@ import subprocess
 import sys
 import tempfile
 import uuid
+from collections.abc import Sequence
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from datetime import timedelta
 from pathlib import Path
 from typing import Literal
 
+from catix import moodle_sync
 from catix.db import pg
 from catix.db.store import MAX_QUERIES, _combine, _embed_all, _rrf, _words
 from catix.docs import chunks
@@ -27,7 +30,7 @@ from catix.settings import settings
 
 log = logging.getLogger("catix.moodle_files")
 
-MAX_BYTES = 25 * 1024 * 1024
+MAX_BYTES = 100 * 1024 * 1024
 SUFFIXES = {
     ".pdf": "application/pdf",
     ".doc": "application/msword",
@@ -52,6 +55,7 @@ READ_TIMEOUT = 1800  # seconds
 LEASE = timedelta(hours=2)
 MAX_ATTEMPTS = 3
 EMBED_BATCH = 32
+TEXT_BATCH = 50
 AWAY_EXIT = 75  # moodle_file_reader: the OCR server did not answer
 
 
@@ -65,7 +69,7 @@ class ReadFailed(RuntimeError):
 
 @dataclass
 class Extracted:
-    text: str | None
+    page_texts: list[tuple[int | None, str]] | None
     method: str
     pages: int
     skipped: str | None = None
@@ -107,7 +111,8 @@ def read_file(data: bytes, suffix: str) -> Extracted:
     if process.returncode:
         raise ReadFailed(f"reader exited with {process.returncode}")
     result = json.loads(output)
-    return Extracted(result["text"], result["method"], result["pages"], result.get("skipped"))
+    pages = result["page_texts"]
+    return Extracted(None if pages is None else [(p, t) for p, t in pages], result["method"], result["pages"], result.get("skipped"))
 
 
 # ---- storage
@@ -170,7 +175,7 @@ def finish(job: dict, found: Extracted) -> bool:
             "SELECT filename FROM moodle_files WHERE sha256 = %s ORDER BY innohassle_id, course_id, module_id, position LIMIT 1",
             (job["sha256"],),
         ) or job["sha256"]
-        blank = not (found.text or "").strip()
+        blank = not any(t.strip() for _, t in found.page_texts or [])
         status = "skipped" if found.skipped else "done"
         note = found.skipped or ("no text" if blank else None)
         updated = conn.execute(
@@ -182,12 +187,44 @@ def finish(job: dict, found: Extracted) -> bool:
             return False
         conn.execute("DELETE FROM moodle_blob_chunks WHERE sha256 = %s", (job["sha256"],))
         if not blank and not found.skipped:
+            rows = []
+            for page, text in found.page_texts or []:  # a piece never spans two pages: one slide is one piece
+                base = len(rows)
+                rows.extend((job["sha256"], base + c.seq, page, c.heading, c.text, c.search_text(title)) for c in chunks.cut(text))
             with conn.cursor() as cur:
                 cur.executemany(
-                    "INSERT INTO moodle_blob_chunks (sha256, seq, heading, text, search_text) VALUES (%s, %s, %s, %s, %s)",
-                    [(job["sha256"], c.seq, c.heading, c.text, c.search_text(title)) for c in chunks.cut(found.text or "")],
+                    "INSERT INTO moodle_blob_chunks (sha256, seq, page, heading, text, search_text) VALUES (%s, %s, %s, %s, %s, %s)",
+                    rows,
                 )
         return True
+
+
+def chunk_texts(limit: int = TEXT_BATCH) -> int:
+    """Cut up to `limit` course texts (module texts, section summaries, announcements) that are not yet pieces into
+    `moodle_blob_chunks`; the number handled, 0 = none waited. One transaction."""
+    with pg.connection() as conn:
+        texts = conn.execute(
+            """SELECT t.sha256, t.text, COALESCE(
+                 (SELECT name FROM moodle_modules WHERE text_sha256 = t.sha256 LIMIT 1),
+                 (SELECT name FROM moodle_sections WHERE summary_sha256 = t.sha256 LIMIT 1),
+                 (SELECT title FROM moodle_announcements WHERE text_sha256 = t.sha256 LIMIT 1), '') AS title
+               FROM moodle_texts t WHERE NOT t.chunked ORDER BY t.sha256 LIMIT %s FOR UPDATE OF t SKIP LOCKED""",
+            (limit,),
+        ).fetchall()
+        if not texts:
+            return 0
+        rows = [
+            (t["sha256"], i, c.heading, c.text, c.search_text(t["title"]))
+            for t in texts
+            for i, c in enumerate(chunks.cut(t["text"]))
+        ]
+        with conn.cursor() as cur:
+            cur.executemany(
+                "INSERT INTO moodle_blob_chunks (text_sha256, seq, page, heading, text, search_text) VALUES (%s, %s, NULL, %s, %s, %s)",
+                rows,
+            )
+        conn.execute("UPDATE moodle_texts SET chunked = true WHERE sha256 = ANY(%s::text[])", ([t["sha256"] for t in texts],))
+        return len(texts)
 
 
 def fail(job: dict, away: bool, note: str) -> None:
@@ -235,32 +272,111 @@ def embed_batch(size: int = EMBED_BATCH) -> int:
 # ---- search
 
 @dataclass
-class MoodleFileHit:
+class MoodleHit:
     chunk_id: int
-    sha256: str
-    heading: str
-    text: str
+    kind: Literal["file", "module", "section", "announcement"]
     course_id: int
     course: str
-    module_id: int
-    filename: str
+    path: str  # Course › Section › Module › file
+    title: str
     url: str
+    page: int | None
+    heading: str
+    text: str
+    sha256: str | None  # the file's; none for course text
+    shared: bool  # from the course of a member of the asker's study group
     relevance: float | None = None
 
 
-def search(innohassle_id: str, queries: list[str], *, course_ids: list[int] | None = None, limit: int = 8) -> list[MoodleFileHit]:
-    """The `limit` pieces of the user's own course files that answer the queries best (hybrid BM25 + vector, reranked)."""
+_FILE_PIECES = moodle_sync.SCOPE_CTE + """
+    SELECT c.id AS chunk_id, c.page, c.heading, c.text, c.sha256, x.course_id, x.own, x.course, x.section, x.module,
+           x.filename, x.url
+    FROM moodle_blob_chunks c
+    JOIN LATERAL (
+        SELECT s.course_id, s.own, mc.fullname AS course, sec.name AS section, m.name AS module, f.filename, f.url
+        FROM s JOIN moodle_files f USING (innohassle_id, course_id)
+        JOIN moodle_modules m USING (innohassle_id, course_id, module_id)
+        JOIN moodle_sections sec ON sec.innohassle_id = s.innohassle_id AND sec.course_id = s.course_id AND sec.section_id = m.section_id
+        JOIN moodle_courses mc ON mc.innohassle_id = s.innohassle_id AND mc.course_id = s.course_id
+        WHERE f.sha256 = c.sha256 AND (s.own OR m.shareable)
+        ORDER BY s.own DESC, s.course_id, f.module_id, f.position LIMIT 1
+    ) x ON true
+    WHERE c.id = ANY(%(ids)s::bigint[])"""
+
+_TEXT_PIECES = moodle_sync.SCOPE_CTE + """
+    SELECT c.id AS chunk_id, c.heading, c.text, x.kind, x.course_id, x.own, mc.fullname AS course, x.section, x.title, x.url,
+           x.section_pos, x.discussion_id
+    FROM moodle_blob_chunks c
+    JOIN LATERAL (
+        SELECT * FROM (
+            SELECT 'module' AS kind, 0 AS prio, s.innohassle_id AS owner, s.own, s.course_id, sec.name AS section, m.name AS title,
+                   m.url, sec.position AS section_pos, NULL::bigint AS discussion_id, m.position AS pos
+            FROM s JOIN moodle_modules m USING (innohassle_id, course_id)
+            JOIN moodle_sections sec ON sec.innohassle_id = s.innohassle_id AND sec.course_id = s.course_id AND sec.section_id = m.section_id
+            WHERE m.text_sha256 = c.text_sha256 AND (s.own OR m.shareable)
+            UNION ALL
+            SELECT 'section', 1, s.innohassle_id, s.own, s.course_id, sec.name, sec.name, NULL, sec.position, NULL, 0
+            FROM s JOIN moodle_sections sec USING (innohassle_id, course_id)
+            WHERE sec.summary_sha256 = c.text_sha256 AND (s.own OR sec.shareable)
+            UNION ALL
+            SELECT 'announcement', 2, s.innohassle_id, s.own, s.course_id, '', a.title, NULL, 0, a.discussion_id, a.position
+            FROM s JOIN moodle_announcements a USING (innohassle_id, course_id)
+            WHERE a.text_sha256 = c.text_sha256
+        ) u ORDER BY u.own DESC, u.prio, u.course_id, u.pos LIMIT 1
+    ) x ON true
+    JOIN moodle_courses mc ON mc.innohassle_id = x.owner AND mc.course_id = x.course_id
+    WHERE c.id = ANY(%(ids)s::bigint[])"""
+
+
+def _file_hit(r: dict) -> MoodleHit:
+    path = " › ".join(p for p in (r["course"], r["section"], r["module"], r["filename"]) if p)
+    return MoodleHit(r["chunk_id"], "file", r["course_id"], r["course"], path, r["filename"], r["url"], r["page"], r["heading"],
+                     r["text"], r["sha256"], not r["own"])
+
+
+def _text_hit(r: dict) -> MoodleHit:
+    course_url = f"{moodle_sync.MOODLE_URL}course/view.php?id={r['course_id']}"
+    if r["kind"] == "module":
+        parts, url = (r["course"], r["section"], r["title"]), r["url"] or course_url
+    elif r["kind"] == "section":
+        parts, url = (r["course"], r["section"]), f"{course_url}#section-{r['section_pos']}"
+    else:
+        parts, url = (r["course"], "Announcements", r["title"]), f"{moodle_sync.MOODLE_URL}mod/forum/discuss.php?d={r['discussion_id']}"
+    return MoodleHit(r["chunk_id"], r["kind"], r["course_id"], r["course"], " › ".join(p for p in parts if p), r["title"], url, None,
+                     r["heading"], r["text"], None, not r["own"])
+
+
+def search(
+    innohassle_id: str | None, queries: list[str], *, study_groups: Sequence[str] = (), course_ids: list[int] | None = None, limit: int = 8
+) -> list[MoodleHit]:
+    """The `limit` pieces of the asker's course files and course texts, and of those their study groups share, that answer
+    the queries best (hybrid BM25 + vector, reranked). `course_ids`: only these courses."""
     queries = [q for q in dict.fromkeys(q.strip() for q in queries if q.strip()) if _words(q)][:MAX_QUERIES]
     if not queries or limit <= 0:
         return []
-    sql = "SELECT DISTINCT sha256 FROM moodle_files WHERE innohassle_id = %s AND sha256 IS NOT NULL"
-    params: list = [innohassle_id]
-    if course_ids:
-        sql += " AND course_id = ANY(%s)"
-        params.append(course_ids)
+    found = moodle_sync.scopes(innohassle_id, study_groups, course_ids)
+    if not found:
+        return []
+    arrays = moodle_sync.scope_arrays(found)
     with pg.connection() as conn:
-        shas = pg.column(conn, sql, params)
-    if not shas:
+        shas = pg.column(
+            conn,
+            moodle_sync.SCOPE_CTE + """ SELECT DISTINCT f.sha256 FROM s JOIN moodle_files f USING (innohassle_id, course_id)
+               JOIN moodle_modules m USING (innohassle_id, course_id, module_id)
+               WHERE f.sha256 IS NOT NULL AND (s.own OR m.shareable)""",
+            arrays,
+        )
+        text_shas = pg.column(
+            conn,
+            moodle_sync.SCOPE_CTE + """ SELECT x.summary_sha256 FROM s JOIN moodle_sections x USING (innohassle_id, course_id)
+               WHERE x.summary_sha256 IS NOT NULL AND (s.own OR x.shareable)
+               UNION SELECT x.text_sha256 FROM s JOIN moodle_modules x USING (innohassle_id, course_id)
+               WHERE x.text_sha256 IS NOT NULL AND (s.own OR x.shareable)
+               UNION SELECT x.text_sha256 FROM s JOIN moodle_announcements x USING (innohassle_id, course_id)
+               WHERE x.text_sha256 IS NOT NULL""",
+            arrays,
+        )
+    if not shas and not text_shas:
         return []
     vectors = _embed_all(queries)
     n = settings.docs_search_candidates
@@ -272,9 +388,10 @@ def search(innohassle_id: str, queries: list[str], *, course_ids: list[int] | No
             bm25 = pg.column(
                 conn,
                 """SELECT id FROM moodle_blob_chunks
-                   WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND sha256 = ANY(%(s)s)
+                   WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s)
+                     AND (sha256 = ANY(%(s)s::text[]) OR text_sha256 = ANY(%(t)s::text[]))
                    ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
-                {"q": _words(query), "s": shas, "n": n},
+                {"q": _words(query), "s": shas, "t": text_shas, "n": n},
             )
             nearest: list[int] = []
             if use_vectors:
@@ -284,8 +401,9 @@ def search(innohassle_id: str, queries: list[str], *, course_ids: list[int] | No
                     nearest = pg.column(
                         conn,
                         """SELECT e.chunk_id FROM moodle_blob_chunk_embeddings e JOIN moodle_blob_chunks c ON c.id = e.chunk_id
-                           WHERE c.sha256 = ANY(%(s)s) ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
-                        {"s": shas, "v": vectors[i], "n": n},
+                           WHERE (c.sha256 = ANY(%(s)s::text[]) OR c.text_sha256 = ANY(%(t)s::text[]))
+                           ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
+                        {"s": shas, "t": text_shas, "v": vectors[i], "n": n},
                     )
             per_query.append(_rrf(bm25, nearest))
     per_query = [scores for scores in per_query if scores]
@@ -294,30 +412,18 @@ def search(innohassle_id: str, queries: list[str], *, course_ids: list[int] | No
     if not fused:
         return []
     with pg.connection() as conn:
-        found = {
-            r.chunk_id: r
-            for r in pg.rows(
-                conn,
-                MoodleFileHit,
-                """SELECT c.id AS chunk_id, c.sha256, c.heading, c.text, f.course_id, mc.fullname AS course, f.module_id, f.filename, f.url
-                   FROM moodle_blob_chunks c
-                   JOIN LATERAL (SELECT course_id, module_id, filename, url FROM moodle_files
-                                 WHERE innohassle_id = %(u)s AND sha256 = c.sha256
-                                 ORDER BY course_id, module_id, position LIMIT 1) f ON true
-                   JOIN moodle_courses mc ON mc.innohassle_id = %(u)s AND mc.course_id = f.course_id
-                   WHERE c.id = ANY(%(ids)s)""",
-                {"u": innohassle_id, "ids": fused},
-            )
-        }
-    hits = [found[i] for i in fused if i in found]
+        params = {**arrays, "ids": fused}
+        found_hits = {r["chunk_id"]: _file_hit(r) for r in conn.execute(_FILE_PIECES, params).fetchall()}
+        found_hits |= {r["chunk_id"]: _text_hit(r) for r in conn.execute(_TEXT_PIECES, params).fetchall()}
+    hits = [found_hits[i] for i in fused if i in found_hits]
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
 
 
-def _rerank(queries: list[str], hits: list[MoodleFileHit], limit: int) -> list[MoodleFileHit]:
+def _rerank(queries: list[str], hits: list[MoodleHit], limit: int) -> list[MoodleHit]:
     """As db.docs._rerank: the best score over the queries orders the hits, the second best is their `relevance`."""
     if not hits:
         return hits
-    documents = [f"{h.filename}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
+    documents = [f"{h.path}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
     queries = queries[:settings.rerank_queries]
     try:
         with ThreadPoolExecutor(max_workers=len(queries)) as executor:

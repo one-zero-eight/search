@@ -175,7 +175,7 @@ def cancel_pages() -> None:
             _pages = None
 
 
-def text_of_pdf(pdf: Path) -> str | None:
+def text_of_pdf(pdf: Path, *, marked: bool = False) -> str | None:
     """The text of a scanned PDF, its pages read in page_pool beside those of other scans; None when the server is away or
     a page could not be read (the caller leaves the document queued)."""
     if not available():
@@ -192,11 +192,12 @@ def text_of_pdf(pdf: Path) -> str | None:
             wait(futures)  # (they read the images of this folder)
             print(f"  lighton failed ({type(e).__name__}: {e}), scan stays queued", flush=True)
             return None
-    return text_of_pages(pages)
+    return text_of_pages(pages, marked=marked)
 
 
-def text_of_pages(pages: list[str]) -> str:
-    """The text of a scan from the markdown of its pages, its '#' headings marked."""
+def text_of_pages(pages: list[str], *, marked: bool = False) -> str:
+    """The text of a scan from the markdown of its pages, its '#' headings marked; `marked`: a `\\f<n>` line before each page."""
     from catix.docs.sources import opendataloader
 
-    return opendataloader.text_of({"kids": [node for page in pages for node in nodes_of(page)]}, headings=True)
+    nodes = [node | {"page number": i} for i, page in enumerate(pages, 1) for node in nodes_of(page)]
+    return opendataloader.text_of({"kids": nodes}, headings=True, marked=marked)

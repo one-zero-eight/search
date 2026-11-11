@@ -2,11 +2,16 @@
 local dev database, like tests/test_calendar_feed.py."""
 
 import hashlib
+import json
+import time
+from datetime import datetime, timedelta
+from types import SimpleNamespace
 
 import pytest
 from fastapi.testclient import TestClient
 
 from catix import groups, moodle_files, moodle_sync
+from catix.agent import core, moodle_tools
 from catix.api.app import app
 from catix.db import pg
 from catix.worker import moodle_reader
@@ -30,6 +35,7 @@ def client(monkeypatch):
     claims = {"good": {"uid": U1, "email": "a@innopolis.university"}, "other": {"uid": U2, "email": "b@innopolis.university"}}
     monkeypatch.setattr(token, "claims", lambda t: claims.get(t))
     monkeypatch.setattr(settings, "reranker_route", None)
+    monkeypatch.setattr(groups, "website_groups", lambda token: [])
     monkeypatch.setattr(pg, "embed", lambda texts, query=False: [[1.0] + [0.0] * 1023 for _ in texts])
     _clear_requests()
     for uid in (U1, U2):
@@ -180,13 +186,15 @@ def put_file(client, headers, sha, data):
 
 def read_all():
     """Read every queued file (the dev database may hold others), then embed them."""
+    while moodle_files.chunk_texts():
+        pass
     while moodle_reader.read_once():
         pass
     while moodle_files.embed_batch():
         pass
 
 
-def test_file_upload_extract_and_search(client):
+def test_file_upload_extract_and_search(client, keyword_only):
     data = b"Eigenvalues of a symmetric matrix are real.\n"
     sha = hashlib.sha256(data).hexdigest()
     client.put("/users/my-moodle/overview", headers=A, json=overview())
@@ -202,13 +210,92 @@ def test_file_upload_extract_and_search(client):
     course = client.get("/users/my-moodle/courses/1", headers=A).json()
     assert course["sections"][0]["modules"][0]["files"][0]["text_status"] == "read"
     hits = client.get("/users/my-moodle/search", headers=A, params={"q": "eigenvalues"}).json()
-    assert [h["filename"] for h in hits] == ["notes.txt"]
+    assert [h["title"] for h in hits] == ["notes.txt"]
     assert "symmetric" in hits[0]["text"]
     assert client.get("/users/my-moodle/search", headers=B, params={"q": "eigenvalues"}).json() == []
     got = client.get(f"/users/my-moodle/files/{sha}", headers=A)
     assert got.content == data
     assert got.headers["content-disposition"].startswith("inline")
     assert client.get(f"/users/my-moodle/files/{sha}", headers=B).status_code == 404
+
+
+@pytest.fixture
+def keyword_only(monkeypatch):
+    """Search by words alone: the test embedding is one vector for every text, which would make every piece a vector hit."""
+    monkeypatch.setattr(moodle_files, "_embed_all", lambda queries: [])
+
+
+def asking(user, groups=()):
+    return SimpleNamespace(context=SimpleNamespace(innohassle_id=user, verified_study_groups=groups))
+
+
+def test_course_texts_are_searched_with_their_path(client, keyword_only):
+    client.put("/users/my-moodle/overview", headers=A, json=overview())
+    client.put("/users/my-moodle/courses/1/content", headers=A, json=page_content("<p>Gradient descent converges slowly</p>"))
+    read_all()
+    [hit] = client.get("/users/my-moodle/search", headers=A, params={"q": "gradient"}).json()
+    assert (hit["kind"], hit["path"], hit["page"], hit["shared"]) == ("module", "Course one › Week 1 › Page", None, False)
+    assert client.get("/users/my-moodle/search", headers=B, params={"q": "gradient"}).json() == []
+
+
+def test_moodle_deadlines_leave_out_mirrored_events_and_later_ones(client):
+    now = int(time.time())
+    day = 86400
+    client.put("/users/my-moodle/overview", headers=A, json=overview(
+        assignments=[{"course_id": 1, "items": [{"assignment_id": 1, "module_id": 5, "name": "HW", "due_at": now + 3 * day}]}],
+        quizzes=[{"course_id": 1, "items": [{"quiz_id": 1, "module_id": 6, "name": "Quiz", "closes_at": now + 20 * day}]}],
+        events=[
+            {"event_id": 1, "course_id": 1, "name": "HW due", "event_type": "due", "module": "assign", "starts_at": now + 3 * day},
+            {"event_id": 2, "course_id": 1, "name": "Lesson", "event_type": "open", "module": "lesson", "starts_at": now + 2 * day},
+        ],
+    ))
+    result = moodle_tools.get_my_moodle.func(asking(U1), "deadlines")
+    assert [i["kind"] for i in result["items"]] == ["event", "assignment"]
+    assert result["total"] == 2
+    first = datetime.now(settings.tz).date()
+    assert result["range"] == [first.isoformat(), (first + timedelta(days=13)).isoformat()]
+    assert core._read_parts("get_my_moodle", result) is not None
+    assert moodle_tools.get_my_moodle.func(asking(U2), "deadlines")["error"].startswith("No Moodle data")
+
+
+def test_a_group_reads_shared_materials_but_not_grades_or_hidden_modules(client, keyword_only, monkeypatch):
+    monkeypatch.setattr(groups, "website_groups", lambda token: ["B24-SD-01"])
+    due = int(time.time()) + 3 * 86400
+    client.put("/users/my-moodle/overview", headers=A, json=overview(
+        assignments=[{"course_id": 1, "items": [{"assignment_id": 1, "module_id": 5, "name": "HW", "due_at": due,
+                                                 "submission_status": "submitted"}]}],
+        grades=[{"course_id": 1, "items": [{"item_id": 1, "name": "G", "item_type": "mod", "grade": 9}]}],
+    ))
+    modules = [
+        {"module_id": 5, "name": "Page", "module": "page", "html": "<p>Gradient descent converges</p>", "shareable": True},
+        {"module_id": 6, "name": "Key", "module": "page", "html": "<p>Hidden answers key</p>", "shareable": False},
+    ]
+    client.put("/users/my-moodle/courses/1/content", headers=A,
+               json={"sections": [{"section_id": 7, "name": "Week 1", "shareable": True, "modules": modules}]})
+    read_all()
+
+    seen = []
+    shared = client.get("/users/my-moodle/search", headers=B, params={"q": "gradient"})
+    seen.append(shared.text)
+    [hit] = shared.json()
+    assert hit["shared"] is True
+    hidden = client.get("/users/my-moodle/search", headers=B, params={"q": "answers"})
+    seen.append(hidden.text)
+    assert hidden.json() == []
+
+    ask = asking(U2, ("B24-SD-01",))
+    deadlines = moodle_tools.get_my_moodle.func(ask, "deadlines")
+    seen.append(json.dumps(deadlines))
+    [item] = deadlines["items"]
+    assert (item["kind"], item["shared"], item["submission_status"]) == ("assignment", True, None)
+    grades = moodle_tools.get_my_moodle.func(ask, "grades")
+    seen.append(json.dumps(grades))
+    assert grades["items"] == []
+    assert not any(U1 in text for text in seen)
+
+    assert moodle_tools.get_my_moodle.func(asking(U2, ("B24-SD-02",)), "deadlines")["error"].startswith("No Moodle data")
+    client.delete("/users/my-moodle", headers=A)
+    assert client.get("/users/my-moodle/search", headers=B, params={"q": "gradient"}).json() == []
 
 
 def test_file_not_listed_is_refused(client):
@@ -233,13 +320,13 @@ def test_shared_file_stored_once_and_collected(client):
     client.delete("/users/my-moodle", headers=A)
     assert blobs() == 1
     read_all()
-    assert client.get("/users/my-moodle/search", headers=B, params={"q": "eigenvalues"}).json()[0]["filename"] == "notes.txt"
+    assert client.get("/users/my-moodle/search", headers=B, params={"q": "eigenvalues"}).json()[0]["title"] == "notes.txt"
     client.delete("/users/my-moodle", headers=B)
     assert blobs() == 0
 
 
 def test_reader_reads_text_and_refuses_binary():
-    assert moodle_files.read_file(b"hello", ".txt").text == "hello"
+    assert moodle_files.read_file(b"hello", ".txt").page_texts == [(None, "hello")]
     with pytest.raises(moodle_files.ReadFailed):
         moodle_files.read_file(b"\x00\x01", ".txt")
 

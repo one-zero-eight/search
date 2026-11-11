@@ -5,12 +5,14 @@
     (the Telegram/MAX chats it links to are requested for moderation: moodle_chats.py)
     GET    /users/my-moodle                           what the extension sent, without the course texts
     GET    /users/my-moodle/courses/{id}              the texts of one course
-    PUT    /users/my-moodle/files/{sha256}            the bytes of a listed course file (PDF, Office, text, image; up to 25 MiB)
+    PUT    /users/my-moodle/files/{sha256}            the bytes of a listed course file (PDF, Office, text, image; up to 100 MiB)
     GET    /users/my-moodle/files/{sha256}            the original of one of the user's files
-    GET    /users/my-moodle/search?q=                 pieces of the user's course files that answer the query
+    GET    /users/my-moodle/search?q=                 pieces of the user's course files and course pages, and of those their study group shares
     DELETE /users/my-moodle                           forget everything (the extension does this when sync is turned off)
 
-Private to the user: every route works on the rows of the token's account only.
+The data is private to the user, except that the students of the user's verified study groups read the shareable materials of
+their courses: files, course texts, announcements, assignment and quiz dates. Grades, statuses, attempts, completion and
+events are never shared. Every route but the search works on the rows of the token's account only.
 """
 
 import hashlib
@@ -20,14 +22,14 @@ from urllib.parse import quote
 from fastapi import APIRouter, HTTPException, Path, Query, Request, Response
 from starlette.concurrency import run_in_threadpool
 
-from catix import moodle_chats, moodle_files, moodle_sync
+from catix import groups, moodle_chats, moodle_files, moodle_sync
 from catix.api.attachments import BINARY
 from catix.api.auth import VerifiedDep
 from catix.moodle_sync import (
     MoodleContentResult,
     MoodleCourseContentIn,
     MoodleCourseContentOut,
-    MoodleFileHitOut,
+    MoodleHitOut,
     MoodleOverviewIn,
     MoodleOverviewOut,
     MoodleSyncResult,
@@ -49,7 +51,8 @@ def put_overview(user: VerifiedDep, body: MoodleOverviewIn) -> MoodleSyncResult:
     not sent stays. `courses_without_content` are the courses whose text was never sent (PUT their content next)."""
     if body.moodle_username.strip().lower() != user.email.strip().lower():
         raise HTTPException(409, "This Moodle account is not the one of the InNoHassle account")
-    return MoodleSyncResult(courses_without_content=moodle_sync.replace_overview(user.innohassle_id, body))
+    study_groups = groups.website_groups(user.token.get_secret_value() if user.token else None)
+    return MoodleSyncResult(courses_without_content=moodle_sync.replace_overview(user.innohassle_id, body, study_groups))
 
 
 @router.put(
@@ -97,7 +100,7 @@ def get_course_content(user: VerifiedDep, course_id: int, response: Response) ->
     responses={
         **UNAUTHORIZED,
         404: {"description": "No content the user sent lists this file"},
-        413: {"description": "More than 25 MiB"},
+        413: {"description": "More than 100 MiB"},
         415: {"description": "Not application/octet-stream, or a file type that is not read"},
         422: {"description": "The bytes are not the file of this sha256"},
     },
@@ -107,7 +110,7 @@ async def put_file(request: Request, user: VerifiedDep, sha256: str = Path(patte
     reads its text and makes it searchable for this user only."""
     if request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "application/octet-stream":
         raise HTTPException(415, "Send raw file bytes as application/octet-stream.")
-    too_big = HTTPException(413, "A file must be at most 25 MiB.")
+    too_big = HTTPException(413, "A file must be at most 100 MiB.")
     if length := request.headers.get("content-length"):
         try:
             size = int(length)
@@ -163,14 +166,18 @@ def search_files(
     q: str = Query(min_length=1, max_length=500),
     course_id: int | None = None,
     limit: int = Query(8, ge=1, le=20),
-) -> list[MoodleFileHitOut]:
-    """Pieces of the user's own course files (slides, assignments, readings) that answer the query, best first."""
+) -> list[MoodleHitOut]:
+    """Pieces of the user's course files (slides, assignments, readings) and course pages (module texts, section summaries,
+    announcements), and of those their study group shares, that answer the query, best first."""
     response.headers["Cache-Control"] = NO_STORE
-    hits = moodle_files.search(user.innohassle_id, [q], course_ids=[course_id] if course_id is not None else None, limit=limit)
+    hits = moodle_files.search(
+        user.innohassle_id, [q], study_groups=groups.website_groups(user.token.get_secret_value() if user.token else None),
+        course_ids=[course_id] if course_id is not None else None, limit=limit,
+    )
     return [
-        MoodleFileHitOut(
-            course_id=h.course_id, course=h.course, module_id=h.module_id, filename=h.filename, url=h.url,
-            sha256=h.sha256, heading=h.heading, text=h.text,
+        MoodleHitOut(
+            kind=h.kind, course_id=h.course_id, course=h.course, path=h.path, title=h.title, url=h.url, page=h.page,
+            heading=h.heading, text=h.text, sha256=h.sha256, shared=h.shared,
         )
         for h in hits
     ]

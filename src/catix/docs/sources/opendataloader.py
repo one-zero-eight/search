@@ -22,6 +22,7 @@ from functools import lru_cache
 from pathlib import Path
 
 BATCH = 100  # PDFs a run of the converter reads (each run starts a JVM: one a PDF was slow)
+PAGE_BREAK = "\f"
 WORD = re.compile(r"[^\W\d_]+(?:-[^\W\d_]+)*")
 BROKEN = re.compile(r"(?<![\w-])([^\W_]+(?:-[^\W_]+)*)-$")  # a line that ends in a word broken by a hyphen ('консор-')
 LIST_MARK = re.compile(r"^[а-яa-z]\)\s")  # 'а) ...': an item of a list, not a paragraph going on
@@ -56,12 +57,25 @@ def converted(pdfs: list[Path]) -> Iterator[dict[Path, Path]]:
         yield {pdf: Path(out) / f"{pdf.stem}.json" for pdf in pdfs if (Path(out) / f"{pdf.stem}.json").exists()}
 
 
-def text_of_pdf(pdf: Path, json_path: Path | None = None) -> str | None:
+def text_of_pdf(pdf: Path, json_path: Path | None = None, *, marked: bool = False) -> str | None:
     """The text of a PDF (its JSON when converted already, when many were converted at once); None when it could not be read."""
     if json_path is None:
         with converted([pdf]) as done:
-            return text_of(json.loads(done[pdf].read_text(encoding="utf-8"))) if pdf in done else None
-    return text_of(json.loads(json_path.read_text(encoding="utf-8")))
+            return text_of(json.loads(done[pdf].read_text(encoding="utf-8")), marked=marked) if pdf in done else None
+    return text_of(json.loads(json_path.read_text(encoding="utf-8")), marked=marked)
+
+
+def mark_pages(texts: list[str]) -> str:
+    """The pages' texts as one text with a `\\f<n>` line before each non-empty page (n from 1)."""
+    return "\n\n".join(f"{PAGE_BREAK}{i}\n\n{t}" for i, t in enumerate(texts, 1) if t.strip())
+
+
+def split_pages(text: str) -> list[tuple[int | None, str]]:
+    """(page, text) of a marked text; text before the first marker has no page, blank pages are dropped."""
+    head, *rest = re.split(r"(?m)^\f(\d+)$", text)
+    pages: list[tuple[int | None, str]] = [(None, head.strip())] if head.strip() else []
+    pages += [(int(n), body.strip()) for n, body in zip(rest[::2], rest[1::2]) if body.strip()]
+    return pages
 
 
 def words_in(text: str) -> set[str]:
@@ -158,11 +172,12 @@ def heading_mark(title: str) -> str:
     return "#" * (min(m.group(1).count(".") + 2, 4) if m else 2) + " " + title
 
 
-def text_of(doc: dict, known: frozenset[str] | set[str] | None = None, headings: bool = False) -> str:
+def text_of(doc: dict, known: frozenset[str] | set[str] | None = None, headings: bool = False, marked: bool = False) -> str:
     """The text of a document's JSON: a block of lines per heading, paragraph, item of a list, caption; a table as markdown.
     `known`: the words that decide a broken word (the documents' by default), beside the document's own. `headings`: its
     headings marked as markdown ('## 4 Процесс …'), to be taken as they are (lighton's: opendataloader's own take a page
-    number, a line of a formula, half of a title for one), not guessed again from the numbers of the lines."""
+    number, a line of a formula, half of a title for one), not guessed again from the numbers of the lines. `marked`: a line
+    `\\f<n>` before the text of page n (see split_pages); a paragraph does not go on across it."""
     from catix.docs.sources.regulations import table_markdown
 
     nodes = doc.get("kids") or []
@@ -210,5 +225,11 @@ def text_of(doc: dict, known: frozenset[str] | set[str] | None = None, headings:
                     heads.add(key)
                     add(head, "head")
 
-    walk(nodes)
-    return "\n\n".join("\n".join(lines if kind == "table" else joined(lines, words)) for kind, lines in blocks if any(lines))
+    last_page = None
+    for node in nodes:
+        page = node.get("page number")
+        if marked and isinstance(page, int) and page != last_page:
+            last_page = page
+            blocks.append(("page", [f"{PAGE_BREAK}{page}"]))
+        walk([node])
+    return "\n\n".join("\n".join(lines if kind in ("table", "page") else joined(lines, words)) for kind, lines in blocks if any(lines))

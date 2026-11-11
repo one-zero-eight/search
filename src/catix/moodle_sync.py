@@ -5,12 +5,16 @@ deadlines, grades, assignments with their submission status, quizzes with attemp
 groups, course announcements, and the text of course sections and modules with the names and links of course files (never
 the files). The HTML of Moodle is sent raw and turned into Markdown here (the extension's service worker has no DOMParser).
 
-The data is private to the user: every row carries `innohassle_id`, every read filters by it, every sync replaces it, and
+The data is private to the user, except that the students of the user's verified study groups (`moodle_accounts.study_groups`)
+read the shareable materials of their courses: files, course texts, announcements, assignment and quiz dates (`scopes`). Grades,
+statuses, attempts, completion and events are never shared. Every row carries `innohassle_id`, every sync replaces it, and
 `forget` removes it. Course text is content-addressed: stored once per distinct text (`moodle_texts`, sha256 of the
 Markdown), and the rows of each user point to it; a text is deleted when no row of any user references it any more.
 """
 
 import hashlib
+from collections.abc import Sequence
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Any, Literal
 
@@ -183,12 +187,14 @@ class MoodleModuleIn(_UrlChecked):
     external_url: str | None = Field(None, max_length=2000, description="Where a `url` module points; read for chat links only, not stored")
     html: str = Field("", max_length=HTML_MAX)
     files: list[MoodleFileIn] = Field(default_factory=list, max_length=200)
+    shareable: bool = Field(False, description="Visible to every student of the course: visible, uservisible, no availability restriction")
 
 
 class MoodleSectionIn(BaseModel):
     section_id: int
     name: str = Field("", max_length=1000)
     summary_html: str = Field("", max_length=HTML_MAX)
+    shareable: bool = Field(False, description="Visible to every student of the course: visible, uservisible, no availability restriction")
     modules: list[MoodleModuleIn] = Field(default_factory=list, max_length=1000)
 
 
@@ -344,15 +350,18 @@ class MoodleCourseContentOut(BaseModel):
     announcements: list[MoodleAnnouncementOut]
 
 
-class MoodleFileHitOut(BaseModel):
+class MoodleHitOut(BaseModel):
+    kind: Literal["file", "module", "section", "announcement"]
     course_id: int
     course: str
-    module_id: int
-    filename: str
+    path: str = Field(description="Course › Section › Module › file, as Moodle shows them")
+    title: str
     url: str
-    sha256: str
+    page: int | None = Field(description="The PDF page (slide) of a file's piece; none when not paged")
     heading: str
     text: str
+    sha256: str | None = Field(description="The file's sha256; none for course text")
+    shared: bool = Field(description="From the course of a member of the user's study group")
 
 
 class MoodleContentResult(BaseModel):
@@ -470,7 +479,7 @@ def _replace_course_rows(
         )
 
 
-def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn) -> list[int]:
+def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn, study_groups: list[str]) -> list[int]:
     """Replace the user's courses, events and per-course data with the snapshot; what Moodle did not answer stays. Returns
     the ids of the courses whose text was never sent."""
     with pg.connection() as conn:
@@ -483,9 +492,10 @@ def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn) -> list[int
             _gc(conn, old)
             _gc_files(conn, old_files)
         conn.execute(
-            "INSERT INTO moodle_accounts (innohassle_id, moodle_user_id) VALUES (%s, %s) "
-            "ON CONFLICT (innohassle_id) DO UPDATE SET moodle_user_id = EXCLUDED.moodle_user_id, synced_at = now()",
-            (innohassle_id, snapshot.moodle_user_id),
+            "INSERT INTO moodle_accounts (innohassle_id, moodle_user_id, study_groups) VALUES (%s, %s, %s) "
+            "ON CONFLICT (innohassle_id) DO UPDATE SET moodle_user_id = EXCLUDED.moodle_user_id, synced_at = now(), "
+            "study_groups = EXCLUDED.study_groups",
+            (innohassle_id, snapshot.moodle_user_id, study_groups),
         )
         ids = [c.course_id for c in snapshot.courses]
         old = _held(conn, innohassle_id)
@@ -588,17 +598,17 @@ def replace_course_content(innohassle_id: str, course_id: int, content: MoodleCo
         conn.execute("DELETE FROM moodle_announcements WHERE innohassle_id = %s AND course_id = %s", (innohassle_id, course_id))
         for i, section in enumerate(content.sections):
             conn.execute(
-                "INSERT INTO moodle_sections (innohassle_id, course_id, section_id, position, name, summary_sha256) "
-                "VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
+                "INSERT INTO moodle_sections (innohassle_id, course_id, section_id, position, name, summary_sha256, shareable) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
                 (innohassle_id, course_id, section.section_id, i, section.name,
-                 _put_text(conn, to_markdown(section.summary_html))),
+                 _put_text(conn, to_markdown(section.summary_html)), section.shareable),
             )
             for j, module in enumerate(section.modules):
                 conn.execute(
                     "INSERT INTO moodle_modules (innohassle_id, course_id, module_id, section_id, position, name, module, "
-                    "url, text_sha256) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
+                    "url, text_sha256, shareable) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
                     (innohassle_id, course_id, module.module_id, section.section_id, j, module.name, module.module,
-                     module.url, _put_text(conn, to_markdown(module.html))),
+                     module.url, _put_text(conn, to_markdown(module.html)), section.shareable and module.shareable),
                 )
                 if module.files:
                     with conn.cursor() as cur:
@@ -727,3 +737,176 @@ def forget(innohassle_id: str) -> None:
         conn.execute("DELETE FROM moodle_accounts WHERE innohassle_id = %s", (innohassle_id,))
         _gc(conn, old)
         _gc_files(conn, old_files)
+
+
+# ---- who reads what: the user's own rows, and what their study group shares
+
+@dataclass(frozen=True)
+class Scope:
+    """One course read for an asker: `owner` is the `innohassle_id` whose rows are read (never put in any output), `own` that it
+    is the asker. A non-own scope shows only shareable modules, announcements and dates (see the rule in the module docstring)."""
+
+    owner: str
+    course_id: int
+    own: bool
+
+
+def scopes(innohassle_id: str | None, study_groups: Sequence[str], course_ids: list[int] | None = None) -> list[Scope]:
+    """The courses the asker reads: their own, and those of other users who share with one of `study_groups` (the freshest
+    synced owner of a course; the asker's own rows win). `course_ids`: only these."""
+    found: list[Scope] = []
+    with pg.connection() as conn:
+        if innohassle_id is not None:
+            found = [
+                Scope(innohassle_id, r["course_id"], True)
+                for r in _all(conn, "SELECT course_id FROM moodle_courses WHERE innohassle_id = %s ORDER BY course_id", (innohassle_id,))
+            ]
+        if study_groups:
+            found += [
+                Scope(r["innohassle_id"], r["course_id"], False)
+                for r in _all(
+                    conn,
+                    """SELECT DISTINCT ON (c.course_id) c.innohassle_id, c.course_id
+                       FROM moodle_courses c JOIN moodle_accounts a USING (innohassle_id)
+                       WHERE a.study_groups && %(g)s::text[] AND c.innohassle_id IS DISTINCT FROM %(u)s
+                         AND c.content_synced_at IS NOT NULL AND NOT (c.course_id = ANY(%(own)s))
+                       ORDER BY c.course_id, c.content_synced_at DESC""",
+                    {"g": list(study_groups), "u": innohassle_id, "own": [s.course_id for s in found]},
+                )
+            ]
+    if course_ids is not None:
+        found = [s for s in found if s.course_id in course_ids]
+    return found
+
+
+SCOPE_CTE = "WITH s(innohassle_id, course_id, own) AS (SELECT * FROM unnest(%(o)s::text[], %(c)s::bigint[], %(w)s::bool[]))"
+
+
+def scope_arrays(found: list[Scope]) -> dict[str, list]:
+    """The parameters of SCOPE_CTE."""
+    return {"o": [s.owner for s in found], "c": [s.course_id for s in found], "w": [s.own for s in found]}
+
+
+def matching_course_ids(found: list[Scope], words: str) -> list[int]:
+    """The courses in scope whose full or short name contains `words`."""
+    if not found:
+        return []
+    escaped = words.strip().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+    with pg.connection() as conn:
+        return pg.column(
+            conn,
+            SCOPE_CTE + """ SELECT DISTINCT c.course_id FROM s JOIN moodle_courses c USING (innohassle_id, course_id)
+                            WHERE c.fullname ILIKE %(p)s OR c.shortname ILIKE %(p)s ORDER BY 1""",
+            {**scope_arrays(found), "p": f"%{escaped}%"},
+        )
+
+
+_SHAREABLE_MODULE = (
+    "(s.own OR EXISTS (SELECT 1 FROM moodle_modules m WHERE m.innohassle_id = s.innohassle_id AND m.course_id = s.course_id "
+    "AND m.module_id = {module_id} AND m.shareable))"
+)
+
+
+def deadlines(
+    innohassle_id: str | None, found: list[Scope], since: datetime, until: datetime, *, filtered: bool = False
+) -> list[dict]:
+    """Assignments, quizzes and other events due in [since, until): `kind`, `course`, `shared` and the kind's fields, with
+    datetimes as stored. Assignments and quizzes of a shared course need a shareable module and carry no status of the owner;
+    events are the asker's own, and those Moodle mirrors from assignments and quizzes are left out. `filtered`: the scopes
+    are a course filter, so events with no course are left out."""
+    items: list[dict] = []
+    with pg.connection() as conn:
+        if found:
+            args = {**scope_arrays(found), "since": since, "until": until}
+            for r in _all(
+                conn,
+                SCOPE_CTE + f""" SELECT s.own, c.fullname AS course, a.name, a.due_at, a.cutoff_at, a.module_id,
+                       CASE WHEN s.own THEN a.submission_status END AS submission_status,
+                       CASE WHEN s.own THEN a.grading_status END AS grading_status
+                    FROM s JOIN moodle_assignments a USING (innohassle_id, course_id)
+                    JOIN moodle_courses c USING (innohassle_id, course_id)
+                    WHERE a.due_at >= %(since)s AND a.due_at < %(until)s AND {_SHAREABLE_MODULE.format(module_id="a.module_id")}""",
+                args,
+            ):
+                items.append({
+                    "kind": "assignment", "course": r["course"], "shared": not r["own"], "name": r["name"], "due": r["due_at"],
+                    "cutoff": r["cutoff_at"], "submission_status": r["submission_status"], "grading_status": r["grading_status"],
+                    "url": f"{MOODLE_URL}mod/assign/view.php?id={r['module_id']}",
+                })
+            for r in _all(
+                conn,
+                SCOPE_CTE + f""" SELECT s.own, c.fullname AS course, q.name, q.closes_at, q.opens_at, q.module_id,
+                       q.attempts_allowed, q.max_grade,
+                       CASE WHEN s.own THEN q.attempts_used END AS attempts_used,
+                       CASE WHEN s.own THEN q.best_grade END AS best_grade
+                    FROM s JOIN moodle_quizzes q USING (innohassle_id, course_id)
+                    JOIN moodle_courses c USING (innohassle_id, course_id)
+                    WHERE q.closes_at >= %(since)s AND q.closes_at < %(until)s AND {_SHAREABLE_MODULE.format(module_id="q.module_id")}""",
+                args,
+            ):
+                items.append({
+                    "kind": "quiz", "course": r["course"], "shared": not r["own"], "name": r["name"], "due": r["closes_at"],
+                    "opens": r["opens_at"], "attempts_allowed": r["attempts_allowed"], "max_grade": r["max_grade"],
+                    "attempts_used": r["attempts_used"], "best_grade": r["best_grade"],
+                    "url": f"{MOODLE_URL}mod/quiz/view.php?id={r['module_id']}",
+                })
+        if innohassle_id is not None:
+            for r in _all(
+                conn,
+                """SELECT e.name, e.event_type, e.starts_at, e.pending, e.url, COALESCE(c.fullname, '') AS course
+                   FROM moodle_events e
+                   LEFT JOIN moodle_courses c ON c.innohassle_id = e.innohassle_id AND c.course_id = e.course_id
+                   WHERE e.innohassle_id = %(u)s AND e.starts_at >= %(since)s AND e.starts_at < %(until)s
+                     AND COALESCE(e.module, '') NOT IN ('assign', 'quiz')
+                     AND (e.course_id = ANY(%(own)s) OR (e.course_id IS NULL AND NOT %(filtered)s))""",
+                {"u": innohassle_id, "since": since, "until": until, "own": [s.course_id for s in found if s.own], "filtered": filtered},
+            ):
+                items.append({
+                    "kind": "event", "course": r["course"], "shared": False, "name": r["name"], "event_type": r["event_type"],
+                    "due": r["starts_at"], "pending": r["pending"], "url": r["url"],
+                })
+    return items
+
+
+def announcements(found: list[Scope], since: datetime, until: datetime) -> list[dict]:
+    """Announcements posted in [since, until) in the courses in scope (shared ones too), newest first."""
+    if not found:
+        return []
+    with pg.connection() as conn:
+        rows = _all(
+            conn,
+            SCOPE_CTE + """ SELECT s.own, a.course_id, c.fullname, a.discussion_id, a.title, a.posted_at, t.text
+                            FROM s JOIN moodle_announcements a USING (innohassle_id, course_id)
+                            JOIN moodle_courses c USING (innohassle_id, course_id)
+                            LEFT JOIN moodle_texts t ON t.sha256 = a.text_sha256
+                            WHERE a.posted_at >= %(since)s AND a.posted_at < %(until)s ORDER BY a.posted_at DESC""",
+            {**scope_arrays(found), "since": since, "until": until},
+        )
+    return [
+        {"course": r["fullname"], "shared": not r["own"], "title": r["title"], "posted": r["posted_at"], "text": r["text"] or "",
+         "url": f"{MOODLE_URL}mod/forum/discuss.php?d={r['discussion_id']}"}
+        for r in rows
+    ]
+
+
+def courses(found: list[Scope]) -> list[dict]:
+    """The courses in scope by name; completion counts only for the asker's own."""
+    if not found:
+        return []
+    count = (
+        "CASE WHEN s.own THEN (SELECT count(*) FROM moodle_completion k WHERE k.innohassle_id = s.innohassle_id "
+        "AND k.course_id = s.course_id{states}) END"
+    )
+    with pg.connection() as conn:
+        rows = _all(
+            conn,
+            SCOPE_CTE + f""" SELECT s.own, c.fullname, c.shortname, c.starts_at, c.ends_at, c.content_synced_at,
+                               {count.format(states=" AND k.state IN (1, 2)")} AS completed, {count.format(states="")} AS tracked
+                            FROM s JOIN moodle_courses c USING (innohassle_id, course_id) ORDER BY c.fullname, s.course_id""",
+            scope_arrays(found),
+        )
+    return [
+        {"course": r["fullname"], "shared": not r["own"], "shortname": r["shortname"], "starts": r["starts_at"], "ends": r["ends_at"],
+         "content_synced": r["content_synced_at"] is not None, "completed": r["completed"], "tracked": r["tracked"]}
+        for r in rows
+    ]
