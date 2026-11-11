@@ -799,10 +799,9 @@ def to_markdown(text: str) -> str:
 
 
 def readable(text: str) -> bool:
-    """Enough words to be worth a page (a scan that OCR could not read, a form with only lines and boxes, is not), or a table
-    of data under its heading (an exam's results, the places for admission: few words, the rows say it)."""
-    words = len(re.findall(r"[^\W\d_]{3,}", text))
-    return words >= 60 or words >= 30 and re.search(r"^\|.*\d.*\|$", text, re.M) is not None
+    """Whether the text says anything: a short document is worth a page, only one with no letter or digit at all (empty, or
+    nothing but lines, boxes and spaces: a scan that OCR could not read) is not."""
+    return re.search(r"[^\W_]", text) is not None
 
 
 def compile_all() -> list[Document]:

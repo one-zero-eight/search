@@ -217,15 +217,14 @@ def test_a_stopped_reading_of_scans_starts_none_of_those_waiting(monkeypatch):
     assert "c" not in started and "d" not in started
 
 
-def test_a_short_table_of_data_is_worth_a_page_and_a_form_of_lines_is_not():
+def test_a_short_document_is_worth_a_page_and_one_with_no_letter_or_digit_is_not():
     from catix.docs.sources.regulations import readable
 
-    results = ("Автономная некоммерческая организация высшего образования «Университет Иннополис»\n\nРезультаты вступительного испытания по программе магистратуры Управление цифровым продуктом, проводимого "
-               "АНО ВО «Университет Иннополис» самостоятельно, дата проведения 08.08.2024\n\n"
-               "| № | СНИЛС/Уникальный код | оценка | оценка (прописью) |\n| --- | --- | --- | --- |\n"
-               "| 1 | 12253778149 | 45 | Сорок пять |\n| 2 | 15472870485 | 42 | Сорок два |\n| 3 | 16898160835 | 40 | Сорок |")
-    assert readable(results)
-    assert not readable("Заявление\n\nФамилия ____ Имя ____ Отчество ____\n\nПодпись ____ Дата ____")
+    assert readable("Информация о наличии общежития(ий)\n\nУниверситет предоставляет размещение.")
+    assert readable("| № | оценка |\n| --- | --- |\n| 1 | 45 |")
+    assert not readable("")
+    assert not readable("  \n\n")
+    assert not readable("____ | | ---- ||\n\n| --- | --- |\n_ _")
 
 
 def test_a_scan_as_lighton_reads_it_is_text_as_a_text_layer_is():
