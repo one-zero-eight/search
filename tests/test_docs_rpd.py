@@ -226,3 +226,18 @@ def test_a_name_from_a_windows_zip_is_read_as_text():
 
     windows = os.fsdecode("Программа.pdf".encode("cp866"))  # how Python sees a cp866 name: surrogates
     assert file_name(windows) == "Программа.pdf" and file_name("Программа.pdf") == "Программа.pdf"
+
+
+def test_a_course_archive_is_an_unread_file_only_while_rpd_has_to_read_it(monkeypatch, memory_files):
+    from catix.docs.sources import crawl, regulations, rpd, sites
+
+    cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
+    read, dead, new = (f"https://innopolis.university/upload/{n}.7z" for n in ("read", "dead", "new"))
+    _listed(monkeypatch, [{"url": u, "title": "1 семестр", "context": cell} for u in (read, dead, new)])
+    monkeypatch.setattr(sites, "reload_catalog", lambda: None)
+    monkeypatch.setattr(regulations, "all_docs", lambda: {})
+    monkeypatch.setattr(crawl, "provider", lambda url, **kw: "university")
+    monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": read, "sha256": "ab"},
+                                             "archive-1": {"archive": dead, "skipped": "404 on the site"}})
+    memory_files.write_text("sites/university/page.md", f"[a]({read}) [b]({dead}) [c]({new})")
+    assert sites.unread_files() == {"university": {sites.canonical(new)}}

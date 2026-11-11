@@ -1083,11 +1083,13 @@ def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
 def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
     """provider -> the links of cached pages of `names` (every site when None) to files of trusted sites (crawl.provider: a PDF,
     a Word file, an archive) that a run of documents still has to read: not registered, or regulations.settled_doc is false
-    (regs fetch downloads it)."""
-    from catix.docs.sources import crawl
+    (regs fetch downloads it); a course archive (rpd.archives) while rpd.pending lists it (rpd.fetch reads it)."""
+    from catix.docs.sources import crawl, rpd
 
     reload_catalog()
     docs = {canonical(d["url"]): (key, d) for key, d in regulations.all_docs().items() if not d.get("member")}
+    courses = {canonical(a["url"]) for a in rpd.archives()}  # (rpd reads them, not the documents' reader: regulations.all_docs leaves them out)
+    waiting = {canonical(a["url"]) for a in rpd.pending()}
     judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
     found: dict[str, set[str]] = {}
     for source in names or list(SITES):
@@ -1097,7 +1099,8 @@ def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
             for raw in crawl.PAGE.findall(files.read_text(path) or ""):
                 link = canonical(raw.rstrip(crawl.TRAILING))
                 if link not in judged:
-                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and not ((kd := docs.get(link)) and regulations.settled_doc(*kd)) else None
+                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and (
+                        link in waiting if link in courses else not ((kd := docs.get(link)) and regulations.settled_doc(*kd))) else None
                 if name := judged[link]:
                     found.setdefault(name, set()).add(link)
     return found

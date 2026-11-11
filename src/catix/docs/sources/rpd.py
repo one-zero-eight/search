@@ -171,6 +171,18 @@ def save(index: dict) -> None:
     files.write_json(INDEX, index)
 
 
+def pending(all_years: bool | None = None) -> list[dict]:
+    """The archives of archives() that fetch reads now: none of their programmes, skips or 404 is noted (load()), and they
+    did not fail to unpack lately (REMOTE `failed`, sites.RETRY)."""
+    from catix.docs.sources import sites
+
+    index = load()
+    remote = files.read_json(REMOTE) or {}
+    read = {c["archive"] for c in index.values()}
+    return [a for a in archives(all_years, dead_links(index)) if a["url"] not in read
+            and not ((old := remote.get(a["url"], {})).get("failed") and sites.recent(old.get("tried_at")))]
+
+
 def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
     """Download the archives not read yet, unpack them and keep the text of every programme inside (the archives themselves
     live only in a temporary folder). Polite: one archive every `regulations.PAUSE` seconds, stop after
@@ -180,9 +192,7 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
 
     index = load()
     remote = files.read_json(REMOTE) or {}
-    read = {c["archive"] for c in index.values()}
-    todo = [a for a in archives(all_years, dead_links(index)) if a["url"] not in read
-            and not ((old := remote.get(a["url"], {})).get("failed") and sites.recent(old.get("tried_at")))][:limit]
+    todo = pending(all_years)[:limit]
     print(f"{len(todo)} archives to read")
     failures, total = 0, 0
     for n, a in enumerate(todo, 1):
