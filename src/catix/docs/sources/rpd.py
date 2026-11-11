@@ -27,7 +27,7 @@ from pathlib import Path
 import httpx
 
 from catix.settings import settings
-from catix.docs.sources import regulations
+from catix.docs.sources import hosts, regulations
 from catix.docs import files
 from catix.docs.store import PRODUCER, Document
 
@@ -258,6 +258,7 @@ def refresh() -> int:
     with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True) as client:
         for url in urls:
             try:
+                hosts.turn(url)
                 resp = client.head(url)
             except httpx.HTTPError as e:
                 failures += 1

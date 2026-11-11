@@ -13,7 +13,9 @@ and the clause numbers stay, so that an answer can cite 'п. 5.3'. No model writ
 These concepts carry `source_kind: official-document`; a scanned one also `extraction: ocr` and a `review:` note.
 """
 
+import functools
 import hashlib
+import threading
 from collections import Counter
 import re
 import subprocess
@@ -30,6 +32,7 @@ from urllib.parse import unquote
 
 from catix.settings import settings
 from catix.docs import files
+from catix.docs.sources import hosts
 from catix.docs.store import PRODUCER, Document
 
 ROOT = "regulations"
@@ -76,6 +79,20 @@ MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may no
 QUEUED, TOO_LONG = "queued", "too long"  # a scan's "ocr" in its note: waits for a run with OCR / longer than MAX_OCR_PAGES, put aside (ocr_state)
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
+READ_LOCK = threading.RLock()  # (read_new and refresh write the documents' notes: the crawl, the document and the OCR threads one after the other; re-entrant: _files -> fetch -> read_new)
+
+
+def locked(fn: Callable) -> Callable:
+    """Run `fn` holding READ_LOCK."""
+
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        with READ_LOCK:
+            return fn(*args, **kwargs)
+
+    return wrapper
+
+
 OCR_BUDGET = 200  # pages of OCR per run of `regs fetch`; documents left over are done by the next run
 AUDIENCE_OF_SECTION = {  # who a document is for, by the section of the site that lists it; a section of every kind of document names no one (everyone)
     "site/hotel": ["student", "postgraduate", "applicant", "public"],  # the dormitory's rules and prices, its guests
@@ -401,7 +418,7 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return *ocr_text(pdf), pages
 
 
-def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
     """Download the documents not read yet (and those `refresh` found changed) into a temporary folder, then read them: the text layers all at once
     (one run of opendataloader's JVM, not one a file), the scans after them; the keys of those read. `prefixes`: only the
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
@@ -419,7 +436,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
 
     # Pick up university-hosted files already present in the cached site pages;
     # the site crawl itself records the links it saw while reading a page.
-    sites.collect_linked_docs()
+    # (not in the threads beside the crawl: only the crawl writes a site's index.json)
+    if collect:
+        sites.collect_linked_docs()
 
     def skip(d: dict, meta: str, why: str) -> None:
         files.write_json(meta, {"title": d["title"], "url": d["url"], "skipped": why})
@@ -462,6 +481,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 remote = {}
             else:
                 try:
+                    hosts.turn(d["url"])
                     resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                     resp.raise_for_status()
                     if len(resp.content) > MAX_BYTES:
@@ -595,7 +615,8 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
     return len(read_new(limit, prefixes, ocr))
 
 
-def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
+@locked
+def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
     """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
     `ocr` the scans are queued for a run with OCR; those lighton does not read stay queued too (_fetch_once).
 
@@ -611,7 +632,7 @@ def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, 
     """
     read, remaining, scope = [], limit, prefixes
     while True:
-        done = _fetch_once(remaining, scope, ocr)
+        done = _fetch_once(remaining, scope, ocr, collect=collect)
         read += done
         if remaining is not None:
             remaining -= len(done)
@@ -625,6 +646,7 @@ def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, 
     return read
 
 
+@locked
 def refresh(prefix: str = "") -> int:
     """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
     one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
@@ -648,6 +670,7 @@ def refresh(prefix: str = "") -> int:
             if not key.startswith(prefix) or "sha256" not in meta or meta.get("refetch"):
                 continue
             try:
+                hosts.turn(d["url"])
                 resp = client.head(d["url"])
             except httpx.HTTPError as e:
                 failures += 1

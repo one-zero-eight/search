@@ -17,7 +17,7 @@ from urllib.parse import urljoin
 import httpx
 
 from catix.docs import files
-from catix.docs.sources import archives
+from catix.docs.sources import archives, hosts
 
 EXTENSIONS = {"zip", "7z"}
 
@@ -95,6 +95,7 @@ def download(url: str, destination: Path) -> dict:
     for _ in range(6):
         if crawl.provider(url) is None:
             raise archives.ArchiveError("unsafe", f"untrusted archive URL: {url}")
+        hosts.turn(url)
         with httpx.stream("GET", url, headers=regulations.HEADERS, timeout=60, follow_redirects=False) as response:
             if response.is_redirect:
                 url = urljoin(url, response.headers.get("location", ""))
@@ -192,6 +193,7 @@ def refresh(key: str, doc: dict, client: httpx.Client) -> bool:
     data = load(key, doc)
     if not data.get("sha256") or data.get("refetch"):
         return False
+    hosts.turn(doc["url"])
     response = client.head(doc["url"])
     if response.status_code != 200:
         return False

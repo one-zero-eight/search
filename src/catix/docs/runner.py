@@ -16,7 +16,7 @@ OCR: the sources queue scans for a manual run with OCR and put aside those too l
 either grows, the admins are told in Telegram, of each scan once.
 Runs one at a time (an advisory lock of Postgres). Its state (when each source was asked, the scans the admins were told of,
 whether a rebuild is owed) is in docs_meta, key 'runner'. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
-Under `--loop` an OCR thread (ocr_worker.py) reads the scans the sources queue as they arrive, by LightOnOCR, and rebuilds.
+Under `--loop` three threads work beside the sources: the document thread (document_worker.py) reads the documents the crawl registers, the OCR thread (ocr_worker.py) reads the scans queued, the flush thread (flusher.py) rebuilds every 10 minutes when something was written; one request at a time to a host across them (sources/hosts.py).
 """
 
 import json
@@ -237,8 +237,13 @@ def main(args: Namespace) -> None:
     if not lock.execute("SELECT pg_try_advisory_lock(%s) AS got", (LOCK_ID,)).fetchone()["got"]:
         sys.exit("another run of catix-docs is going on")
     if args.loop:
-        from catix.docs import ocr_worker
+        from catix.docs import document_worker, flusher, ocr_worker
+        from catix.docs.sources import hosts
+
+        hosts.share()  # (the threads read the same hosts: one request at a time to each)
+        document_worker.start()  # (the documents read beside the crawl)
         ocr_worker.start()  # (the OCR queue is read as scans arrive, beside the sources)
+        flusher.start()  # (what the threads read reaches the search every flusher.EVERY seconds, not at the end of the turn)
     while True:
         started = datetime.now(timezone.utc)
         if requests := parse_requests.take():

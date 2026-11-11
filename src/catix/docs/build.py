@@ -2,6 +2,7 @@
 
 import threading
 from collections import Counter
+from datetime import datetime
 
 from catix.db import pg
 from catix.docs import store
@@ -11,13 +12,24 @@ PREFIXES = ("regulations/", "course-programmes/", "sites/", "past-papers/", "edu
 
 
 LOCK = threading.Lock()  # (the run and its OCR thread rebuild one after the other)
+BUILT_UP_TO: datetime | None = None  # max(source_files.updated_at) the last rebuild of this process read from
+
+
+def source_mark() -> datetime | None:
+    """The newest write of the sources (source_files.updated_at); None when the table is empty."""
+    with pg.connection() as conn:
+        return pg.scalar(conn, "SELECT max(updated_at) FROM source_files")
 
 
 def rebuild() -> dict[str, int]:
     """The documents of every source from what source_files holds: changed ones rewritten, gone ones removed. One at a time
     in the process (the run and its OCR thread)."""
+    global BUILT_UP_TO
     with LOCK:
-        return _rebuild()
+        mark = source_mark()  # (taken before: writes made during the rebuild count as not built)
+        counts = _rebuild()
+        BUILT_UP_TO = mark
+        return counts
 
 
 def _rebuild() -> dict[str, int]:

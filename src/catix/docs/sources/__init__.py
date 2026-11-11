@@ -40,21 +40,47 @@ def _eduwiki() -> int:
     return eduwiki.fetch([0])
 
 
+def _aside() -> bool:
+    """Whether the document thread of the loop reads the documents (document_worker): the sources then only crawl."""
+    from catix.docs import document_worker
+
+    return document_worker.running()
+
+
+def _handed_over() -> None:
+    """The crawl is done: the documents of other trusted sites its pages link are registered, and the document thread woken."""
+    from catix.docs import document_worker
+    from catix.docs.sources import sites
+
+    sites.collect_linked_docs()
+    document_worker.wake()
+
+
 def _files() -> int:
     """Documents already read that changed on the site under the same link; fetch downloads them again."""
     from catix.docs.sources import regulations, rpd
 
     changed = regulations.refresh() + rpd.refresh()
-    return changed and regulations.fetch(ocr=False) + rpd.fetch()  # (scans stay queued for a manual OCR run)
+    if not changed:
+        return 0
+    if _aside():
+        _handed_over()
+        return changed + rpd.fetch()
+    return regulations.fetch(ocr=False) + rpd.fetch()  # (scans stay queued for a manual OCR run)
 
 
 def _sites() -> int:
     """The pages of the sites read again, and through them the documents: those that are new or
     changed, the pages of trusted sites their text names, their documents, ... (sites.fetch with documents: document -> site
-    -> document -> site). Text layers only: scans stay queued for a manual OCR run; the bot's LLM is never stopped."""
+    -> document -> site). Text layers only: scans stay queued for a manual OCR run; the bot's LLM is never stopped. (Under the
+    loop the document thread reads them: document_worker.py.)"""
     from catix.docs.sources import regulations, rpd, sites
 
-    return regulations.refresh(prefix="site-") + sites.fetch(documents=True, ocr=False) + rpd.fetch()  # (and the course programmes of new archives)
+    aside = _aside()
+    total = regulations.refresh(prefix="site-") + sites.fetch(documents=not aside, ocr=False)
+    if aside:
+        _handed_over()
+    return total + rpd.fetch()  # (and the course programmes of new archives)
 
 
 def _new_pages() -> int:
@@ -64,10 +90,15 @@ def _new_pages() -> int:
     the pages that cached pages and documents link (sites.unread_links); one that gave nothing waits sites.RETRY. The
     documents are read by their text layer alone: scans stay queued for a manual OCR run, so the OCR model need not be up
     every 6 hours. The disclosure section is among the feeds of the university's site (the catalog of sites): a document it
-    lists is in the search hours later, the course programmes of a new archive too (rpd.fetch)."""
+    lists is in the search hours later, the course programmes of a new archive too (rpd.fetch). Under the loop the document
+    thread reads the documents (document_worker.py)."""
     from catix.docs.sources import rpd, sites
 
-    return sites.fetch_new(documents=True) + rpd.fetch()
+    aside = _aside()
+    total = sites.fetch_new(documents=not aside)
+    if aside:
+        _handed_over()
+    return total + rpd.fetch()
 
 
 def _papers() -> int:
@@ -88,13 +119,18 @@ SOURCES = [
 
 def _unvisited() -> int:
     """What `catix-docs sites unvisited --known` shows: the pages of known sites that cached pages and documents link and no run
-    read, and the files no run read yet (sites.backlog); read as the run of new links reads them (text layers only)."""
+    read, and the files no run read yet (sites.backlog); read as the run of new links reads them (text layers only; under the
+    loop the document thread reads the documents: document_worker.py)."""
     from catix.docs.sources import rpd, sites
 
     if not (waiting := sites.backlog()):
         return 0
     print(f"  {waiting} links of known sites no run has read", flush=True)
-    return sites.fetch(only_new=True, documents=True, ocr=False) + rpd.fetch()
+    aside = _aside()
+    total = sites.fetch(only_new=True, documents=not aside, ocr=False)
+    if aside:
+        _handed_over()
+    return total + rpd.fetch()
 
 
 BACKLOG = Source("unvisited", timedelta(0), _unvisited, "the links of known sites no run has read (catix-docs sites unvisited --known), "

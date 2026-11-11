@@ -20,4 +20,4 @@ def test_the_worker_reads_only_what_waits_and_only_when_the_server_answers(monke
     assert calls == []
     next(queues)  # (skip the empty list of the second pair)
     assert ocr_worker.read_once() == (1, True)
-    assert calls == [{"prefixes": ("k1",), "ocr": True}]
+    assert calls == [{"prefixes": ("k1",), "ocr": True, "collect": False}]

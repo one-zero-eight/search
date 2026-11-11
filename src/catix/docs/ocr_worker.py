@@ -42,7 +42,7 @@ def read_once() -> tuple[int, bool]:
     if not lighton.available():
         return 0, False
     print(f"[{now()}] OCR: {', '.join(f'{source} {len(keys)}' for source, keys in queue.items())} scans wait", flush=True)
-    read = len(regulations.read_new(prefixes=tuple(queue["regs"]), ocr=True)) if "regs" in queue else 0
+    read = len(regulations.read_new(prefixes=tuple(queue["regs"]), ocr=True, collect=False)) if "regs" in queue else 0
     read += pastpapers.fetch(ocr=True) if "papers" in queue else 0
     return read, True
 

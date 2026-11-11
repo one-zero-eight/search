@@ -57,7 +57,7 @@ from usp.fetch_parse import SitemapFetcher
 from usp.web_client.abstract_client import AbstractWebClient, AbstractWebClientResponse, AbstractWebClientSuccessResponse, WebClientErrorResponse
 
 from catix.docs import files
-from catix.docs.sources import regulations
+from catix.docs.sources import hosts, regulations
 from catix.docs.sources.rpd import latin
 from catix.docs.store import AUDIENCES, PRODUCER, Document
 from catix.settings import settings
@@ -360,11 +360,13 @@ def get_through(client: httpx.Client, url: str) -> httpx.Response:
     """The answer for the url, asked again while a bot check answers in its place ('Вы не робот?' of Yandex on timepad, 'Just a
     moment' of Cloudflare): the wall is not the site, and it lets a request through now and then. The last answer is kept
     whatever it is, so a page that names a bot check in its own words is only asked for again, never refused for them."""
+    hosts.turn(url)
     page = client.get(url)
     for _ in range(BOT_TRIES - 1):
         if not WALL.search(page.text):
             break
         time.sleep(BOT_PAUSE)
+        hosts.turn(url)
         page = client.get(url)
     return page
 
@@ -550,7 +552,9 @@ def dashboard_with_catalog(client: httpx.Client, html: str, url: str, text: str)
     if not src:
         return text
     try:
-        services = service_catalog(client.get(urljoin(url, src.group(1))).text)
+        target = urljoin(url, src.group(1))
+        hosts.turn(target)
+        services = service_catalog(client.get(target).text)
     except httpx.HTTPError:
         return text
     return text.split("## Filter")[0] + catalog_markdown(services) + "\n" if services else text
@@ -990,6 +994,9 @@ def load(name: str) -> dict:
 
 def save(name: str, index: dict) -> None:
     files.write_json(f"{ROOT}/{name}/index.json", index)
+    from catix.docs import document_worker
+
+    document_worker.wake()
 
 
 def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
@@ -1215,6 +1222,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         try:
             if DOWNLOAD.search(urlsplit(url).path):
                 # Do not GET a potentially large binary just to classify it as an archive.
+                hosts.turn(url)
                 head = client.head(url)
                 kind = ARCHIVE_TYPES.get(head.headers.get("content-type", "").split(";", 1)[0].lower())
                 if head.status_code == 200 and kind and crawl.provider(url):
