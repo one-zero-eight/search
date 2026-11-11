@@ -64,6 +64,7 @@ from catix.settings import settings
 
 ROOT = "sites"  # the prefix of the cache of the sites in source_files, and of their documents' paths
 PAUSE = 2  # seconds between requests
+PROGRESS = 60  # seconds between two lines a crawl says of its progress
 MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops a calendar or a catalogue from running away
 DOC = re.compile(r"\.(pdf|docx?|rtf|zip|7z)$", re.I)
 ARCHIVE = re.compile(r"\.(zip|7z)$", re.I)
@@ -1206,6 +1207,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
     seen, read_slugs, read_ok, changed, docs, contexts = set(), set(), 0, 0, {}, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
+    last_said = time.monotonic()
 
 
     while (fresh or todo) and len(seen) < limit:
@@ -1219,6 +1221,9 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
         seen.add(url)
         if visited is not None:
             visited.add(url)
+        if time.monotonic() - last_said >= PROGRESS:  # (a page that has not changed says nothing: a long crawl was silent for an hour)
+            last_said = time.monotonic()
+            print(f"  {name}: {len(seen)} pages asked, {len(fresh) + len(todo)} listed left (up to {limit}), {changed} new or changed", flush=True)
         slug = slug_of(site, url)
         if address(index["pages"].get(slug, {}).get("url", url)) != address(url):  # (two paths, one slug; an alias is the same page, not a collision)
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
