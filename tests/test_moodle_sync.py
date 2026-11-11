@@ -1,13 +1,17 @@
 """The user's Moodle data (api/moodle.py, moodle_sync.py): written by the browser extension, private to the user. Runs on the
 local dev database, like tests/test_calendar_feed.py."""
 
+import hashlib
+
 import pytest
 from fastapi.testclient import TestClient
 
-from catix import moodle_sync
+from catix import moodle_files, moodle_sync
 from catix.api.app import app
 from catix.db import pg
+from catix.docs import moodle_files_worker
 from catix.innohassle import token
+from catix.settings import settings
 
 U1, U2 = "test-moodle-u1", "test-moodle-u2"
 A = {"Authorization": "Bearer good"}
@@ -19,6 +23,8 @@ FILE_URL = "https://moodle.innopolis.university/pluginfile.php/1/mod_resource/co
 def client(monkeypatch):
     claims = {"good": {"uid": U1, "email": "a@innopolis.university"}, "other": {"uid": U2, "email": "b@innopolis.university"}}
     monkeypatch.setattr(token, "claims", lambda t: claims.get(t))
+    monkeypatch.setattr(settings, "reranker_route", None)
+    monkeypatch.setattr(pg, "embed", lambda texts, query=False: [[1.0] + [0.0] * 1023 for _ in texts])
     for uid in (U1, U2):
         moodle_sync.forget(uid)
     yield TestClient(app)
@@ -57,7 +63,7 @@ def test_sync_round_trip_and_privacy(client):
     put = client.put("/users/my-moodle/overview", headers=A,
                      json=overview("A@innopolis.university", events=[event], grades=[{"course_id": 1, "items": items}]))
     assert put.json() == {"courses_without_content": [1, 2]}
-    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=page_content()).status_code == 204
+    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=page_content()).status_code == 200
 
     got = client.get("/users/my-moodle", headers=A)
     assert got.headers["cache-control"] == "private, no-store"
@@ -137,7 +143,7 @@ def test_extra_data_round_trip(client):
     client.put("/users/my-moodle/overview", headers=A, json=overview(**extra))
     content = page_content(files=[{"filename": "slides.pdf", "url": FILE_URL}])
     content["announcements"] = [{"discussion_id": 1, "title": "News", "html": "<p>Lecture moved</p>", "posted_at": 1700000000}]
-    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 204
+    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 200
 
     got = client.get("/users/my-moodle", headers=A).json()
     assert got["assignments"][0]["submission_status"] == "submitted"
@@ -154,3 +160,77 @@ def test_extra_data_round_trip(client):
     client.put("/users/my-moodle/overview", headers=B, json=overview("b@innopolis.university"))
     client.put("/users/my-moodle/courses/1/content", headers=B, json=content)
     assert texts("Lecture moved") == 1
+
+
+def file_content(sha):
+    return page_content(files=[{"filename": "notes.txt", "url": FILE_URL, "sha256": sha}])
+
+
+def put_file(client, headers, sha, data):
+    return client.put(f"/users/my-moodle/files/{sha}", headers=headers | {"Content-Type": "application/octet-stream"}, content=data)
+
+
+def read_all():
+    """Read every queued file (the dev database may hold others), then embed them."""
+    while moodle_files_worker.read_once():
+        pass
+    while moodle_files.embed_batch():
+        pass
+
+
+def test_file_upload_extract_and_search(client):
+    data = b"Eigenvalues of a symmetric matrix are real.\n"
+    sha = hashlib.sha256(data).hexdigest()
+    client.put("/users/my-moodle/overview", headers=A, json=overview())
+    put = client.put("/users/my-moodle/courses/1/content", headers=A, json=file_content(sha))
+    assert (put.status_code, put.json()) == (200, {"files_missing": [sha]})
+    assert put_file(client, A, sha, b"x").status_code == 422
+    assert put_file(client, A, sha, data).status_code == 204
+    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=file_content(sha)).json() == {"files_missing": []}
+    course = client.get("/users/my-moodle/courses/1", headers=A).json()
+    assert course["sections"][0]["modules"][0]["files"][0]["text_status"] == "queued"
+
+    read_all()
+    course = client.get("/users/my-moodle/courses/1", headers=A).json()
+    assert course["sections"][0]["modules"][0]["files"][0]["text_status"] == "read"
+    hits = client.get("/users/my-moodle/search", headers=A, params={"q": "eigenvalues"}).json()
+    assert [h["filename"] for h in hits] == ["notes.txt"]
+    assert "symmetric" in hits[0]["text"]
+    assert client.get("/users/my-moodle/search", headers=B, params={"q": "eigenvalues"}).json() == []
+    got = client.get(f"/users/my-moodle/files/{sha}", headers=A)
+    assert got.content == data
+    assert got.headers["content-disposition"].startswith("inline")
+    assert client.get(f"/users/my-moodle/files/{sha}", headers=B).status_code == 404
+
+
+def test_file_not_listed_is_refused(client):
+    data = b"Nobody lists this file.\n"
+    client.put("/users/my-moodle/overview", headers=A, json=overview())
+    assert put_file(client, A, hashlib.sha256(data).hexdigest(), data).status_code == 404
+
+
+def test_shared_file_stored_once_and_collected(client):
+    data = b"Shared lecture about eigenvalues.\n"
+    sha = hashlib.sha256(data).hexdigest()
+
+    def blobs():
+        with pg.connection() as conn:
+            return pg.scalar(conn, "SELECT count(*) FROM moodle_blobs WHERE sha256 = %s", (sha,))
+
+    for headers, username in ((A, "a@innopolis.university"), (B, "b@innopolis.university")):
+        client.put("/users/my-moodle/overview", headers=headers, json=overview(username))
+        client.put("/users/my-moodle/courses/1/content", headers=headers, json=file_content(sha))
+        assert put_file(client, headers, sha, data).status_code == 204
+    assert blobs() == 1
+    client.delete("/users/my-moodle", headers=A)
+    assert blobs() == 1
+    read_all()
+    assert client.get("/users/my-moodle/search", headers=B, params={"q": "eigenvalues"}).json()[0]["filename"] == "notes.txt"
+    client.delete("/users/my-moodle", headers=B)
+    assert blobs() == 0
+
+
+def test_reader_reads_text_and_refuses_binary():
+    assert moodle_files.read_file(b"hello", ".txt").text == "hello"
+    with pytest.raises(moodle_files.ReadFailed):
+        moodle_files.read_file(b"\x00\x01", ".txt")

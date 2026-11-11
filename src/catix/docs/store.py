@@ -117,6 +117,8 @@ def check_model(conn) -> None:
     if model is not None:
         conn.execute("DELETE FROM document_chunk_embeddings")
         conn.execute("INSERT INTO document_embedding_queue (chunk_id) SELECT id FROM document_chunks ON CONFLICT DO NOTHING")
+        conn.execute("DELETE FROM moodle_blob_chunk_embeddings")
+        conn.execute("INSERT INTO moodle_blob_embedding_queue (chunk_id) SELECT id FROM moodle_blob_chunks ON CONFLICT DO NOTHING")
         print(f"embeddings model changed ({model} -> {settings.embeddings_model}): every piece is embedded again")
     conn.execute("INSERT INTO docs_meta (key, value) VALUES ('embeddings_model', %s) ON CONFLICT (key) DO UPDATE SET value = excluded.value",
                  (settings.embeddings_model,))

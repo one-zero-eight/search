@@ -431,7 +431,7 @@ class LookUpFirstMiddleware(AgentMiddleware):
 
 
 RETRIEVAL_TOOLS = frozenset({"search_chats", "search_userbot_chats", "read_chats", "search_wiki", "read_wiki",
-                             "search_web", "read_web_page"})
+                             "search_web", "read_web_page", "search_my_moodle_files"})
 RESULT_REF = re.compile(r'"ref"\s*:\s*"(m\d+)"')
 
 CITE_HINT = (

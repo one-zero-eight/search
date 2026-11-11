@@ -684,6 +684,61 @@ CREATE INDEX IF NOT EXISTS moodle_sections_text_idx ON moodle_sections (summary_
 CREATE INDEX IF NOT EXISTS moodle_modules_text_idx ON moodle_modules (text_sha256);
 CREATE INDEX IF NOT EXISTS moodle_announcements_text_idx ON moodle_announcements (text_sha256);
 
+ALTER TABLE moodle_files ADD COLUMN IF NOT EXISTS sha256 text;        -- of the file's bytes; none: not offered (type or size)
+CREATE INDEX IF NOT EXISTS moodle_files_sha256_idx ON moodle_files (sha256) WHERE sha256 IS NOT NULL;
+-- The course files the extension uploaded, once per distinct file (sha256 of the bytes), with their extraction state: a queue
+-- read by the moodle-files thread of `catix-docs run --loop` (docs/moodle_files_worker.py). Deleted once no moodle_files row
+-- of any user has its sha256 (moodle_sync._gc_files).
+CREATE TABLE IF NOT EXISTS moodle_blobs (
+    sha256       text PRIMARY KEY,
+    suffix       text NOT NULL,                             -- '.pdf', '.pptx', ...: how it is read
+    size_bytes   bigint NOT NULL,
+    data         bytea NOT NULL,
+    status       text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'claimed', 'done', 'skipped', 'failed')),
+    attempts     integer NOT NULL DEFAULT 0,
+    available_at timestamptz NOT NULL DEFAULT now(),
+    token        text,
+    lease_until  timestamptz,
+    method       text,                                      -- 'text layer (opendataloader)', 'ocr (LightOnOCR)', 'plain text'
+    pages        integer,
+    note         text,                                      -- why skipped or failed
+    uploaded_at  timestamptz NOT NULL DEFAULT now(),
+    extracted_at timestamptz
+);
+CREATE INDEX IF NOT EXISTS moodle_blobs_queue_idx ON moodle_blobs (available_at) WHERE status IN ('pending', 'claimed');
+CREATE TABLE IF NOT EXISTS moodle_blob_chunks (
+    id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    sha256      text NOT NULL REFERENCES moodle_blobs ON DELETE CASCADE,
+    seq         integer NOT NULL,
+    heading     text NOT NULL,
+    text        text NOT NULL,
+    search_text text NOT NULL                               -- filename, headings and text: what is searched and embedded
+);
+CREATE INDEX IF NOT EXISTS moodle_blob_chunks_sha256_idx ON moodle_blob_chunks (sha256);
+CREATE TABLE IF NOT EXISTS moodle_blob_chunk_embeddings (
+    chunk_id  bigint PRIMARY KEY REFERENCES moodle_blob_chunks (id) ON DELETE CASCADE,
+    embedding vector(1024) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS moodle_blob_embedding_queue (
+    chunk_id  bigint PRIMARY KEY REFERENCES moodle_blob_chunks (id) ON DELETE CASCADE,
+    queued_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE OR REPLACE FUNCTION enqueue_moodle_blob_embedding() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+    INSERT INTO moodle_blob_embedding_queue (chunk_id) VALUES (NEW.id) ON CONFLICT (chunk_id) DO NOTHING;
+    RETURN NEW;
+END $$;
+DROP TRIGGER IF EXISTS moodle_blob_chunks_enqueue ON moodle_blob_chunks;
+CREATE TRIGGER moodle_blob_chunks_enqueue AFTER INSERT ON moodle_blob_chunks
+    FOR EACH ROW EXECUTE FUNCTION enqueue_moodle_blob_embedding();
+CREATE INDEX IF NOT EXISTS moodle_blob_chunks_search ON moodle_blob_chunks USING paradedb (
+    id,
+    (search_text::pdb.simple('stemmer=russian')),
+    (search_text::pdb.simple('stemmer=english', 'alias=search_text_en')),
+    sha256
+) WITH (mutable_segment_rows = 100);
+CREATE INDEX IF NOT EXISTS moodle_blob_chunk_embeddings_hnsw ON moodle_blob_chunk_embeddings USING hnsw (embedding vector_cosine_ops);
+
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM ctx_reader;
 REVOKE ALL ON SCHEMA public FROM ctx_reader;
 GRANT USAGE ON SCHEMA visible TO ctx_reader;

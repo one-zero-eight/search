@@ -6,9 +6,9 @@ WORKDIR /app
 
 # Git is required by the pinned PyMax dependency during uv sync. Keep standard TLS trust.
 # Private attachment parsing needs Java 11+ and bounded PDF rendering through Poppler.
-# Chromium renders the sites that need a script (docs/sources/sites.py), LibreOffice turns Word and RTF documents into PDF.
+# Chromium renders the sites that need a script (docs/sources/sites.py), LibreOffice turns Word, RTF, presentations and spreadsheets into PDF.
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libarchive13 openjdk-17-jre-headless poppler-utils \
-    tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus chromium libreoffice-writer-nogui \
+    tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus chromium libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
     && rm -rf /var/lib/apt/lists/*
 
 # Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.

@@ -172,6 +172,7 @@ class MoodleFileIn(_UrlChecked):
     size_bytes: int | None = None
     mime_type: str | None = Field(None, max_length=200)
     modified_at: datetime | None = None
+    sha256: str | None = Field(None, pattern=r"^[0-9a-f]{64}$", description="sha256 of the file's bytes, when the file is offered")
 
 
 class MoodleModuleIn(_UrlChecked):
@@ -308,6 +309,8 @@ class MoodleFileOut(BaseModel):
     size_bytes: int | None
     mime_type: str | None
     modified_at: datetime | None
+    sha256: str | None
+    text_status: Literal["not_offered", "not_uploaded", "queued", "read", "skipped", "failed"]
 
 
 class MoodleModuleOut(BaseModel):
@@ -338,6 +341,32 @@ class MoodleCourseContentOut(BaseModel):
     content_synced_at: datetime | None
     sections: list[MoodleSectionOut]
     announcements: list[MoodleAnnouncementOut]
+
+
+class MoodleFileHitOut(BaseModel):
+    course_id: int
+    course: str
+    module_id: int
+    filename: str
+    url: str
+    sha256: str
+    heading: str
+    text: str
+
+
+class MoodleContentResult(BaseModel):
+    files_missing: list[str] = Field(description="sha256 of the listed files the server does not have: upload them")
+
+
+_TEXT_STATUS = {
+    "not_offered": "not_offered",
+    None: "not_uploaded",
+    "pending": "queued",
+    "claimed": "queued",
+    "done": "read",
+    "skipped": "skipped",
+    "failed": "failed",
+}
 
 
 # ---- storage
@@ -405,6 +434,26 @@ def _gc(conn, hashes: list[str]) -> None:
     )
 
 
+def _held_files(conn, innohassle_id: str, course_id: int | None = None) -> list[str]:
+    """The sha256 of the files the user's rows (of one course, when given) list."""
+    where = "innohassle_id = %s" + ("" if course_id is None else " AND course_id = %s")
+    params = (innohassle_id,) if course_id is None else (innohassle_id, course_id)
+    return pg.column(conn, f"SELECT DISTINCT sha256 FROM moodle_files WHERE {where} AND sha256 IS NOT NULL", params)
+
+
+def _gc_files(conn, hashes: list[str]) -> None:
+    """Delete the uploaded files of `hashes` that no row of any user lists (their pieces and vectors go with them)."""
+    if not hashes:
+        return
+    conn.execute(
+        """DELETE FROM moodle_blobs WHERE sha256 IN (
+               SELECT b.sha256 FROM moodle_blobs b WHERE b.sha256 = ANY(%s)
+                 AND NOT EXISTS (SELECT 1 FROM moodle_files f WHERE f.sha256 = b.sha256)
+               FOR UPDATE SKIP LOCKED)""",
+        (hashes,),
+    )
+
+
 def _replace_course_rows(
     conn, table: str, innohassle_id: str, course_id: int, columns: tuple[str, ...], rows: list[tuple]
 ) -> None:
@@ -427,9 +476,11 @@ def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn) -> list[int
         known = pg.scalar(conn, "SELECT moodle_user_id FROM moodle_accounts WHERE innohassle_id = %s FOR UPDATE", (innohassle_id,))
         if known is not None and known != snapshot.moodle_user_id:
             old = _held(conn, innohassle_id)
+            old_files = _held_files(conn, innohassle_id)
             conn.execute("DELETE FROM moodle_courses WHERE innohassle_id = %s", (innohassle_id,))
             conn.execute("DELETE FROM moodle_events WHERE innohassle_id = %s", (innohassle_id,))
             _gc(conn, old)
+            _gc_files(conn, old_files)
         conn.execute(
             "INSERT INTO moodle_accounts (innohassle_id, moodle_user_id) VALUES (%s, %s) "
             "ON CONFLICT (innohassle_id) DO UPDATE SET moodle_user_id = EXCLUDED.moodle_user_id, synced_at = now()",
@@ -437,10 +488,12 @@ def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn) -> list[int
         )
         ids = [c.course_id for c in snapshot.courses]
         old = _held(conn, innohassle_id)
+        old_files = _held_files(conn, innohassle_id)
         conn.execute(
             "DELETE FROM moodle_courses WHERE innohassle_id = %s AND NOT (course_id = ANY(%s))", (innohassle_id, ids)
         )
         _gc(conn, old)
+        _gc_files(conn, old_files)
         with conn.cursor() as cur:
             cur.executemany(
                 "INSERT INTO moodle_courses (innohassle_id, course_id, fullname, shortname, starts_at, ends_at) "
@@ -518,16 +571,18 @@ def replace_overview(innohassle_id: str, snapshot: MoodleOverviewIn) -> list[int
         )
 
 
-def replace_course_content(innohassle_id: str, course_id: int, content: MoodleCourseContentIn) -> bool:
-    """Replace the text, file names and announcements of one course of the user; False when the user has no such course."""
+def replace_course_content(innohassle_id: str, course_id: int, content: MoodleCourseContentIn) -> list[str] | None:
+    """Replace the text, file names and announcements of one course of the user; None when the user has no such course.
+    Returns the sha256 of the course's files whose bytes the server does not have yet (to be uploaded)."""
     with pg.connection() as conn:
         if pg.scalar(
             conn,
             "SELECT 1 FROM moodle_courses WHERE innohassle_id = %s AND course_id = %s FOR UPDATE",
             (innohassle_id, course_id),
         ) is None:
-            return False
+            return None
         old = _held(conn, innohassle_id, course_id)
+        old_files = _held_files(conn, innohassle_id, course_id)
         conn.execute("DELETE FROM moodle_sections WHERE innohassle_id = %s AND course_id = %s", (innohassle_id, course_id))
         conn.execute("DELETE FROM moodle_announcements WHERE innohassle_id = %s AND course_id = %s", (innohassle_id, course_id))
         for i, section in enumerate(content.sections):
@@ -548,11 +603,11 @@ def replace_course_content(innohassle_id: str, course_id: int, content: MoodleCo
                     with conn.cursor() as cur:
                         cur.executemany(
                             "INSERT INTO moodle_files (innohassle_id, course_id, module_id, position, filename, url, "
-                            "size_bytes, mime_type, modified_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) "
+                            "size_bytes, mime_type, modified_at, sha256) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) "
                             "ON CONFLICT DO NOTHING",
                             [
                                 (innohassle_id, course_id, module.module_id, k, f.filename, f.url, f.size_bytes,
-                                 f.mime_type, f.modified_at)
+                                 f.mime_type, f.modified_at, f.sha256)
                                 for k, f in enumerate(module.files)
                             ],
                         )
@@ -567,7 +622,13 @@ def replace_course_content(innohassle_id: str, course_id: int, content: MoodleCo
             (innohassle_id, course_id),
         )
         _gc(conn, old)
-        return True
+        _gc_files(conn, old_files)
+        return pg.column(
+            conn,
+            "SELECT DISTINCT f.sha256 FROM moodle_files f WHERE f.innohassle_id = %s AND f.course_id = %s "
+            "AND f.sha256 IS NOT NULL AND NOT EXISTS (SELECT 1 FROM moodle_blobs b WHERE b.sha256 = f.sha256) ORDER BY 1",
+            (innohassle_id, course_id),
+        )
 
 
 def overview(innohassle_id: str) -> MoodleOverviewOut | None:
@@ -612,10 +673,12 @@ def course_content(innohassle_id: str, course_id: int) -> MoodleCourseContentOut
         files: dict[int, list[MoodleFileOut]] = {}
         for r in _all(
             conn,
-            "SELECT * FROM moodle_files WHERE innohassle_id = %s AND course_id = %s ORDER BY module_id, position",
+            "SELECT f.*, b.status AS blob_status FROM moodle_files f LEFT JOIN moodle_blobs b ON b.sha256 = f.sha256 "
+            "WHERE f.innohassle_id = %s AND f.course_id = %s ORDER BY f.module_id, f.position",
             key,
         ):
-            files.setdefault(r["module_id"], []).append(MoodleFileOut(**r))
+            status = _TEXT_STATUS["not_offered" if r["sha256"] is None else r["blob_status"]]
+            files.setdefault(r["module_id"], []).append(MoodleFileOut(**r, text_status=status))
         modules: dict[int, list[MoodleModuleOut]] = {}
         for r in _all(
             conn,
@@ -659,5 +722,7 @@ def forget(innohassle_id: str) -> None:
     """Delete everything of the user; a text stays only while a row of another user references it."""
     with pg.connection() as conn:
         old = _held(conn, innohassle_id)
+        old_files = _held_files(conn, innohassle_id)
         conn.execute("DELETE FROM moodle_accounts WHERE innohassle_id = %s", (innohassle_id,))
         _gc(conn, old)
+        _gc_files(conn, old_files)
