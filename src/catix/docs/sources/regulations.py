@@ -342,9 +342,9 @@ def layer_text(pdf: Path, converted: Path | None = None) -> tuple[str, str] | No
     return None
 
 
-def ocr_refused(pages: int, ocr_left: int) -> str | None:
+def ocr_refused(pages: int, ocr_left: float, limit: float = MAX_OCR_PAGES) -> str | None:
     """Why a scan of `pages` is not read now (with `ocr_left` pages of OCR left), None when it is."""
-    if pages > MAX_OCR_PAGES:
+    if pages > limit:
         return "scan too long for OCR"
     return "ocr deferred" if pages > ocr_left else None
 
@@ -418,7 +418,8 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return *ocr_text(pdf), pages
 
 
-def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True,
+                unlimited: bool = False) -> list[str]:
     """Download the documents not read yet (and those `refresh` found changed) into a temporary folder, then read them: the text layers all at once
     (one run of opendataloader's JVM, not one a file), the scans after them; the keys of those read. `prefixes`: only the
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
@@ -433,6 +434,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     no address any more, university.innopolis.ru/files/ sends to the university's start page). A host that fails
     MAX_FAILURES times in a row is let be for the rest of the run; the other hosts are read (a dead host stopped the whole run)."""
     from catix.docs.sources import archive_documents, opendataloader, sites
+
+    inf = float("inf")  # (`unlimited`: a person asked for this very document, so no size, page or OCR budget limit holds)
+    max_bytes, max_pages, max_ocr, budget = (inf,) * 4 if unlimited else (MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES, OCR_BUDGET)
 
     # Pick up university-hosted files already present in the cached site pages;
     # the site crawl itself records the links it saw while reading a page.
@@ -484,7 +488,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     hosts.turn(d["url"])
                     resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
                     resp.raise_for_status()
-                    if len(resp.content) > MAX_BYTES:
+                    if len(resp.content) > max_bytes:
                         print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
                         skip(d, meta, "file too big")
                         continue
@@ -517,7 +521,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 time.sleep(PAUSE)
             try:
                 pdf = to_pdf(src)
-                if not pdf.exists() or pages_of(pdf) > MAX_PAGES:
+                if not pdf.exists() or pages_of(pdf) > max_pages:
                     raise ValueError("cannot read or too long")
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                 print(f"  skipped: {e}")
@@ -546,7 +550,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 from catix.docs import ocr_worker
                 ocr_worker.wake()
 
-        ocr_left, done, scans = OCR_BUDGET, list(removed), []
+        ocr_left, ocr_used, done, scans = budget, 0, list(removed), []
         with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
             for item in downloaded:
                 key, d, src, pdf, meta, old, remote = item
@@ -562,22 +566,23 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                         done.append(key)
                         continue
                 pages = pages_of(pdf)  # a scan: its pages are taken from the budget now, it is read with the others after the loop
-                if pages > MAX_OCR_PAGES:  # (not queued: it would wait in the queue for ever)
-                    print(f"{key}: a scan of {pages} pages, longer than {MAX_OCR_PAGES}: put aside, not queued for OCR")
+                if pages > max_ocr:  # (not queued: it would wait in the queue for ever)
+                    print(f"{key}: a scan of {pages} pages, longer than {max_ocr}: put aside, not queued for OCR")
                     queue(item, pages, TOO_LONG)
                     continue
                 if not ocr:
                     print(f"{key}: a scan of {pages} pages, queued for a run with OCR")
-                elif why := ocr_refused(pages, ocr_left):
+                elif why := ocr_refused(pages, ocr_left, max_ocr):
                     print(f"{key}: {why}")
                 else:
                     ocr_left -= pages
+                    ocr_used += pages
                     scans.append(item)
                     continue
                 if key not in queued or old.get("ocr") != QUEUED:  # (the next runs do not ask its text layer again; a long one the limit covers now is queued)
                     queue(item, pages)
         if scans:
-            print(f"{len(scans)} scans to read by OCR ({OCR_BUDGET - ocr_left} pages)", flush=True)
+            print(f"{len(scans)} scans to read by OCR ({ocr_used} pages)", flush=True)
         for item, future in read_scans(scans, lambda item: item[3]):
             try:
                 text, method = future.result()
@@ -617,8 +622,9 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
 
 @locked
 def force(key: str, ocr: bool = True) -> list[str]:
-    """Read one document again whatever its note says (read, skipped, put aside as too long, failed): mark it `refetch` and run one
-    pass over the keys that start with `key` (no pass over the documents it names). The keys read; KeyError for an unknown key."""
+    """Read one document again whatever its note says (read, skipped, put aside as too long, failed), with no limit of size, pages
+    or OCR budget: mark it `refetch` and run one pass over the keys that start with `key` (no pass over the documents it names).
+    The keys read; KeyError for an unknown key."""
     from catix.docs.sources import archive_documents
 
     d = all_docs()[key]
@@ -626,7 +632,7 @@ def force(key: str, ocr: bool = True) -> list[str]:
         raise KeyError(f"{key}: an archive, read by rpd or the archives' reader, not by regs")
     meta = f"{d['root']}/{key}.json"
     files.write_json(meta, {**(files.read_json(meta) or {}), "refetch": True, "failed": False})
-    return _fetch_once(prefixes=(key,), ocr=ocr)
+    return _fetch_once(prefixes=(key,), ocr=ocr, unlimited=True)
 
 
 @locked
