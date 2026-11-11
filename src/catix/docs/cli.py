@@ -70,6 +70,7 @@ def parser() -> argparse.ArgumentParser:
             elif name == "regs" and action == "fetch":
                 leaf.add_argument("limit", nargs="?", type=positive, metavar="N", help="At most N new documents")
                 leaf.add_argument("--no-ocr", action="store_true", help="Read text layers only; queue scans for a run with OCR")
+                leaf.add_argument("--key", help="Read this one document again, whatever its note says (a key of the documents)")
             elif name == "rpd" and action == "fetch":
                 leaf.add_argument("--all-years", action="store_const", const=True, default=None, help="Include every cohort")
                 leaf.add_argument("--limit", type=positive)

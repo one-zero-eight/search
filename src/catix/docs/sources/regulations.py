@@ -616,6 +616,20 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
 
 
 @locked
+def force(key: str, ocr: bool = True) -> list[str]:
+    """Read one document again whatever its note says (read, skipped, put aside as too long, failed): mark it `refetch` and run one
+    pass over the keys that start with `key` (no pass over the documents it names). The keys read; KeyError for an unknown key."""
+    from catix.docs.sources import archive_documents
+
+    d = all_docs()[key]
+    if archive_documents.is_archive(key, d):
+        raise KeyError(f"{key}: an archive, read by rpd or the archives' reader, not by regs")
+    meta = f"{d['root']}/{key}.json"
+    files.write_json(meta, {**(files.read_json(meta) or {}), "refetch": True, "failed": False})
+    return _fetch_once(prefixes=(key,), ocr=ocr)
+
+
+@locked
 def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
     """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
     `ocr` the scans are queued for a run with OCR; those lighton does not read stay queued too (_fetch_once).
@@ -820,6 +834,12 @@ def main(args: Namespace) -> None:
         from catix.docs.sources import sites
 
         ocr = not getattr(args, "no_ocr", False)
+        if args.key:  # (one document, again, whatever its note says)
+            try:
+                print(f"{len(force(args.key, ocr))} documents read")
+            except KeyError as e:
+                raise SystemExit(str(e.args[0])) from None
+            return
         read = fetch(args.limit, ocr=ocr)  # (the documents no run has read, and those they name)
         if args.limit is None:  # (then the pages of trusted sites no run has read, their documents, ...; N: a quick run of documents only)
             read += sites.fetch(only_new=True, documents=True, ocr=ocr)
