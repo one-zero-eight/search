@@ -10,7 +10,6 @@ from typing import Literal
 from urllib.parse import quote, unquote, urljoin, urlsplit
 
 import httpx
-from bs4 import BeautifulSoup, Comment
 from fastapi import APIRouter, HTTPException, Query, Response
 
 from catix.agent import tracing
@@ -30,7 +29,6 @@ from catix.api.schemas import (
 )
 from catix.db import docs as doc_store
 from catix.docs import previews
-from catix.docs.sources import sites as site_source
 from catix.docs.sources.archives import ArchiveError
 
 log = logging.getLogger("catix.api")
@@ -137,13 +135,6 @@ def same_site(url: str, original: str) -> bool:
             and "." in base and (host == base or host.endswith("." + base)))
 
 
-def same_host(url: str, original: str) -> bool:
-    """A redirect of a page stays on its host (www. aside): another host of the site is a login (SSO), not the page."""
-    parts = urlsplit(url)
-    return (parts.scheme in {"http", "https"} and parts.port is None and not parts.username and not parts.password
-            and (parts.hostname or "").lower().removeprefix("www.") == original.lower().removeprefix("www."))
-
-
 async def download(url: str, stays: Callable[[str, str], bool]) -> httpx.Response:
     """The answer at `url` read whole, redirects followed while `stays(next url, original host)`; 502 if the site gives no 200."""
     original = urlsplit(url).hostname or ""
@@ -201,81 +192,6 @@ async def pdf_by_url(_auth: VerifiedDep, url: str) -> Response:
     return Response(body, media_type="application/pdf", headers={
         "Content-Disposition": f"inline; filename*=UTF-8''{quote(name)}",
         "Cache-Control": "private, max-age=3600",
-    })
-
-
-PAGE_CSP = "script-src 'none'; object-src 'none'; frame-src 'none'; form-action 'none'"
-UNSHOWN = ["script", "noscript", "iframe", "frame", "frameset", "object", "embed", "base", "portal"]
-LAZY = ("data-src", "data-original", "data-lazy-src")  # the address of a picture that the page's scripts would load
-PASSWORD = re.compile(r"""<input[^>]+type=["']?password""", re.I)
-
-
-def framed_page(page: httpx.Response) -> str:
-    """The page as a sandboxed frame on the site shows it: no scripts, frames or handlers, its addresses resolved against
-    the original (<base>), its links opened in a new tab. 502 for what is not the page: not HTML, a bot check, a login,
-    an app's empty shell (site_source.convert_page: its <noscript> asks for JavaScript or it has next to no words)."""
-    if "text/html" not in page.headers.get("content-type", ""):
-        raise HTTPException(status_code=502, detail="The site gave no page")
-    title, _, _, script = site_source.convert_page(page.text, str(page.url))
-    if site_source.WALL_TITLE.search(title):
-        raise HTTPException(status_code=502, detail="A bot check answered")
-    if PASSWORD.search(page.text):
-        raise HTTPException(status_code=502, detail="The page asks to sign in")
-    if script:
-        raise HTTPException(status_code=502, detail="The page needs its scripts")
-    soup = BeautifulSoup(page.content, "html.parser", from_encoding=page.charset_encoding)
-    for comment in soup.find_all(string=lambda text: isinstance(text, Comment)):
-        comment.extract()
-    for tag in soup.find_all(UNSHOWN):
-        tag.decompose()
-    for tag in soup.find_all("meta"):
-        if tag.get("http-equiv") or tag.get("charset"):
-            tag.decompose()
-    for tag in soup.find_all(True):
-        for name in [name for name in tag.attrs if name.lower().startswith("on")]:
-            del tag[name]
-        for name in ("href", "src", "action", "formaction", "xlink:href"):
-            if str(tag.get(name, "")).strip().lower().startswith("javascript:"):
-                del tag[name]
-        lazy = next((str(tag[name]) for name in LAZY if tag.get(name)), "")
-        if lazy and tag.name == "img":
-            tag["src"] = lazy
-        elif lazy and tag.get("data-original"):  # (Tilda: a block's picture is its background)
-            tag["style"] = f'{tag.get("style", "")};background-image:url("{lazy.replace(chr(34), "%22")}")'
-    head = soup.head
-    if head is None:
-        head = soup.new_tag("head")
-        (soup.html or soup).insert(0, head)
-    for tag in reversed([soup.new_tag("meta", attrs={"charset": "utf-8"}),
-                         soup.new_tag("meta", attrs={"http-equiv": "Content-Security-Policy", "content": PAGE_CSP}),
-                         soup.new_tag("base", attrs={"href": str(page.url), "target": "_blank"})]):
-        head.insert(0, tag)
-    return str(soup)
-
-
-@router.get("/html", response_class=Response, responses={
-    200: {"description": "The page without its scripts", "content": {"text/html": {}}},
-    404: {"description": "The knowledge base has no copy of the page"},
-    502: {"description": "The site gave no page that can be shown without its scripts"},
-    504: {"description": "The site did not answer in time"},
-})
-async def html_by_url(_auth: VerifiedDep, url: str) -> Response:
-    """The original of a page of the knowledge base, for a sandboxed frame on the site: the university's sites forbid showing
-    their pages in a frame of another site (X-Frame-Options: SAMEORIGIN) and give no CORS. Only pages the knowledge base
-    has a copy of: not a proxy to anywhere."""
-    if not await asyncio.to_thread(doc_store.has_resource, url):
-        raise HTTPException(status_code=404, detail="Page not found")
-    try:
-        body = await asyncio.to_thread(framed_page, await download(url, same_host))
-    except TimeoutError:
-        raise HTTPException(status_code=504, detail="The site did not answer in time") from None
-    except httpx.HTTPError as error:
-        log.warning("html %s: %r", url, error)
-        raise HTTPException(status_code=502, detail="The site did not answer") from None
-    return Response(body, media_type="text/html", headers={
-        "Cache-Control": "private, max-age=3600",
-        "X-Content-Type-Options": "nosniff",
-        "Content-Security-Policy": "sandbox; " + PAGE_CSP,
     })
 
 
