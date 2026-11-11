@@ -484,6 +484,27 @@ def test_userbot_backfill_checks_permissions_per_batch_not_per_message(monkeypat
 
 
 
+def test_userbot_history_waits_out_a_flood_and_resumes_after_the_last_message_read(monkeypatch):
+    from telethon import errors
+    stored, calls, sleeps = [], [], []
+    monkeypatch.setattr(userbot.userbot_config, "userbot_reads", lambda: {-42: None})
+    monkeypatch.setattr(userbot.store, "last_msg_id", lambda *args: 0)
+    monkeypatch.setattr(userbot.store, "topic_allowed", lambda *args: True)
+    monkeypatch.setattr(userbot.store, "upsert_messages", lambda rows: stored.extend(r.msg_id for r in rows))
+    async def sleep(seconds):
+        sleeps.append(seconds)
+    monkeypatch.setattr(userbot.asyncio, "sleep", sleep)
+    async def messages(entity, **kwargs):
+        calls.append(dict(kwargs))
+        for n in ((1, 2) if len(calls) == 1 else (3,)):
+            yield TgMessage(id=n, peer_id=PeerChat(42), date=NOW, message="The examination starts tomorrow at noon in room 301.")
+        if len(calls) == 1:
+            raise errors.FloodWaitError(None, 5)
+    assert asyncio.run(userbot._sync_stream(NS(iter_messages=messages), ENTITY, -42, None)) == 3
+    assert sleeps == [6] and stored == [1, 2, 3]
+    assert calls[1]["min_id"] == 2 and "offset_date" not in calls[1] and "offset_date" in calls[0]
+
+
 def test_userbot_sync_image_metadata_only_and_revoked_topic(monkeypatch):
     saved = []
     wanted = {-42: [99]}

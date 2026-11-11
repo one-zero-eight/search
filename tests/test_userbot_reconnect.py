@@ -51,6 +51,11 @@ def test_a_proxy_that_refuses_is_tried_again_not_a_crash(monkeypatch):
     assert _run_listen(monkeypatch, [ProxyError("refused"), TimeoutError(), None]) == [10, 30, 60]
 
 
+def test_a_flood_wait_is_waited_out_not_a_crash(monkeypatch):
+    from telethon import errors
+    assert _run_listen(monkeypatch, [errors.FloodWaitError(None, 300)]) == [301]
+
+
 def test_a_connection_that_worked_a_while_starts_the_pauses_over(monkeypatch):
     rounds = [ConnectionError(), ConnectionError(), None, ConnectionError()]
     assert _run_listen(monkeypatch, rounds, lasted=[5, 5, userbot.STABLE_SECONDS + 1, 5]) == [10, 30, 10, 30]

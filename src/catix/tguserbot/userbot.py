@@ -202,6 +202,8 @@ async def _publish_dialogs(client: TelegramClient) -> None:
     for entity in forums:
         try:
             userbot_config.replace_topics(utils.get_peer_id(entity), await _forum_topics(client, entity))
+        except errors.FloodWaitError:
+            raise
         except errors.RPCError as e:
             print(f"topics of {utils.get_display_name(entity)} not read: {e}", file=sys.stderr)
 
@@ -331,14 +333,16 @@ async def list_topics(chat: str | None) -> None:
         print("\nChoose the ones to listen to in the bot: /listen")
 
 
-async def _sync_chat(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None, *, backfill: bool = False) -> str:
+async def _sync_chat(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None, *, backfill: bool = False,
+                     after: dict[int | None, int] | None = None) -> str:
     """Fetch the new history of one chat (only `topics` of it, if given) and note the chat as synced."""
     chat_id = utils.get_peer_id(entity)
     store.upsert_chat(chat_id, utils.get_display_name(entity), getattr(entity, "username", None))
     # A chat with a topic whitelist is read topic by topic; otherwise as one stream.
     total = 0
     for topic_id in topics if topics is not None else [None]:
-        total += await _sync_stream(client, entity, chat_id, topic_id, backfill=backfill)
+        total += await _sync_stream(client, entity, chat_id, topic_id, backfill=backfill,
+                                    after=None if after is None else after.get(topic_id, 0))
     store.mark_synced(chat_id)
     return f"{utils.get_display_name(entity)}: +{total} messages"
 
@@ -355,12 +359,13 @@ async def sync() -> None:
             print(await _sync_chat(client, entity, wanted[utils.get_peer_id(entity)]))
 
 
-async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: int, topic_id: int | None, *, backfill: bool = False) -> int:
+async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: int, topic_id: int | None, *,
+                       backfill: bool = False, after: int | None = None) -> int:
     """Fetch new messages of a whole chat (topic_id None) or of one topic."""
     if chat_id not in userbot_config.userbot_reads():
         return 0
     # Newly allowed topics may predate the chat's stored high-water mark. Replay only the configured history window.
-    last_id = 0 if backfill else store.last_msg_id(chat_id, topic_id)
+    last_id = 0 if backfill else (store.last_msg_id(chat_id, topic_id) if after is None else after)
     if last_id:
         kwargs = {"min_id": last_id}
     else:
@@ -370,19 +375,28 @@ async def _sync_stream(client: TelegramClient, entity: Channel | Chat, chat_id: 
         kwargs["reply_to"] = topic_id
     # General has no thread to ask for: walk the chat and keep its messages (filtered below).
 
-    batch, total = [], 0
-    # reverse=True walks oldest -> newest, so an interrupted sync resumes from the right place.
-    async for msg in client.iter_messages(entity, reverse=True, **kwargs):
-        row = _to_store(msg, chat_id, entity)
-        if row and store.topic_allowed(chat_id, row.topic_id) and (topic_id is None or _in_topic(row, topic_id)):
-            batch.append(row)
-        if len(batch) >= BATCH:
-            if chat_id not in userbot_config.userbot_reads():
-                return total  # Drop buffered messages when listening was revoked during the backfill.
-            batch = [row for row in batch if store.topic_allowed(chat_id, row.topic_id)]
-            store.upsert_messages(batch)
-            total += len(batch)
-            batch = []
+    batch, total, seen = [], 0, 0
+    while True:
+        try:
+            # reverse=True walks oldest -> newest, so an interrupted sync resumes from the right place.
+            async for msg in client.iter_messages(entity, reverse=True, **kwargs):
+                seen = msg.id
+                row = _to_store(msg, chat_id, entity)
+                if row and store.topic_allowed(chat_id, row.topic_id) and (topic_id is None or _in_topic(row, topic_id)):
+                    batch.append(row)
+                if len(batch) >= BATCH:
+                    if chat_id not in userbot_config.userbot_reads():
+                        return total  # Drop buffered messages when listening was revoked during the backfill.
+                    batch = [row for row in batch if store.topic_allowed(chat_id, row.topic_id)]
+                    store.upsert_messages(batch)
+                    total += len(batch)
+                    batch = []
+            break
+        except errors.FloodWaitError as e:
+            await _wait_flood(e, f"history of {chat_id}")
+            if seen:
+                kwargs["min_id"] = seen
+                kwargs.pop("offset_date", None)
     if chat_id not in userbot_config.userbot_reads():
         return total
     batch = [row for row in batch if store.topic_allowed(chat_id, row.topic_id)]
@@ -395,10 +409,18 @@ def _in_topic(row: store.Message, topic_id: int) -> bool:
 
 
 POLL_SECONDS = 15  # How often the choice made in the bot is looked at.
-DIALOGS_EVERY = 600  # How often the list of chats offered in the bot is refreshed (it is also refreshed on request).
+DIALOGS_EVERY = 3600  # How often the list of chats offered in the bot is refreshed (a full walk of the dialogs; also refreshed on request).
 RECONNECT_DELAYS = (10, 30, 60, 120, 300)  # Seconds before the next try to reach Telegram, longer while it keeps failing.
 STABLE_SECONDS = 300  # A connection that lasted this long was a working one: the pauses start from the shortest again.
 HEARTBEAT_SECONDS = 20  # How often live_search.ONLINE is refreshed; well under its TTL.
+FLOOD_MARGIN = 1  # seconds added to the wait Telegram asks for
+HISTORY_AT_ONCE = 2  # chats whose history is read at the same time (each was its own task, all at once)
+
+
+async def _wait_flood(e: errors.FloodWaitError, what: str) -> None:
+    """Sleep as long as Telegram asked (FloodWaitError: the client does not sleep by itself, flood_sleep_threshold=0)."""
+    print(f"Telegram asked to wait {e.seconds} s ({what}); waiting.", file=sys.stderr)
+    await asyncio.sleep(e.seconds + FLOOD_MARGIN)
 
 
 async def listen() -> None:
@@ -409,16 +431,20 @@ async def listen() -> None:
     failures = 0
     while True:
         began = time.monotonic()
+        flood = 0
         try:
             await _listen_once()
             problem = "disconnected"
         except (OSError, ProxyError) as e:  # Telethon's ConnectionError, a proxy that is down or refuses
             problem = repr(e)
+        except errors.FloodWaitError as e:  # (client.start, _seed: exiting made docker start a new client, which asked again at once)
+            problem, flood = f"FloodWait {e.seconds} s", e.seconds + FLOOD_MARGIN
         if time.monotonic() - began > STABLE_SECONDS:
             failures = 0
         delay = RECONNECT_DELAYS[min(failures, len(RECONNECT_DELAYS) - 1)] * random.uniform(0.8, 1.2)
+        delay = max(delay, flood)
         failures += 1
-        print(f"No connection to Telegram ({problem}); next try in {delay:.0f} s.", file=sys.stderr)
+        print(f"{'Telegram asked to wait' if flood else 'No connection to Telegram'} ({problem}); next try in {delay:.0f} s.", file=sys.stderr)
         await asyncio.sleep(delay)
 
 
@@ -426,7 +452,10 @@ async def _listen_once() -> None:
     # Two tries to connect and one to reconnect (Telethon counts them so): the pauses between rounds are listen()'s.
     async with _client(connection_retries=1, request_retries=0, flood_sleep_threshold=0) as client:
         await client.start()
-        await _publish_dialogs(client)
+        try:
+            await _publish_dialogs(client)
+        except errors.FloodWaitError as e:
+            print(f"Telegram asked to wait {e.seconds} s (the list of chats); the bot keeps the list it has.", file=sys.stderr)
         await _seed(client)
         entities: dict[int, Channel | Chat] = {}  # Chats being listened to right now.
 
@@ -486,7 +515,7 @@ async def _heartbeat(client: TelegramClient) -> None:
 async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | Chat]) -> None:
     backfills: dict[int, asyncio.Task] = {}
     try:
-        await _follow_choice_loop(client, entities, backfills)
+        await _follow_choice_loop(client, entities, backfills, asyncio.Semaphore(HISTORY_AT_ONCE))
     finally:
         tasks = list(backfills.values())
         for task in tasks:
@@ -494,15 +523,20 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
         await asyncio.gather(*tasks, return_exceptions=True)
 
 
-async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channel | Chat], backfills: dict[int, asyncio.Task]) -> None:
+async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channel | Chat], backfills: dict[int, asyncio.Task],
+                              gate: asyncio.Semaphore) -> None:
     """Keep `entities` equal to the chats chosen in the bot; replay the configured history on startup and after
     storage changes. Durable source requests also resume unfinished backfills on restart."""
     applied: dict | None = None
     last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
+    marks: dict[int, dict[int | None, int]] | None = None
+    dialogs_after = 0.0
     while True:
         try:
             # Not a chat only the Bot API bot is in (this account cannot open it), nor one an admin gave to the bot.
             wanted = userbot_config.userbot_reads()
+            if marks is None:  # (taken before any chat enters `entities`: save() stores nothing of a chat until then, so no live write moved them)
+                marks = {c: {t: store.last_msg_id(c, t) or 0 for t in (scope if scope is not None else [None])} for c, scope in wanted.items()}
             fingerprints = userbot_config.storage_fingerprints()
             requested_backfills = source_requests.backfill_pending()
             for chat_id in set(entities) - set(wanted):
@@ -521,19 +555,28 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
                         next_applied[chat_id] = applied[chat_id]
                     continue
                 changed = applied is not None and applied.get(chat_id, ...) != fingerprints.get(chat_id)
-                if applied is None or changed or chat_id in requested_backfills:
-                    print(f"Now listening to {utils.get_display_name(entity)}, fetching its history.")
-                    # Window replay must ignore the stored max id: live writes can advance it before history starts.
-                    task = asyncio.create_task(_backfill(client, entity, topics))
+                window = changed or chat_id in requested_backfills
+                if applied is None or window:
+                    after = None if window or chat_id not in marks else marks[chat_id]
+                    if after is None:
+                        print(f"Now listening to {utils.get_display_name(entity)}, fetching its history.")
+                        # Window replay must ignore the stored max id: live writes can advance it before history starts.
+                    else:
+                        print(f"Now listening to {utils.get_display_name(entity)}, fetching what came after its last stored message.")
+                    task = asyncio.create_task(_backfill(client, entity, topics, gate, after=after))
                     backfills[chat_id] = task
                     task.add_done_callback(lambda done, c=chat_id: backfills.pop(c, None))
                 next_applied[chat_id] = fingerprints.get(chat_id)
             applied = next_applied
 
             request = float(userbot_config.meta("refresh_requested") or 0)
-            if request > last_request or time.monotonic() - last_refresh > DIALOGS_EVERY:
-                await _publish_dialogs(client)
-                last_refresh, last_request = time.monotonic(), request
+            if (request > last_request or time.monotonic() - last_refresh > DIALOGS_EVERY) and time.monotonic() >= dialogs_after:
+                try:
+                    await _publish_dialogs(client)
+                    last_refresh, last_request = time.monotonic(), request
+                except errors.FloodWaitError as e:
+                    dialogs_after = time.monotonic() + e.seconds + FLOOD_MARGIN
+                    print(f"Telegram asked to wait {e.seconds} s (the list of chats); it is refreshed after that.", file=sys.stderr)
         except asyncio.CancelledError:
             raise
         except Exception as e:  # noqa: BLE001 - the database or Telegram being away for a moment must not stop listening
@@ -670,10 +713,12 @@ def _same(topics: list[int] | None) -> list[int] | None:
     return None if topics is None else sorted(topics)
 
 
-async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None) -> None:
+async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list[int] | None, gate: asyncio.Semaphore,
+                    *, after: dict[int | None, int] | None = None) -> None:
     try:
-        print(await _sync_chat(client, entity, topics, backfill=True))
-        if utils.get_peer_id(entity) in userbot_config.userbot_reads():
+        async with gate:
+            print(await _sync_chat(client, entity, topics, backfill=after is None, after=after))
+        if after is None and utils.get_peer_id(entity) in userbot_config.userbot_reads():
             source_requests.backfill_done(utils.get_peer_id(entity))
     except Exception as e:  # noqa: BLE001
         print(f"History of {utils.get_display_name(entity)} not fetched: {e!r}", file=sys.stderr)

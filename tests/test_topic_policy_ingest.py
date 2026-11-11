@@ -48,12 +48,13 @@ def test_follower_detects_store_default_exclusion_change(monkeypatch):
     monkeypatch.setattr(config, "_rows", lambda: rows)
     monkeypatch.setattr(config, "userbot_chat_ids", lambda: {-42})
     monkeypatch.setattr(config, "meta", lambda key: None)
+    monkeypatch.setattr(userbot.store, "last_msg_id", lambda *args: 0)
     monkeypatch.setattr(userbot.store, "upsert_chat", lambda *args: None)
     backfills, pauses = [], []
     async def resolve(client, ids):
         return [ENTITY] if -42 in ids else []
-    async def backfill(client, entity, topics):
-        backfills.append(topics)
+    async def backfill(client, entity, topics, gate, *, after=None):
+        backfills.append((topics, after is None))
     sleep = asyncio.sleep
     async def pause(delay):
         pauses.append(delay)
@@ -69,7 +70,7 @@ def test_follower_detects_store_default_exclusion_change(monkeypatch):
     config._forget()
     with pytest.raises(asyncio.CancelledError):
         asyncio.run(userbot._follow_choice(NS(), {}))
-    assert backfills == [None, None], "Startup and a changed exclusion must both replay history"
+    assert backfills == [(None, False), (None, True)], "Startup catches up from the stored marks; a changed exclusion replays the window"
     config._forget()
 
 
@@ -87,7 +88,7 @@ def test_policy_change_backfill_does_not_skip_newly_allowed_old_messages(monkeyp
         if kwargs.get("min_id", 0) < 100:
             yield message(100, 7)
     config._forget()
-    asyncio.run(userbot._backfill(NS(iter_messages=messages), ENTITY, None))
+    asyncio.run(userbot._backfill(NS(iter_messages=messages), ENTITY, None, asyncio.Semaphore(1)))
     assert [row.msg_id for row in stored] == [100]
     assert "min_id" not in requests[0] and "offset_date" in requests[0]
     config._forget()
@@ -98,12 +99,13 @@ def test_follower_retries_scope_change_that_arrives_during_active_backfill(monke
     monkeypatch.setattr(config, "_rows", lambda: rows)
     monkeypatch.setattr(config, "userbot_chat_ids", lambda: {-42})
     monkeypatch.setattr(config, "meta", lambda key: None)
+    monkeypatch.setattr(userbot.store, "last_msg_id", lambda *args: 0)
     monkeypatch.setattr(userbot.store, "upsert_chat", lambda *args: None)
     backfills, pauses = [], []
     release = asyncio.Event()
     async def resolve(client, ids):
         return [ENTITY] if -42 in ids else []
-    async def backfill(client, entity, topics):
+    async def backfill(client, entity, topics, gate, *, after=None):
         backfills.append(topics)
         if len(backfills) == 1:
             await release.wait()
@@ -132,7 +134,7 @@ def test_follower_retries_scope_change_that_arrives_during_active_backfill(monke
 
 
 @pytest.mark.parametrize("topics", [None, [1, 7]])
-def test_listen_startup_replays_window_despite_live_high_watermark(monkeypatch, topics):
+def test_listen_startup_catches_up_from_marks_taken_before_live_writes(monkeypatch, topics):
     policy = ({"default": "store", "topics": {"8": "search"}} if topics is None else
               {"default": "search", "topics": {"1": "store", "7": "store"}})
     rows = {
@@ -152,8 +154,11 @@ def test_listen_startup_replays_window_despite_live_high_watermark(monkeypatch, 
     def save(batch):
         stored.update((row.msg_id, row) for row in batch)
 
+    live = [False]
+
     def last_id(*args):
-        raise AssertionError("Startup replay must not use a high-water mark advanced by live writes")
+        assert not live[0], "Startup marks must be taken before any live write"
+        return 50
 
     monkeypatch.setattr(userbot.store, "last_msg_id", last_id)
     monkeypatch.setattr(userbot.store, "upsert_messages", save)
@@ -166,15 +171,15 @@ def test_listen_startup_replays_window_despite_live_high_watermark(monkeypatch, 
         async def iter_messages(self, entity, **kwargs):
             requests.append(kwargs)
             assert kwargs["reverse"] is True
-            assert "min_id" not in kwargs
-            cutoff = datetime.now(timezone.utc) - timedelta(days=userbot.settings.tg_sync_days)
-            assert abs((kwargs["offset_date"] - cutoff).total_seconds()) < 5
+            assert kwargs["min_id"] == 50
+            assert "offset_date" not in kwargs
             for msg_id, topic in ((100, 7), (101, 8), (102, 1)):
                 yield message(msg_id, topic)
 
     sleep = asyncio.sleep
 
     async def scenario():
+        live[0] = False
         entities = {}
         pauses = 0
 
@@ -183,6 +188,7 @@ def test_listen_startup_replays_window_despite_live_high_watermark(monkeypatch, 
             # A live message is stored after registration but before the history task runs.
             if pauses == 0:
                 assert entities == {-42: ENTITY}
+                live[0] = True
                 save([userbot._to_store(message(900, 7), -42, ENTITY)])
             pauses += 1
             await sleep(0)
