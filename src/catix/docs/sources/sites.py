@@ -172,15 +172,14 @@ _catalog_checked = 0.0
 def reload_catalog() -> None:
     """Refresh the snapshot when the catalog in the database changed (an edit from another machine); read again at most every
     CATALOG_TTL seconds. Imports never read data."""
-    global BLOCKED, _catalog_raw, _catalog_checked
+    global SITES, BLOCKED, _catalog_raw, _catalog_checked
     if _catalog_raw is not None and time.monotonic() - _catalog_checked < CATALOG_TTL:
         return
     raw = load_config()
     _catalog_checked = time.monotonic()
     if raw != _catalog_raw:
         loaded = {name: make_site(values) for name, values in raw.get("sites", {}).items()}
-        SITES.clear()
-        SITES.update(loaded)
+        SITES = loaded  # (swapped whole: the threads of the run iterate SITES while a request adds a site; clear + update broke their loops)
         BLOCKED, _catalog_raw = frozenset(raw.get("blocked", ())), raw
 
 

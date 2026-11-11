@@ -7,7 +7,7 @@ import httpx
 import pytest
 
 from catix.docs.sources import crawl, sites
-from catix.docs.sources.sites import SITES, boilerplate, canonical, read
+from catix.docs.sources.sites import boilerplate, canonical, read
 
 PAGE = """<html><head><title>Проживание студентов</title><script>var x = "<p>not text</p>";</script></head><body>
 <nav><a href="/roomfund/">Номерной фонд</a></nav>
@@ -52,7 +52,7 @@ def test_a_script_written_as_a_link_is_no_link():
 def test_a_block_a_site_names_a_heading_is_one():
     html = ('<html><body><div class="article__title">Стоимость квартир</div><div class="article__text">от 17 000 ₽ в месяц</div>'
             '<div class="facts_item__title">3 минуты</div></body></html>')
-    lines = read(html, "https://innopolis.com/ru/life/housing/rental", SITES["city"].headings)[1].splitlines()
+    lines = read(html, "https://innopolis.com/ru/life/housing/rental", sites.SITES["city"].headings)[1].splitlines()
     assert lines == ["## Стоимость квартир", "от 17 000 ₽ в месяц", "3 минуты"]  # (a fact's title is no heading)
     assert read(html, "https://innopolis.com/ru/life/housing/rental")[1].splitlines()[0] == "Стоимость квартир"  # (another site: a div)
 
@@ -65,7 +65,7 @@ def test_one_file_written_three_ways_is_one_document_with_its_fullest_name():
 
 
 def test_past_events_old_copies_and_the_other_language_are_not_followed():
-    campus, hotel = SITES["campuslife"], SITES["hotel"]
+    campus, hotel = sites.SITES["campuslife"], sites.SITES["hotel"]
     assert sites._taken(campus, "https://campuslife.innopolis.ru/handbook")
     assert sites._taken(campus, "https://campuslife.innopolis.ru/springball2022")  # (past events are the wiki's record)
     assert sites._taken(campus, "https://campuslife.innopolis.ru/innobootcamp2022") and sites._taken(campus, "https://campuslife.innopolis.ru/ibc")
@@ -108,7 +108,7 @@ def test_a_file_several_sites_link_is_one_document_kept_under_the_key_of_the_cop
 
 
 def test_the_university_site_reads_the_pages_of_its_disclosure_section_too_and_has_an_english_copy():
-    uni = SITES["university"]
+    uni = sites.SITES["university"]
     assert sites._taken(uni, "https://innopolis.university/campus")
     assert sites._taken(uni, "https://innopolis.university/en/about/")
     assert sites._taken(uni, "https://innopolis.university/sveden/employees/")  # (the disclosure section: a page as any other, its documents too)
@@ -198,14 +198,14 @@ def test_the_name_of_the_site_leaves_the_titles_and_the_way_to_the_next_post_lea
     for i, page in enumerate(index["pages"].values()):
         page["title"] = f"Новость {i}{centre}"
     sites.save("hotel", index)
-    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(SITES["hotel"], drop=SITES["robotics"].drop)})
+    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(_fixture_site("hotel"), drop=_fixture_site("robotics").drop)})
     page = _documents()["sites/hotel/p0"]
     assert page.meta["title"] == "Новость 0" and "Дальше" not in page.body
 
 
 def test_the_pages_of_a_site_read_elsewhere_are_kept(monkeypatch, memory_files):
     _site_root(monkeypatch, memory_files, {"home": ("https://hotel.innopolis.university/", f"{WORDS} [VPN](https://help.example/ru/vpn)")})
-    monkeypatch.setattr(sites, "SITES", {"hotel": SITES["hotel"], "help": dataclasses.replace(SITES["hotel"], base="https://help.example/")})
+    monkeypatch.setattr(sites, "SITES", {"hotel": sites.SITES["hotel"], "help": dataclasses.replace(sites.SITES["hotel"], base="https://help.example/")})
     docs, keep = sites.compile_all()  # (no cache of help here: its browser read it on another machine)
     assert [d.path for d in docs] == ["sites/hotel/home"] and keep == ("sites/help/",)
     assert "[VPN](https://help.example/ru/vpn)" in docs[0].body
@@ -644,7 +644,7 @@ def test_a_news_item_ends_where_the_related_news_begin_and_says_its_heading_and_
         "rooms": ("https://hotel.innopolis.university/rooms/", f"29 октября 2026\n## Rooms\n29 октября 2026\n{WORDS}\n[Читать далее](https://hotel.innopolis.university/next/)\n"
                                                                 "Новости по теме\n[Другая новость дня](https://hotel.innopolis.university/other/)"),
     })
-    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(SITES["hotel"], end=SITES["media"].end)})
+    monkeypatch.setattr(sites, "SITES", {"hotel": dataclasses.replace(_fixture_site("hotel"), end=_fixture_site("media").end)})
     body = _documents()["sites/hotel/rooms"].body
     assert body.count("29 октября 2026") == 1 and "## Rooms" not in body and WORDS in body
     assert "Читать далее" not in body and "Другая новость дня" not in body
@@ -743,7 +743,7 @@ def test_a_tilda_picture_is_the_file_and_not_its_twenty_pixel_preview():
 
 
 def test_a_page_of_an_events_site_is_about_the_year_its_title_or_address_names():
-    campus, hotel = SITES["campuslife"], SITES["hotel"]
+    campus, hotel = sites.SITES["campuslife"], sites.SITES["hotel"]
     assert sites.year_of(campus, "springball2022", "Spring Ball", "text") == 2022
     assert sites.year_of(campus, "ibc", "InnoBootCamp 2018", "text") == 2018
     assert sites.year_of(campus, "ibc", "IBC", "05.08-18.08 #InnoBootCamp2018 - Bachelors") == 2018  # (its first lines)
@@ -900,7 +900,7 @@ def test_a_form_is_no_words_of_the_page_but_its_links_are_followed_and_a_button_
 
 
 def test_innohassle_keeps_the_pages_of_text_and_leaves_the_lists_of_data():
-    app = SITES["innohassle"]
+    app = sites.SITES["innohassle"]
     for path in ("", "start", "schedule", "schedule/core-courses", "maps", "workshops", "timetable", "tabletennis/players", "events", "events/p/6ab2",
                  "clubs", "clubs/innopolis-tatars", "music-room", "admin/users", "forms", "account",
                  "calendar", "search/ask", "sport", "sport/history", "when2meet", "student-affairs", "room-booking", "room-booking/rooms", "room-booking/list", "board-games", "timer"):  # (login walls)
@@ -1002,7 +1002,7 @@ def test_a_person_can_name_the_readers_of_a_page(monkeypatch, memory_files):
 
 
 def test_a_site_behind_a_login_shows_nothing_of_the_person_and_stops_when_the_session_ends(tmp_path, monkeypatch):
-    my = SITES["my"]
+    my = sites.SITES["my"]
     shown = "RU\n### Иван Иванов\nivan@innopolis.university\n## Меню\n[Магазин](https://my.innopolis.university/store)\n## Магазин\n## Носки\n200\nБаланс:\n15\n## Привет, Иван Иванов!\n## Уведомления\nУ вас 2 новых\nсообщения\n"
     kept = re.sub(my.private, "", shown, flags=re.M)
     assert "Иван" not in kept and "ivan@" not in kept and "Баланс" not in kept and "сообщения" not in kept
@@ -1016,7 +1016,7 @@ def test_a_site_behind_a_login_shows_nothing_of_the_person_and_stops_when_the_se
 
 
 def test_a_page_that_does_not_exist_is_a_404_even_when_the_site_answers_200(tmp_path, monkeypatch):
-    help_ = SITES["help"]
+    help_ = sites.SITES["help"]
     monkeypatch.setenv(help_.profile, str(tmp_path))
     monkeypatch.setattr(sites, "render_live", lambda url, profile: "<h1>Не найдено</h1><p>Эта страница не существует.</p>")
     assert sites.get_page(None, help_, "https://help.university.innopolis.ru/ru/VPN/x").status_code == 404
@@ -1051,6 +1051,13 @@ def test_what_lives_in_the_attributes_of_an_element_is_read_as_the_page_writes_i
     assert ("https://vk.com/video-1_2", "▶ video") in links
 
 
+def _fixture_site(name):
+    """A site of tests/fixtures/sites.yaml, whatever a test has put in sites.SITES since."""
+    from pathlib import Path
+
+    return sites.make_site(sites.read_yaml(Path(__file__).with_name("fixtures") / "sites.yaml")["sites"][name])
+
+
 def test_catalog_reloads_after_another_process_changes_the_catalog():
     sites.save_catalog({"sites": {}, "blocked": []})
     assert crawl.provider("https://lab.example/") is None
@@ -1059,6 +1066,15 @@ def test_catalog_reloads_after_another_process_changes_the_catalog():
     sites.save_catalog({"sites": {}, "blocked": ["lab.example"]})
     assert crawl.provider("https://lab.example/") is None
     assert "lab" not in sites.SITES
+
+
+def test_a_site_added_while_another_thread_walks_the_catalog_does_not_break_its_loop():
+    walking = iter(sites.SITES.items())
+    next(walking)
+    sites.save_catalog({"sites": {**sites.load_config()["sites"], "lab": {"base": "https://lab.example/", "language": "en", "about": "Lab", "skip": ""}}})
+    sites.reload_catalog()
+    assert "lab" in sites.SITES
+    assert list(walking)  # (the walk goes on over the catalog it started in: no "dictionary changed size during iteration")
 
 
 def test_a_site_is_added_and_removed_from_the_command_line():
