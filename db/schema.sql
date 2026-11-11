@@ -526,6 +526,164 @@ CREATE TABLE IF NOT EXISTS calendar_export_keys (
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- A user's Moodle data, sent by the InNoHassle browser extension (api/moodle.py, catix/moodle_sync.py). Private to the user:
+-- never part of the document indexes or of ctx_reader's views. Every sync replaces it; DELETE /users/my-moodle drops it.
+CREATE TABLE IF NOT EXISTS moodle_accounts (
+    innohassle_id  text PRIMARY KEY,
+    moodle_user_id bigint NOT NULL,
+    synced_at      timestamptz NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS moodle_courses (
+    innohassle_id     text NOT NULL REFERENCES moodle_accounts ON DELETE CASCADE,
+    course_id         bigint NOT NULL,
+    fullname          text NOT NULL,
+    shortname         text NOT NULL,
+    starts_at         timestamptz,
+    ends_at           timestamptz,
+    content_synced_at timestamptz,                       -- none: the text of the course was never sent
+    PRIMARY KEY (innohassle_id, course_id)
+);
+CREATE TABLE IF NOT EXISTS moodle_events (
+    innohassle_id    text NOT NULL REFERENCES moodle_accounts ON DELETE CASCADE,
+    event_id         bigint NOT NULL,
+    course_id        bigint,
+    name             text NOT NULL,
+    description      text,                               -- markdown
+    event_type       text NOT NULL,                      -- Moodle's eventtype: due, course, user, site, group, ...
+    module           text,                               -- Moodle's modulename: assign, quiz, ...
+    starts_at        timestamptz NOT NULL,
+    duration_seconds integer NOT NULL DEFAULT 0,
+    url              text,
+    pending          boolean NOT NULL DEFAULT false,     -- on the Moodle timeline: still to do (a deadline not met yet)
+    PRIMARY KEY (innohassle_id, event_id)
+);
+ALTER TABLE moodle_events ADD COLUMN IF NOT EXISTS group_id bigint;      -- a group event: for this group of the course only
+CREATE TABLE IF NOT EXISTS moodle_grades (
+    innohassle_id   text NOT NULL,
+    course_id       bigint NOT NULL,
+    item_id         bigint NOT NULL,
+    position        integer NOT NULL,                    -- the order of the Moodle grade report
+    name            text NOT NULL,
+    item_type       text NOT NULL,                       -- course, category, mod, manual
+    module          text,
+    grade           double precision,
+    grade_min       double precision,
+    grade_max       double precision,
+    grade_text      text,                                -- gradeformatted, as Moodle shows it
+    percentage_text text,
+    feedback        text,                                -- markdown
+    graded_at       timestamptz,
+    PRIMARY KEY (innohassle_id, course_id, item_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+-- The text of course sections and modules, once per distinct text (sha256 of it): many students of a course send the same.
+CREATE TABLE IF NOT EXISTS moodle_texts (
+    sha256 text PRIMARY KEY,
+    text   text NOT NULL
+);
+CREATE TABLE IF NOT EXISTS moodle_sections (
+    innohassle_id  text NOT NULL,
+    course_id      bigint NOT NULL,
+    section_id     bigint NOT NULL,
+    position       integer NOT NULL,
+    name           text NOT NULL,
+    summary_sha256 text REFERENCES moodle_texts,
+    PRIMARY KEY (innohassle_id, course_id, section_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_modules (
+    innohassle_id text NOT NULL,
+    course_id     bigint NOT NULL,
+    module_id     bigint NOT NULL,                       -- Moodle's course module id (cmid)
+    section_id    bigint NOT NULL,
+    position      integer NOT NULL,
+    name          text NOT NULL,
+    module        text NOT NULL,                         -- Moodle's modname: page, label, assign, resource, ...
+    url           text,
+    text_sha256   text REFERENCES moodle_texts,
+    PRIMARY KEY (innohassle_id, course_id, module_id),
+    FOREIGN KEY (innohassle_id, course_id, section_id) REFERENCES moodle_sections ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_assignments (
+    innohassle_id     text NOT NULL,
+    course_id         bigint NOT NULL,
+    assignment_id     bigint NOT NULL,
+    module_id         bigint NOT NULL,                   -- cmid
+    name              text NOT NULL,
+    description       text,                              -- markdown
+    opens_at          timestamptz,
+    due_at            timestamptz,
+    cutoff_at         timestamptz,
+    grading_due_at    timestamptz,
+    max_grade         double precision,
+    submission_status text,                              -- new, draft, submitted, reopened; none: not asked (outside the window) or Moodle did not say
+    grading_status    text,                              -- graded, notgraded, ...
+    grade             text,                              -- markdown of Moodle's gradefordisplay
+    PRIMARY KEY (innohassle_id, course_id, assignment_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_quizzes (
+    innohassle_id      text NOT NULL,
+    course_id          bigint NOT NULL,
+    quiz_id            bigint NOT NULL,
+    module_id          bigint NOT NULL,
+    name               text NOT NULL,
+    description        text,
+    opens_at           timestamptz,
+    closes_at          timestamptz,
+    time_limit_seconds integer,
+    attempts_allowed   integer NOT NULL DEFAULT 0,       -- 0: unlimited
+    attempts_used      integer,                          -- none: not asked
+    best_grade         double precision,
+    max_grade          double precision,
+    PRIMARY KEY (innohassle_id, course_id, quiz_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_completion (
+    innohassle_id text NOT NULL,
+    course_id     bigint NOT NULL,
+    module_id     bigint NOT NULL,
+    state         smallint NOT NULL CHECK (state BETWEEN 0 AND 3),  -- Moodle: 0 incomplete, 1 complete, 2 complete pass, 3 complete fail
+    completed_at  timestamptz,
+    PRIMARY KEY (innohassle_id, course_id, module_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_groups (
+    innohassle_id text NOT NULL,
+    course_id     bigint NOT NULL,
+    group_id      bigint NOT NULL,
+    name          text NOT NULL,
+    PRIMARY KEY (innohassle_id, course_id, group_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_announcements (
+    innohassle_id text NOT NULL,
+    course_id     bigint NOT NULL,
+    discussion_id bigint NOT NULL,
+    position      integer NOT NULL,
+    title         text NOT NULL,
+    text_sha256   text REFERENCES moodle_texts,
+    posted_at     timestamptz NOT NULL,
+    PRIMARY KEY (innohassle_id, course_id, discussion_id),
+    FOREIGN KEY (innohassle_id, course_id) REFERENCES moodle_courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS moodle_files (                 -- names and links only, never the file
+    innohassle_id text NOT NULL,
+    course_id     bigint NOT NULL,
+    module_id     bigint NOT NULL,
+    position      integer NOT NULL,
+    filename      text NOT NULL,
+    url           text NOT NULL,                         -- https://moodle.innopolis.university/pluginfile.php/..., opens for a signed-in browser
+    size_bytes    bigint,
+    mime_type     text,
+    modified_at   timestamptz,
+    PRIMARY KEY (innohassle_id, course_id, module_id, position),
+    FOREIGN KEY (innohassle_id, course_id, module_id) REFERENCES moodle_modules ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS moodle_sections_text_idx ON moodle_sections (summary_sha256);
+CREATE INDEX IF NOT EXISTS moodle_modules_text_idx ON moodle_modules (text_sha256);
+CREATE INDEX IF NOT EXISTS moodle_announcements_text_idx ON moodle_announcements (text_sha256);
+
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM ctx_reader;
 REVOKE ALL ON SCHEMA public FROM ctx_reader;
 GRANT USAGE ON SCHEMA visible TO ctx_reader;
