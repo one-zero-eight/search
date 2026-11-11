@@ -29,5 +29,7 @@ STATUS = {
     "remove_from_ai_calendar": "🗑 Готовлю удаление из календаря…",
     "search_web": "🌐 Ищу в интернете…",
     "read_web_page": "🌐 Читаю страницу сайта…",
+    "search_my_moodle": "🎓 Ищу в материалах ваших курсов Moodle…",
+    "get_my_moodle": "🎓 Смотрю ваши данные Moodle…",
 }
 HELPER_TOOLS = frozenset(name for name in STATUS if name.startswith("ask_"))  # when one of them returns, the answer is written
