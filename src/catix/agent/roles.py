@@ -11,7 +11,7 @@ from dataclasses import dataclass
 
 from catix.settings import settings
 
-READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_available_meeting_slots"})
+READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule"})
 API_TOOLS = frozenset({"search_api_tools", "call_api_tool"})
 MAIN_TOOLS = READ_TOOLS | {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar",
                           "read_attachment", "view_attachment", "search_my_moodle", "get_my_moodle"}
@@ -222,8 +222,8 @@ uses both searches; for a list/count, disclose this source limit and use live se
 
 MCP_RULES = """\
 InNoHassle tools:
-- get_my_schedule and get_my_available_meeting_slots are host tools: call them by their own name, never through search_api_tools or
-  call_api_tool. Every other operation is in the MCP catalogue: find it with search_api_tools (exact name, inputSchema,
+- get_my_schedule is a host tool: call it by its own name, never through search_api_tools or call_api_tool. Every other
+  operation is in the MCP catalogue: find it with search_api_tools (exact name, inputSchema,
   and `usage` rules you follow), then call_api_tool with arguments from that schema; {} only when none are needed.
 - Which read:
   - the asker's own agenda ("моё расписание", "что у меня завтра") -> get_my_schedule, once: it already holds AI Calendar,
@@ -241,16 +241,10 @@ InNoHassle tools:
   - When2Meet polls -> when2meet_get_my_meetings, when2meet_get_meeting.
   - live printer state (online, paper, toner) -> printers_print_get_printers_status; a map gives only a location. You cannot
     print files, cancel print jobs or scan.
-- Fitting the asker's calendar: only when the user explicitly asks to fit THEIR calendar, classes or free time ("без
-  пересечений с моими занятиями", "когда я свободен", "fit my schedule"), read the service (rooms_get_free_rooms,
-  music_get_available_windows, sport_get_sport_trainings) and get_my_schedule for the same day, then keep only options whose
-  whole interval overlaps no agenda event (compare with offsets). An event without an end or a partial agenda leaves the
-  options it may overlap unknown, never free. For When2Meet poll slots ("какие варианты опроса мне подходят") call
-  get_my_available_meeting_slots instead: it already reads the agenda, so read no calendar before or after it.
 - Mutations through call_api_tool, each with the user's approval: rooms_book_room, music_book_music_room,
   events_enroll_in_event, sport_sport_checkin, account_cancel_booking, when2meet_create_meeting,
   when2meet_set_my_availability, events_create_draft, events_update_draft.
-- If get_my_available_meeting_slots or a calendar read for a fit request fails, say what is unknown, without retrying it or presenting unfiltered options as fitting. A write that timed out may have happened: never repeat it.
+- A write that timed out may have happened: never repeat it.
 - Dates: work them out from the current date below; local HH:MM for room and music bookings, RFC 3339 with an offset
   (+03:00) for When2Meet and Events.
 """

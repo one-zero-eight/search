@@ -1,13 +1,9 @@
 """Safe timeout reasons survive host composition without making partial data free time."""
 from copy import deepcopy
-from types import SimpleNamespace
 
 import pytest
-from pydantic import SecretStr
 
-from catix.agent import meeting_tools
 from catix.agent.schedule_tools import merge_schedule
-from catix.innohassle import mcp_client
 
 DAY = "2026-11-10"
 PERIOD = [DAY, DAY]
@@ -65,57 +61,3 @@ def test_complete_empty_agenda_is_not_a_timeout():
                             {"range": PERIOD, "events": []})
     assert result["complete"] is True and result["events"] == []
     assert result["not_read"] == [] and result["source_errors"] == {}
-
-
-READS = [
-    (meeting_tools.get_my_available_meeting_slots, {"meeting_ref": "team-poll"}, "when2meet_get_meeting"),
-]
-
-
-@pytest.mark.parametrize("tool,arguments,service_name", READS, ids=[entry[2] for entry in READS])
-@pytest.mark.parametrize("code", ["upstream_timeout", "mcp_timeout"])
-def test_personal_availability_preserves_timeout_and_stops_before_calendar(monkeypatch, tool, arguments, service_name, code):
-    calls = []
-
-    def request(method, payload, *a, **kw):
-        calls.append(payload["name"])
-        assert method == "call_tool" and payload["name"] == service_name
-        return {"error": "private-diagnostic", "code": code, "details": "private-diagnostic"}
-
-    monkeypatch.setattr(mcp_client, "request_sync", request)
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=SecretStr("test-token"),
-                              sport_token=SecretStr("test-sport")))
-    response = tool.func(runtime, **arguments)
-    if isinstance(response, tuple):
-        result, artifact = response
-        assert artifact is None
-    else:
-        result = response
-    assert result["code"] == code and result["complete"] is False
-    assert "error" in result and not result.get("available")
-    assert "Do not retry" in result["note"]
-    assert "calendar" in result["note"]
-    assert "private-diagnostic" not in str(result)
-    assert calls == [service_name]
-
-
-@pytest.mark.parametrize("tool,arguments,service_name", READS, ids=[entry[2] for entry in READS])
-@pytest.mark.parametrize("response", [{"error": "ReadTimeout private-diagnostic"},
-                                      {"error": "private-diagnostic", "code": ["upstream_timeout"]},
-                                      {"code": "upstream_timeout"}])
-def test_availability_does_not_infer_timeout_from_text_or_invalid_envelope(monkeypatch, tool, arguments, service_name, response):
-    calls = []
-
-    def request(method, payload, *a, **kw):
-        calls.append(payload["name"])
-        return deepcopy(response)
-
-    monkeypatch.setattr(mcp_client, "request_sync", request)
-    runtime = SimpleNamespace(context=SimpleNamespace(innohassle_token=SecretStr("test-token"),
-                              sport_token=SecretStr("test-sport")))
-    output = tool.func(runtime, **arguments)
-    result = output[0] if isinstance(output, tuple) else output
-    assert "error" in result and result.get("code") not in ("upstream_timeout", "mcp_timeout")
-    assert result["complete"] is False
-    assert "private-diagnostic" not in str(result)
-    assert calls == [service_name]

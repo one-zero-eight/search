@@ -51,20 +51,14 @@ def services(monkeypatch):
     ("generic_en", "Find a room available tomorrow from 15:00 to 16:00."),
     ("generic_ru", "Найди свободную аудиторию завтра с 15:00 до 16:00."),
     ("generic_for_me", "Подбери мне доступные комнаты для бронирования на завтра с 18:00 до 19:00."),
-    ("personal_en", "Find a bookable room tomorrow from 18:00 to 19:00 that fits my schedule."),
-    ("personal_ru", "Подбери комнату завтра с 18:00 до 19:00 без пересечений с моими занятиями."),
     ("missing_end", "Подбери мне комнату для бронирования завтра с 18:00."),
-    ("personal_missing_end", "Подбери комнату завтра с 18:00 без пересечений с моим расписанием."),
-    ("partial", "Подбери комнату завтра с 18:00 до 19:00, чтобы подходило по моему расписанию."),
 ])
-def test_model_routes_generic_rooms_without_agenda_and_personal_rooms_with_agenda(monkeypatch, services, case, question):
+def test_model_routes_generic_rooms_without_agenda(monkeypatch, services, case, question):
     generic = case.startswith("generic_")
     missing_end = case.endswith("missing_end")
     arguments = {**ARGUMENTS, **({"time_from": "15:00", "time_to": "16:00"} if case in {"generic_en", "generic_ru"} else {})}
     services["rooms"]["range"] = f"{arguments['time_from']}-{arguments['time_to']}"
-    if case == "partial":
-        services["agenda"]["not_read"] = ["class: selected calendar unavailable"]
-    elif generic:
+    if generic:
         services["agenda"] = {"error": "Synthetic personal agenda is unavailable", "code": "upstream_timeout"}
 
     # Use the real catalogue/search ranking and schemas, but never the live MCP transport.
@@ -134,11 +128,6 @@ def test_model_routes_generic_rooms_without_agenda_and_personal_rooms_with_agend
         assert services["requests"] == [{"name": "rooms_get_free_rooms", "arguments": arguments}]
         assert not local_reads, "Generic room availability must not read AI Calendar"
         assert answer.strip() and arguments["time_from"] in answer and arguments["time_to"] in answer
-    else:
-        names = [call["args"].get("name") if call["name"] == "call_api_tool" else call["name"] for call in calls]
-        assert "get_my_schedule" in names and "rooms_get_free_rooms" in names and "rooms_book_room" not in names
-        assert {request["name"] for request in services["requests"]} == {"rooms_get_free_rooms", "account_get_my_schedule"}
-        assert len(local_reads) == 1 and answer.strip()
 
 
 @pytest.mark.model

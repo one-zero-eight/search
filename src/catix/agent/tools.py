@@ -20,7 +20,6 @@ from catix.agent.api_tools import API_TOOLS
 from catix.agent.attachment_tools import ATTACHMENT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
 from catix.agent.moodle_tools import MOODLE_TOOLS
-from catix.agent.meeting_tools import get_my_available_meeting_slots
 from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
@@ -667,6 +666,5 @@ TOOLS = [
     *ATTACHMENT_TOOLS,
     *MOODLE_TOOLS,
     get_my_schedule,
-    get_my_available_meeting_slots,
     *WEB_TOOLS,
 ]

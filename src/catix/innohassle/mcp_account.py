@@ -405,7 +405,6 @@ def rooms_get_free_rooms(
     Default for generic free/bookable room requests, including "find a room for me".
     Check room booking times, occupancy and the signed-in user's access, without reading their personal agenda.
     Returns free, booked and unavailable rooms with refusal reasons; does not create a booking or check calendar conflicts.
-    Personal-schedule matching is separate and only needed when explicitly requested; booking still requires scheduling checks.
     Ask for missing day/start/end or duration before checking; never invent a duration from a start time alone.
     A find/list/recommend request is read-only, not permission to book. After this result, report choices and stop;
     do not call rooms_book_room or open approval unless the user explicitly requested booking.
