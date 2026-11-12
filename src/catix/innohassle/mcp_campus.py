@@ -140,7 +140,7 @@ def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=8
     return result
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Pass inclusive date_from/date_to (the same date for one day). Returns classrooms and each day's last class end. Ask the user when the instructor is ambiguous. Gaps are not free time: personal meetings are not shown."))
 @result_boundary()
 def timetable_get_instructor_schedule(
     instructor: Annotated[str, Field(min_length=1, max_length=80, pattern=r"\w")],
@@ -222,7 +222,7 @@ def timetable_get_instructor_schedule(
     }
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Classes only. Free of classes is not bookable: bookings, meetings, access limits and locked doors are not shown; bookability is rooms_get_free_rooms."))
 @result_boundary()
 def timetable_get_room_timetable(
     day: date | None = None,
@@ -291,7 +291,7 @@ def timetable_get_room_timetable(
     }
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Occupied intervals only. If none overlap the period, say 'no bookings'; opening hours and access are not verified."))
 @result_boundary()
 def music_get_music_room_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
     """Music room schedule over a date range: occupied booking intervals and access instructions.

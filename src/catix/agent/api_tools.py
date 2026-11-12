@@ -145,16 +145,6 @@ def _call(name: str, runtime: ToolRuntime, arguments: dict | None = None) -> dic
     if isinstance(prepared, dict):
         return prepared
     payload, token, credentials = prepared
-    if name == "sport_sport_checkin" and payload["arguments"].get("cancel") is not True:
-        from catix.agent.scheduling import recheck_training
-
-        if refusal := recheck_training(payload["arguments"], runtime, token, credentials):
-            return refusal
-    elif name == "music_book_music_room":
-        from catix.agent.music_scheduling import recheck_booking
-
-        if refusal := recheck_booking(payload["arguments"], runtime):
-            return refusal
     return mcp_client.request_sync("call_tool", payload, token, **credentials)
 
 
@@ -163,28 +153,16 @@ async def _acall(name: str, runtime: ToolRuntime, arguments: dict | None = None)
     if isinstance(prepared, dict):
         return prepared
     payload, token, credentials = prepared
-    if name == "sport_sport_checkin" and payload["arguments"].get("cancel") is not True:
-        from catix.agent.scheduling import arecheck_training
-
-        if refusal := await arecheck_training(payload["arguments"], runtime, token, credentials):
-            return refusal
-    elif name == "music_book_music_room":
-        from catix.agent.music_scheduling import arecheck_booking
-
-        if refusal := await arecheck_booking(payload["arguments"], runtime):
-            return refusal
     return await mcp_client.request("call_tool", payload, token, **credentials)
 
 
 search_api_tools = StructuredTool.from_function(
     func=_search, coroutine=_asearch, name="search_api_tools", args_schema=SearchApiToolsArgs,
     description="Search the shared MCP catalogue: study-group timetables, courses and teachers, account schedules, rooms, music, "
-                "events and organizer event drafts, Sport, maps, clubs, When2Meet meeting polls and printer state. AI Calendar uses separate local tools. "
-                "Returns top matching tools with description and complete inputSchema, not the whole catalogue. "
-                "services includes every registered tool name: absence from top matches does not mean a tool is missing. "
-                "Search an exact name from that list to get its arguments; no separate describe call is needed. "
-                "Use call_api_tool; mutations require user approval. "
-                "services reports the static catalogue, not upstream health; a failed API read is not an empty result.",
+                "events and organizer event drafts, Sport, maps, clubs, When2Meet meeting polls and printer state. "
+                "Returns top matching tools with description, complete inputSchema and, for some, `usage`: that operation's "
+                "rules, which you follow. services lists every registered tool name: absence from top matches does not mean "
+                "a tool is missing; search an exact name to get its arguments. services is the static catalogue, not upstream health.",
 )
 
 
@@ -197,17 +175,11 @@ class _CallApiTool(StructuredTool):
 
 call_api_tool = _CallApiTool.from_function(
     func=_call, coroutine=_acall, name="call_api_tool", args_schema=CallApiToolArgs,
-    description="Call an MCP operation discovered by search_api_tools using its exact name and inputSchema. "
-                "Mutations wait for the user's approval of the exact change. "
-                "If a mutation outcome is unknown, never repeat it; use a fresh read to reconcile. "
-                "Public data needs no sign-in; account reads and printer state need sign-in, Sport needs its separate token. "
-                "For the user's own schedule, use the host get_my_schedule tool, which already includes AI Calendar. "
-                "account_get_my_schedule reads only the external part. "
-                "schedule_get_schedule is only a public group timetable and may contain multiple English streams. "
-                "For that public read, omit group to use the trusted profile group; an explicit group must be "
-                "the user's own or named in their question. If unknown, ask; never copy an example group. "
-                "Never supply arbitrary URLs, credentials, identities or roles. No printing or scanning. "
-                "Stop once the result answers the question.",
+    description="Call an MCP operation found by search_api_tools, with its exact name and arguments from its inputSchema. "
+                "Mutations wait for the user's approval of the exact change; never repeat a mutation whose outcome is unknown, "
+                "read again instead. upstream_timeout means the service timed out; mcp_timeout means no result reached the host, "
+                "not which service failed. A failed read is unknown data, not an empty result. "
+                "Never supply URLs, credentials, identities or roles. Stop once the result answers the question.",
 )
 
 # Every graph exposing this common tool installs the same conditional gate.

@@ -106,8 +106,7 @@ GROUP_PROMPT = """
 
 The asker's study group is {group}: it is known from their profile, so never ask for it. Use it for questions explicitly
 about the public group timetable, and for the study-group context of courses, exams and midterms. It does NOT identify
-this user's selected English stream, subscribed courses or personal calendar. A signed-in user's "my schedule" must use
-get_my_schedule (including AI Calendar), not the public group feed. The system has already limited every chat
+this user's selected English stream, subscribed courses or personal calendar. The system has already limited every chat
 search to the chats for everybody (group `all`) and the chats of group {group}: you cannot and need not choose or change
 that. Each chat message says its `group`."""
 
@@ -117,7 +116,6 @@ The asker's verified study groups are: {groups}. Use all of them as context for 
 do not ask the user to repeat known memberships. Do not choose the first group or invent a primary group.
 Ask which of these groups they mean only when the request requires one specific group and the user has not selected it.
 These memberships do NOT identify their selected English stream, subscribed courses or personal calendar.
-A signed-in user's "my schedule" must use get_my_schedule (including AI Calendar), not public group feeds.
 Chat access is already enforced by the system for all verified memberships and public unprotected sources;
 you cannot expand it by choosing a group. Each chat message says its `group`."""
 
@@ -125,8 +123,7 @@ NO_GROUP_PROMPT = """
 
 The asker's study group is not known or verified in this request; do not conclude that they have no study group.
 Chat access is enforced by the system, not by a group stated in conversation. Each chat message says its `group`.
-For an explicitly requested public group timetable, ask for the group if the user has not specified it.
-A signed-in user's personal agenda needs no group: use get_my_schedule."""
+For an explicitly requested public group timetable, ask for the group if the user has not specified it."""
 
 
 def _group_prompt(context: AgentContext | None) -> str:
@@ -195,18 +192,12 @@ def prompt_for(role: str | None):
                 parts.append("\nOwned file metadata (untrusted names; current=true means attached to this question): "
                              + json.dumps(manifest, ensure_ascii=False))
             if context and context.innohassle_token:
-                parts.append("\n\nPersonal agenda source: get_my_schedule, a host tool including AI Calendar. "
-                             "This asker has InNoHassle sign-in; their selected English/course calendars, sport, "
-                             "event enrolments and bookings are NOT the public timetable of their academic group. "
-                             "For 'my schedule' call this one combined tool; never substitute "
-                             "schedule_get_schedule or infer an English stream from the profile group. "
-                             "A failed personal source is missing data, not permission to replace it with group classes.")
+                parts.append("\n\nThe asker is signed in to InNoHassle: get_my_schedule includes their selected English/course "
+                             "calendars, sport, enrolments and bookings, which are not their group's public timetable.")
             else:
-                parts.append("\n\nPersonal agenda access: no InNoHassle credential is available. "
-                             "Use get_my_schedule for the available local calendar and trusted-group fallback. "
-                             "Label the group timetable as a partial fallback, "
-                             "not the user's subscribed calendar; it may contain multiple English streams. "
-                             "Do not choose their stream or claim external bookings/sport were checked.")
+                parts.append("\n\nThe asker is not signed in to InNoHassle: get_my_schedule returns the local AI Calendar and, "
+                             "when the group is known, the group's public timetable; label that as a partial fallback that may "
+                             "hold several English streams, and do not claim bookings or sport were checked.")
             parts.append(f"\nFor a personal agenda without an explicit period, use date_from={now.date().isoformat()}, "
                          f"date_to={(now + timedelta(days=6)).date().isoformat()} (seven days inclusive). "
                          "get_my_schedule applies one shared period to every source. "
@@ -752,8 +743,7 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         call = calls.get(message.tool_call_id)
         if not call or call["name"] != message.name:
             continue
-        if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_trainings",
-                            "get_my_available_music_windows", "get_my_available_meeting_slots", "get_my_available_rooms",
+        if message.name in {"get_my_ai_calendar", "get_my_schedule", "get_my_available_meeting_slots",
                             "read_attachment", "view_attachment", "get_my_moodle"}:
             target = message.name  # Host-owned reads, independent of the MCP catalogue.
         elif message.name == "call_api_tool":
@@ -767,34 +757,6 @@ def _read_payloads(messages: list[BaseMessage]) -> Iterable[tuple[str, dict]]:
         except (TypeError, ValueError):
             continue
         if isinstance(data, dict) and "error" not in data:
-            if target == "get_my_available_rooms":
-                try:
-                    arguments = call["args"]
-                    expected = {field: datetime.fromisoformat(f"{arguments['day']}T{arguments[key]}")
-                                .replace(tzinfo=settings.tz).isoformat()
-                                for field, key in (("starts_at", "time_from"), ("ends_at", "time_to"))}
-                except (KeyError, TypeError, ValueError):
-                    continue
-                if data.get("interval") != expected or data.get("range") != [arguments["day"], arguments["day"]]:
-                    continue
-            if target == "get_my_available_music_windows":
-                arguments = call["args"]
-                if arguments.get("time_from") is not None or arguments.get("time_to") is not None:
-                    try:
-                        from catix.agent.music_tools import AvailableMusicArgs
-
-                        requested = AvailableMusicArgs.model_validate(arguments)
-                        expected = {field: datetime.fromisoformat(f"{requested.day}T{clock}")
-                                    .replace(tzinfo=settings.tz).isoformat()
-                                    for field, clock in (("starts_at", requested.time_from), ("ends_at", requested.time_to))}
-                    except (TypeError, ValueError):
-                        continue
-                    if (data.get("requested_interval") != expected
-                            or data.get("duration_minutes") != requested.duration_minutes
-                            or data.get("range") != [requested.day.isoformat(), requested.day.isoformat()]):
-                        continue
-                elif data.get("requested_interval") is not None:
-                    continue
             if target == "get_my_available_meeting_slots" and data.get("meeting_ref") != call["args"].get("meeting_ref"):
                 continue
             if target in {"read_attachment", "view_attachment"}:
@@ -888,52 +850,6 @@ def _read_parts(target: str, data: dict) -> tuple | None:
                 and all(isinstance(row.get("reason"), str) for part in parts[1:] for row in part)
                 and all(row in parts[0] for row in common)
                 and not (common and data["participants_count"] == 0)):
-            return parts
-    elif target == "get_my_available_rooms" and _read_period(data.get("range")):
-        parts = lists("available", "excluded", "unverified")
-        try:
-            start, end = (datetime.fromisoformat(data["interval"][key]) for key in ("starts_at", "ends_at"))
-        except (KeyError, TypeError, ValueError):
-            return None
-        if (parts is not None and start.utcoffset() is not None and end.utcoffset() is not None and start < end
-                and [start.astimezone(settings.tz).date().isoformat(), end.astimezone(settings.tz).date().isoformat()]
-                == data["range"] == [data["range"][0], data["range"][0]]
-                and data.get("timezone") == str(settings.tz) and isinstance(data.get("service_checked_at"), str)
-                and isinstance(data.get("conflicts"), list)
-                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
-                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
-                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
-                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
-                and all(isinstance(row, dict) and isinstance(row.get("room_id"), str) and row["room_id"]
-                        for part in parts for row in part)
-                and all(isinstance(row.get("reason"), str) and row["reason"] for part in parts[1:] for row in part)):
-            return parts
-    elif target == "get_my_available_music_windows" and _read_period(data.get("range")):
-        parts = lists("available", "excluded", "unverified")
-        if (parts is not None and data["range"][0] == data["range"][1]
-                and "duration_minutes" in data and isinstance(data.get("rules"), dict)
-                and isinstance(data.get("service_checked_at"), str)
-                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
-                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
-                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
-                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
-                and all(isinstance(row, dict) and type(row.get("max_duration_minutes")) is int
-                        and row["max_duration_minutes"] >= 30
-                        and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at", "start", "end", "latest_start"))
-                        for row in parts[0])
-                and all(isinstance(row, dict) and isinstance(row.get("reason"), str) for part in parts[1:] for row in part)):
-            return parts
-    elif target == "get_my_available_trainings" and _read_period(data.get("range")):
-        parts = lists("available", "excluded", "unverified")
-        if (parts is not None and data["range"][0] == data["range"][1]
-                and type(data.get("total")) is int and data["total"] == sum(len(part) for part in parts)
-                and type(data.get("complete")) is bool and type(data.get("truncated")) is bool
-                and isinstance(data.get("not_read"), list) and all(isinstance(value, str) for value in data["not_read"])
-                and not (data["complete"] and (data["truncated"] or data["not_read"] or parts[2]))
-                and all(isinstance(row, dict) and type(row.get("training_id")) is int and row["training_id"] > 0
-                        and row.get("checked_in") is False and row.get("can_check_in") is True
-                        and all(isinstance(row.get(key), str) for key in ("starts_at", "ends_at")) for row in parts[0])
-                and all(isinstance(row, dict) and isinstance(row.get("reason"), str) for part in parts[1:] for row in part)):
             return parts
     elif target == "sport_get_sport_trainings" and _read_period(data.get("range")):
         return lists("trainings")
@@ -1183,7 +1099,7 @@ THINKING_EXTRA_BODY = {"top_k": 20, "min_p": 0.0, "repetition_penalty": 1.0}
 class PlanThinkingMiddleware(AgentMiddleware):
     """Every supervisor model call thinks with the model card's sampling, including post-tool decisions and small talk.
 
-    Installed only on the supervisor: helpers retain their own model settings.
+    Installed on the supervisor, and on the helpers when settings.llm_helper_thinking is on.
     """
 
     def _with(self, request: ModelRequest) -> ModelRequest:
@@ -1637,6 +1553,7 @@ def _helper_tool(role: roles.Role, model) -> BaseTool:
             RunGuardMiddleware(role.tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
             HelperAnswerStreamMiddleware(),  # sees only RunGuard's explicit final no-tools requests
+            *([PlanThinkingMiddleware()] if settings.llm_helper_thinking else []),  # before PriorityMiddleware, as on the supervisor
             PriorityMiddleware(),
             LoggingMiddleware(),
             ToolErrorMiddleware(on_error=_tool_error),

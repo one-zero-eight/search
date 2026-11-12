@@ -67,7 +67,7 @@ def test_all_day_interval_uses_exclusive_end_date():
 def test_local_calendar_reads_a_sentinel_and_reports_truncation(monkeypatch, count, truncated):
     from catix.agent import calendar_tools
     from catix.personal_calendar import PersonalEvent
-    from tests.test_sport_calendar_guard import CONTEXT
+    from tests.sport_helpers import CONTEXT
 
     seen = []
     def between(key, start, end, limit=40):

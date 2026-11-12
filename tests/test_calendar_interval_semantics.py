@@ -162,17 +162,6 @@ def test_all_day_normalization_does_not_repair_a_reversed_stored_interval():
     assert merged["complete"] is False and merged["not_read"]
 
 
-def test_partly_verified_music_windows_remain_answer_evidence():
-    from catix.agent import core
-    result = {"range": ["2026-11-09", "2026-11-09"], "duration_minutes": None, "rules": {"step_minutes": 30},
-              "service_checked_at": "2026-11-08T09:12:13+03:00", "complete": False, "truncated": False,
-              "not_read": ["The end of test1 is unknown."], "total": 2, "excluded": [],
-              "available": [{"start": "07:00", "end": "09:00", "starts_at": "2026-11-09T07:00:00+03:00",
-                             "ends_at": "2026-11-09T09:00:00+03:00", "latest_start": "08:30", "max_duration_minutes": 120}],
-              "unverified": [{"start": "20:30", "end": "21:00", "reason": "schedule_unverified"}]}
-    assert core._read_parts("get_my_available_music_windows", result) is not None
-
-
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 def test_overnight_suggested_event_can_be_renamed_without_losing_its_end(calendar, decision):
     from langgraph.types import Command

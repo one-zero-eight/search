@@ -68,6 +68,8 @@ def test_signed_in_catalogue_search_never_verifies_or_forwards_user_tokens(monke
     result = (asyncio.run(api_tools._asearch("free rooms", runtime)) if asynchronous
               else api_tools._search("free rooms", runtime))
     assert any(tool["name"] == "rooms_get_free_rooms" for tool in result["tools"])
+    rooms = next(t for t in result["tools"] if t["name"] == "rooms_get_free_rooms")
+    assert isinstance(rooms.get("usage"), str) and "time_from" in rooms["usage"]
     assert verified == [], "Public catalogue lookup must not trigger JWT/JWKS work"
     assert "synthetic-user-token" not in str(result) and "synthetic-sport-token" not in str(result)
 

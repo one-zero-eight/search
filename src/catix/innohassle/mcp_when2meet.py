@@ -31,7 +31,7 @@ def when2meet_get_my_meetings(
     return when2meet.listing(token, status, scope)
 
 
-@tool(**metadata())
+@tool(**metadata(usage="common_slots concern only participants who responded; no responses means unknown, not everyone free. specific_time selects manual slots versus a daily range; both use half-hour cells in Moscow time."))
 @result_boundary()
 def when2meet_get_meeting(
     meeting_ref: when2meet.MeetingRef,
@@ -48,7 +48,7 @@ def when2meet_get_meeting(
     return _details(when2meet.read(token, meeting_ref))
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Creates a poll, not a meeting or a room booking. Ask for a missing name/dates/times; never invent slots. RFC 3339 with +03:00, not a Z suffix."))
 @result_boundary(write=True)
 def when2meet_create_meeting(
     name: Annotated[str, Field(min_length=1, max_length=200, pattern=r'\S')],
@@ -80,7 +80,7 @@ def when2meet_create_meeting(
     return {'done': True, 'meeting': _details(confirmed)}
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Replaces ALL the asker's marked slots ([] clears them): read the poll first and keep existing marks unless asked to replace them. Never publish availability inferred from a calendar without the user's request."))
 @result_boundary(write=True)
 def when2meet_set_my_availability(
     meeting_ref: when2meet.MeetingRef,

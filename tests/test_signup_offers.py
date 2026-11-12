@@ -22,26 +22,20 @@ AGENDA = {'range': [DAY, DAY], 'complete': True, 'truncated': False, 'not_read':
 
 
 def recommendation():
-    args = {'day': DAY, 'sport': 'Basketball'}
-    source = {'date_from': DAY, 'date_to': DAY, 'sport': 'Basketball'}
+    args = {'name': 'sport_get_sport_trainings', 'arguments': {'date_from': DAY, 'date_to': DAY, 'sport': 'Basketball'}}
     return [HumanMessage('Предложи тренировки'),
-            AIMessage('', tool_calls=[{'id': 'read', 'name': 'get_my_available_trainings', 'args': args}]),
-            ToolMessage(json.dumps({'available': [TRAINING], 'excluded': [], 'unverified': []}),
-                        name='get_my_available_trainings', tool_call_id='read',
-                        artifact={'trainings': {'range': [DAY, DAY], 'trainings': [TRAINING]},
-                                  'agenda': AGENDA, 'training_arguments': source}),
+            AIMessage('', tool_calls=[{'id': 'read', 'name': 'call_api_tool', 'args': args}]),
+            ToolMessage(json.dumps({'range': [DAY, DAY], 'trainings': [TRAINING]}),
+                        name='call_api_tool', tool_call_id='read'),
             AIMessage('Basketball 17:00–18:30 в Hall.')]
 
 
 @pytest.fixture
 def native_sport_recommendation(monkeypatch):
     """Real host recommendation and native MCP dispatch; only upstream I/O is synthetic."""
-    from datetime import date
 
     from fastmcp import Client
-    from langchain.tools import ToolRuntime
 
-    from catix.agent import schedule_tools, training_tools
     from catix.innohassle import mcp_client, mcp_server, sport
 
     def setup(*, changed=None, all_day=False):
@@ -74,16 +68,11 @@ def native_sport_recommendation(monkeypatch):
                     return result.data
         monkeypatch.setattr(mcp_client, 'request', request)
         monkeypatch.setattr(mcp_client, 'request_sync', lambda *a, **kw: asyncio.run(request(*a, **kw)))
-        monkeypatch.setattr(training_tools, 'read_my_schedule', lambda *a: deepcopy(AGENDA))
-        async def agenda(*a):
-            return deepcopy(AGENDA)
-        monkeypatch.setattr(schedule_tools, 'aread_my_schedule', agenda)
-        runtime = ToolRuntime(state={}, context=context, config={}, stream_writer=lambda _: None,
-                              tool_call_id='read', store=None)
-        result, artifact = training_tools.get_my_available_trainings.func(runtime, date.fromisoformat(DAY), 'Basketball')
+        result = mcp_client.request_sync('call_tool', {'name': 'sport_get_sport_trainings', 'arguments': {
+            'date_from': DAY, 'date_to': DAY, 'sport': 'Basketball'}}, 'synthetic-ih', sport_token='synthetic-sport')
         messages = recommendation()
-        messages[2] = ToolMessage(json.dumps(result), name='get_my_available_trainings', tool_call_id='read', artifact=artifact)
-        assert result['available'] and not writes
+        messages[2] = ToolMessage(json.dumps(result), name='call_api_tool', tool_call_id='read')
+        assert result['trainings'] and not writes
         return messages, context, writes
     return setup
 
@@ -121,13 +110,13 @@ def test_matched_recommendation_produces_opaque_offer_and_private_snapshot():
     assert offer.expires_at <= NOW + timedelta(hours=24)
     target = targets[offer.id]
     assert target['arguments'] == {'training_id': 7}
-    assert target['schedule_check']['training_filters'] == {'sport': 'Basketball'}
+    assert target['training_filters'] == {'sport': 'Basketball'}
     response = schemas.AskResponses(query='q', answer='a', sources=[], messages=[], signup_offers=offers)
     assert response.model_dump(mode='json')['signup_offers'][0]['id'] == offer.id
     assert 'training_id' not in response.model_dump_json()
 
 
-@pytest.mark.parametrize('mode', ['old', 'unpaired', 'failed', 'excluded', 'artifact_mismatch', 'mutated'])
+@pytest.mark.parametrize('mode', ['old', 'unpaired', 'failed', 'mutated'])
 def test_untrusted_or_stale_recommendations_never_offer_signup(mode):
     from catix.api.signup import collect
     messages = recommendation()
@@ -138,10 +127,6 @@ def test_untrusted_or_stale_recommendations_never_offer_signup(mode):
         messages[2].tool_call_id = 'forged'
     elif mode == 'failed':
         messages[2].status = 'error'
-    elif mode == 'excluded':
-        messages[2].content = json.dumps({'available': [], 'excluded': [TRAINING]})
-    elif mode == 'artifact_mismatch':
-        messages[2].artifact['training_arguments']['sport'] = 'Karate'
     elif mode == 'mutated':
         messages.extend([AIMessage('', tool_calls=[{'id': 'write', 'name': 'call_api_tool', 'args': {
             'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}}}]),
@@ -157,8 +142,7 @@ def test_offer_selection_never_depends_on_literal_model_title(service):
     assert len(offers) == 1 and offers[0].service == service
 
 
-def test_sport_click_uses_real_fresh_guard_then_exact_readback(monkeypatch):
-    from catix.agent import schedule_tools
+def test_sport_click_writes_then_exact_readback(monkeypatch):
     from catix.api import signup
     offers, targets = signup.collect(recommendation(), 'Basketball', now=NOW)
     offer, = offers
@@ -168,17 +152,14 @@ def test_sport_click_uses_real_fresh_guard_then_exact_readback(monkeypatch):
         assert token == 'fresh-ih' and credentials == {'sport_token': 'fresh-sport'}
         if payload['name'] == 'sport_get_sport_trainings':
             assert payload['arguments'] == {'date_from': DAY, 'date_to': DAY, 'sport': 'Basketball'}
-            return {'range': [DAY, DAY], 'trainings': [{**TRAINING, 'checked_in': len(requests) > 2}]}
+            return {'range': [DAY, DAY], 'trainings': [{**TRAINING, 'checked_in': len(requests) > 1}]}
         assert payload == {'name': 'sport_sport_checkin', 'arguments': {'training_id': 7}}
         return {'done': True, 'training_id': 7, 'signed_up': True}
-    async def agenda(*a):
-        return deepcopy(AGENDA)
     monkeypatch.setattr(signup.mcp_client, 'request', request)
-    monkeypatch.setattr(schedule_tools, 'aread_my_schedule', agenda)
     context = AgentContext(innohassle_id='owner', innohassle_token=SecretStr('fresh-ih'), sport_token=SecretStr('fresh-sport'))
     result = asyncio.run(signup.execute(offer, targets[offer.id], context, now=NOW))
     assert result.status == 'confirmed'
-    assert [r['name'] for r in requests] == ['sport_get_sport_trainings', 'sport_sport_checkin', 'sport_get_sport_trainings']
+    assert [r['name'] for r in requests] == ['sport_sport_checkin', 'sport_get_sport_trainings']
 
 
 EVENT = {'id': 'a' * 24, 'title': 'Robotics', 'starts_at': DAY + 'T17:00:00+03:00',
@@ -291,24 +272,17 @@ def test_event_final_wire_details_fail_closed_without_losing_canonical_equivalen
     assert len(writes) == 1
 
 
-@pytest.mark.parametrize('mode', ['success', 'conflict', 'partial', 'moved', 'renamed', 'full', 'missing_credentials',
+@pytest.mark.parametrize('mode', ['success', 'moved', 'renamed', 'full', 'missing_credentials',
                                  'expired', 'lost_write', 'readback_lost', 'wrong_receipt', 'wrong_readback'])
 def test_sport_refusal_and_unknown_paths_never_retarget(monkeypatch, mode):
-    from catix.agent import schedule_tools
     from catix.api import signup
     offers, targets = signup.collect(recommendation(), 'Basketball', now=NOW)
     offer, = offers
-    fresh, agenda = deepcopy(TRAINING), deepcopy(AGENDA)
-    if mode == 'conflict':
-        agenda.update(events=[{**TRAINING, 'title': 'Class'}], total=1)
-    if mode == 'partial':
-        agenda['complete'] = False
+    fresh = deepcopy(TRAINING)
     if mode == 'moved':
         fresh['starts_at'] = DAY + 'T17:30:00+03:00'
     if mode == 'renamed':
         fresh['name'] = 'Other'
-    if mode == 'full':
-        fresh['can_check_in'] = False
     if mode == 'expired':
         offer.expires_at = NOW
     writes = []
@@ -319,27 +293,20 @@ def test_sport_refusal_and_unknown_paths_never_retarget(monkeypatch, mode):
                 raise TimeoutError('secret')
             return {'range': [DAY, DAY], 'trainings': [{**fresh, 'checked_in': bool(writes),
                        'training_id': 8 if writes and mode == 'wrong_readback' else 7}]}
+        if mode == 'full':
+            return {'done': False, 'code': 'training_unavailable'}
         writes.append(payload)
         if mode == 'lost_write':
             raise TimeoutError('secret')
         return {'done': True, 'training_id': 8 if mode == 'wrong_receipt' else 7, 'signed_up': True}
-    async def fresh_agenda(*a):
-        return agenda
     monkeypatch.setattr(signup.mcp_client, 'request', request)
-    monkeypatch.setattr(schedule_tools, 'aread_my_schedule', fresh_agenda)
     context = AgentContext(innohassle_id='owner', innohassle_token=SecretStr('ih'),
                            sport_token=None if mode == 'missing_credentials' else SecretStr('sport'))
     result = asyncio.run(signup.execute(offer, targets[offer.id], context, now=NOW))
-    unknown = mode in {'lost_write', 'readback_lost', 'wrong_receipt', 'wrong_readback'}
+    unknown = mode in {'moved', 'renamed', 'lost_write', 'readback_lost', 'wrong_receipt', 'wrong_readback'}
     assert result.status == ('unknown' if unknown else 'confirmed' if mode == 'success' else 'refused')
     assert len(writes) == int(unknown or mode == 'success')
-    if mode == 'conflict':
-        assert 'пересекается' in result.message
-    elif mode == 'partial':
-        assert 'проверить расписание' in result.message
-    elif mode in {'moved', 'renamed'}:
-        assert 'изменил' in result.message
-    elif mode == 'full':
+    if mode == 'full':
         assert 'недоступна' in result.message
 
 
@@ -367,22 +334,17 @@ def test_event_bad_evidence_cannot_offer_action(mode):
     assert signup.collect(messages, 'Robotics', now=NOW) == ([], {})
 
 
-@pytest.mark.parametrize('mode', ['later_failed_agenda', 'malformed_available', 'malformed_place', 'invalid_readback'])
+@pytest.mark.parametrize('mode', ['malformed_available', 'malformed_place', 'invalid_readback'])
 def test_malformed_or_invalidated_training_evidence_fails_closed(monkeypatch, mode):
     from catix.api import signup
     messages = recommendation()
-    if mode == 'later_failed_agenda':
-        messages.extend([AIMessage('', tool_calls=[{'id': 'agenda', 'name': 'get_my_schedule', 'args': {}}]),
-                         ToolMessage('{"error":"failed"}', name='get_my_schedule', tool_call_id='agenda')])
-    elif mode == 'malformed_available':
-        messages[2].content = '{"available": null}'
+    if mode == 'malformed_available':
+        messages[2].content = '{"range": ["%s", "%s"], "trainings": null}' % (DAY, DAY)
     elif mode == 'malformed_place':
         item = {**TRAINING, 'place': {'untrusted': 'object'}}
-        messages[2].content = json.dumps({'available': [item]})
-        messages[2].artifact = {**messages[2].artifact, 'trainings': {'range': [DAY, DAY], 'trainings': [item]}}
+        messages[2].content = json.dumps({'range': [DAY, DAY], 'trainings': [item]})
     else:
         # A fake transport error envelope must not establish enrollment even if it carries a training list.
-        from catix.agent import schedule_tools
         offers, targets = signup.collect(messages, 'Basketball', now=NOW)
         offer, = offers
         writes = []
@@ -392,10 +354,7 @@ def test_malformed_or_invalidated_training_evidence_fails_closed(monkeypatch, mo
                         **({'error': 'read failed'} if writes else {})}
             writes.append(payload)
             return {'done': True, 'training_id': 7, 'signed_up': True}
-        async def agenda(*a):
-            return AGENDA
         monkeypatch.setattr(signup.mcp_client, 'request', request)
-        monkeypatch.setattr(schedule_tools, 'aread_my_schedule', agenda)
         context = AgentContext(innohassle_token=SecretStr('ih'), sport_token=SecretStr('sport'))
         assert asyncio.run(signup.execute(offer, targets[offer.id], context, now=NOW)).status == 'unknown'
         return

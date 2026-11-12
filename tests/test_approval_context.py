@@ -35,7 +35,7 @@ def read_messages(name, arguments, data, ident="read"):
 
 
 def initial(messages=None):
-    from tests.test_sport_calendar_guard import agenda_data, read_messages as host_read
+    from tests.sport_helpers import agenda_data, read_messages as host_read
 
     calendars = host_read("get_my_schedule", agenda_data(classes=[]), "agenda")
     return {"messages": [HumanMessage("Запиши на подходящую тренировку."),

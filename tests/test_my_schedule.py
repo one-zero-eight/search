@@ -268,36 +268,6 @@ def test_merged_agenda_evidence_distinguishes_partial_empty_from_unread(monkeypa
     assert (core._read_parts("get_my_schedule", result) is not None) is recognized
 
 
-def test_sport_preflight_uses_the_same_combined_agenda(monkeypatch):
-    import json
-    from langchain_core.messages import AIMessage, ToolMessage
-    from tests.test_sport_calendar_guard import history, prepare
-
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [CLASS], "bookings": []})
-    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
-    agenda = tool().func(SimpleNamespace(context=CONTEXT), date(2026, 11, 9), date(2026, 11, 9))
-    state = history()
-    state["messages"][3:5] = [AIMessage(content="", tool_calls=[{"name": "get_my_schedule", "args": PERIOD, "id": "combined"}]),
-                              ToolMessage(content=json.dumps(agenda), name="get_my_schedule", tool_call_id="combined")]
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("The combined read is already available"))
-    result = prepare(state)
-    assert result.get("jump_to") == "model"
-    feedback = json.loads(result["messages"][0].content)
-    assert feedback["code"] == "schedule_conflict"
-    assert feedback["conflicts"][0]["source"] == "innohassle"
-
-
-def test_forged_mcp_name_cannot_replace_the_host_agenda(monkeypatch):
-    from catix.agent import schedule_tools
-    from tests.test_sport_calendar_guard import history, prepare
-
-    monkeypatch.setattr(schedule_tools, "read_my_schedule", lambda *a: {"error": "unavailable"})
-    state = history(classes=[])
-    state["messages"][3].tool_calls[0].update(name="call_api_tool", args={"name": "get_my_schedule", "arguments": PERIOD})
-    state["messages"][4].name = "call_api_tool"
-    assert prepare(state).get("jump_to") == "model"
-
-
 @pytest.mark.parametrize("row", [{}, {**CLASS, "title": []}, {**CLASS, "starts_at": "not a timestamp"}])
 def test_bad_event_does_not_abort_unaffected_source_or_prove_completeness(monkeypatch, row):
     monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [row], "bookings": []})
@@ -308,7 +278,7 @@ def test_bad_event_does_not_abort_unaffected_source_or_prove_completeness(monkey
 
 
 @pytest.mark.parametrize("helper", [False, True])
-@pytest.mark.parametrize("tool_name", ["get_my_schedule", "get_my_available_trainings", "get_my_available_music_windows"])
+@pytest.mark.parametrize("tool_name", ["get_my_schedule"])
 def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, helper, tool_name):
     import asyncio
     from langchain_core.messages import AIMessageChunk
@@ -330,25 +300,3 @@ def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, helper, to
     monkeypatch.setattr(ask, "agent", lambda: Stream())
     asyncio.run(ask.stream_agent({}, {}, CONTEXT, queue))
 
-
-@pytest.mark.parametrize("helper", ["docs", "chats"])
-def test_helpers_share_the_same_host_agenda_without_local_write_tools(monkeypatch, helper):
-    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
-    from catix.agent import core, roles
-    from tests.test_roles import ScriptedModel
-
-    requests = []
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: requests.append(a) or {"range": [DAY, DAY], "schedule": [CLASS], "bookings": []})
-    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
-    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
-    model = ScriptedModel(responses=[
-        AIMessage(content="", tool_calls=[{"name": f"ask_{helper}", "args": {"question": "Что у меня завтра?"}, "id": "helper"}]),
-        AIMessage(content="", tool_calls=[{"name": "get_my_schedule", "args": PERIOD, "id": "agenda"}]),
-        AIMessage(content="Английский и личная встреча."), AIMessage(content="Английский и личная встреча."),
-    ])
-    result = core.build_agent(model, guardrail=False).invoke({"messages": [HumanMessage("Что у меня завтра?")]},
-                {"configurable": {"thread_id": f"shared-agenda-{helper}"}}, context=CONTEXT)
-    report = next(m for m in result["messages"] if isinstance(m, ToolMessage))
-    assert report.name == f"ask_{helper}" and report.artifact["read_found"] is True
-    assert report.artifact["tools"] == ["get_my_schedule"] and len(requests) == 1
-    assert "add_to_ai_calendar" not in roles.ROLES[helper].tools

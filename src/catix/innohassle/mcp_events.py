@@ -9,7 +9,7 @@ from catix.innohassle import client, event_drafts as drafts
 from catix.innohassle.mcp_declarations import invalid_arguments, metadata, require_innohassle, result_boundary
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="An organizer draft: the tool checks club-leader or event-manager permission after approval. Prepare the name/description from supplied facts; never invent dates, locations, registration URLs or club IDs; optional unknown fields stay unset. ru/en text, RFC 3339 timestamps with offsets (+03:00). It neither submits for moderation nor publishes; report cannot_submit_reasons as remaining work, not a failure. On an unknown outcome keep draft_id and never recreate."))
 @result_boundary(write=True)
 def events_create_draft(
     name: drafts.Name,
@@ -66,7 +66,7 @@ def events_create_draft(
         return drafts.unknown(draft_id)
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Edits an exact draft_id with freshly checked can_edit. Omitted/null fields and other languages stay; an empty description clears it; registration_url replaces enrolment with external registration; club_id adds an owned club, not an invitation. Writes are not atomic: on an unknown outcome keep draft_id and never retry. There is no draft read: ask the organizer to check the draft in Events."))
 @result_boundary(write=True)
 def events_update_draft(
     draft_id: drafts.DraftId,

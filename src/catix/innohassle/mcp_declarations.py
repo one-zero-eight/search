@@ -15,13 +15,17 @@ from catix.innohassle import actions
 log = logging.getLogger("catix.mcp.server")
 
 
-def metadata(*, write: bool = False) -> dict:
-    return {"annotations": {
+def metadata(*, write: bool = False, usage: str | None = None) -> dict:
+    """Tool annotations; `usage` rides in `meta` (not indexed by search) and is returned with discovery results."""
+    result: dict = {"annotations": {
         "readOnlyHint": not write,
         "destructiveHint": write,
         "idempotentHint": not write,
         "openWorldHint": True,
     }}
+    if usage is not None:
+        result["meta"] = {"usage": usage}
+    return result
 
 
 def require_innohassle() -> str:

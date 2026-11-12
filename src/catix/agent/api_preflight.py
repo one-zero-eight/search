@@ -18,8 +18,6 @@ from typing_extensions import NotRequired
 from catix.agent import api_context
 from catix.agent.api_descriptions import describe_action
 from catix.agent.api_tools import _credential_mode, _credentials, _needs_approval, _reviewed_args
-from catix.agent.music_scheduling import prepare_booking
-from catix.agent.scheduling import ScheduleCheckError, batch_conflicts, prepare_training
 from catix.innohassle import mcp_client
 
 
@@ -109,10 +107,6 @@ def _prepared(call, args, state, schema, runtime):
     description = describe_action(args.name, displayed, _language(state))
     prepared = {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
                 "description": description}
-    if args.name == "sport_sport_checkin" and displayed.get("cancel") is False:
-        prepared["schedule_check"] = prepare_training(displayed, state["messages"], runtime)
-    elif args.name == "music_book_music_room":
-        prepared["schedule_check"] = prepare_booking(displayed, state["messages"], runtime)
     return prepared
 
 
@@ -171,11 +165,9 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
 
     @staticmethod
     def _finish(state, prepared, errors):
-        errors.update(batch_conflicts(prepared))
         if errors:
             return {"api_prepared": [], "messages": [ToolMessage(
-                content=json.dumps(errors[call["id"]].result if isinstance(errors.get(call["id"]), ScheduleCheckError)
-                                   else {"error": str(errors.get(call["id"], "Not executed: another call in this batch failed preflight."))}),
+                content=json.dumps({"error": str(errors.get(call["id"], "Not executed: another call in this batch failed preflight."))}),
                 name=call["name"], tool_call_id=call["id"], status="error",
                 artifact={"requires_user_input": True} if getattr(errors.get(call["id"]), "requires_user_input", False) else None,
             ) for call in state["messages"][-1].tool_calls], "jump_to": "model"}
@@ -209,7 +201,7 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 prepared.append(item)
             except GraphBubbleUp:
                 raise
-            except (PreflightError, ScheduleCheckError) as error:
+            except PreflightError as error:
                 errors[call["id"]] = error
                 if error.requires_user_input:
                     break
@@ -236,7 +228,7 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                 prepared.append(item)
             except GraphBubbleUp:
                 raise
-            except (PreflightError, ScheduleCheckError) as error:
+            except PreflightError as error:
                 errors[call["id"]] = error
                 if error.requires_user_input:
                     break

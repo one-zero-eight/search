@@ -19,7 +19,7 @@ from tests.test_signup_offers import AGENDA, DAY, NOW
 def native_bookings(monkeypatch):
     """Actual native MCP tools and HTTP backends; no production service writes."""
     from fastmcp import Client
-    from catix.agent import api_tools, room_tools, music_tools, schedule_tools
+    from catix.agent import api_tools, schedule_tools
     from catix.agent.tools import AgentContext
     from catix.innohassle import client as backend, mcp_account, mcp_client, mcp_server
     state = {'requests': [], 'writes': [], 'agenda': deepcopy(AGENDA), 'allowed': True,
@@ -89,31 +89,23 @@ def native_bookings(monkeypatch):
                 return (await client.call_tool(method, payload)).data
     monkeypatch.setattr(mcp_client, 'request', request)
     monkeypatch.setattr(mcp_client, 'request_sync', lambda *a, **kw: asyncio.run(request(*a, **kw)))
-    monkeypatch.setattr(room_tools, 'read_my_schedule', lambda *a: deepcopy(state['agenda']))
-    monkeypatch.setattr(music_tools, 'read_my_schedule', lambda *a: deepcopy(state['agenda']))
     async def agenda(*a):
         state.setdefault('calendar_reads', []).append(a)
         return deepcopy(state['agenda'])
     monkeypatch.setattr(schedule_tools, 'aread_my_schedule', agenda)
-    def recommend(service, duration=None, *, raw=False, omit_day=False):
-        tool = room_tools.get_my_available_rooms if service == 'rooms' else music_tools.get_my_available_music_windows
+    def recommend(service, duration=None, *, omit_day=False):
+        tool = api_tools.call_api_tool
         arguments = {'day': DAY, **({'time_from': '18:00', 'time_to': '19:00'} if service == 'rooms'
                                   else {'duration_minutes': duration} if duration is not None else {})}
-        if raw:
-            if omit_day:
-                arguments.pop('day')
-            arguments = {'name': 'rooms_get_free_rooms' if service == 'rooms' else 'music_get_available_windows',
-                         'arguments': arguments}
-            tool = api_tools.call_api_tool
-            result = tool.func(runtime=SimpleNamespace(context=context), **arguments)
-            artifact = None
-            assert result.get('free' if service == 'rooms' else 'windows'), result
-        else:
-            result, artifact = tool.func(SimpleNamespace(context=context), **{**arguments, 'day': date.fromisoformat(DAY)})
-            assert result.get('available'), result
+        if omit_day:
+            arguments.pop('day')
+        arguments = {'name': 'rooms_get_free_rooms' if service == 'rooms' else 'music_get_available_windows',
+                     'arguments': arguments}
+        result = tool.func(runtime=SimpleNamespace(context=context), **arguments)
+        assert result.get('free' if service == 'rooms' else 'windows'), result
         messages = [HumanMessage('Find an available room'), AIMessage('', tool_calls=[{
             'id': 'read', 'name': tool.name, 'args': arguments}]),
-            ToolMessage(json.dumps(result), name=tool.name, tool_call_id='read', artifact=artifact),
+            ToolMessage(json.dumps(result), name=tool.name, tool_call_id='read'),
             AIMessage('Choose below.')]
         return messages
     with backend._http_client('https://synthetic.test', transport=httpx.MockTransport(respond)) as http:
@@ -141,44 +133,8 @@ def test_booking_selection_and_window_public_contract():
         assert offer.model_dump(mode='json')['service'] == service
 
 
-def test_native_rooms_recommendation_becomes_offer_without_prose_matching(native_bookings):
-    from catix.api import signup
-    state, _, recommend = native_bookings
-    offers, targets = signup.collect(recommend('rooms'), 'Choose below.', now=NOW)
-    offer, = offers
-    assert offer.service == 'rooms' and offer.title == 'Study room'
-    assert offer.booking_title is None and offer.music_window is None
-    assert offer.personal_schedule_checked is True
-    assert offer.starts_at == datetime.fromisoformat(DAY + 'T18:00:00+03:00')
-    assert offer.ends_at == datetime.fromisoformat(DAY + 'T19:00:00+03:00')
-    assert targets[offer.id]['arguments'] == {'room_id': 'r', 'day': DAY, 'time_from': '18:00', 'time_to': '19:00'}
-    assert not state['writes']
-
-
-@pytest.mark.parametrize('duration', [None, 60])
-def test_native_music_windows_remain_choices_not_default_bookings(native_bookings, duration):
-    from catix.api import signup
-    state, _, recommend = native_bookings
-    messages = recommend('music', duration)
-    now = datetime.fromisoformat(DAY + 'T08:00:00+03:00')
-    offers, targets = signup.collect(messages, 'Choose below.', now=now)
-    offer, = offers
-    assert offer.service == 'music' and offer.title == 'Music room'
-    assert offer.personal_schedule_checked is True
-    assert offer.starts_at.hour == 7 and offer.ends_at.hour == 22
-    window = offer.music_window
-    assert window.starts_at == offer.starts_at and window.ends_at == offer.ends_at
-    assert window.max_duration_minutes == 120 and window.duration_minutes == duration
-    assert window.latest_start_at.hour == (21 if duration else 22)
-    assert offer.expires_at == window.latest_start_at and offer.expires_at > now
-    assert targets[offer.id]['arguments'] == {'day': DAY}
-    assert not state['writes']
-
-
 @pytest.mark.parametrize('service', ['rooms', 'music', 'sport'])
-@pytest.mark.parametrize('later', ['get_my_schedule', 'get_my_available_rooms', 'get_my_available_music_windows',
-                                  'get_my_available_trainings', 'rooms_get_free_rooms', 'music_get_available_windows',
-                                  'rooms_book_room', 'helper_write'])
+@pytest.mark.parametrize('later', ['rooms_get_free_rooms', 'music_get_available_windows', 'rooms_book_room', 'helper_write'])
 def test_later_paired_failures_and_mutations_invalidate_booking_recommendations(native_bookings, service, later):
     from catix.api import signup
     from tests.test_signup_offers import recommendation
@@ -191,36 +147,6 @@ def test_later_paired_failures_and_mutations_invalidate_booking_recommendations(
                      ToolMessage('{"error":"failed"}', name=name, tool_call_id='later',
                          artifact={'action_receipts': [{'outcome': 'unknown'}]} if later == 'helper_write' else None)])
     assert signup.collect(messages, '', now=NOW) == ([], {})
-
-
-@pytest.mark.parametrize('service', ['rooms', 'music'])
-@pytest.mark.parametrize('changed', [None, 'equivalent'])
-def test_native_booking_click_rechecks_calendar_service_and_exact_owned_readback(native_bookings, service, changed):
-    from catix.api import booking_offers, signup
-    state, context, recommend = native_bookings
-    offers, targets = signup.collect(recommend(service), '', now=NOW)
-    offer, = offers
-    selection = schemas.SignupSelection(booking_title='Study group') if service == 'rooms' else schemas.SignupSelection(
-        time_from='18:00', time_to='19:00')
-    chosen, target = booking_offers.select(offer, targets[offer.id], selection)
-    state['changed'] = changed
-    state['requests'].clear()
-    result = asyncio.run(signup.execute(chosen, target, context, now=NOW))
-    assert result.status == 'confirmed', result
-    assert result.starts_at == chosen.starts_at and result.ends_at == chosen.ends_at
-    assert result.booking_title == chosen.booking_title
-    assert len(state['writes']) == 1 and len(state['calendar_reads']) == 1
-    paths = [r.url.path for r in state['requests']]
-    if service == 'rooms':
-        assert any(p.endswith('/can-book') for p in paths)
-        assert paths[-1] == '/room-booking/v0/bookings/opaque=='
-        body = json.loads(state['writes'][0].content)
-        assert body['title'] == 'Study group' and body['room_id'] == 'r'
-    else:
-        assert paths[-1] == '/music-room/v0/bookings/my_bookings'
-        assert all(any(p.endswith(s) for p in paths) for s in ('/users/me', '/remaining_daily_hours',
-                                                              '/remaining_weekly_hours', '/daily_bookings'))
-        assert json.loads(state['writes'][0].content) == {'time_start': DAY + 'T18:00:00', 'time_end': DAY + 'T19:00:00'}
 
 
 @pytest.mark.parametrize('service', ['rooms', 'music'])
@@ -243,58 +169,13 @@ def test_expiry_and_past_choices_refuse_before_claim_but_later_music_stays_open(
 
 
 @pytest.mark.parametrize('service', ['rooms', 'music'])
-@pytest.mark.parametrize('fault', ['old', 'unpaired', 'failed', 'raw_service', 'artifact_args', 'call_args',
-                                 'available_interval', 'source_interval', 'conflict', 'partial', 'unknown_end', 'excluded'])
-def test_booking_evidence_is_recomputed_not_trusted_from_visible_results(native_bookings, service, fault):
-    from catix.api import signup
-    _, _, recommend = native_bookings
-    messages = recommend(service)
-    assert signup.collect(messages, '', now=NOW)[0]
-    message = messages[2]
-    data = json.loads(message.content)
-    if fault == 'old':
-        messages.append(HumanMessage('New turn'))
-    elif fault == 'unpaired':
-        message.tool_call_id = 'forged'
-    elif fault == 'failed':
-        message.status = 'error'
-    elif fault == 'raw_service':
-        call = messages[1].tool_calls[0]
-        call['args'] = {'name': 'rooms_get_free_rooms' if service == 'rooms' else 'music_get_available_windows', 'arguments': call['args']}
-        call['name'] = message.name = 'call_api_tool'
-    elif fault == 'artifact_args':
-        message.artifact['room_arguments' if service == 'rooms' else 'music_arguments']['day'] = '2099-01-03'
-    elif fault == 'call_args':
-        messages[1].tool_calls[0]['args']['day'] = '2099-01-03'
-    elif fault == 'available_interval':
-        (data['interval'] if service == 'rooms' else data['available'][0])['ends_at'] = DAY + 'T21:00:00+03:00'
-    elif fault == 'source_interval':
-        source = message.artifact[service if service == 'rooms' else 'music']
-        if service == 'rooms':
-            source['range'] = '18:00-21:00'
-        else:
-            source['windows'][0]['max_duration_minutes'] = 30
-    elif fault in {'conflict', 'unknown_end'}:
-        message.artifact['agenda'].update(total=1, events=[{'title': 'Class', 'starts_at': DAY + 'T18:00:00+03:00',
-            'ends_at': None if fault == 'unknown_end' else DAY + 'T19:00:00+03:00'}])
-    elif fault == 'partial':
-        message.artifact['agenda']['complete'] = False
-    elif fault == 'excluded':
-        data['excluded'] = data['available']
-        data['available'] = []
-    message.content = json.dumps(data)
-    assert signup.collect(messages, 'Book invented rooms at any time', now=NOW) == ([], {})
-
-
-@pytest.mark.parametrize('service', ['rooms', 'music'])
 @pytest.mark.parametrize('duration', [None, 60])
 def test_raw_service_read_creates_choices_without_personal_agenda_claim(native_bookings, service, duration):
     from catix.api import booking_offers, signup
     state, context, recommend = native_bookings
-    messages = recommend(service, duration, raw=True)
+    messages = recommend(service, duration)
     offers, targets = signup.collect(messages, 'Unrelated prose with no room IDs', now=NOW)
     offer, = offers
-    assert offer.personal_schedule_checked is False
     assert not state.get('calendar_reads') and not state['writes']
     assert targets[offer.id]['arguments']['day'] == DAY
     if service == 'music':
@@ -312,8 +193,8 @@ def test_raw_service_read_creates_choices_without_personal_agenda_claim(native_b
     chosen, target = booking_offers.select(offer, targets[offer.id], selection, now=NOW)
     result = asyncio.run(signup.execute(chosen, target, context, now=NOW))
     assert result.status == 'confirmed'
-    assert result.personal_schedule_checked is False
-    assert len(state['writes']) == 1 and len(state['calendar_reads']) == 1
+    assert 'calendar_reads' not in state
+    assert len(state['writes']) == 1
 
 
 def test_raw_rooms_default_day_comes_from_validated_service_date(native_bookings, monkeypatch):
@@ -321,7 +202,7 @@ def test_raw_rooms_default_day_comes_from_validated_service_date(native_bookings
     from catix.innohassle import mcp_account
     _, _, recommend = native_bookings
     monkeypatch.setattr(mcp_account, '_now', lambda: datetime.fromisoformat(DAY + 'T09:00:00+03:00'))
-    messages = recommend('rooms', raw=True, omit_day=True)
+    messages = recommend('rooms', omit_day=True)
     offers, targets = signup.collect(messages, '', now=NOW)
     offer, = offers
     assert targets[offer.id]['arguments']['day'] == DAY
@@ -337,7 +218,7 @@ def test_raw_rooms_default_day_comes_from_validated_service_date(native_bookings
 def test_raw_booking_choices_require_validated_paired_service_rows(native_bookings, service, fault):
     from catix.api import signup
     _, _, recommend = native_bookings
-    messages = recommend(service, raw=True)
+    messages = recommend(service)
     message = messages[2]
     data = json.loads(message.content)
     if fault == 'failed':
@@ -373,13 +254,13 @@ def test_raw_booking_choices_require_validated_paired_service_rows(native_bookin
 
 
 @pytest.mark.parametrize('service', ['rooms', 'music'])
-@pytest.mark.parametrize('later', ['native', 'raw', 'failure', 'write', 'duplicate'])
+@pytest.mark.parametrize('later', ['raw', 'failure', 'write', 'duplicate'])
 def test_raw_booking_latest_read_supersession_and_single_use_pairing(native_bookings, service, later):
     from catix.api import signup
     _, _, recommend = native_bookings
-    messages = recommend(service, raw=True)
-    if later in {'native', 'raw', 'failure'}:
-        newer = recommend(service, raw=later != 'native')
+    messages = recommend(service)
+    if later in {'raw', 'failure'}:
+        newer = recommend(service)
         newer[1].tool_calls[0]['id'] = newer[2].tool_call_id = 'newer'
         if later == 'failure':
             newer[2].status = 'error'
@@ -389,14 +270,13 @@ def test_raw_booking_latest_read_supersession_and_single_use_pairing(native_book
             'args': {'name': 'rooms_book_room', 'arguments': {}}}]),
             ToolMessage('{}', name='call_api_tool', tool_call_id='write')])
     else:
-        # Reusing an old successful ToolMessage cannot restore a superseded read.
+        # An agenda read no longer supersedes an offer: the old read still stands.
         old = deepcopy(messages[2])
         messages.extend([AIMessage('', tool_calls=[{'id': 'failed', 'name': 'get_my_schedule', 'args': {}}]),
             ToolMessage('{"error":"Unavailable"}', name='get_my_schedule', tool_call_id='failed'), old])
     offers, _ = signup.collect(messages, '', now=NOW)
-    if later in {'native', 'raw'}:
+    if later in {'raw', 'duplicate'}:
         offer, = offers
-        assert offer.personal_schedule_checked is (later == 'native')
     else:
         assert offers == []
 
@@ -404,44 +284,35 @@ def test_raw_booking_latest_read_supersession_and_single_use_pairing(native_book
 def test_raw_room_ids_remain_bookable_without_optional_service_titles(native_bookings):
     from catix.api import signup
     _, _, recommend = native_bookings
-    messages = recommend('rooms', raw=True)
+    messages = recommend('rooms')
     data = json.loads(messages[2].content)
     data['free'][0].pop('title')
-    data['personal_schedule_checked'] = True
     messages[2].content = json.dumps(data)
     offers, targets = signup.collect(messages, '', now=NOW)
     offer, = offers
-    assert offer.title == 'r' and offer.personal_schedule_checked is False
+    assert offer.title == 'r'
     assert 'title' not in targets[offer.id]['room']
 
 
-def exact_music_messages(native_bookings, *, raw):
-    from catix.agent import api_tools, music_tools
+def exact_music_messages(native_bookings):
+    from catix.agent import api_tools
     state, context, _ = native_bookings
-    arguments = {'day': DAY, 'time_from': '15:00', 'time_to': '16:00'}
-    if raw:
-        tool = api_tools.call_api_tool
-        arguments = {'name': 'music_get_available_windows', 'arguments': arguments}
-        result = tool.func(runtime=SimpleNamespace(context=context), **arguments)
-        artifact = None
-    else:
-        tool = music_tools.get_my_available_music_windows
-        result, artifact = tool.func(SimpleNamespace(context=context), day=date.fromisoformat(DAY),
-                                     time_from='15:00', time_to='16:00')
+    arguments = {'name': 'music_get_available_windows',
+                 'arguments': {'day': DAY, 'time_from': '15:00', 'time_to': '16:00'}}
+    tool = api_tools.call_api_tool
+    result = tool.func(runtime=SimpleNamespace(context=context), **arguments)
     messages = [HumanMessage('Find a music room tomorrow from 15:00 to 16:00.'),
         AIMessage('', tool_calls=[{'id': 'exact-music', 'name': tool.name, 'args': arguments}]),
-        ToolMessage(json.dumps(result), name=tool.name, tool_call_id='exact-music', artifact=artifact),
+        ToolMessage(json.dumps(result), name=tool.name, tool_call_id='exact-music'),
         AIMessage('The requested interval is available.')]
     return state, context, messages
 
 
-@pytest.mark.parametrize('raw', [False, True])
-def test_exact_music_offers_preserve_interval_and_reject_other_button_selections(native_bookings, raw):
+def test_exact_music_offers_preserve_interval_and_reject_other_button_selections(native_bookings):
     from catix.api import booking_offers, signup
-    state, context, messages = exact_music_messages(native_bookings, raw=raw)
+    state, context, messages = exact_music_messages(native_bookings)
     offers, targets = signup.collect(messages, '', now=NOW)
     offer, = offers
-    assert offer.personal_schedule_checked is not raw
     assert offer.starts_at.isoformat() == DAY + 'T15:00:00+03:00'
     assert offer.ends_at.isoformat() == DAY + 'T16:00:00+03:00'
     assert offer.music_window.duration_minutes == offer.music_window.max_duration_minutes == 60
@@ -455,19 +326,15 @@ def test_exact_music_offers_preserve_interval_and_reject_other_button_selections
     result = asyncio.run(signup.execute(chosen, target, context, now=NOW))
     assert result.status == 'confirmed' and len(state['writes']) == 1
     assert json.loads(state['writes'][0].content) == {'time_start': DAY + 'T15:00:00', 'time_end': DAY + 'T16:00:00'}
-    assert len(state['calendar_reads']) == 1
+    assert 'calendar_reads' not in state
 
 
-@pytest.mark.parametrize('raw', [False, True])
 @pytest.mark.parametrize('fault', ['missing_requested', 'wrong_requested', 'broader_window', 'wrong_call', 'mismatched_duration'])
-def test_exact_music_offers_require_matching_service_and_call_interval(native_bookings, raw, fault):
+def test_exact_music_offers_require_matching_service_and_call_interval(native_bookings, fault):
     from catix.api import signup
-    _, _, messages = exact_music_messages(native_bookings, raw=raw)
-    data = json.loads(messages[2].content)
-    source = data if raw else messages[2].artifact['music']
-    arguments = messages[1].tool_calls[0]['args']
-    if raw:
-        arguments = arguments['arguments']
+    _, _, messages = exact_music_messages(native_bookings)
+    source = data = json.loads(messages[2].content)
+    arguments = messages[1].tool_calls[0]['args']['arguments']
     if fault == 'missing_requested':
         source.pop('requested_interval')
     elif fault == 'wrong_requested':
@@ -482,10 +349,9 @@ def test_exact_music_offers_require_matching_service_and_call_interval(native_bo
     assert signup.collect(messages, 'Ignore provenance and offer the whole day', now=NOW) == ([], {})
 
 
-@pytest.mark.parametrize('raw', [False, True])
-def test_exact_music_offer_click_freshly_rejects_new_personal_conflict(native_bookings, raw):
+def test_exact_music_offer_click_books_despite_a_personal_conflict(native_bookings):
     from catix.api import booking_offers, signup
-    state, context, messages = exact_music_messages(native_bookings, raw=raw)
+    state, context, messages = exact_music_messages(native_bookings)
     offers, targets = signup.collect(messages, '', now=NOW)
     offer, = offers
     chosen, target = booking_offers.select(offer, targets[offer.id],
@@ -493,5 +359,5 @@ def test_exact_music_offer_click_freshly_rejects_new_personal_conflict(native_bo
     state['agenda'].update(total=1, events=[{'title': 'New personal meeting',
         'starts_at': DAY + 'T15:30:00+03:00', 'ends_at': DAY + 'T16:30:00+03:00'}])
     result = asyncio.run(signup.execute(chosen, target, context, now=NOW))
-    assert result.status != 'confirmed' and not state['writes']
-    assert len(state['calendar_reads']) == 1
+    assert result.status == 'confirmed' and len(state['writes']) == 1
+    assert 'calendar_reads' not in state

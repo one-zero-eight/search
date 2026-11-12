@@ -125,8 +125,15 @@ class _RequestBoundary(Middleware):
 
 
 def _compact_search_results(tools: Sequence[Tool]) -> list[dict[str, Any]]:
-    """One discovery format: retain callable inputs, omit output/schema metadata."""
-    return [{"name": tool.name, "description": tool.description, "inputSchema": tool.parameters} for tool in tools]
+    """One discovery format: retain callable inputs and the operation's `usage` rules, omit output/schema metadata."""
+    results = []
+    for tool in tools:
+        item = {"name": tool.name, "description": tool.description, "inputSchema": tool.parameters}
+        usage = (tool.meta or {}).get("usage")
+        if isinstance(usage, str):
+            item["usage"] = usage
+        results.append(item)
+    return results
 
 
 async def build_server() -> FastMCP:

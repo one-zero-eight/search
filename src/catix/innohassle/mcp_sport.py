@@ -112,7 +112,7 @@ def sport_get_training(
                          "starts_at": start.isoformat(), "ends_at": end.isoformat()}}
 
 
-@tool(**metadata())
+@tool(**metadata(usage="This semester's sport hours (done, required, debt, left, days to the end), medical group and check-ins."))
 @result_boundary()
 def sport_get_my_sport(*, token: str = Depends(require_sport)) -> dict:
     """Personal Sport summary: hours earned/required, debt, medical group and trainings.
@@ -164,7 +164,7 @@ def sport_get_my_sport(*, token: str = Depends(require_sport)) -> dict:
     return result
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Trainings in a period (a specific day means that day only) with places left, checked_in and can_check_in. Pass sport in English as the service names it (Volleyball, Swimming), only if the user named one. can_check_in is Sport's permission, not the asker's free time. Report truncated/incomplete results; a list is read-only: no signup without the user's request and approval."))
 @result_boundary()
 def sport_get_sport_trainings(
     date_from: date | None = None, date_to: date | None = None,
@@ -259,7 +259,7 @@ def sport_get_sports(
     }
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Use a training_id read with can_check_in true; when it is false, report its rules and eligible alternatives."))
 @result_boundary(write=True)
 def sport_sport_checkin(
     training_id: Annotated[int, Field(gt=0)], cancel: bool = False,

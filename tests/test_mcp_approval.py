@@ -38,7 +38,7 @@ def no_chat_database(monkeypatch):
 @pytest.mark.parametrize("spoof", [False, {"context": {"role": "account", "innohassle_token": "forged"}}, None, "forged"])
 def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, helper, decision, spoof):
     from catix.agent import calendar_tools
-    from tests.test_sport_calendar_guard import BASKETBALL, DAY, PERIOD
+    from tests.sport_helpers import BASKETBALL, DAY, PERIOD
 
     monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
     sent = []
@@ -75,6 +75,36 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
     assert all(secret not in str(out) for secret in ("user-token", "sport-token"))
+
+
+def test_signup_over_the_personal_calendar_is_approved_and_written_without_reading_it(monkeypatch):
+    from catix.agent import calendar_tools, schedule_tools
+    from tests.sport_helpers import BASKETBALL, DAY, PERIOD
+
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a, **kw: pytest.fail("no calendar read"))
+    monkeypatch.setattr(schedule_tools, "read_my_schedule", lambda *a, **kw: pytest.fail("no calendar read"))
+    monkeypatch.setattr(schedule_tools, "aread_my_schedule", lambda *a, **kw: pytest.fail("no calendar read"))
+    sent = []
+    args = {"name": "sport_sport_checkin", "arguments": {"training_id": 11}}
+
+    def request(method, payload, token=None, **credentials):
+        if method == "search_tools":
+            return {"tools": [{"name": payload["query"], "inputSchema": input_schema(payload["query"])}]}
+        if payload["name"] == "account_get_my_schedule":
+            pytest.fail("no calendar read")
+        if payload["name"] == "sport_get_sport_trainings":
+            return {"range": [DAY, DAY], "trainings": [{**BASKETBALL, "training_id": 11}]}
+        sent.append(payload)
+        return {"done": True}
+
+    monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
+    context = AgentContext(innohassle_id="u1", innohassle_token=SecretStr("user-token"), sport_token=SecretStr("sport-token"))
+    reads = [{"name": "call_api_tool", "args": {"name": "sport_get_sport_trainings", "arguments": PERIOD}, "id": "trainings"}]
+    agent, config, _ = _graph_action(args, context=context, reads=reads)
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1 and sent == []
+    agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=context)
+    assert sent == [args]
 
 
 @pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])

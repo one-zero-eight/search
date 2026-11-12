@@ -1,12 +1,11 @@
 """Safe timeout reasons survive host composition without making partial data free time."""
 from copy import deepcopy
-from datetime import date
 from types import SimpleNamespace
 
 import pytest
 from pydantic import SecretStr
 
-from catix.agent import meeting_tools, music_tools, room_tools, training_tools
+from catix.agent import meeting_tools
 from catix.agent.schedule_tools import merge_schedule
 from catix.innohassle import mcp_client
 
@@ -69,10 +68,6 @@ def test_complete_empty_agenda_is_not_a_timeout():
 
 
 READS = [
-    (training_tools.get_my_available_trainings, {"day": date.fromisoformat(DAY)}, "sport_get_sport_trainings"),
-    (room_tools.get_my_available_rooms, {"day": date.fromisoformat(DAY), "time_from": "18:00", "time_to": "19:00"},
-     "rooms_get_free_rooms"),
-    (music_tools.get_my_available_music_windows, {"day": date.fromisoformat(DAY)}, "music_get_available_windows"),
     (meeting_tools.get_my_available_meeting_slots, {"meeting_ref": "team-poll"}, "when2meet_get_meeting"),
 ]
 

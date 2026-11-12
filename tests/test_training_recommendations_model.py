@@ -1,15 +1,39 @@
 """Small real-model checks for the reported date/recommendation failure; no live account I/O."""
 
+import asyncio
 from copy import deepcopy
+from datetime import datetime
 
 import pytest
+from fastmcp import Client
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_openai import ChatOpenAI
+from pydantic import SecretStr
 
-from catix.agent import calendar_tools, core, roles
-from catix.innohassle import mcp_client
+from catix.agent import api_tools, calendar_tools, core, roles
+from catix.innohassle import mcp_client, mcp_server
 from catix.settings import settings
-from tests.test_training_recommendations import CONTEXT, CLASSES, TRAININGS
+from catix.agent.tools import AgentContext
+
+DAY = "2026-11-09"
+PERIOD = {"date_from": DAY, "date_to": DAY}
+CONTEXT = AgentContext(innohassle_id="synthetic-owner", innohassle_token=SecretStr("synthetic-ih"),
+                       sport_token=SecretStr("synthetic-sport"),
+                       asked_at=datetime.fromisoformat("2026-11-08T07:20:55+03:00"))
+
+
+def interval(start, end, **fields):
+    return {"starts_at": f"{DAY}T{start}:00+03:00", "ends_at": f"{DAY}T{end}:00+03:00", **fields}
+
+
+CLASSES = [interval("12:40", "14:10", title="Logic and Discrete Math (lab)"),
+           interval("14:20", "15:50", title="English for Scientific Purposes")]
+TRAININGS = [
+    interval("13:30", "15:00", training_id=49039, name="Functional Training", place="[SC] 3rd floor", checked_in=False, can_check_in=True),
+    interval("15:00", "16:30", training_id=47775, name="Functional Training", place="[SC] 3rd floor", checked_in=False, can_check_in=True),
+    interval("17:00", "18:30", training_id=46975, name="Basketball", place="[SC] Big Hall", checked_in=False, can_check_in=True),
+    interval("19:00", "20:30", training_id=48671, name="Karate", checked_in=False, can_check_in=False),
+]
 
 
 @pytest.mark.model
@@ -32,7 +56,7 @@ def test_real_model_recommends_only_checked_trainings_for_the_exact_day(monkeypa
         training.setdefault("place", "Sport Complex")
     requests = []
     def request(method, payload, token=None, **credentials):
-        assert method == "call_tool", "The host recommendation read needs no model catalogue lookup"
+        assert method == "call_tool"
         requests.append(payload)
         assert token == "synthetic-ih" and payload["arguments"] == {"date_from": day, "date_to": day}
         if payload["name"] == "sport_get_sport_trainings":
@@ -44,12 +68,32 @@ def test_real_model_recommends_only_checked_trainings_for_the_exact_day(monkeypa
         assert credentials == {"sport_token": "synthetic-sport"}
         return {"range": [day, day], "schedule": classes, "bookings": [],
                 **({"not_read": ["class: some selected calendars unavailable"]} if case == "partial_calendar" else {})}
-    monkeypatch.setattr(mcp_client, "request_sync", request)
+    async def discover(payload):
+        async with mcp_server.adapter() as root, Client(root) as client:
+            return {"tools": (await client.call_tool("search_tools", payload)).data,
+                    "services": (await client.call_tool("service_status", {})).data}
+
+    def routed(method, payload, token=None, **credentials):
+        if method == "search_tools":
+            assert token is None and not credentials
+            return None
+        return request(method, payload, token, **credentials)
+
+    def search_request(method, payload, token=None, **credentials):
+        found = routed(method, payload, token, **credentials)
+        return asyncio.run(discover(payload)) if method == "search_tools" else found
+
+    async def search_arequest(method, payload, token=None, **credentials):
+        found = routed(method, payload, token, **credentials)
+        return await discover(payload) if method == "search_tools" else found
+
+    monkeypatch.setattr(api_tools.mcp_client, "request_sync", search_request)
+    monkeypatch.setattr(api_tools.mcp_client, "request", search_arequest)
     monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     monkeypatch.setattr(core, "tool_call_token", lambda: None)
-    monkeypatch.setattr(roles, "MAIN_TOOLS", frozenset({"get_my_available_trainings", "get_my_schedule", "get_my_ai_calendar", "search_api_tools", "call_api_tool"}))
-    monkeypatch.setattr(settings, "agent_max_model_calls", 4)
+    monkeypatch.setattr(roles, "MAIN_TOOLS", frozenset({"get_my_schedule", "get_my_ai_calendar", "search_api_tools", "call_api_tool"}))
+    monkeypatch.setattr(settings, "agent_max_model_calls", 6)
     model = ChatOpenAI(base_url=str(settings.llm_route), api_key="not-needed", model=settings.llm_model,
                        max_tokens=1200, temperature=0, timeout=60, max_retries=0,
                        extra_body={"chat_template_kwargs": {"enable_thinking": False}})
@@ -59,20 +103,16 @@ def test_real_model_recommends_only_checked_trainings_for_the_exact_day(monkeypa
     calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
     answer = core.final_answer(result["messages"], {}).answer
     print({"case": case, "calls": calls, "answer": answer})
-    assert len(calls) == 1 and calls[0]["name"] == "get_my_available_trainings"
-    assert calls[0]["args"].get("day") == day and calls[0]["args"].get("sport") is None
-    assert len(requests) == (1 if case == "sport_timeout" else 2) and not graph.get_state(config).interrupts
+    names = [call["args"].get("name") if call["name"] == "call_api_tool" else call["name"] for call in calls]
+    assert "get_my_schedule" in names and "sport_get_sport_trainings" in names and "sport_sport_checkin" not in names
+    assert not graph.get_state(config).interrupts
     if case == "spaced_day_after_tomorrow":
-        assert "10 ноября" in answer and "CrossFit" in answer and "15:00" in answer
+        assert "CrossFit" in answer and "15:00" in answer and "Frisbee" not in answer
     elif case == "conflicting_trainings":
-        assert "Basketball" in answer and "17:00" in answer
+        assert "Basketball" in answer and "13:30" not in answer
     elif case == "partial_calendar":
-        import json
-        payload = next(json.loads(m.content) for m in result["messages"] if isinstance(m, ToolMessage) and isinstance(m.content, str))
-        assert payload["available"] == [] and payload["complete"] is False
         assert any(word in answer.lower() for word in ("не удалось", "недоступ", "непол", "не могу", "не могу гарантировать"))
         assert "подходящих тренировок нет" not in answer.lower(), "Unknown availability is not absence"
-        assert "могу попробовать запис" not in answer.lower(), "Do not offer signup for unverified slots"
     else:
         assert answer.strip()
         assert any(word in answer.lower() for word in ("не удалось", "недоступ", "не ответил", "таймаут", "не могу"))

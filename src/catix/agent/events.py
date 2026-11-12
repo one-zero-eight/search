@@ -69,7 +69,6 @@ def _model():
 # These tools describe existing calendars, service registrations or bookable slots,
 # not independent reminders. Discovery and unrelated account reads do not qualify.
 _CALENDAR_TOOLS = {
-    'get_my_available_trainings', 'get_my_available_music_windows', 'get_my_available_rooms',
     'get_my_schedule', 'get_my_ai_calendar', 'add_to_ai_calendar', 'update_ai_calendar', 'remove_from_ai_calendar',
     'account_get_my_schedule', 'account_get_booking', 'account_cancel_booking',
     'schedule_get_schedule', 'sport_get_my_sport', 'sport_get_training', 'sport_get_sport_trainings', 'sport_sport_checkin',

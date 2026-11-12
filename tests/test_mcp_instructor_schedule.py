@@ -157,8 +157,6 @@ def test_instructor_schedule_discovery_and_shared_guidance():
             assert set(operation.parameters["required"]) == {"instructor", "date_from", "date_to"}
             assert operation.parameters["properties"]["date_from"]["format"] == "date"
     asyncio.run(check())
-    assert NAME in roles.MCP_RULES
-    assert "personal meetings" in roles.MCP_RULES
 
 
 def test_co_teaching_and_substitution_use_occurrence_instructors(source):

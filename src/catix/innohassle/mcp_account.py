@@ -340,7 +340,7 @@ def _future_span(day: date, time_from: time, time_to: time) -> str | None:
     return None
 
 
-@tool(**metadata())
+@tool(**metadata(usage="External calendars and bookings only, without AI Calendar; the asker's agenda is the host tool get_my_schedule. Pass on what not_read says could not be read."))
 @result_boundary()
 def account_get_my_schedule(
     date_from: date | None = None, date_to: date | None = None,
@@ -393,7 +393,7 @@ def _busy_rooms(bookings: list[dict], start: datetime, end: datetime) -> set[str
     return busy
 
 
-@tool(**metadata())
+@tool(**metadata(usage="One exact interval: day, time_from, time_to (local HH:MM). If the user gave only a start, ask for the end or duration before calling; never assume one hour or scan the day. free = bookable by the asker at checked_at, booked = occupied, unavailable = access/time refusal with reasons; a failed check is not availability. Data may be cached; it reserves nothing and does not check the asker's calendar, so never say the room fits their schedule. A find/list/recommend request ends with these choices: do not call rooms_book_room unless the user asks to book."))
 @result_boundary()
 def rooms_get_free_rooms(
     time_from: ClockTime, time_to: ClockTime, day: date | None = None,
@@ -450,7 +450,7 @@ def rooms_get_free_rooms(
     }
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Book only the exact interval the user asked for, local HH:MM. If it is taken or refused, report the reason and the returned alternatives; never pick another slot or retry."))
 @result_boundary(write=True)
 def rooms_book_room(
     room_id: Annotated[str, Field(max_length=80), AfterValidator(validate_room_id)],
@@ -542,7 +542,7 @@ def account_get_booking(
                         "timezone": str(settings.tz), "starts_at": start.isoformat(), "ends_at": end.isoformat()}}
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="booking_id comes from get_my_schedule or account_get_my_schedule. A cancellation needs no free-interval check."))
 @result_boundary(write=True)
 def account_cancel_booking(
     service: Literal["music_room", "room"],
@@ -616,7 +616,7 @@ def _music_windows(day: date, now: datetime, occupied: list[tuple[datetime, date
     return windows
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Music room service windows for one day: bookings, access and the asker's quota, NOT their free time. For an exact interval pass both time_from and time_to (duration_minutes alone is not the same); pass duration_minutes only if the user gave a duration. Exact results concern only requested_interval; a refusal means only its own reason, never occupancy. Recommend only available windows; unverified is unknown, and complete=false is not 'no time'. Never compute extra windows from gaps. Windows follow the half-hour grid; latest_start, duration and remaining quota limit them, so a long window does not allow booking all of it. Quotas apply to the requested date."))
 @result_boundary()
 def music_get_available_windows(
     day: date,
@@ -744,7 +744,7 @@ def _music_availability(day: date, duration_minutes: int | None, token: str, *,
     return result
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Book only the exact interval the user asked for. The host rechecks the asker's agenda before approval and again before execution. If it is taken or refused, report the reason and the returned alternatives; never pick another slot or retry."))
 @result_boundary(write=True)
 def music_book_music_room(
     day: date, time_from: ClockTime, time_to: ClockTime,
@@ -793,7 +793,7 @@ def music_book_music_room(
     }
 
 
-@tool(**metadata(write=True))
+@tool(**metadata(write=True, usage="Use an event id from events_get_university_events."))
 @result_boundary(write=True)
 def events_enroll_in_event(
     event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")], leave: bool = False,

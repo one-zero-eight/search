@@ -13,9 +13,7 @@ from urllib.parse import urlsplit
 from langchain.tools import ToolRuntime
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
-from catix.agent import schedule_tools
 from catix.agent.api_tools import _acall, _credentials
-from catix.agent.scheduling import ScheduleCheckError, _busy, _calendar_conflicts, prepare_training
 from catix.api import booking_offers
 from catix.api.schemas import MusicBookingWindow, SignupOffer
 from catix.innohassle import mcp_client
@@ -115,41 +113,17 @@ def collect(messages, answer, *, now=None):
                 if isinstance(message.artifact, dict) and message.artifact.get('action_receipts'):
                     candidates.clear()
                 continue
-            if name in {'get_my_schedule', 'get_my_available_trainings', 'get_my_available_rooms',
-                        'get_my_available_music_windows', 'rooms_get_free_rooms', 'music_get_available_windows',
-                        'account_get_my_schedule', 'sport_get_my_sport', 'sport_get_sport_trainings', 'sport_get_training'}:
-                # A newer source read, even a failed one, supersedes personal fit.
+            if name in {'rooms_get_free_rooms', 'music_get_available_windows', 'sport_get_my_sport',
+                        'sport_get_sport_trainings', 'sport_get_training'}:
+                # A newer service read, even a failed one, supersedes older offers.
                 for service in ('sport', 'rooms', 'music'):
                     candidates.pop(service, None)
-            if message.name == 'get_my_available_rooms':
-                candidates['rooms'] = booking_offers.room_candidates(_data(message), message.artifact, call['args'])
-            elif message.name == 'get_my_available_music_windows':
-                candidates['music'] = booking_offers.music_candidates(_data(message), message.artifact, call['args'])
-            elif call['name'] == 'call_api_tool' and name == 'rooms_get_free_rooms':
+            if call['name'] == 'call_api_tool' and name == 'rooms_get_free_rooms':
                 candidates['rooms'] = booking_offers.raw_room_candidates(_data(message), call['args'].get('arguments'))
             elif call['name'] == 'call_api_tool' and name == 'music_get_available_windows':
                 candidates['music'] = booking_offers.raw_music_candidates(_data(message), call['args'].get('arguments'))
-            elif message.name == 'get_my_available_trainings':
-                candidates['sport'] = []
-                data = _data(message)
-                artifact = message.artifact
-                args = call['args']
-                source = {'date_from': args.get('day'), 'date_to': args.get('day'),
-                          **({'sport': args['sport']} if args.get('sport') is not None else {})}
-                if (not data or not isinstance(data.get('available'), list) or not isinstance(artifact, dict)
-                        or artifact.get('training_arguments') != source):
-                    continue
-                for item in data['available']:
-                    if not isinstance(item, dict) or type(item.get('training_id')) is not int:
-                        continue
-                    arguments = {'training_id': item['training_id']}
-                    try:
-                        checked = prepare_training(arguments, messages[:index + 1])
-                    except (ScheduleCheckError, KeyError, TypeError, ValueError):
-                        continue
-                    if item != checked['training']:
-                        continue
-                    candidates['sport'].append((item, {'arguments': arguments, 'schedule_check': checked}))
+            elif call['name'] == 'call_api_tool' and name == 'sport_get_sport_trainings':
+                candidates['sport'] = booking_offers.raw_training_candidates(_data(message), call['args'].get('arguments'))
             elif call['name'] == 'call_api_tool' and name == 'events_events_list_events':
                 candidates['events'] = []
             elif call['name'] == 'call_api_tool' and name in {'events_get_event', 'events_get_university_events'}:
@@ -204,7 +178,7 @@ def collect(messages, answer, *, now=None):
             if location is not None and not isinstance(location, str):
                 continue
             offer = SignupOffer(id=secrets.token_urlsafe(24), service=service, title=title, starts_at=start,
-                                music_window=window, personal_schedule_checked=item.get('personal_schedule_checked') is True,
+                                music_window=window,
                                 ends_at=end, all_day=item.get('all_day') is True, location=location,
                                 source_url='https://innohassle.ru/sport' if service == 'sport' else safe_url(item.get('page')),
                                 external_url=safe_url(item.get('enrollment_info', {}).get('url'))
@@ -261,13 +235,11 @@ async def _enroll_event(offer, target, context):
 
 
 async def _book(offer, target, context):
-    """Direct-offer calendar guard; native MCP retains authoritative service checks."""
+    """Direct-offer booking: the service validates every rule; the click re-reads the room list first."""
     if not context.innohassle_id or not context.innohassle_token:
         return outcome(offer, 'refused', 'Войдите в InNoHassle, затем запросите новые варианты.')
     token = context.innohassle_token.get_secret_value()
     arguments = target['arguments']
-    runtime = ToolRuntime(state={}, context=context, config={}, stream_writer=lambda _: None,
-                          tool_call_id=offer.id, store=None)
     service = 'room' if offer.service == 'rooms' else 'music_room'
     name = 'rooms_book_room' if offer.service == 'rooms' else 'music_book_music_room'
     try:
@@ -278,14 +250,7 @@ async def _book(offer, target, context):
             rooms = booking_offers._rooms(current, day, source['time_from'], source['time_to'])
             if target['room'] not in rooms['free']:
                 return outcome(offer, 'refused', REFUSED)
-        try:
-            agenda = await schedule_tools.aread_my_schedule(runtime, day, day)
-        except Exception:  # noqa: BLE001 - an unreadable calendar does not block booking
-            agenda = None
         interval = {'starts_at': offer.starts_at.isoformat(), 'ends_at': offer.ends_at.isoformat()}
-        conflicts, _ = _calendar_conflicts(interval, _busy(agenda, None))
-        if conflicts:
-            return outcome(offer, 'refused', 'Не удалось подтвердить отсутствие пересечений с календарём. Бронирование не выполнено.')
     except Exception:  # noqa: BLE001 - all checks above are read-only
         return outcome(offer, 'refused', REFUSED)
     try:
@@ -328,9 +293,10 @@ async def execute(offer, target, context, *, now=None):
         return await _book(offer, target, context)
     name = 'sport_sport_checkin'
     arguments = target['arguments']
-    prepared = {'call_id': offer.id, 'target': name, 'arguments': arguments, 'schedule_check': target['schedule_check']}
-    runtime = ToolRuntime(state={'api_prepared': [prepared]}, context=context, config={}, stream_writer=lambda _: None,
+    runtime = ToolRuntime(state={}, context=context, config={}, stream_writer=lambda _: None,
                           tool_call_id=offer.id, store=None)
+    if not all(key in target for key in ('training', 'period')):
+        return outcome(offer, 'refused', REFUSED)
     try:
         token, credentials = _credentials('sport', runtime)
     except ValueError:
@@ -343,19 +309,14 @@ async def execute(offer, target, context, *, now=None):
             if not isinstance(code, str):
                 code = ''
             reason = {
-                'schedule_conflict': 'Тренировка пересекается с событием в вашем календаре. Запись не выполнена.',
-                'schedule_unverified': 'Не удалось полностью проверить расписание. Запись не выполнена.',
-                'training_changed': 'Время, название или место тренировки изменились. Запросите новые варианты; запись не выполнена.',
                 'training_unavailable': 'Запись на тренировку недоступна или вы уже записаны. Новая запись не выполнена.',
             }.get(code, REFUSED)
-            if result.get('code') == 'schedule_unverified' and result.get('uncertainty') == 'unknown_event_end':
-                reason = 'В календаре есть событие без времени окончания: нельзя проверить пересечение. Уточните его длительность; запись не выполнена.'
             return outcome(offer, 'refused', reason)
         if (not isinstance(result, dict) or result.get('done') is not True
                 or type(result.get('training_id')) is not int or result['training_id'] != arguments['training_id']
                 or result.get('signed_up') is not True):
             return outcome(offer, 'unknown', UNKNOWN)
-        checked = target['schedule_check']
+        checked = target
         data = await mcp_client.request('call_tool', {'name': 'sport_get_sport_trainings',
             'arguments': {**checked['period'], **checked.get('training_filters', {})}}, token, **credentials)
         if (not isinstance(data, dict) or 'error' in data or not isinstance(data.get('trainings'), list)

@@ -2,6 +2,7 @@
 import asyncio
 import re
 from copy import deepcopy
+from datetime import datetime
 
 import pytest
 from fastmcp import Client
@@ -12,7 +13,37 @@ from pydantic import SecretStr
 from catix.agent import api_tools, calendar_tools, core, roles
 from catix.innohassle import mcp_server
 from catix.settings import settings
-from tests.test_room_recommendations import ARGUMENTS, CONTEXT, services  # noqa: F401 -- shared fixture
+from catix.agent.tools import AgentContext
+from catix.innohassle import mcp_client
+
+DAY = "2026-11-10"
+ARGUMENTS = {"day": DAY, "time_from": "18:00", "time_to": "19:00"}
+CONTEXT = AgentContext(innohassle_id="synthetic-owner", innohassle_token=SecretStr("synthetic-ih"),
+                       asked_at=datetime.fromisoformat("2026-11-09T12:00:00+03:00"))
+
+
+def interval(start="18:00", end="19:00", **fields):
+    return {"starts_at": f"{DAY}T{start}:00+03:00", "ends_at": f"{DAY}T{end}:00+03:00", **fields}
+
+
+@pytest.fixture
+def services(monkeypatch):
+    state = {"rooms": {"date": "2026-11-10 Tue", "range": "18:00-19:00", "timezone": "Europe/Moscow",
+                       "checked_at": "2026-11-09T12:00:00+03:00",
+                       "free": [{"room_id": "r", "title": "Room", "capacity": 12}], "booked": ["busy"],
+                       "unavailable": [{"room_id": "staff", "reason": "Staff only"}]},
+             "agenda": {"range": [DAY, DAY], "schedule": [], "bookings": []}, "local": [], "requests": []}
+    def request(method, payload, token=None, **credentials):
+        state["requests"].append(deepcopy(payload))
+        assert method == "call_tool" and token == "synthetic-ih" and credentials == {}
+        if payload["name"] == "rooms_get_free_rooms":
+            assert payload["arguments"] == ARGUMENTS
+            return deepcopy(state["rooms"])
+        assert payload == {"name": "account_get_my_schedule", "arguments": {"date_from": DAY, "date_to": DAY}}
+        return deepcopy(state["agenda"])
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: deepcopy(state["local"]))
+    return state
 
 
 @pytest.mark.model
@@ -77,8 +108,7 @@ def test_model_routes_generic_rooms_without_agenda_and_personal_rooms_with_agend
     monkeypatch.setattr(calendar_tools, "events_between", local_events)
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     monkeypatch.setattr(core, "tool_call_token", lambda: None)
-    monkeypatch.setattr(roles, "MAIN_TOOLS", frozenset({"get_my_available_rooms", "get_my_available_music_windows",
-                                                     "get_my_available_trainings", "get_my_schedule", "get_my_ai_calendar",
+    monkeypatch.setattr(roles, "MAIN_TOOLS", frozenset({"get_my_schedule", "get_my_ai_calendar",
                                                      "search_api_tools", "call_api_tool"}))
     model = ChatOpenAI(base_url=str(settings.llm_route), api_key=SecretStr("not-needed"), model=settings.llm_model,
                        max_completion_tokens=900, temperature=0, timeout=60, max_retries=0,
@@ -105,17 +135,10 @@ def test_model_routes_generic_rooms_without_agenda_and_personal_rooms_with_agend
         assert not local_reads, "Generic room availability must not read AI Calendar"
         assert answer.strip() and arguments["time_from"] in answer and arguments["time_to"] in answer
     else:
-        assert calls and calls[0]["name"] == "get_my_available_rooms" and calls[0]["args"] == ARGUMENTS
-        assert [request["name"] for request in services["requests"]] == ["rooms_get_free_rooms", "account_get_my_schedule"]
-        assert len(local_reads) == 1 and not discoveries
-        if case == "partial":
-            assert any(word in answer.lower() for word in ("не удалось", "недоступ", "непол", "не могу", "не провер"))
-            assert not re.search(r"нет\s+(?:доступных|свободных)(?:\s+для бронирования)?\s+комнат|все комнаты заняты|свободных комнат нет|подходящих комнат (?:не найдено|нет)",
-                                 answer.lower().replace("**", ""))
-            assert not re.search(r"могу\s+(?:попробовать\s+)?забронировать|хотите.*забронировать", answer.lower()), \
-                "Unverified rooms must not become personal booking recommendations"
-        else:
-            assert "Room" in answer and "18:00" in answer and "19:00" in answer
+        names = [call["args"].get("name") if call["name"] == "call_api_tool" else call["name"] for call in calls]
+        assert "get_my_schedule" in names and "rooms_get_free_rooms" in names and "rooms_book_room" not in names
+        assert {request["name"] for request in services["requests"]} == {"rooms_get_free_rooms", "account_get_my_schedule"}
+        assert len(local_reads) == 1 and answer.strip()
 
 
 @pytest.mark.model

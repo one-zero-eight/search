@@ -35,9 +35,5 @@ def test_printer_status_is_offered_without_promising_printing_or_moodle():
     assert all(api_names <= role.tools for role in roles.ROLES.values())
     assert api_names <= {tool.name for tool in TOOLS}
     assert all(not hasattr(role, "approval") for role in roles.ROLES.values()), "approval follows the shared tool, not a role"
-    assert "get_printer_status" not in roles.MCP_RULES
-    assert all(name in roles.MCP_RULES for name in api_names)
     assert not {"find_api_actions", "describe_api_action", "execute_api_action"} & {tool.name for tool in TOOLS}
     assert "printer" in roles.ACCOUNT_OFFERS
-    assert "Moodle" not in roles.MCP_RULES
-    assert "print files" in roles.MCP_RULES, "the prompt must explicitly distinguish status from printing"

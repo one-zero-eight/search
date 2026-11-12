@@ -128,7 +128,7 @@ def _instructor(description: str) -> str | None:
     return match.group(1).strip() if match else None
 
 
-@tool(**metadata())
+@tool(**metadata(usage="The PUBLIC timetable of a study group, not the asker's selected streams or calendar; it may hold several English streams and cannot tell which is theirs. Omit group to use the trusted profile group, or pass a group the user named; if neither is known, ask."))
 @result_boundary()
 def schedule_get_schedule(
     group: Annotated[str, Field(pattern="\\S")],
@@ -333,7 +333,7 @@ def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) 
     return {'event': _event_details(innohassle.event(event_id, fresh=True), event_id)}
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Each event's id and how to enrol. An event taking place in a period is not registration being open then."))
 @result_boundary()
 def events_get_university_events(
     date_from: date | None = None, date_to: date | None = None, query: str | None = None

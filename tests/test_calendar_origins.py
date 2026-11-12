@@ -35,23 +35,16 @@ def extraction(monkeypatch):
     return day, result, calls, proposals
 
 
-def service_turn(day, name='get_my_available_trainings', data=None):
+def service_turn(day, name='sport_get_sport_trainings', data=None):
     training = {'training_id': 49071, 'name': 'Football', 'starts_at': f'{day}T18:30:00+03:00',
                 'ends_at': f'{day}T20:30:00+03:00', 'place': 'Stadium', 'can_check_in': True, 'checked_in': False}
-    native = name in {'get_my_available_trainings', 'get_my_schedule', 'get_my_ai_calendar'}
+    native = name in {'get_my_schedule', 'get_my_ai_calendar'}
     call = {'id': 'read', 'name': name if native else 'call_api_tool',
             'args': {'day': str(day)} if native else {'name': name, 'arguments': {}}}
-    artifact = None
-    if name == 'get_my_available_trainings':
-        artifact = {'trainings': {'range': [str(day), str(day)], 'trainings': [training]},
-                    'training_arguments': {'date_from': str(day), 'date_to': str(day)},
-                    'agenda': {'range': [str(day), str(day)], 'events': [], 'total': 0,
-                               'sources': {'innohassle': {'status': 'complete', 'truncated': False},
-                                           'ai_calendar': {'status': 'complete', 'truncated': False}},
-                               'complete': True, 'not_read': [], 'truncated': False}}
     return [HumanMessage('на какие я могу записаться занятия на завтра (спорт)?'),
             AIMessage('', tool_calls=[call]),
-            ToolMessage(json.dumps(data or {'available': [training]}), name=call['name'], tool_call_id='read', artifact=artifact),
+            ToolMessage(json.dumps(data or {'range': [str(day), str(day)], 'trainings': [training]}),
+                        name=call['name'], tool_call_id='read'),
             AIMessage('Завтра Football — 18:30–20:30, стадион.')]
 
 

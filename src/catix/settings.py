@@ -24,7 +24,9 @@ class Settings(BaseSettings):
     # Qwen "thinking" before answering: slightly more careful, but 2-10x slower on this hardware
     # and sometimes runs out of tokens with an empty answer.
     llm_thinking: bool = False
-    # Every supervisor call thinks, including post-tool decisions and small talk; helpers keep their own settings.
+    # Helpers think like the supervisor (PlanThinkingMiddleware: the model card's sampling, llm_plan_max_tokens). Env LLM_HELPER_THINKING.
+    llm_helper_thinking: bool = True
+    # Every supervisor call thinks, including post-tool decisions and small talk; helpers think via llm_helper_thinking.
     # Per-call supervisor budget for reasoning and output.
     llm_plan_max_tokens: int = Field(8192, gt=0)
     # Next to every chat message the tools give the concrete dates its "завтра", "в пятницу" or "23 октября" mean

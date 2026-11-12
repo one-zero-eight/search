@@ -29,7 +29,6 @@ def test_all_roles_receive_trusted_memberships(monkeypatch, role, verified, lega
     seen = []
     core.prompt_for(role).wrap_model_call(request, seen.append)
     prompt = seen[0].system_message.text
-    assert "get_my_schedule" in prompt
     if verified:
         assert all(group in prompt for group in verified)
     if len(verified) > 1:

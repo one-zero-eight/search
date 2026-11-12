@@ -60,13 +60,6 @@ def test_malformed_unrelated_or_failed_reads_are_not_evidence(target, data):
 
 
 def test_when2meet_guidance_is_shared_and_credential_aware():
-    for prompt in (roles.SUPERVISOR, roles.prompt("docs"), roles.prompt("chats")):
-        assert "when2meet_get_my_meetings" in prompt
-        assert "when2meet_get_meeting" in prompt
-        assert "when2meet_create_meeting" in prompt
-        assert "when2meet_set_my_availability" in prompt
-        assert "replaces" in prompt
-        assert "RFC 3339" in prompt
     assert "When2Meet" in api_tools.search_api_tools.description
     assert "When2Meet" in roles.abilities([], signed_in=True)
     assert "When2Meet" in roles.ON_THE_SITE

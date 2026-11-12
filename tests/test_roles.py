@@ -80,7 +80,8 @@ def test_the_tools_are_split_between_the_helpers():
     assert not {"get_schedule", "find_room", "get_clubs", "get_university_events", "book_room", "sport_checkin"} & known
     assert "search_userbot_chats" not in roles.MAIN_TOOLS and "get_schedule" not in chats
     # The docs helper reads current courses via MCP; no duplicate legacy model-visible wrapper.
-    assert docs == {"search_wiki", "read_wiki", "search_web", "read_web_page"} | roles.READ_TOOLS
+    assert docs == {"search_wiki", "read_wiki", "search_web", "read_web_page"} | roles.API_TOOLS
+    assert not (roles.READ_TOOLS - roles.API_TOOLS) & (chats | docs), "personal host reads belong to the supervisor"
     assert "act_api_tool" not in known
     assert roles.READ_TOOLS <= roles.MAIN_TOOLS
     assert all("call_api_tool" in role.tools for role in roles.ROLES.values())

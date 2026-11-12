@@ -27,7 +27,7 @@ SCHEMA = {"type": "object", "properties": {"training_id": {"type": "integer"}, "
 
 def state(call=None, questions=None, schema=SCHEMA) -> ApiPreflightState:
     import json
-    from tests.test_sport_calendar_guard import DAY, FRISBEE, agenda_data, read_messages
+    from tests.sport_helpers import DAY, FRISBEE, agenda_data, read_messages
 
     reads = read_messages("sport_get_sport_trainings", {"range": [DAY, DAY], "trainings": [{**FRISBEE, "training_id": 7}]}, "training")
     reads += read_messages("get_my_schedule", agenda_data(classes=[]), "agenda")

@@ -110,7 +110,7 @@ def _read(
     return actions.read(path, response_model, parameters, token, action_id=action_id, note=note)
 
 
-@tool(**_metadata())
+@tool(**_metadata(usage="Live state needs sign-in. Unknown is not zero; offline=false alone does not prove printing works; an error is not an empty list."))
 @result_boundary()
 def printers_print_get_printers_status(
     *, token: str = Depends(require_innohassle),

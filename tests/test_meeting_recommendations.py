@@ -235,8 +235,7 @@ def test_common_is_computed_before_participant_projection_limit(services):
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("role", ["root", "docs", "chats"])
-def test_actual_graph_exposes_read_without_approval_or_writes(monkeypatch, services, asynchronous, role):
+def test_actual_graph_exposes_read_without_approval_or_writes(monkeypatch, services, asynchronous):
     import asyncio
     import json
     from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
@@ -245,31 +244,22 @@ def test_actual_graph_exposes_read_without_approval_or_writes(monkeypatch, servi
     from tests.test_roles import ScriptedModel
 
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
-    assert NAME in roles.MAIN_TOOLS and all(NAME in item.tools for item in roles.ROLES.values())
-    assert NAME in STATUS and NAME in roles.MCP_RULES
-    script = []
-    if role != "root":
-        script.append(AIMessage(content="", tool_calls=[{"name": "ask_" + role, "args": {"question": "Проверь опрос team-poll по моему календарю"}, "id": "helper"}]))
-    script.extend([
+    assert NAME in roles.MAIN_TOOLS and not any(NAME in item.tools for item in roles.ROLES.values())
+    assert NAME in STATUS
+    script = [
         AIMessage(content="", tool_calls=[{"name": NAME, "args": {"meeting_ref": REF}, "id": "meeting"}]),
         AIMessage(content="В опросе Team meeting вам подходят 10:30–11:00, 11:00–11:30 и 12:00–12:30. Первые два варианта отметили все ответившие."),
-    ])
-    if role != "root":
-        script.append(AIMessage(content="Вам подходят 10:30–11:00, 11:00–11:30 и 12:00–12:30."))
+    ]
     graph = core.build_agent(ScriptedModel(responses=script), guardrail=False)
-    config = {"configurable": {"thread_id": f"meeting-{role}-{asynchronous}"}}
+    config = {"configurable": {"thread_id": f"meeting-{asynchronous}"}}
     inputs = {"messages": [HumanMessage("Какие варианты в When2Meet team-poll подходят мне по расписанию?")]}
     out = asyncio.run(graph.ainvoke(inputs, config, context=CONTEXT)) if asynchronous else graph.invoke(inputs, config, context=CONTEXT)
     assert not graph.get_state(config).interrupts
     assert len(services["requests"]) == 2
-    if role == "root":
-        message = next(m for m in out["messages"] if isinstance(m, ToolMessage))
-        assert isinstance(message.content, str)
-        assert message.status == "success" and json.loads(message.content)["common_available"]
-        assert core.successful_read(out["messages"]) and core.read_evidence(out["messages"])
-    else:
-        helper = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == "ask_" + role)
-        assert helper.status == "success" and "10:30" in helper.content
+    message = next(m for m in out["messages"] if isinstance(m, ToolMessage))
+    assert isinstance(message.content, str)
+    assert message.status == "success" and json.loads(message.content)["common_available"]
+    assert core.successful_read(out["messages"]) and core.read_evidence(out["messages"])
 
 
 @pytest.mark.parametrize("fault", [None, "empty", "partial", "count", "common", "duration", "complete", "other_shape"])

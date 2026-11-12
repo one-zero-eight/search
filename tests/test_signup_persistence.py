@@ -203,9 +203,10 @@ def test_real_graph_native_booking_recommendation_then_model_free_click(stored, 
         return []
     monkeypatch.setattr(ask, 'calendar_offers', no_calendar)
     monkeypatch.setattr(token, 'claims', lambda t: {'uid': owner, 'email': 'a@innopolis.university'})
-    tool = 'get_my_available_rooms' if service == 'rooms' else 'get_my_available_music_windows'
+    name = 'rooms_get_free_rooms' if service == 'rooms' else 'music_get_available_windows'
     arguments = {'day': DAY, **({'time_from': '18:00', 'time_to': '19:00'} if service == 'rooms' else {})}
-    model = ScriptedModel(responses=[AIMessage('', tool_calls=[{'id': 'read', 'name': tool, 'args': arguments}]),
+    model = ScriptedModel(responses=[AIMessage('', tool_calls=[{'id': 'read', 'name': 'call_api_tool',
+                                                                'args': {'name': name, 'arguments': arguments}}]),
                                     AIMessage('Выберите вариант ниже.')])
     graph = core.build_agent(model, guardrail=False)
     monkeypatch.setattr(ask, 'agent', lambda: graph)
@@ -289,32 +290,25 @@ def test_native_booking_http_sse_generation_selection_click_history_receipt(stor
     assert ('Study group' if service == 'rooms' else 'Music room') in receipt
 
 
-@pytest.mark.parametrize('raw', [False, True])
 @pytest.mark.parametrize('service,mode', [
     (service, mode) for service in ('rooms', 'music') for mode in
-    ('success', 'conflict', 'unknown_end', 'partial', 'occupied', 'lost_write', 'lost_readback', 'changed_interval', 'changed_id', 'changed_missing_end', 'lost_receipt')
+    ('success', 'occupied', 'lost_write', 'lost_readback', 'changed_interval', 'changed_id', 'changed_missing_end', 'lost_receipt')
 ] + [('rooms', mode) for mode in ('permission', 'changed_title', 'changed_room', 'changed_owner')]
   + [('music', mode) for mode in ('quota', 'banned')])
-def test_native_booking_changes_fail_closed_and_duplicate_clicks_never_retry(stored, native_bookings, monkeypatch, service, mode, raw):
+def test_native_booking_changes_fail_closed_and_duplicate_clicks_never_retry(stored, native_bookings, monkeypatch, service, mode):
     from copy import deepcopy
     from catix.api import ask
     from catix.api.auth import UserTokenData
     from catix.api.schemas import SignupSelection
     chat_id, owner, _, _ = stored
     state, context, recommend = native_bookings
-    offers, targets = signup.collect(recommend(service, raw=raw), '', now=NOW)
+    offers, targets = signup.collect(recommend(service), '', now=NOW)
     offer, = offers
-    assert offer.personal_schedule_checked is (not raw)
     response = AskResponses(query='booking', answer='Choose below', chat_id=chat_id,
                             sources=[], messages=[], signup_offers=offers)
     response._signup_targets = targets
     chats.save_answer(response, None, 'cp')
-    if mode in {'conflict', 'unknown_end'}:
-        state['agenda'].update(total=1, events=[{'title': 'Later personal event', 'starts_at': DAY + 'T18:30:00+03:00',
-                                               'ends_at': None if mode == 'unknown_end' else DAY + 'T19:30:00+03:00'}])
-    elif mode == 'partial':
-        state['agenda']['complete'] = False
-    elif mode == 'occupied':
+    if mode == 'occupied':
         state['occupied'] = True
     elif mode == 'permission':
         state['allowed'] = False
@@ -501,8 +495,10 @@ def test_real_graph_native_recommendation_to_click_with_replaced_credentials(sto
         return request(*a, **kw)
     monkeypatch.setattr(signup.mcp_client, 'request_sync', request)
     monkeypatch.setattr(signup.mcp_client, 'request', arequest)
-    model = ScriptedModel(responses=[AIMessage('', tool_calls=[{'id': 'native-read', 'name': 'get_my_available_trainings',
-                                    'args': {'day': DAY, 'sport': 'Basketball'}}]), AIMessage('Basketball в Hall в 17:00–18:30.')])
+    model = ScriptedModel(responses=[AIMessage('', tool_calls=[{'id': 'native-read', 'name': 'call_api_tool',
+                                    'args': {'name': 'sport_get_sport_trainings', 'arguments': {
+                                        'date_from': DAY, 'date_to': DAY, 'sport': 'Basketball'}}}]),
+                                    AIMessage('Basketball в Hall в 17:00–18:30.')])
     graph = core.build_agent(model, guardrail=False)
     monkeypatch.setattr(ask, 'agent', lambda: graph)
     client = TestClient(app)
