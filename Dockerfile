@@ -1,46 +1,28 @@
-###########################################################
-# Builder stage. Build dependencies.
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS builder
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    UV_COMPILE_BYTECODE=1 \
-    UV_LINK_MODE=copy \
-    UV_PYTHON_DOWNLOADS=0
+# One image for every cAtIx process: the command decides which one runs (see docker-compose.prod.yml).
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
-WORKDIR /app
-COPY ./pyproject.toml ./uv.lock ./
-
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --no-dev --no-group ml
-
-
-###########################################################
-# Production stage. Copy only runtime deps that were installed in the Builder stage.
-FROM python:3.11-slim-bookworm AS production
-
-ENV PYTHONUNBUFFERED=1
-
-# Copy the applicant from the builder
-COPY --from=builder /app /app
-
-# Create user with the name uv
-RUN groupadd -g 1500 uv && \
-    useradd -m -u 1500 -g uv uv
-
-USER uv
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Place executables in the environment at the front of the path
+# Git is required by the pinned PyMax dependency during uv sync. Keep standard TLS trust.
+# Private attachment parsing needs Java 11+ and bounded PDF rendering through Poppler.
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libarchive13 openjdk-17-jre-headless poppler-utils \
+    tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus \
+    && rm -rf /var/lib/apt/lists/*
+
+# Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
+COPY pyproject.toml uv.lock .python-version ./
+COPY vendor ./vendor
+RUN uv sync --frozen --no-dev --no-install-project
+
+COPY src ./src
+COPY db ./db
+COPY courses.toml ./
+RUN uv sync --frozen --no-dev
+
 ENV PATH="/app/.venv/bin:$PATH"
+# Telegram and MAX account sessions and other state live in the volume mounted at /app/data.
+RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
+USER app
 
-COPY --chown=uv:uv . /app
-
-EXPOSE 8000
-CMD ["gunicorn", \
-    "--worker-class", "uvicorn.workers.UvicornWorker", \
-    "--bind", "0.0.0.0:8000", \
-    "--workers", "1", \
-    "src.api.app:app", \
-    "--timeout", "300", \
-    "--forwarded-allow-ips=*" \
-]
+CMD ["catix-tgbot"]

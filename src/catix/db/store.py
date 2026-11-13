@@ -1,0 +1,665 @@
+"""Postgres storage of chat messages: hybrid search (BM25 + vectors) and chat bookkeeping.
+
+Everything here is synchronous and uses the connection pool, so it is safe to call from worker threads.
+Async code runs it with asyncio.to_thread.
+"""
+
+import logging
+import re
+from collections.abc import Collection, Iterable
+from contextlib import nullcontext
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, replace
+from datetime import datetime
+
+from psycopg.rows import dict_row
+
+from catix import userbot_config
+from catix.agent import tracing
+from catix.common import courses
+from catix.db import pg
+from catix.db.rows import ChatRow, MessageHit, SourceRow
+from catix.ingest import noise
+from catix.settings import settings
+
+log = logging.getLogger("catix.store")
+
+MAX_QUERIES = 8  # Angles per search call.
+RERANK_QUERIES = 3  # The reranker scores the candidates against this many queries (the user's own question comes first).
+# How much a message gains from also being found by the other queries. Small on purpose: queries about different
+# courses all contain "мидтерм", and summing their ranks would let the generic midterm messages crowd out the
+# one message that only the query for its own course finds (it fell to 26th of 40 that way).
+CROSS_QUERY_BONUS = 0.1
+YEAR_RE = re.compile(r"^(19|20)\d\d$")
+
+GENERAL_TOPIC_ID = 1  # The default topic of every forum; its messages carry no topic id.
+RRF_K = 60  # Reciprocal rank fusion constant; 60 is the value from the original paper.
+CANDIDATES = 30  # Per method, before fusion.
+
+
+# Question and filler words. With BM25 ranking a natural question ("когда меняют постельное бельё") is dominated by
+# the common words; dropping them lifted lexical hit@5 from 55% to 64% in the evaluation. Vectors get the full text.
+STOPWORDS = frozenset(
+    """когда где как что какой какая какие какое каким кто почему зачем куда это этот эта для про при по на в во с со и а
+    но или у к о об от до из за ли же бы можно нужно надо делать будет был была было были есть мне нам вам их он она
+    они там тут здесь the a an is are was were be to of in on for and or how what when where which who why do does can
+    i we""".split()
+)
+
+
+@dataclass
+class Message:
+    chat_id: int
+    msg_id: int
+    topic_id: int | None
+    date: datetime
+    edit_date: datetime | None
+    sender_id: int | None
+    sender_name: str | None
+    reply_to: int | None
+    text: str  # Original caption/text, never the OCR-enriched searchable text.
+    link: str | None
+    sender_link: str | None = None  # Profile of the author, built from the @username where the messenger has one.
+    image_source: str | None = None
+    image_refs: tuple[str, ...] = ()
+    # Trusted local receive/read-start time, captured before preparation/network awaits.
+    # This is NOT a source edit version (MAX only supplies creation time).
+    observed_at: datetime | None = None
+    live_edit: bool = False  # Only an explicit live correction may reopen an undated exclusion.
+
+
+@dataclass(frozen=True)
+class ChatInfo:
+    chat_id: int
+    title: str
+    username: str | None
+    via_bot: bool = False  # Seen by the Bot API bot, so getChatMember works for it.
+    link: str | None = None  # Link to the chat, shown in sources when a message has no link of its own.
+
+
+# ---- writing ----------------------------------------------------------------------------------------------
+
+
+def _lock_ingest_state(cur, keys: Iterable[tuple[int, int]]) -> dict[tuple[int, int], dict]:
+    """Lock even absent messages, in deterministic order across entire batches.
+
+    The state rows have no chat FK, so an exclusion can precede all preparation.
+    Row locks serialize the fence check and message mutation in one transaction.
+    """
+    keys = sorted(set(keys))
+    if not keys:
+        return {}
+    params = ([c for c, _ in keys], [m for _, m in keys])
+    # One insert/read per batch, not per-message permission/metadata round trips.
+    cur.execute(
+        """INSERT INTO message_ingest_state (chat_id, msg_id, edit_date)
+           SELECT k.chat_id, k.msg_id, m.edit_date FROM unnest(%s::bigint[], %s::bigint[]) AS k(chat_id, msg_id)
+           LEFT JOIN messages m USING (chat_id, msg_id)
+           ORDER BY k.chat_id, k.msg_id ON CONFLICT DO NOTHING""", params,
+    )
+    cur.execute(
+        """SELECT s.* FROM message_ingest_state s
+           JOIN unnest(%s::bigint[], %s::bigint[]) AS k(chat_id, msg_id) USING (chat_id, msg_id)
+           ORDER BY s.chat_id, s.msg_id FOR UPDATE OF s""", params,
+    )
+    return {(s["chat_id"], s["msg_id"]): s for s in cur.fetchall()}
+
+
+def _accept_ingest(state: dict, edit_date: datetime | None, observed_at: datetime | None = None,
+                   *, excluded: bool = False, live_edit: bool = False) -> bool:
+    # A known source edit is authoritative, including over a later undated snapshot.
+    if state["edit_date"] is not None:
+        if edit_date is None or edit_date < state["edit_date"]:
+            return False
+        if edit_date > state["edit_date"]:
+            return True
+        # Equal-second Telegram edits need the same local ordering as MAX. With
+        # missing local freshness, exclusion wins rather than reopening content.
+        if excluded and (observed_at is None or state["observed_at"] is None):
+            return True
+    elif edit_date is not None and not state["excluded"]:
+        return True  # First known source edit also outranks an undated snapshot.
+    if state["observed_at"] is not None:
+        if observed_at is None or observed_at < state["observed_at"]:
+            return False
+    if state["excluded"] and not excluded:
+        return bool(live_edit and observed_at is not None and state["observed_at"] is not None
+                    and observed_at > state["observed_at"])
+    return True
+
+
+def write_batch(chats: Iterable[ChatInfo], messages: list[Message], *, conn=None) -> None:
+    """Store chats, raw captions and image work atomically. Triggers enqueue OCR and changed-text embeddings.
+
+    An unchanged caption/source/refs replay preserves OCR and the existing claim or retry state.
+    A supplied connection belongs to the caller: no commit, rollback or close is performed here.
+    """
+    latest = {c.chat_id: c for c in chats}
+    drop_noise = noise.enabled()
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn, conn.cursor(row_factory=dict_row) as cur:
+        states = _lock_ingest_state(cur, ((m.chat_id, m.msg_id) for m in messages))
+        accepted = []
+        changed_states = {}
+        for m in messages:
+            state = states[m.chat_id, m.msg_id]
+            if not _accept_ingest(state, m.edit_date, m.observed_at, live_edit=m.live_edit):
+                continue
+            state.update(edit_date=m.edit_date, observed_at=m.observed_at, excluded=False)
+            changed_states[m.chat_id, m.msg_id] = (m.edit_date, m.observed_at, m.chat_id, m.msg_id)
+            if metadata := state["original_metadata"]:
+                m = replace(m, **{**metadata, "date": datetime.fromisoformat(metadata["date"])})
+            accepted.append(m)
+        messages = accepted
+        cur.executemany(
+            """UPDATE message_ingest_state SET edit_date = %s, observed_at = %s, excluded = false
+               WHERE chat_id = %s AND msg_id = %s""", list(changed_states.values()),
+        )
+        cur.executemany(
+            """INSERT INTO chats (chat_id, title, username, bot_member, link) VALUES (%s, %s, %s, %s, %s)
+               ON CONFLICT (chat_id) DO UPDATE SET
+                   title = excluded.title, username = excluded.username, link = coalesce(excluded.link, chats.link),
+                   bot_member = chats.bot_member OR excluded.bot_member""",
+            [(c.chat_id, c.title, c.username, c.via_bot, c.link) for c in sorted(latest.values(), key=lambda c: c.chat_id)],
+        )
+        cur.executemany(
+            """INSERT INTO messages (chat_id, msg_id, topic_id, date, edit_date, sender_id, sender_name, reply_to, text, link, sender_link,
+                                    image_caption, image_source, image_refs)
+               SELECT %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+               -- A noise-only edit can still remove a previously stored image and its OCR.
+               WHERE %s OR EXISTS (SELECT 1 FROM messages WHERE chat_id = %s AND msg_id = %s
+                                    AND cardinality(image_refs) > 0)
+               ON CONFLICT (chat_id, msg_id) DO UPDATE SET
+                   text = CASE WHEN coalesce(messages.image_caption, messages.text) = excluded.image_caption
+                                    AND messages.image_source IS NOT DISTINCT FROM excluded.image_source
+                                    AND messages.image_refs = excluded.image_refs
+                               THEN messages.text ELSE excluded.text END,
+                   image_text = CASE WHEN coalesce(messages.image_caption, messages.text) = excluded.image_caption
+                                          AND messages.image_source IS NOT DISTINCT FROM excluded.image_source
+                                          AND messages.image_refs = excluded.image_refs
+                                     THEN messages.image_text ELSE NULL END,
+                   image_caption = excluded.image_caption, image_source = excluded.image_source,
+                   image_refs = excluded.image_refs,
+                   edit_date = coalesce(excluded.edit_date, messages.edit_date), sender_name = excluded.sender_name
+               -- Compare the raw caption, never the derived searchable OCR text.
+               WHERE (messages.edit_date IS NULL OR excluded.edit_date >= messages.edit_date)
+                 AND (coalesce(messages.image_caption, messages.text) IS DISTINCT FROM excluded.image_caption
+                      OR messages.image_source IS DISTINCT FROM excluded.image_source
+                      OR messages.image_refs IS DISTINCT FROM excluded.image_refs
+                      OR messages.edit_date IS DISTINCT FROM excluded.edit_date)""",
+            [
+                (
+                    m.chat_id,
+                    m.msg_id,
+                    m.topic_id,
+                    m.date,
+                    m.edit_date,
+                    m.sender_id,
+                    m.sender_name,
+                    m.reply_to,
+                    m.text,
+                    m.link,
+                    m.sender_link,
+                    m.text,
+                    m.image_source,
+                    list(m.image_refs),
+                    bool(m.image_refs) or not drop_noise or not noise.is_noise(m.text),
+                    m.chat_id,
+                    m.msg_id,
+                )
+                for m in messages
+            ],
+        )
+
+
+def _drop_copies(cur, messages: list[Message]) -> list[Message]:
+    """Leave out a message that is already stored under another id.
+
+    In a basic group the Bot API bot and the userbot's account number the same message differently, so a chat both of
+    them are in would store everything twice (and send the admins two cards for one announcement). The same chat,
+    author, second and text is the same message.
+    """
+    if not messages:
+        return messages
+    cur.execute(
+        "SELECT chat_id, sender_id, date, text, msg_id FROM messages WHERE chat_id = ANY(%s::bigint[]) AND date = ANY(%s::timestamptz[])",
+        (list({m.chat_id for m in messages}), list({m.date for m in messages})),
+    )
+    stored = {(r["chat_id"], r["sender_id"], r["date"], r["text"]): r["msg_id"] for r in cur.fetchall()}
+    kept = []
+    for m in messages:
+        other = stored.get((m.chat_id, m.sender_id, m.date, m.text))
+        if other is None or other == m.msg_id:
+            kept.append(m)
+    return kept
+
+
+def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
+    """Move a chat to its new id after Telegram upgraded a basic group to a supergroup (the id changes).
+
+    Messages, their vectors and the chat row move to `new_id`. Safe to repeat. A message whose id is
+    already taken in the new chat (old and new ids are separate numberings) stays under the old id rather than
+    overwriting anything; the old chat row is kept while any message is left there.
+    """
+    counts = {"messages": 0, "left_behind": 0}
+    if old_id == new_id:
+        return counts
+    with pg.connection() as conn:
+        protected = conn.execute(
+            "SELECT chat_id FROM chats WHERE chat_id = ANY(%s::bigint[]) AND requires_verified_group FOR UPDATE",
+            ([old_id, new_id],),
+        ).fetchone()
+        if protected:
+            raise ValueError("Protected source migration requires manual access-policy review")
+        old = pg.row(
+            conn, ChatRow, "SELECT chat_id, title, username, bot_member FROM chats WHERE chat_id = %s", (old_id,)
+        )
+        if old is None:
+            return counts  # Nothing stored under the old id: already moved, or never seen.
+        conn.execute(
+            """INSERT INTO chats (chat_id, title, username, bot_member) VALUES (%s, %s, %s, %s)
+               ON CONFLICT (chat_id) DO UPDATE SET bot_member = chats.bot_member OR excluded.bot_member""",
+            (new_id, old.title, old.username, old.bot_member),
+        )
+        params = {"old": old_id, "new": new_id}
+        counts["messages"] = conn.execute(
+            """UPDATE messages m SET chat_id = %(new)s WHERE m.chat_id = %(old)s
+               AND NOT EXISTS (SELECT 1 FROM messages n WHERE n.chat_id = %(new)s AND n.msg_id = m.msg_id)""",
+            params,
+        ).rowcount
+        # The vectors carry the chat id too (vector search filters on it).
+        conn.execute(
+            """UPDATE message_embeddings e SET chat_id = %(new)s FROM messages m
+               WHERE e.message_id = m.id AND m.chat_id = %(new)s AND e.chat_id = %(old)s""",
+            params,
+        )
+        counts["left_behind"] = pg.scalar(conn, "SELECT count(*) FROM messages WHERE chat_id = %(old)s", params)
+        if counts["left_behind"] == 0:
+            conn.execute("DELETE FROM chats WHERE chat_id = %(old)s", params)
+        else:
+            log.warning(
+                "%d messages of chat %s kept their old id: the same message ids exist in %s",
+                counts["left_behind"],
+                old_id,
+                new_id,
+            )
+    mentioned = [name for name in ("tg_chats", "extract_skip_chats") if old_id in getattr(settings, name, [])]
+    if mentioned or old_id in settings.tg_topics:
+        log.warning(
+            "chat id %s is still listed in .env (%s): replace it with %s",
+            old_id,
+            ", ".join(mentioned + (["tg_topics"] if old_id in settings.tg_topics else [])),
+            new_id,
+        )
+    return counts
+
+
+def chat_message_counts(chat_id: int) -> tuple[int, int]:
+    """How many messages of a chat are stored, and how many schedule changes were found in them."""
+    with pg.connection() as conn:
+        row = conn.execute(
+            """SELECT (SELECT count(*) FROM messages WHERE chat_id = %(c)s) AS messages,
+                      (SELECT count(*) FROM schedule_changes s JOIN messages m ON m.id = s.message_id WHERE m.chat_id = %(c)s) AS changes""",
+            {"c": chat_id},
+        ).fetchone()
+    return row["messages"], row["changes"]
+
+
+def clear_chat(chat_id: int, *, conn=None) -> int:
+    """Delete every stored message of a chat. Their vectors, queue entries and the schedule changes found in them go
+    with them (cascade); the chat itself, its study group and the choice in /listen stay."""
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn:
+        return conn.execute("DELETE FROM messages WHERE chat_id = %s", (chat_id,)).rowcount
+
+
+def delete_message(chat_id: int, msg_id: int, *, edit_date: datetime | None = None,
+                   observed_at: datetime | None = None, conn=None) -> int:
+    """Persist an exclusion and delete indexed content/work in the same transaction.
+
+    The fence survives row deletion and delayed Writer retries. The live OCR lease stays.
+    A supplied connection belongs to the caller and keeps this mutation in its transaction.
+    """
+    with (pg.connection() if conn is None else nullcontext(conn)) as conn, conn.cursor(row_factory=dict_row) as cur:
+        state = _lock_ingest_state(cur, [(chat_id, msg_id)])[chat_id, msg_id]
+        if not _accept_ingest(state, edit_date, observed_at, excluded=True):
+            return 0
+        cur.execute(
+            """UPDATE message_ingest_state SET edit_date = %s, observed_at = %s, excluded = true,
+                   original_metadata = coalesce(original_metadata, (
+                       SELECT jsonb_build_object('date', date, 'topic_id', topic_id, 'sender_id', sender_id,
+                           'sender_name', sender_name, 'reply_to', reply_to, 'link', link, 'sender_link', sender_link)
+                       FROM messages WHERE chat_id = %s AND msg_id = %s))
+               WHERE chat_id = %s AND msg_id = %s""",
+            (edit_date, observed_at, chat_id, msg_id, chat_id, msg_id),
+        )
+        cur.execute("DELETE FROM messages WHERE chat_id = %s AND msg_id = %s", (chat_id, msg_id))
+        return cur.rowcount
+
+
+def upsert_chat(chat_id: int, title: str, username: str | None, *, via_bot: bool = False) -> None:
+    write_batch([ChatInfo(chat_id, title, username, via_bot)], [])
+
+
+def upsert_messages(messages: list[Message]) -> None:
+    """Store messages of chats that are already known."""
+    write_batch([], messages)
+
+
+def mark_synced(chat_id: int) -> None:
+    with pg.connection() as conn:
+        conn.execute("UPDATE chats SET synced_at = now() WHERE chat_id = %s", (chat_id,))
+
+
+# ---- what is stored ---------------------------------------------------------------------------------------
+
+
+def topic_allowed(chat_id: int, topic_id: int | None) -> bool:
+    """Whether a message of this chat and topic should be stored (chosen in the bot with /listen, or TG_TOPICS)."""
+    return userbot_config.topic_allowed(chat_id, topic_id, GENERAL_TOPIC_ID)
+
+
+def last_msg_id(chat_id: int, topic_id: int | None = None) -> int | None:
+    """Newest stored message of a chat, or of one topic of it."""
+    if topic_id is None:
+        sql, params = "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s", (chat_id,)
+    elif topic_id == GENERAL_TOPIC_ID:
+        sql, params = (
+            "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s AND (topic_id IS NULL OR topic_id = %s)",
+            (chat_id, topic_id),
+        )
+    else:
+        sql, params = "SELECT max(msg_id) AS m FROM messages WHERE chat_id = %s AND topic_id = %s", (chat_id, topic_id)
+    with pg.connection() as conn:
+        return pg.scalar(conn, sql, params)
+
+
+# ---- search -----------------------------------------------------------------------------------------------
+
+
+def _resolve_chats(chat: str | None, chat_ids: Collection[int] | None) -> list[int] | None:
+    """Chats to search in: the allowed ones, narrowed to those matching `chat` (title part or @username)."""
+    allowed = None if chat_ids is None else list(chat_ids)
+    # _filters applies the mandatory archive exclusion to unrestricted searches.
+    if not chat and allowed is None:
+        return None
+    with pg.connection() as conn:
+        return pg.column(
+            conn,
+            """SELECT chat_id FROM chats WHERE NOT max_legacy_archived
+               AND (%s::bigint[] IS NULL OR chat_id = ANY(%s::bigint[]))
+               AND (%s::text IS NULL OR title ILIKE %s OR username = %s)""",
+            (allowed, allowed, chat or None, f"%{chat}%", chat.lstrip("@") if chat else None),
+        )
+
+
+def _filters(
+    chat_col: str, date_col: str, ids: list[int] | None, date_from: str | None, date_to: str | None
+) -> tuple[str, dict]:
+    sql = f" AND {chat_col} NOT IN (SELECT chat_id FROM chats WHERE max_legacy_archived)"
+    params = {}
+    if ids is not None:
+        sql += f" AND {chat_col} = ANY(%(ids)s::bigint[])"
+        params["ids"] = ids
+    if date_from:
+        sql += f" AND {date_col} >= %(date_from)s::date"
+        params["date_from"] = date_from
+    if date_to:
+        sql += f" AND {date_col} < %(date_to)s::date + 1"
+        params["date_to"] = date_to
+    return sql, params
+
+
+def _bm25(words: str, ids: list[int] | None, date_from: str | None, date_to: str | None) -> list[int]:
+    filters, params = _filters("chat_id", "date", ids, date_from, date_to)
+    # The text is indexed twice (Russian and English stemmer); a message matches if either field does.
+    sql = f"""SELECT id FROM messages
+              WHERE (text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s){filters}
+              ORDER BY pdb.score(id) DESC LIMIT %(n)s"""
+    with tracing.span("bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
+        found = pg.column(conn, sql, {"q": words, "n": settings.search_candidates, **params})
+        done(len(found))
+        return found
+
+
+def _embed_all(queries: list[str]) -> list[list[float]]:
+    """Vectors for all queries in one request; empty if the embeddings server is unavailable."""
+    try:
+        return pg.embed(queries, query=True)
+    except Exception:  # noqa: BLE001 - search must keep working on words alone if the embeddings server is down
+        log.warning("embeddings server unavailable, searching by words only", exc_info=True)
+        return []
+
+
+def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, date_to: str | None) -> list[int]:
+    filters, params = _filters("e.chat_id", "m.date", ids, date_from, date_to)
+    # Dates live on the message, not on its vector.
+    join = " JOIN messages m ON m.id = e.message_id" if date_from or date_to else ""
+    sql = f"""SELECT e.message_id AS id FROM message_embeddings e{join}
+              WHERE true{filters}
+              ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s"""
+    with tracing.span("vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
+        # With a selective filter (the chats a user may see) HNSW would return too few rows; this keeps scanning.
+        conn.execute("SET LOCAL hnsw.iterative_scan = strict_order")
+        conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(settings.search_ef),))
+        found = pg.column(conn, sql, {"v": vector, "n": settings.search_candidates, **params})
+        done(len(found))
+        return found
+
+
+def _words(query: str) -> str:
+    """The query as the BM25 side sees it: course aliases added, filler words and bare years removed.
+
+    A year ("мидтерм 2026") is a rare token to BM25, so it outranks the real topic and pulls in every
+    announcement that mentions 2026.
+    """
+    all_words = re.findall(r"\w+", courses.expand_query(query).lower())
+    useful = [w for w in all_words if w not in STOPWORDS and not YEAR_RE.match(w)]
+    return " ".join(dict.fromkeys(useful or all_words))
+
+
+def _rrf(*rankings: list[int]) -> dict[int, float]:
+    """Reciprocal rank fusion of several rankings (here: words and meaning for one query)."""
+    score: dict[int, float] = {}
+    for ranking in rankings:
+        for rank, item in enumerate(ranking, 1):
+            score[item] = score.get(item, 0.0) + 1.0 / (RRF_K + rank)
+    return score
+
+
+def _combine(per_query: list[dict[int, float]], limit: int, reserve: int | None = None) -> list[int]:
+    """Merge the queries' scores into one list of `limit` messages.
+
+    Every query first gets its own best hits reserved (coverage: the query about one course must not lose its
+    message to generic ones); the rest of the list is filled by a combined score, where a message counts mostly
+    for its best query and a little for the others. The result is ordered by that combined score.
+
+    `reserve` caps what one entry may claim (None = an equal share of the list). The wiki hands two entries per query
+    (course programmes and the rest), so at 30 candidates and 3 queries the equal shares are the whole list: the
+    combined score never got to add anything. One reserved hit per entry raised hit@5 from 87.7% to 89.5% and hit@8
+    from 89.5% to 91.2% on quality.QUESTIONS.
+    """
+    if not per_query or limit <= 0:
+        return []
+    found: dict[int, list[float]] = {}
+    for scores in per_query:
+        for item, value in scores.items():
+            found.setdefault(item, []).append(value)
+    total = {item: max(v) + CROSS_QUERY_BONUS * (sum(v) - max(v)) for item, v in found.items()}
+
+    reserved: list[int] = []
+    per_each = max(1, limit // len(per_query))
+    if reserve is not None:
+        per_each = min(per_each, reserve)
+    for scores in per_query:
+        for item in sorted(scores, key=lambda item: scores[item], reverse=True)[:per_each]:
+            if item not in reserved:
+                reserved.append(item)
+    chosen = reserved[:limit]
+    for item in sorted(total, key=lambda item: total[item], reverse=True):
+        if len(chosen) >= limit:
+            break
+        if item not in chosen:
+            chosen.append(item)
+    return sorted(chosen, key=lambda item: total[item], reverse=True)
+
+
+HITS = """SELECT m.id AS ref_id, m.chat_id, m.msg_id, m.date, m.edit_date, m.sender_name, m.reply_to, m.text, m.link,
+                  c.title AS chat_title, c.official AS chat_official, c.group_code AS chat_group, p.sender_name AS parent_sender, p.text AS parent_text
+           FROM messages m
+           JOIN chats c ON c.chat_id = m.chat_id
+           LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to"""
+
+
+def search(
+    queries: str | list[str],
+    *,
+    chat: str | None = None,
+    chat_ids: Collection[int] | None = None,
+    date_from: str | None = None,
+    date_to: str | None = None,
+    limit: int = 15,
+    original: str | None = None,
+) -> list[MessageHit]:
+    """Hybrid search from one or several angles: BM25 on the words plus vector similarity for each query, all
+    rankings merged by reciprocal rank fusion, so a message found by several angles rises to the top.
+
+    `original` is the user's own question: it is searched as one more angle and counts double, so that the model's
+    rewordings do not pull the result away from the words the user used.
+
+    `chat_ids` restricts the search to chats the asker may see (None = all).
+    """
+    if isinstance(queries, str):
+        queries = [queries]
+    # Drop empty and repeated queries (the model often repeats itself); embed everything in one request.
+    queries = list(dict.fromkeys(q.strip() for q in queries if q.strip()))[:MAX_QUERIES]
+    queries = [q for q in queries if _words(q)]
+    original = (original or "").strip()
+    if original and _words(original):
+        queries = [original, *[q for q in queries if q != original]]  # Not counted in MAX_QUERIES.
+    else:
+        original = ""
+    if not queries or limit <= 0:
+        return []
+    ids = _resolve_chats(chat, chat_ids)
+    if ids is not None and not ids:
+        return []
+
+    vectors = _embed_all(queries)
+    with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
+        jobs = []  # per query: (words job, vector job or None)
+        for i, q in enumerate(queries):
+            jobs.append(
+                (
+                    executor.submit(tracing.carry(_bm25), _words(q), ids, date_from, date_to),
+                    executor.submit(tracing.carry(_vector), vectors[i], ids, date_from, date_to) if vectors else None,
+                )
+            )
+        per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
+    if original:  # The first query is the original: its scores count twice.
+        per_query[0] = {item: 2 * value for item, value in per_query[0].items()}
+    reranking = settings.reranker_route is not None and settings.rerank_chats
+    fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
+    if not fused:
+        return []
+    with tracing.span("load messages", input=len(fused)), pg.connection() as conn:
+        rows = pg.rows(conn, MessageHit, HITS + " WHERE m.id = ANY(%s::bigint[])", (fused,))
+    by_id = {r.ref_id: r for r in rows}
+    hits = [by_id[i] for i in fused if i in by_id]
+    return _rerank(queries, hits, limit) if reranking else hits
+
+
+def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[MessageHit]:
+    """The `limit` messages the reranker finds closest to any of the queries (its best score counts), above the cutoff.
+
+    Each message keeps its second best score as `relevance`, how well two angles agree that it is about the question. The
+    best alone says little: a model's 'администратор университет иннополис' gave 3.09 to a notice on housing contracts
+    (-2.31 the second); the question alone neither: 'что писали в чатах про физкультуру для первокурсников?' gave -2.84 to
+    the post on physical education for first-years (2.07 the second, from the model's 'физкультура первокурсники').
+    If the reranker server is down the hybrid ranking stays as it was.
+    """
+    if not hits or limit <= 0:
+        return hits[:limit]
+    # A short reply ("да, в пятницу") means little without the message it answers.
+    documents = [f"{h.parent_text[:settings.rerank_max_chars]}\n{h.text[:settings.rerank_max_chars]}" if h.parent_text else h.text[:settings.rerank_max_chars] for h in hits]
+    queries = queries[:settings.rerank_queries]
+    try:
+        with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:
+            scores = list(executor.map(tracing.carry(lambda q: pg.rerank(q, documents)), queries))
+    except Exception:  # noqa: BLE001 - search must keep working without the reranker
+        log.warning("reranker server unavailable, keeping the hybrid ranking", exc_info=True)
+        return hits[:limit]
+    best = [max(per_query[i] for per_query in scores) for i in range(len(hits))]
+    order = sorted(range(len(hits)), key=lambda i: best[i], reverse=True)[:limit]
+    log.debug("rerank scores of %s: %s", queries, [round(best[i], 2) for i in order])
+    if settings.rerank_min_score is not None:
+        order = [i for i in order if best[i] >= settings.rerank_min_score]
+    agreed = [sorted(column, reverse=True)[1 if len(column) > 1 else 0] for column in zip(*scores)]
+    return [replace(hits[i], relevance=agreed[i]) for i in order]
+
+
+def latest(
+    *,
+    chat: str | None = None,
+    chat_ids: Collection[int] | None = None,
+    official_only: bool = False,
+    words: list[str] | None = None,
+    sender: str | None = None,
+    date_from: str | None = None,
+    date_to: str | None = None,
+    limit: int = 10,
+) -> tuple[int, list[MessageHit]] | None:
+    """The newest `limit` messages that pass the filters, newest first, and how many pass them in all; None if `chat`
+    names no chat the asker may see. `words` keeps the messages with any of them in any form (the BM25 index stems them:
+    'тесты' finds 'тест'), not their substrings: the model's `ILIKE '%дм%'` found every word with those letters."""
+    ids = _resolve_chats(chat, chat_ids)
+    if chat and not ids:
+        return None
+    filters, params = _filters("m.chat_id", "m.date", ids, date_from, date_to)
+    if official_only:
+        filters += " AND c.official"
+    if words and (query := _words(" ".join(words))):
+        filters += " AND m.id IN (SELECT id FROM messages WHERE text ||| %(q)s OR text::pdb.alias('text_en') ||| %(q)s)"
+        params["q"] = query
+    if sender:
+        filters += " AND m.sender_name ILIKE %(sender)s"
+        params["sender"] = f"%{sender}%"
+    with pg.connection() as conn:
+        total = pg.scalar(conn, f"SELECT count(*) FROM messages m JOIN chats c ON c.chat_id = m.chat_id WHERE true{filters}", params)
+        rows = pg.rows(conn, MessageHit, f"{HITS} WHERE true{filters} ORDER BY m.date DESC LIMIT %(n)s", {**params, "n": limit})
+    return total or 0, rows
+
+
+def visible_chats(chat_ids: Collection[int] | None) -> list[dict]:
+    """The chats of the knowledge base the asker may see (all of them for None), the official ones first. `stored` is false
+    for a chat the userbot only searches in Telegram (/listen `search`): the knowledge base has its title, not its messages."""
+    with pg.connection() as conn:
+        return [dict(r) for r in conn.execute(
+            """SELECT title, username, group_code, official, EXISTS (SELECT 1 FROM messages m WHERE m.chat_id = c.chat_id) AS stored
+               FROM chats c
+               WHERE NOT c.max_legacy_archived
+                 AND (%(ids)s::bigint[] IS NULL OR chat_id = ANY(%(ids)s::bigint[])) ORDER BY official DESC, title""",
+            {"ids": None if chat_ids is None else list(chat_ids)},
+        ).fetchall()]
+
+
+def chat_groups(chat_ids: list[int]) -> dict[int, str]:
+    """The group of each chat (`all` or a study group code); a chat the knowledge base does not store is for everybody."""
+    if not chat_ids:
+        return {}
+    with pg.connection() as conn:
+        found = dict(conn.execute("SELECT chat_id, group_code FROM chats WHERE chat_id = ANY(%s::bigint[])", (chat_ids,)).fetchall())
+    return {c: found.get(c, "all") for c in chat_ids}
+
+
+def message_sources(ids: list[int]) -> dict[int, SourceRow]:
+    """What a source list needs about messages, by id."""
+    if not ids:
+        return {}
+    with pg.connection() as conn:
+        rows = pg.rows(
+            conn,
+            SourceRow,
+            """SELECT m.id, m.date, m.sender_name, m.sender_link, m.link, c.link AS chat_link, c.official AS chat_official, c.title AS chat_title
+               FROM messages m JOIN chats c ON c.chat_id = m.chat_id WHERE m.id = ANY(%s::bigint[])""",
+            (ids,),
+        )
+    return {r.id: r for r in rows}

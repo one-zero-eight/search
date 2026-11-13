@@ -1,0 +1,240 @@
+"""The wiki CLI validates arguments before calling code that reads or writes data."""
+
+import importlib
+import sys
+from pathlib import Path
+
+import pytest
+
+from catix.wiki import cli
+
+
+def test_nested_help_does_not_start_discovery(monkeypatch, capsys):
+    from catix.wiki.sources import discover
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("help must not probe or write sites")
+
+    monkeypatch.setattr(discover, "discover", unexpected)
+    monkeypatch.setattr(sys, "argv", ["catix-wiki", "sites", "discover", "--help"])
+    with pytest.raises(SystemExit) as result:
+        cli.main()
+    assert result.value.code == 0
+    output = capsys.readouterr().out
+    assert "--dry-run" in output and "--all" in output
+
+
+def test_typed_options_are_passed_to_the_source(monkeypatch):
+    from catix.wiki.sources import rpd
+
+    calls = []
+    monkeypatch.setattr(rpd, "fetch", lambda **kwargs: calls.append(kwargs))
+    monkeypatch.setattr(sys, "argv", ["unrelated", "arguments"])
+    cli.main(["rpd", "fetch", "--limit=3", "--all-years"])
+    assert calls == [{"all_years": True, "limit": 3}]
+
+
+def test_sites_fetch_only_new_is_typed(monkeypatch):
+    from catix.wiki.sources import sites
+
+    calls = []
+    monkeypatch.setattr(sites, "fetch", lambda names, only_new=False, documents=False: calls.append((names, only_new, documents)) or 0)
+    cli.main(["sites", "fetch", "apply", "--only-new"])
+    assert calls == [(["apply"], True, False)]  # (only the new linked pages: not the documents' waves)
+
+
+@pytest.mark.parametrize("words", [
+    ["unknown"], ["status", "extra"], ["fetch", "not-a-number"],
+    ["sites", "disover"], ["sites", "discover", "--al"], ["sites", "discover", "--unknown"],
+    ["sites", "explore", "--rounds"], ["sites", "explore", "--rounds=zero"],
+    ["sites", "explore", "--rounds=0"], ["sites", "explore", "--max-sites=-1"],
+    ["sites", "add"], ["sites", "accept"], ["sites", "reject"],
+    ["sites", "accept", "lab", "--all"], ["sites", "reject", "--all", "lab"],
+    ["regs"], ["regs", "fetch", "many"], ["rpd", "fetch", "--limit"],
+    ["sveden"],
+    ["agent"], ["layout"], ["compile"], ["compile", "--random"],
+    ["compile", "--sample", "--all"], ["compile", "--all", "Page"], ["compile", "link", "Page"],
+    ["index", "export"], ["index", "import"], ["index", "status", "extra"],
+    ["index", "status", "--no-embed"], ["autopilot", "--source"],
+    ["autopilot", "accept", "--loop"], ["autopilot", "discard", "--no-push"],
+])
+def test_invalid_arguments_exit_two_before_work(words, capsys):
+    with pytest.raises(SystemExit) as result:
+        cli.main(words)
+    assert result.value.code == 2
+    assert "error:" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("words,command,action", [
+    ([], "status", None), (["sites"], "sites", "status"),
+    (["papers"], "papers", "status"), (["rpd"], "rpd", "status"),
+    (["autopilot"], "autopilot", "run"), (["index"], "index", "sync"),
+])
+def test_defaults(words, command, action):
+    parsed = cli.parse_args(words)
+    assert (parsed.command, getattr(parsed, "action", None)) == (command, action)
+
+
+@pytest.mark.parametrize("words,module,function,positional,keywords", [
+    ([], "sources.eduwiki", "status", (), {}),
+    (["fetch"], "sources.eduwiki", "fetch", ([0],), {}),
+    (["fetch", "0", "14"], "sources.eduwiki", "fetch", ([0, 14],), {}),
+    (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {"ocr": True}),
+    (["regs", "compile"], "sources.regulations", "compile_all", (), {}),
+    (["regs", "refresh"], "sources.regulations", "refresh", (), {}),
+    (["regs", "reextract"], "sources.regulations", "reextract", (), {}),
+    (["rpd"], "sources.rpd", "status", (), {}),
+    (["rpd", "compile"], "sources.rpd", "compile_all", (), {"all_years": None}),
+    (["rpd", "compile", "--all-years"], "sources.rpd", "compile_all", (), {"all_years": True}),
+    (["rpd", "refresh"], "sources.rpd", "refresh", (), {}),
+    (["papers"], "sources.pastpapers", "status", (), {}),
+    (["papers", "fetch"], "sources.pastpapers", "fetch", (), {}),
+    (["papers", "compile"], "sources.pastpapers", "compile_all", (), {}),
+    (["sites"], "sources.sites", "status", (), {}),
+    (["sites", "fetch", "apply", "hotel"], "sources.sites", "fetch", (["apply", "hotel"],), {"only_new": False, "documents": True}),
+    (["sites", "fetch", "--only-new"], "sources.sites", "fetch", ([],), {"only_new": True, "documents": False}),
+    (["sites", "new", "apply"], "sources.sites", "fetch_new", (["apply"],), {"documents": True}),
+    (["sites", "compile"], "sources.sites", "compile_all", (), {}),
+    (["sites", "docs"], "sources.sites", "collect_linked_docs", (), {}),
+    (["sites", "review"], "sources.discover", "review", (), {}),
+    (["sites", "add", "https://example.org/"], "sources.discover", "add", (["https://example.org/"],), {}),
+    (["compile", "--all"], "compile", "compile_pages", (None,), {}),
+    (["compile", "--random=3"], "compile", "compile_pages", (None, 3), {}),
+    (["compile", "Page A", "Page B"], "compile", "compile_pages", (["Page A", "Page B"],), {}),
+    (["compile", "link"], "compile", "link", (), {}),
+    (["link"], "compile", "link", (), {}),
+    (["graph", "--no-model"], "graph", "main", (), {"use_model": False}),
+])
+def test_commands_dispatch_typed_arguments(words, module, function, positional, keywords, monkeypatch):
+    target = importlib.import_module("catix.wiki." + module)
+    calls = []
+    monkeypatch.setattr(target, function, lambda *args, **kwargs: calls.append((args, kwargs)) or 0)
+    monkeypatch.setattr(sys, "argv", ["unrelated", "arguments"])
+    cli.main(words)
+    assert calls == [(positional, keywords)]
+
+
+def test_regs_fetch_reads_the_documents_then_the_trusted_pages_no_run_has_read(monkeypatch):
+    from catix.wiki.sources import regulations, sites
+
+    calls = []
+    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: calls.append(("documents", args, kwargs)) or 2)
+    monkeypatch.setattr(sites, "fetch", lambda *args, **kwargs: calls.append(("pages", args, kwargs)) or 3)
+    cli.main(["regs", "fetch", "--no-ocr"])
+    assert calls == [("documents", (None,), {"ocr": False}), ("pages", (), {"only_new": True, "documents": True, "ocr": False})]
+    calls.clear()
+    cli.main(["regs", "fetch", "3"])
+    assert calls == [("documents", (3,), {"ocr": True})]  # (N: a quick run of documents only, no pages)
+
+
+def test_explore_and_discover_options(monkeypatch):
+    from catix.wiki import autopilot
+    from catix.wiki.sources import discover
+
+    calls = []
+    monkeypatch.setattr(autopilot, "load_state", lambda: {"rejected_sites": ["no.example"]})
+    monkeypatch.setattr(discover, "pending_hosts", lambda: [])
+    monkeypatch.setattr(discover, "discover", lambda *a, **kw: calls.append((a, kw)) or 0)
+    monkeypatch.setattr(discover, "explore", lambda *a, **kw: calls.append((a, kw)) or [])
+    cli.main(["sites", "discover", "--all", "--dry-run"])
+    cli.main(["sites", "explore", "--rounds=2", "--max-sites", "5"])
+    assert calls == [(({"no.example"},), {"dry_run": True, "everything": True}), (({"no.example"}, 2, 5), {})]
+
+
+def test_accept_changes_only_selected_pending_sites(tmp_path, monkeypatch):
+    from catix.wiki.sources import discover, sites
+
+    builds = []
+    monkeypatch.setattr(discover, "build_approved", lambda names: builds.append(names))
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "sites-discovered.json")
+    monkeypatch.setattr(sites, "CONFIG", tmp_path / "sites.yaml")
+    monkeypatch.setattr(sites, "SITES", dict(sites.SITES))
+    sites.CONFIG.write_text("blocked: []\nsites: {}\n", encoding="utf-8")
+    discover.write({"a.innopolis.university": {"status": "pending"}, "b.innopolis.university": {"status": "pending"},
+                    "closed.innopolis.university": {"status": "closed"}})
+    cli.main(["sites", "accept", "a"])
+    assert "a.innopolis.university" not in sites.discovered()
+    assert "a" in sites.load_config(sites.CONFIG)[0]
+    assert sites.discovered()["b.innopolis.university"]["status"] == "pending"
+    cli.main(["sites", "accept", "--all"])
+    assert "b.innopolis.university" not in sites.discovered()
+    assert {"a", "b"} <= set(sites.load_config(sites.CONFIG)[0])
+    assert sites.discovered()["closed.innopolis.university"]["status"] == "closed"
+    assert builds == [["a"], ["b"]]
+
+
+def test_reject_all_includes_closed_but_not_accepted(tmp_path, monkeypatch):
+    from catix.wiki import autopilot
+    from catix.wiki.sources import discover, sites
+
+    monkeypatch.setattr(sites, "DISCOVERED", tmp_path / "sites-discovered.json")
+    monkeypatch.setattr(sites, "ROOT", tmp_path / "raw" / "sites")
+    monkeypatch.setattr(sites, "SITES", {})
+    monkeypatch.setattr(discover, "DOCS", tmp_path / "wiki" / "raw")
+    monkeypatch.setattr(autopilot, "STATE", tmp_path / ".autopilot.json")
+    discover.write({"a.innopolis.university": {"status": "pending"}, "b.innopolis.university": {"status": "closed"},
+                    "kept.innopolis.university": {"status": "accepted"}})
+    cli.main(["sites", "reject", "--all"])
+    assert list(sites.discovered()) == ["kept.innopolis.university"]
+    assert autopilot.load_state()["rejected_sites"] == ["a.innopolis.university", "b.innopolis.university"]
+
+
+def test_autopilot_collects_repeated_sources_and_options(tmp_path, monkeypatch):
+    from catix.wiki import autopilot
+
+    calls = []
+    monkeypatch.setattr(autopilot, "ready", lambda: None)
+    monkeypatch.setattr(autopilot, "LOCK", tmp_path / "lock")
+    monkeypatch.setattr(autopilot, "run_once", lambda *a, **kw: calls.append((a, kw)) or "done")
+    cli.main(["autopilot", "--source", "sites", "files", "--no-answers", "--source", "papers", "--no-push"])
+    assert calls == [((["sites", "files", "papers"],), {"push": False, "answers": False, "sites": None})]
+    calls.clear()
+    cli.main(["autopilot", "--site", "hotel", "--site", "campuslife", "--no-answers"])
+    assert calls == [((["sites"],), {"push": True, "answers": False, "sites": ["hotel", "campuslife"]})]
+
+
+@pytest.mark.parametrize("action", ["export", "import"])
+def test_index_file_is_a_path(action, monkeypatch):
+    from catix.wiki import search_index
+
+    calls = []
+    monkeypatch.setattr(search_index.settings, "database_url", "configured-for-test")
+    monkeypatch.setattr(search_index, "export" if action == "export" else "import_", calls.append)
+    monkeypatch.setattr(search_index.pg, "close", lambda: None)
+    cli.main(["index", action, "index.tar.gz"])
+    assert calls == [Path("index.tar.gz")]
+
+
+@pytest.mark.parametrize("action", ["accept", "discard"])
+def test_autopilot_review_dispatch(action, monkeypatch):
+    from catix.wiki import autopilot
+
+    calls = []
+    monkeypatch.setattr(autopilot, "ready", lambda: None)
+    monkeypatch.setattr(autopilot, "accept", lambda push: calls.append(push))
+    monkeypatch.setattr(autopilot, "discard", lambda: calls.append("discard"))
+    cli.main(["autopilot", action, *(["--no-push"] if action == "accept" else [])])
+    assert calls == ([False] if action == "accept" else ["discard"])
+
+
+def test_offline_build_does_not_update_sources(monkeypatch):
+    from types import SimpleNamespace
+    from catix.wiki import build
+
+    calls = []
+    monkeypatch.setattr(build.sources, "SOURCES", [SimpleNamespace(name="test", update=lambda: pytest.fail("offline build fetched a source"))])
+    monkeypatch.setattr(build, "rebuild", lambda: calls.append("build") or build.Report())
+    with pytest.raises(SystemExit) as result:
+        cli.main(["build", "--offline"])
+    assert result.value.code == 0 and calls == ["build"]
+
+
+@pytest.mark.parametrize("command", [
+    [], ["sites"], ["sites", "discover"], ["sites", "explore"], ["sites", "accept"], ["sites", "reject"],
+    ["autopilot"], ["index"], ["compile"],
+])
+def test_help_is_available_at_each_level(command, capsys):
+    with pytest.raises(SystemExit) as result:
+        cli.main([*command, "--help"])
+    assert result.value.code == 0
+    assert "usage:" in capsys.readouterr().out

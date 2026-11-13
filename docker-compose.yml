@@ -1,0 +1,57 @@
+# Postgres with pgvector and ParadeDB's pg_search (BM25) for chat messages, and Redis (a stream that carries
+# new messages from the bots to the schedule-changes worker).
+# Start:  sudo docker compose up -d      Stop:  sudo docker compose down  (data stays in the volume)
+# The project name stays `ctx`: it names the containers and the volumes that hold the data (ctx_pgdata, ctx_redisdata).
+# Without it Compose would name the project after the directory and create new, empty volumes.
+name: ctx
+
+services:
+  db:
+    image: paradedb/paradedb:0.26.1-pg17   # pinned: the index syntax changed between ParadeDB versions
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ctx
+      POSTGRES_DB: ctx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"   # local only
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ctx -d ctx"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]   # the stream survives a restart
+    ports:
+      - "127.0.0.1:6380:6379"   # local only; 6380 because 6379 is often taken
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Trace viewer (it replaced Langfuse, which needed six containers): one container, its data in a SQLite file in the volume;
+  # PHOENIX_SQL_DATABASE_URL would put it into Postgres. UI and OTLP over HTTP on 6006 (/v1/traces), OTLP over gRPC on 4317.
+  phoenix:
+    image: arizephoenix/phoenix:version-20.23.0   # pinned: the UI and the API change between versions
+    restart: unless-stopped
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+    ports:
+      - "127.0.0.1:6006:6006"
+      - "127.0.0.1:4317:4317"
+    volumes:
+      - phoenixdata:/mnt/data
+
+volumes:
+  pgdata:
+  phoenixdata:
+  redisdata:

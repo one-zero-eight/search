@@ -1,0 +1,190 @@
+# Production / beta: everything cAtIx needs in one place.
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, migrate, wiki, mcp, tgbot, userbot, maxuserbot, worker, api, phoenix
+#   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
+# Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
+name: catix-prod
+
+# The services find each other by name; these override the development values in .env (localhost there is the container
+# itself: PHOENIX_ENDPOINT=http://localhost:6006 from .env.example sent no trace). The password is not in the URL (libpq
+# reads PGPASSWORD): a password with / @ : # ? would break the URL ('failed to resolve host'). A service with an
+# `environment` of its own merges these into it: its own replaces the whole block.
+x-account-env: &account-env
+  DATABASE_URL: postgresql://ctx@db:5432/ctx
+  PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+  REDIS_URL: redis://redis:6379/0
+
+x-env: &env
+  <<: *account-env
+  INNOHASSLE_MCP_URL: http://mcp:8010/mcp
+  PHOENIX_ENDPOINT: http://phoenix:6006
+
+x-app: &app
+  build: .
+  image: catix:latest
+  restart: unless-stopped
+  env_file: .env
+  environment: *env
+  volumes:
+    - catix_data:/app/data
+  extra_hosts:
+    - "host.docker.internal:host-gateway" # services on the host, e.g. Langfuse at http://host.docker.internal:3000
+  logging:
+    driver: json-file
+    options: { max-size: "20m", max-file: "5" }
+  depends_on: &app-depends
+    migrate: { condition: service_completed_successfully }
+    redis: { condition: service_healthy }
+    phoenix: { condition: service_started }
+
+services:
+  db:
+    image: paradedb/paradedb:0.26.1-pg17 # pinned: the index syntax changed between ParadeDB versions
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ctx
+      POSTGRES_DB: ctx
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ctx -d ctx"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    logging:
+      driver: json-file
+      options: { max-size: "20m", max-file: "5" }
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # Creates the read-only role and applies db/schema.sql (safe to repeat); the apps wait for it.
+  migrate:
+    <<: *app
+    restart: "no"
+    command: ["catix-db", "init"]
+    depends_on:
+      db: { condition: service_healthy }
+
+  # Puts the wiki into the database: only pages that changed since the last time, then exits. The wiki is a checkout of
+  # its own branch `wiki` next to the code (WIKI_DIR, see DEPLOY.md 2a), committed by the wiki's own run; scripts/wiki-pull.sh
+  # pulls it and runs this service. The worker computes the vectors in the background; until then pieces are found by words.
+  wiki:
+    <<: *app
+    restart: "no"
+    command: ["catix-wiki", "index", "--no-embed"]
+    environment:
+      <<: *env
+      WIKI_ROOT: /wiki-data
+    volumes:
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
+
+  # Private MCP process: builds its catalogue once, shares Redis approval capabilities with the apps.
+  # No published ports; only this Compose network can reach it.
+  mcp:
+    <<: *app
+    command: ["catix-mcp", "--host", "0.0.0.0", "--port", "8010"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/health', timeout=2).close()"]
+      interval: 5s
+      timeout: 3s
+      start_period: 20s
+      retries: 12
+
+  tgbot:
+    <<: *app
+    command: ["catix-tgbot"]
+    depends_on:
+      <<: *app-depends
+      mcp: { condition: service_healthy }
+
+  # Passive account listener: no MCP dependency, HTTP endpoint or published ports.
+  maxuserbot:
+    <<: *app
+    command: ["catix-maxuserbot", "listen"]
+    environment: *account-env
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  worker:
+    <<: *app
+    command: ["catix-worker"]
+    environment: # (it imports the wiki's code, which needs WIKI_ROOT; it reads no file of it)
+      <<: *env
+      WIKI_ROOT: /wiki-data
+    volumes:
+      - catix_data:/app/data
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
+
+  # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
+  # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;
+  # API_ROOT_PATH is the prefix it serves the API under.
+  api:
+    <<: *app
+    command: ["catix-api"]
+    depends_on:
+      <<: *app-depends
+      mcp: { condition: service_healthy }
+    environment:
+      <<: *env
+      API_HOST: 0.0.0.0
+      WIKI_ROOT: /wiki-data # read-only: POST /{section}/parse queues a request in Redis, the wiki's own run serves and commits it
+    volumes:
+      - catix_data:/app/data
+      - ${WIKI_DIR:-../catix-wiki}:/wiki-data:ro
+    ports:
+      - "0.0.0.0:8004:8000"
+
+  # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
+  userbot:
+    <<: *app
+    command: ["catix-tguserbot", "listen"]
+
+  # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎 (they are annotations
+  # on the traces: without Phoenix they are lost). Always on; the apps send to it at PHOENIX_ENDPOINT (x-env above).
+  # Its UI has no login: it listens on the server's localhost only and is opened through an SSH tunnel (DEPLOY.md).
+  # It keeps the traces in the database of `db`, in a schema of its own (`phoenix`, it creates it and migrates it itself),
+  # so scripts/backup.sh saves them with the rest. The password comes as PGPASSWORD (asyncpg reads it), not in the URL:
+  # PHOENIX_POSTGRES_PASSWORD would be put into the URL with / unescaped.
+  phoenix:
+    image: arizephoenix/phoenix:version-20.23.0   # the same version as docker-compose.yml: the UI and the API change between versions
+    restart: unless-stopped
+    environment:
+      PHOENIX_SQL_DATABASE_URL: postgresql://ctx@db:5432/ctx
+      PHOENIX_SQL_DATABASE_SCHEMA: phoenix
+      PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      PHOENIX_DEFAULT_RETENTION_POLICY_DAYS: ${PHOENIX_RETENTION_DAYS:-30}   # older traces are deleted
+    ports:
+      - "127.0.0.1:6006:6006"
+    depends_on:
+      db: { condition: service_healthy }
+
+  # SSH tunnel to the GPU server, for when the models are not reachable directly. Then in .env:
+  #   LLM_ROUTE=http://tunnel:8080/v1  EMBEDDINGS_ROUTE=http://tunnel:8081/v1  RERANKER_ROUTE=http://tunnel:8082/v1
+  tunnel:
+    profiles: ["tunnel"]
+    image: alpine:3.20
+    restart: unless-stopped
+    volumes:
+      - ./secrets/ssh:/root/.ssh:ro # id_ed25519 (chmod 600) and known_hosts of the GPU server
+    command: >
+      sh -c "apk add --no-cache openssh-client >/dev/null &&
+      exec ssh -N -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -o ExitOnForwardFailure=yes
+      -L 0.0.0.0:8080:localhost:8080 -L 0.0.0.0:8081:localhost:8081 -L 0.0.0.0:8082:localhost:8082
+      ${GPU_SSH:-user@gpu-host}"
+
+volumes:
+  pgdata:
+  redisdata:
+  catix_data:

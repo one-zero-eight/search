@@ -1,0 +1,370 @@
+"""Explicit MCP public integrations. Business rules execute here, not in the agent."""
+
+import json
+import math
+import re
+from datetime import date, datetime, time, timedelta
+from typing import Annotated, Literal
+
+import icalendar
+import recurring_ical_events
+from fastmcp.tools import tool
+from pydantic import Field
+
+from catix.innohassle.mcp_declarations import metadata, result_boundary
+from catix.settings import settings
+
+MAX_CLUBS = 10
+
+
+MAX_CLUBS_LISTING = 40
+
+
+MAX_EVENTS = 30
+
+
+MAX_AREAS = 8
+
+
+DEFAULT_EVENTS_WINDOW_DAYS = 14
+
+
+def _doc_to_text(raw: str) -> str:
+    """Club descriptions are stored as a ProseMirror JSON document; flatten it to plain text."""
+    try:
+        doc = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
+        return raw or ""
+    lines: list[str] = []
+
+    def walk(node: dict, buf: list[str]) -> None:
+        match node.get("type"):
+            case "text":
+                buf.append(node.get("text", ""))
+            case "hardBreak":
+                buf.append("\n")
+            case _:
+                for child in node.get("content", []):
+                    walk(child, buf)
+
+    for block in doc.get("content", []):
+        buf: list[str] = []
+        walk(block, buf)
+        if text := "".join(buf).strip():
+            lines.append(text)
+    return "\n".join(lines)
+
+
+def _matches(query: str, *fields: str | None) -> bool:
+    haystack = " ".join((f for f in fields if f)).lower()
+    return all((word in haystack for word in query.lower().split()))
+
+
+def _fmt(dt: date | datetime) -> str:
+    if isinstance(dt, datetime):
+        return dt.astimezone(settings.tz).strftime("%Y-%m-%d %H:%M %a")
+    return dt.isoformat()
+
+
+EVENT_PAGE = "https://innohassle.ru/events/p/{id}"
+
+
+def _event_item(item: dict) -> dict:
+    """An event of InNoHassle Events as the model sees it: its names and description in each language it has, when, where,
+    who hosts it and how to enrol (`id` is what enroll_in_event takes)."""
+    from catix.innohassle import client as innohassle
+
+    event_id = item['id']
+    item = innohassle.event(event_id, fresh=True)
+    result = _event_details(item, event_id)
+    data = item['data']
+    locales = data['locales']
+    texts = [_doc_to_text(loc.get('description') or '') for loc in locales.values()]
+    enrollment = data.get("enrollment") or {}
+    if enrollment.get("type") == "external":
+        enrol = f"on the organisers' page: {enrollment.get('url')}" if enrollment.get("url") else "with the organisers"
+    else:
+        capacity = enrollment.get("capacity")
+        enrol = f"on InNoHassle, {item.get('enrolled_count', 0)} enrolled" + (
+            f" of {capacity} places" if capacity else ""
+        )
+    location = data.get("location") or {}
+    event = {
+        **result,
+        "map": location.get("url") or None,
+        "hosts": [h["display_name"] for h in data.get("hosts") or []] or None,
+        "enrollment": enrol,
+        "page": EVENT_PAGE.format(id=item["id"]),
+        "description": "\n\n".join((t for t in texts if t))[:600] or None,
+    }
+    return {k: v for k, v in event.items() if v}
+
+
+MAX_CLASSES = 40
+
+
+DEFAULT_SCHEDULE_DAYS = 7
+
+
+def _norm(text: str) -> str:
+    return re.sub("[\\W_]+", "", text.casefold())
+
+
+def _find_group(query: str) -> list[dict]:
+    """Event groups matching a group code ("B26-DSAI-04", "dsai 04") or an elective name."""
+    from catix.innohassle import client as innohassle
+
+    groups = innohassle.event_groups()
+    key = _norm(query)
+    exact = [g for g in groups if key in (_norm(g["name"]), _norm(g["alias"]))]
+    if exact:
+        return exact
+    by_suffix = [g for g in groups if _norm(g["alias"]).endswith(key)]
+    return by_suffix or [g for g in groups if key in _norm(g["name"])]
+
+
+def _instructor(description: str) -> str | None:
+    match = re.search("Instructors?:\\s*([^\\n]+?)(?:\\s+Groups?:|\\n|$)", description)
+    return match.group(1).strip() if match else None
+
+
+@tool(**metadata())
+@result_boundary()
+def schedule_get_schedule(
+    group: Annotated[str, Field(pattern="\\S")],
+    date_from: date | None = None,
+    date_to: date | None = None,
+    query: str | None = None,
+) -> dict:
+    """Public class schedule for an explicitly selected study group, with date/title filters.
+
+    Never guess a group. The client resolves trusted profile defaults before calling.
+    Returns deduplicated classes, dates, rooms and instructors, not personal bookings.
+    """
+    from catix.innohassle import client as innohassle
+
+    start = date_from or datetime.now(settings.tz).date()
+    end = date_to or start + timedelta(days=DEFAULT_SCHEDULE_DAYS - 1)
+    matches = _find_group(group)
+    if not matches:
+        return {"error": f"No schedule group matches {group!r}. Ask the user for the exact group, e.g. B26-DSAI-04."}
+    if len(matches) > 1:
+        return {
+            "error": "Several groups match, ask the user which one.",
+            "candidates": [g["name"] for g in matches[:15]],
+        }
+    source = matches[0]["name"]
+    ics = innohassle.group_schedule_ics(matches[0]["alias"])
+    calendar = icalendar.Calendar.from_ical(ics)
+    now = datetime.now(settings.tz)
+    classes, seen = ([], set())
+    for ev in recurring_ical_events.of(calendar).between(
+            datetime.combine(start, time.min, settings.tz), datetime.combine(end + timedelta(days=1), time.min, settings.tz)):
+        title = str(ev.get("SUMMARY", ""))
+        if query and (not _matches(query, title)):
+            continue
+        begin = ev.decoded("DTSTART")
+        if not isinstance(begin, datetime):
+            continue
+        key = (begin, title, str(ev.get("LOCATION", "")))
+        if key in seen:
+            continue
+        seen.add(key)
+        local = begin.astimezone(settings.tz)
+        finish = ev.decoded("DTEND") if "DTEND" in ev else begin
+        status = "finished" if finish <= now else "now" if begin <= now else "upcoming"
+        item = {
+            "date": local.strftime("%Y-%m-%d %a"),
+            "calendar_uid": str(ev.get("UID", "")),
+            "starts_at": local.isoformat(),
+            "ends_at": finish.astimezone(settings.tz).isoformat() if finish > begin else None,
+            "time": f"{local:%H:%M}-{ev.decoded('DTEND').astimezone(settings.tz):%H:%M}"
+            if "DTEND" in ev
+            else f"{local:%H:%M}",
+            "title": title,
+            "room": str(ev.get("LOCATION", "")) or None,
+            "instructor": _instructor(str(ev.get("DESCRIPTION", ""))),
+            "status": status,
+        }
+        classes.append({k: v for k, v in item.items() if v})
+    classes.sort(key=lambda c: (c["date"], c["time"]))
+    result = {
+        "schedule": source,
+        "now": now.strftime("%Y-%m-%d %H:%M"),
+        "range": [start.isoformat(), end.isoformat()],
+        "total": len(classes),
+        "classes": classes[:MAX_CLASSES],
+    }
+    if len(classes) > MAX_CLASSES:
+        result["note"] = f"Only the first {MAX_CLASSES} are shown; narrow the dates."
+    return result
+
+
+@tool(**metadata())
+@result_boundary()
+def maps_find_room(query: str) -> dict:
+    """Public campus map search with room descriptions, people and booking capability.
+
+    Find a room, place, printer or a person's office; combines matching areas and scenes.
+    """
+    from catix.innohassle import client as innohassle
+
+    scene_titles = {s["scene_id"]: s["title"] for s in innohassle.scenes()}
+    seen: set[tuple[str, str]] = set()
+    areas = []
+    for hit in innohassle.search_areas(query):
+        area = hit["area"]
+        key = (hit["scene_id"], area["svg_polygon_id"])
+        if key in seen:
+            continue
+        seen.add(key)
+        areas.append(
+            {
+                "title": area["title"],
+                "ru_title": area["ru_title"],
+                "where": scene_titles.get(hit["scene_id"], hit["scene_id"]),
+                "description": area["description"],
+                "people": area["people"] or None,
+                "bookable": area["room_booking_id"] is not None,
+            }
+        )
+    return {"total": len(areas), "areas": areas[:MAX_AREAS]}
+
+
+@tool(**metadata())
+@result_boundary()
+def clubs_get_clubs(
+    query: str | None = None, type: Literal["tech", "sport", "hobby", "art"] | None = None,
+    include_inactive: bool = False,
+) -> dict:
+    """Public university clubs: list/filter clubs or search their details, leaders and links.
+
+    Defaults to active clubs. Query selects detailed matching clubs rather than an inventory.
+    """
+    from catix.innohassle import client as innohassle
+
+    leaders = innohassle.club_leaders()
+    found = []
+    for club in innohassle.clubs():
+        if not include_inactive and (not club["is_active"]):
+            continue
+        if type and club["type"] != type:
+            continue
+        description = _doc_to_text(club["description"])
+        if query and (not _matches(query, club["title"], club["short_description"], description)):
+            continue
+        if not query:
+            found.append(
+                {"title": club["title"], "type": club["type"], "short_description": club["short_description"][:200]}
+            )
+            continue
+        leader = leaders.get(club["leader_innohassle_id"] or "")
+        found.append(
+            {
+                "title": club["title"],
+                "type": club["type"],
+                "active": club["is_active"],
+                "short_description": club["short_description"],
+                "description": description[:1200],
+                "leader": leader and {"name": leader["name"], "telegram": leader["telegram_alias"]},
+                "links": [{"label": l.get("label"), "url": l["link"]} for l in club["links"]],
+            }
+        )
+    limit = MAX_CLUBS if query else MAX_CLUBS_LISTING
+    result = {"total": len(found), "clubs": found[:limit]}
+    if len(found) > limit:
+        result["note"] = f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."
+    return result
+
+
+def _event_details(item: dict, event_id: str) -> dict:
+    """One snapshot for exact/list reads; typed enrollment is never parsed from prose."""
+    if not isinstance(item, dict) or item.get("id") != event_id:
+        raise ValueError("Unreadable event details.")
+    data = item["data"]
+    locales = data["locales"]
+    if not isinstance(locales, dict) or any(
+        not isinstance(lang, str) or not isinstance(loc, dict)
+        or not isinstance(loc.get("name"), str) for lang, loc in locales.items()
+    ):
+        raise ValueError("Unreadable event names.")
+    names = {lang: loc["name"] for lang, loc in sorted(locales.items()) if loc["name"].strip()}
+    title = names.get("en") or names.get("ru") or next(iter(names.values()))
+    start = datetime.fromisoformat(data["starts_at"])
+    if start.tzinfo is None:
+        raise ValueError("Unreadable event timezone.")
+    start = start.astimezone(settings.tz)
+    location = data.get("location")
+    if location is not None and (not isinstance(location, dict)
+            or not isinstance(location.get("display_name"), str)):
+        raise ValueError("Unreadable event location.")
+    duration = data.get("duration_hours")
+    if duration is not None and (type(duration) not in (int, float)
+            or not math.isfinite(duration) or duration <= 0):
+        raise ValueError("Unreadable event duration.")
+    result = {"id": item["id"], "title": title, "start": _fmt(start),
+              "starts_at": start.isoformat(), "timezone": str(settings.tz),
+              "location": (data.get("location") or {}).get("display_name"),
+              "page": EVENT_PAGE.format(id=item["id"])}
+    if len(set(names.values())) > 1:
+        result["names"] = names
+    if duration is not None:
+        end = start + timedelta(hours=duration)
+        result.update(end=_fmt(end), ends_at=end.isoformat())
+    enrollment = data.get('enrollment')
+    if (isinstance(enrollment, dict) and enrollment.get('type') in {'internal', 'external'}
+            and (enrollment.get('capacity') is None or type(enrollment['capacity']) is int and enrollment['capacity'] >= 0)
+            and (enrollment.get('url') is None or isinstance(enrollment['url'], str))
+            and type(item.get('enrolled_count')) is int and item['enrolled_count'] >= 0):
+        result['enrollment_info'] = {key: enrollment.get(key) for key in ('type', 'capacity', 'url')}
+        result['enrollment_info']['enrolled_count'] = item['enrolled_count']
+    return result
+
+
+@tool(**metadata())
+@result_boundary()
+def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) -> dict:
+    """Read one exact published event: title, interval, location, page and typed enrollment.
+
+    Public fresh read by event_id; does not enroll anyone or return participants.
+    """
+    from catix.innohassle import client as innohassle
+
+    return {'event': _event_details(innohassle.event(event_id, fresh=True), event_id)}
+
+
+@tool(**metadata())
+@result_boundary()
+def events_get_university_events(
+    date_from: date | None = None, date_to: date | None = None, query: str | None = None
+) -> dict:
+    """Public university events for a date range, optionally filtered by title."""
+    from catix.innohassle import client as innohassle
+
+    start = date_from or datetime.now(settings.tz).date()
+    end = date_to or start + timedelta(days=DEFAULT_EVENTS_WINDOW_DAYS)
+    listed = innohassle.events(
+        datetime.combine(start, datetime.min.time(), settings.tz),
+        datetime.combine(end + timedelta(days=1), datetime.min.time(), settings.tz),
+    )
+    events = []
+    for item in sorted(listed, key=lambda i: i["data"]["starts_at"]):
+        event = _event_item(item)
+        if query and (
+            not _matches(
+                query,
+                event["title"],
+                *(event.get("names") or {}).values(),
+                event.get("description"),
+                event.get("location"),
+                *(event.get("hosts") or []),
+            )
+        ):
+            continue
+        events.append(event)
+    result = {"range": [start.isoformat(), end.isoformat()], "total": len(events), "events": events[:MAX_EVENTS]}
+    if not listed:
+        result["note"] = (
+            "InNoHassle Events has no published event in this period, so absence of events here proves nothing."
+        )
+    return result
