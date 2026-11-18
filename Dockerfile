@@ -1,30 +1,102 @@
-# One image for every cAtIx process: the command decides which one runs (see docker-compose.prod.yml).
-FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
+# The image of every cAtIx process, in profiles: a process gets only what it uses (docker build --target <profile>).
+# See docker-compose.prod.yml for which service runs which profile.
+#
+#   core    mcp, migrate                  Python only
+#   ocr     tgbot, userbot, maxuserbot    + Tesseract (OCR of chat images)
+#   api     api                           + Java and Poppler (private attachments: opendataloader, pdfplumber), libarchive (previews)
+#   worker  worker                        + Java, Poppler, Tesseract, LibreOffice (the course files of Moodle)
+#   docs    docs                          + everything the sources of the documents read, and Chromium
+#   full    (the default target)          every profile together, for one image for everything
+#
+# The Python environment of a profile is built in a stage with git (the pinned PyMax dependency needs it for uv sync) and
+# copied into a slim image that has no git, no uv and no build tools. The PDF readers (opendataloader-pdf, pdfplumber) and
+# Playwright are dependency groups of pyproject.toml: only the profiles that read PDFs or open a browser install them.
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy PYTHONUNBUFFERED=1
+ARG PYTHON=python:3.13-slim-bookworm
+
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS build
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 WORKDIR /app
-
-# Git is required by the pinned PyMax dependency during uv sync. Keep standard TLS trust.
-# Private attachment parsing needs Java 11+ and bounded PDF rendering through Poppler.
-# Chromium renders the sites that need a script (docs/sources/sites.py), LibreOffice turns Word, RTF, presentations and spreadsheets into PDF.
-RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libarchive13 openjdk-17-jre-headless poppler-utils \
-    tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus chromium libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
-# Dependencies first: this layer is rebuilt only when pyproject.toml or uv.lock change.
 COPY pyproject.toml uv.lock .python-version ./
 COPY vendor ./vendor
-RUN uv sync --frozen --no-dev --no-install-project
 
+# Dependencies first: these layers are rebuilt only when pyproject.toml or uv.lock change; the project after them.
+FROM build AS venv-core
+RUN uv sync --frozen --no-dev --no-default-groups --no-install-project
 COPY src ./src
+RUN uv sync --frozen --no-dev --no-default-groups
+
+FROM build AS venv-pdf
+RUN uv sync --frozen --no-dev --no-default-groups --group pdf --no-install-project
+COPY src ./src
+RUN uv sync --frozen --no-dev --no-default-groups --group pdf
+
+FROM build AS venv-docs
+RUN uv sync --frozen --no-dev --no-default-groups --group pdf --group browser --no-install-project
+COPY src ./src
+RUN uv sync --frozen --no-dev --no-default-groups --group pdf --group browser
+
+
+# What every process has: the data of the repository it reads (db/schema.sql is found from src/, which the editable install of the
+# project points to: the final stages copy src/ last, so a code change rebuilds only that layer), and a user of its own. Telegram and MAX account sessions and
+# other state live in the volume mounted at /app/data.
+FROM ${PYTHON} AS runtime
+ENV PYTHONUNBUFFERED=1 PATH="/app/.venv/bin:$PATH"
+WORKDIR /app
 COPY db ./db
-COPY courses.toml ./
-COPY sites.yaml ./
-RUN uv sync --frozen --no-dev
-
-ENV PATH="/app/.venv/bin:$PATH"
-# Telegram and MAX account sessions and other state live in the volume mounted at /app/data.
+COPY courses.toml sites.yaml ./
 RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
-USER app
 
+# The OS packages of a profile are separate stages, so that a profile lists only what it needs.
+FROM runtime AS os-ocr
+RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus \
+    && rm -rf /var/lib/apt/lists/*
+
+FROM runtime AS os-pdf
+RUN apt-get update && apt-get install -y --no-install-recommends openjdk-17-jre-headless poppler-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+
+FROM runtime AS core
+COPY --from=venv-core /app/.venv ./.venv
+COPY src ./src
+USER app
+CMD ["catix-mcp"]
+
+FROM os-ocr AS ocr
+COPY --from=venv-core /app/.venv ./.venv
+COPY src ./src
+USER app
+CMD ["catix-tgbot"]
+
+FROM os-pdf AS api
+RUN apt-get update && apt-get install -y --no-install-recommends libarchive13 \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=venv-pdf /app/.venv ./.venv
+COPY src ./src
+USER app
+CMD ["catix-api"]
+
+FROM os-pdf AS worker
+RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus \
+    libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=venv-pdf /app/.venv ./.venv
+COPY src ./src
+USER app
+CMD ["catix-worker"]
+
+FROM os-pdf AS docs
+RUN apt-get update && apt-get install -y --no-install-recommends libarchive13 tesseract-ocr tesseract-ocr-eng tesseract-ocr-rus \
+    chromium libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=venv-docs /app/.venv ./.venv
+COPY src ./src
+USER app
+CMD ["catix-docs", "run", "--loop"]
+
+# Everything in one image (the default target): the processes of every profile, the command decides which one runs.
+FROM docs AS full
 CMD ["catix-tgbot"]

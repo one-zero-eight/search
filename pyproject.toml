@@ -17,9 +17,7 @@ dependencies = [
     "icalendar>=7.3.0",
     "langchain>=1.4.5",
     "langchain-openai>=1.7.2",
-    "opendataloader-pdf>=2.5.17",
     "openinference-instrumentation-langchain>=0.1.79",
-    "pdfplumber>=0.11.10",
     "pgvector>=0.5.1",
     "pillow>=13",
     "pyyaml>=6.0",
@@ -35,8 +33,6 @@ dependencies = [
     "uvicorn>=0.54.0",
     "ultimate-sitemap-parser>=1.8.1",
     "html-to-markdown>=3.21.0",
-    "playwright>=1.64.1",
-    "markdownify>=1.2.3",
     "libarchive-c>=5.3",
     "langgraph-checkpoint-postgres>=3.2.0",
     "jsonschema[format-nongpl]>=4.23",
@@ -66,7 +62,16 @@ testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-ra -m 'not redteam'"
 
+# The heavy readers are groups, so the Docker profiles that never read a PDF or open a browser do not install them
+# (Dockerfile: `uv sync --no-default-groups --group pdf`). A plain `uv sync` installs them all for development.
 [dependency-groups]
+pdf = [
+    "opendataloader-pdf>=2.5.17",  # needs Java; text layer of PDFs (docs/sources/opendataloader.py)
+    "pdfplumber>=0.11.10",
+]
+browser = [
+    "playwright>=1.64.1",  # the sites that need a script (docs/sources/sites.py); uses the system Chromium
+]
 dev = [
     "deepeval>=4.3.1",
     "deepteam>=1.0.10",
@@ -77,6 +82,9 @@ dev = [
 
 # 3.21.0 is not on PyPI yet (in 3.20.0 a visitor gets attributes with their entities, `&amp;`, and no <source> of a <video>):
 # the wheel built from main 3ec91d3, "prepare 3.21.0" (xberg-io/html-to-markdown#970). Drop this table and vendor/ once 3.21.0 is released.
+[tool.uv]
+default-groups = ["dev", "pdf", "browser"]
+
 [tool.uv.sources]
 html-to-markdown = { path = "vendor/html_to_markdown-3.21.0-cp311-abi3-manylinux_2_34_x86_64.whl" }
 maxapi-python = { git = "https://github.com/MaxApiTeam/PyMax", rev = "c4cb917d354a1179be625925530d72c8aaa969ff" }

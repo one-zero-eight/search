@@ -1,5 +1,5 @@
 # Production / beta: everything cAtIx needs in one place.
-#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, migrate, docs, mcp, tgbot, userbot, maxuserbot, worker, api, phoenix
+#   docker compose -f docker-compose.prod.yml up -d --build            db, redis, migrate, docs, mcp, tgbot, userbot, maxuserbot, worker, api, phoenix (five images, one per Dockerfile profile)
 #   docker compose -f docker-compose.prod.yml --profile tunnel up -d    + an SSH tunnel to the GPU server (see DEPLOY.md)
 # Own project name and volumes: it does not touch the development docker-compose.yml (project `ctx`).
 name: catix-prod
@@ -13,14 +13,20 @@ x-account-env: &account-env
   PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
   REDIS_URL: redis://redis:6379/0
 
+x-build: &core { build: { context: ., target: core }, image: "catix-core:latest" }       # Python only
+x-build-ocr: &ocr { build: { context: ., target: ocr }, image: "catix-ocr:latest" }       # + Tesseract (chat images)
+x-build-api: &api { build: { context: ., target: api }, image: "catix-api:latest" }       # + Java, Poppler, libarchive
+x-build-worker: &worker { build: { context: ., target: worker }, image: "catix-worker:latest" }  # + Java, Poppler, Tesseract, LibreOffice
+x-build-docs: &docs { build: { context: ., target: docs }, image: "catix-docs:latest" }   # + all of the above and Chromium
+
 x-env: &env
   <<: *account-env
   INNOHASSLE_MCP_URL: http://mcp:8010/mcp
   PHOENIX_ENDPOINT: http://phoenix:6006
 
+# One Dockerfile, one profile (build target) per service, so that a service has only what it uses: Java and Poppler for the
+# PDF readers, Tesseract for OCR, LibreOffice for office files, Chromium for the sites that need a script (Dockerfile).
 x-app: &app
-  build: .
-  image: catix:latest
   restart: unless-stopped
   env_file: .env
   environment: *env
@@ -70,7 +76,7 @@ services:
 
   # Creates the read-only role and applies db/schema.sql (safe to repeat); the apps wait for it.
   migrate:
-    <<: *app
+    <<: [*app, *core]
     restart: "no"
     command: ["catix-db", "init"]
     depends_on:
@@ -79,7 +85,7 @@ services:
   # Private MCP process: builds its catalogue once, shares Redis approval capabilities with the apps.
   # No published ports; only this Compose network can reach it.
   mcp:
-    <<: *app
+    <<: [*app, *core]
     command: ["catix-mcp", "--host", "0.0.0.0", "--port", "8010"]
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/health', timeout=2).close()"]
@@ -89,7 +95,7 @@ services:
       retries: 12
 
   tgbot:
-    <<: *app
+    <<: [*app, *ocr]
     command: ["catix-tgbot"]
     depends_on:
       <<: *app-depends
@@ -97,7 +103,7 @@ services:
 
   # Passive account listener: no MCP dependency, HTTP endpoint or published ports.
   maxuserbot:
-    <<: *app
+    <<: [*app, *ocr]
     command: ["catix-maxuserbot", "listen"]
     environment: *account-env
     depends_on:
@@ -105,7 +111,7 @@ services:
       redis: { condition: service_healthy }
 
   worker:
-    <<: *app
+    <<: [*app, *worker]
     command: ["catix-worker"]
     environment:
       <<: *env
@@ -115,7 +121,7 @@ services:
   # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;
   # API_ROOT_PATH is the prefix it serves the API under.
   api:
-    <<: *app
+    <<: [*app, *api]
     command: ["catix-api"]
     depends_on:
       <<: *app-depends
@@ -129,7 +135,7 @@ services:
   # Reads the sources of the documents on their schedule and serves POST /{section}/parse; writes only to Postgres.
   # A site behind a login (sites.yaml `profile`) needs a Chromium profile a person logged in to, copied to the volume.
   docs:
-    <<: *app
+    <<: [*app, *docs]
     command: ["catix-docs", "run", "--loop"]
     environment:
       <<: *env
@@ -138,7 +144,7 @@ services:
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:
-    <<: *app
+    <<: [*app, *ocr]
     command: ["catix-tguserbot", "listen"]
 
   # Trace viewer: the agent's questions, model calls, tools and search steps, and the users' 👍/👎 (they are annotations

@@ -425,7 +425,7 @@ uv run pytest -k "english or extrapolate"     # тесты по части им�
 
 ## Развёртывание
 
-Для сервера есть `Dockerfile` и `docker-compose.prod.yml` (db, redis, миграции, боты, воркер, профили `userbot` и `tunnel`), бэкап `scripts/backup.sh`. MAX userbot запускается обычным `docker compose up -d`, без отдельного профиля; для чтения нужна заранее созданная сессия MAX. Сессию MAX нельзя включать в бэкапы без явного разрешения. Подробно в [DEPLOY.md](DEPLOY.md).
+Для сервера есть `Dockerfile` (профили `core`, `ocr`, `api`, `worker`, `docs`: сервис получает только нужные ему Java, Tesseract, LibreOffice, Chromium, см. DEPLOY.md) и `docker-compose.prod.yml` (db, redis, миграции, боты, воркер, профили `userbot` и `tunnel`), бэкап `scripts/backup.sh`. MAX userbot запускается обычным `docker compose up -d`, без отдельного профиля; для чтения нужна заранее созданная сессия MAX. Сессию MAX нельзя включать в бэкапы без явного разрешения. Подробно в [DEPLOY.md](DEPLOY.md).
 
 ## HTTP API (`catix-api`)
 
@@ -580,9 +580,10 @@ experiments/   скрипты оценки качества поиска и да
 См. `LICENSE` в корне репозитория.
 
 ## TODO
+- сделать профили для dockerfile чтобы сервисы которые не используют системные библиотеки по типу java не качали их
+- 
+- скорее всего объединить поиск moodle и остальной
 - add moodle calendar to viewing
-- try to increase speed of OCR to speed up syncting
-- refactor prompts to reduce it's size
 - maybe disable auto calendar extraction on chats that bot sends (because many publics publish content twice and it repeated and I think is redundant) or set only for study groups
 - add guide page on catix (how to setup browser extension for moodle syncing and so on)
 - add parallel handlers to different hosts to speed up crawling and parsing process

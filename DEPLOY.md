@@ -17,6 +17,19 @@ docker compose -f docker-compose.prod.yml ps
 ```
 Поднимутся `db`, `redis`, `migrate` (схема БД, повторяемо), `docs` (источники документов, см. 2a), `mcp`, `tgbot`, `userbot`, `maxuserbot`, `worker`, `api`, `phoenix` (трейсы, раздел 6a). Оба userbot включены по умолчанию, без профилей; перед чтением чатов нужен однократный интерактивный вход в соответствующий аккаунт (раздел 4). Логи: `docker compose -f docker-compose.prod.yml logs -f tgbot`.
 
+Один `Dockerfile` собирается в профили (`--target`), и у каждого сервиса свой образ: в нём только то, чем сервис пользуется (в образах нет git и uv).
+
+| профиль (образ) | сервисы | что внутри сверх Python |
+| --- | --- | --- |
+| `core` | `migrate`, `mcp` | ничего |
+| `ocr` | `tgbot`, `userbot`, `maxuserbot` | Tesseract (`rus+eng`) |
+| `api` | `api` | Java и Poppler (`opendataloader-pdf`, `pdfplumber`: вложения), libarchive |
+| `worker` | `worker` | Java, Poppler, Tesseract, LibreOffice (файлы Moodle) |
+| `docs` | `docs` | всё перечисленное и Chromium (`playwright`: сайты со скриптами) |
+| `full` (по умолчанию) | — | все профили в одном образе: `docker build .` |
+
+Библиотеки чтения PDF (`opendataloader-pdf`, `pdfplumber`) и `playwright` — группы зависимостей `pdf` и `browser` в `pyproject.toml`: профили без них их не ставят (`uv sync --no-default-groups --group pdf`); обычный `uv sync` ставит всё для разработки. Образ для CI (`deploy.yaml`) — `full`.
+
 `mcp` — отдельный HTTP-сервер инструментов. Он собирает каталог при старте, доступен приложениям как `http://mcp:8010/mcp` и не публикует порт наружу. API и боты ждут его `/health`. Подтверждения выполняет клиент cAtIx по списку имён инструментов; сервер проверяет пользовательские credentials и аргументы, но не требует билетов или Redis для согласия. Другой клиент с действительными credentials может вызвать изменение напрямую. Для обновления инструментов перезапускайте также `mcp`; при изменении клиентского списка подтверждений — приложения. Логи: `docker compose -f docker-compose.prod.yml logs -f mcp`. Локально вне Docker сервер запускается командой `uv run catix-mcp` на `127.0.0.1:8010`, а `scripts/catix.sh up` управляет им вместе с приложениями.
 
 Проверка: Telegram-бот отвечает на `/start`, в логе `tgbot` строка `Running as @...`. `/start` включает получение существующих уведомлений об изменениях расписания; учебную группу пользователь настраивает на сайте. При запуске бот обновляет меню, убирая старые пользовательские и административные команды, в том числе из администраторских меню. Авторизованные администраторы по-прежнему вызывают операции вручную; `/id` доступна только им.
@@ -343,7 +356,7 @@ cAtIx» и добавляет комментарий. Он подтвержда�
 постоянная `image_queue` в Postgres обслуживается по одной задаче для всех клиентов вместе.
 Chat OCR использует только локальный Tesseract (`rus+eng`), не `LLM_ROUTE` / `LLM_MODEL` и не
 Chandra; vLLM fallback отсутствует. Docker устанавливает `tesseract-ocr`, `tesseract-ocr-eng`,
-`tesseract-ocr-rus`. На хосте установите executable и обе модели, проверьте `tesseract --list-langs`.
+`tesseract-ocr-rus` в профили `ocr`, `worker` и `docs`. На хосте установите executable и обе модели, проверьте `tesseract --list-langs`.
 Отсутствие executable/языков — техническая ошибка с bounded retry, не пустой результат.
 Один дочерний процесс на изображение: `OMP_THREAD_LIMIT=1`, до 10 секунд, stdout TSV ≤256 KiB,
 stderr ≤16 KiB; общий deadline сообщения остаётся 180 секунд. Параллелизм очереди не меняется.
