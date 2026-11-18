@@ -506,7 +506,7 @@ cAtIx заменил сервис поиска InNoHassle и отвечает п
 **Как читается** (поток `moodle-files` в `catix-worker`, `worker/moodle_reader.py`, по одному файлу):
 
 - `.txt`, `.md`: UTF-8 без управляющих символов; иначе чтение считается неудачным.
-- Картинки: одна страница, OCR (LightOnOCR), не больше 40 млн пикселей, только один кадр.
+- Картинки: одна страница, OCR (Tesseract), не больше 40 млн пикселей, только один кадр.
 - Офисные форматы: LibreOffice превращает их в PDF, дальше как PDF.
 - PDF: если страниц больше `MAX_PAGES = 150` — `skipped` («more than 150 pages»). Иначе берётся текстовый слой; если слоя нет (скан) и страниц больше `MAX_OCR_PAGES = 40` — `skipped` («scan too long for OCR»), иначе OCR. Так один документ не занимает OCR-сервер на часы. Цифровой PDF на 100 страниц читается, скан на 100 страниц — нет. Эти пределы общие с документами `regs` (`docs/sources/regulations.py`), но для Moodle ручного снятия (`force`) нет: пропущенный файл остаётся пропущенным.
 
@@ -591,4 +591,4 @@ experiments/   скрипты оценки качества поиска и да
 - move exporting ai calendar to schedule system
 - add union groups (for example first year students groups)
 - connect grafana/prometeus with opentelemetry logs
-- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits for the LightOnOCR server (one slot). Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.
+- OCR limit: `MAX_OCR_PAGES = 40` and `OCR_BUDGET = 200` (`src/catix/docs/sources/regulations.py`); review these limits for Tesseract (`OCR_PARALLEL` pages at once). Longer scans are put aside (`"ocr": "too long"`, out of the queue, listed by `catix-docs regs queue`, the admins are told in Telegram); raising the limit queues them again. There is no alternative OCR engine.

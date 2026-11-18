@@ -182,6 +182,7 @@ def test_scans_are_read_several_at_once(monkeypatch):
     from pathlib import Path
     from catix.docs.sources import regulations
 
+    monkeypatch.setattr(regulations.settings, "ocr_parallel", 3)
     together = threading.Barrier(3, timeout=10)  # (one at a time, the first would wait here for ever: BrokenBarrierError)
     monkeypatch.setattr(regulations, "ocr_text", lambda pdf: (together.wait(), (pdf.stem, "ocr"))[1])
     done = {scan: future.result() for scan, future in regulations.read_scans(["a", "b", "c"], lambda s: Path(f"{s}.pdf"))}
@@ -189,11 +190,11 @@ def test_scans_are_read_several_at_once(monkeypatch):
 
 
 def test_the_pages_of_two_short_scans_are_read_side_by_side(monkeypatch, tmp_path):
-    """lighton reads the pages of every scan in one queue (page_pool): two scans of 2 pages have 4 pages in flight."""
+    """tesseract reads the pages of every scan in one queue (page_pool): two scans of 2 pages have 4 pages in flight."""
     import threading
     from concurrent.futures import ThreadPoolExecutor
     from pathlib import Path
-    from catix.docs.sources import lighton, opendataloader
+    from catix.docs.sources import tesseract, opendataloader
 
     monkeypatch.setattr(opendataloader, "corpus_words", lambda: frozenset())  # (the words of the stored documents: the database)
 
@@ -201,12 +202,14 @@ def test_the_pages_of_two_short_scans_are_read_side_by_side(monkeypatch, tmp_pat
         for n in (1, 2):
             Path(f"{args[-1]}-{n}.png").write_bytes(b"")
 
+    monkeypatch.setattr(tesseract.settings, "ocr_parallel", 4)
+    monkeypatch.setattr(tesseract, "_pages", None)
     together = threading.Barrier(4, timeout=10)
-    monkeypatch.setattr(lighton, "available", lambda: True)
-    monkeypatch.setattr(lighton.subprocess, "run", pdftoppm)
-    monkeypatch.setattr(lighton, "read_page", lambda png: (together.wait(), png.stem)[1])
+    monkeypatch.setattr(tesseract, "available", lambda: True)
+    monkeypatch.setattr(tesseract.subprocess, "run", pdftoppm)
+    monkeypatch.setattr(tesseract, "read_page", lambda png: (together.wait(), png.stem)[1])
     with ThreadPoolExecutor(2) as scans:
-        texts = list(scans.map(lighton.text_of_pdf, [tmp_path / "a.pdf", tmp_path / "b.pdf"]))
+        texts = list(scans.map(tesseract.text_of_pdf, [tmp_path / "a.pdf", tmp_path / "b.pdf"]))
     assert [t.split() for t in texts] == [["p-1", "p-2"], ["p-1", "p-2"]]
 
 

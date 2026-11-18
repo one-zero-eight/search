@@ -87,9 +87,6 @@ def read_file(data: bytes, suffix: str) -> Extracted:
             env["TMPDIR"] = env["HOME"] = work  # LibreOffice needs a writable HOME
             env["DATABASE_URL"] = ""  # the docs modules it imports must not reach the corpus (nor .env: cwd is `work`)
             env["PYTHONPATH"] = str(Path(__file__).resolve().parent.parent)
-            if settings.ocr_route:
-                env["OCR_ROUTE"] = str(settings.ocr_route)
-            env["OCR_MODEL"] = str(settings.ocr_model)
             env["OCR_PARALLEL"] = str(settings.ocr_parallel)
             process = subprocess.Popen(
                 [sys.executable, str(Path(__file__).with_name("moodle_file_reader.py")), suffix],

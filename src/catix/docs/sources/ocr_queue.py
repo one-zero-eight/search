@@ -1,9 +1,9 @@
-"""The OCR queue: the scans every source keeps for lighton, and, apart from it, the scans too long for OCR.
+"""The OCR queue: the scans every source keeps for tesseract, and, apart from it, the scans too long for OCR.
 
     catix-docs regs queue
 
 The scheduled runs read documents by their text layer only: a scan (a PDF whose text layer gives too little) is queued
-for the OCR thread of `catix-docs run --loop` (and a manual run: `catix-docs regs fetch`, `catix-docs papers fetch`), which reads it by LightOnOCR.
+for the OCR thread of `catix-docs run --loop` (and a manual run: `catix-docs regs fetch`, `catix-docs papers fetch`), which reads it by Tesseract.
 A scan longer than the limit of its source (regulations.MAX_OCR_PAGES, pastpapers.MAX_SCAN_PAGES) is not queued: it
 would wait there for ever, so it is put aside (`"ocr": "too long"`) and listed apart, for a person to decide.
 
@@ -29,7 +29,7 @@ class Scan:
     pages: int
     too_long: bool  # put aside, not in the queue
     since: str = ""  # when it was queued or put aside (ISO), "" when not known
-    failed: int = 0  # times lighton could not read it
+    failed: int = 0  # times tesseract could not read it
 
 
 def scans() -> list[Scan]:
@@ -60,7 +60,7 @@ RUN = {"regs": ("documents", f"catix-docs regs fetch, up to {regulations.OCR_BUD
 
 def _lines(found: list[Scan]) -> None:
     for s in found:
-        print(f"  {s.pages:>4} p  {s.since[:10] or '?':<10}  {s.source:<6}  {s.key}" + (f"  (lighton failed {s.failed}x)" if s.failed else ""))
+        print(f"  {s.pages:>4} p  {s.since[:10] or '?':<10}  {s.source:<6}  {s.key}" + (f"  (tesseract failed {s.failed}x)" if s.failed else ""))
         print(f"{'':>8}{s.title[:120]}  {s.url}")
 
 
@@ -68,7 +68,7 @@ def show(found: list[Scan] | None = None) -> None:
     """The queue and, apart, the scans put aside, printed: what waits for OCR and which run reads it, what no run reads."""
     found = scans() if found is None else found
     queue, apart = [s for s in found if not s.too_long], [s for s in found if s.too_long]
-    print(f"OCR queue: {_count(queue)}" + (" (read by LightOnOCR: the OCR thread of catix-docs run --loop, or a manual run)" if queue else ""))
+    print(f"OCR queue: {_count(queue)}" + (" (read by Tesseract: the OCR thread of catix-docs run --loop, or a manual run)" if queue else ""))
     for source, (what, run) in RUN.items():
         if mine := [s for s in queue if s.source == source]:
             print(f"  {what}: {_count(mine)} ({run})")
@@ -98,7 +98,7 @@ def message(found: list[Scan], new: set[tuple[str, str]]) -> str | None:
         runs = [f"catix-docs {source} fetch" for source in ("regs", "papers") if any(s.source == source for s in queue)]
         more = f" (новые: {_scans_ru(len(new_queue))}, {_pages(new_queue)} стр.)" if len(new_queue) < len(queue) else ""
         parts.append(f"🖨 Очередь OCR выросла: {_scans_ru(len(queue))}, {_pages(queue)} стр.{more}:\n"
-                     f"{_named(new_queue)}\nИх читает OCR-поток catix-docs run --loop (LightOnOCR) по мере поступления; вручную: {' и '.join(runs)} "
+                     f"{_named(new_queue)}\nИх читает OCR-поток catix-docs run --loop (Tesseract) по мере поступления; вручную: {' и '.join(runs)} "
                      f"(за прогон до {regulations.OCR_BUDGET} стр.); на проде: docker compose -f docker-compose.prod.yml run --rm docs <команда>.")
     if new_apart:
         more = f" (новые: {_scans_ru(len(new_apart))}, {_pages(new_apart)} стр.)" if len(new_apart) < len(apart) else ""

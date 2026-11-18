@@ -38,23 +38,17 @@ def _plain(data: bytes) -> dict:
 
 
 def _ocr_image(data: bytes, suffix: str) -> dict:
-    import httpx
     from PIL import Image
 
-    from catix.docs.sources import lighton
+    from catix.docs.sources import tesseract
 
     im = _image(data, suffix)
     rgba = im.convert("RGBA")
     Image.alpha_composite(Image.new("RGBA", rgba.size, "white"), rgba).convert("RGB").save("page.png", format="PNG")
-    if not lighton.available():
+    if not tesseract.available():
         sys.exit(AWAY)
-    try:
-        markdown = lighton.read_page(Path("page.png"))
-    except httpx.HTTPError:
-        if not lighton.available():
-            sys.exit(AWAY)
-        raise
-    return {"page_texts": [[1, lighton.text_of_pages([markdown])]], "method": lighton.METHOD, "pages": 1}
+    text = tesseract.read_page(Path("page.png"))  # (a failure exits non-zero: the reader's caller takes it as ReadFailed)
+    return {"page_texts": [[1, tesseract.text_of_pages([text])]], "method": tesseract.METHOD, "pages": 1}
 
 
 def _pdf(pdf: Path) -> dict:

@@ -109,7 +109,6 @@ services:
     command: ["catix-worker"]
     environment:
       <<: *env
-      OCR_ROUTE: http://host.docker.internal:9931/v1   # LightOnOCR (llama.cpp) on the host, for the course files (worker/moodle_reader.py)
       OCR_PARALLEL: "4"
 
   # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
@@ -135,7 +134,6 @@ services:
     environment:
       <<: *env
       CATIX_CHROMIUM_PROFILE: /app/data/chromium-profile
-      OCR_ROUTE: http://host.docker.internal:9931/v1   # LightOnOCR (llama.cpp) on the host; it must listen on an address the container reaches
       OCR_PARALLEL: "4"
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
