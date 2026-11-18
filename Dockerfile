@@ -16,6 +16,9 @@ ARG PYTHON=python:3.13-slim-bookworm
 
 FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS build
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
+# On the build server one of the PyPI CDN addresses (151.101.64.223) is not reachable: a connection to it hangs until the
+# timeout, and DNS hands it out in turn. A short timeout and many retries make uv try the next address instead of failing.
+ENV UV_HTTP_TIMEOUT=15 UV_HTTP_RETRIES=10
 WORKDIR /app
 # apt over HTTPS, with retries: on the build server plain HTTP from a container is throttled to ~200 kB/s and times out
 # ("Unable to connect to deb.debian.org:http"), HTTPS is not (the base image has ca-certificates).
