@@ -27,6 +27,7 @@ from catix import bot_users
 from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import health
+from catix.common.llm_down import unreachable
 from catix.worker import moodle_reader
 from catix.db import pg
 from catix.agent import tracing
@@ -82,7 +83,7 @@ async def consume(client: redis.Redis, model) -> None:
     except redis.ResponseError as e:
         if "BUSYGROUP" not in str(e):
             raise
-    cursor = "0"  # First what was delivered but never acknowledged (a crash, a model outage), then new messages.
+    cursor = "0"  # First what was delivered but never acknowledged (a crash), then new messages. A model outage skips the message: no calendar extraction without the model.
     while True:
         try:
             reply: list[tuple[bytes, list[tuple[bytes, dict[bytes, bytes]]]]] | None = await client.xreadgroup(
@@ -94,12 +95,17 @@ async def consume(client: redis.Redis, model) -> None:
                 continue
             for entry_id, fields in entries:
                 chat_id, msg_id = int(fields[b"chat_id"]), int(fields[b"msg_id"])
-                await asyncio.to_thread(changes.process, model, chat_id, msg_id)
+                try:
+                    await asyncio.to_thread(changes.process, model, chat_id, msg_id)
+                except Exception as e:
+                    if not unreachable(e):
+                        raise
+                    log.warning("the language model is unreachable: message %s/%s is not read for the calendar", chat_id, msg_id)
                 await client.xack(STREAM, GROUP, entry_id)
         except (redis.ConnectionError, redis.TimeoutError) as e:
             log.warning("redis is unreachable (%s), retrying in %ds", e, RETRY_SECONDS)
             await asyncio.sleep(RETRY_SECONDS)
-        except Exception:  # noqa: BLE001 - mostly the model server being down: the entry stays unacknowledged
+        except Exception:  # noqa: BLE001 - the entry stays unacknowledged
             log.exception("reading a message failed, retrying in %ds", RETRY_SECONDS)
             cursor = "0"
             await asyncio.sleep(RETRY_SECONDS)
