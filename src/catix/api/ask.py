@@ -499,7 +499,7 @@ async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT
     """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, asking a helper, writing, as in the Telegram bot),
     `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources and the events it
     offers for the calendar), `cancelled`
-    ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}). A client's questions are answered one at a time, in the
+    ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}, and `code`: "llm_unavailable" when the language model cannot be reached). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events."""
     chat_id, files = await _chat_with_files(user, chat_id, query, attachment_ids)
     return _streamed(query, chat_id, user, files=files)
@@ -548,7 +548,10 @@ def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecisi
             await events.put(("error", {"detail": NOTHING_WAITS}))
         except Exception as e:
             log.warning("the agent failed (%s)", type(e).__name__)
-            await events.put(("error", {"detail": UNAVAILABLE if unreachable(e) else "ML service error"}))
+            if unreachable(e):
+                await events.put(("error", {"detail": UNAVAILABLE, "code": "llm_unavailable"}))  # the site falls back to GET /search/search
+            else:
+                await events.put(("error", {"detail": "ML service error"}))
         await events.put(None)
 
     async def generate():
