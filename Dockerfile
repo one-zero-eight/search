@@ -17,6 +17,10 @@ ARG PYTHON=python:3.13-slim-bookworm
 FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS build
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 WORKDIR /app
+# apt over HTTPS, with retries: on the build server plain HTTP from a container is throttled to ~200 kB/s and times out
+# ("Unable to connect to deb.debian.org:http"), HTTPS is not (the base image has ca-certificates).
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|' /etc/apt/sources.list.d/debian.sources \
+    && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries
 RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 COPY pyproject.toml uv.lock .python-version ./
@@ -45,6 +49,8 @@ RUN uv sync --frozen --no-dev --no-default-groups --group pdf --group browser
 FROM ${PYTHON} AS runtime
 ENV PYTHONUNBUFFERED=1 PATH="/app/.venv/bin:$PATH"
 WORKDIR /app
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|' /etc/apt/sources.list.d/debian.sources \
+    && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries
 COPY db ./db
 COPY courses.toml sites.yaml ./
 RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
