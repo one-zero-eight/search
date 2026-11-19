@@ -1,10 +1,12 @@
-# Ignore everything
-*
-
-# Except code
-!/src/
-!/pyproject.toml
-!/uv.lock
-
-# And ignore cache files in the code
+.venv
+.git
+data
+raw
+wiki
+experiments
+logo
 __pycache__
+*.pyc
+.env
+.env.*
+!.env.example
