@@ -57,7 +57,7 @@ def test_without_a_database_nothing_runs(monkeypatch):
     ["sites", "disover"], ["sites", "discover"], ["sites", "explore"], ["sites", "add", "https://example.org/"],
     ["sites", "accept", "lab"], ["sites", "reject", "lab"], ["sites", "review"], ["sites", "migrate"], ["sites", "compile"],
     ["regs"], ["regs", "fetch", "many"], ["regs", "fetch", "0"], ["regs", "compile"], ["regs", "reextract"],
-    ["rpd", "fetch", "--limit"], ["rpd", "compile"], ["papers", "compile"],
+    ["rpd", "fetch", "--limit"], ["rpd", "compile"], ["papers"],
     ["sveden"], ["agent"], ["layout"], ["compile"], ["link"], ["graph"], ["lint"], ["index"],
     ["autopilot"], ["autopilot", "accept"], ["fetch"], ["build", "--offline"],
     ["run", "--source"], ["run", "--no-push"], ["run", "--only-new"], ["import-wiki"],
@@ -72,7 +72,7 @@ def test_invalid_arguments_exit_two_before_work(words, capsys):
 @pytest.mark.parametrize("words,command,action", [
     ([], "status", None), (["status"], "status", None),
     (["eduwiki"], "eduwiki", "status"), (["sites"], "sites", "status"),
-    (["papers"], "papers", "status"), (["rpd"], "rpd", "status"),
+    (["rpd"], "rpd", "status"),
     (["run"], "run", None), (["build"], "build", None),
 ])
 def test_defaults(words, command, action):
@@ -81,8 +81,8 @@ def test_defaults(words, command, action):
 
 
 def test_run_options_are_collected():
-    parsed = cli.parse_args(["run", "--source", "sites", "files", "--source", "papers", "--site", "hotel", "--site", "campuslife", "--loop", "--build"])
-    assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (["sites", "files", "papers"], ["hotel", "campuslife"], True, True)
+    parsed = cli.parse_args(["run", "--source", "sites", "files", "--source", "eduwiki", "--site", "hotel", "--site", "campuslife", "--loop", "--build"])
+    assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (["sites", "files", "eduwiki"], ["hotel", "campuslife"], True, True)
     parsed = cli.parse_args(["run"])
     assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (None, None, False, False)
 
@@ -97,8 +97,6 @@ def test_run_options_are_collected():
     (["regs", "refresh"], "sources.regulations", "refresh", (), {}),
     (["rpd"], "sources.rpd", "status", (), {}),
     (["rpd", "refresh"], "sources.rpd", "refresh", (), {}),
-    (["papers"], "sources.pastpapers", "status", (), {}),
-    (["papers", "fetch"], "sources.pastpapers", "fetch", (), {}),
     (["sites"], "sources.sites", "status", (), {}),
     (["sites", "fetch", "apply", "hotel"], "sources.sites", "fetch", (["apply", "hotel"],), {"only_new": False, "documents": True}),
     (["sites", "fetch", "--only-new"], "sources.sites", "fetch", ([],), {"only_new": True, "documents": False}),
@@ -150,7 +148,7 @@ def test_build_rebuilds_and_optionally_embeds(embed, monkeypatch):
 
 @pytest.mark.parametrize("command", [
     [], ["run"], ["build"], ["import-wiki"], ["eduwiki"], ["eduwiki", "fetch"], ["regs"], ["regs", "fetch"],
-    ["rpd"], ["papers"], ["sites"], ["sites", "fetch"], ["sites", "new"],
+    ["rpd"], ["sites"], ["sites", "fetch"], ["sites", "new"],
 ])
 def test_help_is_available_at_each_level(command, capsys):
     with pytest.raises(SystemExit) as result:

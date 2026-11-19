@@ -1,7 +1,5 @@
-import pytest
-
 from catix.docs import ocr_worker
-from catix.docs.sources import ocr_queue, pastpapers, regulations, tesseract
+from catix.docs.sources import ocr_queue, regulations, tesseract
 from catix.docs.sources.ocr_queue import Scan
 
 
@@ -13,7 +11,6 @@ def test_the_worker_reads_only_what_waits_and_only_when_the_server_answers(monke
     monkeypatch.setattr(tesseract, "available", lambda: next(answers))
     calls: list[dict] = []
     monkeypatch.setattr(regulations, "read_new", lambda **kw: calls.append(kw) or ["k1"])
-    monkeypatch.setattr(pastpapers, "fetch", lambda **kw: pytest.fail("no paper waits"))
 
     assert ocr_worker.read_once() == (0, True)  # nothing queued
     assert ocr_worker.read_once() == (0, False)  # a scan waits, the server is away

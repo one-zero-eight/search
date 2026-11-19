@@ -33,7 +33,7 @@ AUDIENCES = ("student", "postgraduate", "applicant", "teacher", "staff", "manage
 
 @dataclass(frozen=True)
 class Document:
-    path: str  # 'regulations/<key>', 'sites/<site>/<slug>', 'course-programmes/<key>', 'past-papers/<subject>', 'eduwiki/<folder>/<slug>'
+    path: str  # 'regulations/<key>', 'sites/<site>/<slug>', 'course-programmes/<key>', 'eduwiki/<folder>/<slug>'
     meta: dict  # the keys and values the front matter of this page used to have
     body: str  # the markdown after the front matter
 

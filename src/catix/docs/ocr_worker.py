@@ -7,7 +7,7 @@ import traceback
 from datetime import datetime, timezone
 
 from catix.docs import build
-from catix.docs.sources import ocr_queue, pastpapers, regulations, tesseract
+from catix.docs.sources import ocr_queue, regulations, tesseract
 
 RESCAN = 30 * 60  # seconds: the queue looked at again without a wake
 AWAY = 60  # seconds before asking again when tesseract was missing
@@ -24,7 +24,7 @@ def now() -> str:
 
 
 def waiting() -> dict[str, list[str]]:
-    """source ('regs' | 'papers') -> the keys of its scans queued for OCR (not those too long)."""
+    """source ('regs') -> the keys of its scans queued for OCR (not those too long)."""
     out: dict[str, list[str]] = {}
     for scan in ocr_queue.scans():
         if not scan.too_long:
@@ -34,7 +34,7 @@ def waiting() -> dict[str, list[str]]:
 
 def read_once() -> tuple[int, bool]:
     """(documents read, whether tesseract is installed): the queued scans of the documents (regulations.read_new limited to
-    their keys) and of the past papers (pastpapers.fetch with OCR), within each one's page budget of a run."""
+    their keys), within the page budget of a run."""
     queue = waiting()
     if not queue:
         return 0, True
@@ -42,7 +42,6 @@ def read_once() -> tuple[int, bool]:
         return 0, False
     print(f"[{now()}] OCR: {', '.join(f'{source} {len(keys)}' for source, keys in queue.items())} scans wait", flush=True)
     read = len(regulations.read_new(prefixes=tuple(queue["regs"]), ocr=True, collect=False)) if "regs" in queue else 0
-    read += pastpapers.fetch(ocr=True) if "papers" in queue else 0
     return read, True
 
 

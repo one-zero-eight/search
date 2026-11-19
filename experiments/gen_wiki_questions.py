@@ -29,7 +29,6 @@ STRATA = [
     ("course-programmes", "official", 0.17, ["student", "teacher", "applicant"]),
     ("eduwiki/courses", "wiki", 0.11, ["student", "teacher"]),
     ("sites", "wiki", 0.16, ["applicant", "public", "student"]),
-    ("past-papers", "wiki", 0.03, ["student"]),
     ("eduwiki/people", "wiki", 0.03, ["student", "public"]),
     ("eduwiki/(procedures|programs|pages|schedules|calendars)", "wiki", 0.05, ["student", "applicant"]),
 ]

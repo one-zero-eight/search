@@ -55,7 +55,7 @@ def test_a_digest_that_is_not_a_full_sha256_is_refused(digest):
     assert previews.read(hit(archive_sha256=digest)) is None
 
 
-@pytest.mark.parametrize("path", ["sites/hotel/rooms", "eduwiki/courses/a", "past-papers/algebra", "/raw/course-programmes/a.md",
+@pytest.mark.parametrize("path", ["sites/hotel/rooms", "eduwiki/courses/a", "/raw/course-programmes/a.md",
                                   "course-programme/a", "other/regulations/a"])
 def test_only_regulations_and_course_programmes_have_previews(path):
     assert previews.describe(hit(path=path)) is None

@@ -12,7 +12,7 @@ from pathlib import Path
 
 from catix.docs import build, files, store
 
-FOLDERS = {"eduwiki", "regulations", "sites", "rpd", "past-papers"}  # the first segment of what is imported
+FOLDERS = {"eduwiki", "regulations", "sites", "rpd"}  # the first segment of what is imported
 SKIP = {"eduwiki/graph-cache.json", "regulations/proposals.json", "regulations/selection-cache.json"}
 BATCH = 500  # files between two lines of progress
 

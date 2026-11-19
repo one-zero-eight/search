@@ -6,9 +6,9 @@ from datetime import datetime
 
 from catix.db import pg
 from catix.docs import store
-from catix.docs.sources import eduwiki, pastpapers, regulations, rpd, sites
+from catix.docs.sources import eduwiki, regulations, rpd, sites
 
-PREFIXES = ("regulations/", "course-programmes/", "sites/", "past-papers/", "eduwiki/")
+PREFIXES = ("regulations/", "course-programmes/", "sites/", "eduwiki/")
 
 
 LOCK = threading.Lock()  # (the run and its OCR thread rebuild one after the other)
@@ -38,7 +38,6 @@ def _rebuild() -> dict[str, int]:
     for prefix, make in (
         ("regulations/", regulations.compile_all),
         ("course-programmes/", rpd.compile_all),
-        ("past-papers/", pastpapers.compile_all),
         ("eduwiki/", eduwiki.compile_all),
     ):
         print(f"== {prefix}", flush=True)

@@ -5,7 +5,6 @@
     rpd.py          course programmes (РПД) from the archives of sveden/education: documents under course-programmes/, by code only
     sites.py        the sites of the university and its services (its disclosure section sveden/ too): documents under sites/, their documents as regulations;
                     the pages that appeared on them every 6 hours (new-pages), all their pages again every week (sites)
-    pastpapers.py   past exam papers the students keep in Notion: documents under past-papers/, one per subject, by code only
     unvisited       (not scheduled) the links of known sites no run has read, before the schedule on every turn
     ocr_queue.py    the scans the sources queue for a manual run with OCR (no scheduled model switching), and apart from it
                     those too long for OCR; `catix-docs regs queue` shows them, the run tells the admins when they grow
@@ -101,19 +100,12 @@ def _new_pages() -> int:
     return total + rpd.fetch()
 
 
-def _papers() -> int:
-    from catix.docs.sources import pastpapers
-
-    return pastpapers.fetch(ocr=False)
-
-
 SOURCES = [
     Source("eduwiki", timedelta(days=6), _eduwiki, "eduwiki.innopolis.university: pages whose revision changed"),
     Source("new-pages", timedelta(hours=6), _new_pages, "the feed (or start page) of each site: the new pages it links, the new pages of other trusted sites they link, "
     "the trusted links of pages and documents no run has read, and through the documents they link (text layers only, scans stay queued for OCR)"),
     Source("files", timedelta(days=7), _files, "documents and archives read before that changed on the site (HEAD, ~1 request every 2 s)"),
     Source("sites", timedelta(days=7), _sites, "every site again, its documents (text layers only, scans stay queued for OCR) and the pages their text names, wave after wave"),
-    Source("papers", timedelta(days=7), _papers, "past exam papers in the students' Notion database: new rows and their files"),
 ]
 
 

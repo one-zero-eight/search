@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from catix.docs import files, runner
-from catix.docs.sources import tesseract, ocr_queue, opendataloader, pastpapers, regulations, sites
+from catix.docs.sources import tesseract, ocr_queue, opendataloader, regulations, sites
 
 LONG = regulations.MAX_OCR_PAGES + 1
 
@@ -73,30 +73,6 @@ def test_a_long_scan_changed_on_the_site_is_downloaded_and_looked_at_again(monke
     assert note["ocr"] == "queued" and note["pages"] == 3 and "refetch" not in note
 
 
-def test_a_past_paper_too_long_for_ocr_is_put_aside(monkeypatch):
-    from types import SimpleNamespace
-
-    monkeypatch.setattr(pastpapers, "PAUSE", 0)
-    url = "https://files.example/exam.pdf"
-    key = pastpapers.file_key(url)
-    monkeypatch.setattr(pastpapers, "rows", lambda client: [{"id": "r1", "space": "s", "subject": "Math", "year": "2026", "exam": "Final", "files": [("exam.pdf", url)]}])
-    requests = []
-    client = httpx.Client(transport=httpx.MockTransport(lambda req: requests.append(req.url) or httpx.Response(200, content=b"%PDF scan")))
-    monkeypatch.setattr(pastpapers.httpx, "Client", lambda **kw: contextlib.nullcontext(client))
-    monkeypatch.setattr(regulations, "pages_of", lambda pdf: pastpapers.MAX_SCAN_PAGES + 1)
-    monkeypatch.setattr(pastpapers.subprocess, "run", lambda *a, **kw: SimpleNamespace(stdout=""))
-    monkeypatch.setattr(tesseract, "text_of_pdf", lambda *a, **kw: pytest.fail("a scan too long for OCR was read"))
-    try:
-        assert pastpapers.fetch() == 1 and pastpapers.load()["r1"]["files"][key]["ocr"] == "too long"
-        assert pastpapers.fetch() == 0 and len(requests) == 1
-        files.write_json(pastpapers.INDEX, {"r1": {"subject": "Math", "year": "2026", "exam": "Final",  # (queued before the long ones were put aside)
-                                                    "files": {key: {"name": "exam.pdf", "ocr": "queued", "pages": 30}}}})
-        assert pastpapers.fetch() == 1 and pastpapers.load()["r1"]["files"][key] == {"name": "exam.pdf", "ocr": "too long", "pages": 30}
-        assert len(requests) == 1
-    finally:
-        client.close()
-
-
 def _scan(key, pages, too_long=False, source="regs", title=None):
     return ocr_queue.Scan(source, key, title or f"Документ {key}", f"https://example.org/{key}.pdf", pages, too_long, "2026-11-04T01:00:00+00:00")
 
@@ -107,19 +83,14 @@ def test_the_queue_shows_the_scans_waiting_and_apart_the_long_ones(monkeypatch, 
         files.write_json(f"r/{key}.json", note)
     monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"root": "r", "title": f"Положение {key}", "url": f"https://u.example/{key}.pdf"}
                                                           for key in ("short", "long")})
-    monkeypatch.setattr(pastpapers, "load", lambda: {"r-1": {"subject": "Math", "year": "2025", "exam": "Final", "files": {
-        "p1": {"name": "final.pdf", "ocr": "queued", "pages": 2}, "p2": {"name": "all.pdf", "ocr": "too long", "pages": 30},
-        "p3": {"name": "read.pdf", "sha256": "x"}}}})
     found = ocr_queue.scans()
-    assert [(s.source, s.key, s.pages, s.too_long) for s in found] == [
-        ("papers", "p1", 2, False), ("regs", "short", 3, False), ("papers", "p2", 30, True), ("regs", "long", LONG, True)]
-    assert found[1].failed == 2 and found[1].since.startswith("2026-11-01") and found[0].title == "Math 2025 Final: final.pdf"
-    assert found[0].url == f"{pastpapers.SITE}/r1"
+    assert [(s.source, s.key, s.pages, s.too_long) for s in found] == [("regs", "short", 3, False), ("regs", "long", LONG, True)]
+    assert found[0].failed == 2 and found[0].since.startswith("2026-11-01")
     ocr_queue.show(found)
     out = capsys.readouterr().out
     queue, apart = out.split("Too long for OCR")
-    assert queue.startswith("OCR queue: 2 scans, 5 pages") and "short" in queue and "tesseract failed 2x" in queue and "regs fetch" in queue and "papers fetch" in queue
-    assert "long" not in queue and "p2" not in queue and "2 scans, 71 pages" in apart and "https://u.example/long.pdf" in apart
+    assert queue.startswith("OCR queue: 1 scan, 3 pages") and "short" in queue and "tesseract failed 2x" in queue and "regs fetch" in queue
+    assert "long" not in queue and "1 scan, 41 pages" in apart and "https://u.example/long.pdf" in apart
 
 
 def test_the_message_names_the_new_scans_only_and_none_when_nothing_is_new():
@@ -127,7 +98,7 @@ def test_the_message_names_the_new_scans_only_and_none_when_nothing_is_new():
     assert ocr_queue.message(found, set()) is None
     text = ocr_queue.message(found, {("regs", "b")})
     assert text.startswith("🖨 Очередь OCR выросла: 2 скана, 7 стр. (новые: 1 скан, 4 стр.)") and "Документ b" in text and "Документ a" not in text
-    assert "📕" not in text and "catix-docs regs fetch" in text and "papers fetch" not in text
+    assert "📕" not in text and "catix-docs regs fetch" in text
     text = ocr_queue.message(found, {("regs", "c")})
     assert "🖨" not in text and text.startswith("📕 Слишком длинные для OCR сканы отложены, в очереди их нет: 1 скан") and "Документ c" in text
     many = [_scan(str(n), 1) for n in range(8)]

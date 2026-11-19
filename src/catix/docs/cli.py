@@ -8,14 +8,13 @@
     catix-docs regs fetch|refresh|queue                 # official regulations (PDF), see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
     catix-docs rpd fetch|refresh|status                 # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
     catix-docs sites fetch [SITE ...]|new|status|unvisited|request URL|docs   # the sites of the university, its services and the city, see sources/sites.py
-    catix-docs papers fetch|status                      # past exam papers from the students' Notion database, see sources/pastpapers.py
 
 Everything lives in Postgres (DATABASE_URL): the sources' state and extracted text in source_files, the documents in documents.
 
 The code is laid out by what each part does:
     sources/       what the documents are made from: each module asks one source what is new, keeps its state in source_files
                    and makes documents of it (eduwiki, regulations: the documents the sites link, rpd: course programmes,
-                   sites: the services' sites, pastpapers: past exams); sources/__init__.py says how often each is asked
+                   sites: the services' sites); sources/__init__.py says how often each is asked
     store.py       documents in the database for the agent's search;  chunks.py: how a document is cut into pieces
     build.py       all sources' documents;  runner.py: the run that keeps them current and serves the API's requests
 """
@@ -56,7 +55,6 @@ def parser() -> argparse.ArgumentParser:
         ("eduwiki", "Eduwiki pages", "status", ("fetch", "status")),
         ("regs", "Official regulations", None, ("fetch", "refresh", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "refresh", "status")),
-        ("papers", "Past exam papers", "status", ("fetch", "status")),
         ("sites", "University and city sites", "status", ("fetch", "new", "request", "status", "unvisited", "docs", "catalog")),
     ):
         group = command(commands, name, about)
@@ -153,10 +151,6 @@ def dispatch(args) -> None:
         from catix.docs.sources import sites
 
         sites.main(args)
-    elif cmd == "papers":
-        from catix.docs.sources import pastpapers
-
-        pastpapers.main(args)
     elif cmd == "rpd":
         from catix.docs.sources import rpd
 
