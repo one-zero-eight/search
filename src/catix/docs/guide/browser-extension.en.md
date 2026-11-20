@@ -18,6 +18,10 @@ https://innohassle.ru/extension, for Chrome, Edge and Firefox.
 - Course files, pages, announcements and assignment dates are also shared with the students of your verified study group. Grades, submissions and progress never are.
 - Turning the toggle off stops sending new data. Data already sent stays.
 
+## What does sync do with course chats?
+
+If a Moodle course links to a Telegram or MAX chat, sync adds that chat as a request to connect it to catix search (for your verified study group). The request waits for a moderator like one submitted by hand; the same link is never requested twice.
+
 ## Which files are read?
 
 - `.pdf .doc .docx .rtf .odt .ppt .pptx .odp .xls .xlsx .ods .txt .md .png .jpg .jpeg .webp`, up to 100 MiB.
