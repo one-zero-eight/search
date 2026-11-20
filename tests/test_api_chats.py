@@ -12,7 +12,7 @@ from pydantic import SecretStr
 from catix.agent.core import build_agent
 from catix.api import ask, chats
 from catix.api.auth import UserTokenData
-from catix.api.schemas import AskDecision, AskResponses
+from catix.api.schemas import AskDecision, AskResponses, SearchResponses
 from catix.common.citations import AnswerSource, ArchiveDocument, CitationLink
 from catix.db import pg
 from catix.settings import settings
@@ -126,6 +126,33 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
     history = chats.history(chat_id, owner)
     assert history is not None and [a.query for a in history.answers] == ["первый вопрос", "второй вопрос"]
     assert history.title == "Вопросы"
+
+
+def test_searches_are_turns_shown_to_the_agent_once(owner, monkeypatch):
+    script = [_ask("ask_chats", "вопрос"), AIMessage("Отчёт помощника."), AIMessage("Ответ.")]
+    monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
+                                                                            checkpointer=checkpointer))
+    monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
+    monkeypatch.setattr(ask.groups, "website_groups", lambda *a: [])
+    monkeypatch.setattr(ask.titles, "name", lambda question: "Вопросы")
+    user = UserTokenData(innohassle_id=owner, email="a@innopolis.university", telegram_id=None)
+    chat_id = chats.start(owner, "бот")
+    chats.save_search(AskResponses(query="/search бот", answer="", chat_id=chat_id,
+                                   search=SearchResponses(searched_for="бот", responses=[]), messages=[]))
+    assert len(chats.searches_since_answer(chat_id)) == 1
+    assert chats.checkpoint(chat_id) is None
+    history = chats.history(chat_id, owner)
+    assert history is not None and len(history.answers) == 1 and history.answers[0].search is not None
+
+    async def ask_once() -> list:
+        async with ask.memory():
+            await ask.run("что нашлось", chat_id, user)
+            state = await ask.agent().aget_state({"configurable": {"thread_id": chats.thread_of(chat_id)}})
+            return [m.text for m in state.values["messages"] if m.type == "ai"]
+
+    texts = asyncio.run(ask_once())
+    assert any(t.startswith("A plain search the user ran in this chat") and '"query": "бот"' in t for t in texts)
+    assert chats.searches_since_answer(chat_id) == []
 
 
 def test_a_question_waits_in_the_chat_for_the_decision_that_is_made_once(owner, monkeypatch, music_room, native_mcp):  # noqa: F811

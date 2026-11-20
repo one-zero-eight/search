@@ -3,7 +3,7 @@ each chat is and its name, its answers as the client got them with the user's ðŸ
 of the chat goes on from. A chat is named by its first question until the model names it (agent/titles.py) or the user
 renames it; the model never replaces the user's name. The agent's thread itself is in LangGraph's tables (AsyncPostgresSaver, api/ask.py `memory`).
 A question whose answer waits for the user's decision on actions (api/ask.py) is kept in the chat as `waiting` until the decision
-gives the answer or a new question drops it.
+gives the answer or a new question drops it. A search made in the chat (POST /ask/search) is kept as a row of api_answers with `search` set; it does not move the agent's checkpoint.
 
 The functions block: the API calls them with asyncio.to_thread.
 """
@@ -11,7 +11,7 @@ The functions block: the API calls them with asyncio.to_thread.
 from psycopg.types.json import Jsonb
 
 from catix.api import state
-from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SignupOffer, SignupSelection
+from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SearchResponses, SignupOffer, SignupSelection
 from catix.db import pg
 
 TITLE_MAX = 200  # characters of the first question kept as the chat's title
@@ -85,6 +85,29 @@ def save_waiting(response: AskResponses, checkpoint: str, interrupts: list[dict]
             "UPDATE api_chats SET waiting_checkpoint = %s, waiting = %s, updated_at = now() WHERE chat_id = %s",
             (checkpoint, Jsonb({"response": kept, "interrupts": interrupts}), response.chat_id),
         )
+
+
+def save_search(response: AskResponses) -> None:
+    """Keep a search made in the chat (`response.search`) as one of its turns. The agent's thread and the question waiting
+    for a decision stay as they are: the next question shows the search to the agent (`searches_since_answer`)."""
+    kept = response.model_dump(mode="json", exclude={"messages", "feedback", "feedback_comment"})
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO api_answers (chat_id, response) VALUES (%s, %s)", (response.chat_id, Jsonb(kept)))
+        conn.execute("UPDATE api_chats SET updated_at = now() WHERE chat_id = %s", (response.chat_id,))
+
+
+def searches_since_answer(chat_id: str) -> list[tuple[int, SearchResponses]]:
+    """(row id, the search) of the chat's searches made after its last answer of the assistant, the oldest first."""
+    with pg.connection() as conn:
+        rows = conn.execute(
+            """SELECT id, response->'search' AS search FROM api_answers
+               WHERE chat_id = %s AND jsonb_typeof(response->'search') = 'object'
+                 AND id > coalesce((SELECT max(id) FROM api_answers WHERE chat_id = %s
+                                    AND coalesce(jsonb_typeof(response->'search'), 'null') <> 'object'), 0)
+               ORDER BY id""",
+            (chat_id, chat_id),
+        ).fetchall()
+    return [(row["id"], SearchResponses(**row["search"])) for row in rows]
 
 
 def waiting(chat_id: str) -> tuple[str, list[dict], AskResponses] | None:

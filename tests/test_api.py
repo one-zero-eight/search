@@ -16,7 +16,7 @@ from pydantic import SecretStr
 
 from catix.api import ask, chats, search, state
 from catix.api.app import app
-from catix.api.schemas import AskAction, AskApproval, AskChat, AskChatHistory, AskDecision, AskResponses
+from catix.api.schemas import AskAction, AskApproval, AskChat, AskChatHistory, AskDecision, AskResponses, SearchResponses
 from catix.common.citations import AnswerSource, ArchiveDocument
 from catix.db.docs import DocHit
 from catix.innohassle import token
@@ -83,6 +83,18 @@ class FakeChats:
     def save_waiting(self, response: AskResponses, checkpoint: str, interrupts: list[dict]) -> None:
         self.chats[response.chat_id].update(waiting=(checkpoint, interrupts, response), updated=datetime.now(timezone.utc))
 
+    def save_search(self, response: AskResponses) -> None:
+        self.answers.append({"response": response, "span_id": None, "feedback": None, "comment": None})
+        self.chats[response.chat_id]["updated"] = datetime.now(timezone.utc)
+
+    def searches_since_answer(self, chat_id: str) -> list[tuple[int, SearchResponses]]:
+        found: list[tuple[int, SearchResponses]] = []
+        for row_id, row in enumerate(self.answers):
+            if row["response"].chat_id != chat_id:
+                continue
+            found = [*found, (row_id, row["response"].search)] if row["response"].search else []
+        return found
+
     def waiting(self, chat_id: str):
         return self.chats.get(chat_id, {}).get("waiting")
 
@@ -135,6 +147,22 @@ def kept(monkeypatch) -> FakeChats:
 def client(monkeypatch):
     monkeypatch.setattr(token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university", "telegram_id": 7} if t == "good" else None)
     return TestClient(app)  # (not entered: the app's start, which opens the agent's memory in Postgres, does not run)
+
+
+def test_a_search_is_kept_in_its_chat(client, kept, monkeypatch):
+    monkeypatch.setattr(search.doc_store, "search", lambda query, limit: [hit("guide/telegram.ru", "catix в Telegram", "https://t.me/catlxbot")])
+    response = client.post("/ask/search", json={"query": "/search бот", "searched_for": "бот"}, headers=AUTH)
+    assert response.status_code == 200
+    body = response.json()
+    chat_id = body["chat_id"]
+    assert chat_id and body["answer"] == "" and body["search"]["searched_for"] == "бот"
+    assert body["search"]["responses"][0]["source"]["breadcrumbs"] == ["catix"]
+    history = client.get(f"/ask/chats/{chat_id}", headers=AUTH).json()
+    assert history["answers"][0]["query"] == "/search бот" and history["answers"][0]["search"] is not None
+    assert [c["chat_id"] for c in client.get("/ask/chats", headers=AUTH).json()] == [chat_id]
+    assert len(kept.searches_since_answer(chat_id)) == 1
+    other = kept.start("other", "x")
+    assert client.post("/ask/search", json={"query": "/search a", "searched_for": "a", "chat_id": other}, headers=AUTH).status_code == 404
 
 
 def answering(answer="answer", span_id=None, checkpoint="cp-1"):

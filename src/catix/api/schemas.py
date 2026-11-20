@@ -241,6 +241,8 @@ class AskResponses(BaseModel):
     approval: AskApproval | None = None
     "The answer is not there yet: the assistant waits for the user's decision on these actions (`answer` says so). The decision "
     "(POST /ask/{chat_id}/decision) gives the answer; a new question in the chat instead drops them undone."
+    search: SearchResponses | None = None
+    "A plain search of the knowledge base kept in the chat (POST /ask/search), not an answer of the assistant: `answer` is empty and `search` holds the cards as GET /search/search gives them."
 
 
 class AskChat(BaseModel):
@@ -254,7 +256,7 @@ class AskChat(BaseModel):
 
 class AskChatHistory(AskChat):
     answers: list[AskResponses]
-    "The questions with their answers, the oldest first, as POST /ask/ gave them, with the user's votes."
+    "The questions with their answers and the searches made in the chat (`search` set), the oldest first, as POST /ask/ and POST /ask/search gave them, with the user's votes."
     waiting: AskResponses | None = None
     "The last question, when the assistant waits for the user's decision on its `approval` (POST /ask/{chat_id}/decision)."
 

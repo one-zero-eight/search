@@ -35,6 +35,7 @@ log = logging.getLogger("catix.api")
 router = APIRouter(prefix="/search", tags=["Search"])
 
 PREVIEW_CHARS = 500
+LIMIT = 10  # cards of a search by default
 HOSTS = {  # the sites of the old sources that the wiki holds
     "campuslife.innopolis.ru": (CampusLifeSource, "Campus life"),
     "hotel.innopolis.university": (HotelSource, "Hotel"),
@@ -93,11 +94,16 @@ async def search_by_query(
     query: str,
     sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
-    limit: int = 10,
+    limit: int = LIMIT,
 ) -> SearchResponses:
+    return await searched(user.innohassle_id, query, sources, limit)
+
+
+async def searched(innohassle_id: str, query: str, sources: list[InfoSources], limit: int = LIMIT) -> SearchResponses:
+    """The cards found for `query`, with a trace of its own in Phoenix (the query, the cards' titles and links, the steps of the search)."""
     started = time.monotonic()
     # A trace of its own in Phoenix: the query, the cards found (title and link), and the steps of the search under it.
-    with tracing.question("api-search", user.innohassle_id, query, name="search", kind="RETRIEVER") as traced:
+    with tracing.question("api-search", innohassle_id, query, name="search", kind="RETRIEVER") as traced:
         responses = await find(query, sources, limit)
         traced.answer(json.dumps([{"title": r.source.display_name, "url": r.source.url} for r in responses], ensure_ascii=False))
     log.info("search for `%s` (%d ms)", query, round((time.monotonic() - started) * 1000))
