@@ -111,6 +111,16 @@ def test_search_and_answer_sources_keep_the_exact_member(archive, monkeypatch):
     assert saved["url"] == ARCHIVE
 
 
+def test_a_guide_document_is_cited_as_a_guide(archive):
+    from dataclasses import replace
+    from catix.agent.sources import Collector, cite
+
+    guide = replace(archive.hit, path="guide/telegram.en", archive_member=None, trust="wiki")
+    collector = Collector(SimpleNamespace(state={"sources": {}}, config={}))
+    ref = collector.add_wiki(guide)
+    assert cite(f"Notifications [{ref}].", collector.new).sources[0].kind == "guide"
+
+
 def test_same_title_members_are_not_collapsed(archive):
     from dataclasses import replace
     from catix.agent import sources

@@ -158,14 +158,16 @@ def test_search_cards(client, monkeypatch):
         hit("eduwiki/a", "Retake", "https://eduwiki.innopolis.university/a", relevance=0.5),
         hit("sites/hotel/x", "Rooms", "https://hotel.innopolis.university/x"),
         hit("regulations/r", "Regulation", "https://example.org/r.pdf", trust="official", relevance=None),
+        hit("guide/catix.ru", "Что умеет catix", "https://innohassle.ru/search/ask"),
     ]
     monkeypatch.setattr(search.doc_store, "search", lambda query, limit: hits)
     body = client.get("/search/search", params={"query": "retake", "response_types": "link_to_source"}, headers=AUTH).json()
     assert body["searched_for"] == "retake"
     assert [(r["source"]["type"], r["source"]["display_name"]) for r in body["responses"]] == [
-        ("eduwiki", "Retake"), ("hotel", "Rooms"), ("eduwiki", "Regulation")]
+        ("eduwiki", "Retake"), ("hotel", "Rooms"), ("eduwiki", "Regulation"), ("eduwiki", "Что умеет catix")]
     assert body["responses"][0]["score"] == [0.9, 0.5]
     assert body["responses"][2]["source"]["breadcrumbs"] == ["Документы университета"]
+    assert body["responses"][3]["source"]["breadcrumbs"] == ["catix"]
 
     only_hotel = client.get("/search/search", params={"query": "q", "sources": "hotel", "response_types": "pdf"}, headers=AUTH).json()
     assert [r["source"]["type"] for r in only_hotel["responses"]] == ["hotel"]

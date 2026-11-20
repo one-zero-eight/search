@@ -42,10 +42,13 @@ HOSTS = {  # the sites of the old sources that the wiki holds
 }
 
 
-def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, archive_document: dict | None = None) -> Sources:
+def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, archive_document: dict | None = None,
+                guide: bool = False) -> Sources:
     """A document as a card. What the old sources do not have (the university's documents, other sites) is an
     EduWiki card whose breadcrumbs say where it comes from."""
     fields = {"display_name": title, "url": url, "preview_text": table_as_text(preview)[:PREVIEW_CHARS]}
+    if guide:
+        return EduwikiSource(**fields, breadcrumbs=["catix"])
     if site:
         host = (urlsplit(url).hostname or "").removeprefix("www.")
         card, name = HOSTS.get(host, (EduwikiSource, host or "Сайт"))
@@ -59,7 +62,7 @@ def make_source(title: str, url: str, preview: str, *, site: bool, trust: str, a
 def to_source(hit: doc_store.DocHit) -> Sources:
     document = previews.describe(hit)
     return make_source(hit.title, hit.resource or "", hit.text, site=hit.path.startswith("sites/"), trust=hit.trust,
-                       archive_document=document)
+                       archive_document=document, guide=hit.path.startswith("guide/"))
 
 
 def to_responses(hits: list[doc_store.DocHit], sources: list[InfoSources]) -> list[SearchResponse]:

@@ -6,9 +6,9 @@ from datetime import datetime
 
 from catix.db import pg
 from catix.docs import store
-from catix.docs.sources import eduwiki, regulations, rpd, sites
+from catix.docs.sources import eduwiki, guide, regulations, rpd, sites
 
-PREFIXES = ("regulations/", "course-programmes/", "sites/", "eduwiki/")
+PREFIXES = ("regulations/", "course-programmes/", "sites/", "eduwiki/", "guide/")
 
 
 LOCK = threading.Lock()  # (the run and its OCR thread rebuild one after the other)
@@ -32,6 +32,12 @@ def rebuild() -> dict[str, int]:
         return counts
 
 
+def sync_guide() -> dict[str, int]:
+    """The guide documents (sources/guide.py) made what the repo's files say; unchanged ones are left alone."""
+    with LOCK:
+        return store.sync(guide.PREFIX, guide.compile_all())
+
+
 def _rebuild() -> dict[str, int]:
     """The documents of every source from what source_files holds: changed ones rewritten, gone ones removed."""
     counts: Counter[str] = Counter()
@@ -39,6 +45,7 @@ def _rebuild() -> dict[str, int]:
         ("regulations/", regulations.compile_all),
         ("course-programmes/", rpd.compile_all),
         ("eduwiki/", eduwiki.compile_all),
+        ("guide/", guide.compile_all),
     ):
         print(f"== {prefix}", flush=True)
         counts.update(store.sync(prefix, make()))

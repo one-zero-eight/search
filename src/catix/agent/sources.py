@@ -90,6 +90,7 @@ class Collector:
         points to the university's own document; a piece that cites pages names them."""
         fields = {"wiki": True, "title": hit.title, "clause": hit.clause, "section": hit.heading, "link": hit.resource, "trust": hit.trust,
                   "site": hit.path.startswith("sites/"),
+                  "guide": hit.path.startswith("guide/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
         if document := previews.describe(hit):
             fields["archive_document"] = document
@@ -189,7 +190,7 @@ def _source(number: int, source: dict) -> AnswerSource:
                             kind="web", official=bool(source.get("official_site")))
     if source.get("wiki"):
         trust = source.get("trust")
-        kind = "official_document" if trust == "official" else "website" if source.get("site") else "eduwiki"
+        kind = "official_document" if trust == "official" else "guide" if source.get("guide") else "website" if source.get("site") else "eduwiki"
         return AnswerSource(number=number, title=source["title"], url=source.get("link"), kind=kind,
                             archive_document=source.get("archive_document"), official=trust == "official")
     return AnswerSource(number=number, title=source["chat_title"], url=source.get("link"), kind="chat",

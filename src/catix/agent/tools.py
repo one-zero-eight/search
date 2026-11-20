@@ -476,9 +476,13 @@ KINDS = {
 # 4061 of 4490 on 2026-11-01. Labelled eduwiki, a news item of media.innopolis.university was cited as an eduwiki page.
 SITE_KIND = "a page of a site of the university or of Innopolis (news, events, admission, courses; may be outdated)"
 SITES = "sites/"
+GUIDE_KIND = "catix's own guide: what the assistant, its Telegram bot and the InNoHassle browser extension do and how to use them"
+GUIDE = "guide/"
 
 
 def _kind(hit) -> str:
+    if hit.path.startswith(GUIDE):
+        return GUIDE_KIND
     return SITE_KIND if hit.trust == "wiki" and hit.path.startswith(SITES) else KINDS[hit.trust]
 
 

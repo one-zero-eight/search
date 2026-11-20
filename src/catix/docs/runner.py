@@ -17,6 +17,7 @@ either grows, the admins are told in Telegram, of each scan once.
 Runs one at a time (an advisory lock of Postgres). Its state (when each source was asked, the scans the admins were told of,
 whether a rebuild is owed) is in docs_meta, key 'runner'. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
 Under `--loop` three threads work beside the sources: the document thread (document_worker.py) reads the documents the crawl registers, the OCR thread (ocr_worker.py) reads the scans queued, the flush thread (flusher.py) rebuilds every 10 minutes when something was written; one request at a time to a host across them (sources/hosts.py).
+Under `--loop` the guide of the repo (sources/guide.py) is synced once at the start.
 """
 
 import json
@@ -226,6 +227,16 @@ def serve_new_site(request: parse_requests.Request, started: datetime) -> None:
     tell_admins(f"Новый сайт {found.name}: {report}")
 
 
+def sync_guide() -> None:
+    """At the start of the loop: the guide of the repo indexed (sources/guide.py); a failure is logged, the loop goes on."""
+    try:
+        counts = build.sync_guide()
+    except Exception:  # noqa: BLE001 - a broken guide must not stop the sources
+        traceback.print_exc()
+        return
+    print(f"== guide/: {counts}", flush=True)
+
+
 def main(args: Namespace) -> None:
     names, sites = args.source, getattr(args, "site", None)
     if sites and "sites" not in (names or []):
@@ -241,6 +252,7 @@ def main(args: Namespace) -> None:
         from catix.docs.sources import hosts
 
         hosts.share()  # (the threads read the same hosts: one request at a time to each)
+        sync_guide()
         document_worker.start()  # (the documents read beside the crawl)
         ocr_worker.start()  # (the OCR queue is read as scans arrive, beside the sources)
         flusher.start()  # (what the threads read reaches the search every flusher.EVERY seconds, not at the end of the turn)
