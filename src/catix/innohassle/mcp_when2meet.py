@@ -15,7 +15,7 @@ from catix.innohassle.mcp_declarations import (
 )
 
 
-@tool(**metadata())
+@tool(**metadata(usage="When2Meet polls only, not a calendar or room bookings; slots and answers of one poll are in when2meet_get_meeting."))
 @result_boundary()
 def when2meet_get_my_meetings(
     status: Literal['active', 'archived'] = 'active',
@@ -80,7 +80,7 @@ def when2meet_create_meeting(
     return {'done': True, 'meeting': _details(confirmed)}
 
 
-@tool(**metadata(write=True, usage="Replaces ALL the asker's marked slots ([] clears them): read the poll first and keep existing marks unless asked to replace them. Never publish availability inferred from a calendar without the user's request."))
+@tool(**metadata(write=True, usage="Replaces ALL the asker's marked slots ([] clears them): read the poll first and keep existing marks unless asked to replace them. Slots are RFC 3339 with +03:00. Never publish availability inferred from a calendar without the user's request."))
 @result_boundary(write=True)
 def when2meet_set_my_availability(
     meeting_ref: when2meet.MeetingRef,

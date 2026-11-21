@@ -110,7 +110,7 @@ def _read(
     return actions.read(path, response_model, parameters, token, action_id=action_id, note=note)
 
 
-@tool(**_metadata(usage="Live state needs sign-in. Unknown is not zero; offline=false alone does not prove printing works; an error is not an empty list."))
+@tool(**_metadata(usage="Live state only (online, paper, toner), and it needs sign-in. You cannot print files, cancel print jobs or scan; a map gives only a location. Unknown is not zero; offline=false alone does not prove printing works; an error is not an empty list."))
 @result_boundary()
 def printers_print_get_printers_status(
     *, token: str = Depends(require_innohassle),
@@ -133,7 +133,7 @@ def printers_print_get_printers_status(
     return actions.ReadResult[actions.PrinterStatus].model_validate(result)
 
 
-@tool(**_metadata())
+@tool(**_metadata(usage="A location only, never live printer state (that is printers_print_get_printers_status) or room availability. Search with English keywords."))
 @result_boundary()
 def maps_scenes_search_areas(query: Annotated[str, Field(min_length=1)]) -> actions.ReadResult[actions.AreaHit]:
     """Find a room, place or printer on the campus map / Найти аудиторию, место или принтер на карте.
@@ -182,7 +182,7 @@ def clubs_get_clubs_list_clubs__get() -> actions.ReadResult[actions.Club]:
     return actions.ReadResult[actions.Club].model_validate(result)
 
 
-@tool(**_metadata())
+@tool(**_metadata(usage="The music room is a separate service, never a classroom. Occupied slots of one day only; free windows are music_get_available_windows."))
 @result_boundary()
 def music_bookings_daily_bookings(date: date) -> actions.ReadResult[actions.Booking]:
     """Music room bookings for a day / Занятость музыкальной комнаты за день.

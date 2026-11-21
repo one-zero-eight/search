@@ -36,7 +36,10 @@ def test_native_search_schema_and_direct_read_with_separate_credentials(native):
         async with connection(token='alice', sport_token='sport-alice') as client:
             result = (await client.call_tool('search_tools', {'query': 'sport checkin training'})).data
             sport = next(item for item in result if item['name'] == 'sport_sport_checkin')
-            assert set(sport) == {'name', 'description', 'inputSchema'}
+            assert set(sport) == {'name', 'description', 'inputSchema', 'usage'}  # `usage` only for tools that declare it
+            assert 'training_id' in sport['usage'] and isinstance(sport['usage'], str)
+            undeclared = next(item for item in result if item['name'] == 'sport_get_training')
+            assert set(undeclared) == {'name', 'description', 'inputSchema'}
             assert 'runtime' not in sport['inputSchema']['properties']
             assert sport['inputSchema']['additionalProperties'] is False
             annotations = registered_tools()['sport_sport_checkin'].annotations

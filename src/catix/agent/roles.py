@@ -222,31 +222,23 @@ uses both searches; for a list/count, disclose this source limit and use live se
 
 MCP_RULES = """\
 InNoHassle tools:
-- get_my_schedule is a host tool: call it by its own name, never through search_api_tools or call_api_tool. Every other
-  operation is in the MCP catalogue: find it with search_api_tools (exact name, inputSchema,
-  and `usage` rules you follow), then call_api_tool with arguments from that schema; {} only when none are needed.
-- Which read:
-  - the asker's own agenda ("моё расписание", "что у меня завтра") -> get_my_schedule, once: it already holds AI Calendar,
-    bookings, sport and enrolments. A group's public timetable -> schedule_get_schedule, only when a group timetable is
-    asked for or as a labelled partial fallback without sign-in.
-  - an instructor's classes -> timetable_get_instructor_schedule; this term's courses and teachers ->
-    timetable_get_courses; classes in a room or rooms free of classes -> timetable_get_room_timetable; locations ->
-    maps_find_room; clubs -> clubs_get_clubs; published events and how to enrol -> events_get_university_events
-    (English keywords for maps, clubs and events).
-  - a free or bookable university room for an interval -> rooms_get_free_rooms. The music room (музкомната) is a separate
-    service, never a classroom: free windows -> music_get_available_windows, occupied intervals ->
-    music_get_music_room_schedule.
-  - Sport: hours, medical group, check-ins -> sport_get_my_sport; trainings -> sport_get_sport_trainings; sports and
-    trainers -> sport_get_sports.
-  - When2Meet polls -> when2meet_get_my_meetings, when2meet_get_meeting.
-  - live printer state (online, paper, toner) -> printers_print_get_printers_status; a map gives only a location. You cannot
-    print files, cancel print jobs or scan.
+- get_my_schedule is a host tool: call it by its own name. Every other operation is in the MCP catalogue: search_api_tools
+  (name, inputSchema and the `usage` rules you follow), then call_api_tool with arguments from that schema; {} only when none.
+- Routing:
+  - own agenda ("моё расписание") -> get_my_schedule, once; a group's public timetable -> schedule_get_schedule; an
+    instructor -> timetable_get_instructor_schedule; this term's courses and teachers -> timetable_get_courses.
+  - classes in a room or rooms free of classes -> timetable_get_room_timetable; a free or bookable room for an interval ->
+    rooms_get_free_rooms; the music room (музкомната) is never a classroom: music_get_available_windows (free),
+    music_get_music_room_schedule (occupied).
+  - maps_find_room: a location only (printer state: printers_print_get_printers_status); clubs_get_clubs;
+    events_get_university_events (English keywords for maps, clubs, events).
+  - sport_get_my_sport, sport_get_sport_trainings, sport_get_sports; when2meet_get_my_meetings, when2meet_get_meeting.
 - Mutations through call_api_tool, each with the user's approval: rooms_book_room, music_book_music_room,
   events_enroll_in_event, sport_sport_checkin, account_cancel_booking, when2meet_create_meeting,
-  when2meet_set_my_availability, events_create_draft, events_update_draft.
-- A write that timed out may have happened: never repeat it.
-- Dates: work them out from the current date below; local HH:MM for room and music bookings, RFC 3339 with an offset
-  (+03:00) for When2Meet and Events.
+  when2meet_set_my_availability, events_create_draft, events_update_draft. A write that timed out may have happened: never
+  repeat it.
+- Dates: from the current date below; local HH:MM for room and music bookings, RFC 3339 with an offset (+03:00) for
+  When2Meet and Events.
 """
 SUPERVISOR += "\n" + MCP_RULES
 

@@ -400,7 +400,7 @@ def rooms_get_free_rooms(
     *, token: str = Depends(require_innohassle),
 ) -> dict:
     """Room booking availability: find a free room or classroom for an exact interval.
-    Найти свободные аудитории и комнаты для бронирования на указанное время.
+    Найти свободные аудитории и комнаты для бронирования на указанное время: аудитория свободна, свободная аудитория.
 
     Default for generic free/bookable room requests, including "find a room for me".
     Check room booking times, occupancy and the signed-in user's access, without reading their personal agenda.
@@ -615,7 +615,7 @@ def _music_windows(day: date, now: datetime, occupied: list[tuple[datetime, date
     return windows
 
 
-@tool(**metadata(usage="Music room service windows for one day: bookings, access and the asker's quota, NOT their free time. For an exact interval pass both time_from and time_to (duration_minutes alone is not the same); pass duration_minutes only if the user gave a duration. Exact results concern only requested_interval; a refusal means only its own reason, never occupancy. Recommend only available windows; unverified is unknown, and complete=false is not 'no time'. Never compute extra windows from gaps. Windows follow the half-hour grid; latest_start, duration and remaining quota limit them, so a long window does not allow booking all of it. Quotas apply to the requested date."))
+@tool(**metadata(usage="The music room (музкомната) is a separate service, never a classroom; free windows here, occupied intervals are music_get_music_room_schedule. Times are local HH:MM. Music room service windows for one day: bookings, access and the asker's quota, NOT their free time. For an exact interval pass both time_from and time_to (duration_minutes alone is not the same); pass duration_minutes only if the user gave a duration. Exact results concern only requested_interval; a refusal means only its own reason, never occupancy. Recommend only available windows; unverified is unknown, and complete=false is not 'no time'. Never compute extra windows from gaps. Windows follow the half-hour grid; latest_start, duration and remaining quota limit them, so a long window does not allow booking all of it. Quotas apply to the requested date."))
 @result_boundary()
 def music_get_available_windows(
     day: date,
@@ -625,7 +625,7 @@ def music_get_available_windows(
     *, token: str = Depends(require_innohassle),
 ) -> dict:
     """Music Room service availability: bookable intervals and free windows for one day, NOT the user's personal free time.
-    Свободные окна музыкальной комнаты без проверки личного расписания.
+    Свободные окна музыкальной комнаты (музкомната): музыкальная комната свободна, без проверки личного расписания.
 
     Default for ordinary Music Room availability, including "find a music room" or "can I book".
     Does not read classes, Sport or AI Calendar; service access and personal booking quotas still apply.
@@ -743,7 +743,7 @@ def _music_availability(day: date, duration_minutes: int | None, token: str, *,
     return result
 
 
-@tool(**metadata(write=True, usage="Book only the exact interval the user asked for. The host rechecks the asker's agenda before approval and again before execution. If it is taken or refused, report the reason and the returned alternatives; never pick another slot or retry."))
+@tool(**metadata(write=True, usage="The music room is a separate service, never a classroom (rooms_book_room books classrooms). Times are local HH:MM. Book only the exact interval the user asked for. The host rechecks the asker's agenda before approval and again before execution. If it is taken or refused, report the reason and the returned alternatives; never pick another slot or retry."))
 @result_boundary(write=True)
 def music_book_music_room(
     day: date, time_from: ClockTime, time_to: ClockTime,

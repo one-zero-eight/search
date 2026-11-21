@@ -112,7 +112,7 @@ def sport_get_training(
                          "starts_at": start.isoformat(), "ends_at": end.isoformat()}}
 
 
-@tool(**metadata(usage="This semester's sport hours (done, required, debt, left, days to the end), medical group and check-ins."))
+@tool(**metadata(usage="The asker's own sport: this semester's hours (done, required, debt, left, days to the end), medical group and check-ins."))
 @result_boundary()
 def sport_get_my_sport(*, token: str = Depends(require_sport)) -> dict:
     """Personal Sport summary: hours earned/required, debt, medical group and trainings.
@@ -213,13 +213,15 @@ def sport_get_sport_trainings(
     return result
 
 
-@tool(**metadata())
+@tool(**metadata(usage="Sports and their groups and trainers, not the asker's own hours or check-ins (sport_get_my_sport) and not a list of trainings (sport_get_sport_trainings)."))
 @result_boundary()
 def sport_get_sports(
     sport: Annotated[str | None, Field(max_length=60)] = None,
     *, token: str = Depends(require_sport),
 ) -> dict:
-    """List available sports or details for a sport. Requires separate Sport sign-in."""
+    """List available sports or details for a sport: groups, capacity and trainers. Requires separate Sport sign-in.
+    Спорт, виды спорта, секции, тренеры.
+    """
     from catix.innohassle import sport as sport_api
     from catix.innohassle.client import ServiceError
 

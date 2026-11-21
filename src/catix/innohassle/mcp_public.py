@@ -214,7 +214,7 @@ def _instructor(description: str) -> str | None:
     return match.group(1).strip() if match else None
 
 
-@tool(**metadata(usage="The PUBLIC timetable of a study group, not the asker's selected streams or calendar; it may hold several English streams and cannot tell which is theirs. Omit group to use the trusted profile group, or pass a group the user named; if neither is known, ask."))
+@tool(**metadata(usage="The PUBLIC timetable of a study group, not the asker's selected streams or calendar; it may hold several English streams and cannot tell which is theirs. The asker's own agenda is the host tool get_my_schedule: use this only when a group timetable is asked for, or as a labelled partial fallback without sign-in. Omit group to use the trusted profile group, or pass a group the user named; if neither is known, ask."))
 @result_boundary()
 def schedule_get_schedule(
     group: Annotated[str, Field(pattern="\\S")],
@@ -223,6 +223,7 @@ def schedule_get_schedule(
     query: str | None = None,
 ) -> dict:
     """Public class schedule for an explicitly selected study group, with date/title filters.
+    Расписание группы, расписание учебной группы.
 
     Never guess a group. The client resolves trusted profile defaults before calling.
     Returns deduplicated classes, dates, rooms and instructors, not personal bookings.
@@ -286,7 +287,7 @@ def schedule_get_schedule(
     return result
 
 
-@tool(**metadata())
+@tool(**metadata(usage="A location only (building, floor, area), never live printer state (that is printers_print_get_printers_status) or room availability (rooms_get_free_rooms). Search with English keywords."))
 @result_boundary()
 def maps_find_room(query: str) -> dict:
     """Public campus map search with room descriptions, people and booking capability.
@@ -329,6 +330,7 @@ def clubs_get_clubs(
     include_inactive: bool = False,
 ) -> dict:
     """Public university clubs: list/filter clubs or search their details, leaders and links.
+    Клубы, кружки университета.
 
     Defaults to active clubs. Query selects detailed matching clubs, best match first, rather than an inventory; it is
     matched to English names and descriptions (typos and Russian transliteration tolerated).
@@ -434,12 +436,14 @@ def events_get_event(event_id: Annotated[str, Field(pattern="^[0-9a-f]{24}$")]) 
     return {'event': _event_details(innohassle.event(event_id, fresh=True), event_id)}
 
 
-@tool(**metadata(usage="Each event's id and how to enrol. An event taking place in a period is not registration being open then."))
+@tool(**metadata(usage="Published events, searched by title with English keywords. Each event's id and how to enrol. An event taking place in a period is not registration being open then."))
 @result_boundary()
 def events_get_university_events(
     date_from: date | None = None, date_to: date | None = None, query: str | None = None
 ) -> dict:
-    """Public university events for a date range, optionally filtered by title."""
+    """Public university events for a date range, optionally filtered by title.
+    Мероприятия университета, события, лекции, как записаться.
+    """
     from catix.innohassle import client as innohassle
 
     start = date_from or datetime.now(settings.tz).date()

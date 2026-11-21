@@ -67,10 +67,11 @@ def _room_id(text: str) -> str:
     return match.group(0) if match else text.strip()
 
 
-@tool(**metadata())
+@tool(**metadata(usage="This term's courses and who teaches them, from the timetable only. For programmes and what a course covers use search_wiki alongside, and say which term or programme each fact is for."))
 @result_boundary()
 def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=80)]) -> dict:
     """Public course and instructor search in the official timetable.
+    Курсы семестра, кто ведёт курс, преподаватели.
 
     Query a teacher's surname or a course title; returns blocks, weekly classes,
     instructor roles and available contact information.
@@ -222,7 +223,7 @@ def timetable_get_instructor_schedule(
     }
 
 
-@tool(**metadata(usage="Classes only. Free of classes is not bookable: bookings, meetings, access limits and locked doors are not shown; bookability is rooms_get_free_rooms."))
+@tool(**metadata(usage="Classes in a room and rooms free of classes, nothing else. Free of classes is not bookable: bookings, meetings, access limits and locked doors are not shown; bookability is rooms_get_free_rooms. The music room is not a classroom."))
 @result_boundary()
 def timetable_get_room_timetable(
     day: date | None = None,
@@ -231,6 +232,7 @@ def timetable_get_room_timetable(
     time_to: ClockTime | None = None,
 ) -> dict:
     """Public room timetable and rooms free of classes for a day/time interval.
+    Расписание аудитории, занятия в аудитории, аудитории без пар.
 
     Not booking availability: bookings and locked rooms are not accounted for.
     """
@@ -291,7 +293,7 @@ def timetable_get_room_timetable(
     }
 
 
-@tool(**metadata(usage="Occupied intervals only. If none overlap the period, say 'no bookings'; opening hours and access are not verified."))
+@tool(**metadata(usage="The music room is a separate service, never a classroom. Occupied intervals only. If none overlap the period, say 'no bookings'; opening hours and access are not verified. Free windows are music_get_available_windows."))
 @result_boundary()
 def music_get_music_room_schedule(date_from: date | None = None, date_to: date | None = None) -> dict:
     """Music room schedule over a date range: occupied booking intervals and access instructions.
