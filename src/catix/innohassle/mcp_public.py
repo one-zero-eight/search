@@ -4,6 +4,7 @@ import json
 import math
 import re
 from datetime import date, datetime, time, timedelta
+from difflib import SequenceMatcher
 from typing import Annotated, Literal
 
 import icalendar
@@ -58,6 +59,91 @@ def _doc_to_text(raw: str) -> str:
 def _matches(query: str, *fields: str | None) -> bool:
     haystack = " ".join((f for f in fields if f)).lower()
     return all((word in haystack for word in query.lower().split()))
+
+
+_RU_TO_LAT = {
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "zh", "з": "z", "и": "i",
+    "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t",
+    "у": "u", "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch", "ъ": "", "ы": "y", "ь": "",
+    "э": "e", "ю": "yu", "я": "ya",
+}  # Cyrillic -> Latin, close to the `transliteration` library the website uses
+
+
+_RU_KEYBOARD = {  # a Russian word typed with the English layout still on: the Cyrillic letter -> the Latin key
+    "й": "q", "ц": "w", "у": "e", "к": "r", "е": "t", "н": "y", "г": "u", "ш": "i", "щ": "o", "з": "p",
+    "ф": "a", "ы": "s", "в": "d", "а": "f", "п": "g", "р": "h", "о": "j", "л": "k", "д": "l", "я": "z",
+    "ч": "x", "с": "c", "м": "v", "и": "b", "т": "n", "ь": "m",
+}
+
+
+# Weight of each club field in the ranking, as on the website (its `description` is not indexed there).
+_CLUB_WEIGHTS = {"title": 5, "slug": 4, "short_description": 3, "leader": 2, "telegram": 2, "type": 1, "description": 1}
+
+
+_FUZZY_MIN_LENGTH = 5  # shorter words match only as a word prefix/substring: one typo in 4 letters is already ratio 0.75 ("robo" ~ "room")
+
+
+_FUZZY_MIN_RATIO = 0.7  # difflib ratio equivalent to the website's Fuse threshold 0.3 (score = 1 - ratio)
+
+
+def _query_variants(query: str) -> list[list[str]]:
+    """The query as typed, transliterated to Latin and with the Russian layout mapped to Latin keys, as words."""
+    lowered = query.lower()
+    variants = [
+        lowered,
+        "".join(_RU_TO_LAT.get(c, c) for c in lowered),
+        "".join(_RU_KEYBOARD.get(c, c) for c in lowered),
+    ]
+    return [words for i, v in enumerate(variants) if (words := v.split()) and v not in variants[:i]]
+
+
+def _word_quality(word: str, text: str, tokens: list[str]) -> float | None:
+    """How well one query word matches a field: 0 is a whole word, up to 0.3 the weakest accepted; None is no match."""
+    if word in tokens:
+        return 0.0
+    if any(t.startswith(word) for t in tokens):
+        return 0.05
+    if len(word) >= 3 and word in text:
+        return 0.1
+    if len(word) < _FUZZY_MIN_LENGTH:
+        return None
+    best = 0.0
+    for token in tokens:
+        for candidate in {token, token[: len(word)]}:
+            matcher = SequenceMatcher(None, word, candidate)
+            if matcher.real_quick_ratio() >= _FUZZY_MIN_RATIO and matcher.quick_ratio() >= _FUZZY_MIN_RATIO:
+                best = max(best, matcher.ratio())
+    return 1 - best if best >= _FUZZY_MIN_RATIO else None
+
+
+def _club_score(variants: list[list[str]], fields: dict[str, str]) -> float | None:
+    """Weighted match score of a club for a query (lower is better), None when it does not match.
+
+    Every word of a variant must match some field (a word-prefix, substring or, for words of 5+ characters, a similar
+    word); a word costs (quality + 0.05) / field weight at its best field, so title hits beat slug, short description,
+    leader and type hits. `description` is only searched for the word as a substring, at the worst quality, so a club
+    found only there ranks after any name hit. The best variant wins.
+    """
+    prepared = {name: (text.lower(), re.findall(r"\w+", text.lower())) for name, text in fields.items() if text}
+    best = None
+    for words in variants:
+        total = 0.0
+        for word in words:
+            costs = []
+            for name, (text, tokens) in prepared.items():
+                if name == "description":
+                    quality = 0.3 if word in text else None
+                else:
+                    quality = _word_quality(word, text, tokens)
+                if quality is not None:
+                    costs.append((quality + 0.05) / _CLUB_WEIGHTS[name])
+            if not costs:
+                break
+            total += min(costs)
+        else:
+            score = total / len(words)
+            best = score if best is None else min(best, score)
+    return best
 
 
 def _fmt(dt: date | datetime) -> str:
@@ -231,7 +317,12 @@ def maps_find_room(query: str) -> dict:
     return {"total": len(areas), "areas": areas[:MAX_AREAS]}
 
 
-@tool(**metadata())
+@tool(**metadata(usage=(
+    "Club names and descriptions are in English: search with English keywords (robotics, chess, music). Russian words "
+    "match only by transliteration of names (робо -> Robotics), not by meaning. If total is 0, retry with English "
+    "keywords or filter by type instead of concluding that no such club exists. A `note` about truncation means the "
+    "list is NOT complete."
+)))
 @result_boundary()
 def clubs_get_clubs(
     query: str | None = None, type: Literal["tech", "sport", "hobby", "art"] | None = None,
@@ -239,38 +330,48 @@ def clubs_get_clubs(
 ) -> dict:
     """Public university clubs: list/filter clubs or search their details, leaders and links.
 
-    Defaults to active clubs. Query selects detailed matching clubs rather than an inventory.
+    Defaults to active clubs. Query selects detailed matching clubs, best match first, rather than an inventory; it is
+    matched to English names and descriptions (typos and Russian transliteration tolerated).
+
+    Club names and descriptions are in English: write the query in English keywords (robotics, chess, music), not in
+    Russian; Russian words are matched only by transliteration of names (робо -> Robotics). If total is 0, retry with
+    English keywords or filter by type.
     """
     from catix.innohassle import client as innohassle
 
     leaders = innohassle.club_leaders()
-    found = []
+    variants = _query_variants(query) if query else []
+    ranked = []
     for club in innohassle.clubs():
         if not include_inactive and (not club["is_active"]):
             continue
         if type and club["type"] != type:
             continue
-        description = _doc_to_text(club["description"])
-        if query and (not _matches(query, club["title"], club["short_description"], description)):
-            continue
-        if not query:
-            found.append(
-                {"title": club["title"], "type": club["type"], "short_description": club["short_description"][:200]}
-            )
-            continue
         leader = leaders.get(club["leader_innohassle_id"] or "")
-        found.append(
-            {
-                "title": club["title"],
-                "type": club["type"],
-                "active": club["is_active"],
-                "short_description": club["short_description"],
-                "description": description[:1200],
-                "leader": leader and {"name": leader["name"], "telegram": leader["telegram_alias"]},
-                "links": [{"label": l.get("label"), "url": l["link"]} for l in club["links"]],
-            }
-        )
-    limit = MAX_CLUBS if query else MAX_CLUBS_LISTING
+        description = _doc_to_text(club["description"])
+        if not variants:
+            ranked.append((0.0, {"title": club["title"], "type": club["type"],
+                                 "short_description": club["short_description"][:200]}))
+            continue
+        score = _club_score(variants, {
+            "title": club["title"], "slug": club.get("slug"), "short_description": club["short_description"],
+            "leader": leader and leader["name"], "telegram": leader and leader["telegram_alias"],
+            "type": club["type"], "description": description,
+        })
+        if score is None:
+            continue
+        ranked.append((score, {
+            "title": club["title"],
+            "type": club["type"],
+            "active": club["is_active"],
+            "short_description": club["short_description"],
+            "description": description[:1200],
+            "leader": leader and {"name": leader["name"], "telegram": leader["telegram_alias"]},
+            "links": [{"label": l.get("label"), "url": l["link"]} for l in club["links"]],
+        }))
+    ranked.sort(key=lambda scored: scored[0])
+    found = [item for _, item in ranked]
+    limit = MAX_CLUBS if variants else MAX_CLUBS_LISTING
     result = {"total": len(found), "clubs": found[:limit]}
     if len(found) > limit:
         result["note"] = f"Only the first {limit} of {len(found)} are shown; narrow the query or filter by type."

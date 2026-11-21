@@ -1,6 +1,7 @@
 """Public campus domain tools over the production MCP HTTP connection."""
 
 import asyncio
+import json
 from datetime import date, datetime
 from types import SimpleNamespace
 
@@ -332,3 +333,78 @@ def test_club_listing_defaults_and_filters_are_not_generic_endpoint_semantics(pu
     assert result == {'total': 1, 'clubs': [{'title': 'Chess', 'type': 'hobby', 'short_description': 'Weekly games'}]}
     details = api_tools._call('clubs_get_clubs', runtime(), {'query': 'chess', 'type': 'hobby'})
     assert details['total'] == 1 and details['clubs'][0]['active'] is True
+
+
+def club(title, slug, short, kind='tech', active=True, description='', leader=None):
+    doc = {'type': 'doc', 'content': [{'type': 'paragraph', 'content': [{'type': 'text', 'text': description}]}]}
+    return {'title': title, 'slug': slug, 'type': kind, 'is_active': active, 'short_description': short,
+            'description': json.dumps(doc), 'leader_innohassle_id': leader, 'links': []}
+
+
+CLUBS = [
+    club('Innopolis Board Games Club', 'InnoBo', 'Tabletop evenings', 'hobby', description='Come and play'),
+    club('Innopolis Robotics Society', 'innopolis-robotics-society', 'Build robots', description='Drones and arms',
+         leader='lead'),
+    club('Innopolis University Chess Club', 'chess-club', 'Weekly chess games', 'hobby'),
+    club('Sports Girls', 'girls', 'Спортивный клуб для девушек', 'sport', description='Йога по вторникам'),
+    club('Old Robotics Lab', 'old-robotics-lab', 'Closed lab', active=False),
+    club('one-zero-eight community', 'one-zero-eight', 'Student developers', description='nlp, robotics and more'),
+]
+
+
+@pytest.fixture
+def clubs_http(http_boundary, monkeypatch):
+    monkeypatch.setattr(backend, 'clubs', lambda: CLUBS)
+    monkeypatch.setattr(backend, 'club_leaders', lambda: {'lead': {'name': 'Anna Petrova', 'telegram_alias': 'annap'}})
+
+
+def club_search(**arguments):
+    result = mcp_client.request_sync('call_tool', {'name': 'clubs_get_clubs', 'arguments': arguments}, None)
+    return [item['title'] for item in result['clubs']], result
+
+
+@pytest.mark.parametrize('query', ['робо', 'Робо', 'robo', 'ROBOTICS'])
+def test_club_search_transliterates_and_ranks_names_before_descriptions(clubs_http, query):
+    titles, result = club_search(query=query)
+    # The Board Games Club is not a fuzzy accident; the club mentioning robotics only in prose comes last.
+    assert titles == ['Innopolis Robotics Society', 'one-zero-eight community']
+    assert result['total'] == 2 and 'note' not in result
+    assert result['clubs'][0]['leader'] == {'name': 'Anna Petrova', 'telegram': 'annap'}
+
+
+def test_club_search_english_cyrillic_and_multiword(clubs_http):
+    assert club_search(query='chess')[0] == ['Innopolis University Chess Club']
+    assert club_search(query='чесс')[0] == ['Innopolis University Chess Club']
+    assert club_search(query='robtics')[0][0] == 'Innopolis Robotics Society'  # a typo
+    assert club_search(query='девушек')[0] == ['Sports Girls']  # Cyrillic text matches as typed
+    assert club_search(query='йога')[0] == ['Sports Girls']  # even only in the description
+    assert club_search(query='Robotics society')[0] == ['Innopolis Robotics Society']
+    assert club_search(query='robotics chess')[0] == []  # every word must match
+    assert club_search(query='шахматы')[0] == []
+    assert club_search(query='annap')[0] == ['Innopolis Robotics Society']  # the leader's telegram
+    assert club_search(query='Petrova')[0] == ['Innopolis Robotics Society']
+    assert club_search(query='InnoBo')[0][0] == 'Innopolis Board Games Club'  # slug, best hit first
+
+
+def test_club_search_keyboard_layout(clubs_http):
+    assert club_search(query='срущы')[0] == ['Innopolis University Chess Club']  # "chess" on the Russian layout
+
+
+@pytest.mark.parametrize('query', [None, '', '   '])
+def test_club_blank_query_lists_without_details(clubs_http, query):
+    titles, result = club_search(**({} if query is None else {'query': query}))
+    assert titles == [c['title'] for c in CLUBS if c['is_active']]
+    assert set(result['clubs'][0]) == {'title', 'type', 'short_description'}
+
+
+def test_club_filters_and_limits(clubs_http, monkeypatch):
+    assert club_search(query='robotics', include_inactive=True)[0] == [
+        'Innopolis Robotics Society', 'Old Robotics Lab', 'one-zero-eight community']
+    assert club_search(type='sport')[0] == ['Sports Girls']
+    assert club_search(query='robotics', type='hobby')[0] == []
+    many = [club(f'Club {n}', f'club-{n}', 'Matching text') for n in range(45)]
+    monkeypatch.setattr(backend, 'clubs', lambda: many)
+    titles, result = club_search()
+    assert len(titles) == 40 and result['total'] == 45 and 'first 40 of 45' in result['note']
+    titles, result = club_search(query='club')
+    assert len(titles) == 10 and result['total'] == 45 and 'first 10 of 45' in result['note']
