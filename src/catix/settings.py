@@ -62,11 +62,14 @@ class Settings(BaseSettings):
     # `agent_max_model_calls` calls, so its context stays bounded without it; this is a safety net.
     agent_context_trigger_tokens: int = Field(16000, gt=0)
     agent_keep_tool_results: int = Field(3, ge=0)
-    # A long conversation is summarized before the next question when the questions and answers of it (tool results are
-    # not counted: they are cut above) reach this many tokens (approximate: Russian is about 1.8x more in reality), so
-    # that the history never grows to the model's window (the llama.cpp slot, e.g. 17k). The last
-    # `agent_summarize_keep_messages` messages stay as they are.
-    agent_summarize_trigger_tokens: int = Field(3000, gt=0)
+    # A long conversation is summarized before the next question when the prompt that question would have reaches this many
+    # tokens: the whole history, tool results included, counted from its text at 2.5 characters a token (agent/core.py
+    # estimate_tokens, ~13% above the server's count on a real chat), plus the system prompt and the tool schemas (~7k,
+    # prompt_floor). The model's window is 32768 and every call reserves `llm_plan_max_tokens` (8192) of it for the answer,
+    # so a prompt may take 24.5k; 13k (~11.5k real) leaves ~13k for what the question itself reads (a schedule, a catalogue
+    # search and an API read were 11k tokens in a real chat). The results of earlier questions are removed before this is
+    # counted (agent/core.py PruneOldToolResults). The last `agent_summarize_keep_messages` messages stay as they are.
+    agent_summarize_trigger_tokens: int = Field(13000, gt=0)
     agent_summarize_keep_messages: int = Field(4, ge=2)
 
     # Arize Phoenix (docker-compose.yml): where the OpenInference spans of the agent go, e.g. http://localhost:6006. Unset = no

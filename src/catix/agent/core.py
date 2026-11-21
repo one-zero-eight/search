@@ -2,6 +2,7 @@
 
 import json
 import logging
+import math
 import re
 import time
 import uuid
@@ -1111,12 +1112,16 @@ class LocalCalendarAccessMiddleware(AgentMiddleware):
 class LoggingMiddleware(AgentMiddleware):
     """Logs context size and duration of every model call, and every tool call with its arguments."""
 
-    def _log_model(self, request: ModelRequest, started: float) -> None:
+    def _log_model(self, request: ModelRequest, response, started: float) -> None:
+        # `input_tokens` is the prompt as the server counted it (the model asks for it, build_agent): it shows how far
+        # the estimate of the messages (without the system prompt and the tool schemas) is from it.
+        usage = getattr(RunGuardMiddleware._last(response), "usage_metadata", None) or {}
         log.info(
-            "model call: %d messages, ~%d tokens in context, %.1fs",
+            "model call: %d messages, ~%d tokens in context, %.1fs%s",
             len(request.messages),
-            count_tokens_approximately(request.messages),
+            estimate_tokens(request.messages),
             time.monotonic() - started,
+            f", the server counted {usage['input_tokens']} prompt tokens" if usage.get("input_tokens") else "",
         )
 
     def _log_tool(self, request: ToolCallRequest, result: ToolMessage | Command, started: float) -> None:
@@ -1130,13 +1135,13 @@ class LoggingMiddleware(AgentMiddleware):
     def wrap_model_call(self, request, handler):
         started = time.monotonic()
         response = handler(request)
-        self._log_model(request, started)
+        self._log_model(request, response, started)
         return response
 
     async def awrap_model_call(self, request, handler):
         started = time.monotonic()
         response = await handler(request)
-        self._log_model(request, started)
+        self._log_model(request, response, started)
         return response
 
     def wrap_tool_call(self, request, handler):
@@ -1351,15 +1356,152 @@ Conversation:
 """
 
 
-def _dialogue_tokens(messages) -> int:
-    """Tokens of the questions and answers only: tool calls and results are cut in the request anyway (see below)."""
-    spoken = [m for m in messages if isinstance(m, HumanMessage) or (isinstance(m, AIMessage) and not m.tool_calls)]
-    return count_tokens_approximately(spoken)
+# The messages of a conversation in tokens, counted from their text: there is no tokenizer here, and the server's /tokenize is a
+# request of its own. Measured on one real supervisor call (21 730 prompt tokens, 2026-11-22), characters a token: the JSON
+# data of get_my_schedule and call_api_tool 1.9 to 2.1, search_api_tools (schemas) 3.9, helpers' reports 2.9, answers and
+# tool calls 2.7 to 2.8, the English system prompt 4.3, the tool schemas 3.75. At 2.5 the estimate of that whole call came out
+# 13% above the server's count (it is high for prose and low, by a fifth, for fresh JSON data: the trigger's margin covers that).
+CHARS_PER_TOKEN = 2.5
+PROMPT_CHARS_PER_TOKEN = 4.0  # the English system prompt and the tool schemas
+ASKER_PROMPT_CHARS = 3500  # the most prompt_for adds for one asker: group, sign-in notes, files, date (1.6k to 3.4k measured)
+
+
+def estimate_tokens(messages) -> int:
+    """What the messages take in a prompt: questions, answers, tool calls and tool results alike. The tool results were
+    55% of a real prompt, and the counter of the questions and answers only showed 1.8k of 21.7k and never summarized."""
+    return count_tokens_approximately(messages, chars_per_token=CHARS_PER_TOKEN)
+
+
+def prompt_floor(tools: Iterable[BaseTool]) -> int:
+    """Tokens every call of the supervisor takes before the conversation: its system prompt and the schemas of its tools,
+    worked out from what is built so that a longer prompt or one more tool moves it. The real ones were 2.9k and 3.2k;
+    this gives a little more."""
+    tools = list(tools)
+    helpers = [t.name.removeprefix("ask_") for t in tools if t.name.startswith("ask_")]
+    prompt = roles.SUPERVISOR + ABILITIES_PROMPT.format(abilities=roles.abilities(helpers, signed_in=True, calendar_writes=True))
+    schemas = count_tokens_approximately([], chars_per_token=PROMPT_CHARS_PER_TOKEN, tools=tools)
+    return schemas + math.ceil((len(prompt) + ASKER_PROMPT_CHARS) / PROMPT_CHARS_PER_TOKEN)
+
+
+PRUNED_RESULT = "[earlier result removed; ask again if needed]"
+# The results a later question looks up afresh (the prompt: "answer only from this turn's tool results"): once their question
+# is answered they only take room. `call_api_tool` is one unless it names an action (CONFIRMATION_TOOLS), `ask_*` are the
+# helpers' reports unless the helper did an action. What stays: the receipts of actions (done, or outcome unknown: the
+# answer to "did it work?" and the guard against doing it twice) and the files read for the user (the evidence of a follow-up).
+LOOKUP_RESULTS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule", "get_my_ai_calendar", "search_my_moodle",
+                            "get_my_moodle"})
+
+
+def _prunable(message: ToolMessage, calls: dict[str, dict]) -> bool:
+    name = message.name or ""
+    if message.content == PRUNED_RESULT:
+        return False
+    if name.startswith("ask_"):
+        return not (isinstance(message.artifact, dict) and message.artifact.get("action_receipts"))
+    if name == "call_api_tool":
+        target = (calls.get(message.tool_call_id) or {}).get("args", {}).get("name")
+        return isinstance(target, str) and target not in CONFIRMATION_TOOLS  # a call that cannot be matched stays
+    return name in LOOKUP_RESULTS
+
+
+class PruneOldToolResults(AgentMiddleware):
+    """When a new question arrives, the results of lookups of the earlier ones are replaced by PRUNED_RESULT, in the state.
+    A long chat had 55% of its prompt in them (12k tokens of 21.7k at the 12th question) and filled the model's window.
+    The messages stay with their ids, tool_call_id and name, so every tool call still has its result; what is already
+    removed is not touched again, and the results of the question being answered never are. Once per question and in the
+    state, not on every call: the request does not change between the calls of a question, and the checkpoint shrinks.
+    The system prompt ends in the date of the question, so the model server's cache of the earlier conversation was lost
+    at each new question anyway."""
+
+    @staticmethod
+    def _pruned(messages: list[BaseMessage]) -> list[ToolMessage]:
+        calls: dict[str, dict] = {}
+        pruned = []
+        for message in messages[:-1]:  # (the new question is the last)
+            if isinstance(message, AIMessage):
+                calls.update((call["id"], call) for call in message.tool_calls)
+            # A message without an id cannot be replaced in the state: it would be added once more.
+            elif isinstance(message, ToolMessage) and message.id and _prunable(message, calls):
+                pruned.append(ToolMessage(content=PRUNED_RESULT, tool_call_id=message.tool_call_id, name=message.name,
+                                          status=message.status, id=message.id))
+        return pruned
+
+    def before_model(self, state, runtime):
+        messages = state["messages"]
+        if not messages or not isinstance(messages[-1], HumanMessage):
+            return None
+        pruned = self._pruned(messages)
+        return {"messages": pruned} if pruned else None
+
+
+SUMMARY_INPUT_TOKENS = 8000  # the most the summarizer reads (estimate_tokens): its window is 32 768 and it writes up to 500
+SUMMARY_REPORT_CHARS = 1200  # of a helper's report in it
+OMITTED = "[earlier conversation omitted]"
 
 
 class TurnStartSummarization(SummarizationMiddleware):
     """Summarizes only when a new question arrives. In the middle of an answer the messages of this very question
-    (the tool results it is built on) must stay whole."""
+    (the tool results it is built on) must stay whole.
+
+    Whether to summarize is decided by `estimate_tokens` of the whole history plus `floor_tokens` (the system prompt and
+    the tool schemas), the size of the prompt the next call will have; never by the usage the last call reported: that
+    counted the results PruneOldToolResults has just removed and would summarize on question after question.
+
+    The summarizer reads the questions, the answers and the helpers' reports only (not the tool results, 36k tokens once,
+    more than its window), at most SUMMARY_INPUT_TOKENS of them. If it fails nevertheless (the server is down, the
+    request is refused) the question must not fail with it: the earlier messages are dropped, with OMITTED in their place."""
+
+    def __init__(self, model, *, floor_tokens: int = 0, **kwargs) -> None:
+        self.floor_tokens = floor_tokens
+        super().__init__(model, token_counter=self._prompt_tokens, **kwargs)
+
+    def _prompt_tokens(self, messages) -> int:
+        return estimate_tokens(messages) + self.floor_tokens
+
+    def _should_summarize_based_on_reported_tokens(self, messages, threshold) -> bool:
+        return False
+
+    def _trim_messages_for_summary(self, messages):
+        """What the summarizer reads: the newest of the questions, answers and reports within SUMMARY_INPUT_TOKENS."""
+        spoken = []
+        for message in messages:
+            if isinstance(message, (HumanMessage, AIMessage)) and not getattr(message, "tool_calls", None):
+                text = message.text
+            elif isinstance(message, ToolMessage) and (message.name or "").startswith("ask_") and message.content != PRUNED_RESULT:
+                text = str(message.content)[:SUMMARY_REPORT_CHARS]
+            else:
+                continue
+            if text.strip():
+                spoken.append(message.model_copy(update={"content": text}))
+        chosen, left = [], SUMMARY_INPUT_TOKENS
+        for message in reversed(spoken):
+            cost = estimate_tokens([message])
+            if cost > left:
+                if not chosen:  # one message alone is more than all of it: its start (what the role and the name cost stays out)
+                    room = left - estimate_tokens([message.model_copy(update={"content": ""})])
+                    chosen.append(message.model_copy(update={"content": message.content[: max(int(room * CHARS_PER_TOKEN), 0)]}))
+                break
+            chosen.append(message)
+            left -= cost
+        return chosen[::-1]
+
+    @staticmethod
+    def _failed(error: Exception) -> str:
+        log.warning("the summary of the conversation failed (%s): its earlier messages are dropped",
+                    type(error).__name__ if tracing.is_private() else f"{type(error).__name__}: {error}")
+        return OMITTED
+
+    def _create_summary(self, messages_to_summarize):
+        try:
+            return super()._create_summary(messages_to_summarize)
+        except Exception as error:  # noqa: BLE001 - whatever it is, the question goes on
+            return self._failed(error)
+
+    async def _acreate_summary(self, messages_to_summarize):
+        try:
+            return await super()._acreate_summary(messages_to_summarize)
+        except Exception as error:  # noqa: BLE001
+            return self._failed(error)
 
     def before_model(self, state, runtime):
         if not state["messages"] or not isinstance(state["messages"][-1], HumanMessage):
@@ -1626,6 +1768,9 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
         max_tokens=settings.llm_max_tokens,
         temperature=settings.llm_temperature,
         extra_body={"chat_template_kwargs": {"enable_thinking": settings.llm_thinking}},
+        # A streamed answer carries no token counts unless asked (stream_options.include_usage, which vLLM and llama.cpp
+        # support): with it the traces and LoggingMiddleware have the prompt size the server counted.
+        stream_usage=True,
     )
     helpers = [_helper_tool(role, model) for role in roles.ROLES.values()]
     main_tools = [*helpers, *(t for t in TOOLS if t.name in roles.MAIN_TOOLS)]
@@ -1641,6 +1786,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             FallbackMiddleware(),  # before PassReportMiddleware: a report of no use is not passed on as the answer
             PassReportMiddleware(),
             QuestionNoteMiddleware(),
+            PruneOldToolResults(),  # before the summary, which then counts what is left
             TurnStartSummarization(
                 ChatOpenAI(
                     base_url=str(settings.llm_route),
@@ -1650,9 +1796,9 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
                     temperature=0,
                     extra_body={"chat_template_kwargs": {"enable_thinking": False}},
                 ),
+                floor_tokens=prompt_floor(main_tools),
                 trigger=("tokens", settings.agent_summarize_trigger_tokens),
                 keep=("messages", settings.agent_summarize_keep_messages),
-                token_counter=_dialogue_tokens,
                 summary_prompt=SUMMARY_PROMPT,
             ),
             SourcesMiddleware(),
