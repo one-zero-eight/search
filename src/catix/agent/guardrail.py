@@ -134,7 +134,7 @@ def _screen_chain():
     if _chain is None:
         model = ChatOpenAI(
             base_url=str(settings.llm_route),
-            api_key="not-needed",
+            api_key=settings.llm_api_key,
             model=settings.llm_model,
             max_tokens=60,
             temperature=0,

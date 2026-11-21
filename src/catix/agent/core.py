@@ -1621,7 +1621,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
     (api/ask.py `memory`), the bots' and the CLI's in the memory of the process (the default)."""
     model = model or ChatOpenAI(
         base_url=str(settings.llm_route),
-        api_key="not-needed",
+        api_key=settings.llm_api_key,
         model=settings.llm_model,
         max_tokens=settings.llm_max_tokens,
         temperature=settings.llm_temperature,
@@ -1644,7 +1644,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             TurnStartSummarization(
                 ChatOpenAI(
                     base_url=str(settings.llm_route),
-                    api_key="not-needed",
+                    api_key=settings.llm_api_key,
                     model=settings.llm_model,
                     max_tokens=500,
                     temperature=0,

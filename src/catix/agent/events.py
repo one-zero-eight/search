@@ -58,7 +58,7 @@ class Events(BaseModel):
 def _model():
     return ChatOpenAI(
         base_url=str(settings.llm_route),
-        api_key="not-needed",
+        api_key=settings.llm_api_key,
         model=settings.llm_model,
         max_tokens=800,  # Three events of the bounded schema fit with room to spare.
         temperature=0,

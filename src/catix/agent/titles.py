@@ -24,7 +24,7 @@ Question:
 def _model() -> ChatOpenAI:
     return ChatOpenAI(
         base_url=str(settings.llm_route),
-        api_key="not-needed",
+        api_key=settings.llm_api_key,
         model=settings.llm_model,
         max_tokens=30,
         temperature=0,

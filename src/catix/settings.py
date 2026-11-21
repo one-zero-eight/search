@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     llm_route: HttpUrl = HttpUrl("http://localhost:8080/v1")
     # llama.cpp serves whatever model it was started with, the name is informational.
     llm_model: str = "local"
+    # Bearer key of the model server (vLLM --api-key, e.g. on Modal). llama.cpp / 1Cat-vLLM without a key ignore it.
+    llm_api_key: SecretStr = SecretStr("not-needed")
     llm_max_tokens: int = Field(4096, gt=0)
     # The agent's. 0: the same question gets the same answer; with 0.3 the model chose other searches each time, and they
     # found other messages. Still not exact: the server batches several questions, which moves the numbers a little.

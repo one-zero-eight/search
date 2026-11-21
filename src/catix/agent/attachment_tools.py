@@ -125,7 +125,8 @@ def _inspect_image(png: bytes, question: str) -> tuple[str, bool]:
     # The outer question already owns a queue slot. Reacquiring it here can deadlock.
     if settings.llm_priority and (priority := PRIORITY.get()) is not None:
         payload["priority"] = priority
-    with httpx.Client(timeout=60, follow_redirects=False, headers={"Accept-Encoding": "identity"}) as client:
+    headers = {"Accept-Encoding": "identity", "Authorization": f"Bearer {settings.llm_api_key.get_secret_value()}"}
+    with httpx.Client(timeout=60, follow_redirects=False, headers=headers) as client:
         with client.stream("POST", str(settings.llm_route).rstrip("/") + "/chat/completions", json=payload) as response:
             response.raise_for_status()
             if response.headers.get("content-encoding", "identity").lower() != "identity":
