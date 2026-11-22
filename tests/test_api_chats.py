@@ -106,7 +106,7 @@ def test_a_deleted_chat_goes_with_its_answers(owner):
 
 
 def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
-    script = [_ask("ask_chats", "вопрос"), AIMessage("Отчёт помощника."), AIMessage("Ответ.")]  # each question: helper, report, answer
+    script = [AIMessage("Ответ.")]  # each question: the answer
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
                                                                             checkpointer=checkpointer))
     monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())
@@ -129,7 +129,7 @@ def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):
 
 
 def test_searches_are_turns_shown_to_the_agent_once(owner, monkeypatch):
-    script = [_ask("ask_chats", "вопрос"), AIMessage("Отчёт помощника."), AIMessage("Ответ.")]
+    script = [AIMessage("Ответ.")]
     monkeypatch.setattr(ask, "build_agent", lambda checkpointer: build_agent(ScriptedModel(responses=script), guardrail=False,
                                                                             checkpointer=checkpointer))
     monkeypatch.setattr(ask.groups, "website_chat_ids", lambda *a: set())

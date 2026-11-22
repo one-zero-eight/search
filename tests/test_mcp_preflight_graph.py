@@ -55,9 +55,8 @@ class PlaceholderModel(ObservedModel):
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("helper", [None, "docs", "chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_missing_required_field_forces_no_tools_clarification(monkeypatch, rpc, asynchronous, helper, decision):
+def test_missing_required_field_forces_no_tools_clarification(monkeypatch, rpc, asynchronous, decision):
     import asyncio
     from langgraph.types import Command
 
@@ -68,17 +67,10 @@ def test_missing_required_field_forces_no_tools_clarification(monkeypatch, rpc, 
         return api_tools.mcp_client.request_sync(*args, **kwargs)
 
     monkeypatch.setattr(api_tools.mcp_client, "request", request)
-    script: list[BaseMessage] = []
-    if helper:
-        script.append(AIMessage(content="", tool_calls=[{
-            "name": f"ask_{helper}", "args": {"question": "Book SU office."}, "id": "helper-1",
-        }]))
-    script += [
+    script: list[BaseMessage] = [
         AIMessage(content="", tool_calls=[action(ARGUMENTS)]),
         AIMessage(content="", tool_calls=[action({**ARGUMENTS, "title": "Invented placeholder"}, "invented")]),
     ]
-    if helper:
-        script.append(AIMessage(content="", tool_calls=[action({**ARGUMENTS, "title": "Invented by root"}, "root-invented")]))
     corrected = {**ARGUMENTS, "title": "User supplied meeting"}
     script += [AIMessage(content="", tool_calls=[action(corrected, "corrected")]), AIMessage(content="Finished.")]
     model = PlaceholderModel(responses=script)
@@ -88,15 +80,10 @@ def test_missing_required_field_forces_no_tools_clarification(monkeypatch, rpc, 
            else agent.invoke(inputs, CONFIG, context=CONTEXT))
     assert not agent.get_state(CONFIG).interrupts, "A fabricated repair must never reach approval"
     assert [method for method, *_ in rpc] == ["search_tools"]
-    assert len(model.bindings) == (4 if helper else 2)
+    assert len(model.bindings) == 2
     assert model.bindings[-1]["tool_choice"] == "none"
     assert model.bindings[-1]["tools"] == model.bindings[0]["tools"]
     assert model.seen[-1][0] == model.seen[0][0], "Keep the system/prompt cache prefix"
-    if helper:
-        assert model.bindings[2]["tool_choice"] == "none"
-        assert model.bindings[2]["tools"] == model.bindings[1]["tools"]
-        report = next(m for m in out["messages"] if isinstance(m, ToolMessage) and m.name == f"ask_{helper}")
-        assert report.artifact["requires_user_input"] is True
     assert out["messages"][-1].content == "What is the title?"
     assert not out["messages"][-1].tool_calls
 
@@ -122,11 +109,9 @@ def action(arguments, ident="write-1", target=TARGET):
     return {"name": "call_api_tool", "args": {"name": target, "arguments": arguments}, "id": ident}
 
 
-def graph(monkeypatch, calls, *, helper=None, responses=None):
+def graph(monkeypatch, calls, *, responses=None):
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
-    script: list[BaseMessage] = ([AIMessage(content="", tool_calls=[{
-        "name": f"ask_{helper}", "args": {"question": "Book the room."}, "id": "helper-1",
-    }])] if helper else [])
+    script: list[BaseMessage] = []
     script += responses or [AIMessage(content="", tool_calls=calls), *[AIMessage(content="What is the title?") for _ in range(4)]]
     model = ObservedModel(responses=script)
     return core.build_agent(model, guardrail=False), model
@@ -378,31 +363,6 @@ def test_missing_arguments_stop_preflight_io_for_remaining_parallel_calls(monkey
     assert results["valid"].status == "error" and "Not executed" in results["valid"].content
 
 
-@pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("reverse", [False, True])
-def test_parallel_helper_results_preserve_clarification_in_either_order(monkeypatch, reverse, asynchronous):
-    import asyncio
-
-    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
-    monkeypatch.setattr(core, "tool_call_token", lambda: None)
-    monkeypatch.setattr(api_tools.mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No requests while clarification is pending"))
-    monkeypatch.setattr(api_tools.mcp_client, "request", lambda *a, **kw: pytest.fail("No async requests while clarification is pending"))
-    calls = [{"name": f"ask_{helper}", "args": {"question": "Book and check rules."}, "id": helper}
-             for helper in ("docs", "chats")]
-    reports = [
-        ToolMessage(content="What is the title?", name="ask_docs", tool_call_id="docs", artifact={"requires_user_input": True}),
-        ToolMessage(content="Other useful report [m1].", name="ask_chats", tool_call_id="chats", artifact={"found": True}),
-    ]
-    model = PlaceholderModel(responses=[AIMessage(content="", tool_calls=[action({**ARGUMENTS, "title": "Invented by root"})])])
-    agent = core.build_agent(model, guardrail=False)
-    inputs = {"messages": [HumanMessage("Book and check rules."), AIMessage(content="", tool_calls=calls),
-                           *(reversed(reports) if reverse else reports)]}
-    out = (asyncio.run(agent.ainvoke(inputs, CONFIG, context=CONTEXT)) if asynchronous
-           else agent.invoke(inputs, CONFIG, context=CONTEXT))
-    assert not agent.get_state(CONFIG).interrupts
-    assert model.bindings[-1]["tool_choice"] == "none"
-    assert out["messages"][-1].content == "What is the title?"
-
 
 @pytest.mark.parametrize("case", ["generic_required", "ordinary_validation"])
 def test_clarification_is_schema_generic_but_not_for_other_validation_errors(monkeypatch, rpc, case):
@@ -429,13 +389,13 @@ def test_clarification_is_schema_generic_but_not_for_other_validation_errors(mon
 def test_only_current_matched_artifacts_require_user_input(monkeypatch, rpc, marker):
     from catix.agent.api_preflight import requires_user_input
 
-    call = {"name": "ask_chats", "args": {"question": "Book the room."}, "id": "helper"}
-    report = ToolMessage(content=json.dumps({"requires_user_input": True}), name="ask_chats", tool_call_id="helper",
+    call = {"name": "call_api_tool", "args": {"name": TARGET, "arguments": ARGUMENTS}, "id": "helper"}
+    report = ToolMessage(content=json.dumps({"requires_user_input": True}), name="call_api_tool", tool_call_id="helper",
                          artifact={"requires_user_input": True})
     if marker == "unmatched":
         report.tool_call_id = "unmatched"
     elif marker == "wrong_name":
-        report.name = "ask_docs"
+        report.name = "search_api_tools"
     elif marker == "wire_only":
         report.artifact = None
     messages = [HumanMessage("Book the room."), AIMessage(content="", tool_calls=[call]), report]

@@ -208,34 +208,24 @@ def test_the_sport_token_is_taken_only_when_it_is_the_askers(monkeypatch, header
 
 
 class ScriptedModel(FakeMessagesListChatModel):
-    """Answers with the given messages in turn, whichever agent asks (the supervisor and the helpers share one model)."""
+    """Answers with the given messages in turn."""
 
     def bind_tools(self, tools, **kwargs):
         return self
 
 
-@pytest.mark.parametrize("helper", [None, "ask_chats"])
-def test_api_results_do_not_create_citation_refs(sport, monkeypatch, helper):
+def test_api_results_do_not_create_citation_refs(sport, monkeypatch):
     from catix.agent import core
 
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     # API results provide facts, not citation sources; training IDs cannot become refs.
     fake_refs = "У вас 14 часов из 30 [m13]. Вы записаны на плавание [m1, m2] [m3]."
     clean = "У вас 14 часов из 30. Вы записаны на плавание."
-    script = ([AIMessage(content="", tool_calls=[{"name": helper, "args": {"question": "сколько у меня часов спорта"}, "id": "c1"}])]
-              if helper else []) + [
+    script = [
         AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": {"name": "sport_get_my_sport", "arguments": {}}, "id": "r1"}]),
         AIMessage(content=fake_refs),
-        *([AIMessage(content=fake_refs)] if helper else []),
     ]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     out = agent.invoke({"messages": [{"role": "user", "content": "сколько у меня часов спорта"}]}, {"configurable": {"thread_id": "s"}}, context=SITE)
-    if helper:
-        report = next(m for m in out["messages"] if isinstance(m, ToolMessage))
-        assert report.name == helper and report.content == clean
-        assert report.artifact["tools"] == ["call_api_tool"]
-        assert report.artifact["read_found"] is True
-    else:
-        assert core.read_evidence(out["messages"])
     assert core.final_answer(out["messages"], out.get("sources") or {}).answer == clean
     assert not out.get("sources")

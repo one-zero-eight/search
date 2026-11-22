@@ -11,8 +11,8 @@ import pytest
 from langchain_core.messages import HumanMessage, ToolMessage
 from pydantic import SecretStr, ValidationError
 
-from catix.agent import roles, sources, web_tools
-from catix.agent.core import helper_tools
+from catix.agent import sources, web_tools
+from catix.agent.core import agent_tools
 from catix.settings import Settings, settings
 
 NEWS = "https://media.innopolis.university/news/new-building"
@@ -32,17 +32,15 @@ def _out(command) -> tuple[dict, dict, dict | None]:
     return json.loads(message.content), command.update["sources"], message.artifact
 
 
-def test_deepseek_key_controls_the_docs_helper(monkeypatch):
+def test_deepseek_key_controls_the_web_tools(monkeypatch):
     configured = Settings(_env_file=None, deepseek_api_key="sk-test")  # type: ignore[call-arg]
     assert "deepseek_api_key" in Settings.model_fields
     monkeypatch.setattr(settings, "deepseek_api_key", configured.deepseek_api_key)
     assert web_tools.enabled()
-    assert web_tools.NAMES <= {t.name for t in helper_tools(roles.ROLES["docs"])}
-    assert "search_web" in roles.prompt("docs")
+    assert web_tools.NAMES <= {t.name for t in agent_tools()}
     monkeypatch.setattr(settings, "deepseek_api_key", None)
     assert not web_tools.enabled()
-    assert not {t.name for t in helper_tools(roles.ROLES["docs"])} & web_tools.NAMES
-    assert "search_web" not in roles.prompt("docs")
+    assert not {t.name for t in agent_tools()} & web_tools.NAMES
 
 
 @pytest.fixture
@@ -72,27 +70,27 @@ def deepseek(monkeypatch):
 def test_the_web_is_searched_only_after_the_knowledge_base(deepseek):
     payload, new, _ = _out(web_tools.search_web.func("новый корпус Иннополис", _runtime()))
     assert payload == {"error": web_tools.WIKI_FIRST} and not new and not deepseek
-    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki", "search_web", "search_web")))
+    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search", "search_web", "search_web")))
     assert "No more web searches" in payload["error"] and not deepseek
 
 
 def test_a_web_search_keeps_to_the_official_sites_and_gives_refs(deepseek):
-    payload, new, artifact = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki")))
+    payload, new, artifact = _out(web_tools.search_web.func("новый корпус", _runtime("search")))
     queries = [body["query"] for _, body in deepseek]
     assert all(q.startswith("новый корпус site:") and len(q) <= 128 for q in queries)
     assert {word.removeprefix("site:") for q in queries for word in q.split() if word.startswith("site:")} == set(web_tools.OFFICIAL_SITES)
     assert [(r["url"], r["official_site"], r["date"]) for r in payload["results"]] == [(NEWS, True, "2026-11-01")]
     ref = payload["results"][0]["ref"]
     assert new[ref] == {"key": f"web:{NEWS}", "web": True, "title": "Новый корпус", "link": NEWS, "official_site": True}
-    assert artifact == {"relevant": [ref]}, "found something: no fallback to the chats helper"
+    assert artifact == {"relevant": [ref]}
 
-    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki"), anywhere=True))
+    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search"), anywhere=True))
     assert deepseek[-1] == ("/v1/tools/search", {"query": "новый корпус", "count": web_tools.MAX_RESULTS, "need_content": False})
     assert [r["official_site"] for r in payload["results"]] == [True, False] and "may be wrong" in payload["note"]
 
 
 def test_search_uses_deepseek_summaries_and_snippets(deepseek):
-    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki"), anywhere=True))
+    payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search"), anywhere=True))
     assert deepseek == [("/v1/tools/search", {"query": "новый корпус", "count": web_tools.MAX_RESULTS, "need_content": False})]
     assert [r["text"] for r in payload["results"]] == ["Корпус откроется 1 декабря.", "Слухи о корпусе."]
     assert "date" not in payload["results"][1]
@@ -100,14 +98,14 @@ def test_search_uses_deepseek_summaries_and_snippets(deepseek):
 
 @pytest.mark.parametrize(("query", "anywhere"), [("", False), ("   ", True), ("я" * 103, False), ("я" * 129, True)])
 def test_invalid_queries_are_refused_without_truncation_or_a_request(deepseek, query, anywhere):
-    payload, _, _ = _out(web_tools.search_web.func(query, _runtime("search_wiki"), anywhere=anywhere))
+    payload, _, _ = _out(web_tools.search_web.func(query, _runtime("search"), anywhere=anywhere))
     assert "nonblank search query" in payload["error"] and not deepseek
 
 
 @pytest.mark.parametrize(("size", "anywhere"), [(102, False), (128, True)])
 def test_query_length_boundary_preserves_every_character(deepseek, size, anywhere):
     query = "я" * size
-    payload, _, _ = _out(web_tools.search_web.func(query, _runtime("search_wiki"), anywhere=anywhere))
+    payload, _, _ = _out(web_tools.search_web.func(query, _runtime("search"), anywhere=anywhere))
     assert payload["total"] > 0
     assert all(body["query"].startswith(query) and len(body["query"]) <= 128 for _, body in deepseek)
     assert len(deepseek) == (1 if anywhere else len(web_tools.OFFICIAL_SITES))
@@ -124,18 +122,18 @@ def test_official_results_are_filtered_deduplicated_and_ranked_before_the_limit(
 
     with httpx.Client(base_url=web_tools.DEEPSEEK, transport=httpx.MockTransport(respond)) as client:
         monkeypatch.setattr(web_tools, "_client", lambda: client)
-        payload, known, _ = _out(web_tools.search_web.func("новости", _runtime("search_wiki")))
+        payload, known, _ = _out(web_tools.search_web.func("новости", _runtime("search")))
         assert payload["total"] == len(known) == web_tools.MAX_RESULTS
         assert [r["url"] for r in payload["results"]] == [f"https://innopolis.ru/news/{i}" for i in range(7, 2, -1)]
         assert all(r["text"] == "я" * web_tools.TEXT_CHARS + " [...cut]" for r in payload["results"])
         count = len(requests)
-        cached, _, _ = _out(web_tools.search_web.func("новости", _runtime("search_wiki", known=known)))
+        cached, _, _ = _out(web_tools.search_web.func("новости", _runtime("search", known=known)))
         assert cached == payload and len(requests) == count
 
 
 @pytest.mark.parametrize("status", [401, 402, 403, 408, 429, 500, 504])
 def test_provider_failures_pause_requests_but_keep_cached_results(monkeypatch, deepseek, status):
-    first, known, _ = _out(web_tools.search_web.func("cached", _runtime("search_wiki"), anywhere=True))
+    first, known, _ = _out(web_tools.search_web.func("cached", _runtime("search"), anywhere=True))
     requests = []
 
     def fail(request):
@@ -144,11 +142,11 @@ def test_provider_failures_pause_requests_but_keep_cached_results(monkeypatch, d
 
     with httpx.Client(base_url=web_tools.DEEPSEEK, transport=httpx.MockTransport(fail)) as client:
         monkeypatch.setattr(web_tools, "_client", lambda: client)
-        failed, _, _ = _out(web_tools.search_web.func("fails", _runtime("search_wiki"), anywhere=True))
+        failed, _, _ = _out(web_tools.search_web.func("fails", _runtime("search"), anywhere=True))
         assert "error" in failed and "private provider diagnostic" not in failed["error"]
-        cached, _, _ = _out(web_tools.search_web.func("cached", _runtime("search_wiki", known=known), anywhere=True))
+        cached, _, _ = _out(web_tools.search_web.func("cached", _runtime("search", known=known), anywhere=True))
         assert cached == first
-        paused, _, _ = _out(web_tools.search_web.func("another", _runtime("search_wiki"), anywhere=True))
+        paused, _, _ = _out(web_tools.search_web.func("another", _runtime("search"), anywhere=True))
         assert paused == failed and len(requests) == 1
 
 
@@ -163,7 +161,7 @@ def test_fetch_page_failure_does_not_disable_other_searches(monkeypatch, deepsee
         monkeypatch.setattr(web_tools, "_client", lambda: client)
         payload, _, _ = _out(web_tools.read_web_page.func(NEWS, _runtime("search_web", known=known)))
         assert "page could not be read" in payload["error"]
-        payload, _, _ = _out(web_tools.search_web.func("another", _runtime("search_wiki"), anywhere=True))
+        payload, _, _ = _out(web_tools.search_web.func("another", _runtime("search"), anywhere=True))
         assert payload["total"] == 0 and "error" not in payload
 
 
@@ -213,14 +211,12 @@ def test_the_official_sites_are_the_universitys_and_the_citys_with_their_subdoma
 
 
 @pytest.mark.parametrize("proxy", [None, "http://127.0.0.1:3128"])
-def test_the_docs_helper_has_the_web_search_only_with_a_key_with_a_proxy_or_without(monkeypatch, proxy):
-    docs = roles.ROLES["docs"]
+def test_the_agent_has_the_web_search_only_with_a_key_with_a_proxy_or_without(monkeypatch, proxy):
     monkeypatch.setattr(settings, "deepseek_proxy", proxy and SecretStr(proxy))
     monkeypatch.setattr(settings, "deepseek_api_key", None)
-    assert not {t.name for t in helper_tools(docs)} & web_tools.NAMES and "search_web" not in roles.prompt("docs")
+    assert not {t.name for t in agent_tools()} & web_tools.NAMES
     monkeypatch.setattr(settings, "deepseek_api_key", SecretStr("sk-test"))
-    assert web_tools.NAMES <= {t.name for t in helper_tools(docs)} and "search_web" in roles.prompt("docs")
-    assert not {t.name for t in helper_tools(roles.ROLES["chats"])} & web_tools.NAMES, "only the docs helper"
+    assert web_tools.NAMES <= {t.name for t in agent_tools()}
 
 
 def test_without_a_proxy_deepseek_is_asked_directly(monkeypatch):
@@ -278,12 +274,12 @@ def test_deepseek_is_asked_through_the_proxy_and_one_that_does_not_work_stops_th
     monkeypatch.setattr(web_tools, "_down", (0.0, ""))
     web_tools._client.cache_clear()
     try:
-        payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search_wiki")))
+        payload, _, _ = _out(web_tools.search_web.func("новый корпус", _runtime("search")))
         assert payload == {"error": "The web search is not available now (it cannot be reached): report without it."}
         if reply is not None:
             assert seen[0].startswith(b"CONNECT api.deepseek.com:443 ")
             assert b"Proxy-Authorization: Basic " + base64.b64encode(b"bot:secret") in seen[0]
-        payload, _, _ = _out(web_tools.search_web.func("другой запрос", _runtime("search_wiki")))
+        payload, _, _ = _out(web_tools.search_web.func("другой запрос", _runtime("search")))
         assert "cannot be reached" in payload["error"] and len(seen) == (0 if reply is None else 1), "not asked again yet"
     finally:
         web_tools._client.cache_clear()

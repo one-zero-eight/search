@@ -126,9 +126,9 @@ def test_events_with_internal_signup_only_skip_calendar_extraction(http_answer, 
 
 def with_deadline(messages):
     """A service recommendation and a retrieved deadline in the same answer/paragraph."""
-    report = 'Дедлайн по математике завтра в 18:30 [m0].'
-    messages[-1:] = [AIMessage('', tool_calls=[{'id': 'docs', 'name': 'ask_docs', 'args': {'question': 'дедлайн'}}]),
-                    ToolMessage(report, name='ask_docs', tool_call_id='docs'),
+    report = '{"results": [{"ref": "m0", "text": "Дедлайн по математике завтра в 18:30"}]}'
+    messages[-1:] = [AIMessage('', tool_calls=[{'id': 'docs', 'name': 'search', 'args': {'queries': ['дедлайн']}}]),
+                    ToolMessage(report, name='search', tool_call_id='docs'),
                     AIMessage('Завтра Football — 18:30–20:30; дедлайн по математике в 18:30 [m0].')]
     return {'m0': {'wiki': True, 'key': 'wiki:1', 'title': 'Дедлайны', 'link': 'https://example.org/deadlines'}}
 
@@ -158,8 +158,7 @@ def test_retrieval_only_sport_title_is_not_a_keyword_blacklist(http_answer, extr
     assert len(response['calendar_events']) == 1 and len(calls) == 1
 
 
-@pytest.mark.parametrize('helper', ['docs', 'chats'])
-def test_real_helper_graph_preserves_calendar_origin(monkeypatch, extraction, helper):
+def test_real_graph_preserves_calendar_origin(monkeypatch, extraction):
     from catix.agent import core, schedule_tools
     from catix.agent.tools import AgentContext
     from tests.test_roles import ScriptedModel
@@ -171,12 +170,11 @@ def test_real_helper_graph_preserves_calendar_origin(monkeypatch, extraction, he
     monkeypatch.setattr(schedule_tools, 'read_my_schedule', lambda *args: agenda)
     monkeypatch.setattr(core.store, 'visible_chats', lambda *args: [])
     model = ScriptedModel(responses=[
-        AIMessage('', tool_calls=[{'name': f'ask_{helper}', 'args': {'question': 'Что у меня завтра?'}, 'id': 'helper'}]),
         AIMessage('', tool_calls=[{'name': 'get_my_schedule', 'args': {'date_from': str(day), 'date_to': str(day)}, 'id': 'agenda'}]),
-        AIMessage('Завтра Football в 18:30.'), AIMessage('Завтра Football в 18:30.'),
+        AIMessage('Завтра Football в 18:30.'),
     ])
     result = core.build_agent(model, guardrail=False).invoke({'messages': [HumanMessage('Что у меня завтра?')]},
-                {'configurable': {'thread_id': f'calendar-origins-{helper}'}}, context=AgentContext())
+                {'configurable': {'thread_id': 'calendar-origins'}}, context=AgentContext())
     report = next(m for m in result['messages'] if isinstance(m, ToolMessage))
     assert report.artifact.get('calendar_origins', {}).get('service') is True
     assert events.extract(core.final_answer(result['messages'], {}).answer, origins=events.origins(result['messages'])) == []

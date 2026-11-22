@@ -85,8 +85,8 @@ def test_file_tool_arguments_do_not_reach_application_logs(caplog):
     from catix.agent.core import LoggingMiddleware
     from langchain_core.messages import ToolMessage
 
-    request = SimpleNamespace(tool_call={"name": "ask_docs", "args": {"question": "PRIVATE_ATTACHMENT_SENTINEL"}})
+    request = SimpleNamespace(tool_call={"name": "search", "args": {"queries": ["PRIVATE_ATTACHMENT_SENTINEL"]}})
     with caplog.at_level(logging.INFO), tracing.private():
         LoggingMiddleware()._log_tool(request, ToolMessage("data", tool_call_id="read"), time.monotonic())
     assert "PRIVATE_ATTACHMENT_SENTINEL" not in caplog.text
-    assert "ask_docs" in caplog.text
+    assert "search" in caplog.text

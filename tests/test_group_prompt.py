@@ -8,17 +8,16 @@ from pydantic import Field, SecretStr
 
 from catix.agent import core
 from catix.agent.tools import AgentContext
-from tests.test_roles import ScriptedModel, _ask
+from tests.test_roles import ScriptedModel
 
 
-@pytest.mark.parametrize("role", [None, "docs", "chats"])
 @pytest.mark.parametrize("verified, legacy", [
     (("B26-CSE-01", "B26-CSE-02"), None),
     (("B26-CSE-01",), "B26-CSE-01"),
     ((), None),
     ((), "B25-CSE-01"),
 ])
-def test_all_roles_receive_trusted_memberships(monkeypatch, role, verified, legacy):
+def test_the_agent_receives_trusted_memberships(monkeypatch, verified, legacy):
     monkeypatch.setattr(core.store, "visible_chats", lambda *args: [])
     context = AgentContext(study_group=legacy, verified_study_groups=verified,
                            innohassle_token=SecretStr("synthetic-user-token"))
@@ -27,7 +26,7 @@ def test_all_roles_receive_trusted_memberships(monkeypatch, role, verified, lega
         tools=[], state={"messages": []}, runtime=Runtime(context=context),
     )
     seen = []
-    core.prompt_for(role).wrap_model_call(request, seen.append)
+    core.agent_prompt().wrap_model_call(request, seen.append)
     prompt = seen[0].system_message.text
     if verified:
         assert all(group in prompt for group in verified)
@@ -46,8 +45,7 @@ def test_all_roles_receive_trusted_memberships(monkeypatch, role, verified, lega
     assert "synthetic-user-token" not in prompt
 
 
-@pytest.mark.parametrize("helper", ["docs", "chats"])
-def test_memberships_reach_the_helper_in_the_real_graph(monkeypatch, helper):
+def test_memberships_reach_the_agent_in_the_real_graph(monkeypatch):
     class CaptureModel(ScriptedModel):
         prompts: list[str] = Field(default_factory=list)
 
@@ -56,19 +54,13 @@ def test_memberships_reach_the_helper_in_the_real_graph(monkeypatch, helper):
             return super()._generate(messages, stop=stop, run_manager=run_manager, **kwargs)
 
     monkeypatch.setattr(core.store, "visible_chats", lambda *args: [])
-    model = CaptureModel(responses=[
-        _ask(f"ask_{helper}", "Какие учебные группы известны из профиля?"),
-        AIMessage("Известны B26-CSE-01 и B26-CSE-02."),
-        AIMessage("Ваши группы: B26-CSE-01 и B26-CSE-02."),
-    ])
+    model = CaptureModel(responses=[AIMessage("Ваши группы: B26-CSE-01 и B26-CSE-02.")])
     context = AgentContext(verified_study_groups=("B26-CSE-01", "B26-CSE-02"),
                            allowed_chat_ids=frozenset({17, 18}))
-    out = core.build_agent(model, guardrail=False).invoke(
+    core.build_agent(model, guardrail=False).invoke(
         {"messages": [HumanMessage("Какие учебные группы у меня в профиле?")]},
-        {"configurable": {"thread_id": f"group-context-{helper}"}}, context=context,
+        {"configurable": {"thread_id": "group-context"}}, context=context,
     )
-    assert any(message.type == "tool" and message.name == f"ask_{helper}" for message in out["messages"])
-    assert len(model.prompts) >= 3
-    assert any("You are a helper" in prompt for prompt in model.prompts)
+    assert model.prompts
     assert all("verified study groups are: B26-CSE-01, B26-CSE-02" in prompt for prompt in model.prompts)
     assert context.study_group is None and context.allowed_chat_ids == frozenset({17, 18})

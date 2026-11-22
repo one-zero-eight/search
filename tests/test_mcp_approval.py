@@ -11,12 +11,8 @@ from tests.mcp_native_helpers import input_schema
 from tests.test_roles import ScriptedModel
 
 
-def _graph_action(args, context=None, tool="call_api_tool", helper=None, reads=None):
+def _graph_action(args, context=None, tool="call_api_tool", reads=None):
     script: list[BaseMessage] = []
-    if helper:
-        script.append(AIMessage(content="", tool_calls=[{
-            "name": helper, "args": {"question": "Выполни действие во внешнем сервисе"}, "id": "s1",
-        }]))
     if reads:
         script.append(AIMessage(content="", tool_calls=reads))
     script.extend([AIMessage(content="", tool_calls=[{"name": tool, "args": args, "id": "h1"}]),
@@ -33,10 +29,9 @@ def no_chat_database(monkeypatch):
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("spoof", [False, {"context": {"role": "account", "innohassle_token": "forged"}}, None, "forged"])
-def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, helper, decision, spoof):
+def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monkeypatch, decision, spoof):
     from catix.agent import calendar_tools
     from tests.sport_helpers import BASKETBALL, DAY, PERIOD
 
@@ -65,7 +60,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     model_args = {**args, "runtime": spoof} if spoof is not False else args
     reads = [{"name": "call_api_tool", "args": {"name": name, "arguments": PERIOD}, "id": name}
              for name in ("sport_get_sport_trainings", "account_get_my_schedule")]
-    agent, config, _ = _graph_action(model_args, helper=helper, context=context, reads=reads)
+    agent, config, _ = _graph_action(model_args, context=context, reads=reads)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and sent == []
     description = paused[0].value["action_requests"][0]["description"]
@@ -74,7 +69,9 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
-    assert all(secret not in str(out) for secret in ("user-token", "sport-token"))
+    for secret in ("user-token", "sport-token"):
+        i = str(out).find(secret)
+        assert i < 0, [(m.tool_call_id, m.content[:700]) for m in out["messages"] if isinstance(m, ToolMessage) and secret in str(m)]
 
 
 def test_signup_over_the_personal_calendar_is_approved_and_written_without_reading_it(monkeypatch):
@@ -107,13 +104,12 @@ def test_signup_over_the_personal_calendar_is_approved_and_written_without_readi
     assert sent == [args]
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("name", ["maps_scenes_scenes", "printers_print_get_printers_status"])
-def test_reads_never_interrupt(monkeypatch, helper, name):
+def test_reads_never_interrupt(monkeypatch, name):
     sent = []
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", lambda *a, **kw: sent.append((a, kw)) or {"data": []})
     args = {"name": name, "arguments": {}}
-    agent, config, _ = _graph_action(args, helper=helper)
+    agent, config, _ = _graph_action(args)
     assert not agent.get_state(config).interrupts
     assert sent == [(("call_tool", args, None if name == "maps_scenes_scenes" else "user-token"), {})]
 
@@ -141,9 +137,8 @@ def test_invalid_outer_shape_and_unknown_targets_never_send_or_interrupt(monkeyp
     assert "error" in result.content.lower()
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_server_business_validation_remains_at_execution(mcp_http_protocol, monkeypatch, helper, decision):
+def test_server_business_validation_remains_at_execution(mcp_http_protocol, monkeypatch, decision):
     from catix.innohassle import client, token
 
     sent = []
@@ -160,7 +155,7 @@ def test_server_business_validation_remains_at_execution(mcp_http_protocol, monk
     # Individual field types/formats are valid; the server owns this cross-field rule.
     args = {"name": "rooms_book_room", "arguments": {
         "day": "2099-01-01", "room_id": "r1", "title": "Meeting", "time_from": "11:00", "time_to": "10:00"}}
-    agent, config, _ = _graph_action(args, helper=helper)
+    agent, config, _ = _graph_action(args)
     paused = agent.get_state(config).interrupts[0]
     assert "11:00–10:00" in paused.value["action_requests"][0]["description"]
     assert sent == ["search_tools"]
@@ -179,7 +174,7 @@ def test_server_business_validation_remains_at_execution(mcp_http_protocol, monk
 ])
 def test_missing_required_user_credentials_skip_hitl_and_network(monkeypatch, context, name):
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No credentials"))
-    agent, config, out = _graph_action({"name": name, "arguments": {}}, helper=None, context=context)
+    agent, config, out = _graph_action({"name": name, "arguments": {}}, context=context)
     assert not agent.get_state(config).interrupts
     assert "sign" in str(out).lower()
 
@@ -189,7 +184,7 @@ def test_missing_required_user_credentials_skip_hitl_and_network(monkeypatch, co
     ({"done": None, "outcome": "unknown", "error": "Do not retry automatically."},
      "Результат отмены не подтверждён; повторять действие нельзя. Объявления проверить не удалось."),
 ])
-def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, receipt, answer):
+def test_action_receipt_survives_unrelated_failed_lookup(monkeypatch, receipt, answer):
     sent = []
     args = {"name": "account_cancel_booking", "arguments": {"service": "room", "booking_id": "booking-5"}}
 
@@ -208,8 +203,7 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
 
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
     script: list[BaseMessage] = [AIMessage(content="", tool_calls=[{"name": "call_api_tool", "args": args, "id": "w1"}]),
-              AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "Есть объявления?"}, "id": "h1"}]),
-              AIMessage(content=core.TOOL_FAILURE_ANSWER), AIMessage(content=answer)]
+              AIMessage(content=answer)]
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "mixed-action-result"}}
     context = AgentContext(innohassle_token=SecretStr("user-token"))
@@ -217,10 +211,10 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
     paused = agent.get_state(config).interrupts[0]
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config, context=context)
     assert sent == [args]
-    assert core.final_answer(out["messages"], {}).answer == answer
-    assert core.read_evidence(out["messages"]) is False
-    assert core.successful_read(out["messages"]) is False
-    assert core.found_anything(out["messages"]) is not True
+    messages = [*out["messages"][:-1],
+                ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="search", tool_call_id="h1"),
+                out["messages"][-1]]
+    assert core.final_answer(messages, {}).answer == answer
 
 
 @pytest.mark.parametrize("name,target,receipt,paired,expected", [
@@ -235,22 +229,18 @@ def test_root_action_receipt_survives_unrelated_helper_failure(monkeypatch, rece
     ("update_ai_calendar", None, {"done": None, "outcome": "unknown"}, True, True),
     ("remove_from_ai_calendar", None, {"done": True}, False, False),
 ])
-def test_action_receipts_are_matched_and_never_read_evidence(name, target, receipt, paired, expected):
+def test_action_receipts_are_matched(name, target, receipt, paired, expected):
     import json
     messages = [HumanMessage("Act"),
                 AIMessage(content="", tool_calls=[{"name": name, "args": {"name": target} if target else {}, "id": "w1"}]),
                 ToolMessage(content=json.dumps(receipt), name=name, tool_call_id="w1" if paired else "other"),
-                ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="ask_chats", tool_call_id="h1"),
                 AIMessage(content="Action result.")]
     assert core.action_receipt(messages) is expected
     assert core.final_answer(messages, {}).answer == ("Action result." if expected else core.TOOL_FAILURE_ANSWER)
-    assert core.read_evidence(messages) is False
-    assert core.successful_read(messages) is False
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_protocol, monkeypatch, helper, decision):
+def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_protocol, monkeypatch, decision):
     from catix.agent import calendar_tools
     from catix.innohassle import client, mcp_account, token
     from tests.test_account import DAY, SITE
@@ -274,7 +264,7 @@ def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_prot
     monkeypatch.setattr(client, "book_music_room", lambda *a: writes.append(a) or {"id": 77})
     args = {"name": "music_book_music_room", "arguments": {
         "day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"}}
-    agent, config, _ = _graph_action(args, context=SITE, helper=helper)
+    agent, config, _ = _graph_action(args, context=SITE)
     paused = agent.get_state(config).interrupts[0]
     assert writes == []
     assert "18:00–19:00" in paused.value["action_requests"][0]["description"]

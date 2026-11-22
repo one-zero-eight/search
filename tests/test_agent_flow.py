@@ -17,8 +17,8 @@ from catix.agent import core, roles
 from catix.agent.core import RunGuardMiddleware
 from tests.helpers import ContainsAll
 
-SEARCH = {"name": "search_chats", "args": {"queries": ["мидтерм итп"]}, "id": "call-1", "type": "tool_call"}
-TOOLS = [types.SimpleNamespace(name="search_chats"), types.SimpleNamespace(name="search_userbot_chats")]
+SEARCH = {"name": "search", "args": {"queries": ["мидтерм итп"]}, "id": "call-1", "type": "tool_call"}
+TOOLS = [types.SimpleNamespace(name="search"), types.SimpleNamespace(name="read_chats")]
 
 
 @pytest.fixture(autouse=True)
@@ -47,7 +47,7 @@ def test_the_guard_does_not_add_tool_calls_the_model_did_not_make():
     response = ModelResponse(result=[AIMessage(content="", tool_calls=[SEARCH])])
     seen = []
     result = guard.wrap_model_call(Req(1), lambda request: seen.append(request) or response)
-    assert [c["name"] for c in result.result[-1].tool_calls] == ["search_chats"]  # only the model's own call
+    assert [c["name"] for c in result.result[-1].tool_calls] == ["search"]  # only the model's own call
     assert seen[0].tools == TOOLS  # the request went on untouched
 
 
@@ -70,36 +70,18 @@ def test_the_last_call_may_not_call_tools_and_has_an_order_to_answer():
     assert_test(LLMTestCase(input="", actual_output=str(last.messages[-1].content)), [ContainsAll(["You have used your tool budget"], name="OrderToAnswer")])
 
 
-def test_once_the_reads_are_spent_the_next_call_is_the_report():
-    """Told in read_wiki's result to report, the model read on (the trace of 'регламент организации ИТ-поддержки'): after
-    MAX_READS reads that gave text the docs helper may not call tools. A read that found nothing does not count."""
-    import json
-
-    def read(n: int, pieces: list) -> list:
-        call = {"name": "read_wiki", "args": {"page": "/raw/x.md", "clause": str(n)}, "id": f"r{n}", "type": "tool_call"}
-        return [AIMessage(content="", tool_calls=[call]), ToolMessage(content=json.dumps({"pieces": pieces}), tool_call_id=f"r{n}", name="read_wiki")]
-
-    guard = RunGuardMiddleware({"search_wiki", "read_wiki"})
-    req = Req(0)
-    req.messages = [HumanMessage("регламент ИТ-поддержки"), *read(1, [{"text": "…"}]), *read(2, [])]
-    assert guard._final(req).tool_choice is None  # one read gave text, one found nothing: one more may be made
-    req.messages += read(3, [{"text": "…"}])
-    assert guard._final(req).tool_choice == "none" and guard._final(req).tools == TOOLS
-    assert RunGuardMiddleware({"search_chats"})._final(req).tool_choice is None  # (a helper without read_wiki)
-
-
 def test_after_two_empty_searches_in_a_row_the_next_call_is_the_report():
-    """The chats helper reworded an empty search four times ('как получить права администратора на компьютер'): one
+    """The agent reworded an empty search four times ('как получить права администратора на компьютер'): one
     rewording is allowed, then it reports. Two searches side by side in one call are one try; one that found something
     starts the count again."""
     import json
 
     def turn(n: int, *totals: int) -> list:
-        calls = [{"name": "search_chats", "args": {"queries": [f"q{n}{i}"]}, "id": f"s{n}{i}", "type": "tool_call"} for i in range(len(totals))]
-        return [AIMessage(content="", tool_calls=calls), *(ToolMessage(content=json.dumps({"total": t, "messages": []}), tool_call_id=c["id"], name="search_chats")
+        calls = [{"name": "search", "args": {"queries": [f"q{n}{i}"]}, "id": f"s{n}{i}", "type": "tool_call"} for i in range(len(totals))]
+        return [AIMessage(content="", tool_calls=calls), *(ToolMessage(content=json.dumps({"total": t, "docs": {"total": t, "pieces": []}}), tool_call_id=c["id"], name="search")
                                                            for c, t in zip(calls, totals))]
 
-    guard = RunGuardMiddleware({"search_chats", "search_userbot_chats"})
+    guard = RunGuardMiddleware({"search"})
     req = Req(0)
     req.messages = [HumanMessage("права администратора"), *turn(1, 0, 0)]
     assert guard._final(req).tool_choice is None  # one empty try (two searches side by side): one rewording may follow
@@ -111,18 +93,18 @@ def test_after_two_empty_searches_in_a_row_the_next_call_is_the_report():
 
 def test_a_chat_search_with_nothing_about_the_question_it_had_not_found_before_is_empty():
     """On 'какие требования к компьютеру и камере на дистанционном экзамене' every chat search found 3 to 6 messages (midterm
-    notices, arrival in Russia) and the helper searched 5 rounds; on 'сколько нужно заниматься физкультурой' it found the
+    notices, arrival in Russia) and the agent searched 5 rounds; on 'сколько нужно заниматься физкультурой' it found the
     one post on physical education again and again. The refs of the messages about the question go with the result as its
     artifact, which the model does not see."""
     import json
 
     def turn(n: int, relevant: list | None) -> list:
-        call = {"name": "search_chats", "args": {"queries": [f"q{n}"]}, "id": f"s{n}", "type": "tool_call"}
-        result = ToolMessage(content=json.dumps({"total": 4, "messages": [{}] * 4}), tool_call_id=f"s{n}", name="search_chats",
+        call = {"name": "search", "args": {"queries": [f"q{n}"]}, "id": f"s{n}", "type": "tool_call"}
+        result = ToolMessage(content=json.dumps({"total": 4, "chat": {"total": 4, "messages": [{}] * 4}}), tool_call_id=f"s{n}", name="search",
                              artifact=None if relevant is None else {"relevant": relevant})
         return [AIMessage(content="", tool_calls=[call]), result]
 
-    guard = RunGuardMiddleware({"search_chats", "search_userbot_chats"})
+    guard = RunGuardMiddleware({"search"})
     req = Req(0)
     req.messages = [HumanMessage("требования к камере"), *turn(1, []), *turn(2, [])]
     assert guard._final(req).tool_choice == "none"
@@ -136,135 +118,11 @@ def test_a_chat_search_with_nothing_about_the_question_it_had_not_found_before_i
     assert guard._final(req).tool_choice is None  # (not scored: the reranker was down)
 
 
-def test_after_two_rounds_of_reports_with_sources_the_supervisor_answers():
-    """Given a report with sources, the supervisor asked the docs helper for more details four times over ('как
-    перезачесть курсы, пройденные в другом вузе', 137 s). One more round is its choice, then it answers; a report without
-    a source (the helper failed, or found nothing) does not count."""
-
-    def ask(n: int, report: str) -> list:
-        call = {"name": "ask_docs", "args": {"question": f"q{n}"}, "id": f"a{n}", "type": "tool_call"}
-        return [AIMessage(content="", tool_calls=[call]), ToolMessage(content=report, tool_call_id=f"a{n}", name="ask_docs")]
-
-    guard = RunGuardMiddleware({"ask_docs", "ask_chats"} | roles.MAIN_TOOLS)
-    req = Req(0)
-    req.messages = [HumanMessage("как перезачесть курсы"), *ask(1, core.TOOL_FAILURE_ANSWER), *ask(2, "Решает аттестационная комиссия [m1].")]
-    assert guard._final(req).tool_choice is None
-    req.messages += ask(3, "Заявление подаётся председателю комиссии [m8][m9].")
-    assert guard._final(req).tool_choice == "none" and guard._final(req).tools == TOOLS
-
-
-def test_a_helper_that_reported_with_sources_is_not_asked_again_and_the_next_call_is_the_answer():
-    """The supervisor reworded 'сколько нужно заниматься физкультурой' to 'сколько часов в неделю…' for the docs helper: 25 s
-    more for what the first report had. A helper that failed or found nothing may be asked again, another helper too."""
-
-    def ask(n: int, helper: str = "ask_docs") -> dict:
-        return {"name": helper, "args": {"question": f"q{n}"}, "id": f"a{n}", "type": "tool_call"}
-
-    def report(n: int, text: str) -> ToolMessage:
-        return ToolMessage(content=text, tool_call_id=f"a{n}", name="ask_docs")
-
-    guard = RunGuardMiddleware({"ask_docs", "ask_chats"} | roles.MAIN_TOOLS)
-    messages = [HumanMessage("сколько нужно заниматься физкультурой"), AIMessage(content="", tool_calls=[ask(1)]), report(1, core.TOOL_FAILURE_ANSWER)]
-    assert guard._asked_again(types.SimpleNamespace(tool_call=ask(2), state={"messages": messages})) is None  # (the first one failed)
-    messages += [AIMessage(content="", tool_calls=[ask(2)]), report(2, "2 часа в неделю [m1]."), AIMessage(content="", tool_calls=[ask(3)])]
-    refused = guard._asked_again(types.SimpleNamespace(tool_call=ask(3), state={"messages": messages}))
-    assert_test(LLMTestCase(input="", actual_output=str(refused.content)), [ContainsAll(["not asked again"], name="AskedHint")])
-    assert guard._asked_again(types.SimpleNamespace(tool_call=ask(4, "ask_chats"), state={"messages": messages})) is None
-    req = Req(0)
-    req.messages = [*messages, refused]
-    assert guard._final(req).tool_choice == "none"
-
-
-def test_the_report_of_the_one_helper_asked_is_the_answer_unless_the_supervisor_has_to_write_one():
-    """One cited report is passed through; uncited, foreign-language or multiple reports require synthesis."""
-    from catix.agent.core import SUPERVISOR_NAME, PassReportMiddleware
-
-    def req(question: str, *reports: tuple[str, str]) -> Req:
-        calls = [{"name": name, "args": {"question": question}, "id": f"a{i}", "type": "tool_call"} for i, (name, _) in enumerate(reports)]
-        request = Req(0)
-        request.messages = [HumanMessage(question), AIMessage(content="", tool_calls=calls),
-                            *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name) for i, (name, text) in enumerate(reports))]
-        return request
-
-    report = "Пересдать экзамен можно не более двух раз [m1]."
-    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
-    seen = []
-    model = lambda request: seen.append(request) or written
-    result = PassReportMiddleware().wrap_model_call(req("сколько раз можно пересдавать экзамен", ("ask_docs", report)), model)
-    assert result.result[-1].content == report and result.result[-1].name == SUPERVISOR_NAME and not seen
-    for request in (req("сколько раз можно пересдавать экзамен", ("ask_docs", "Ничего не найдено о пересдачах.")),
-                    req("how many times can I retake an exam", ("ask_docs", report)),
-                    req("когда пересдача по матану и сколько попыток", ("ask_docs", report), ("ask_chats", "Пересдача 12 ноября [m2]."))):
-        assert PassReportMiddleware().wrap_model_call(request, model) is written
-
-
-def test_when_the_docs_helper_found_nothing_the_chats_helper_is_asked_next_without_a_model_call():
-    """The documents first, the chats as a fallback: a report that cites nothing, or cites pieces none of which the reranker
-    found about the question, sends the same question to the chats helper; a useful report, or another helper asked, does not."""
-    from catix.agent.core import FallbackMiddleware
-
-    def req(*reports: tuple[str, str, bool | None]) -> Req:
-        calls = [{"name": name, "args": {"question": "что такое DID?"}, "id": f"a{i}", "type": "tool_call"} for i, (name, _, _) in enumerate(reports)]
-        request = Req(0)
-        request.messages = [HumanMessage("что такое DID?"), AIMessage(content="", tool_calls=calls),
-                            *(ToolMessage(content=text, tool_call_id=f"a{i}", name=name, artifact={"found": found})
-                              for i, (name, text, found) in enumerate(reports))]
-        request.state["messages"] = request.messages
-        return request
-
-    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
-    seen = []
-    model = lambda request: seen.append(request) or written
-    for nothing in (("ask_docs", "В документах ничего не найдено о DID.", None), ("ask_docs", "Есть общие правила [m1].", False),
-                    ("ask_docs", core.TOOL_FAILURE_ANSWER, None)):
-        call = FallbackMiddleware().wrap_model_call(req(nothing), model).result[-1].tool_calls[0]
-        assert call["name"] == "ask_chats" and call["args"] == {"question": "что такое DID?"} and not seen
-    for useful in (req(("ask_docs", "DID — это … [m1].", True)), req(("ask_docs", "DID — это … [m1].", None)),
-                   req(("ask_docs", "Ничего.", None), ("ask_chats", "Ничего.", None)), req(("call_api_tool", "Ничего.", None))):
-        assert FallbackMiddleware().wrap_model_call(useful, model) is written
-
-
-def test_after_the_fallback_its_report_is_the_answer():
-    """The docs helper found nothing and the chats helper, asked by FallbackMiddleware, cites: its report is passed on. The
-    supervisor rewriting the two reports dropped the refs ("что такое пчз?"). A second helper the supervisor asked itself
-    still makes it write the answer."""
-    from catix.agent.core import FALLBACK_ID, SUPERVISOR_NAME, PassReportMiddleware
-
-    def req(second_id: str) -> Req:
-        request = Req(0)
-        request.messages = [
-            HumanMessage("что такое пчз?"),
-            AIMessage(content="", tool_calls=[{"name": "ask_docs", "args": {"question": "что такое пчз?"}, "id": "a0", "type": "tool_call"}]),
-            ToolMessage(content="В документах нет расшифровки ПЧЗ.", tool_call_id="a0", name="ask_docs"),
-            AIMessage(content="", tool_calls=[{"name": "ask_chats", "args": {"question": "что такое пчз?"}, "id": second_id, "type": "tool_call"}]),
-            ToolMessage(content="ПЧЗ — «Полезная часть зоопарка», канал первокурсников [m6].", tool_call_id=second_id, name="ask_chats"),
-        ]
-        return request
-
-    written = ModelResponse(result=[AIMessage(content="ответ supervisor")])
-    seen = []
-    model = lambda request: seen.append(request) or written
-    passed = PassReportMiddleware().wrap_model_call(req(f"{FALLBACK_ID}1"), model).result[-1]
-    assert passed.content.endswith("[m6].") and passed.name == SUPERVISOR_NAME and not seen
-    assert PassReportMiddleware().wrap_model_call(req("a1"), model) is written
-
-
-def test_a_helper_found_something_when_a_scored_search_or_a_read_brought_it():
-    from catix.agent.core import found_anything
-
-    def result(name: str, content: str = "{}", relevant=None) -> ToolMessage:
-        return ToolMessage(content=content, tool_call_id="c", name=name, artifact=None if relevant is None else {"relevant": relevant})
-
-    assert found_anything([result("search_wiki", relevant=[])]) is False
-    assert found_anything([result("search_wiki", relevant=[]), result("read_wiki", '{"pieces": [{"ref": "m1"}]}')]) is True
-    assert found_anything([result("search_chats", relevant=["m3"])]) is True
-    assert found_anything([result("find_room", '{"total": 0}')]) is None  # nothing scored: the report decides
-
 
 def test_markup_on_a_call_without_tools_is_asked_again_with_why_it_was_not_made():
     """Forced to report, the docs helper wrote a third read as text; asked the same again it wrote the same (the server's
     cache), and the report was TOOL_FAILURE_ANSWER. Its markup and the reason go after the conversation, the start stays."""
-    markup = AIMessage(content="<tool_call>\n<function=search_chats>\n<parameter=queries>[\"мидтерм итп\"]</parameter>\n</function>\n</tool_call>")
+    markup = AIMessage(content="<tool_call>\n<function=search>\n<parameter=queries>[\"мидтерм итп\"]</parameter>\n</function>\n</tool_call>")
     report = AIMessage(content="Мидтерм в среду [m1].")
     seen = []
     before = Req(core.settings.agent_max_model_calls - 1)
@@ -312,7 +170,7 @@ def test_a_call_carries_the_priority_of_its_question_with_the_models_extra_body(
     assert seen[1].model_settings == {"logit_bias": {"1": -100}, "extra_body": {"chat_template_kwargs": {"enable_thinking": False}, "priority": -5}}
 
 
-def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypatch):
+def test_a_message_with_nothing_to_look_up_is_answered_without_tools(monkeypatch):
     """Small talk disables tools without adding synthetic user instructions or a budget-exhaustion message."""
 
     monkeypatch.setattr(core, "tool_call_token", lambda: 248058)
@@ -325,21 +183,20 @@ def test_a_message_with_nothing_to_look_up_is_answered_without_a_helper(monkeypa
     assert RunGuardMiddleware()._final(asked).tool_choice is None
 
 
-def test_abilities_follow_credentials_and_local_tools_not_an_account_helper():
-    """Private API access needs a token; local writes additionally need an owner. Retrieval helpers are unchanged."""
+def test_abilities_follow_credentials_and_local_tools():
+    """Private API access needs a token; local writes additionally need an owner."""
     from pydantic import SecretStr
-    from catix.agent.core import LocalCalendarAccessMiddleware, prompt_for
+    from catix.agent.core import LocalCalendarAccessMiddleware, agent_prompt
     from catix.agent.tools import AgentContext, TOOLS
 
-    tools = [types.SimpleNamespace(name=f"ask_{name}") for name in roles.ROLES] + TOOLS
     prompts = {}
     for kind, context in (("site", AgentContext(innohassle_token=SecretStr("token"), innohassle_id="u1")),
                           ("token_only", AgentContext(innohassle_token=SecretStr("token"))),
                           ("owner_only", AgentContext(innohassle_id="u1")), ("bot", AgentContext())):
-        request = Req(0).override(tools=tools, runtime=types.SimpleNamespace(context=context))
+        request = Req(0).override(tools=TOOLS, runtime=types.SimpleNamespace(context=context))
         request.system_prompt = None
         seen = []
-        LocalCalendarAccessMiddleware().wrap_model_call(request, lambda r: prompt_for(None).wrap_model_call(r, seen.append))
+        LocalCalendarAccessMiddleware().wrap_model_call(request, lambda r: agent_prompt().wrap_model_call(r, seen.append))
         prompts[kind] = seen[0].system_message.text
     for kind in ("site", "token_only"):
         assert roles.ACCOUNT_OFFERS in prompts[kind] and roles.ON_THE_SITE not in prompts[kind]
@@ -348,9 +205,7 @@ def test_abilities_follow_credentials_and_local_tools_not_an_account_helper():
     assert roles.CALENDAR_WRITES in prompts["site"]
     assert all(roles.CALENDAR_WRITES not in prompts[kind] for kind in ("bot", "owner_only", "token_only"))
     for text in prompts.values():
-        assert all(roles.ROLES[name].offers in text for name in ("chats", "docs")) and roles.CALENDAR_BUTTON in text
-        assert roles.DIRECT_OFFERS in text
-    assert all(role.offers for role in roles.ROLES.values())
+        assert roles.SEARCH_OFFERS in text and roles.CALENDAR_BUTTON in text and roles.DIRECT_OFFERS in text
 
 
 def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_ban(monkeypatch):
@@ -369,26 +224,26 @@ def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_
 
 
 def test_after_a_call_that_only_repeated_earlier_ones_the_next_is_the_report():
-    """The chats helper repeated its one search four times, each refused ('что писали в чатах про физкультуру для
+    """The agent repeated its one search four times, each refused ('что писали в чатах про физкультуру для
     первокурсников?'): it had nothing new to look for. A call with one new search among the repeats goes on."""
     import json
 
     first, again, other = {**SEARCH, "id": "a"}, {**SEARCH, "id": "b"}, {**SEARCH, "args": {"queries": ["спорт"]}, "id": "c"}
-    refused = ToolMessage(content=json.dumps({"error": core.DUPLICATE_HINT}), name="search_chats", tool_call_id="b")
-    guard = RunGuardMiddleware({"search_chats"})
+    refused = ToolMessage(content=json.dumps({"error": core.DUPLICATE_HINT}), name="search", tool_call_id="b")
+    guard = RunGuardMiddleware({"search"})
     req = Req(0)
-    req.messages = [HumanMessage("физкультура"), AIMessage(content="", tool_calls=[first]), ToolMessage(content='{"total": 3}', name="search_chats", tool_call_id="a")]
+    req.messages = [HumanMessage("физкультура"), AIMessage(content="", tool_calls=[first]), ToolMessage(content='{"total": 3}', name="search", tool_call_id="a")]
     assert guard._final(req).tool_choice is None
     req.messages += [AIMessage(content="", tool_calls=[again]), refused]
     assert guard._final(req).tool_choice == "none"
-    req.messages[-2:] = [AIMessage(content="", tool_calls=[again, other]), refused, ToolMessage(content='{"total": 2}', name="search_chats", tool_call_id="c")]
+    req.messages[-2:] = [AIMessage(content="", tool_calls=[again, other]), refused, ToolMessage(content='{"total": 2}', name="search", tool_call_id="c")]
     assert guard._final(req).tool_choice is None
 
 
 def test_a_repeated_tool_call_is_not_executed_again():
     first = {**SEARCH, "id": "a"}
     again = {**SEARCH, "id": "b"}
-    messages = [HumanMessage("q"), AIMessage(content="", tool_calls=[first]), ToolMessage(content="{}", name="search_chats", tool_call_id="a"), AIMessage(content="", tool_calls=[again])]
+    messages = [HumanMessage("q"), AIMessage(content="", tool_calls=[first]), ToolMessage(content="{}", name="search", tool_call_id="a"), AIMessage(content="", tool_calls=[again])]
     guard = RunGuardMiddleware()
     state = {"messages": messages}
     assert guard._duplicate(types.SimpleNamespace(tool_call=first, state=state)) is None  # the first one runs
@@ -397,9 +252,9 @@ def test_a_repeated_tool_call_is_not_executed_again():
 
 
 def test_a_tool_call_written_as_text_is_repaired_or_never_shown():
-    markup = AIMessage(content='<tool_call>\n<function=search_chats>\n<parameter=queries>["мидтерм итп"]</parameter>\n</function>\n</tool_call>')  # Qwen's format
+    markup = AIMessage(content='<tool_call>\n<function=search>\n<parameter=queries>["мидтерм итп"]</parameter>\n</function>\n</tool_call>')  # Qwen's format
     guard = RunGuardMiddleware()
     repaired, ok = guard._check(ModelResponse(result=[markup]), allow_calls=True)
-    assert ok and guard._last(repaired).tool_calls[0]["name"] == "search_chats"
+    assert ok and guard._last(repaired).tool_calls[0]["name"] == "search"
     _, ok = guard._check(ModelResponse(result=[markup]), allow_calls=False)  # no tools left: it cannot become a call
     assert not ok

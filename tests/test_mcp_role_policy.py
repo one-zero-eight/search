@@ -11,14 +11,13 @@ from catix.agent import api_tools, core, roles
 from catix.agent.tools import AgentContext
 
 
-def test_one_common_call_instance_for_every_helper():
+def test_one_common_call_instance_for_the_agent():
     tool = api_tools.call_api_tool
     assert not hasattr(api_tools, "call_api_tool_for")
     assert not hasattr(api_tools, "_approved_request")
     assert set(tool.tool_call_schema.model_fields) == {"name", "arguments"}
     assert tool.tool_call_schema.model_json_schema()["additionalProperties"] is False
-    for role in roles.ROLES.values():
-        assert next(t for t in core.helper_tools(role) if t.name == "call_api_tool") is tool
+    assert next(t for t in core.agent_tools() if t.name == "call_api_tool") is tool
 
 
 @pytest.mark.parametrize("field", ["role", "token", "sport_token", "approval", "owner"])

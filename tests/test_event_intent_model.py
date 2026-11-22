@@ -64,14 +64,6 @@ def routing(monkeypatch, mcp_http_protocol):
                             "innohassle": {"status": "complete", "truncated": False}}}
 
     monkeypatch.setattr(schedule_tools, "read_my_schedule", agenda)
-    helper_tool = core._helper_tool
-
-    def helper(role, model):
-        # Preserve the production tool declaration; avoid real retrieval if routing regresses.
-        return helper_tool(role, model).model_copy(update={"func": lambda **kwargs: POSTER})
-
-    monkeypatch.setattr(core, "_helper_tool", helper)
-
     def run(question, with_image=True):
         info = {"id": FILE_ID, "filename": "image.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
         context = AgentContext(innohassle_id="synthetic-owner", innohassle_token=SecretStr("synthetic-not-real"),
@@ -108,7 +100,7 @@ def test_poster_creation_reaches_events_draft_approval(routing, question):
     assert "Лобачевского" in args["location"]
     assert not args.get("club_id") and not args.get("registration_url")
     assert any(call["name"] == "search_api_tools" for call in calls)
-    assert not {"add_to_ai_calendar", "ask_docs", "ask_chats"} & {call["name"] for call in calls}
+    assert not {"add_to_ai_calendar"} & {call["name"] for call in calls}
 
 
 def test_explicit_personal_calendar_request_does_not_create_events_draft(routing):

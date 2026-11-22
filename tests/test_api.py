@@ -368,8 +368,8 @@ def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
 
     class FakeAgent:
         async def astream(self, *args, **kwargs):
-            yield "custom", {"tool": "search_chats"}
-            yield "messages", (ToolMessage("report", name="ask_chats", tool_call_id="1"), {})
+            yield "messages", (AIMessageChunk(content="", id="c", tool_call_chunks=[{"name": "search", "args": "", "id": "1", "index": 0}]), model)
+            yield "messages", (ToolMessage("{}", name="search", tool_call_id="1"), {})
             yield "messages", (AIMessageChunk(content="Ответ [m1]", id="a"), model)
             yield "values", {"messages": [AIMessage("Ответ")]}
 
@@ -379,149 +379,11 @@ def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
     sent = [events.get_nowait() for _ in range(events.qsize())]
     assert sent == [
         ("status", {"text": CHECKING}),
-        ("status", {"text": STATUS["search_chats"]}),
+        ("status", {"text": STATUS["search"]}),
         ("status", {"text": WRITING}),
         ("answer", {"text": "Ответ"}),
     ]
     assert result["messages"][0].text == "Ответ"
-
-
-def test_stream_agent_delivers_final_helper_answer_before_completion(monkeypatch):
-    from langchain_core.messages import AIMessageChunk
-
-    from catix.common.status import CHECKING
-
-    async def scenario():
-        finish = asyncio.Event()
-        last_chunk = asyncio.Event()
-        events = asyncio.Queue()
-
-        class FakeAgent:
-            async def astream(self, *args, **kwargs):
-                yield "messages", (AIMessageChunk(content="Private helper draft", id="draft"),
-                                   {"langgraph_node": "model", "lc_agent_name": "docs"})
-                yield "custom", {"answer_stream": {"id": "final", "text": "Answer [m1]"}}
-                await finish.wait()
-                last_chunk.set()
-                yield "custom", {"answer_stream": {"id": "final", "text": "Answer [m1] complete"}}
-                yield "values", {"messages": [AIMessage("Answer complete")]}
-
-        monkeypatch.setattr(ask, "agent", FakeAgent)
-        task = asyncio.create_task(ask.stream_agent({}, {}, None, events))
-        try:
-            assert await asyncio.wait_for(events.get(), 1) == ("status", {"text": CHECKING})
-            assert await asyncio.wait_for(events.get(), 1) == ("answer", {"text": "Answer"})
-            assert not last_chunk.is_set() and not task.done()
-            assert events.empty()  # No ordinary helper draft escaped to the user.
-            finish.set()
-            result = await asyncio.wait_for(task, 1)
-            assert await events.get() == ("answer", {"text": "Answer  complete"})
-            assert result["messages"][0].text == "Answer complete"
-        finally:
-            finish.set()
-            if not task.done():
-                task.cancel()
-            await asyncio.gather(task, return_exceptions=True)
-
-    asyncio.run(scenario())
-
-
-def test_stream_agent_clears_revoked_helper_answer_before_supervisor_fallback(monkeypatch):
-    from langchain_core.messages import AIMessageChunk
-
-    from catix.agent.core import SUPERVISOR_NAME
-    from catix.common.status import CHECKING
-
-    async def scenario():
-        revoke = asyncio.Event()
-        synthesize = asyncio.Event()
-        events = asyncio.Queue()
-
-        class FakeAgent:
-            async def astream(self, *args, **kwargs):
-                yield "custom", {"answer_stream": {"id": "final", "text": "Unconfirmed answer"}}
-                await revoke.wait()
-                yield "custom", {"answer_stream": {"id": "other", "reset": True}}
-                yield "custom", {"answer_stream": {"id": "final", "reset": True}}
-                await synthesize.wait()
-                yield "messages", (AIMessageChunk(content="Verified answer [m1]", id="supervisor"),
-                                   {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME})
-                yield "values", {"messages": [AIMessage("Verified answer")]}
-
-        monkeypatch.setattr(ask, "agent", FakeAgent)
-        task = asyncio.create_task(ask.stream_agent({}, {}, None, events))
-        try:
-            assert await asyncio.wait_for(events.get(), 1) == ("status", {"text": CHECKING})
-            assert await asyncio.wait_for(events.get(), 1) == ("answer", {"text": "Unconfirmed answer"})
-            revoke.set()
-            assert await asyncio.wait_for(events.get(), 1) == ("answer", {"text": ""})
-            assert not task.done() and events.empty()
-            synthesize.set()
-            await asyncio.wait_for(task, 1)
-            assert await events.get() == ("answer", {"text": "Verified answer"})
-            assert events.empty()
-        finally:
-            revoke.set()
-            synthesize.set()
-            if not task.done():
-                task.cancel()
-            await asyncio.gather(task, return_exceptions=True)
-
-    asyncio.run(scenario())
-
-
-def test_stream_agent_ignores_malformed_or_markup_helper_answers(monkeypatch):
-    from catix.common.status import CHECKING
-
-    payloads = [
-        {"id": "", "text": "draft"}, {"id": "  ", "text": "draft"},
-        None, "draft", [], {}, {"text": "draft"}, {"id": 1, "text": "draft"},
-        {"id": "final", "text": None}, {"id": "final", "text": ["draft"]},
-        {"id": "final", "reset": False}, {"id": "final", "reset": 1},
-        {"id": "final", "text": "draft", "reset": True},
-        {"id": "final", "text": "draft", "extra": True},
-        {"id": "final", "text": "<tool_call>private arguments</tool_call>"},
-        {"id": "final", "text": "[m1]"},
-    ]
-
-    class FakeAgent:
-        async def astream(self, *args, **kwargs):
-            for payload in payloads:
-                yield "custom", {"answer_stream": payload}
-            yield "values", {"messages": [AIMessage("Final answer")]}
-
-    monkeypatch.setattr(ask, "agent", FakeAgent)
-    events = asyncio.Queue()
-    result = asyncio.run(ask.stream_agent({}, {}, None, events))
-    assert [events.get_nowait() for _ in range(events.qsize())] == [("status", {"text": CHECKING})]
-    assert result["messages"][0].text == "Final answer"
-
-
-def test_stream_agent_late_helper_reset_cannot_clear_supervisor_answer(monkeypatch):
-    from langchain_core.messages import AIMessageChunk
-
-    from catix.agent.core import SUPERVISOR_NAME
-    from catix.common.status import CHECKING
-
-    class FakeAgent:
-        async def astream(self, *args, **kwargs):
-            yield "custom", {"answer_stream": {"id": "first", "text": "First partial"}}
-            yield "custom", {"answer_stream": {"id": "second", "text": "Second partial"}}
-            yield "custom", {"answer_stream": {"id": "first", "reset": True}}
-            yield "messages", (AIMessageChunk(content="Supervisor answer", id="supervisor"),
-                               {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME})
-            yield "custom", {"answer_stream": {"id": "second", "reset": True}}
-            yield "values", {"messages": [AIMessage("Supervisor answer")]}
-
-    monkeypatch.setattr(ask, "agent", FakeAgent)
-    events = asyncio.Queue()
-    asyncio.run(ask.stream_agent({}, {}, None, events))
-    assert [events.get_nowait() for _ in range(events.qsize())] == [
-        ("status", {"text": CHECKING}),
-        ("answer", {"text": "First partial"}),
-        ("answer", {"text": "Second partial"}),
-        ("answer", {"text": "Supervisor answer"}),
-    ]
 
 
 async def _state():
@@ -539,7 +401,7 @@ def test_ask_stream_failure_is_an_error_event(client, monkeypatch):
 
 
 def test_history_has_only_questions_and_answers():
-    messages = [HumanMessage("q"), AIMessage("", tool_calls=[{"name": "ask_docs", "args": {}, "id": "1"}]), AIMessage("a")]
+    messages = [HumanMessage("q"), AIMessage("", tool_calls=[{"name": "search", "args": {}, "id": "1"}]), AIMessage("a")]
     assert ask._history(messages) == [{"role": "user", "content": "q"}, {"role": "assistant", "content": "a"}]
 
 
@@ -955,6 +817,6 @@ def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
     assert sum(isinstance(c[0], Command) for c in calls) == 1
 
 
-def test_a_rejection_tells_the_helper_that_nothing_was_done():
+def test_a_rejection_tells_the_agent_that_nothing_was_done():
     assert ask._decisions([{"id": "i1", "actions": 2}], "reject") == {
         "i1": {"decisions": [{"type": "reject", "message": ask.DECLINED}] * 2}}

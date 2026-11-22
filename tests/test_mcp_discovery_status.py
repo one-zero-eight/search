@@ -83,21 +83,17 @@ LABELS = [
 
 
 @pytest.mark.parametrize("tool_name,label", LABELS)
-@pytest.mark.parametrize("mode", ["messages", "custom"])
-def test_api_emits_status_while_root_or_helper_tool_is_still_running(monkeypatch, tool_name, label, mode):
+def test_api_emits_status_while_tool_is_still_running(monkeypatch, tool_name, label):
     async def run():
         started, release = asyncio.Event(), asyncio.Event()
         events = asyncio.Queue()
 
         class Agent:
             async def astream(self, *args, **kwargs):
-                if mode == "custom":
-                    yield "custom", {"tool": tool_name}
-                else:
-                    chunk = AIMessageChunk(content="", id="m1", tool_call_chunks=[{
-                        "name": tool_name, "args": "", "id": "c1", "index": 0,
-                    }])
-                    yield "messages", (chunk, {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME})
+                chunk = AIMessageChunk(content="", id="m1", tool_call_chunks=[{
+                    "name": tool_name, "args": "", "id": "c1", "index": 0,
+                }])
+                yield "messages", (chunk, {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME})
                 started.set()
                 await release.wait()
                 yield "values", {"messages": [AIMessage("Done")], "sources": {}}

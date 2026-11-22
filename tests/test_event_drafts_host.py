@@ -34,7 +34,6 @@ def test_draft_confirmation_covers_exact_requested_fields(name, arguments, langu
 
 
 @pytest.mark.parametrize('name,arguments', MUTATIONS)
-@pytest.mark.parametrize('helper', [None, 'ask_docs', 'ask_chats'])
 @pytest.mark.parametrize('decision', ['approve', 'reject'])
 @pytest.mark.parametrize('asynchronous', [False, True])
 def test_draft_host_consent_then_real_protocol_readback(
@@ -43,12 +42,8 @@ def test_draft_host_consent_then_real_protocol_readback(
     _, requests = upstream
     monkeypatch.setattr(core.store, 'visible_chats', lambda *a: [])
     monkeypatch.setattr(core, 'tool_call_token', lambda: None)
-    script: list[BaseMessage] = []
-    if helper:
-        script.append(AIMessage(content='', tool_calls=[{
-            'name': helper, 'args': {'question': 'Подготовь черновик мероприятия.'}, 'id': 'helper'}]))
-    script.append(AIMessage(content='', tool_calls=[{
-        'name': 'call_api_tool', 'args': {'name': name, 'arguments': arguments}, 'id': 'write'}]))
+    script: list[BaseMessage] = [AIMessage(content='', tool_calls=[{
+        'name': 'call_api_tool', 'args': {'name': name, 'arguments': arguments}, 'id': 'write'}])]
     script.extend(AIMessage(content='Обработано.') for _ in range(4))
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {'configurable': {'thread_id': 'draft-consent'}}

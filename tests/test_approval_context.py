@@ -240,8 +240,7 @@ def test_dates_preserve_full_interval_and_do_not_infer_missing_times(case):
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("helper", [None, "docs", "chats"])
-def test_graph_saves_details_and_resume_never_repeats_preparation(monkeypatch, decision, asynchronous, helper):
+def test_graph_saves_details_and_resume_never_repeats_preparation(monkeypatch, decision, asynchronous):
     from langchain_core.language_models.fake_chat_models import FakeMessagesListChatModel
     from langgraph.types import Command
     from catix.agent import core
@@ -272,10 +271,7 @@ def test_graph_saves_details_and_resume_never_repeats_preparation(monkeypatch, d
     monkeypatch.setattr(api_tools.mcp_client, "request", arequest)
     call = deepcopy(CALL)
     call["args"]["arguments"]["cancel"] = True
-    script: list[BaseMessage] = []
-    if helper:
-        script.append(AIMessage(content="", tool_calls=[{"name": f"ask_{helper}", "id": "helper", "args": {"question": "Cancel my training."}}]))
-    script.extend([AIMessage(content="", tool_calls=[call]), AIMessage(content="Finished.")])
+    script: list[BaseMessage] = [AIMessage(content="", tool_calls=[call]), AIMessage(content="Finished.")]
     graph = core.build_agent(Model(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "context-resume"}}
 
@@ -296,20 +292,6 @@ def test_graph_saves_details_and_resume_never_repeats_preparation(monkeypatch, d
     assert sent[:len(before)] == before
     extra = sent[len(before):]
     assert extra == ([("call_tool", call["args"])] if decision == "approve" else [])
-
-
-@pytest.mark.parametrize("target,data", [
-    ("sport_get_training", {"training": TRAINING}),
-    ("events_get_event", {"event": EVENT}),
-    ("account_get_booking", {"booking": BOOKING}),
-])
-def test_new_exact_reads_are_evidence_only_for_their_own_shape(target, data):
-    from catix.agent.core import _read_parts
-
-    assert _read_parts(target, data)
-    assert _read_parts(target, {"done": True}) is None
-    assert _read_parts(target, {"training": {"training_id": True}}) is None
-    assert _read_parts(target, {"booking": {"service": "room", "booking_id": "id-only"}}) is None
 
 
 @pytest.mark.parametrize("language", ["ru", "en"])

@@ -29,7 +29,7 @@ def sources(answer: Answer) -> str:
 def test_retakes_give_the_number_and_the_period_of_the_regulation(agent):
     question = "Сколько раз можно пересдавать экзамен, если я его завалил?"
     answer = ask(agent, question)
-    assert "ask_docs" in answer.helpers, answer.helpers
+    assert "search" in answer.tool_names, answer.tool_names
     assert_test(case(question, answer), [
         MatchesAny([r"\b2\b|\bдва\b|\bдвух\b|дважды"], name="TwoRetakes"),
         MatchesAny([r"\b1\b\s*\(?одного\)?\s*год|одного\s+года|\bгод\w*\b"], name="WithinAYear"),
@@ -47,7 +47,7 @@ def test_an_official_rule_is_cited_with_the_document_and_its_clause(agent):
 def test_academic_leave_gives_twelve_months_and_the_exception(agent):
     question = "На какой срок можно взять академический отпуск?"
     answer = ask(agent, question)
-    assert "ask_docs" in answer.helpers, answer.helpers
+    assert "search" in answer.tool_names, answer.tool_names
     assert_test(case(question, answer), [MatchesAny([r"\b12\b|двенадцат"], name="TwelveMonths")])
 
 
@@ -78,7 +78,7 @@ def test_a_rule_the_documents_do_not_have_is_not_made_up(agent):
     """No document gives days off for a hackathon: the answer says it was not found and invents no number of days."""
     question = "Сколько дополнительных дней каникул положено студенту за победу в хакатоне?"
     answer = ask(agent, question)
-    assert answer.helpers, "answered without a helper"
+    assert "search" in answer.tool_names, "answered without searching"
     assert_test(case(question, answer), [NoMatch([r"\b\d+\s*(?:дн|день|недел)"], name="NoInventedDays")])
 
 
@@ -87,6 +87,6 @@ def test_a_course_question_is_answered_from_its_programme(agent):
     2026: semester 5, 5 credits, 180 hours, an exam. The answer names the programme it comes from."""
     question = "Сколько часов и какая форма аттестации по вычислительной математике на профиле Математические основы искусственного интеллекта?"
     answer = ask(agent, question)
-    assert "ask_docs" in answer.helpers, answer.helpers
+    assert "search" in answer.tool_names, answer.tool_names
     assert_test(case(question, answer), [ContainsAll(["180"], name="Hours"), MatchesAny([r"экзамен"], name="Exam")])
     assert "Рабочая программа" in sources(answer), sources(answer)

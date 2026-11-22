@@ -22,46 +22,10 @@ MEETING = {"id": "a" * 24, "slug": "team-42", "name": "Planning", "slots": [SLOT
 LIST = {"meetings": [MEETING], "total": 1, "truncated": False, "status": "active", "scope": "all"}
 
 
-def messages(target, data):
-    return [HumanMessage("Когда встречаемся?"), AIMessage(content="", tool_calls=[{
-        "name": "call_api_tool", "args": {"name": target, "arguments": {}}, "id": "read",
-    }]), ToolMessage(content=json.dumps(data), name="call_api_tool", tool_call_id="read")]
-
-
-@pytest.mark.parametrize("target,data,found", [
-    ("when2meet_get_my_meetings", LIST, True),
-    ("when2meet_get_my_meetings", {**LIST, "meetings": [], "total": 0}, False),
-    ("when2meet_get_meeting", MEETING, True),
-])
-def test_when2meet_reads_support_answers_without_retrieval_citations(target, data, found):
-    result = messages(target, data)
-    assert core.successful_read(result)
-    assert core.read_evidence(result) is found
-    assert not core.action_receipt(result)
-
-
-@pytest.mark.parametrize("target,data", [
-    ("when2meet_get_my_meetings", {**LIST, "total": 0}),
-    ("when2meet_get_my_meetings", {**LIST, "truncated": True}),
-    ("when2meet_get_my_meetings", {**LIST, "meetings": ["metadata"]}),
-    ("when2meet_get_my_meetings", {**LIST, "error": "unavailable"}),
-    ("when2meet_get_meeting", {"name": "Planning", "slots": []}),
-    ("when2meet_get_meeting", {**MEETING, "participants": None}),
-    ("when2meet_get_meeting", {**MEETING, "common_slots": "unknown"}),
-    ("when2meet_get_meeting", {**MEETING, "error": "unavailable"}),
-    ("when2meet_get_meeting", LIST),
-    ("when2meet_get_my_meetings", MEETING),
-    ("when2meet_create_meeting", MEETING),
-])
-def test_malformed_unrelated_or_failed_reads_are_not_evidence(target, data):
-    result = messages(target, data)
-    assert not core.successful_read(result)
-    assert not core.read_evidence(result)
-
 
 def test_when2meet_guidance_is_shared_and_credential_aware():
     assert "When2Meet" in api_tools.search_api_tools.description
-    assert "When2Meet" in roles.abilities([], signed_in=True)
+    assert "When2Meet" in roles.abilities(signed_in=True)
     assert "When2Meet" in roles.ON_THE_SITE
 
 
@@ -103,27 +67,20 @@ MUTATIONS = [
 ]
 
 
-def action_script(target, arguments, helper=None):
-    script = []
-    if helper:
-        script.append(AIMessage(content="", tool_calls=[{
-            "name": helper, "args": {"question": "Измени опрос When2Meet."}, "id": "helper",
-        }]))
-    script.append(AIMessage(content="", tool_calls=[{
+def action_script(target, arguments):
+    return [AIMessage(content="", tool_calls=[{
         "name": "call_api_tool", "args": {"name": target, "arguments": arguments}, "id": "write",
-    }]))
-    return [*script, *[AIMessage(content="Обработано.") for _ in range(4)]]
+    }]), *[AIMessage(content="Обработано.") for _ in range(4)]]
 
 
 @pytest.mark.parametrize("target,arguments", MUTATIONS)
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("decision", ["approve", "reject"])
 @pytest.mark.parametrize("asynchronous", [False, True])
 def test_when2meet_real_protocol_waits_for_consent_and_reads_back(
-    upstream, mcp_http_protocol, target, arguments, helper, decision, asynchronous,
+    upstream, mcp_http_protocol, target, arguments, decision, asynchronous,
 ):
     state, requests = upstream
-    agent = core.build_agent(ScriptedModel(responses=action_script(target, arguments, helper)), guardrail=False)
+    agent = core.build_agent(ScriptedModel(responses=action_script(target, arguments)), guardrail=False)
     config = {"configurable": {"thread_id": "when2meet-consent"}}
     context = AgentContext(innohassle_token=SecretStr("synthetic-user"))
 

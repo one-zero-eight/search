@@ -92,13 +92,7 @@ def trace_url(trace_id: str) -> str:
 
 @pytest.fixture(autouse=True)
 def _hermetic(request, monkeypatch):
-    """A test never reaches the real Telegram, and one that uses the synthetic chat searches only that chat.
-
-    The agent's `search_userbot_chats` asks the running userbot to search the real chats, which both leaks the test's questions
-    (attack texts included) and mixes real messages into the answers; here it finds nothing. A test that wants hits sets its own."""
-    from catix import live_search
-
-    monkeypatch.setattr(live_search, "search", lambda *args, **kwargs: ([], None))
+    """A test never reaches the real Telegram, and one that uses the synthetic chat searches only that chat."""
     monkeypatch.setattr(settings, "tg_bot_token", None)  # (the run of catix-docs tells the admins of new sites and of the OCR queue: not from a test)
     # Operator-local service roots must not change synthetic upstream paths in unrelated tests.
     # Routing tests install their own explicit Settings or override these after this autouse fixture.

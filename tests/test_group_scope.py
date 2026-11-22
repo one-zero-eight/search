@@ -63,13 +63,13 @@ def test_a_user_of_group_all_gets_only_the_chats_of_group_all(grouped_chat):
 
 def test_the_search_tool_never_leaves_the_allowed_chats(grouped_chat):
     """What the agent's tool does with the context: only the allowed chats are searched, whatever the model asks for."""
-    from catix.agent.tools import AgentContext, search_chats
+    from catix.agent.tools import AgentContext, search
 
     context = AgentContext(allowed_chat_ids=frozenset({grouped_chat + 1}))  # a chat that is not the synthetic one
     runtime = SimpleNamespace(context=context, state={"messages": []}, config={"configurable": {"thread_id": "t"}}, tool_call_id="c")
-    out = search_chats.func(queries=["орнитология"], runtime=runtime, chat="synthetic")  # the model even names the chat
+    out = search.func(queries=["орнитология"], runtime=runtime, sources=["chat"])
     payload = json.loads(out.update["messages"][0].content)
-    assert payload["messages"] == []
+    assert payload["chat"]["messages"] == []
 
 
 def test_reading_the_chats_never_leaves_the_allowed_chats(grouped_chat):

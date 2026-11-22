@@ -238,34 +238,8 @@ def test_root_uses_one_tool_and_keeps_combined_read_as_evidence(monkeypatch):
     assert len(messages) == 1 and messages[0].name == "get_my_schedule"
     assert isinstance(messages[0].content, str)
     assert json.loads(messages[0].content)["total"] == 2
-    assert core.read_evidence(result["messages"]) and core.successful_read(result["messages"])
     assert not agent.get_state(config).interrupts
     assert "get_my_schedule" in STATUS
-
-
-@pytest.mark.parametrize("kind,recognized", [("complete_empty", True), ("partial_empty", True),
-                                           ("all_failed", False), ("bad_count", False), ("wrong_source", False), ("unhashable_source", False)])
-def test_merged_agenda_evidence_distinguishes_partial_empty_from_unread(monkeypatch, kind, recognized):
-    from catix.agent import core
-
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [], "bookings": []})
-    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [])
-    result = tool().func(SimpleNamespace(context=CONTEXT), date(2026, 11, 9), date(2026, 11, 9))
-    if kind in {"partial_empty", "all_failed"}:
-        result["complete"] = False
-        result["not_read"] = ["innohassle: unavailable"]
-        result["sources"]["innohassle"]["status"] = "unavailable"
-    if kind == "all_failed":
-        result["sources"]["ai_calendar"]["status"] = "unavailable"
-    elif kind == "bad_count":
-        result["total"] = 1
-    elif kind == "wrong_source":
-        result["events"] = [{**CLASS, "source": "invented"}]
-        result["total"] = 1
-    elif kind == "unhashable_source":
-        result["events"] = [{**CLASS, "source": {"bad": "source"}}]
-        result["total"] = 1
-    assert (core._read_parts("get_my_schedule", result) is not None) is recognized
 
 
 @pytest.mark.parametrize("row", [{}, {**CLASS, "title": []}, {**CLASS, "starts_at": "not a timestamp"}])
@@ -277,9 +251,8 @@ def test_bad_event_does_not_abort_unaffected_source_or_prove_completeness(monkey
     assert result["events"][0]["calendar_event_id"] == 17
 
 
-@pytest.mark.parametrize("helper", [False, True])
 @pytest.mark.parametrize("tool_name", ["get_my_schedule"])
-def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, helper, tool_name):
+def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, tool_name):
     import asyncio
     from langchain_core.messages import AIMessageChunk
     from catix.api import ask
@@ -288,7 +261,7 @@ def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, helper, to
 
     chunk = AIMessageChunk(content="", id="model", tool_call_chunks=[
         {"name": tool_name, "args": "", "id": "agenda", "index": 0}])
-    event = ("custom", {"tool": tool_name}) if helper else ("messages", (chunk, {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}))
+    event = ("messages", (chunk, {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}))
     queue = asyncio.Queue()
     class Stream:
         async def astream(self, *a, **kw):

@@ -134,18 +134,17 @@ def test_booking_selection_and_window_public_contract():
 
 
 @pytest.mark.parametrize('service', ['rooms', 'music', 'sport'])
-@pytest.mark.parametrize('later', ['rooms_get_free_rooms', 'music_get_available_windows', 'rooms_book_room', 'helper_write'])
+@pytest.mark.parametrize('later', ['rooms_get_free_rooms', 'music_get_available_windows', 'rooms_book_room'])
 def test_later_paired_failures_and_mutations_invalidate_booking_recommendations(native_bookings, service, later):
     from catix.api import signup
     from tests.test_signup_offers import recommendation
     _, _, recommend = native_bookings
     messages = recommendation() if service == 'sport' else recommend(service)
     assert signup.collect(messages, '', now=NOW)[0]
-    name = later if later.startswith('get_my_') else 'ask_docs' if later == 'helper_write' else 'call_api_tool'
+    name = later if later.startswith('get_my_') else 'call_api_tool'
     args = {} if name != 'call_api_tool' else {'name': later, 'arguments': {}}
     messages.extend([AIMessage('', tool_calls=[{'id': 'later', 'name': name, 'args': args}]),
-                     ToolMessage('{"error":"failed"}', name=name, tool_call_id='later',
-                         artifact={'action_receipts': [{'outcome': 'unknown'}]} if later == 'helper_write' else None)])
+                     ToolMessage('{"error":"failed"}', name=name, tool_call_id='later')])
     assert signup.collect(messages, '', now=NOW) == ([], {})
 
 

@@ -26,29 +26,11 @@ def read_turn(name="read_attachment", **changes):
 
 
 @pytest.mark.parametrize("name", ["read_attachment", "view_attachment"])
-def test_attachment_read_is_evidence_without_invented_refs(name):
+def test_attachment_read_answer_has_no_invented_refs_or_sources(name):
     messages = read_turn(name)
-    assert core.read_evidence(messages)
-    assert core.successful_read(messages)
-    assert core.found_anything(messages) is True
-    assert "18 ноября" in core.final_answer([*messages, AIMessage("В syllabus.pdf, стр. 1: 18 ноября.")], {}).answer
-
-
-@pytest.mark.parametrize("changes", [{"id": "another-file"}, {"page": 2}, {"page": True}, {"pages": 0},
-                                    {"truncated": "false"}, {"error": "not readable"}])
-def test_unmatched_or_invalid_attachment_result_is_not_evidence(changes):
-    assert not core.read_evidence(read_turn(**changes))
-    assert not core.successful_read(read_turn(**changes))
-
-
-def test_empty_text_layer_is_not_proof_that_the_page_is_blank():
-    messages = read_turn(text="", note="No text layer: use view_attachment.")
-    assert core.successful_read(messages)
-    assert not core.read_evidence(messages)
-
-
-def test_previous_turn_attachment_data_does_not_support_new_answer():
-    assert not core.read_evidence([*read_turn(), AIMessage("Ответ"), HumanMessage("Что в другой странице?")])
+    answer = core.final_answer([*messages, AIMessage("В syllabus.pdf, стр. 1: 18 ноября.")], {})
+    assert "18 ноября" in answer.answer and answer.sources == []
+    assert name not in core.RETRIEVAL_TOOLS
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
@@ -150,12 +132,12 @@ def test_attachment_tools_and_manifest_are_scoped_to_authenticated_site_chat():
     context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"),
                            attachment_chat_id="chat", attachments=(metadata,), current_attachment_ids=(FILE_ID,))
     request = ModelRequest(model=ScriptedModel(responses=[AIMessage("ok")]), messages=[HumanMessage("Что в файле?")],
-                           tools=[{"name": "read_attachment"}, {"name": "view_attachment"}, {"name": "ask_docs"}],
+                           tools=[{"name": "read_attachment"}, {"name": "view_attachment"}, {"name": "search"}],
                            state={"messages": []}, runtime=Runtime(context=context))
     seen = []
     middleware = getattr(core, "AttachmentAccessMiddleware", None)
     assert middleware is not None
-    middleware().wrap_model_call(request, lambda r: core.prompt_for(None).wrap_model_call(r, seen.append))
+    middleware().wrap_model_call(request, lambda r: core.agent_prompt().wrap_model_call(r, seen.append))
     assert len(seen[0].tools) == 3
     prompt = seen[0].system_message.text
     assert FILE_ID in prompt and "syllabus.pdf" in prompt
@@ -164,7 +146,7 @@ def test_attachment_tools_and_manifest_are_scoped_to_authenticated_site_chat():
     anonymous = ModelRequest(model=request.model, messages=request.messages, tools=request.tools,
                              state=request.state, runtime=Runtime(context=AgentContext()))
     middleware().wrap_model_call(anonymous, seen.append)
-    assert seen[0].tools == [{"name": "ask_docs"}]
+    assert seen[0].tools == [{"name": "search"}]
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])

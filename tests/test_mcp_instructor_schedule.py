@@ -109,36 +109,6 @@ def test_unavailable_or_malformed_source_does_not_become_empty(source, monkeypat
         call(NAME, ARGS)
 
 
-@pytest.mark.parametrize("empty", [False, True])
-def test_host_accepts_dated_read_and_valid_empty_result(source, empty):
-    from catix.agent import core
-    from catix.innohassle.mcp_access import CREDENTIAL_MODES, READ_TOOLS
-    from tests.test_main_mcp_routing import mixed_read_messages
-
-    assert CREDENTIAL_MODES.get(NAME) == "public" and NAME in READ_TOOLS
-    day = "2026-11-03" if empty else "2026-11-02"
-    payload = call(NAME, {**ARGS, "date_from": day, "date_to": day})
-    assert core._read_parts(NAME, payload) == (payload["classes"],)
-    messages = mixed_read_messages(NAME, payload)
-    assert core.successful_read(messages)
-    assert core.read_evidence(messages) is not empty
-    assert core.final_answer(messages, {}).answer == messages[-1].text
-
-
-@pytest.mark.parametrize("changes", [
-    {"instructor": None}, {"instructor": {}}, {"range": ["2026-02-30", "2026-11-02"]},
-    {"total": True}, {"total": 0}, {"total": 20}, {"classes": None}, {"classes": [{}]},
-    {"classes": [{"date": "2026-11-02", "course": "X", "start": "25:00", "end": "26:00"}], "total": 1},
-])
-def test_host_rejects_malformed_schedule_envelopes(source, changes):
-    from catix.agent import core
-
-    payload = call(NAME, ARGS)
-    assert core._read_parts(NAME, payload) is not None
-    assert core._read_parts(NAME, {**payload, **changes}) is None
-    assert core._read_parts(NAME, {"term": {}, "courses": []}) is None
-
-
 def test_instructor_schedule_discovery_and_shared_guidance():
     import asyncio
     from catix.agent import roles

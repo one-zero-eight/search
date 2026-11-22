@@ -109,7 +109,7 @@ def test_an_older_version_is_found_only_when_its_year_is_asked(monkeypatch):
     assert [h.id for h in doc_store.search("правила приема 2024 года")] == [1, 2]
 
 
-def test_a_section_asked_as_the_table_of_contents_names_it_is_read_and_a_read_that_finds_nothing_costs_nothing(monkeypatch):
+def test_a_section_asked_as_the_table_of_contents_names_it_is_read(monkeypatch):
     """The trace of 'регламент организации ИТ-поддержки': a scan's chapter is the line '4 Процесс получения технической
     поддержки', no heading; the model asks for '4. Процесс …' and must get it, not the table of contents, not nothing."""
     import json
@@ -132,15 +132,13 @@ def test_a_section_asked_as_the_table_of_contents_names_it_is_read_and_a_read_th
 
     out = read(section="4. Процесс получения технической поддержки")
     assert [p["text"][:9] for p in out["pieces"]] == ["**3.3.2**", "- – в теч"]  # from the chapter's line on, not from the contents
-    assert out["reads_left"] == 1
     assert read(section="7. Нет такого раздела")["pieces"] == []
-    last = read(section="требования к срокам")  # (the failed read did not count: this is the second)
-    assert last["pieces"] and last["reads_left"] == 0 and "last read" in last["note"]
-    assert "error" in read(clause="4.1")  # two reads gave text: no more
+    assert read(section="требования к срокам")["pieces"]
+    assert read(clause="4.1")["pieces"], "reads are not limited"
 
 
 def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
-    """Asked about IT support, the helper read chapters 1 and 2 of the regulation in order and never reached chapter 4, the
+    """Asked about IT support, the model read chapters 1 and 2 of the regulation in order and never reached chapter 4, the
     procedure and its deadlines: the search names a document's chapters with its first piece, once."""
     import json
 
@@ -150,7 +148,8 @@ def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
     contents = {path: ["1. Общие положения", "2. Общее описание процесса", "4. Описание операций процесса", "5. Цели и показатели"], other: ["Текст"]}
     monkeypatch.setattr(tools.doc_store, "search", lambda *args, **kwargs: found)
     monkeypatch.setattr(tools.doc_store, "chapters", lambda paths: {p: contents[p] for p in paths})
-    pieces = json.loads(tools.search_wiki.func(queries=["регламент ИТ-поддержки"], runtime=runtime()).update["messages"][0].content)["pieces"]
+    result = json.loads(tools.search.func(queries=["регламент ИТ-поддержки"], sources=["docs"], runtime=runtime()).update["messages"][0].content)
+    pieces = result["docs"]["pieces"]
     assert pieces[0]["chapters"] == contents[path] and "chapters" not in pieces[2]  # (once per document)
     assert "chapters" not in pieces[1]  # (one heading is no table of contents)
 

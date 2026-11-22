@@ -134,7 +134,6 @@ def test_host_calls_availability_as_authenticated_read_without_approval(music_ap
     assert not agent.get_state(config).interrupts
     payload = json.loads(next(m.content for m in out["messages"] if isinstance(m, ToolMessage)))
     assert payload.get("windows"), payload
-    assert core.successful_read(out["messages"]) and core.read_evidence(out["messages"])
 
 
 @pytest.mark.parametrize("generic", [False, True])
@@ -211,17 +210,6 @@ def test_quota_exhaustion_is_not_confused_with_occupied_room(music_api, daily, w
     music_api.update(daily=daily, weekly=weekly)
     data = invoke({"day": DAY, "duration_minutes": duration}).data
     assert data["windows"] == [] and data["reason"] == "insufficient_quota"
-
-
-def test_empty_windows_are_valid_read_evidence_but_not_a_service_error(music_api):
-    from catix.agent import core
-    music_api["bookings"] = [{"time_start": DAY + "T07:00:00", "time_end": DAY + "T22:30:00"}]
-    data = invoke({"day": DAY}).data
-    assert data["windows"] == [] and data["reason"] == "no_matching_window"
-    assert core._read_parts(NAME, data) == ([],)
-    assert core._read_parts(NAME, {"windows": []}) is None
-    assert core._read_parts("rooms_get_free_rooms", data) is None
-    assert core._read_parts(NAME, {**data, "reason": []}) is None
 
 
 @pytest.mark.parametrize("profile", [{"status": "unknown"}, {}, None])

@@ -3,7 +3,7 @@
 from catix.agent import roles
 
 
-def test_root_exposes_shared_api_and_only_retrieval_helpers():
+def test_root_exposes_shared_api_and_the_search_tool():
     from langchain_core.messages import AIMessage, HumanMessage
     from pydantic import SecretStr
 
@@ -22,9 +22,8 @@ def test_root_exposes_shared_api_and_only_retrieval_helpers():
         graph = build_agent(RecordingModel(responses=[AIMessage(content="Привет!")]), guardrail=False)
         graph.invoke({"messages": [HumanMessage("Привет!")]},
                      {"configurable": {"thread_id": "no-account-helper"}}, context=context)
-        assert {name for name in bound[-1] if name.startswith("ask_")} == {"ask_docs", "ask_chats"}
-        assert {"search_api_tools", "call_api_tool"} <= bound[-1]
-    assert set(roles.ROLES) == {"docs", "chats"}
+        assert not {name for name in bound[-1] if name.startswith("ask_")}
+        assert {"search", "read_wiki", "read_chats", "search_api_tools", "call_api_tool"} <= bound[-1]
 
 
 def test_printer_status_is_offered_without_promising_printing_or_moodle():
@@ -32,8 +31,6 @@ def test_printer_status_is_offered_without_promising_printing_or_moodle():
 
     api_names = {"search_api_tools", "call_api_tool"}
     assert api_names <= roles.MAIN_TOOLS
-    assert all(api_names <= role.tools for role in roles.ROLES.values())
     assert api_names <= {tool.name for tool in TOOLS}
-    assert all(not hasattr(role, "approval") for role in roles.ROLES.values()), "approval follows the shared tool, not a role"
     assert not {"find_api_actions", "describe_api_action", "execute_api_action"} & {tool.name for tool in TOOLS}
     assert "printer" in roles.ACCOUNT_OFFERS

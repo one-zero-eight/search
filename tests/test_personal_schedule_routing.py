@@ -164,7 +164,6 @@ def test_current_personal_feeds_and_ai_calendar_cover_all_sources_for_the_same_p
     assert {item['service'] for item in agenda['events'] if 'service' in item} == {'music_room', 'room'}
     assert [item['title'] for item in agenda['events'] if item['source'] == 'ai_calendar'] == ['AI calendar guitar practice']
     assert 'Wrong English' not in str(payloads)
-    assert core.successful_read(out['messages']) and core.read_evidence(out['messages'])
     paths = [r.url.path for r in personal_sources['http']]
     assert sorted(paths) == sorted([
         '/schedule/v0/users/me', '/schedule/v0/users/me/predefined', '/schedule/v0/event-groups/',

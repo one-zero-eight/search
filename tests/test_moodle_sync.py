@@ -11,7 +11,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from catix import groups, moodle_files, moodle_sync
-from catix.agent import core, moodle_tools
+from catix.agent import moodle_tools
 from catix.api.app import app
 from catix.db import pg
 from catix.worker import moodle_reader
@@ -254,7 +254,6 @@ def test_moodle_deadlines_leave_out_mirrored_events_and_later_ones(client):
     assert result["total"] == 2
     first = datetime.now(settings.tz).date()
     assert result["range"] == [first.isoformat(), (first + timedelta(days=13)).isoformat()]
-    assert core._read_parts("get_my_moodle", result) is not None
     assert moodle_tools.get_my_moodle.func(asking(U2), "deadlines")["error"].startswith("No Moodle data")
 
 

@@ -67,14 +67,12 @@ def test_calendar_actions_are_exposed_only_on_root_and_always_reviewed():
     names = {"add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"}
     assert names <= {t.name for t in TOOLS}
     assert {"search_api_tools", "call_api_tool"} <= roles.MAIN_TOOLS
-    assert all(not hasattr(role, "approval") for role in roles.ROLES.values())
     assert names == set(LOCAL_CALENDAR_APPROVAL)
     assert names | {"get_my_ai_calendar"} <= roles.MAIN_TOOLS
-    assert not any((names | {"get_my_ai_calendar"}) & role.tools for role in roles.ROLES.values())
 
 
 @pytest.mark.parametrize("unknown", [False, True])
-def test_local_action_result_survives_unrelated_helper_failure(calendar, monkeypatch, unknown):
+def test_local_action_result_survives_unrelated_failed_lookup(calendar, monkeypatch, unknown):
     from catix.agent import core
 
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
@@ -88,9 +86,7 @@ def test_local_action_result_survives_unrelated_helper_failure(calendar, monkeyp
         monkeypatch.setattr(personal_calendar, "add_event", committed_but_reply_lost)
     answer = ("Сохранение встречи не подтверждено; повторять нельзя. Объявления проверить не удалось." if unknown
               else "Встреча сохранена. Объявления проверить не удалось.")
-    script = [call("add_to_ai_calendar", ARGS, "w1"),
-              call("ask_chats", {"question": "Есть объявления?"}, "h1"),
-              AIMessage(content=core.TOOL_FAILURE_ANSWER), AIMessage(content=answer)]
+    script = [call("add_to_ai_calendar", ARGS, "w1"), AIMessage(content=answer)]
     agent = build_agent(ScriptedModel(responses=script), guardrail=False)
     config = {"configurable": {"thread_id": "mixed-local-action"}}
     agent.invoke({"messages": [HumanMessage("Добавь встречу и проверь объявления.")]}, config, context=SITE)
@@ -98,9 +94,11 @@ def test_local_action_result_survives_unrelated_helper_failure(calendar, monkeyp
     assert calendar.writes == []
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert len(calendar.writes) == 1
-    assert core.final_answer(out["messages"], {}).answer == answer
+    messages = [*out["messages"][:-1],
+                ToolMessage(content=core.TOOL_FAILURE_ANSWER, name="search", tool_call_id="h1"),
+                out["messages"][-1]]
+    assert core.final_answer(messages, {}).answer == answer
     assert core.action_receipt(out["messages"])
-    assert not core.read_evidence(out["messages"]) and not core.successful_read(out["messages"])
 
 
 @pytest.mark.parametrize("name", ["add_to_ai_calendar", "update_ai_calendar"])
@@ -124,7 +122,7 @@ def test_calendar_write_waits_for_consent_and_rejection_changes_nothing(calendar
     else:
         assert calendar.writes == [] and calendar.events["ih:u1", 5].starts_at.hour == 10
     assert "calendar-user-token" not in str(out)
-    assert not any(m.name in {"ask_account", "call_api_tool"} for m in out["messages"] if isinstance(m, ToolMessage))
+    assert not any(m.name == "call_api_tool" for m in out["messages"] if isinstance(m, ToolMessage))
 
 
 @pytest.mark.parametrize("name", ["add_to_ai_calendar", "update_ai_calendar"])

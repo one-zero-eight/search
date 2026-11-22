@@ -3,12 +3,12 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from catix.db import pg, store, wiki
+from catix.db import docs, pg, store
 from catix.settings import settings
 
 
 def hit(search, text: str):
-    """A hit of `search`: a chat message (store) or a piece of the wiki."""
+    """A hit of `search`: a chat message (store) or a piece of the documents."""
     if search is store:
         from datetime import datetime
 
@@ -99,14 +99,14 @@ def test_embedding_checks_the_actual_server_model(monkeypatch):
     assert paths == ["/v1/models"]
 
 
-@pytest.mark.parametrize("search", [store, wiki])
+@pytest.mark.parametrize("search", [store, docs])
 def test_single_irrelevant_hit_still_passes_through_reranker(monkeypatch, search):
     monkeypatch.setattr(settings, "rerank_min_score", -3.0)
     monkeypatch.setattr(pg, "rerank", lambda query, documents: [-10.0])
     assert search._rerank(["question"], [hit(search, "irrelevant")], 10) == []
 
 
-@pytest.mark.parametrize("search", [store, wiki])
+@pytest.mark.parametrize("search", [store, docs])
 def test_reranking_keeps_tail_and_fourth_query(monkeypatch, search):
     monkeypatch.setattr(settings, "rerank_queries", 9)
     monkeypatch.setattr(settings, "rerank_max_chars", 4000)
@@ -134,24 +134,24 @@ def test_each_message_keeps_how_well_two_angles_agree_it_is_about_the_question(m
     assert [h.relevance for h in store._rerank(["администратор университет иннополис"], [notice], 5)] == [3.09]
 
 
-def test_each_wiki_piece_keeps_how_well_two_angles_agree_it_is_about_the_question(monkeypatch):
+def test_each_docs_piece_keeps_how_well_two_angles_agree_it_is_about_the_question(monkeypatch):
     """As for the chats: the cutoff keeps the best score, `relevance` is the second best (a misspelt name found the list of
     teachers at -3.24 at best: nothing about the question)."""
     scores = {"кто такой Лисоввкий": -3.24, "Лисоввкий преподаватель": -1.0, "Лисоввкий": -5.0}
     monkeypatch.setattr(settings, "rerank_min_score", -3.0)
     monkeypatch.setattr(pg, "rerank", lambda query, documents: [scores[query]])
-    piece = hit(wiki, "| Мелехова Анна Леонидовна | Доцент |")
-    assert [h.relevance for h in wiki._rerank(list(scores), [piece], 5)] == [-3.24]
+    piece = hit(docs, "| Мелехова Анна Леонидовна | Доцент |")
+    assert [h.relevance for h in docs._rerank(list(scores), [piece], 5)] == [-3.24]
 
 
 def test_empty_fusion_and_zero_limit():
     assert store._combine([], 10) == []
     assert store._combine([{1: 1.0}], 0) == []
     assert store.search("exam", limit=0) == []
-    assert wiki.search("exam", limit=0) == []
+    assert docs.search("exam", limit=0) == []
 
 
-@pytest.mark.parametrize("search", [store, wiki])
+@pytest.mark.parametrize("search", [store, docs])
 def test_reranker_failure_keeps_hybrid_ranking(monkeypatch, search):
     def unavailable(*args):
         raise httpx.ConnectError("offline")

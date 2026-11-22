@@ -18,7 +18,7 @@ from tests.helpers import ContainsAll, ContainsNone
 
 
 def results(text: str, official_chat: bool = False, chat: str = "Dorm chat") -> str:
-    """What search_chats returns, as the check sees it."""
+    """What `search` returns for a chat, as the check sees it."""
     return json.dumps({"total": 1, "messages": [{"ref": "m1", "chat": chat, "official": official_chat, "text": text}]}, ensure_ascii=False)
 
 
@@ -149,17 +149,16 @@ def test_conflicting_metadata_and_embedded_json_cannot_establish_official_status
     assert claims.check(answer, conflicting)[1]
 
 
-def test_supervisor_checks_original_helper_records_not_report_self_attribution():
+def test_the_agent_checks_the_records_of_the_results_not_its_own_attribution():
     from langchain_core.messages import ToolMessage
 
     from catix.agent.core import clean
 
     answer = "Официальное объявление: экзамен завтра [m1]."
-    report = ToolMessage(content=answer, tool_call_id="helper", name="ask_chats",
-                         artifact={"results": [results("Экзамен завтра", official_chat=True)]})
-    assert clean([report], answer) == answer
-    report.artifact["results"] = [results("Экзамен завтра", official_chat=False)]
-    assert clean([report], answer) != answer
+    found = ToolMessage(content=results("Экзамен завтра", official_chat=True), tool_call_id="s1", name="search")
+    assert clean([found], answer) == answer
+    found = ToolMessage(content=results("Экзамен завтра", official_chat=False), tool_call_id="s1", name="search")
+    assert clean([found], answer) != answer
 
 
 def test_a_link_written_unescaped_is_kept_and_a_line_left_with_only_its_label_goes():
@@ -185,9 +184,9 @@ def test_a_link_in_bold_or_without_its_closing_slash_is_the_same_link_and_an_inv
     from catix.agent.core import clean
 
     turn = [ToolMessage(content=json.dumps({"messages": [{"ref": "m6", "text": "Записывайтесь на https://sport.innopolis.university"}]}),
-                        tool_call_id="s", name="search_chats"),
+                        tool_call_id="s", name="read_chats"),
             ToolMessage(content=json.dumps({"pieces": [{"ref": "m7", "text": "Профиль: https://sport.innopolis.university/profile/"}]}),
-                        tool_call_id="w", name="search_wiki")]  # fmt: skip
+                        tool_call_id="w", name="read_wiki")]  # fmt: skip
     for answer in ["Сайт спорта: **https://sport.innopolis.university** [m6].", "Запись на `https://sport.innopolis.university/`.",
                    "Часы — в профиле: _https://sport.innopolis.university/profile_ [m7]", "Сайт: https://sport.innopolis.university!"]:  # fmt: skip
         assert clean(turn, answer) == answer
@@ -198,7 +197,7 @@ def test_a_link_in_bold_or_without_its_closing_slash_is_the_same_link_and_an_inv
 
 
 def test_an_answer_tag_goes():
-    """The docs helper wrapped its report in <answer>…</answer>, and the lone report reached the user with the tags."""
+    """A model once wrapped its answer in <answer>…</answer>, and the tags reached the user."""
     from catix.agent.core import clean
 
     assert clean([], "<answer>\nПересдача не более 2 раз [m1].\n</answer>") == "Пересдача не более 2 раз [m1]."

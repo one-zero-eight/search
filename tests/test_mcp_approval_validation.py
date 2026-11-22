@@ -24,10 +24,9 @@ def tool_call(name, args, ident):
     return AIMessage(content="", tool_calls=[{"name": name, "args": args, "id": ident}])
 
 
-@pytest.mark.parametrize("helper", [None, "ask_docs", "ask_chats"])
 @pytest.mark.parametrize("asynchronous", [False, True])
 def test_discovered_schema_rejects_missing_title_locally_before_approval(
-    mcp_http_protocol, monkeypatch, helper, asynchronous,
+    mcp_http_protocol, monkeypatch, asynchronous,
 ):
     calls, writes = [], []
     async_request = mcp_client.request
@@ -42,16 +41,13 @@ def test_discovered_schema_rejects_missing_title_locally_before_approval(
         return await async_request(method, arguments, access, **kwargs)
 
     monkeypatch.setattr(mcp_client, "request", record_async)
-    script: list[BaseMessage] = []
-    if helper:
-        script.append(tool_call(helper, {"question": QUESTION}, "helper"))
-    script.extend([
+    script: list[BaseMessage] = [
         tool_call("search_api_tools", {"query": "rooms_book_room"}, "discover"),
         tool_call("call_api_tool", MISSING_TITLE, "incomplete"),
         *[AIMessage(content="Какое название указать для бронирования?") for _ in range(6)],
-    ])
+    ]
     agent = core.build_agent(ScriptedModel(responses=script), guardrail=False)
-    config = {"configurable": {"thread_id": f"missing-title-{helper}-{asynchronous}"}}
+    config = {"configurable": {"thread_id": f"missing-title-{asynchronous}"}}
     context = AgentContext(innohassle_token=SecretStr("synthetic-user"))
     inputs = {"messages": [HumanMessage(QUESTION)]}
     out = (asyncio.run(agent.ainvoke(inputs, config, context=context)) if asynchronous
@@ -61,13 +57,9 @@ def test_discovered_schema_rejects_missing_title_locally_before_approval(
     assert calls == [("search_tools", None, {})], calls
     results = []
     for message in out["messages"]:
-        if not isinstance(message, ToolMessage):
-            continue
-        if message.name == "call_api_tool":
+        if isinstance(message, ToolMessage) and message.name == "call_api_tool":
             assert isinstance(message.content, str)
             results.append(json.loads(message.content))
-        elif message.name == helper:
-            results.extend(json.loads(value) for value in message.artifact["results"])
     assert any(isinstance(result, dict) and "title" in str(result.get("error", "")).lower() for result in results)
     assert "название" in core.final_answer(out["messages"], {}).answer.lower()
 

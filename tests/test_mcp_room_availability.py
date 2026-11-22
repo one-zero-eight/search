@@ -247,15 +247,6 @@ def test_host_approval_rechecks_and_never_bypasses_availability(room_api, monkey
     assert len(room_api["writes"]) == (1 if change == "none" else 0)
 
 
-def test_personal_refusals_are_read_evidence_not_empty_inventory(room_api):
-    from catix.agent import core
-
-    room_api["permission"] = {"can_book": False, "reason_why_cannot": "Only staff can book this room"}
-    data = invoke().data
-    assert core._read_parts("rooms_get_free_rooms", data) == ([], [], data["unavailable"])
-    assert core._read_parts("rooms_get_free_rooms", {**data, "unavailable": "invalid"}) is None
-
-
 def test_every_unoccupied_room_has_its_own_permission_check(room_api):
     room_api["rooms"] = [{"id": "r"}, {"id": "allowed"}, {"id": "busy"}]
     room_api["bookings"] = [{"room_id": "busy", "start": DAY + "T10:00:00", "end": DAY + "T11:00:00"}]

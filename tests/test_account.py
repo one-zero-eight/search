@@ -132,7 +132,7 @@ def test_a_past_action_is_refused_at_execution_and_by_direct_mcp(music_room):
 
 
 def test_only_local_calendar_writes_require_the_site_token_and_owner():
-    public = ["ask_docs", "ask_chats", "search_api_tools", "call_api_tool", "get_my_ai_calendar"]
+    public = ["search", "read_wiki", "search_api_tools", "call_api_tool", "get_my_ai_calendar"]
     writes = ["add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"]
     tools = [SimpleNamespace(name=name) for name in public + writes]
 
@@ -175,9 +175,7 @@ def test_external_tools_are_registered_only_through_shared_mcp():
 
     assert set(API_APPROVAL) == {"call_api_tool"}
     shared = {"search_api_tools", "call_api_tool"}
-    assert set(roles.ROLES) == {"docs", "chats"}
     assert shared <= roles.MAIN_TOOLS <= known
-    assert all(shared <= role.tools <= known for role in roles.ROLES.values())
     assert {"get_my_ai_calendar", "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"} <= known
     assert "get_my_schedule" in known  # Host aggregator, not the retired external-only implementation.
     assert not {"book_music_room", "sport_checkin", "get_courses", "get_schedule",

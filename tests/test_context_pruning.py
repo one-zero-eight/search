@@ -29,12 +29,8 @@ from catix.agent.core import (
     OMITTED,
     PRUNED_RESULT,
     SUMMARY_INPUT_TOKENS,
-    SUMMARY_REPORT_CHARS,
-    FallbackMiddleware,
     LoggingMiddleware,
-    PassReportMiddleware,
     PruneOldToolResults,
-    RunGuardMiddleware,
     TurnStartSummarization,
     estimate_tokens,
     prompt_floor,
@@ -61,8 +57,8 @@ def turn(n: int, results: list[tuple[str, dict, str]], answer: str = "Ответ
     ]
 
 
-def ask_docs(text: str = "Автобус идёт от кампуса [m1].") -> tuple[str, dict, str]:
-    return ("ask_docs", {"question": "как добраться"}, text)
+def docs_search(text: str = "Автобус идёт от кампуса [m1].") -> tuple[str, dict, str]:
+    return ("search", {"queries": ["как добраться"]}, text)
 
 
 def tool_results(messages: list[BaseMessage]) -> dict[str, ToolMessage]:
@@ -95,26 +91,25 @@ READ = ("call_api_tool", {"name": "rooms_get_free_rooms", "arguments": {}}, json
 
 
 def history() -> list[BaseMessage]:
-    receipt = {"action_receipts": [{"name": "rooms_book_room", "outcome": "confirmed"}]}
     return [
-        *turn(1, [ask_docs("доклад " * 300)]),
+        *turn(1, [docs_search("доклад " * 300)]),
         *turn(2, [("search_api_tools", {"query": "rooms"}, json.dumps({"tools": ["x"] * 400}))]),
         *turn(3, [READ]),
         *turn(4, [BOOKING]),
         *turn(5, [UNKNOWN]),
         *turn(6, [("get_my_schedule", {}, json.dumps({"classes": ["y"] * 300})),
                   ("get_my_ai_calendar", {}, json.dumps({"events": []})),
-                  ("search_my_moodle", {"query": "q"}, "[]"),
+                  ("read_chats", {"chat_id": 1}, "[]"),
                   ("get_my_moodle", {"kind": "deadlines"}, "{}")]),
         *turn(7, [("add_to_ai_calendar", {"title": "t"}, json.dumps({"done": True})),
                   ("update_ai_calendar", {"calendar_event_id": 1}, json.dumps({"done": True})),
                   ("remove_from_ai_calendar", {"calendar_event_id": 1}, json.dumps({"done": True}))]),
         *turn(8, [("read_attachment", {"attachment_id": "f"}, "страница " * 400), ("view_attachment", {"attachment_id": "f"}, "картинка")]),
-        *turn(9, [ask_docs("Забронировано.")], artifacts={"c9-0": receipt}),
+        *turn(9, [docs_search("Забронировано.")]),
     ]
 
 
-KEPT = {"t4-0", "t5-0", "t7-0", "t7-1", "t7-2", "t8-0", "t8-1", "t9-0"}
+KEPT = {"t4-0", "t5-0", "t7-0", "t7-1", "t7-2", "t8-0", "t8-1"}
 
 
 def test_the_results_of_lookups_are_pruned_and_actions_and_files_stay_when_a_question_arrives():
@@ -122,7 +117,7 @@ def test_the_results_of_lookups_are_pruned_and_actions_and_files_stay_when_a_que
     after = apply(before, PruneOldToolResults().before_model({"messages": before}, None))
     results = tool_results(after)
     pruned = {i for i, m in results.items() if m.content == PRUNED_RESULT}
-    assert pruned == {"t1-0", "t2-0", "t3-0", "t6-0", "t6-1", "t6-2", "t6-3"}
+    assert pruned == {"t1-0", "t2-0", "t3-0", "t6-0", "t6-1", "t6-2", "t6-3", "t9-0"}
     assert {i for i in results if i not in pruned} == KEPT
     for i in KEPT:
         assert results[i].content == tool_results(before)[i].content  # untouched
@@ -214,8 +209,8 @@ def test_a_new_question_prunes_the_stored_thread_and_the_model_sees_the_stubs(no
     assert stored["sources"] == {"m1": {"url": "https://example.org"}}  # the sources of the conversation are not touched
     assert [m.content for m in out["messages"][-2:]] == ["и ещё вопрос", "Ответ."]
     sent = model.seen[0]  # the one model call: it was sent the stubs
-    assert {m.content for m in sent if isinstance(m, ToolMessage)} >= {PRUNED_RESULT, "Забронировано."}
-    assert sum(isinstance(m, ToolMessage) and m.content == PRUNED_RESULT for m in sent) == 7
+    assert {m.content for m in sent if isinstance(m, ToolMessage)} >= {PRUNED_RESULT, BOOKING[2]}
+    assert sum(isinstance(m, ToolMessage) and m.content == PRUNED_RESULT for m in sent) == 8
     assert all("доклад" not in str(m.content) for m in sent)
     assert_paired(sent)
 
@@ -232,47 +227,6 @@ def stubbed(*turns: list[BaseMessage]) -> list[BaseMessage]:
     """The turns, pruned as a following question would prune them."""
     messages = [m for t in turns for m in t] + [HumanMessage("вопрос", id="hx")]
     return apply(messages, PruneOldToolResults().before_model({"messages": messages}, None))[:-1]
-
-
-def request_of(messages: list[BaseMessage], **state) -> Any:
-    return types.SimpleNamespace(messages=messages, state={"messages": messages, **state})
-
-
-REPORT = "Автобус идёт от кампуса [m1]."
-
-
-def test_pass_report_passes_the_report_of_this_question_not_the_stub_of_an_earlier_one():
-    old = stubbed(turn(1, [ask_docs(REPORT)]))
-    run = [HumanMessage("как добраться до кампуса", id="h2"),
-           AIMessage(content="", tool_calls=[call("ask_docs", "new")], id="a2"),
-           ToolMessage(content=REPORT, tool_call_id="new", name="ask_docs", id="t2")]
-    assert PassReportMiddleware._report(request_of([*old, *run])) == REPORT
-    # an earlier question's stub cannot be mistaken for a report of this one
-    unanswered = [*old, *run[:2]]
-    assert PassReportMiddleware._report(request_of(unanswered)) is None
-
-
-def test_the_guard_looks_only_at_this_run_so_an_earlier_report_does_not_block_asking_again():
-    old = stubbed(turn(1, [ask_docs(REPORT)]), turn(2, [("get_my_schedule", {}, "{}")]))
-    now = types.SimpleNamespace(
-        tool_call=call("ask_docs", "new", question="как добраться"),
-        state={"messages": [*old, HumanMessage("как добраться ещё раз", id="h3"), AIMessage(content="", tool_calls=[call("ask_docs", "new")])]})
-    guard = RunGuardMiddleware()
-    assert guard._asked_again(now) is None and guard._duplicate(now) is None
-    # the same helper already reported with sources in THIS run: still refused, as before
-    state = now.state["messages"]
-    in_run = types.SimpleNamespace(tool_call=call("ask_docs", "second", question="и ещё"), state={"messages": [
-        *state, ToolMessage(content=REPORT, tool_call_id="new", name="ask_docs", id="t3"),
-        AIMessage(content="", tool_calls=[call("ask_docs", "second")])]})
-    assert guard._asked_again(in_run) is not None
-
-
-def test_the_fallback_decides_by_the_reports_of_this_run_only():
-    old = stubbed(turn(1, [ask_docs(REPORT)]))
-    run = [HumanMessage("что такое DID", id="h2"), AIMessage(content="", tool_calls=[call("ask_docs", "new", question="что такое DID")], id="a2"),
-           ToolMessage(content="Ничего не найдено.", tool_call_id="new", name="ask_docs", id="t2", artifact={})]
-    followed = FallbackMiddleware._next(request_of([*old, *run]))
-    assert followed is not None and [c["name"] for c in followed.tool_calls] == ["ask_chats"]
 
 
 def test_a_schema_found_in_an_earlier_question_is_gone_and_the_preflight_asks_for_it_once(monkeypatch):
@@ -314,8 +268,7 @@ def summarizer(model=None, **kwargs) -> TurnStartSummarization:
 
 
 def real_tools() -> list:
-    stub = FakeMessagesListChatModel(responses=[AIMessage(content="x")])
-    return [*(core._helper_tool(role, stub) for role in roles.ROLES.values()), *(t for t in TOOLS if t.name in roles.MAIN_TOOLS)]
+    return core.agent_tools()
 
 
 def real_like_chat(questions: int, *, big: bool = True) -> list[BaseMessage]:
@@ -329,14 +282,14 @@ def real_like_chat(questions: int, *, big: bool = True) -> list[BaseMessage]:
             results += [("get_my_schedule", {}, "z" * 7200)]
             messages += turn(n, results, "Вот что нашлось: " + "расписание " * 55)
         else:
-            messages += turn(n, [ask_docs("Автобус идёт от кампуса. " * 26 + "[m1]")], "Автобус идёт от кампуса. " * 24 + "[m1]")
+            messages += turn(n, [docs_search("Автобус идёт от кампуса. " * 26 + "[m1]")], "Автобус идёт от кампуса. " * 24 + "[m1]")
     return messages
 
 
 def test_the_estimate_counts_tool_calls_and_results_and_the_floor_the_system_prompt_and_schemas():
     result = ToolMessage(content="я" * 5000, tool_call_id="c", name="get_my_schedule")
     assert estimate_tokens([result]) >= 5000 / core.CHARS_PER_TOKEN
-    calls = AIMessage(content="", tool_calls=[call("search_chats", "c", queries=["мидтерм " * 200])])
+    calls = AIMessage(content="", tool_calls=[call("search", "c", queries=["мидтерм " * 200])])
     assert estimate_tokens([calls]) >= 1600 / core.CHARS_PER_TOKEN
     floor = prompt_floor(real_tools())
     assert 6000 <= floor <= 8500  # real: 2.9k of system prompt and 3.2k of tool schemas
@@ -436,7 +389,7 @@ def connection() -> Exception:
 def messy_history() -> list[BaseMessage]:
     """What the summarizer must not be sent: the catalogue, the schedule, an API read and a tool call with nothing said."""
     return [
-        *turn(1, [ask_docs("Отчёт помощника. " * 200)], "Автобус идёт от кампуса."),
+        *turn(1, [docs_search("Отчёт поиска. " * 200)], "Автобус идёт от кампуса."),
         *turn(2, [("search_api_tools", {"query": "rooms"}, "КАТАЛОГ " * 3000), ("get_my_schedule", {}, "РАСПИСАНИЕ " * 3000),
                   READ[:2] + ("ВЫДАЧА " * 3000,)], "Вот ваше расписание."),
         *turn(3, [BOOKING], "Забронировано."),
@@ -450,16 +403,15 @@ def small_summarizer(model, **kwargs) -> TurnStartSummarization:
     return middleware
 
 
-def test_the_summarizer_is_sent_the_questions_answers_and_helper_reports_and_not_the_tool_results():
+def test_the_summarizer_is_sent_the_questions_and_answers_and_not_the_tool_results():
     model = Summarizer()
     middleware = small_summarizer(model)
     update = middleware.before_model({"messages": messy_history()}, None)
     assert update is not None
     prompt = model.prompts[0]
     assert "вопрос 1" in prompt and "Автобус идёт от кампуса." in prompt and "Вот ваше расписание." in prompt
-    for forbidden in ("КАТАЛОГ", "РАСПИСАНИЕ", "ВЫДАЧА", "Забронировано.\"}"):
+    for forbidden in ("КАТАЛОГ", "РАСПИСАНИЕ", "ВЫДАЧА", "Забронировано.\"}", "Отчёт поиска."):
         assert forbidden not in prompt
-    assert prompt.count("Отчёт помощника.") <= SUMMARY_REPORT_CHARS // len("Отчёт помощника. ") + 1  # the report is cut short
     assert estimate_tokens([HumanMessage(prompt)]) < SUMMARY_INPUT_TOKENS * 1.1
     assert "Студент спрашивает про автобус." in update["messages"][1].content
 
@@ -467,7 +419,7 @@ def test_the_summarizer_is_sent_the_questions_answers_and_helper_reports_and_not
 def test_a_prompt_larger_than_the_budget_keeps_the_newest_part_and_never_goes_over_it():
     model = Summarizer()
     middleware = small_summarizer(model)
-    many = [m for n in range(1, 120) for m in turn(n, [ask_docs("Старый отчёт. " * 80)], f"Ответ номер {n}. " + "слово " * 150)]
+    many = [m for n in range(1, 120) for m in turn(n, [docs_search("Старый отчёт. " * 80)], f"Ответ номер {n}. " + "слово " * 150)]
     kept = middleware._trim_messages_for_summary([*many, HumanMessage("и ещё", id="hz")])
     assert estimate_tokens(kept) <= SUMMARY_INPUT_TOKENS
     assert kept[-1].content == "и ещё" and "Ответ номер 119." in kept[-2].content
@@ -479,7 +431,7 @@ def test_a_prompt_larger_than_the_budget_keeps_the_newest_part_and_never_goes_ov
 
 def test_pruned_reports_are_not_sent_to_the_summarizer_as_if_they_said_something():
     middleware = small_summarizer(Summarizer())
-    kept = middleware._trim_messages_for_summary(stubbed(turn(1, [ask_docs("Отчёт.")]), turn(2, [BOOKING])))
+    kept = middleware._trim_messages_for_summary(stubbed(turn(1, [docs_search("Отчёт.")]), turn(2, [BOOKING])))
     assert [type(m).__name__ for m in kept] == ["HumanMessage", "AIMessage", "HumanMessage", "AIMessage"]
     assert all(PRUNED_RESULT not in str(m.content) for m in kept)
 
@@ -506,7 +458,7 @@ def test_when_the_summarizer_fails_the_question_goes_on_with_the_earlier_message
 
 def test_the_messages_kept_never_split_a_tool_call_from_its_results():
     """Four messages from the end would start at the second of two results: the call with both stays."""
-    history = [*turn(1, [ask_docs()]), *turn(2, [("get_my_schedule", {}, "{}"), ("get_my_ai_calendar", {}, "{}")]), HumanMessage("новый", id="h3")]
+    history = [*turn(1, [docs_search()]), *turn(2, [("get_my_schedule", {}, "{}"), ("get_my_ai_calendar", {}, "{}")]), HumanMessage("новый", id="h3")]
     update = small_summarizer(Summarizer(error=connection())).before_model({"messages": history}, None)
     _, placeholder, *kept = update["messages"]
     assert isinstance(kept[0], AIMessage) and len(kept[0].tool_calls) == 2
