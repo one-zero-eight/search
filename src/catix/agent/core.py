@@ -71,13 +71,6 @@ def _last_question_language(request: ModelRequest) -> str:
     return _language(_last_question(request))
 
 
-# What the agent does for this asker: its search, account access and local calendar capabilities
-# (roles.abilities), in the bots with where site actions are done. Without it, asked "что ты умеешь?", it listed topics
-# ("расписание, экзамены, правила, события…") and not one action. Capability instructions belong in the system prompt.
-ABILITIES_PROMPT = """
-
-What you can do for this asker (tell them this when they ask what you can do): {abilities}"""
-
 # The lines that change with every question go last: the model server reuses the cached start of a prompt up to the first
 # difference, and a cold prompt (~4k tokens with the tools) costs ~8 s of prefill.
 TAIL_PROMPT = """
@@ -142,10 +135,7 @@ def agent_prompt():
         # V100). A new question gets a new context, so "today" stays correct in long-lived conversations.
         context = request.runtime.context
         now = context.asked_at if context else datetime.now(settings.tz)
-        tool_names = {getattr(t, "name", "") for t in request.tools}
-        abilities = roles.abilities(signed_in=bool(context and context.innohassle_token),
-                                    calendar_writes=set(LOCAL_CALENDAR_APPROVAL) <= tool_names)
-        parts = [roles.SUPERVISOR, ABILITIES_PROMPT.format(abilities=abilities), _group_prompt(context), _chats_prompt(context)]
+        parts = [roles.SUPERVISOR, _group_prompt(context), _chats_prompt(context)]
         if context and context.attachment_chat_id and context.innohassle_token:
             parts.append("\n\nThe site accepts private PDF/TXT files and PNG/JPEG/WebP images in this chat. "
                          "Files attached to the current question are part of the user's request even if the text only says "
@@ -876,7 +866,7 @@ def prompt_floor(tools: Iterable[BaseTool]) -> int:
     worked out from what is built so that a longer prompt or one more tool moves it. The real ones were 2.9k and 3.2k;
     this gives a little more."""
     tools = list(tools)
-    prompt = roles.SUPERVISOR + ABILITIES_PROMPT.format(abilities=roles.abilities(signed_in=True, calendar_writes=True))
+    prompt = roles.SUPERVISOR
     schemas = count_tokens_approximately([], chars_per_token=PROMPT_CHARS_PER_TOKEN, tools=tools)
     return schemas + math.ceil((len(prompt) + ASKER_PROMPT_CHARS) / PROMPT_CHARS_PER_TOKEN)
 

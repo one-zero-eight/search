@@ -106,7 +106,8 @@ def test_title_clarification_then_local_description_and_explicit_consent(
     action = pending[0].value["action_requests"][0]
     assert action["args"] == complete
     assert all(value in action["description"] for value in ["su-office", "2099", "10:00", "12:00", "Заседание студсовета"]), action["description"]
-    assert requests == ["search_tools"]
+    # The earlier turn's discovery result was pruned, so preflight fetches the schema again (public metadata only).
+    assert requests == ["search_tools", "search_tools"]
     prepared_requests = list(requests)
 
     agent.invoke(Command(resume={pending[0].id: {"decisions": [{"type": decision}]}}), config, context=context)

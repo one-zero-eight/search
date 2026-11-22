@@ -33,4 +33,3 @@ def test_printer_status_is_offered_without_promising_printing_or_moodle():
     assert api_names <= roles.MAIN_TOOLS
     assert api_names <= {tool.name for tool in TOOLS}
     assert not {"find_api_actions", "describe_api_action", "execute_api_action"} & {tool.name for tool in TOOLS}
-    assert "printer" in roles.ACCOUNT_OFFERS

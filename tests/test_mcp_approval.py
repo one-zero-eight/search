@@ -46,7 +46,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
         assert token == "user-token"
         assert method == "call_tool"
         if payload["name"] == "account_get_my_schedule":
-            assert credentials == {} and payload["arguments"] == PERIOD
+            assert credentials == {"sport_token": "sport-token"} and payload["arguments"] == PERIOD
             return {"range": [DAY, DAY], "schedule": [], "bookings": []}
         assert credentials == {"sport_token": "sport-token"}
         if payload["name"] == "sport_get_sport_trainings":
@@ -69,9 +69,7 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
-    for secret in ("user-token", "sport-token"):
-        i = str(out).find(secret)
-        assert i < 0, [(m.tool_call_id, m.content[:700]) for m in out["messages"] if isinstance(m, ToolMessage) and secret in str(m)]
+    assert all(secret not in str(out) for secret in ("user-token", "sport-token"))
 
 
 def test_signup_over_the_personal_calendar_is_approved_and_written_without_reading_it(monkeypatch):

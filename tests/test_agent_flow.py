@@ -183,31 +183,6 @@ def test_a_message_with_nothing_to_look_up_is_answered_without_tools(monkeypatch
     assert RunGuardMiddleware()._final(asked).tool_choice is None
 
 
-def test_abilities_follow_credentials_and_local_tools():
-    """Private API access needs a token; local writes additionally need an owner."""
-    from pydantic import SecretStr
-    from catix.agent.core import LocalCalendarAccessMiddleware, agent_prompt
-    from catix.agent.tools import AgentContext, TOOLS
-
-    prompts = {}
-    for kind, context in (("site", AgentContext(innohassle_token=SecretStr("token"), innohassle_id="u1")),
-                          ("token_only", AgentContext(innohassle_token=SecretStr("token"))),
-                          ("owner_only", AgentContext(innohassle_id="u1")), ("bot", AgentContext())):
-        request = Req(0).override(tools=TOOLS, runtime=types.SimpleNamespace(context=context))
-        request.system_prompt = None
-        seen = []
-        LocalCalendarAccessMiddleware().wrap_model_call(request, lambda r: agent_prompt().wrap_model_call(r, seen.append))
-        prompts[kind] = seen[0].system_message.text
-    for kind in ("site", "token_only"):
-        assert roles.ACCOUNT_OFFERS in prompts[kind] and roles.ON_THE_SITE not in prompts[kind]
-    for kind in ("bot", "owner_only"):
-        assert roles.ACCOUNT_OFFERS not in prompts[kind] and roles.ON_THE_SITE in prompts[kind]
-    assert roles.CALENDAR_WRITES in prompts["site"]
-    assert all(roles.CALENDAR_WRITES not in prompts[kind] for kind in ("bot", "owner_only", "token_only"))
-    for text in prompts.values():
-        assert roles.SEARCH_OFFERS in text and roles.CALENDAR_BUTTON in text and roles.DIRECT_OFFERS in text
-
-
 def test_the_markup_token_is_asked_of_the_server_once_and_another_model_gets_no_ban(monkeypatch):
     monkeypatch.undo()
     asked = []

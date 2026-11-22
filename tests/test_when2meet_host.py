@@ -25,8 +25,6 @@ LIST = {"meetings": [MEETING], "total": 1, "truncated": False, "status": "active
 
 def test_when2meet_guidance_is_shared_and_credential_aware():
     assert "When2Meet" in api_tools.search_api_tools.description
-    assert "When2Meet" in roles.abilities(signed_in=True)
-    assert "When2Meet" in roles.ON_THE_SITE
 
 
 @pytest.fixture

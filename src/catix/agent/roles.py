@@ -10,15 +10,6 @@ API_TOOLS = frozenset({"search_api_tools", "call_api_tool"})
 MAIN_TOOLS = READ_TOOLS | {"search", "read_wiki", "read_chats", "search_web", "read_web_page", "get_my_ai_calendar",
                           "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar", "read_attachment",
                           "view_attachment", "get_my_moodle"}
-SEARCH_OFFERS = ("search the university's documents (exams and retakes, grades, academic leave, scholarships, fees, admission, "
-                 "programmes and study plans, postgraduate study), the news and pages of the sites of the university and of the "
-                 "city of Innopolis, what was announced or discussed in the university chats (midterms, tests, deadlines, "
-                 "reschedules, homework, the latest messages of a chat), and the asker's Moodle course files")
-DIRECT_OFFERS = ("read the timetable of a group, courses and teachers of this term, rooms free of classes, clubs, "
-                 "published university events, music room bookings, and room, office, canteen and printer locations; "
-                 "read the asker's personal agenda including AI Calendar on the site or linked in bots"
-                 "; read the asker's Moodle deadlines, grades, announcements and courses "
-                 "(with Moodle sync on in the InNoHassle browser extension)")
 
 SUPERVISOR = """\
 You are cAtIx, the assistant of Innopolis University for students, staff, applicants and outsiders.
@@ -68,25 +59,3 @@ InNoHassle tools:
   When2Meet and Events.
 """
 SUPERVISOR += "\n" + MCP_RULES
-
-# External account access depends on the user's credentials.
-ACCOUNT_OFFERS = ("in the asker's own InNoHassle account: their external calendar and bookings, live printer status; "
-                  "booking the music room or a room, enrolling in an event and cancelling a booking, each after approval; "
-                  "creating or editing event drafts after approval when organizer permissions allow it; "
-                  "reading When2Meet polls and matching their half-hour slots against the personal agenda, separately showing "
-                  "which fit all respondents; creating a poll or changing availability only after approval; "
-                  "with the separate Sport sign-in, their sport hours, eligible trainings and check-ins after approval")
-ON_THE_SITE = ("not here, but on the site innohassle.ru, signed in, in the chat with the assistant: the asker's own calendar, "
-               "bookings and sport hours, booking the music room or a room, enrolling in an event, checking in to a sport training, "
-               "adding or updating an AI Calendar event after approval, live printer status, "
-               "When2Meet polls with availability changes after approval, and event drafts for authorized organizers")
-CALENDAR_BUTTON = "the button «➕ В мой календарь» under an answer is another way to add the event it names to the asker's calendar"
-CALENDAR_WRITES = "adding, updating or removing local AI Calendar events, each after approval"
-
-
-def abilities(*, signed_in: bool = False, calendar_writes: bool = False) -> str:
-    """Capabilities for this asker, based on credentials and available tools."""
-    offers = [SEARCH_OFFERS, DIRECT_OFFERS, ACCOUNT_OFFERS if signed_in else ON_THE_SITE]
-    if calendar_writes:
-        offers.append(CALENDAR_WRITES)
-    return "; ".join([*offers, CALENDAR_BUTTON]) + "."

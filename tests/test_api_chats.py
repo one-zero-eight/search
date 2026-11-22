@@ -18,7 +18,7 @@ from catix.db import pg
 from catix.settings import settings
 from tests.test_account import DAY, _call, music_room  # noqa: F401 - music_room is a fixture
 from tests.test_account import native_mcp  # noqa: F401 - synthetic MCP identity and transport
-from tests.test_roles import ScriptedModel, _ask
+from tests.test_roles import ScriptedModel
 
 pytestmark = pytest.mark.skipif(not settings.database_url, reason="needs the database (DATABASE_URL)")
 

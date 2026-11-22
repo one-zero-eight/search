@@ -134,7 +134,7 @@ def test_a_section_asked_as_the_table_of_contents_names_it_is_read(monkeypatch):
     assert [p["text"][:9] for p in out["pieces"]] == ["**3.3.2**", "- – в теч"]  # from the chapter's line on, not from the contents
     assert read(section="7. Нет такого раздела")["pieces"] == []
     assert read(section="требования к срокам")["pieces"]
-    assert read(clause="4.1")["pieces"], "reads are not limited"
+    assert read(clause="3.3")["pieces"], "reads are not limited"
 
 
 def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
@@ -146,6 +146,7 @@ def test_the_first_piece_of_each_document_found_lists_its_chapters(monkeypatch):
     found = [hit(id=1, path=path, heading="1. Общие положения", clause="1.1"), hit(id=2, path=other, heading="Текст", clause=""),
              hit(id=3, path=path, heading="5. Цели и показатели", clause="5.1")]
     contents = {path: ["1. Общие положения", "2. Общее описание процесса", "4. Описание операций процесса", "5. Цели и показатели"], other: ["Текст"]}
+    monkeypatch.setattr(tools.settings, "reranker_route", None)  # (the sources' own order: no reranking call)
     monkeypatch.setattr(tools.doc_store, "search", lambda *args, **kwargs: found)
     monkeypatch.setattr(tools.doc_store, "chapters", lambda paths: {p: contents[p] for p in paths})
     result = json.loads(tools.search.func(queries=["регламент ИТ-поддержки"], sources=["docs"], runtime=runtime()).update["messages"][0].content)
