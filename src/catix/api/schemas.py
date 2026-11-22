@@ -19,6 +19,7 @@ class InfoSources(StrEnum):
     maps = "maps"
     residents = "residents"
     resources = "resources"
+    chats = "chats"
 
 
 ALL_SOURCES = list(InfoSources)
@@ -112,6 +113,22 @@ class ResourcesSource(SiteBaseSource):
     breadcrumbs: list[str] = ["Resources"]
 
 
+class ChatSource(BaseModel):
+    """A message of a university chat the asker may see."""
+
+    type: Literal[InfoSources.chats] = InfoSources.chats
+    display_name: str = "-"
+    "Title of the chat."
+    breadcrumbs: list[str] = ["Chats"]
+    url: str | None = None
+    "Link to the message, when it has one."
+    preview_text: str
+    author: str | None = None
+    date: datetime | None = None
+    official: bool = False
+    "True only for a chat an admin marked as the university's official one."
+
+
 Sources = Annotated[
     EduwikiSource
     | CampusLifeSource
@@ -122,7 +139,8 @@ Sources = Annotated[
     | MoodleUrlSource
     | MoodleUnknownSource
     | ResidentsSource
-    | ResourcesSource,
+    | ResourcesSource
+    | ChatSource,
     Discriminator("type"),
 ]
 

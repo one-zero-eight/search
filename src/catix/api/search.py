@@ -20,6 +20,7 @@ from catix.api.schemas import (
     ALL_SOURCES,
     ArchiveDocument,
     CampusLifeSource,
+    ChatSource,
     EduwikiSource,
     HotelSource,
     InfoSources,
@@ -33,6 +34,7 @@ from catix.api.schemas import (
 )
 from catix.db import docs as doc_store
 from catix.db import rerank as joint_rerank
+from catix.db import store
 from catix.docs import previews
 from catix.docs.sources.archives import ArchiveError
 from catix.settings import settings
@@ -107,6 +109,15 @@ def moodle_responses(hits: list[moodle_files.MoodleHit]) -> list[SearchResponse]
     return list(cards.values())
 
 
+def chat_responses(hits: list) -> list[SearchResponse]:
+    """One card per message."""
+    return [SearchResponse(
+        score=None if hit.relevance is None else [hit.relevance],
+        source=ChatSource(display_name=hit.chat_title, breadcrumbs=["Chats", hit.chat_title], url=hit.link,
+                          preview_text=hit.text[:PREVIEW_CHARS], author=hit.sender_name, date=hit.date, official=hit.chat_official))
+            for hit in hits]
+
+
 def _moodle(user: UserTokenData, study_groups: list[str], query: str, rerank: bool) -> list[moodle_files.MoodleHit]:
     try:
         return moodle_files.search(user.innohassle_id, [query], study_groups=study_groups, limit=LIMIT, rerank=rerank)
@@ -115,31 +126,45 @@ def _moodle(user: UserTokenData, study_groups: list[str], query: str, rerank: bo
         return []
 
 
+def _chats(study_groups: list[str], query: str, limit: int, rerank: bool) -> list:
+    """The messages of the chats the asker may see: those for everybody and those of their verified study groups."""
+    try:
+        return store.search(query, chat_ids=groups.website_chat_ids(study_groups), limit=limit, rerank=rerank)
+    except Exception:  # noqa: BLE001 - the documents are still found when the chats are not
+        log.warning("chat search failed", exc_info=True)
+        return []
+
+
 async def find(user: UserTokenData, query: str, sources: list[InfoSources], limit: int) -> list[SearchResponse]:
-    """The cards for `query` from every source asked for (all by default): the candidates of the documents and of the asker's
-    Moodle courses are scored by the reranker together, one pass, so that the best of both come first (db/rerank.py)."""
+    """The cards for `query` from every source asked for (all by default): the candidates of the documents, of the asker's
+    Moodle courses and of the chats are scored by the reranker together, one pass, so that the best of all come first
+    (db/rerank.py)."""
     wanted = sources or ALL_SOURCES
-    want_docs = any(s != InfoSources.moodle for s in wanted)
+    want_docs = any(s not in (InfoSources.moodle, InfoSources.chats) for s in wanted)
     want_moodle = InfoSources.moodle in wanted
+    want_chats = InfoSources.chats in wanted
     together = settings.reranker_route is not None  # else each source keeps its own order and limit
-    study_groups = await asyncio.to_thread(groups.website_groups, user.token.get_secret_value() if user.token else None) if want_moodle else []
+    token = user.token.get_secret_value() if user.token else None
+    study_groups = await asyncio.to_thread(groups.website_groups, token) if want_moodle or want_chats else []
 
     async def none() -> list:
         return []
 
-    docs_hits, moodle_hits = await asyncio.gather(
+    docs_hits, moodle_hits, chat_hits = await asyncio.gather(
         asyncio.to_thread(doc_store.search, query, limit=limit, rerank=not together) if want_docs else none(),
         asyncio.to_thread(_moodle, user, study_groups, query, not together) if want_moodle else none(),
+        asyncio.to_thread(_chats, study_groups, query, limit, not together) if want_chats else none(),
     )
     if together:
         ranked = joint_rerank.mixed(
             [query],
             {"docs": [(h, doc_store.rerank_document(h)) for h in docs_hits],
-             "moodle": [(h, moodle_files.rerank_document(h)) for h in moodle_hits]},
+             "moodle": [(h, moodle_files.rerank_document(h)) for h in moodle_hits],
+             "chat": [(h, store.rerank_document(h)) for h in chat_hits]},
             limit,
         )
-        docs_hits, moodle_hits = ranked["docs"], ranked["moodle"]
-    cards = [*to_responses(docs_hits, wanted), *moodle_responses(moodle_hits)]
+        docs_hits, moodle_hits, chat_hits = ranked["docs"], ranked["moodle"], ranked["chat"]
+    cards = [*to_responses(docs_hits, wanted), *moodle_responses(moodle_hits), *chat_responses(chat_hits)]
     if together:
         cards.sort(key=lambda card: max(card.score) if card.score else float("-inf"), reverse=True)
     return cards
