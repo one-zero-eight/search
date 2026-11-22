@@ -1,6 +1,7 @@
 """Read-only tools for attachments selected by trusted request context."""
 import asyncio
 import base64
+import contextlib
 import json
 import logging
 from time import monotonic, perf_counter
@@ -24,11 +25,8 @@ UNAVAILABLE = "Attachment is not available in this authenticated chat."
 READ_ERROR = "The attachment page could not be read."
 PREREAD_CHARS = 24000  # text of one new file the code reads before the model starts; the rest is read with read_attachment
 PREREAD_VISION_PAGES = 3  # pages of one file looked at by the vision model in that first read
-PREREAD_QUESTION = (
-    "Extract only the facts needed for this request of the user: {query}\n"
-    "For an event: the title, dates with the year, start and end times, the place, and mark what is missing or ambiguous. "
-    "Do not give a general description of the picture."
-)
+PREREAD_QUESTION = "Опиши, что это.{asked}"  # asked: the user's question, when there is one
+DEFAULT_QUESTION = "Опиши, что это."
 log = logging.getLogger("catix.attachments")
 
 
@@ -68,6 +66,9 @@ def _owned(runtime: ToolRuntime, attachment_id: str):
 
 VISION_NOTE = "view the page image"  # the reader's note on a page it could not read as text
 VISION_ERROR = "The attachment page could not be inspected visually."
+# The text of a PDF was extracted by OpenDataLoader when the file was uploaded (attachment_reader.py); a read gets it from storage.
+LAYERS = {"application/pdf": "attachment text layer (OpenDataLoader, extracted at upload)",
+          "text/plain": "attachment text (TXT, read at upload)"}
 
 
 async def _read_page(owner: str, chat: str, info: dict, page: int, question: str, *, ask: bool = False,
@@ -86,7 +87,10 @@ async def _read_page(owner: str, chat: str, info: dict, page: int, question: str
 
 async def _read_page_item(owner: str, chat: str, info: dict, page: int, question: str, *, ask: bool, vision: bool, limit: int) -> dict:
     try:
-        read = await asyncio.to_thread(attachments.read_page, owner, chat, info["id"], page)
+        with tracing.span(LAYERS[info["media_type"]], "TOOL", input=f"{info['filename']}, page {page}") if info["media_type"] in LAYERS \
+                else contextlib.nullcontext(lambda _: None) as done:
+            read = await asyncio.to_thread(attachments.read_page, owner, chat, info["id"], page)
+            done(read["text"] if isinstance(read, dict) and isinstance(read.get("text"), str) else "")
         if (not isinstance(read, dict) or read.get("id") != info["id"] or read.get("page") != page
                 or read.get("pages") != info["pages"] or not isinstance(read.get("text"), str)
                 or type(read.get("truncated")) is not bool):
@@ -107,7 +111,8 @@ async def _read_page_item(owner: str, chat: str, info: dict, page: int, question
             item.pop("note", None)  # "no OCR was performed" is not true of this read
         except Exception:  # noqa: BLE001
             log.warning("Tesseract could not read an attachment image")
-    if vision and (ask or not item["text"].strip() or VISION_NOTE in note.lower()):
+    # Tesseract text is enough for a picture: the vision model looks only when it read nothing, or it is asked.
+    if vision and (ask or not item["text"].strip() or VISION_NOTE in item.get("note", "").lower()):
         try:
             png = await asyncio.to_thread(attachments.image_page, owner, chat, info["id"], page)
             with tracing.span("attachment vision", "LLM", input=question, **{"llm.model_name": settings.llm_model}) as done:
@@ -133,7 +138,7 @@ async def _aread_attachment(attachment_id: str, runtime: ToolRuntime, page: int 
     if page > info["pages"]:
         return {"error": "This attachment has no such page."}
     item = await _read_page(owner, chat, info, page,
-                            question or PREREAD_QUESTION.format(query="describe what the page shows"), ask=question is not None)
+                            question or DEFAULT_QUESTION, ask=question is not None)
     if "error" in item:
         return {"error": item["error"]}
     if item.get("visual_error") and (question is not None or not item["text"].strip()):
@@ -232,7 +237,7 @@ async def _preread_file(owner: str, chat: str, info: dict, query: str) -> dict:
         if chars >= PREREAD_CHARS:
             unread.append(page)
             continue
-        item = await _read_page(owner, chat, info, page, PREREAD_QUESTION.format(query=query[:500]),
+        item = await _read_page(owner, chat, info, page, PREREAD_QUESTION.format(asked=f" Вопрос пользователя: {query[:500]}" if query.strip() else ""),
                                 vision=looked < PREREAD_VISION_PAGES, limit=PREREAD_CHARS - chars)
         looked += "visual" in item or "visual_error" in item
         chars += len(item.get("text", "")) + len(item.get("visual", ""))

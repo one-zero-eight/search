@@ -59,20 +59,30 @@ def test_new_file_is_read_by_the_code_and_shown_as_a_finished_tool_call(monkeypa
     assert "visual" not in payload["read"][0], "a page with a text layer is not sent to the vision model"
 
 
-def test_picture_gets_ocr_text_and_a_vision_reading_for_the_request(monkeypatch):
+def test_picture_read_by_tesseract_is_not_sent_to_the_vision_model(monkeypatch):
     import asyncio
     info = {"id": FILE_ID, "filename": "poster.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
+    asked = []
+    messages = _preread(monkeypatch, info, text=[{"text": "", "truncated": False, "note": "Image page; no OCR was performed. View the page image."}],
+                        ocr=lambda data: asyncio.sleep(0, "Встреча 18 ноября"), vision=lambda png, question: asked.append(question))
+    page = json.loads(messages[1].content)["read"][0]
+    assert page["text"] == "Встреча 18 ноября" and page["ocr"] and "note" not in page
+    assert "visual" not in page and asked == []
+
+
+def test_picture_tesseract_could_not_read_is_described_by_the_vision_model_with_the_users_question(monkeypatch):
+    info = {"id": FILE_ID, "filename": "photo.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
     asked = []
 
     def vision(png, question):
         asked.append(question)
-        return "Встреча 18 ноября в 17:35, аудитория 512.", False
+        return "Портрет человека.", False
 
     messages = _preread(monkeypatch, info, text=[{"text": "", "truncated": False, "note": "Image page; no OCR was performed. View the page image."}],
-                        ocr=lambda data: asyncio.sleep(0, "Встреча 18 ноября"), vision=vision)
+                        vision=vision)
     page = json.loads(messages[1].content)["read"][0]
-    assert page["text"] == "Встреча 18 ноября" and page["ocr"] and "note" not in page
-    assert "512" in page["visual"] and "Создай ивент" in asked[0]
+    assert page["text"] == "" and page["visual"] == "Портрет человека."
+    assert asked == ["Опиши, что это. Вопрос пользователя: Создай ивент"]
 
 
 def test_unreadable_page_is_reported_not_raised(monkeypatch):
