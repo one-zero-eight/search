@@ -144,7 +144,7 @@ def test_view_uses_one_internal_image_and_returns_only_evidence(tools, monkeypat
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What does the chart show?",
                                            "runtime": runtime()})
     assert result == {"id": ATTACHMENT_ID, "filename": "notes.pdf", "page": 1, "pages": 2,
-                      "text": "The chart shows 42.", "truncated": False, "visual": True,
+                      "text": "The chart shows 42.", "truncated": False, "visual": True, "note": tools.VISUAL_NOTE,
                       "source_label": "notes.pdf, page 1"}
     tools.attachments.image_page.assert_called_once_with("owner", "chat", ATTACHMENT_ID, 1)
     tools.attachments.read_page.assert_not_called()
