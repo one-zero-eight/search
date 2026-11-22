@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from types import SimpleNamespace
 
 from catix.agent import sources
-from catix.common.citations import MAX_SOURCE_IMAGES, CitedAnswer, images_in, render_cited_answer, without_bare_images
+from catix.common.citations import MAX_SOURCE_IMAGES, CitedAnswer, images_in, render_cited_answer, without_images
 
 
 def document(title="Rules", **fields):
@@ -115,14 +115,14 @@ def test_terminal_renderer_preserves_provenance_without_mutating_answer():
     assert render_cited_answer(CitedAnswer(answer="No sources")) == "No sources"
 
 
-def test_a_site_source_carries_the_pictures_of_its_cited_pieces_except_those_in_the_answer():
+def test_a_site_source_carries_the_pictures_of_its_cited_pieces_once_each():
     registry = {
         "m0": document(section="A", images=[{"url": "https://e.org/1.png", "alt": "Map"}, {"url": "https://e.org/2.png", "alt": None}]),
         "m1": document(section="B", images=[{"url": "https://e.org/2.png", "alt": None}, {"url": "https://e.org/3.png", "alt": None}]),
         "m2": document("Other"),
     }
-    result = sources.cite("Fact [m0][m1].\n![Map](https://e.org/1.png)", registry)
-    assert [i.url for i in result.sources[0].images] == ["https://e.org/2.png", "https://e.org/3.png"]
+    result = sources.cite("Fact [m0][m1].", registry)
+    assert [i.url for i in result.sources[0].images] == ["https://e.org/1.png", "https://e.org/2.png", "https://e.org/3.png"]
     many = {"m0": document(images=[{"url": f"https://e.org/{i}.png", "alt": None} for i in range(10)])}
     assert len(sources.cite("Fact [m0].", many).sources[0].images) == MAX_SOURCE_IMAGES
 
@@ -133,7 +133,7 @@ def test_images_in_takes_absolute_pictures_once_and_caps_them():
     assert len(images_in(" ".join(f"![p{i}](https://e.org/{i}.png)" for i in range(9)))) == 4
 
 
-def test_pictures_without_alt_are_neither_offered_nor_listed():
+def test_pictures_without_alt_are_not_listed_and_the_model_text_has_no_pictures():
     text = "Шаги ![](https://e.org/bare.png) и ![ ](https://e.org/blank.png) ![Map](https://e.org/map.png)"
-    assert without_bare_images(text) == "Шаги и ![Map](https://e.org/map.png)"
     assert images_in(text) == [{"url": "https://e.org/map.png", "alt": "Map"}]
+    assert " ".join(without_images(text).split()) == "Шаги и"

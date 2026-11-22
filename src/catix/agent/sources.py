@@ -18,7 +18,7 @@ from langchain.tools import ToolRuntime
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 
-from catix.common.citations import IMAGE_RE, MAX_SOURCE_IMAGES, AnswerSource, CitationLink, CitedAnswer, SourceImage, images_in
+from catix.common.citations import MAX_SOURCE_IMAGES, AnswerSource, CitationLink, CitedAnswer, SourceImage, images_in
 from catix.db import store
 from catix.docs import previews
 
@@ -160,7 +160,6 @@ def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
             }
         resolved[ref] = source
 
-    inline = {url for _, url in IMAGE_RE.findall(answer)}
     numbers: dict[object, int] = {}
     entries: dict[object, AnswerSource] = {}
 
@@ -186,7 +185,7 @@ def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
                 if based.get("link") and not any(item.title == based["title"] and item.url == based["link"] for item in entry.based_on):
                     entry.based_on.append(CitationLink(title=based["title"], url=based["link"]))
             for image in source.get("images") or []:
-                if len(entry.images) < MAX_SOURCE_IMAGES and image["url"] not in inline and all(i.url != image["url"] for i in entry.images):
+                if len(entry.images) < MAX_SOURCE_IMAGES and all(i.url != image["url"] for i in entry.images):
                     entry.images.append(SourceImage(**image))
         return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
 
