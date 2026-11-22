@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from types import SimpleNamespace
 
 from catix.agent import sources
-from catix.common.citations import MAX_SOURCE_IMAGES, CitedAnswer, images_in, render_cited_answer, without_images
+from catix.common.citations import MAX_SOURCE_IMAGES, CitedAnswer, images_in, render_cited_answer
 
 
 def document(title="Rules", **fields):
@@ -128,12 +128,15 @@ def test_a_site_source_carries_the_pictures_of_its_cited_pieces_once_each():
 
 
 def test_images_in_takes_absolute_pictures_once_and_caps_them():
-    text = "![a](https://e.org/1.png) ![x](https://e.org/1.png) ![](rel.png) [![b](https://e.org/2.png)](https://e.org/doc.pdf)"
+    text = "![a](https://e.org/1.png) ![](https://e.org/1.png) ![](rel.png) [![b](https://e.org/2.png)](https://e.org/doc.pdf)"
     assert images_in(text) == [{"url": "https://e.org/1.png", "alt": "a"}, {"url": "https://e.org/2.png", "alt": "b"}]
     assert len(images_in(" ".join(f"![p{i}](https://e.org/{i}.png)" for i in range(9)))) == 4
 
 
-def test_pictures_without_alt_are_not_listed_and_the_model_text_has_no_pictures():
+def test_pictures_without_alt_are_listed_too():
     text = "Шаги ![](https://e.org/bare.png) и ![ ](https://e.org/blank.png) ![Map](https://e.org/map.png)"
-    assert images_in(text) == [{"url": "https://e.org/map.png", "alt": "Map"}]
-    assert " ".join(without_images(text).split()) == "Шаги и"
+    assert images_in(text) == [
+        {"url": "https://e.org/bare.png", "alt": None},
+        {"url": "https://e.org/blank.png", "alt": None},
+        {"url": "https://e.org/map.png", "alt": "Map"},
+    ]

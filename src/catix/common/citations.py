@@ -36,20 +36,14 @@ MAX_CHUNK_IMAGES = 4  # pictures one cited piece adds to its source
 MAX_SOURCE_IMAGES = 6  # pictures one line of the source list shows
 
 
-def without_images(text: str) -> str:
-    """The piece's markdown without its pictures: the model reads words, the source list shows the pictures."""
-    return IMAGE_RE.sub("", text)
-
-
 def images_in(text: str, limit: int = MAX_CHUNK_IMAGES) -> list[dict]:
-    """The pictures of a piece's markdown that have an alt, first `limit`, each URL once: [{"url", "alt"}]."""
+    """The pictures of a piece's markdown, first `limit`, each URL once: [{"url", "alt"}], alt None when empty."""
     found: list[dict] = []
     for match in IMAGE_RE.finditer(text):
         if len(found) >= limit:
             break
-        alt = match.group(1).strip()
-        if alt and all(item["url"] != match.group(2) for item in found):
-            found.append({"url": match.group(2), "alt": alt})
+        if all(item["url"] != match.group(2) for item in found):
+            found.append({"url": match.group(2), "alt": match.group(1).strip() or None})
     return found
 
 

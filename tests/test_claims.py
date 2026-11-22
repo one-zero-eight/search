@@ -203,13 +203,14 @@ def test_an_answer_tag_goes():
     assert clean([], "<answer>\nПересдача не более 2 раз [m1].\n</answer>") == "Пересдача не более 2 раз [m1]."
 
 
-def test_an_answer_carries_no_pictures_even_ones_from_the_results():
+def test_an_answer_keeps_pictures_from_the_results_and_drops_invented_ones():
     from langchain_core.messages import ToolMessage
 
     from catix.agent.core import clean
 
-    text = "Журнал: ![Room key issuance log](https://innohassle.ru/music-room-log.webp)"
+    text = "Журнал: ![Room key issuance log](https://innohassle.ru/music-room-log.webp) ![](https://innohassle.ru/a.webp)"
     turn = [ToolMessage(content=json.dumps({"pieces": [{"ref": "m1", "text": text}]}), tool_call_id="r", name="read_wiki")]
-    assert clean(turn, "Ключ — на ресепшене [m1].\n![Журнал](https://innohassle.ru/music-room-log.webp)").rstrip() == "Ключ — на ресепшене [m1]."
+    same = "Ключ — на ресепшене [m1].\n![Журнал](https://innohassle.ru/music-room-log.webp)\n![](https://innohassle.ru/a.webp)"
+    assert clean(turn, same) == same
     assert clean(turn, "Ключ [m1].\n![](https://invented.example/x.png)\n![x](/relative.png)").rstrip() == "Ключ [m1]."
     assert clean(turn, "Ключ [m1].\nСхема: ![](https://invented.example/x.png)").strip() == "Ключ [m1]."

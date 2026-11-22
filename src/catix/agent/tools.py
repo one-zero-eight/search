@@ -26,7 +26,6 @@ from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
-from catix.common.citations import without_images
 from catix import moodle_files
 from catix.db import rerank as joint_rerank
 from catix.db import store
@@ -339,8 +338,7 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
         item["clause"] = hit.clause
     if hit.heading:
         item["section"] = hit.heading[:200]
-    text = without_images(hit.text)  # (the pictures of a piece go to its source, not to the model)
-    item["text"] = text if len(text) <= text_limit else text[:text_limit] + " [...cut; read_wiki gives the rest]"
+    item["text"] = hit.text if len(hit.text) <= text_limit else hit.text[:text_limit] + " [...cut; read_wiki gives the rest]"
     if hit.based_on:
         item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
     if also := getattr(hit, "also_in", None):  # the same text in other documents (the programme of other intakes, other courses)

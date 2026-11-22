@@ -641,8 +641,8 @@ class LoggingMiddleware(AgentMiddleware):
 
 
 URL_RE = re.compile(r"https?://[^\s)\]>\"']+")
-# A picture in the answer: the model is not given any and the sources carry them, so one it writes is invented.
-ANSWER_IMAGE = re.compile(r"!\[[^\]]*\]\([^)\s]*\)")
+# A picture the answer shows, whatever its target: a relative or data: one goes as an invented one does.
+ANSWER_IMAGE = re.compile(r"!\[[^\]]*\]\(([^)\s]*)\)")
 # What follows a URL without being part of it: punctuation, and the markup the model wraps it in ("**https://…**").
 URL_TAIL = ".,;:!?*_~`"
 # A URL with the markup it opens with: an invented one goes with it, not leaving "Сайт спорта: **".
@@ -683,7 +683,7 @@ def _url_key(url: str) -> str:
 
 
 def clean(turn: list[BaseMessage], answer: str) -> str:
-    """The answer without invented URLs, any pictures and without unbacked attributions, judged by the tool results of `turn`.
+    """The answer without invented URLs or pictures and without unbacked attributions, judged by the tool results of `turn`.
 
     The prompt forbids invented links and asks for careful wording, but small models do neither reliably, so both are
     enforced in code.
@@ -699,13 +699,16 @@ def clean(turn: list[BaseMessage], answer: str) -> str:
         tail = written[len(url) :]  # ("**" of "**https://…**", a full stop)
         return tail[len(opening) :] if opening and tail.startswith(opening) else opening + tail
 
-    def drop_image(match: re.Match) -> str:
-        log.warning("removed answer picture: %s", "private" if tracing.is_private() else match.group(0))
+    def keep_image(match: re.Match) -> str:
+        target = match.group(1)
+        if target.startswith(("https://", "http://")) and _url_key(target) in known:
+            return match.group(0)
+        log.warning("removed answer picture: %s", "private" if tracing.is_private() else target)
         return ""
 
     lines: list[str] = []
     for line in ANSWER_TAG.sub("", answer).strip().split("\n"):
-        pictured = ANSWER_IMAGE.sub(drop_image, line)
+        pictured = ANSWER_IMAGE.sub(keep_image, line)
         kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if _url_key(m.group(2)) in known else m.group(1), pictured)
         linked = WRAPPED_URL.sub(keep_known, kept)
         if linked != kept:  # A URL went: no gap where it was ("Зайдите на  и запишитесь").

@@ -29,8 +29,9 @@ def chunks(text: str, size: int) -> list[str]:
 
 REF_GROUP = re.compile(r"\[\s*m\d+(?:\s*[,;]\s*m\d+)*\s*\]")
 PARTIAL_REF = re.compile(r"\[[m\d,;\s]*$")
+PARTIAL_IMAGE = re.compile(r"!\[[^\]\n]*(?:\]\([^)\s]*)?$")
 
 
 def partial_text(text: str) -> str:
-    """Hide unnumbered source refs and unfinished refs in streamed website answers."""
-    return PARTIAL_REF.sub("", REF_GROUP.sub("", text)).strip()
+    """Hide unnumbered source refs, unfinished refs and an unfinished picture in streamed website answers."""
+    return PARTIAL_IMAGE.sub("", PARTIAL_REF.sub("", REF_GROUP.sub("", text))).strip()
