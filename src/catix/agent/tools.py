@@ -339,8 +339,6 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     if hit.heading:
         item["section"] = hit.heading[:200]
     item["text"] = hit.text if len(hit.text) <= text_limit else hit.text[:text_limit] + " [...cut; read_wiki gives the rest]"
-    if hit.audience:
-        item["for"] = hit.audience
     if hit.based_on:
         item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
     if also := getattr(hit, "also_in", None):  # the same text in other documents (the programme of other intakes, other courses)

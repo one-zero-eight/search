@@ -513,7 +513,7 @@ async def search_in_chat(user: VerifiedDep, query: str = Body(..., pattern=NOT_B
     search a question falls back to when the assistant is unavailable. Without `chat_id`, or with an unknown one, a new chat
     starts, named by `searched_for`. The chat's next question shows these searches to the assistant."""
     chat_id = await chat_of(user, chat_id, searched_for)
-    found = await search.searched(user.innohassle_id, searched_for, [])
+    found = await search.searched(user, searched_for, [])
     response = AskResponses(query=query, answer="", chat_id=chat_id, search=found, messages=[])
     await asyncio.to_thread(chats.save_search, response)
     return response

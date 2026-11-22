@@ -1,4 +1,4 @@
-"""GET /search/search: the knowledge base of cAtIx (its wiki) as cards that link to the sources."""
+"""GET /search/search: the knowledge base of cAtIx (its wiki) and the asker's Moodle courses as cards that link to the sources."""
 
 import asyncio
 import json
@@ -12,9 +12,10 @@ from urllib.parse import quote, unquote, urljoin, urlsplit
 import httpx
 from fastapi import APIRouter, HTTPException, Query, Response
 
+from catix import groups, moodle_files
 from catix.agent import tracing
 from catix.api import state
-from catix.api.auth import VerifiedDep
+from catix.api.auth import UserTokenData, VerifiedDep
 from catix.api.schemas import (
     ALL_SOURCES,
     ArchiveDocument,
@@ -22,14 +23,19 @@ from catix.api.schemas import (
     EduwikiSource,
     HotelSource,
     InfoSources,
+    MoodleFileSource,
+    MoodleUrlSource,
+    PdfLocation,
     ResidentsSource,
     SearchResponse,
     SearchResponses,
     Sources,
 )
 from catix.db import docs as doc_store
+from catix.db import rerank as joint_rerank
 from catix.docs import previews
 from catix.docs.sources.archives import ArchiveError
+from catix.settings import settings
 
 log = logging.getLogger("catix.api")
 router = APIRouter(prefix="/search", tags=["Search"])
@@ -83,9 +89,60 @@ def to_responses(hits: list[doc_store.DocHit], sources: list[InfoSources]) -> li
     return list(cards.values())
 
 
-async def find(query: str, sources: list[InfoSources], limit: int) -> list[SearchResponse]:
-    hits = await asyncio.to_thread(doc_store.search, query, limit=limit)
-    return to_responses(hits, sources or ALL_SOURCES)
+def moodle_responses(hits: list[moodle_files.MoodleHit]) -> list[SearchResponse]:
+    """One card per file or course page: the scores of its pieces go together, as for the documents."""
+    cards: dict[tuple, SearchResponse] = {}
+    for hit in hits:
+        breadcrumbs = ["Moodle", *hit.path.split(" › ")]
+        if hit.kind == "file":
+            source = MoodleFileSource(display_name=hit.title, breadcrumbs=breadcrumbs, link=hit.url,
+                                      preview_location=PdfLocation(page_index=hit.page) if hit.page else None)
+        else:
+            source = MoodleUrlSource(display_name=hit.title, breadcrumbs=breadcrumbs, link=hit.url, url=hit.url)
+        key = (hit.url, hit.page)
+        if (card := cards.get(key)) is None:
+            cards[key] = SearchResponse(score=None if hit.relevance is None else [hit.relevance], source=source)
+        elif hit.relevance is not None:
+            card.score = [*(card.score or []), hit.relevance]
+    return list(cards.values())
+
+
+def _moodle(user: UserTokenData, study_groups: list[str], query: str, rerank: bool) -> list[moodle_files.MoodleHit]:
+    try:
+        return moodle_files.search(user.innohassle_id, [query], study_groups=study_groups, limit=LIMIT, rerank=rerank)
+    except Exception:  # noqa: BLE001 - the documents are still found when Moodle is not
+        log.warning("moodle search failed", exc_info=True)
+        return []
+
+
+async def find(user: UserTokenData, query: str, sources: list[InfoSources], limit: int) -> list[SearchResponse]:
+    """The cards for `query` from every source asked for (all by default): the candidates of the documents and of the asker's
+    Moodle courses are scored by the reranker together, one pass, so that the best of both come first (db/rerank.py)."""
+    wanted = sources or ALL_SOURCES
+    want_docs = any(s != InfoSources.moodle for s in wanted)
+    want_moodle = InfoSources.moodle in wanted
+    together = settings.reranker_route is not None  # else each source keeps its own order and limit
+    study_groups = await asyncio.to_thread(groups.website_groups, user.token.get_secret_value() if user.token else None) if want_moodle else []
+
+    async def none() -> list:
+        return []
+
+    docs_hits, moodle_hits = await asyncio.gather(
+        asyncio.to_thread(doc_store.search, query, limit=limit, rerank=not together) if want_docs else none(),
+        asyncio.to_thread(_moodle, user, study_groups, query, not together) if want_moodle else none(),
+    )
+    if together:
+        ranked = joint_rerank.mixed(
+            [query],
+            {"docs": [(h, doc_store.rerank_document(h)) for h in docs_hits],
+             "moodle": [(h, moodle_files.rerank_document(h)) for h in moodle_hits]},
+            limit,
+        )
+        docs_hits, moodle_hits = ranked["docs"], ranked["moodle"]
+    cards = [*to_responses(docs_hits, wanted), *moodle_responses(moodle_hits)]
+    if together:
+        cards.sort(key=lambda card: max(card.score) if card.score else float("-inf"), reverse=True)
+    return cards
 
 
 @router.get("/search", responses={200: {"description": "Success"}, 408: {"description": "Search timed out"}})
@@ -96,16 +153,16 @@ async def search_by_query(
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
     limit: int = LIMIT,
 ) -> SearchResponses:
-    return await searched(user.innohassle_id, query, sources, limit)
+    return await searched(user, query, sources, limit)
 
 
-async def searched(innohassle_id: str, query: str, sources: list[InfoSources], limit: int = LIMIT) -> SearchResponses:
+async def searched(user: UserTokenData, query: str, sources: list[InfoSources], limit: int = LIMIT) -> SearchResponses:
     """The cards found for `query`, with a trace of its own in Phoenix (the query, the cards' titles and links, the steps of the search)."""
     started = time.monotonic()
     # A trace of its own in Phoenix: the query, the cards found (title and link), and the steps of the search under it.
-    with tracing.question("api-search", innohassle_id, query, name="search", kind="RETRIEVER") as traced:
-        responses = await find(query, sources, limit)
-        traced.answer(json.dumps([{"title": r.source.display_name, "url": r.source.url} for r in responses], ensure_ascii=False))
+    with tracing.question("api-search", user.innohassle_id, query, name="search", kind="RETRIEVER") as traced:
+        responses = await find(user, query, sources, limit)
+        traced.answer(json.dumps([{"title": r.source.display_name, "url": getattr(r.source, "url", None) or r.source.link} for r in responses], ensure_ascii=False))
     log.info("search for `%s` (%d ms)", query, round((time.monotonic() - started) * 1000))
     return SearchResponses(searched_for=query, responses=responses, search_query_id=state.remember_search(len(responses)))
 
