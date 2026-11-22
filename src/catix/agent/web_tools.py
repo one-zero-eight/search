@@ -1,16 +1,15 @@
-"""Web search of the docs helper (DeepSeek Search & Fetch), for what the knowledge base lacks: official sites first
+"""Web search (DeepSeek Search & Fetch), for what the knowledge base lacks: official sites first
 (OFFICIAL_SITES, the hosts the wiki's pages come from), the rest of the web only when asked.
 
-The knowledge base stays the first place to look: a web search before a search_wiki of the same question is refused, and a
+The knowledge base stays the first place to look: a web search before a `search` of the same question is refused, and a
 question gets at most MAX_SEARCHES searches and MAX_READS page reads. Official sites are batched into site: queries to fit
-DeepSeek's 128-character limit (at most one request per site). Only the helper's own query goes there, never who asks.
+DeepSeek's 128-character limit (at most one request per site). Only the agent's own query goes there, never who asks.
 What a page says is data, as a chat message is: the results are cited like the
 wiki's pieces (sources.Collector.add_web) and a page off the official sites is said to be from the web.
 
-Without a key (settings.deepseek_api_key) the helper has no such tools (core.helper_tools) and its prompt does not
-mention them (roles.prompt). An optional HTTP proxy is set with settings.deepseek_proxy.
+Without a key (settings.deepseek_api_key) the agent has no such tools (core.agent_tools). An optional HTTP proxy is set with settings.deepseek_proxy.
 A proxy that does not work (or a DeepSeek that cannot be reached,
-refuses the key or is out of its limit) fails within TIMEOUT and the helper reports without the web; for DOWN_SECONDS
+refuses the key or is out of its limit) fails within TIMEOUT and the agent answers without the web; for DOWN_SECONDS
 after that the web is not asked again in this process (what is cached is still given), so that every question does not
 wait for it.
 """
@@ -49,7 +48,7 @@ MAX_READS = 1
 CACHE_SECONDS = 6 * 3600
 DOWN_SECONDS = 120.0
 TIMEOUT = httpx.Timeout(20, connect=5)  # (a proxy that cannot be reached is given up on in 5 s, a silent one in 20 s)
-WIKI_FIRST = "Search the knowledge base first (search_wiki); search the web only for what it does not have."
+WIKI_FIRST = "Search the knowledge base first (search); search the web only for what it does not have."
 NO_MORE = "No more web {what} in this question: report with what you have, and say what is missing."
 
 # Until when (time.monotonic) the web is not asked, and what the helper is told meanwhile.
@@ -92,14 +91,14 @@ def _deepseek(path: str, body: dict) -> dict:
 
 
 def _run_calls(runtime: ToolRuntime) -> list[str]:
-    """The names of the tools whose results came back since the helper got the question."""
+    """The names of the tools whose results came back since the user's question."""
     messages = runtime.state.get("messages", []) if runtime.state else []
     start = max((i for i, m in enumerate(messages) if isinstance(m, HumanMessage)), default=-1)
     return [m.name or "" for m in messages[start + 1 :] if isinstance(m, ToolMessage)]
 
 
 def _failed(e: httpx.HTTPError | _Down) -> str:
-    """What the helper is told; a failure that will not pass in a moment stops the web for DOWN_SECONDS."""
+    """What the model is told; a failure that will not pass in a moment stops the web for DOWN_SECONDS."""
     global _down
     if isinstance(e, _Down):
         return _down[1]
@@ -144,7 +143,7 @@ def search_web(query: str, runtime: ToolRuntime, anywhere: bool = False) -> Comm
     of the university and of the city of Innopolis. Returns pieces of pages with a ref to cite."""
     collector = Collector(runtime)
     calls = _run_calls(runtime)
-    if "search_wiki" not in calls:
+    if "search" not in calls:
         return collector.result({"error": WIKI_FIRST}, "search_web")
     if calls.count("search_web") >= MAX_SEARCHES:
         return collector.result({"error": NO_MORE.format(what="searches")}, "search_web")

@@ -4,8 +4,10 @@ Tools return dicts; LangChain serialises them to JSON for the model. Results are
 kept compact because they go straight into the model context.
 """
 
-import json
+import contextvars
+import logging
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Literal
@@ -15,15 +17,17 @@ from langchain_core.tools import tool
 from langgraph.types import Command
 from pydantic import BaseModel, Field, SecretStr, field_validator
 
-from catix import official
 from catix.agent.api_tools import API_TOOLS
 from catix.agent.attachment_tools import ATTACHMENT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
+from catix.agent import moodle_tools
 from catix.agent.moodle_tools import MOODLE_TOOLS
 from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
 from catix.common import courses, dates
+from catix import moodle_files
+from catix.db import rerank as joint_rerank
 from catix.db import store
 from catix.db import docs as doc_store
 from catix.innohassle import client as innohassle
@@ -69,101 +73,7 @@ def _fmt(dt: date | datetime) -> str:
     return dt.isoformat()
 
 
-class SearchChatsArgs(BaseModel):
-    queries: list[str] = Field(
-        min_length=1,
-        max_length=store.MAX_QUERIES,
-        description=(
-            "1-8 short searches of the same question from DIFFERENT angles, run together and merged: synonyms, "
-            "Russian and English forms ('мидтерм', 'midterm'), with and without the course ('мидтерм матан', "
-            "'midterm calculus'). Plain topic words only: no years, no 'when/where', never the same query twice."
-        ),
-    )
-    chat: str | None = Field(None, description="Part of a chat title to restrict the search to.")
-    date_from: date | None = Field(
-        None, description="YYYY-MM-DD: only messages WRITTEN on or after this day (for 'what was written recently')."
-    )
-    date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only messages WRITTEN on or before this day.")
-    event_from: date | None = Field(
-        None,
-        description="YYYY-MM-DD: only messages about an event on or after this day, regardless of publication date. "
-        "Use for when an event happens or work is due; combine with publication filters only if both axes are explicitly requested.",
-    )
-    event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
-
-    @field_validator("queries", mode="before")
-    @classmethod
-    def _one_query(cls, value):
-        return [value] if isinstance(value, str) else value
-
-
 EVENT_POOL = 60
-
-
-@tool(args_schema=SearchChatsArgs)
-def search_chats(
-    queries: list[str],
-    runtime: ToolRuntime[AgentContext],
-    chat: str | None = None,
-    date_from: date | None = None,
-    date_to: date | None = None,
-    event_from: date | None = None,
-    event_to: date | None = None,
-) -> Command:
-    """Search knowledge-base chats by words and meaning for topical facts or discussions. For primary topical retrieval,
-    call together with search_userbot_chats in the same step. Lists, counts, newest messages and messages by a person use
-    read_chats first instead, even when a topic is named. Follow up only for a concrete unanswered part or missing source
-    or synonym; use the tool that addresses that gap, not both searches automatically. Search matches are not exhaustive
-    lists or counts. Give several queries from different angles in ONE call: messages found by several rank first.
-    date_from/date_to constrain publication; event_from/event_to constrain when events happen or work is due. Keep these
-    axes independent: event-only requests must include earlier announcements, so omit publication filters; combine axes
-    only when both are explicitly requested. Messages may be outdated, jokes or contradictory. Each carries `official`:
-    true only for a chat an admin marked official. Results rank by relevance, not date: read dates and prefer latest information."""
-    allowed = runtime.context.allowed_chat_ids if runtime.context else None
-    now = datetime.now(settings.tz)
-    question = _question(runtime)
-    upcoming = asks_upcoming(question)
-    if upcoming:  # What is coming starts today: "в ноябре" is from today on, a period wholly over is none.
-        event_from = max(event_from or now.date(), now.date())
-        event_to = event_to if event_to and event_to >= event_from else None
-        # The day a message was written says nothing of what is coming, and drops the announcements made before (the
-        # model gave 1 October one time, 1 November the next).
-        date_from = date_to = None
-    shown = MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED
-    rows = store.search(
-        queries,
-        chat=chat,
-        chat_ids=allowed,
-        date_from=date_from and date_from.isoformat(),
-        date_to=date_to and date_to.isoformat(),
-        # A period of events needs a wider pool: the filter below is applied after the ranking.
-        limit=EVENT_POOL if event_from or event_to or upcoming else shown,
-        original=question,
-    )
-    collector = Collector(runtime)
-    asked = _asked_courses(runtime)
-    messages = []
-    found = len(rows)
-    if upcoming:  # One rule whether the model gave a period or not: it gave one a time and not the next.
-        rows = [r for r in rows if dates.coming(r.text, r.date, now, event_from, event_to)][:shown]
-    elif event_from or event_to:
-        start, end = event_from or date.min, event_to or date.max
-        # Written in the period, or speaking of a day in it ("23 October" in a post of 5 October).
-        rows = [
-            r
-            for r in rows
-            if start <= r.date.astimezone(settings.tz).date() <= end or dates.mentions_between(r.text, r.date, now, start, end)
-        ][:shown]
-    for row in rows:
-        messages.append(_message_item(row, collector, asked, now))
-    result = {"total": len(messages), "messages": messages}
-    if upcoming and len(rows) < min(found, shown):
-        result["note"] = PAST_LEFT_OUT
-    # The refs of those about the question, for the guard: two searches in a row with none it had not found before end the
-    # searching (core.empty_searches).
-    scored = any(row.relevance is not None for row in rows)
-    relevant = [item["ref"] for item, row in zip(messages, rows) if row.relevance is not None and row.relevance >= settings.chat_relevant_score]
-    return collector.result(result, "search_chats", {"relevant": relevant} if scored else None)
 
 
 def _message_item(row, collector: Collector, asked: list[str], now: datetime, text_limit: int = 600) -> dict:
@@ -235,19 +145,14 @@ def read_chats(
     event_to: date | None = None,
     limit: int = 10,
 ) -> Command:
-    """Primary retrieval for lists, ALL, counts, newest messages and messages by a person, even with a named topic:
-    use before either search tool, not automatically alongside them. Returns filtered knowledge-base messages and their
-    total; normally newest first, or soonest event first with event_from/event_to. Use limit 50 for lists, Russian and
-    English words for a named topic, no words for a general period overview, official_only for news/announcements, and
-    sender for a person. date_from/date_to filter publication; event_from/event_to filter when events happen or work is
-    due. Event-only requests omit publication filters to include earlier announcements; combine axes only when explicitly
-    requested. Topical facts/discussions that are not lists/counts/newest/person requests use both searches instead.
-    Follow up only for a concrete unanswered part or missing synonym/source: prefer corrected words/filters here for a
-    list/count; search tools may supplement a specific semantic or live-chat gap. Searches are not exhaustive counts;
-    do not add overlapping read totals. Disclose coverage limits: some live chats are not in the knowledge base."""
+    """List messages of the knowledge-base chats with filters: all of a period, a count, the newest, those of a person or one
+    chat. Returns the messages and their `total`; newest first, or soonest event first with event_from/event_to.
+    date_from/date_to filter when a message was written; event_from/event_to filter when the event it announces happens or
+    work is due (earlier announcements are included). `words` match any form of a word, Russian and English. official_only:
+    the university's announcements. `total` counts messages, not events."""
     collector = Collector(runtime)
     now = datetime.now(settings.tz)
-    if asks_upcoming(_question(runtime)):  # As in search_chats: what is coming starts today, whenever it was written.
+    if asks_upcoming(_question(runtime)):  # What is coming starts today, whenever it was written.
         event_from, date_from, date_to = max(event_from or now.date(), now.date()), None, None
         event_to = event_to if event_to and event_to >= event_from else None
     period = (event_from or date.min, event_to or date.max) if event_from or event_to else None
@@ -279,7 +184,7 @@ def read_chats(
         which = "soonest" if period else "newest"
         result["note"] = f"The {which} {len(rows)} of {total}: narrow the period or the words, or raise the limit, to see more."
     elif not total and chat:
-        result["note"] = "Nothing here: a chat that is not stored is searched with search_userbot_chats, by words."
+        result["note"] = "Nothing here: the chat is not stored in the knowledge base."
     return collector.result(result, "read_chats")
 
 
@@ -328,88 +233,6 @@ def _subject_fields(item: dict, text: str, chat_title: str, asked: list[str]) ->
         item["about"] = [f"{c.short} ({c.name})" for c in found]
     if asked:
         item["matches_question_subject"] = bool({c.short for c in found} & set(asked)) if found else None
-
-
-class SearchUserbotArgs(BaseModel):
-    queries: list[str] = Field(
-        description="1 to 4 short queries of ONE or TWO words each (Telegram's search matches words and their forms, not phrases)."
-    )
-    chat: str | None = Field(None, description="Only the chat whose title contains this text, or @username.")
-    date_from: date | None = Field(None, description="Only messages WRITTEN on or after this day (YYYY-MM-DD); publication, not event date.")
-    date_to: date | None = Field(None, description="Only messages WRITTEN on or before this day (YYYY-MM-DD inclusive); publication, not event date.")
-
-
-@tool(args_schema=SearchUserbotArgs)
-def search_userbot_chats(
-    queries: list[str],
-    runtime: ToolRuntime[AgentContext],
-    chat: str | None = None,
-    date_from: date | None = None,
-    date_to: date | None = None,
-) -> Command:
-    """Search chats with Telegram's own search through the userbot: every chat an admin chose in /listen, official or not,
-    whether or not stored in the knowledge base. For primary topical facts/discussions, call together with search_chats
-    in the same step. Lists, counts, newest messages and messages by a person use read_chats first instead, even with a
-    named topic; do not add live search automatically. Follow up only for a concrete unanswered part or missing source
-    or synonym, using whichever tool addresses that gap. Search matches are not exhaustive lists or counts.
-    Matches whole words and their forms, not meaning, newest first: give 1-4 queries of one or two words, never a sentence.
-    date_from/date_to constrain publication only, not events: omit for event-only requests and check returned event dates
-    against the requested period. Only add publication filters if explicitly requested; do not claim server-side event
-    filtering. Read the dates and `official` of each message."""
-    from catix import live_search, userbot_config
-
-    collector = Collector(runtime)
-    allowed = runtime.context.allowed_chat_ids if runtime.context else None
-    chats = userbot_config.searchable_titles(allowed)
-    if chat:
-        chats = {c: t for c, t in chats.items() if chat.lstrip("@").casefold() in t.casefold()}
-    if not chats:
-        return collector.result(
-            {"total": 0, "messages": [], "note": "No chat to search this way (or none matches `chat`)."},
-            "search_userbot_chats",
-        )
-    official_ids = official.ids()
-    chat_group = store.chat_groups([int(c) for c in chats])
-    upcoming = asks_upcoming(_question(runtime))
-    if upcoming:  # As in search_chats: the day a message was written says nothing of what is coming.
-        date_from = date_to = None
-    hits, problem = live_search.search(
-        queries, sorted(chats), date_from and date_from.isoformat(), date_to and date_to.isoformat()
-    )
-    now = datetime.now(settings.tz)
-    asked = _asked_courses(runtime)
-    messages = []
-    for hit in hits:
-        if upcoming and not dates.coming(hit.text, hit.date, now):
-            continue  # The question is about what is coming (asks_upcoming).
-        item = {
-            "ref": collector.add_live(
-                hit.chat_id,
-                hit.msg_id,
-                chat_title=hit.chat_title,
-                link=hit.link,
-                date=hit.date,
-                author=hit.author,
-                sender_link=hit.sender_link,
-                text=hit.text,
-            ),
-            "chat": hit.chat_title,
-            "official": hit.chat_id in official_ids,
-            "group": chat_group.get(hit.chat_id, "all"),
-            "date": _fmt(hit.date),
-            "from": hit.author,
-            "text": hit.text[:600],
-        }
-        _subject_fields(item, hit.text, hit.chat_title, asked)
-        if settings.annotate_dates and (resolved := dates.resolve(hit.text, hit.date, now)):
-            item["dates_in_text"] = resolved
-        messages.append(item)
-    result: dict = {"total": len(messages), "messages": messages}
-    if len(messages) < len(hits):
-        result["note"] = PAST_LEFT_OUT
-    if problem:
-        result["note"] = " ".join(filter(None, [result.get("note"), f"Telegram search gave no usable answer for some chats: {problem}."]))
-    return collector.result(result, "search_userbot_chats")
 
 
 def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
@@ -525,18 +348,25 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     return item
 
 
-class SearchWikiArgs(BaseModel):
+SOURCES = ("moodle", "chat", "docs")
+log = logging.getLogger("catix.search")
+
+
+class SearchArgs(BaseModel):
     queries: list[str] = Field(
         min_length=1,
-        max_length=8,
-        description="2 to 6 search queries from different angles, in Russian AND English (the documents are Russian, the course "
-        "pages English): the words a rule would use ('академический отпуск', 'academic leave', 'пересдача', 'retake'). One of them is "
-        "a sentence as the document itself would say the answer ('Обучающийся вправе пройти повторную промежуточную аттестацию "
-        "не более ...'): its numbers may be guesses, its wording finds the clause.",
+        max_length=store.MAX_QUERIES,
+        description=(
+            "1-8 short queries of the same question from DIFFERENT angles, run together and merged: synonyms, Russian and "
+            "English forms ('мидтерм', 'midterm', 'академический отпуск', 'academic leave'), the words a document or a course "
+            "file would use. One of them may be a sentence as a document would state the answer. Plain topic words: no "
+            "years, no 'when/where', never the same query twice."
+        ),
     )
-    kinds: list[Literal["official", "wiki"]] | None = Field(
-        None, description="Only these kinds of pages: official (documents of the university), wiki (eduwiki and the "
-        "pages of the sites: news, olympiads, admission, the city). Default: all."
+    sources: list[Literal["moodle", "chat", "docs"]] | None = Field(
+        None,
+        description="Where to look, one or several: docs (the university's documents, its eduwiki and the pages of its "
+        "sites), chat (the university chats), moodle (the asker's Moodle course files and pages). Omit to look in all of them.",
     )
 
     @field_validator("queries", mode="before")
@@ -544,19 +374,56 @@ class SearchWikiArgs(BaseModel):
     def _one_query(cls, value):
         return [value] if isinstance(value, str) else value
 
+    @field_validator("sources", mode="before")
+    @classmethod
+    def _sources(cls, value):
+        if isinstance(value, str):
+            value = [value]
+        return value or None
 
-@tool(args_schema=SearchWikiArgs)
-def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: list[str] | None = None) -> Command:
-    """Search the university's knowledge base: its official documents (regulations, orders, rules of admission, study plans,
-    programmes, reports), the eduwiki (courses, teachers, procedures) and the pages of the
-    sites (the news and events of media.innopolis.university, olympiads, admission, courses, campus life, the city of
-    Innopolis). Returns pieces of pages with the document, the clause number and a ref to cite. For rules, rights,
-    deadlines, procedures, programmes, courses, admission, structure of the university, news."""
-    hits = doc_store.search(queries, trust=kinds, limit=MAX_WIKI, original=_question(runtime))
-    collector = Collector(runtime)
+
+MAX_RESULTS = 16  # results of all sources together when the reranker scores them in one pass (db/rerank.py)
+
+
+def _fetch_chats(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool):
+    """(the stored messages of the knowledge base that answer the queries, whether past ones were left out). With
+    `rerank` False the pool of candidates, unscored."""
+    allowed = runtime.context.allowed_chat_ids if runtime.context else None
+    question = _question(runtime)
+    upcoming = asks_upcoming(question)
+    shown = MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED
+    # A question about what is coming needs a wider pool: the filter is applied after the ranking.
+    rows = store.search(queries, chat_ids=allowed, limit=EVENT_POOL if upcoming else shown, original=question, rerank=rerank)
+    found = len(rows)
+    if upcoming:  # What is coming starts today, whenever it was written.
+        now = datetime.now(settings.tz)
+        rows = [r for r in rows if dates.coming(r.text, r.date, now, now.date(), None)]
+        if rerank:
+            rows = rows[:shown]
+    return rows, upcoming and len(rows) < found
+
+
+def _render_chats(fetched, runtime: ToolRuntime[AgentContext], collector: Collector) -> tuple[dict, list[str], bool]:
+    """(the result, the refs about the question, whether the results were scored)."""
+    rows, dropped = fetched
+    now = datetime.now(settings.tz)
+    asked = _asked_courses(runtime)
+    messages = [_message_item(row, collector, asked, now) for row in rows]
+    result: dict = {"total": len(messages), "messages": messages}
+    if dropped:
+        result["note"] = PAST_LEFT_OUT
+    scored = any(row.relevance is not None for row in rows)
+    relevant = [item["ref"] for item, row in zip(messages, rows) if row.relevance is not None and row.relevance >= settings.chat_relevant_score]
+    return result, relevant, scored
+
+
+def _fetch_docs(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool):
+    return doc_store.search(queries, limit=MAX_WIKI, original=_question(runtime), rerank=rerank)
+
+
+def _render_docs(hits, collector: Collector) -> tuple[dict, list[str], bool]:
     result = {"total": len(hits), "pieces": [_wiki_item(h, collector) for h in hits]}
-    # The first piece of each document lists its chapters: asked about IT support, the helper read chapters 1 and 2 of the
-    # regulation in order and never reached chapter 4, the procedure and its deadlines.
+    # The first piece of each document lists its chapters, so that a chapter the pieces do not show can be read.
     contents = doc_store.chapters({h.path for h in hits}) if hits else {}
     for item in result["pieces"]:
         if len(headings := contents.pop(item["page"], [])) > 1:
@@ -564,33 +431,80 @@ def search_wiki(queries: list[str], runtime: ToolRuntime[AgentContext], kinds: l
             item["chapters"] = [h[:80] for h in headings[:shown]] + ([f"and {len(headings) - shown} more"] if len(headings) > shown else [])
     if not hits:
         result["note"] = "Nothing found: try other words, in Russian and in English."
-    # The refs of the pieces about the question, for the guard (as in search_chats).
     scored = any(h.relevance is not None for h in hits)
     relevant = [item["ref"] for item, h in zip(result["pieces"], hits) if h.relevance is not None and h.relevance >= settings.docs_relevant_score]
-    return collector.result(result, "search_wiki", {"relevant": relevant} if scored else None)
+    return result, relevant, scored
 
 
-MAX_READS = 2  # read_wiki calls that gave text, per question
+def _rank_queries(queries: list[str], question: str | None) -> list[str]:
+    """The queries the reranker scores against: the user's own question first, as in the sources' own searches."""
+    given = list(dict.fromkeys(q.strip() for q in queries if q.strip()))[: store.MAX_QUERIES]
+    return [question, *[q for q in given if q != question]] if question and question.strip() else given
 
 
-def _reads_this_turn(runtime: ToolRuntime[AgentContext]) -> int:
-    return reads_done(runtime.state.get("messages", []))
+def _rerank_together(fetched: dict, queries: list[str], runtime: ToolRuntime[AgentContext]) -> dict:
+    """Score the candidates of all the sources that answered in one pass, so that the best of all come first (db/rerank.py);
+    each source's data keeps the shape its render expects."""
+    readers = {"chat": store.rerank_document, "docs": doc_store.rerank_document, "moodle": moodle_files.rerank_document}
+    pools = {}
+    for source, data in fetched.items():
+        if isinstance(data, Exception) or data is None:
+            continue
+        hits = data[0] if source == "chat" else data
+        pools[source] = [(hit, readers[source](hit)) for hit in hits]
+    ranked = joint_rerank.mixed(_rank_queries(queries, _question(runtime)), pools, MAX_RESULTS)
+    return {source: ((ranked[source], data[1]) if source == "chat" else ranked[source]) if source in ranked else data
+            for source, data in fetched.items()}
 
 
-def reads_done(messages: list) -> int:
-    """How many read_wiki calls gave text since the last question (the helper's run). One that found no such page or section
-    costs nothing: the model guesses a heading from a table of contents, and a scan's chapter may be no heading. When they
-    are MAX_READS, the helper's next model call is its report (core.RunGuardMiddleware)."""
-    count = 0
-    for message in reversed(messages):
-        if getattr(message, "type", "") == "human":
-            break
-        if getattr(message, "type", "") == "tool" and getattr(message, "name", "") == "read_wiki":
-            try:
-                count += bool(json.loads(message.content).get("pieces"))
-            except (TypeError, ValueError, AttributeError):
-                count += 1
-    return count
+@tool(args_schema=SearchArgs)
+def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list[str] | None = None) -> Command:
+    """Search the university's information by words and meaning, in several sources at once; each result has a `ref` to cite.
+    docs: official documents (regulations, orders, rules of admission, study plans, programmes), the eduwiki (courses,
+    teachers, procedures) and the pages of the sites (news and events, olympiads, admission, courses, campus life, the city of
+    Innopolis), for rules, rights, deadlines, procedures, programmes, structure and news; chat: what students and staff wrote
+    in the university chats, each message with its date, `official` flag and `group`; moodle: the
+    text of the asker's Moodle course files and course pages. Without `sources` all of them are searched. Results rank by
+    relevance, not by date: read the dates. Matches are not exhaustive lists or counts: use read_chats for those."""
+    explicit = bool(sources)
+    wanted = list(dict.fromkeys(sources or SOURCES))
+    fetchers = {"moodle": moodle_tools.fetch, "chat": _fetch_chats, "docs": _fetch_docs}
+    # With a reranker the sources give their candidates unscored and it scores them all in one pass, on one scale.
+    together = settings.reranker_route is not None
+
+    def fetch(source: str):
+        try:
+            return fetchers[source](queries, runtime, not together)
+        except Exception as error:  # noqa: BLE001 - one source being down must not take the others with it
+            log.warning("search in %s failed: %s", source, type(error).__name__)
+            return error
+
+    with ThreadPoolExecutor(len(wanted)) as pool:
+        futures = {s: pool.submit(contextvars.copy_context().run, fetch, s) for s in wanted}
+        fetched = {s: f.result() for s, f in futures.items()}
+    if together:
+        fetched = _rerank_together(fetched, queries, runtime)
+    collector = Collector(runtime)
+    out: dict[str, dict] = {}
+    relevant: list[str] = []
+    scored = False
+    for source in wanted:  # Refs are handed out here, one source after another.
+        data = fetched[source]
+        if isinstance(data, Exception):
+            out[source] = {"error": f"The search in {source} failed ({type(data).__name__}); say that part is unverified."}
+        elif source == "moodle":
+            if data is not None:
+                out[source] = moodle_tools.render(data, collector)
+            elif explicit:
+                out[source] = {"error": moodle_tools.NOT_ALLOWED}
+        else:
+            part, refs, was_scored = _render_chats(data, runtime, collector) if source == "chat" else _render_docs(data, collector)
+            out[source] = part
+            relevant += refs
+            scored = scored or was_scored
+    result = {"total": sum(part.get("total", 0) for part in out.values()), **out}
+    # The refs about the question, for the guard: two searches in a row with none it had not found before end the searching.
+    return collector.result(result, "search", {"relevant": relevant} if scored else None)
 
 
 def _words(text: str) -> str:
@@ -610,9 +524,6 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     """Read more of one page of the knowledge base: a clause cut off in the search results, the clauses around it, or a
     section. Without clause and section: the start of the page and its list of sections."""
     collector = Collector(runtime)
-    if _reads_this_turn(runtime) >= MAX_READS:
-        # The prompt says so too, but a small model keeps reading and runs out of its budget without a report.
-        return collector.result({"error": "No more reading in this question: report now with what you have, and say what is missing."}, "read_wiki")
     path = doc_store.find_page(page)
     if not path:
         return collector.result({"error": f"No page {page!r}: use the `page` of a search result."}, "read_wiki")
@@ -651,19 +562,12 @@ def read_wiki(page: str, runtime: ToolRuntime[AgentContext], clause: str | None 
     result["pieces"] = out
     if not clause and not section or not chosen:
         result["sections"] = list(dict.fromkeys(p.heading for p in pieces if p.heading))[:60]
-    # Said with every read, so the model chooses what to read instead of running into the end of its reading.
-    result["reads_left"] = left = MAX_READS - _reads_this_turn(runtime) - bool(out)
-    if out and not left:
-        result["note"] = "That was the last read in this question: report now with what you have" + (
-            " (the page goes on: say what was not read, if it matters)." if "note" in result else ".")
     return collector.result(result, "read_wiki")
 
 
 TOOLS = [
-    search_chats,
+    search,
     read_chats,
-    search_userbot_chats,
-    search_wiki,
     read_wiki,
     *API_TOOLS,
     *CALENDAR_TOOLS,

@@ -118,14 +118,6 @@ def origins(messages: list) -> dict:
             call = calls.get(message.tool_call_id)
             if not call or call['name'] != message.name:
                 continue
-            if message.name in {'ask_docs', 'ask_chats'}:
-                artifact = message.artifact if isinstance(message.artifact, dict) else {}
-                child = artifact.get('calendar_origins')
-                if isinstance(child, dict) and child.get('service') is True:
-                    context['service'] = True
-                    for key in ('excluded', 'independent'):
-                        context.setdefault(key, []).extend(child.get(key, []))
-                continue
             name = call['args'].get('name') if message.name == 'call_api_tool' else message.name
             if not isinstance(name, str) or name not in _CALENDAR_TOOLS | _EVENT_READS:
                 continue

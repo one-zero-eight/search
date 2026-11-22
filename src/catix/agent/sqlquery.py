@@ -31,7 +31,7 @@ READER = "ctx_reader"
 DESCRIPTION = """\
 Run one read-only PostgreSQL SELECT over the chat messages, for questions the other tools cannot answer:
 counts, rankings, lists with several filters ("сколько сообщений за неделю", "что писал староста",
-"какие чаты есть"). Do NOT use it to find the answer to a question about content (use search_chats: it ranks by
+"какие чаты есть"). Do NOT use it to find the answer to a question about content (use search: it ranks by
 relevance and meaning). Always add LIMIT; at most 50 rows are returned.
 
 Tables (only the chats the user may see; nothing else exists):

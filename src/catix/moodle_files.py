@@ -344,10 +344,12 @@ def _text_hit(r: dict) -> MoodleHit:
 
 
 def search(
-    innohassle_id: str | None, queries: list[str], *, study_groups: Sequence[str] = (), course_ids: list[int] | None = None, limit: int = 8
+    innohassle_id: str | None, queries: list[str], *, study_groups: Sequence[str] = (), course_ids: list[int] | None = None,
+    limit: int = 8, rerank: bool = True,
 ) -> list[MoodleHit]:
     """The `limit` pieces of the asker's course files and course texts, and of those their study groups share, that answer
-    the queries best (hybrid BM25 + vector, reranked). `course_ids`: only these courses."""
+    the queries best (hybrid BM25 + vector, reranked). `course_ids`: only these courses. `rerank=False` returns the whole
+    pool of candidates unscored, for a rerank over several sources together (db/rerank.py)."""
     queries = [q for q in dict.fromkeys(q.strip() for q in queries if q.strip()) if _words(q)][:MAX_QUERIES]
     if not queries or limit <= 0:
         return []
@@ -404,8 +406,8 @@ def search(
                     )
             per_query.append(_rrf(bm25, nearest))
     per_query = [scores for scores in per_query if scores]
-    reranking = settings.reranker_route is not None
-    fused = _combine(per_query, max(limit, settings.docs_rerank_candidates) if reranking else limit, reserve=1)
+    reranking = settings.reranker_route is not None and rerank
+    fused = _combine(per_query, max(limit, settings.docs_rerank_candidates) if reranking or not rerank else limit, reserve=1)
     if not fused:
         return []
     with pg.connection() as conn:
@@ -413,14 +415,20 @@ def search(
         found_hits = {r["chunk_id"]: _file_hit(r) for r in conn.execute(_FILE_PIECES, params).fetchall()}
         found_hits |= {r["chunk_id"]: _text_hit(r) for r in conn.execute(_TEXT_PIECES, params).fetchall()}
     hits = [found_hits[i] for i in fused if i in found_hits]
+    if not rerank:
+        return hits
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
+
+
+def rerank_document(h: MoodleHit) -> str:
+    return f"{h.path}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}"
 
 
 def _rerank(queries: list[str], hits: list[MoodleHit], limit: int) -> list[MoodleHit]:
     """As db.docs._rerank: the best score over the queries orders the hits, the second best is their `relevance`."""
     if not hits:
         return hits
-    documents = [f"{h.path}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
+    documents = [rerank_document(h) for h in hits]
     queries = queries[:settings.rerank_queries]
     try:
         with ThreadPoolExecutor(max_workers=len(queries)) as executor:

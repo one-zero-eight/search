@@ -518,6 +518,7 @@ def search(
     date_to: str | None = None,
     limit: int = 15,
     original: str | None = None,
+    rerank: bool = True,
 ) -> list[MessageHit]:
     """Hybrid search from one or several angles: BM25 on the words plus vector similarity for each query, all
     rankings merged by reciprocal rank fusion, so a message found by several angles rises to the top.
@@ -525,7 +526,8 @@ def search(
     `original` is the user's own question: it is searched as one more angle and counts double, so that the model's
     rewordings do not pull the result away from the words the user used.
 
-    `chat_ids` restricts the search to chats the asker may see (None = all).
+    `chat_ids` restricts the search to chats the asker may see (None = all). `rerank=False` returns the whole pool of
+    candidates unscored, for a rerank over several sources together (db/rerank.py).
     """
     if isinstance(queries, str):
         queries = [queries]
@@ -556,8 +558,8 @@ def search(
         per_query = [_rrf(*[job.result() for job in pair if job]) for pair in jobs]
     if original:  # The first query is the original: its scores count twice.
         per_query[0] = {item: 2 * value for item, value in per_query[0].items()}
-    reranking = settings.reranker_route is not None and settings.rerank_chats
-    fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking else limit)
+    reranking = rerank and settings.reranker_route is not None and settings.rerank_chats
+    fused = _combine(per_query, max(limit, settings.rerank_candidates) if reranking or not rerank else limit)
     if not fused:
         return []
     with tracing.span("load messages", input=len(fused)), pg.connection() as conn:
@@ -565,6 +567,12 @@ def search(
     by_id = {r.ref_id: r for r in rows}
     hits = [by_id[i] for i in fused if i in by_id]
     return _rerank(queries, hits, limit) if reranking else hits
+
+
+def rerank_document(h: MessageHit) -> str:
+    """What the reranker reads of a message. A short reply ("да, в пятницу") means little without the message it answers."""
+    text = h.text[:settings.rerank_max_chars]
+    return f"{h.parent_text[:settings.rerank_max_chars]}\n{text}" if h.parent_text else text
 
 
 def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[MessageHit]:
@@ -578,8 +586,7 @@ def _rerank(queries: list[str], hits: list[MessageHit], limit: int) -> list[Mess
     """
     if not hits or limit <= 0:
         return hits[:limit]
-    # A short reply ("да, в пятницу") means little without the message it answers.
-    documents = [f"{h.parent_text[:settings.rerank_max_chars]}\n{h.text[:settings.rerank_max_chars]}" if h.parent_text else h.text[:settings.rerank_max_chars] for h in hits]
+    documents = [rerank_document(h) for h in hits]
     queries = queries[:settings.rerank_queries]
     try:
         with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:

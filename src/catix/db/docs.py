@@ -217,9 +217,11 @@ def _resolve_cites(hits: list[DocHit]) -> None:
                 h.based_on.append({"page": page["path"], "title": page["title"], "link": page["resource"], "trust": page["trust"]})
 
 
-def search(queries: str | list[str], *, trust: Collection[str] | None = None, limit: int = 8, original: str | None = None) -> list[DocHit]:
+def search(queries: str | list[str], *, trust: Collection[str] | None = None, limit: int = 8, original: str | None = None,
+           rerank: bool = True) -> list[DocHit]:
     """The `limit` pieces that answer the queries best. `trust` keeps only some kinds of pages (official, wiki).
-    `original` is the user's own question: one more angle that counts double (as in store.search)."""
+    `original` is the user's own question: one more angle that counts double (as in store.search). `rerank=False` returns
+    the whole pool of candidates unscored, for a rerank over several sources together (db/rerank.py)."""
     if isinstance(queries, str):
         queries = [queries]
     queries = [q for q in dict.fromkeys(q.strip() for q in queries if q.strip()) if _words(q)][:MAX_QUERIES]
@@ -239,10 +241,10 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
         per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
                      for i, *pair in jobs]
     per_query = [scores for scores in per_query if scores]
-    reranking = settings.reranker_route is not None
+    reranking = settings.reranker_route is not None and rerank
     # One reserved hit per query pool (see _combine): an equal share of 30 candidates is the whole list here, because
     # each query comes twice (course programmes and the rest), and the combined score then adds nothing.
-    fused = _combine(per_query, max(limit, settings.docs_rerank_candidates) if reranking else limit, reserve=1)
+    fused = _combine(per_query, max(limit, settings.docs_rerank_candidates) if reranking or not rerank else limit, reserve=1)
     if not fused:
         return []
     with tracing.span("load pieces", input=len(fused)):
@@ -251,7 +253,13 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
     asked = " ".join(queries)
     hits = [h for h in hits if not h.newer or str(_year(h.title)) in asked]
+    if not rerank:
+        return hits
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
+
+
+def rerank_document(h: DocHit) -> str:
+    return f"{h.title}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}"
 
 
 def _rerank(queries: list[str], hits: list[DocHit], limit: int) -> list[DocHit]:
@@ -259,7 +267,7 @@ def _rerank(queries: list[str], hits: list[DocHit], limit: int) -> list[DocHit]:
     keeps its second best score as `relevance`, how well two angles agree that it is about the question (see store._rerank)."""
     if not hits or limit <= 0:
         return hits[:limit]
-    documents = [f"{h.title}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}" for h in hits]
+    documents = [rerank_document(h) for h in hits]
     queries = queries[:settings.rerank_queries]
     try:
         with tracing.span("rerank", "RERANKER", input=queries, documents=len(documents)), ThreadPoolExecutor(max_workers=len(queries)) as executor:

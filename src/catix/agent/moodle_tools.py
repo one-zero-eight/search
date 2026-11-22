@@ -1,7 +1,7 @@
-"""The assistant's reads of the asker's Moodle data (moodle_sync.py, moodle_files.py): `search_my_moodle` over the text of course
-files and course pages, `get_my_moodle` for deadlines, grades, announcements and courses. For a user signed in on innohassle.ru with
-Moodle sync on in the InNoHassle browser extension, and for the members of a verified study group of a user who syncs: they read the
-materials and dates the course's owner shares, never grades or statuses."""
+"""The assistant's reads of the asker's Moodle data (moodle_sync.py, moodle_files.py): the text of course files and course pages
+(the `moodle` source of the search tool), `get_my_moodle` for deadlines, grades, announcements and courses. For a user signed in on
+innohassle.ru with Moodle sync on in the InNoHassle browser extension, and for the members of a verified study group of a user who
+syncs: they read the materials and dates the course's owner shares, never grades or statuses."""
 
 from datetime import date, datetime, time, timedelta
 from typing import Literal
@@ -9,8 +9,7 @@ from urllib.parse import urlsplit
 
 from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
-from langgraph.types import Command
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from catix import moodle_files, moodle_sync
 from catix.agent.sources import Collector
@@ -30,21 +29,6 @@ NOT_ALLOWED = (
 )
 
 
-class SearchMoodleArgs(BaseModel):
-    queries: list[str] = Field(
-        min_length=1,
-        max_length=6,
-        description="2 to 4 queries in the language of the course files (usually English; Russian too when the course is Russian): "
-        "the words the slides, the course page or the assignment would use.",
-    )
-    course: str | None = Field(None, max_length=200, description="Words of the course's name, to search only its materials")
-
-    @field_validator("queries", mode="before")
-    @classmethod
-    def _one_query(cls, value):
-        return [value] if isinstance(value, str) else value
-
-
 def asker(runtime: ToolRuntime) -> tuple[str | None, tuple[str, ...]]:
     """(the asker's InNoHassle id, their verified study groups) of this question."""
     context = runtime.context
@@ -56,21 +40,17 @@ def pdf_ref(url: str, page: int | None) -> str:
     return f"{url}#page={page}" if page and urlsplit(url).path.lower().endswith(".pdf") else url
 
 
-@tool(args_schema=SearchMoodleArgs)
-def search_my_moodle(queries: list[str], runtime: ToolRuntime, course: str | None = None) -> Command | dict:
-    """Search the asker's Moodle courses: the text of course files (slides, assignments, readings) and of the course pages (module
-    texts, section summaries, announcements), sent by the InNoHassle browser extension when Moodle sync is on, the asker's own and
-    those their verified study group shares. Returns pieces with the course path, the page of a PDF and a ref to cite."""
+def fetch(queries: list[str], runtime: ToolRuntime, rerank: bool = True) -> list | None:
+    """The pieces of the asker's Moodle courses (and those their verified study group shares) that answer the queries;
+    None when the asker has no access to Moodle data."""
     innohassle_id, study_groups = asker(runtime)
     if not innohassle_id and not study_groups:
-        return {"error": NOT_ALLOWED}
-    ids: list[int] | None = None
-    if course:
-        ids = moodle_sync.matching_course_ids(moodle_sync.scopes(innohassle_id, study_groups), course)
-        if not ids:
-            return {"total": 0, "pieces": [], "note": "No course of the user matches that name: search without `course`."}
-    hits = moodle_files.search(innohassle_id, queries, study_groups=study_groups, course_ids=ids, limit=LIMIT)
-    collector = Collector(runtime)
+        return None
+    return moodle_files.search(innohassle_id, queries, study_groups=study_groups, limit=LIMIT, rerank=rerank)
+
+
+def render(hits: list, collector: Collector) -> dict:
+    """Pieces with the course path, the page of a PDF and a ref to cite."""
     pieces = []
     for h in hits:
         title = f"{h.title} (p. {h.page})" if h.page else h.title
@@ -81,7 +61,7 @@ def search_my_moodle(queries: list[str], runtime: ToolRuntime, course: str | Non
     if not hits:
         result["note"] = ("Nothing found in the asker's Moodle courses or those their study group shares (Moodle sync may be "
                           "off, or the files are not read yet).")
-    return collector.result(result, "search_my_moodle")
+    return result
 
 
 class GetMyMoodleArgs(BaseModel):
@@ -126,7 +106,7 @@ def get_my_moodle(
 ) -> dict:
     """The asker's Moodle data as the InNoHassle browser extension last synced it: deadlines, grades, announcements, courses.
     Also the courses a member of the asker's verified study group shares (`shared: true`): their dates and announcements, never
-    anyone else's grades or status. For questions about course material use search_my_moodle."""
+    anyone else's grades or status. For questions about course material use search with sources=["moodle"]."""
     innohassle_id, study_groups = asker(runtime)
     if not innohassle_id and not study_groups:
         return {"error": NOT_ALLOWED}
@@ -187,4 +167,4 @@ def grades(innohassle_id: str | None, found: list[moodle_sync.Scope]) -> list[di
     ]
 
 
-MOODLE_TOOLS = [search_my_moodle, get_my_moodle]
+MOODLE_TOOLS = [get_my_moodle]

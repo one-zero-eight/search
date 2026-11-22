@@ -67,7 +67,7 @@ def _room_id(text: str) -> str:
     return match.group(0) if match else text.strip()
 
 
-@tool(**metadata(usage="This term's courses and who teaches them, from the timetable only. For programmes and what a course covers use search_wiki alongside, and say which term or programme each fact is for."))
+@tool(**metadata(usage="This term's courses and who teaches them, from the timetable only. For programmes and what a course covers use search alongside, and say which term or programme each fact is for."))
 @result_boundary()
 def timetable_get_courses(query: Annotated[str, Field(min_length=1, max_length=80)]) -> dict:
     """Public course and instructor search in the official timetable.

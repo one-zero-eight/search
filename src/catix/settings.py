@@ -26,9 +26,7 @@ class Settings(BaseSettings):
     # Qwen "thinking" before answering: slightly more careful, but 2-10x slower on this hardware
     # and sometimes runs out of tokens with an empty answer.
     llm_thinking: bool = False
-    # Helpers think like the supervisor (PlanThinkingMiddleware: the model card's sampling, llm_plan_max_tokens). Env LLM_HELPER_THINKING.
-    llm_helper_thinking: bool = True
-    # Every supervisor call thinks, including post-tool decisions and small talk; helpers think via llm_helper_thinking.
+    # Every model call thinks, including post-tool decisions and small talk (PlanThinkingMiddleware).
     # Per-call supervisor budget for reasoning and output.
     llm_plan_max_tokens: int = Field(8192, gt=0)
     # Next to every chat message the tools give the concrete dates its "завтра", "в пятницу" or "23 октября" mean
@@ -45,9 +43,6 @@ class Settings(BaseSettings):
     abuse_pause_max_hours: int = Field(24, gt=0)
     abuse_forget_days: int = Field(7, gt=0, description="After this long without a pause the next one is short again.")
     agent_max_model_calls: int = Field(6, gt=0, description="Model calls per question, including tool rounds.")
-    # One helper asked once that reported with sources: its report is the answer, the supervisor does not write it again
-    # (agent/core.py PassReportMiddleware). Off, the supervisor rewrites every report: shorter, 2 to 10 s later.
-    agent_pass_report: bool = True
     # Questions the agent answers at once in a bot; the others wait their turn (agent/questions.py). 12 questions at once
     # on 1Cat-vLLM (2026-11-01; mean wait, first and last answer): 1 at a time 74 s, 13 s, 136 s; 4 at once 71 s, 25 s,
     # 106-111 s; 6 at once 70-78 s, 37 s, 97-105 s; 2 or 3 at once no sooner than 1.
@@ -55,13 +50,6 @@ class Settings(BaseSettings):
     # Send each model call the priority of its question (agent/questions.py PRIORITY), for a server started with
     # --scheduling-policy priority. 1Cat-vLLM without it accepted one too; upstream vLLM may refuse it.
     llm_priority: bool = True
-    # Old tool results dominate the context of long chats; above this size (approximate tokens)
-    # all but the last `agent_keep_tool_results` are replaced by a placeholder. Every replacement changes the start of the
-    # context, and the model server reads all after it again (~750 tokens/s on the V100): at 6000 a question with two
-    # searches and two reads was cut on each later step, ~15 s of re-reading. A helper makes at most
-    # `agent_max_model_calls` calls, so its context stays bounded without it; this is a safety net.
-    agent_context_trigger_tokens: int = Field(16000, gt=0)
-    agent_keep_tool_results: int = Field(3, ge=0)
     # A long conversation is summarized before the next question when the prompt that question would have reaches this many
     # tokens: the whole history, tool results included, counted from its text at 2.5 characters a token (agent/core.py
     # estimate_tokens, ~13% above the server's count on a real chat), plus the system prompt and the tool schemas (~7k,
@@ -89,8 +77,8 @@ class Settings(BaseSettings):
     # InNoHassle Sport (sport.innopolis.university): shared API tools read the asker's sport and check them in to a
     # training with their own Sport token, which only the site has (api/auth.py verify_asker, innohassle/mcp_sport.py).
     sport_api: HttpUrl = HttpUrl("https://sport.innopolis.university/api/v3")
-    # DeepSeek Search & Fetch, for what the knowledge base lacks (agent/web_tools.py). Unset: the helper has
-    # no web search. Only the helper's own query goes there, never who asks.
+    # DeepSeek Search & Fetch, for what the knowledge base lacks (agent/web_tools.py). Unset: the agent has
+    # no web search. Only the agent's own query goes there, never who asks.
     deepseek_api_key: SecretStr | None = None
     # Optional HTTP proxy for Search & Fetch:
     # http://[user:password@]host:port (https:// for a proxy reached over TLS). Unset: directly.

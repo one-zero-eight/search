@@ -109,10 +109,6 @@ def collect(messages, answer, *, now=None):
             if name in CONFIRMATION_TOOLS or name in {'add_to_ai_calendar', 'update_ai_calendar', 'remove_from_ai_calendar'}:
                 candidates.clear()
                 continue
-            if message.name in {'ask_docs', 'ask_chats'}:
-                if isinstance(message.artifact, dict) and message.artifact.get('action_receipts'):
-                    candidates.clear()
-                continue
             if name in {'rooms_get_free_rooms', 'music_get_available_windows', 'sport_get_my_sport',
                         'sport_get_sport_trainings', 'sport_get_training'}:
                 # A newer service read, even a failed one, supersedes older offers.

@@ -64,7 +64,7 @@ from catix.api.schemas import (
 )
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.citations import AnswerSource, CitedAnswer
-from catix.common.status import CHECKING, HELPER_TOOLS, QUEUED, STATUS, WRITING
+from catix.common.status import CHECKING, QUEUED, SEARCH_TOOLS, STATUS, WRITING
 from catix.settings import settings
 from catix.common.render import partial_text
 
@@ -182,7 +182,7 @@ def _search_context(found: SearchResponses) -> dict:
 
 
 def _history(messages: list) -> list[dict]:
-    """The conversation as plain messages: the questions and the answers, without the helpers' work."""
+    """The conversation as plain messages: the questions and the answers, without the tool calls."""
     return [
         {"role": "user" if isinstance(m, HumanMessage) else "assistant", "content": m.text}
         for m in messages
@@ -191,12 +191,9 @@ def _history(messages: list) -> list[dict]:
 
 
 async def stream_agent(inputs: dict, config: dict, context: AgentContext, events: asyncio.Queue) -> dict:
-    """Run the agent, queueing statuses and the whole user-facing answer so far.
-    Supervisor chunks and explicitly final helper answer events hide unnumbered source refs;
-    ordinary helper model chunks are never user-facing."""
+    """Run the agent, queueing statuses and the whole user-facing answer so far."""
     state: dict = {"messages": []}
     call_id, call_text, shown, status = None, "", "", CHECKING
-    answer_stream_id: str | None = None
 
     async def show_status(text: str | None) -> None:
         nonlocal status
@@ -205,33 +202,14 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
             await events.put(("status", {"text": text}))
 
     await events.put(("status", {"text": CHECKING}))
-    async for mode, data in agent().astream(inputs, config, context=context, stream_mode=["messages", "values", "custom"]):
+    async for mode, data in agent().astream(inputs, config, context=context, stream_mode=["messages", "values"]):
         if mode == "values":
             if "messages" in data:  # (not the interrupt the run paused on: api/ask.py reads it from the thread's state)
                 state = data
-        elif mode == "custom":
-            if isinstance(data, dict):
-                await show_status(STATUS.get(data.get("tool") or ""))
-                answer_stream = data.get("answer_stream")
-                if (not isinstance(answer_stream, dict) or not isinstance(answer_stream.get("id"), str)
-                        or not answer_stream["id"].strip()):
-                    continue
-                if set(answer_stream) == {"id", "reset"} and answer_stream["reset"] is True:
-                    if answer_stream["id"] == answer_stream_id:
-                        answer_stream_id, shown = None, ""
-                        await events.put(("answer", {"text": ""}))
-                elif set(answer_stream) == {"id", "text"} and isinstance(answer_stream["text"], str):
-                    raw_text = answer_stream["text"]
-                    text = partial_text(raw_text)
-                    if text and "<tool_call>" not in raw_text:
-                        answer_stream_id = answer_stream["id"]
-                        if text != shown:
-                            shown = text
-                            await events.put(("answer", {"text": text}))
         else:
             chunk, metadata = data
-            if isinstance(chunk, ToolMessage):  # A helper came back: the supervisor now writes the answer.
-                if chunk.name in HELPER_TOOLS:
+            if isinstance(chunk, ToolMessage):  # A search came back: the agent now writes the answer.
+                if chunk.name in SEARCH_TOOLS:
                     await show_status(WRITING)
                 continue
             if not isinstance(chunk, AIMessageChunk):
@@ -246,7 +224,6 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
             call_text += chunk.text
             text = partial_text(call_text)
             if text and "<tool_call>" not in call_text:
-                answer_stream_id = None
                 if text != shown:
                     shown = text
                     await events.put(("answer", {"text": text}))
@@ -515,7 +492,7 @@ async def ask_by_query(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK)
 )
 async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT_BLANK), chat_id: str | None = Body(None),
                               attachment_ids: list[str] = Body(default=[], max_length=3)):
-    """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, asking a helper, writing, as in the Telegram bot),
+    """The same as POST /ask/, but the work is shown while it goes on. Events: `status` ({text}: what the agent is doing: waiting in the queue, checking, searching, writing, as in the Telegram bot),
     `answer` ({text}: the whole answer so far), `done` (AskResponses: the final answer with its sources and the events it
     offers for the calendar), `cancelled`
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}, and `code`: "llm_unavailable" when the language model cannot be reached). A client's questions are answered one at a time, in the

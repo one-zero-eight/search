@@ -3,7 +3,7 @@
 Questions of every kind of reader (student, postgraduate, applicant, teacher/staff, management/public), worded as a person
 would ask, not as the document says. A piece is relevant when its page (path or title) matches `page` and its text (with the title and headings) matches `text` (both
 regexes, case-insensitive), picked by reading the documents. Methods: words only, meaning only, both fused, both fused and
-reranked (what search_wiki does). Small sample: read the per-question table, not only the averages.
+reranked (what the `docs` source of the agent's `search` does). Small sample: read the per-question table, not only the averages.
 
 Usage: uv run python experiments/eval_wiki.py [--check]   (--check: only count the relevant pieces of each question)
 """

@@ -2,11 +2,11 @@
 
     uv run python experiments/trace_stats.py [N] [--trace ID] [--project NAME]
 
-For each question (a `question` span): its time, the model calls of the supervisor and of each helper it asked, the tools
-the helpers ran (search rounds, the empty ones, reads that gave text), the tool results that were an error or a refusal
-("No more reading", a repeated call), the calls the guard made the report (its order to answer in the model's input), the
-calls asked again after a tool call written as text (`again`), and how long the supervisor's last call took (it writes the answer again from the helper's report; `pass` when the one report was the answer, core.PassReportMiddleware). Then the totals: where the
-time goes, how often a helper searched round after round, which questions the screen stopped.
+For each question (a `question` span): its time, the model calls of the agent, the tools it ran (search rounds, the empty ones,
+reads that gave text), the tool results that were an error or a refusal ("No more reading", a repeated call), the calls the
+guard made the report (its order to answer in the model's input), the calls asked again after a tool call written as text
+(`again`), and how long the last model call took (it writes the answer). Then the totals: where the time goes, how often the
+agent searched round after round, which questions the screen stopped.
 
 `--trace ID` prints one question's tool calls in order, with what each found.
 """
@@ -55,7 +55,7 @@ def spans_of(project: str, trace: str) -> list[dict]:
 
 
 def tool_result(span: dict) -> dict | None:
-    """The JSON a tool gave the model, or None (a helper's report is text); its artifact, unseen by the model, as `artifact`."""
+    """The JSON a tool gave the model, or None (text); its artifact, unseen by the model, as `artifact`."""
     try:
         out = json.loads((span.get("output") or {}).get("value") or "{}")
         data = out["update"]["messages"][0]["data"] if "update" in out else {"content": out}
@@ -63,72 +63,6 @@ def tool_result(span: dict) -> dict | None:
         return {**content, "artifact": data["artifact"]} if isinstance(content, dict) and data.get("artifact") else content
     except (KeyError, IndexError, TypeError, ValueError):
         return None
-
-
-def summary(spans: list[dict]) -> dict:
-    by_id = {s["spanId"]: s for s in spans}
-
-    def helper(span: dict) -> str:
-        """The helper a span ran in (the ask_* tool above it), or 'supervisor'."""
-        while span.get("parentId") in by_id:
-            span = by_id[span["parentId"]]
-            if span["spanKind"] == "tool" and span["name"].startswith("ask_"):
-                return span["name"][4:]
-        return "supervisor"
-
-    root = next((s for s in spans if s["name"] == "question"), spans[0])
-    answer = ((root.get("output") or {}).get("value") or "")
-    out = {"when": root["startTime"][:16].replace("T", " "), "question": (root.get("input") or {}).get("value") or "",
-           "seconds": (root["latencyMs"] or 0) / 1000, "screened": answer.startswith(SCREEN), "helpers": Counter(),
-           "calls": Counter(), "rounds": Counter(), "empty": Counter(), "reads": Counter(), "errors": [], "forced": Counter(),
-           "again": Counter(), "final": 0.0, "tools": []}
-    llm = [s for s in spans if s["spanKind"] == "llm" and s["name"] != "guardrail"]
-    for s in llm:
-        if helper(s) == "supervisor" and any(p["name"] == "guardrail" for p in _parents(s, by_id)):
-            continue  # (the screen's own call)
-        who = helper(s)
-        out["calls"][who] += 1
-        given = json.dumps(s["attributes"].get("llm", {}).get("input_messages", ""), ensure_ascii=False)
-        if any(hint in given for hint in AGAIN):
-            out["again"][who] += 1
-        elif any(hint in given for hint in FORCED):
-            out["forced"][who] += 1
-    sup = [s for s in llm if helper(s) == "supervisor" and not any(p["name"] == "guardrail" for p in _parents(s, by_id))]
-    asks = [s for s in spans if s["spanKind"] == "tool" and s["name"].startswith("ask_") and helper(s) == "supervisor"]
-    out["passed"] = bool(sup and asks and sup[-1]["startTime"] < asks[-1]["startTime"])  # no model call after the report
-    if sup and not out["passed"]:
-        out["final"] = (sup[-1]["latencyMs"] or 0) / 1000
-    calls_of = {who: [s for s in llm if helper(s) == who] for who in {helper(s) for s in llm}}
-
-    def turn(span: dict, who: str) -> str | None:
-        """The model call that made a tool call: the last one of the same agent that started before it. (Parallel calls of
-        one turn do not share a parent span: each runs in a node of its own.)"""
-        before = [c for c in calls_of.get(who, []) if c["startTime"] < span["startTime"]]
-        return before[-1]["spanId"] if before else None
-
-    rounds: dict[str, set] = {}
-    asked: set = set()
-    for s in spans:
-        if s["spanKind"] != "tool":
-            continue
-        who, name = helper(s), s["name"]
-        if name.startswith("ask_"):
-            out["helpers"][name[4:]] += 1
-            asked.add(turn(s, who))
-            continue
-        res = tool_result(s)
-        total = res.get("total") if isinstance(res, dict) else None
-        out["tools"].append((s["startTime"][11:19], who, name, (s.get("input") or {}).get("value", ""), res))
-        if name.startswith("search_"):
-            rounds.setdefault(who, set()).add(turn(s, who))
-            out["empty"][who] += total == 0 or (res.get("artifact") or {}).get("relevant") == []  # (none about the question)
-        if name == "read_wiki" and isinstance(res, dict) and res.get("pieces"):
-            out["reads"][who] += 1
-        if isinstance(res, dict) and res.get("error"):
-            out["errors"].append(f"{who}/{name}: {str(res['error'])[:60]}")
-    out["rounds"] = Counter({who: len(turns) for who, turns in rounds.items()})
-    out["ask_rounds"] = len(asked)
-    return out
 
 
 def _parents(span: dict, by_id: dict) -> list[dict]:
@@ -139,16 +73,60 @@ def _parents(span: dict, by_id: dict) -> list[dict]:
     return out
 
 
+def summary(spans: list[dict]) -> dict:
+    by_id = {s["spanId"]: s for s in spans}
+    root = next((s for s in spans if s["name"] == "question"), spans[0])
+    answer = ((root.get("output") or {}).get("value") or "")
+    out = {"when": root["startTime"][:16].replace("T", " "), "question": (root.get("input") or {}).get("value") or "",
+           "seconds": (root["latencyMs"] or 0) / 1000, "screened": answer.startswith(SCREEN), "calls": 0, "rounds": 0, "empty": 0,
+           "reads": 0, "errors": [], "forced": 0, "again": 0, "final": 0.0, "tools": []}
+    llm = [s for s in spans if s["spanKind"] == "llm" and s["name"] != "guardrail"
+           and not any(p["name"] == "guardrail" for p in _parents(s, by_id))]  # (not the screen's own call)
+    for s in llm:
+        out["calls"] += 1
+        given = json.dumps(s["attributes"].get("llm", {}).get("input_messages", ""), ensure_ascii=False)
+        if any(hint in given for hint in AGAIN):
+            out["again"] += 1
+        elif any(hint in given for hint in FORCED):
+            out["forced"] += 1
+    if llm:
+        out["final"] = (llm[-1]["latencyMs"] or 0) / 1000
+
+    def turn(span: dict) -> str | None:
+        """The model call that made a tool call: the last one that started before it. (Parallel calls of one turn do not share
+        a parent span: each runs in a node of its own.)"""
+        before = [c for c in llm if c["startTime"] < span["startTime"]]
+        return before[-1]["spanId"] if before else None
+
+    rounds: set = set()
+    for s in spans:
+        if s["spanKind"] != "tool":
+            continue
+        name = s["name"]
+        res = tool_result(s)
+        total = res.get("total") if isinstance(res, dict) else None
+        out["tools"].append((s["startTime"][11:19], name, (s.get("input") or {}).get("value", ""), res))
+        if name == "search":
+            rounds.add(turn(s))
+            out["empty"] += total == 0 or (res.get("artifact") or {}).get("relevant") == []  # (none about the question)
+        if name == "read_wiki" and isinstance(res, dict) and res.get("pieces"):
+            out["reads"] += 1
+        if isinstance(res, dict) and res.get("error"):
+            out["errors"].append(f"{name}: {str(res['error'])[:60]}")
+    out["rounds"] = len(rounds)
+    return out
+
+
 def show_trace(project: str, trace: str) -> None:
     s = summary(spans_of(project, trace))
-    print(f"{s['when']}  {s['seconds']:.1f} s  «{s['question'][:100]}»  model calls {dict(s['calls'])}")
-    for when, who, name, args, res in s["tools"]:
+    print(f"{s['when']}  {s['seconds']:.1f} s  «{s['question'][:100]}»  model calls {s['calls']}")
+    for when, name, args, res in s["tools"]:
         if isinstance(res, dict):
             items = res.get("pieces") or res.get("messages") or res.get("rows") or []
             found = f"total {res.get('total', len(items))}" + (f", relevant {res['artifact']['relevant']}" if "relevant" in (res.get("artifact") or {}) else "") + (f", error: {res['error'][:70]}" if res.get("error") else "") + (f", {res['note'][:70]}" if res.get("note") else "")
         else:
             found = "(text)"
-        print(f"  {when} {who:>10} {name}({args[:110]})\n{'':22}-> {found}")
+        print(f"  {when} {name}({args[:110]})\n{'':12}-> {found}")
 
 
 def main() -> None:
@@ -166,32 +144,20 @@ def main() -> None:
             rows.append((trace, summary(spans_of(project, trace))))
         except (KeyError, StopIteration, IndexError) as e:
             print(f"{trace}: not read ({type(e).__name__})", file=sys.stderr)
-    print(f"{'when':16} {'s':>5} {'calls':>5} {'final':>5}  helpers (model calls / search rounds, empty / reads)  forced  again  errors  question")
+    print(f"{'when':16} {'s':>5} {'calls':>5} {'final':>5}  search rounds / empty / reads  forced  again  errors  question")
     for trace, s in rows:
-        helpers = " ".join(f"{h}{'×' + str(k) if k > 1 else ''}:{s['calls'][h]}/{s['rounds'][h]},{s['empty'][h]}/{s['reads'][h]}"
-                           for h, k in s["helpers"].items()) or ("SCREENED" if s["screened"] else "-")
-        helpers += f" ({s['ask_rounds']} rounds)" if s["ask_rounds"] > 1 else ""
-        forced, again = sum(s["forced"].values()), sum(s["again"].values())
-        final = " pass" if s["passed"] else f"{s['final']:5.1f}"
-        print(f"{s['when']:16} {s['seconds']:5.1f} {sum(s['calls'].values()):5} {final}  {helpers:44} {forced or '':>6} {again or '':>5} {len(s['errors']) or '':>6}  {s['question'][:60]!r}  {trace}")
+        searched = "SCREENED" if s["screened"] else f"{s['rounds']}/{s['empty']}/{s['reads']}"
+        print(f"{s['when']:16} {s['seconds']:5.1f} {s['calls']:5} {s['final']:5.1f}  {searched:29} {s['forced'] or '':>6} {s['again'] or '':>5} {len(s['errors']) or '':>6}  {s['question'][:60]!r}  {trace}")
     asked = [s for _, s in rows if not s["screened"]]
     if not asked:
         return
     secs = [s["seconds"] for s in asked]
-    one = [s for s in asked if sum(s["helpers"].values()) == 1]
     print(f"\n{len(rows)} questions, {len(rows) - len(asked)} stopped by the screen")
     print(f"time: median {statistics.median(secs):.1f} s, mean {statistics.mean(secs):.1f} s, max {max(secs):.1f} s; "
-          f"model calls: median {statistics.median(sum(s['calls'].values()) for s in asked)}")
-    passed = sum(s["passed"] for s in asked)
-    rewritten = [s for s in one if not s["passed"]]
-    print(f"the supervisor's last call: {sum(s['final'] for s in asked) / sum(secs):.0%} of all the time; {len(one)} questions asked "
-          f"one helper only, {passed} answered with its report" + (f", {len(rewritten)} rewritten ({statistics.mean(s['final'] for s in rewritten):.1f} s each)" if rewritten else ""))
-    after = [s for s in asked if s["ask_rounds"] > 1]
-    print(f"the supervisor asked helpers in more than one round: {len(after)} questions ({statistics.mean(s['seconds'] for s in after):.1f} s each)" if after else "")
-    again = [s for s in asked if any(k > 1 for k in s["helpers"].values())]
-    print(f"the supervisor asked one helper again: {len(again)} questions ({statistics.mean(s['seconds'] for s in again):.1f} s each)" if again else "")
-    loops = [(t, s) for t, s in rows if any(n >= 3 for n in s["rounds"].values())]
-    print(f"a helper searched 3 rounds or more: {len(loops)}; a tool gave an error or a refusal: {sum(bool(s['errors']) for _, s in rows)}; "
+          f"model calls: median {statistics.median(s['calls'] for s in asked)}")
+    print(f"the last model call: {sum(s['final'] for s in asked) / sum(secs):.0%} of all the time")
+    loops = [s for s in asked if s["rounds"] >= 3]
+    print(f"searched 3 rounds or more: {len(loops)}; a tool gave an error or a refusal: {sum(bool(s['errors']) for _, s in rows)}; "
           f"the guard made the report: {sum(bool(s['forced']) for _, s in rows)}; "
           f"asked again after a call written as text: {sum(bool(s['again']) for _, s in rows)}")
     errors = Counter(e.split(": ", 1)[1] for _, s in rows for e in s["errors"])

@@ -1,7 +1,7 @@
 """The wiki's search on the generated test set (experiments/wiki_questions.jsonl, gen_wiki_questions.py), with how sure each
 number is: a 95% interval from resampling the questions, and for two methods the share of questions where they differ.
 
-Methods: the search as it is (search_wiki: hybrid, reranked) and variants of it; a variant is a change made for the run
+Methods: the search as it is (the `docs` source of `search`: hybrid, reranked) and variants of it; a variant is a change made for the run
 only (see VARIANTS). Compare two with --diff A B: the questions where one finds the answer in the top 5 and the other not.
 
 Usage: uv run python experiments/eval_wiki_large.py [variant ...] [--diff A B]
