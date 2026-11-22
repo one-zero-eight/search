@@ -32,18 +32,26 @@ class SourceImage(BaseModel):
 
 # A picture of a crawled site page as its markdown keeps it (docs/sources/sites.py _Page._picture: absolute, no spaces or brackets).
 IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((https?://[^)\s]+)\)")
+# A picture without an alt: nothing says what it shows, so neither the model nor the source list gets it.
+BARE_IMAGE_RE = re.compile(r"[ \t]*!\[\s*\]\(https?://[^)\s]+\)")
 MAX_CHUNK_IMAGES = 4  # pictures one cited piece adds to its source
 MAX_SOURCE_IMAGES = 6  # pictures one line of the source list shows
 
 
+def without_bare_images(text: str) -> str:
+    """The piece's markdown without its pictures that have no alt."""
+    return BARE_IMAGE_RE.sub("", text)
+
+
 def images_in(text: str, limit: int = MAX_CHUNK_IMAGES) -> list[dict]:
-    """The pictures of a piece's markdown, first `limit`, each URL once: [{"url", "alt"}], alt None when empty."""
+    """The pictures of a piece's markdown that have an alt, first `limit`, each URL once: [{"url", "alt"}]."""
     found: list[dict] = []
     for match in IMAGE_RE.finditer(text):
         if len(found) >= limit:
             break
-        if all(item["url"] != match.group(2) for item in found):
-            found.append({"url": match.group(2), "alt": match.group(1).strip() or None})
+        alt = match.group(1).strip()
+        if alt and all(item["url"] != match.group(2) for item in found):
+            found.append({"url": match.group(2), "alt": alt})
     return found
 
 
