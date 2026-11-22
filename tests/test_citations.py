@@ -67,6 +67,14 @@ def test_a_chat_source_carries_the_message_for_a_preview_and_a_document_does_not
     assert saved_before.text is None and rules.text is None
 
 
+def test_a_moodle_file_is_a_moodle_source_not_the_web():
+    url = "https://moodle.example.org/pluginfile.php/1/syllabus.pdf#page=2"
+    registry = {"m1": {"moodle": True, "title": "Syllabus.pdf (p. 2)", "link": url}}
+    result = sources.cite("The course has six credits [m1].", registry)
+    assert [(source.kind, source.url) for source in result.sources] == [("moodle", url)]
+    assert "(Moodle)" in render_cited_answer(result)
+
+
 def test_archive_identity_includes_page_revision_and_member():
     archive = {"page": "/raw/archive.md", "revision": "a" * 64, "member": "first.pdf"}
     variants = [archive, {**archive, "member": "second.pdf"}, {**archive, "revision": "b" * 64},

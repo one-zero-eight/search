@@ -54,7 +54,7 @@ def render(hits: list, collector: Collector) -> dict:
     pieces = []
     for h in hits:
         title = f"{h.title} (p. {h.page})" if h.page else h.title
-        piece = {"ref": collector.add_web(title, pdf_ref(h.url, h.page), False), "kind": h.kind, "course": h.course,
+        piece = {"ref": collector.add_moodle(title, pdf_ref(h.url, h.page)), "kind": h.kind, "course": h.course,
                  "path": h.path, "page": h.page, "shared": h.shared, "section": h.heading, "text": h.text[:PIECE_TEXT]}
         pieces.append({k: v for k, v in piece.items() if k != "page" or v is not None})
     result: dict = {"total": len(hits), "pieces": pieces}

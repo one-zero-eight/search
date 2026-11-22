@@ -101,6 +101,10 @@ class Collector:
         """A page found on the web (agent/web_tools.py): one source per page, whatever was quoted from it."""
         return self._add(f"web:{url}", {"web": True, "title": title, "link": url, "official_site": official})
 
+    def add_moodle(self, title: str, url: str) -> str:
+        """A file of the asker's Moodle course (agent/moodle_tools.py): one source per file page."""
+        return self._add(f"moodle:{url}", {"moodle": True, "title": title, "link": url})
+
     def result(self, payload: dict, tool_name: str, artifact: dict | None = None) -> Command:
         """The tool's result for the model, and the new sources for the state; `artifact` goes with it, unseen by the model."""
         import json
@@ -115,6 +119,8 @@ def _identity(ref: str, source: dict) -> object:
     in its one line, so that twelve clauses of one regulation do not make twelve lines)."""
     if source.get("web"):
         return ("web", source.get("link"))
+    if source.get("moodle"):
+        return ("moodle", source.get("link"))
     if document := source.get("archive_document"):
         return ("archive", document["page"], document["revision"], document["member"])
     return ("wiki", source.get("title"), source.get("link")) if source.get("wiki") else ref
@@ -188,6 +194,8 @@ def _source(number: int, source: dict) -> AnswerSource:
     if source.get("web"):
         return AnswerSource(number=number, title=source.get("title") or source.get("link") or "", url=source.get("link"),
                             kind="web", official=bool(source.get("official_site")))
+    if source.get("moodle"):
+        return AnswerSource(number=number, title=source["title"], url=source.get("link"), kind="moodle")
     if source.get("wiki"):
         trust = source.get("trust")
         kind = "official_document" if trust == "official" else "guide" if source.get("guide") else "website" if source.get("site") else "eduwiki"

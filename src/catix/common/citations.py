@@ -29,7 +29,7 @@ class AnswerSource(BaseModel):
     number: int
     title: str
     url: str | None = None
-    kind: Literal["official_document", "guide", "eduwiki", "website", "web", "chat"]
+    kind: Literal["official_document", "guide", "eduwiki", "website", "web", "moodle", "chat"]
     clauses: list[str] = Field(default_factory=list)
     sections: list[str] = Field(default_factory=list)
     based_on: list[CitationLink] = Field(default_factory=list)
@@ -88,6 +88,8 @@ def render_cited_answer(result: CitedAnswer) -> str:
             elif source.kind == "guide":
                 based = ", ".join(_link(item.title, item.url) for item in source.based_on)
                 line += " (сводка cAtIx" + (f" по документам: {based})" if based else ")")
+            elif source.kind == "moodle":
+                line += " (Moodle)"
             elif source.kind in {"website", "web"}:
                 host = (urlsplit(source.url or "").hostname or "").removeprefix("www.")
                 if source.kind == "website" or source.official:
