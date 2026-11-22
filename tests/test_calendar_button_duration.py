@@ -113,7 +113,7 @@ def change(**overrides):
             "all_day": False, "room": None, "summary": "Study", "link": None,
             "chat_link": None, "chat_title": "Group", "text": "Study at 23:30",
             "date": datetime.fromisoformat(event()["starts_at"]), "sender_name": None,
-            "notified_at": None, "decided_at": None, "created_at": datetime.fromisoformat(event()["starts_at"]),
+            "chat_id": 7, "decided_at": None, "created_at": datetime.fromisoformat(event()["starts_at"]),
             "status": "pending", "group_code": "all", **overrides,
         }
     )
@@ -127,24 +127,21 @@ def test_worker_card_then_click_saves_displayed_suggestion(storage, monkeypatch,
     item = change(kind=kind)
     monkeypatch.setattr(changes.pg, "row", lambda *args: item)
     monkeypatch.setattr(changes, "_earlier_event", lambda *args: earlier)
-    card = changes.card(item)
-    assert "08.11.2026 23:30" in card and "09.11.2026 01:00" in card
-    assert "Предлагаемая длительность: 90 минут" in card
+    changes._save_suggestion(storage[0], item.id, item.kind, item.starts_at, item.ends_at, item.all_day)
     assert not any("personal_events" in call.args[0] for call in conn.execute.call_args_list)
-    changes.add_to_calendar("ih:owner", item.id)
+    changes.add_to_calendar("ih:owner", item.id, chat_ids={7})
     call = conn.execute.call_args
     end = call.args[1][1 if earlier else 3]
     assert end == datetime.fromisoformat("2026-11-09T01:00:00+03:00")
     assert item.ends_at is None
 
 
-def test_legacy_worker_click_does_not_suggest_an_unseen_end(storage, monkeypatch):
+def test_click_without_saved_suggestion_keeps_unknown_end(storage, monkeypatch):
     from catix.worker import changes
 
-    item = change(notified_at=datetime.fromisoformat(event()["starts_at"]))
+    item = change()
     monkeypatch.setattr(changes.pg, "row", lambda *args: item)
-    assert "90" not in changes.card(item)
-    changes.add_to_calendar("ih:owner", item.id)
+    changes.add_to_calendar("ih:owner", item.id, chat_ids={7})
     assert storage[0].execute.call_args.args[1][3] is None
 
 
@@ -155,9 +152,9 @@ def test_worker_does_not_suggest_for_all_day_known_end_or_non_time_changes(stora
     item = change(**overrides)
     monkeypatch.setattr(changes.pg, "row", lambda *args: item)
     monkeypatch.setattr(changes, "_earlier_event", lambda *args: None)
-    assert "Предлагаемая" not in changes.card(item)
+    changes._save_suggestion(storage[0], item.id, item.kind, item.starts_at, item.ends_at, item.all_day)
     assert storage[1] == {}
-    changes.add_to_calendar("ih:owner", item.id)
+    changes.add_to_calendar("ih:owner", item.id, chat_ids={7})
     assert storage[0].execute.call_args.args[1][3] == item.ends_at
 
 
@@ -168,8 +165,8 @@ def test_worker_existing_event_non_time_change_preserves_semantics(storage, monk
     item = change(kind=kind)
     monkeypatch.setattr(changes.pg, "row", lambda *args: item)
     monkeypatch.setattr(changes, "_earlier_event", lambda *args: 42)
-    changes.card(item)
-    changes.add_to_calendar("ih:owner", item.id)
+    changes._save_suggestion(storage[0], item.id, item.kind, item.starts_at, item.ends_at, item.all_day)
+    changes.add_to_calendar("ih:owner", item.id, chat_ids={7})
     sql = storage[0].execute.call_args.args[0]
     assert "DELETE FROM personal_events" in sql if kind == "cancel" else "SET room =" in sql
     assert "ends_at" not in sql
@@ -181,9 +178,7 @@ def test_worker_invalid_explicit_end_is_not_replaced_with_suggestion(storage, mo
     item = change(ends_at=datetime.fromisoformat("2026-11-08T22:00:00+03:00"))
     monkeypatch.setattr(changes.pg, "row", lambda *args: item)
     with pytest.raises(ValueError):
-        changes.card(item)
-    with pytest.raises(ValueError):
-        changes.add_to_calendar("ih:owner", item.id)
+        changes.add_to_calendar("ih:owner", item.id, chat_ids={7})
     storage[0].execute.assert_not_called()
 
 
@@ -202,20 +197,11 @@ def test_worker_non_time_change_keeps_existing_extraction_semantics(kind):
     assert end is None
 
 
-def test_worker_invalid_card_never_opens_storage(monkeypatch):
-    from catix.worker import changes
-
-    connect = Mock(side_effect=AssertionError("No connection for invalid dates"))
-    monkeypatch.setattr(changes.pg, "connection", connect)
-    with pytest.raises(ValueError):
-        changes.card(change(ends_at=datetime.fromisoformat("2026-11-08T22:00:00+03:00")))
-    connect.assert_not_called()
-
-
 def test_saved_worker_proposal_is_not_accepted_as_an_answer_offer(storage):
     from catix.worker import changes
 
-    changes.card(change())
+    item = change()
+    changes._save_suggestion(storage[0], item.id, item.kind, item.starts_at, item.ends_at, item.all_day)
     storage[0].execute.reset_mock()
     assert personal_calendar.add_proposal("ih:owner", "change:15") is None
     storage[0].execute.assert_not_called()

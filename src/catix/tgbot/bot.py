@@ -21,7 +21,6 @@ from aiogram.filters import Command, CommandStart
 from aiogram.types import (
     BotCommand,
     BotCommandScopeChat,
-    CallbackQuery,
     ChatMemberUpdated,
     Message,
     MessageOriginChannel,
@@ -35,7 +34,7 @@ from catix.tgbot import listen
 from catix.tgbot import max_sources
 from catix.tgbot import official
 from catix.worker import changes
-from catix import bot_users, personal_calendar, userbot_config
+from catix import userbot_config
 from catix.ingest import writer as ingest
 from catix.ingest import images
 from catix.db import pg
@@ -174,9 +173,8 @@ async def _save(message: Message, *, observed_at: datetime | None = None) -> Non
 @router.message(CommandStart())
 async def start(message: Message) -> None:
     await message.answer(
-        "Привет! Я cAtIx. Читаю подключённые чаты и присылаю уведомления об изменениях календаря.\n\n"
-        "Вопросы ассистенту, выбор учебной группы и управление календарём — на https://innohassle.ru.\n"
-        "Для уведомлений привяжите Telegram к вашему аккаунту InNoHassle."
+        "Привет! Я cAtIx. Читаю подключённые чаты Университета Иннополис.\n\n"
+        "Вопросы ассистенту и анонсы из чатов — на https://innohassle.ru/search/ask."
     )
 
 
@@ -232,20 +230,6 @@ async def channel_post(message: Message) -> None:
 
 
 
-# ---- schedule changes: each user decides on what the worker (worker.py) found in the chats of their group ---------
-
-
-async def remember_private(handler, message: Message, data: dict):
-    """Outer middleware: whoever writes to the bot in private (/start first) may be written to, so the found changes are
-    sent to them (bot_users.py)."""
-    if message.chat.type == ChatType.PRIVATE and message.from_user and not message.from_user.is_bot:
-        try:
-            await asyncio.to_thread(bot_users.remember, message.from_user.id)
-        except Exception:  # The database being down must not stop the answer.
-            log.exception("could not remember user %s", message.from_user.id)
-    return await handler(message, data)
-
-
 @router.my_chat_member(F.chat.type.in_(GROUPS | {ChatType.CHANNEL}))
 async def group_status(update: ChatMemberUpdated) -> None:
     """Discover a bot's group without enabling ingestion before admin confirmation."""
@@ -257,34 +241,7 @@ async def group_status(update: ChatMemberUpdated) -> None:
     IGNORED.discard(update.chat.id)
 
 
-@router.my_chat_member(F.chat.type == ChatType.PRIVATE)
-async def private_status(update: ChatMemberUpdated) -> None:
-    """The user blocked the bot (no more changes for them) or unblocked it."""
-    if update.new_chat_member.status == ChatMemberStatus.KICKED:
-        await asyncio.to_thread(bot_users.blocked, update.from_user.id)
-    else:
-        await asyncio.to_thread(bot_users.remember, update.from_user.id)
-
-
-@router.callback_query(F.data.startswith("chg:"))
-async def decide_change(query: CallbackQuery) -> None:
-    _, action, change_id = query.data.split(":")
-    if action == "ok":
-        try:
-            user_key = await asyncio.to_thread(personal_calendar.telegram_key, query.from_user.id)
-        except personal_calendar.NoAccount as e:  # The card keeps its buttons for after the Telegram is linked.
-            await query.answer(str(e), show_alert=True)
-            return
-        done = await asyncio.to_thread(changes.add_to_calendar, user_key, int(change_id), telegram_id=query.from_user.id)
-        verdict = f"✅ {done[:180]}. https://innohassle.ru/calendar" if done else "Изменение не найдено"
-    else:
-        verdict = "❌ Не добавлено"
-    await query.answer(verdict)
-    if query.message:
-        await query.message.edit_text(f"{query.message.html_text}\n\n{verdict}", parse_mode=ParseMode.HTML, reply_markup=None, disable_web_page_preview=True)
-
-
-COMMANDS = [BotCommand(command="start", description="Уведомления календаря")]
+COMMANDS = [BotCommand(command="start", description="О боте")]
 
 
 async def set_commands(bot: Bot) -> None:
@@ -308,16 +265,14 @@ def profile_texts(username: str) -> dict[str | None, tuple[str, str]]:
     profile and of a link to it (at most 120)."""
     return {
         None: (
-            "Привет! Я cAtIx. Читаю подключённые чаты Университета Иннополис и присылаю изменения календаря.\n\n"
-            "Нажмите «Старт» и привяжите Telegram к аккаунту InNoHassle для уведомлений.\n\n"
-            "Вопросы ассистенту, учебная группа и календарь — на https://innohassle.ru.",
-            "Чтение учебных чатов и уведомления календаря. Ассистент — на innohassle.ru.",
+            "Привет! Я cAtIx. Читаю подключённые чаты Университета Иннополис.\n\n"
+            "Вопросы ассистенту, анонсы из чатов и календарь — на https://innohassle.ru.",
+            "Чтение учебных чатов. Ассистент и анонсы — на innohassle.ru.",
         ),
         "en": (
-            "Hi! I'm cAtIx. I read configured Innopolis University chats and send calendar changes.\n\n"
-            "Press Start and link Telegram to your InNoHassle account for notifications.\n\n"
-            "Ask the assistant, choose your study group and manage your calendar at https://innohassle.ru.",
-            "Study chat reader and calendar notifications. Ask the assistant at innohassle.ru.",
+            "Hi! I'm cAtIx. I read configured Innopolis University chats.\n\n"
+            "Ask the assistant, see announcements from chats and manage your calendar at https://innohassle.ru.",
+            "Study chat reader. Assistant and announcements at innohassle.ru.",
         ),
     }
 
@@ -340,7 +295,6 @@ async def run() -> None:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
-    dp.message.outer_middleware(remember_private)  # every private message, whichever router answers it
     dp.include_router(max_sources.router)  # Slash filter clears MAX drafts and lets commands continue.
     dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
     dp.include_router(listen.router)

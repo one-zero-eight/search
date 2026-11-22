@@ -1,16 +1,14 @@
 """Background worker: embeddings and schedule changes, a separate app that the Telegram and Max bots feed.
 
     bots --(ids of stored messages)--> Redis stream --> this worker --> schedule_changes (Postgres)
-                                                                    --> cards to the users of the chat's group who
-                                                                        started the Telegram bot (bot_users.py)
 
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
 are woken by the same stream. The bots only store messages, they compute nothing. A moodle-files thread (moodle_reader.py) reads the text of the
 course files users uploaded (moodle_blobs) as they arrive.
 
 The changes part reads the stream in a consumer group, so a crash or a model outage loses nothing: a message is acknowledged only
-after it was looked at, and unacknowledged ones are read again. The users' buttons are handled by the Telegram bot
-(it owns the update polling), which puts the change in the user's calendar. Run: `catix-worker`.
+after it was looked at, and unacknowledged ones are read again. The found changes are shown to the users on the site
+(`GET /announcements`, api/announcements.py). Run: `catix-worker`.
 """
 
 import asyncio
@@ -18,12 +16,7 @@ import logging
 import threading
 
 import redis.asyncio as redis
-from aiogram import Bot
-from aiogram.enums import ParseMode
-from aiogram.exceptions import TelegramAPIError, TelegramForbiddenError
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from catix import bot_users
 from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import health
@@ -41,39 +34,6 @@ CONSUMER = "worker-1"
 READ_COUNT = 20
 BLOCK_MS = 5000
 RETRY_SECONDS = 10
-
-
-SEND_PAUSE = 0.05  # Telegram allows about 30 messages a second to different users.
-
-
-def change_keyboard(change_id: int) -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        inline_keyboard=[[
-            InlineKeyboardButton(text="✅ В мой календарь", callback_data=f"chg:ok:{change_id}"),
-            InlineKeyboardButton(text="❌ Не нужно", callback_data=f"chg:no:{change_id}"),
-        ]]
-    )  # fmt: skip
-
-
-async def notify_users(bot: Bot) -> None:
-    """Send every newly found change to the users it is for; each puts it in their own calendar or not."""
-    while True:
-        try:
-            for change in await asyncio.to_thread(changes.unnotified):
-                for user in await asyncio.to_thread(changes.recipients, change):
-                    try:
-                        await bot.send_message(
-                            user, changes.card(change), parse_mode=ParseMode.HTML, reply_markup=change_keyboard(change.id), disable_web_page_preview=True
-                        )
-                    except TelegramForbiddenError:  # Blocked the bot (or the account is gone): not written to again.
-                        await asyncio.to_thread(bot_users.blocked, user)
-                    except TelegramAPIError as e:
-                        log.warning("change %s was not sent to %s: %s", change.id, user, e)
-                    await asyncio.sleep(SEND_PAUSE)
-                await asyncio.to_thread(changes.mark_notified, change.id)
-        except Exception:
-            log.exception("notifying about schedule changes failed")
-        await asyncio.sleep(5)
 
 
 async def consume(client: redis.Redis, model) -> None:
@@ -145,10 +105,6 @@ async def run() -> None:
         log.info("CHANGES_ENABLED is off: only embeddings run")
         await waking
         return
-    bot = Bot(settings.tg_bot_token.get_secret_value()) if settings.tg_bot_token else None  # Only sends; the bot app polls.
-    notifying = asyncio.create_task(notify_users(bot)) if bot else None
-    if not bot:
-        log.warning("TG_BOT_TOKEN is not set: found changes are not sent to the users")
     log.info("watching %s", STREAM)
     try:
         await consume(client, changes._model())
@@ -157,10 +113,6 @@ async def run() -> None:
         stop.set()
         monitoring.cancel()
         waking.cancel()
-        if notifying:
-            notifying.cancel()
-        if bot:
-            await bot.session.close()
         await client.aclose()
         pg.close()
 

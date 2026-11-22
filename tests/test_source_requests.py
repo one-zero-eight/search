@@ -573,57 +573,36 @@ def test_protected_scope_requires_verified_matching_non_all_group(db, monkeypatc
     assert groups.scoped_chat_ids("tg:7", 7) == {1}
 
 
-def make_change(db, protected=True):
-    from catix.worker import changes
+def make_change(db, protected=True) -> int:
     with db() as conn:
         conn.execute("INSERT INTO chats (chat_id, title, group_code, requires_verified_group) VALUES (7, 'Source', 'B26', %s)", (protected,))
         message = conn.execute("INSERT INTO messages (chat_id, msg_id, date, text) VALUES (7, 1, now(), 'Private schedule') RETURNING id").fetchone()["id"]
-        conn.execute("""INSERT INTO schedule_changes (message_id, kind, subject, starts_at, all_day, summary)
-            VALUES (%s, 'announcement', 'Private event', now() + interval '1 day', true, 'Private event')""", (message,))
-    return changes.unnotified()[0]
+        return conn.execute("""INSERT INTO schedule_changes (message_id, kind, subject, starts_at, all_day, summary)
+            VALUES (%s, 'announcement', 'Private event', now() + interval '1 day', true, 'Private event') RETURNING id""", (message,)).fetchone()["id"]
 
 
-def test_notifications_do_not_leak_protected_source_to_manual_group(db, monkeypatch):
-    from catix import groups, bot_users
-    from catix.worker import changes
-    change = make_change(db)
-    groups.set_user_group("tg:1", "B26")
-    monkeypatch.setattr(bot_users, "reachable", lambda: [1, 2, 3])
-    monkeypatch.setattr(groups, "auto_group", lambda tg: {2: "B26", 3: "B27"}.get(tg))
-    assert changes.recipients(change) == [2]
-    with db() as conn:
-        conn.execute("UPDATE chats SET group_code = 'all'")
-    assert changes.recipients(changes.unnotified()[0]) == []
-    with db() as conn:
-        conn.execute("UPDATE chats SET group_code = 'B26', requires_verified_group = false")
-    assert changes.recipients(changes.unnotified()[0]) == [1, 2]
-
-
-def test_guessed_change_id_cannot_copy_private_text_to_calendar(db, monkeypatch):
+def test_feed_follows_verified_groups_only(db):
     from catix import groups
     from catix.worker import changes
-    change = make_change(db)
-    monkeypatch.setattr(groups, "auto_group", lambda tg: "B26" if tg == 123 else None)
-    groups.set_user_group("ino:owner", "B26")
-    assert changes.add_to_calendar("ino:owner", change.id) is None
+    cid = make_change(db)
+    assert [v.id for v, _, _ in changes.feed(groups.website_chat_ids(["B26"]))] == [cid]
+    assert changes.feed(groups.website_chat_ids(["B27"])) == []
+    assert changes.feed(groups.website_chat_ids([])) == []
     with db() as conn:
-        assert conn.execute("SELECT count(*) AS n FROM personal_events WHERE user_key = 'ino:owner'").fetchone()["n"] == 0
-    assert changes.add_to_calendar("ino:owner", change.id, telegram_id=123)
-    with db() as conn:
-        assert conn.execute("SELECT source_note FROM personal_events WHERE user_key = 'ino:owner'").fetchone()["source_note"]
+        conn.execute("UPDATE chats SET group_code = 'all'")  # Still protected: a manual edit does not make it public.
+    assert changes.feed(groups.website_chat_ids(["B26"])) == []
 
 
-def test_calendar_callback_passes_authenticated_telegram_id(monkeypatch):
-    import asyncio
-    from types import SimpleNamespace
-    from unittest.mock import AsyncMock
-    from catix.tgbot import bot
-    seen = []
-    monkeypatch.setattr(bot.personal_calendar, "telegram_key", lambda tg: "ino:owner")
-    monkeypatch.setattr(bot.changes, "add_to_calendar", lambda key, id, **kwargs: seen.append((key, id, kwargs)))
-    query = SimpleNamespace(data="chg:ok:123", from_user=SimpleNamespace(id=456), answer=AsyncMock(), message=None)
-    asyncio.run(bot.decide_change(query))
-    assert seen == [("ino:owner", 123, {"telegram_id": 456})]
+def test_guessed_change_id_cannot_copy_private_text_to_calendar(db):
+    from catix import groups
+    from catix.worker import changes
+    cid = make_change(db)
+    assert changes.add_to_calendar("ih:owner", cid, chat_ids=groups.website_chat_ids(["B27"])) is None
+    with db() as conn:
+        assert conn.execute("SELECT count(*) AS n FROM personal_events WHERE user_key = 'ih:owner'").fetchone()["n"] == 0
+    assert changes.add_to_calendar("ih:owner", cid, chat_ids=groups.website_chat_ids(["B26"])) == ("added", "Анонс: Private event")
+    with db() as conn:
+        assert conn.execute("SELECT source_note FROM personal_events WHERE user_key = 'ih:owner'").fetchone()["source_note"]
 
 
 def test_connected_source_backfills_on_startup_and_preserves_access(db, monkeypatch):

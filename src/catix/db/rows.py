@@ -84,6 +84,7 @@ class ChangeView:
 
     id: int
     message_id: int
+    chat_id: int
     kind: ChangeKind
     subject: str | None
     starts_at: datetime
@@ -93,7 +94,6 @@ class ChangeView:
     summary: str
     status: ChangeStatus
     created_at: datetime
-    notified_at: datetime | None
     decided_at: datetime | None
     text: str
     date: datetime

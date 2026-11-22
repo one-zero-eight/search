@@ -131,18 +131,7 @@ CREATE TABLE IF NOT EXISTS max_account (
     catalog_checked_at timestamptz
 );
 
--- Telegram users the bot may write to first (bot_users.py): Telegram lets a bot message only a person who opened a
--- private chat with it (/start or any message there). Found schedule changes go to them. blocked_at: the user blocked
--- the bot; cleared when they start it again.
-CREATE TABLE IF NOT EXISTS bot_users (
-    telegram_id bigint PRIMARY KEY,
-    started_at  timestamptz NOT NULL DEFAULT now(),
-    blocked_at  timestamptz
-);
--- The users who chose a group with /mygroup did it in a private chat with the bot. (A blocked one keeps blocked_at.)
-INSERT INTO bot_users (telegram_id)
-SELECT substr(user_key, 4)::bigint FROM user_groups WHERE user_key ~ '^tg:[0-9]+$'
-ON CONFLICT (telegram_id) DO NOTHING;
+DROP TABLE IF EXISTS bot_users;  -- Telegram notifications were replaced by the site's Announcements chat
 
 -- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
 -- Private invitations remain outside chats until a moderator approves and Telegram confirms membership.
@@ -501,10 +490,10 @@ CREATE INDEX IF NOT EXISTS api_answers_chat_idx ON api_answers (chat_id, id);
 ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting_checkpoint text;
 ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting jsonb;
 
--- Reschedules, room changes and cancellations found in chat messages (changes.py). Each is sent to the users of the
--- chat's group, and a user who accepts it gets it in their personal calendar (personal_events); status and decided_at
--- are from when an admin decided for everybody and are no longer used. The worker reads new messages from a Redis
--- stream, so history is never scanned.
+-- Reschedules, room changes, cancellations and new events found in chat messages (changes.py). They are listed on the
+-- site (GET /announcements) to the users whose website chats include the message's chat, and a user who applies one
+-- gets it in their personal calendar (personal_events); status and decided_at are from when an admin decided for
+-- everybody and are no longer used. The worker reads new messages from a Redis stream, so history is never scanned.
 CREATE TABLE IF NOT EXISTS schedule_changes (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     message_id  bigint NOT NULL UNIQUE REFERENCES messages (id) ON DELETE CASCADE,
@@ -517,9 +506,9 @@ CREATE TABLE IF NOT EXISTS schedule_changes (
     summary     text NOT NULL,
     status      text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
     created_at  timestamptz NOT NULL DEFAULT now(),
-    notified_at timestamptz,
     decided_at  timestamptz
 );
+ALTER TABLE schedule_changes DROP COLUMN IF EXISTS notified_at;  -- Telegram notifications were replaced by the site's announcements
 
 -- Raw opaque calendar subscription keys are intentionally retained only for link retrieval/revocation.
 -- The application role needs access; ctx_reader must never read this table (revokes follow below).
