@@ -123,6 +123,11 @@ class ReadChatsArgs(BaseModel):
     event_to: date | None = Field(None, description="YYYY-MM-DD inclusive: the end of the period the messages are about.")
     limit: int = Field(10, description=f"How many of the newest messages to return, 1 to {MAX_READ}.")
 
+    @field_validator("words", mode="before")
+    @classmethod
+    def _one_word(cls, value):
+        return [value] if isinstance(value, str) else value
+
     @field_validator("limit", mode="before")
     @classmethod
     def _clamp(cls, value):
