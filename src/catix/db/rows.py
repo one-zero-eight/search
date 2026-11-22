@@ -76,6 +76,7 @@ class MessageToRead:
     chat_title: str
     parent_text: str | None
     known: bool  # It was already turned into a schedule change.
+    ocr_pending: bool = False  # Its image waits for OCR: the text is only the caption until the recognized text is stored.
 
 
 @dataclass(frozen=True, slots=True)

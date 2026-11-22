@@ -97,7 +97,7 @@ def test_local_ocr_preserves_confident_russian_english_lines(ocr_child):
 @pytest.mark.parametrize("words,expected", [
     ([word("Exam", 89)], ""),
     ([word("Exam", 79), word("registration", 100)], ""),
-    ([word("305", 89), word("registration", 100)], ""),
+    ([word("305", 79), word("registration", 100)], ""),
     ([word("Exam", 80), word("registration", 100)], "Exam registration"),
     ([word("Exam", 90), word("305", 90)], "Exam 305"),
     ([word("Экзамен", 90)], "Экзамен"),

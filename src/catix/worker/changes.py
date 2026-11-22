@@ -123,7 +123,8 @@ def extract(model, row: MessageToRead) -> Change | None:
 
 ROW = """
 SELECT m.id, m.date, m.text, c.title AS chat_title, p.text AS parent_text,
-       EXISTS (SELECT 1 FROM schedule_changes s WHERE s.message_id = m.id) AS known
+       EXISTS (SELECT 1 FROM schedule_changes s WHERE s.message_id = m.id) AS known,
+       EXISTS (SELECT 1 FROM image_queue q WHERE q.message_id = m.id AND q.status <> 'failed') AS ocr_pending
 FROM messages m JOIN chats c ON c.chat_id = m.chat_id
 LEFT JOIN messages p ON p.chat_id = m.chat_id AND p.msg_id = m.reply_to
 WHERE m.chat_id = %s AND m.msg_id = %s
@@ -137,6 +138,8 @@ def process(model, chat_id: int, msg_id: int) -> Change | None:
     # An edited message arrives again: one already turned into a change is not read twice.
     if not row or row.known or len(row.text) < MIN_CHARS:
         return None
+    if row.ocr_pending:
+        return None  # The text is only the caption: the OCR publishes the message again once it is stored (images.process).
     change = extract(model, row)
     if change:
         start, end, all_day = when(change)
