@@ -187,7 +187,7 @@ async def searched(user: UserTokenData, query: str, sources: list[InfoSources], 
     # A trace of its own in Phoenix: the query, the cards found (title and link), and the steps of the search under it.
     with tracing.question("api-search", user.innohassle_id, query, name="search", kind="RETRIEVER") as traced:
         responses = await find(user, query, sources, limit)
-        traced.answer(json.dumps([{"title": r.source.display_name, "url": getattr(r.source, "url", None) or r.source.link} for r in responses], ensure_ascii=False))
+        traced.answer(json.dumps([{"title": r.source.display_name, "url": getattr(r.source, "url", None) or getattr(r.source, "link", None)} for r in responses], ensure_ascii=False))
     log.info("search for `%s` (%d ms)", query, round((time.monotonic() - started) * 1000))
     return SearchResponses(searched_for=query, responses=responses, search_query_id=state.remember_search(len(responses)))
 
