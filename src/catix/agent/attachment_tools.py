@@ -3,7 +3,7 @@ import asyncio
 import base64
 import json
 import logging
-from time import monotonic
+from time import monotonic, perf_counter
 from typing import cast
 
 import httpx
@@ -13,6 +13,7 @@ from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, ValidationError, model_validator
 
 from catix import attachments
+from catix.agent import tracing
 from catix.agent.questions import PRIORITY
 from catix.ingest import images
 from catix.settings import settings
@@ -74,6 +75,16 @@ async def _read_page(owner: str, chat: str, info: dict, page: int, question: str
     """One page the way every read of a file goes: its text layer; for a picture also Tesseract (text only when every word
     was read with confidence); then the vision model asked `question` when the page has no text, the reader could not read
     it as text, or `ask` (the model asked about it). Errors of a page come back in the item, never as an exception."""
+    started = perf_counter()  # (not monotonic: tests drive that clock for the vision deadline)
+    log.info("attachment %s page %d: read started (%s, asked=%s, vision=%s)", info["id"], page, info["media_type"], ask, vision)
+    item = await _read_page_item(owner, chat, info, page, question, ask=ask, vision=vision, limit=limit)
+    log.info("attachment %s page %d: read in %.1f s (text %d chars, ocr=%s, visual=%s%s)", info["id"], page, perf_counter() - started,
+             len(item.get("text", "")), item.get("ocr", False), "visual" in item,
+             ", error" if "error" in item or "visual_error" in item else "")
+    return item
+
+
+async def _read_page_item(owner: str, chat: str, info: dict, page: int, question: str, *, ask: bool, vision: bool, limit: int) -> dict:
     try:
         read = await asyncio.to_thread(attachments.read_page, owner, chat, info["id"], page)
         if (not isinstance(read, dict) or read.get("id") != info["id"] or read.get("page") != page
@@ -89,7 +100,9 @@ async def _read_page(owner: str, chat: str, info: dict, page: int, question: str
     if info["media_type"].startswith("image/"):
         try:
             _, data = await asyncio.to_thread(attachments.get_content, owner, info["id"])
-            item["text"] = (await images.transcribe(data))[:limit]  # '' unless every word was read with confidence
+            with tracing.span("attachment OCR (Tesseract)", "TOOL", input=f"{info['filename']}, page {page}") as done:
+                item["text"] = (await images.transcribe(data))[:limit]  # '' unless every word was read with confidence
+                done(item["text"] or "(no text read with confidence)")
             item["ocr"] = True
             item.pop("note", None)  # "no OCR was performed" is not true of this read
         except Exception:  # noqa: BLE001
@@ -97,7 +110,9 @@ async def _read_page(owner: str, chat: str, info: dict, page: int, question: str
     if vision and (ask or not item["text"].strip() or VISION_NOTE in note.lower()):
         try:
             png = await asyncio.to_thread(attachments.image_page, owner, chat, info["id"], page)
-            item["visual"], item["visual_truncated"] = await asyncio.to_thread(_inspect_image, png, question)
+            with tracing.span("attachment vision", "LLM", input=question, **{"llm.model_name": settings.llm_model}) as done:
+                item["visual"], item["visual_truncated"] = await asyncio.to_thread(_inspect_image, png, question)
+                done(item["visual"])
         except Exception:  # noqa: BLE001 - provider responses, pixels and paths never reach the model or the log
             item["visual_error"] = VISION_ERROR
     return item
@@ -235,6 +250,7 @@ async def preread(owner: str, chat: str, manifest: tuple[dict, ...], current: tu
     files = [info for info in manifest if info["id"] in current]
     if not files:
         return []
+    log.info("attachments: reading %d new file(s) before the answer", len(files))
     results = await asyncio.gather(*(_preread_file(owner, chat, info, query) for info in files))
     calls = [{"name": "read_attachment", "id": f"preread-{info['id']}", "args": {"attachment_id": info["id"], "page": 1}}
              for info in files]

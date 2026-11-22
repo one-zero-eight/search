@@ -4,6 +4,7 @@ Originals and extracted pages live only in Postgres, never in the public wiki/in
 Page numbers are one-based. No inference, OCR, URLs or caller-selected disk paths.
 """
 import json
+import logging
 import os
 import re
 import signal
@@ -16,6 +17,7 @@ import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
+from time import monotonic
 from typing import Any, cast
 
 from psycopg import Connection, Error as DatabaseError
@@ -25,6 +27,7 @@ from pydantic import BaseModel, Field
 
 from catix.db import pg
 
+log = logging.getLogger("catix.attachments")  # ids, sizes and timings only: never filenames or contents
 MAX_BYTES = 10 * 1024 * 1024
 MAX_IDS = 3
 MAX_OWNER_BYTES = 100 * 1024 * 1024
@@ -129,7 +132,14 @@ def _validate_upload(filename: str, data: bytes) -> str:
 
 def create(owner: str, filename: str, data: bytes) -> AttachmentInfo:
     suffix = _validate_upload(filename, data)
-    parsed = json.loads(_worker(data, suffix))
+    log.info("attachment upload: extracting a %s file, %d bytes", suffix, len(data))
+    started = monotonic()
+    try:
+        parsed = json.loads(_worker(data, suffix))
+    except AttachmentError as exc:
+        log.warning("attachment upload: extraction of a %s file failed after %.1f s (%s)", suffix, monotonic() - started, exc.detail)
+        raise
+    log.info("attachment upload: extracted %d page(s) of a %s file in %.1f s", len(parsed["pages"]), suffix, monotonic() - started)
     info = AttachmentInfo(id=uuid.uuid4().hex, filename=filename, media_type=parsed["media_type"],
                           size_bytes=len(data), pages=len(parsed["pages"]))
     with _connection() as conn:

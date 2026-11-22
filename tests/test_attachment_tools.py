@@ -373,7 +373,7 @@ def test_reread_of_a_picture_uses_tesseract_text_and_the_vision_model(tools, mon
     info = {**INFO, "media_type": "image/png", "pages": 1}
     tools.attachments.read_page.return_value = {"id": ATTACHMENT_ID, "page": 1, "pages": 1, "text": "", "truncated": False,
                                                 "note": "Image page; no OCR was performed. View the page image."}
-    tools.attachments.get_content = Mock(return_value=(None, b"image"))
+    monkeypatch.setattr(tools.attachments, "get_content", Mock(return_value=(None, b"image")))
     monkeypatch.setattr(tools.images, "transcribe", lambda data: asyncio.sleep(0, "Экзамен 18 ноября, ауд. 512"))
     install_provider(monkeypatch, tools)
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "runtime": runtime(attachments=(info,))})
