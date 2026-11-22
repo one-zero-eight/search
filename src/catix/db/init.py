@@ -79,8 +79,6 @@ DUPLICATES = """
     SELECT r.id, r.chat_id, r.text, r.copies
     FROM ranked r
     WHERE r.rn > 1
-      -- A message a schedule change was found in stays: deleting it would delete the change, approved or not.
-      AND NOT EXISTS (SELECT 1 FROM schedule_changes s WHERE s.message_id = r.id)
 """
 
 

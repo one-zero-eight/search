@@ -50,7 +50,6 @@ class MemorySources:
         self.failure = None
         self.admin_ids = {OWNER, 72}
         self.known_groups = ["all", "B26"]
-        self.changes = {CHAT: 2}
 
     def flags(self, chat_ids):
         return {cid: self.sources[cid]["official"] for cid in chat_ids if cid in self.sources}
@@ -64,14 +63,13 @@ class MemorySources:
         self.writes.append(("official", chat_id, value))
         return True
 
-    def chat_message_counts(self, chat_id):
-        return len(self.messages.get(chat_id, [])), self.changes.get(chat_id, 0)
+    def chat_message_count(self, chat_id):
+        return len(self.messages.get(chat_id, []))
 
     def clear_history(self, chat_id, *, expected_version, expected_generation):
         source = self._source(chat_id, expected_version, expected_generation)
         deleted = len(self.messages.get(chat_id, []))
         self.messages[chat_id] = []
-        self.changes[chat_id] = 0
         source["config_version"] += 1
         source["generation"] += 1
         source["history_status"] = "cancelled"
@@ -299,7 +297,7 @@ def env(monkeypatch):
     monkeypatch.setattr(listen, "_known_groups", lambda: list(domain.known_groups))
     monkeypatch.setattr(official, "flags", domain.flags)
     monkeypatch.setattr(official, "set_official", domain.set_official)
-    monkeypatch.setattr(store, "chat_message_counts", domain.chat_message_counts)
+    monkeypatch.setattr(store, "chat_message_count", domain.chat_message_count)
     def no_database(*args, **kwargs):
         raise AssertionError("UI handlers must use the patched public state boundary")
     monkeypatch.setattr(pg, "connection", no_database)
@@ -876,7 +874,6 @@ def test_clear_is_reviewed_once_and_removes_only_native_content(env):
     assert domain.sources[CHAT] == before and domain.writes == []
     assert domain.messages[CHAT] and domain.messages[LEGACY]
     assert "необратимо" in ui.text and "эмбеддинги" in ui.text
-    assert "изменения расписания: 2" in ui.text
     assert "учебная группа" in ui.text and "Повторить историю" in ui.text
     clear = ui.action("clear")
     ui.press(clear)

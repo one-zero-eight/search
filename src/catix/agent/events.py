@@ -1,8 +1,7 @@
 """Events an answer names, for the "➕ В мой календарь" buttons under it.
 
 The agent itself does not offer them (the model ignored a tool for it), so after the answer is sent one more short call
-reads the answer text and lists the upcoming events it states with a date: an exam, a deadline, a lecture. The same kind
-of structured call as the schedule-change detection in worker/changes.py. Only when the answer names a day from today on.
+reads the answer text and lists the upcoming events it states with a date: an exam, a deadline, a lecture. Only when the answer names a day from today on.
 """
 
 import json

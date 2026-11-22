@@ -297,36 +297,3 @@ class ActResponses(BaseModel):
     "Which tools were used."
     messages: list
     "Chat history for llm (do not show on frontend)."
-
-
-class AnnouncementSource(BaseModel):
-    chat_title: str
-    link: str | None
-    "Link to the message, else to the chat."
-    sent_at: datetime
-    sender_name: str | None
-    text: str
-    "The first 600 characters of the message."
-
-
-class Announcement(BaseModel):
-    """A schedule change found in a chat of the user (worker/changes.py)."""
-
-    id: int
-    kind: Literal["reschedule", "room_change", "cancel", "announcement"]
-    subject: str | None
-    summary: str
-    starts_at: datetime
-    ends_at: datetime | None
-    "The stated end, else the saved suggestion."
-    end_suggested: bool
-    all_day: bool
-    room: str | None
-    found_at: datetime
-    source: AnnouncementSource
-
-
-class AddedAnnouncement(BaseModel):
-    change_id: int
-    action: Literal["added", "moved", "room_changed", "removed"]
-    title: str

@@ -293,19 +293,14 @@ def migrate_chat(old_id: int, new_id: int) -> dict[str, int]:
     return counts
 
 
-def chat_message_counts(chat_id: int) -> tuple[int, int]:
-    """How many messages of a chat are stored, and how many schedule changes were found in them."""
+def chat_message_count(chat_id: int) -> int:
+    """How many messages of a chat are stored."""
     with pg.connection() as conn:
-        row = conn.execute(
-            """SELECT (SELECT count(*) FROM messages WHERE chat_id = %(c)s) AS messages,
-                      (SELECT count(*) FROM schedule_changes s JOIN messages m ON m.id = s.message_id WHERE m.chat_id = %(c)s) AS changes""",
-            {"c": chat_id},
-        ).fetchone()
-    return row["messages"], row["changes"]
+        return pg.scalar(conn, "SELECT count(*) FROM messages WHERE chat_id = %s", (chat_id,))
 
 
 def clear_chat(chat_id: int, *, conn=None) -> int:
-    """Delete every stored message of a chat. Their vectors, queue entries and the schedule changes found in them go
+    """Delete every stored message of a chat. Their vectors and queue entries go
     with them (cascade); the chat itself, its study group and the choice in /listen stay."""
     with (pg.connection() if conn is None else nullcontext(conn)) as conn:
         return conn.execute("DELETE FROM messages WHERE chat_id = %s", (chat_id,)).rowcount

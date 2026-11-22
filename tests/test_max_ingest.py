@@ -1215,9 +1215,6 @@ def test_clear_preserves_policy_tombstones_legacy_and_other_sources_but_fences_a
     assert tombstone["deleted"]
     job = image_queue.claim("maxuserbot")
     assert job is not None and job["chat_id"] == CHAT_ID
-    with db() as conn:
-        conn.execute("""INSERT INTO schedule_changes(message_id,kind,starts_at,summary)
-                        VALUES (%s,'announcement',now(),'Synthetic course change')""", (job["message_id"],))
     admit("clear-fetched-before-confirm", msg_id=102)
     pending = fetch_event(native_snapshot(msg_id=102))
     full = state.next_history("full")
@@ -1242,7 +1239,7 @@ def test_clear_preserves_policy_tombstones_legacy_and_other_sources_but_fences_a
     assert fetch(db, "SELECT * FROM chats WHERE chat_id=%s", (LEGACY_ID,)) == legacy_before
     assert fetch(db, "SELECT * FROM max_message_state WHERE chat_id=%s AND msg_id=777", (CHAT_ID,)) == tombstone
     assert fetch(db, "SELECT count(*) AS n FROM max_publish_queue WHERE chat_id=%s", (CHAT_ID,))["n"] == 0
-    assert count(db, "image_queue") == count(db, "schedule_changes") == 0
+    assert count(db, "image_queue") == 0
     assert fetch(db, "SELECT 1 FROM embedding_queue WHERE message_id=%s", (job["message_id"],)) is None
     assert fetch(db, "SELECT 1 FROM message_embeddings WHERE message_id=%s", (job["message_id"],)) is None
     assert state.next_history("full")["chat_id"] == other["chat_id"]

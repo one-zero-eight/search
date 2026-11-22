@@ -10,9 +10,8 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, InaccessibleMessage, InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions, Message
 
-from catix import groups
+from catix import admins, groups
 from catix import source_requests as store
-from catix.worker import changes
 
 Keyboard = list[list[InlineKeyboardButton]]
 router = Router()
@@ -112,7 +111,7 @@ def review_screen(request: dict) -> tuple[str, Keyboard]:
 
 async def _authorized(message, user_id: int) -> bool:
     return bool(message and not isinstance(message, InaccessibleMessage)
-                and message.chat.type == ChatType.PRIVATE and user_id in await asyncio.to_thread(changes.admins))
+                and message.chat.type == ChatType.PRIVATE and user_id in await asyncio.to_thread(admins.everyone))
 
 
 async def _show(query: CallbackQuery, screen: tuple[str, Keyboard]) -> None:

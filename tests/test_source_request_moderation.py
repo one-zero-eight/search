@@ -49,7 +49,7 @@ def test_all_audience_review_warns_about_nonmembers_and_all_users():
 
 def test_public_request_can_be_approved_by_command(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.get_request.return_value = request(group_code="all", status="approved")
     monkeypatch.setattr(module, "store", store)
@@ -61,7 +61,7 @@ def test_public_request_can_be_approved_by_command(monkeypatch):
 
 def test_command_explains_why_private_consent_cannot_be_widened(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.approve.side_effect = ValueError("private request")
     monkeypatch.setattr(module, "store", store)
@@ -87,7 +87,7 @@ def query(data, *, private=True):
 @pytest.mark.parametrize("private,admin", [(False, True), (True, False)])
 def test_callback_requires_admin_and_private_chat(monkeypatch, private, admin):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7] if admin else [])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7] if admin else [])
     callback = query("sr:approve:" + "a" * 32, private=private)
     store = Mock()
     monkeypatch.setattr(module, "store", store)
@@ -98,7 +98,7 @@ def test_callback_requires_admin_and_private_chat(monkeypatch, private, admin):
 
 def test_admin_approval_records_exact_target_then_reads_back(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.get_request.side_effect = [request(), request(status="approved")]
     store.approve.return_value = True
@@ -125,7 +125,7 @@ def test_request_queue_paginates_without_exposing_invites(monkeypatch):
 
 def test_list_callback_is_usable_for_admin(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.pending_requests.return_value = []
     monkeypatch.setattr(module, "store", store)
@@ -143,7 +143,7 @@ def command(text, *, private=True):
 
 def test_approve_command_can_choose_group_and_reads_back(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.approve.return_value = True
     store.get_request.return_value = request(group_code="B27-CSE-02", status="approved")
@@ -161,7 +161,7 @@ def test_approve_command_can_choose_group_and_reads_back(monkeypatch):
 ])
 def test_approve_command_refuses_invalid_group_or_context(monkeypatch, text, private):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     monkeypatch.setattr(module, "store", store)
     asyncio.run(module.approve_command(command(text, private=private)))
@@ -170,7 +170,7 @@ def test_approve_command_refuses_invalid_group_or_context(monkeypatch, text, pri
 
 def test_reject_command_saves_reason_without_joining(monkeypatch):
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.reject.return_value = True
     store.get_request.return_value = request(status="rejected", message="Нет согласия")
@@ -201,7 +201,7 @@ def test_registered_router_handles_private_command_without_telegram_io(monkeypat
     from catix.tgbot import listen
 
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     store.approve.return_value = True
     store.get_request.return_value = request(status="approved")
@@ -222,7 +222,7 @@ def test_inaccessible_callback_is_refused_without_database_io(monkeypatch):
     from aiogram.types import InaccessibleMessage
 
     module = moderation()
-    monkeypatch.setattr(module.changes, "admins", lambda: [7])
+    monkeypatch.setattr(module.admins, "everyone", lambda: [7])
     store = Mock()
     monkeypatch.setattr(module, "store", store)
     callback = query("sr:approve:" + "a" * 32)

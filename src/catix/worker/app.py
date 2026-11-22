@@ -1,14 +1,10 @@
-"""Background worker: embeddings and schedule changes, a separate app that the Telegram and Max bots feed.
+"""Background worker: embeddings, moodle files and health alerts, a separate app that the Telegram and Max bots feed.
 
-    bots --(ids of stored messages)--> Redis stream --> this worker --> schedule_changes (Postgres)
+    bots --(ids of stored messages)--> Redis stream --> wakes the embedders of this worker
 
 Embedding threads (embedder.py) turn every stored message into a vector; they read their queue from Postgres and
-are woken by the same stream. The bots only store messages, they compute nothing. A moodle-files thread (moodle_reader.py) reads the text of the
-course files users uploaded (moodle_blobs) as they arrive.
-
-The changes part reads the stream in a consumer group, so a crash or a model outage loses nothing: a message is acknowledged only
-after it was looked at, and unacknowledged ones are read again. The found changes are shown to the users on the site
-(`GET /announcements`, api/announcements.py). Run: `catix-worker`.
+are woken by the stream. The bots only store messages, they compute nothing. A moodle-files thread (moodle_reader.py) reads the text of the
+course files users uploaded (moodle_blobs) as they arrive. Run: `catix-worker`.
 """
 
 import asyncio
@@ -17,10 +13,8 @@ import threading
 
 import redis.asyncio as redis
 
-from catix.worker import changes
 from catix.worker import embedder
 from catix.worker import health
-from catix.common.llm_down import unreachable
 from catix.worker import moodle_reader
 from catix.db import pg
 from catix.agent import tracing
@@ -29,46 +23,8 @@ from catix.ingest.publish import STREAM
 
 log = logging.getLogger("catix.worker")
 
-GROUP = "changes"
-CONSUMER = "worker-1"
-READ_COUNT = 20
 BLOCK_MS = 5000
 RETRY_SECONDS = 10
-
-
-async def consume(client: redis.Redis, model) -> None:
-    try:
-        # "$": the group starts at the end of the stream, so messages from before the first run are not scanned.
-        await client.xgroup_create(STREAM, GROUP, id="$", mkstream=True)
-    except redis.ResponseError as e:
-        if "BUSYGROUP" not in str(e):
-            raise
-    cursor = "0"  # First what was delivered but never acknowledged (a crash), then new messages. A model outage skips the message: no calendar extraction without the model.
-    while True:
-        try:
-            reply: list[tuple[bytes, list[tuple[bytes, dict[bytes, bytes]]]]] | None = await client.xreadgroup(
-                GROUP, CONSUMER, {STREAM: cursor}, count=READ_COUNT, block=BLOCK_MS
-            )  # type: ignore[assignment] - redis-py types the reply of every command as a union of all of them
-            entries = reply[0][1] if reply else []
-            if cursor != ">" and not entries:
-                cursor = ">"
-                continue
-            for entry_id, fields in entries:
-                chat_id, msg_id = int(fields[b"chat_id"]), int(fields[b"msg_id"])
-                try:
-                    await asyncio.to_thread(changes.process, model, chat_id, msg_id)
-                except Exception as e:
-                    if not unreachable(e):
-                        raise
-                    log.warning("the language model is unreachable: message %s/%s is not read for the calendar", chat_id, msg_id)
-                await client.xack(STREAM, GROUP, entry_id)
-        except (redis.ConnectionError, redis.TimeoutError) as e:
-            log.warning("redis is unreachable (%s), retrying in %ds", e, RETRY_SECONDS)
-            await asyncio.sleep(RETRY_SECONDS)
-        except Exception:  # noqa: BLE001 - the entry stays unacknowledged
-            log.exception("reading a message failed, retrying in %ds", RETRY_SECONDS)
-            cursor = "0"
-            await asyncio.sleep(RETRY_SECONDS)
 
 
 async def wake_on_new(client: redis.Redis, wake: threading.Event) -> None:
@@ -92,27 +48,21 @@ async def run() -> None:
     stop, wake = threading.Event(), threading.Event()
     embedder.start(stop, wake)
     moodle_reader.start()  # the course files the browser extension uploaded (moodle_files.py)
-    monitoring = asyncio.create_task(health.run())  # Alerts to the admins, independent of Redis and the changes part.
+    monitoring = asyncio.create_task(health.run())  # Alerts to the admins, independent of Redis.
     if not settings.redis_url:
-        log.warning("REDIS_URL is not set: only embeddings run (polling the queue); schedule changes need Redis")
+        log.warning("REDIS_URL is not set: the embedders poll the queue")
         await asyncio.Event().wait()
         return
     # The socket timeout must be longer than the blocking read, or an idle stream looks like a broken connection.
     client = redis.from_url(settings.redis_url, socket_timeout=BLOCK_MS / 1000 + 25, health_check_interval=30)
     await client.ping()
-    waking = asyncio.create_task(wake_on_new(client, wake))
-    if not settings.changes_enabled:
-        log.info("CHANGES_ENABLED is off: only embeddings run")
-        await waking
-        return
     log.info("watching %s", STREAM)
     try:
-        await consume(client, changes._model())
+        await wake_on_new(client, wake)
     finally:
         tracing.flush()
         stop.set()
         monitoring.cancel()
-        waking.cancel()
         await client.aclose()
         pg.close()
 

@@ -79,7 +79,7 @@ def env(monkeypatch):
     monkeypatch.setattr(listen, "_groups_of", lambda ids: {c: state.groups[c] for c in ids if c in state.groups})
     monkeypatch.setattr(listen, "_known_groups", lambda: list(state.known))
     monkeypatch.setattr(listen.official, "flags", lambda ids: {c: state.official.get(c, False) for c in ids})
-    monkeypatch.setattr(listen.store, "chat_message_counts", lambda cid: (12, 0))
+    monkeypatch.setattr(listen.store, "chat_message_count", lambda cid: 12)
     def save(cid, group_code, default_mode, topic_modes, reader="auto"):
         state.writes.append(("save", cid, group_code, default_mode, dict(topic_modes), reader))
         state.groups[cid] = group_code
@@ -331,7 +331,7 @@ def test_disable_and_clear_are_distinct_nonce_bound_confirmations(env, monkeypat
         return deleted
     monkeypatch.setattr(config, "set_listen", disable)
     monkeypatch.setattr(listen.store, "clear_chat", clear)
-    monkeypatch.setattr(listen.store, "chat_message_counts", lambda cid: (counts["stored"], 0))
+    monkeypatch.setattr(listen.store, "chat_message_count", lambda cid: counts["stored"])
     ui.press("ls:adv:-1001")
     ui.click("Отключить группу")
     assert state.writes == []

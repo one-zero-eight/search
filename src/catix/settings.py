@@ -113,13 +113,10 @@ class Settings(BaseSettings):
     # User-account session; independent of Telegram and never included in backups.
     max_session: Path = Path("data/max/account.db")
 
-    # Schedule changes found in chats (changes.py): reschedules, room changes, cancellations. Each goes to the users
-    # of the chat's group, who put it in their own calendar or not.
-    # Redis (docker-compose.yml): the bots put the ids of newly stored messages on a stream, the worker `catix-worker`
-    # reads it; every process keeps its cache there (common/cache.py: InNoHassle, Sport, DeepSeek, /listen). Without it the
+    # Redis (docker-compose.yml): the bots put the ids of newly stored messages on a stream that wakes the worker's embedders
+    # (`catix-worker`); every process keeps its cache there (common/cache.py: InNoHassle, Sport, DeepSeek, /listen). Without it the
     # bots publish nothing and nothing is cached.
     redis_url: str | None = None
-    changes_enabled: bool = True
     # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
     admin_telegram_ids: list[int] = []
     # The HTTP API (`catix-api`, src/catix/api/): the search service's paths and the users' personal calendars

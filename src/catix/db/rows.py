@@ -7,10 +7,6 @@ whatever reads the row later. Keep each SELECT list in step with its class.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Literal
-
-ChangeKind = Literal["reschedule", "room_change", "cancel", "announcement"]
-ChangeStatus = Literal["pending", "approved", "rejected"]
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,46 +60,6 @@ class QueuedMessage:
     id: int
     chat_id: int
     text: str
-
-
-@dataclass(frozen=True, slots=True)
-class MessageToRead:
-    """A stored message the changes worker looks at."""
-
-    id: int
-    date: datetime
-    text: str
-    chat_title: str
-    parent_text: str | None
-    known: bool  # It was already turned into a schedule change.
-    ocr_pending: bool = False  # Its image waits for OCR: the text is only the caption until the recognized text is stored.
-
-
-@dataclass(frozen=True, slots=True)
-class ChangeView:
-    """A schedule change with the message and chat it came from."""
-
-    id: int
-    message_id: int
-    chat_id: int
-    kind: ChangeKind
-    subject: str | None
-    starts_at: datetime
-    ends_at: datetime | None
-    all_day: bool
-    room: str | None
-    summary: str
-    status: ChangeStatus
-    created_at: datetime
-    decided_at: datetime | None
-    text: str
-    date: datetime
-    link: str | None
-    sender_name: str | None
-    chat_title: str
-    chat_link: str | None
-    group_code: str
-    requires_verified_group: bool = False
 
 
 @dataclass(frozen=True, slots=True)

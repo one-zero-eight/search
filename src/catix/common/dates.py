@@ -120,7 +120,7 @@ def mentions_between(text: str, sent_at: datetime, now: datetime, start: date, e
 
 
 # "на этой неделе", "события недели", "на следующей неделе", "this week": a whole week, the message's own or the next. Only
-# for `coming`: as a day it would put "на этой неделе перенос пары" on one day for the schedule-change detection.
+# for `coming`: as a day it would put "на этой неделе перенос пары" on one day for search by event date.
 _THIS_WEEK_RE = re.compile(
     r"(?<![\w])(?:(?:этой|эту|эта|текущей)\s+недел[еияю]|(?:событи[йя]|мероприяти[йя])\s+недели|this\s+week)(?![\w])", re.I
 )

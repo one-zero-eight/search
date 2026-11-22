@@ -27,7 +27,7 @@ def test_form_admin_and_userbot_share_exact_durable_request(db, monkeypatch, aud
     from catix.tguserbot import source_requests as worker
 
     client = TestClient(app)
-    monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
+    monkeypatch.setattr(moderation.admins, "everyone", lambda: [7])
     monkeypatch.setattr(groups, "auto_group", lambda telegram_id: "B26" if telegram_id == 123 else None)
     monkeypatch.setattr(groups, "website_groups", lambda _: ["B26"])
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="owner", email="o@example.org", telegram_id=123)
@@ -573,38 +573,6 @@ def test_protected_scope_requires_verified_matching_non_all_group(db, monkeypatc
     assert groups.scoped_chat_ids("tg:7", 7) == {1}
 
 
-def make_change(db, protected=True) -> int:
-    with db() as conn:
-        conn.execute("INSERT INTO chats (chat_id, title, group_code, requires_verified_group) VALUES (7, 'Source', 'B26', %s)", (protected,))
-        message = conn.execute("INSERT INTO messages (chat_id, msg_id, date, text) VALUES (7, 1, now(), 'Private schedule') RETURNING id").fetchone()["id"]
-        return conn.execute("""INSERT INTO schedule_changes (message_id, kind, subject, starts_at, all_day, summary)
-            VALUES (%s, 'announcement', 'Private event', now() + interval '1 day', true, 'Private event') RETURNING id""", (message,)).fetchone()["id"]
-
-
-def test_feed_follows_verified_groups_only(db):
-    from catix import groups
-    from catix.worker import changes
-    cid = make_change(db)
-    assert [v.id for v, _, _ in changes.feed(groups.website_chat_ids(["B26"]))] == [cid]
-    assert changes.feed(groups.website_chat_ids(["B27"])) == []
-    assert changes.feed(groups.website_chat_ids([])) == []
-    with db() as conn:
-        conn.execute("UPDATE chats SET group_code = 'all'")  # Still protected: a manual edit does not make it public.
-    assert changes.feed(groups.website_chat_ids(["B26"])) == []
-
-
-def test_guessed_change_id_cannot_copy_private_text_to_calendar(db):
-    from catix import groups
-    from catix.worker import changes
-    cid = make_change(db)
-    assert changes.add_to_calendar("ih:owner", cid, chat_ids=groups.website_chat_ids(["B27"])) is None
-    with db() as conn:
-        assert conn.execute("SELECT count(*) AS n FROM personal_events WHERE user_key = 'ih:owner'").fetchone()["n"] == 0
-    assert changes.add_to_calendar("ih:owner", cid, chat_ids=groups.website_chat_ids(["B26"])) == ("added", "Анонс: Private event")
-    with db() as conn:
-        assert conn.execute("SELECT source_note FROM personal_events WHERE user_key = 'ih:owner'").fetchone()["source_note"]
-
-
 def test_connected_source_backfills_on_startup_and_preserves_access(db, monkeypatch):
     import asyncio
     from datetime import datetime, timezone
@@ -902,7 +870,7 @@ def test_public_api_store_moderation_and_worker_activation(db, monkeypatch):
     from catix.tguserbot import source_requests as worker
 
     monkeypatch.setattr(groups, "website_groups", lambda _: pytest.fail("all audience needs no study-group verification"))
-    monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
+    monkeypatch.setattr(moderation.admins, "everyone", lambda: [7])
     app.dependency_overrides[verify_user] = lambda: UserTokenData(innohassle_id="public-owner", email="owner@example.org")
     try:
         client = TestClient(app)
@@ -1187,7 +1155,7 @@ def test_max_moderation_dispatcher_exposes_automatic_join_consent(monkeypatch, s
                "message": "Source enabled for search; history is being indexed." if status == "connected" else None}
     approvals = []
     screens = []
-    monkeypatch.setattr(moderation.changes, "admins", lambda: [7])
+    monkeypatch.setattr(moderation.admins, "everyone", lambda: [7])
     monkeypatch.setattr(moderation.store, "get_request", lambda _: dict(request))
 
     def approve(request_id, admin_id, group_code):

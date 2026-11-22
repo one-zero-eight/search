@@ -133,8 +133,6 @@ def _proposal_interval(event: dict) -> tuple[datetime, datetime | None]:
 
 def add_proposal(user_key: str, proposal_id: str) -> str | None:
     """Copy an offered event into the user's calendar; its title, or None if there is no such offer. The same event twice is one."""
-    if proposal_id.startswith("change:"):
-        return None  # Worker callbacks apply rescheduling semantics, not answer-offer insertion.
     with pg.connection() as conn:
         event = pg.scalar(conn, "SELECT event FROM calendar_proposals WHERE id = %s", (proposal_id,))
         if event is None:
@@ -282,13 +280,33 @@ def delete_event(user_key: str, event_id: int) -> bool:
 # ---- the feed -------------------------------------------------------------------------------------------------
 
 
+# ---- iCalendar text ----
+
+
+def _escape(text: str) -> str:
+    for char, escaped in (("\\", "\\\\"), (";", "\\;"), (",", "\\,"), ("\n", "\\n")):
+        text = text.replace(char, escaped)
+    return text
+
+
+def _fold(line: str) -> str:
+    """Content lines are at most 75 octets: longer ones continue on the next line after a space."""
+    out, raw = [], line.encode()
+    while len(raw) > 75:
+        cut = 75
+        while raw[cut] & 0xC0 == 0x80:  # Not inside a multi-byte character.
+            cut -= 1
+        out.append(raw[:cut].decode())
+        raw = b" " + raw[cut:]
+    return "\r\n".join([*out, raw.decode()])
+
+
 def ics(user_key: str, *, include_sources: bool = True) -> str:
     """The user's events as an iCalendar document (all of them: a calendar app shows what it wants).
 
     Public subscription exports omit source links and notes; private calendar consumers keep the historical default.
     """
     from datetime import timedelta
-    from catix.worker.changes import _escape, _fold
 
     with pg.connection() as conn:
         rows = pg.rows(

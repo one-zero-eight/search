@@ -1,4 +1,4 @@
-"""Hands newly stored messages to the schedule-changes worker through a Redis stream.
+"""Hands newly stored messages to the worker through a Redis stream: it wakes the embedders.
 
 The bots publish only the ids (chat_id, msg_id) after the batch is in Postgres; the worker reads the text from
 there. Default publishing is best effort. Durable outbox callers use strict=True and acknowledge only success.

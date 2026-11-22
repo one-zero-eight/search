@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS max_account (
     catalog_checked_at timestamptz
 );
 
-DROP TABLE IF EXISTS bot_users;  -- Telegram notifications were replaced by the site's Announcements chat
+DROP TABLE IF EXISTS bot_users;  -- Telegram notifications were removed
 
 -- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
 -- Private invitations remain outside chats until a moderator approves and Telegram confirms membership.
@@ -490,25 +490,8 @@ CREATE INDEX IF NOT EXISTS api_answers_chat_idx ON api_answers (chat_id, id);
 ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting_checkpoint text;
 ALTER TABLE api_chats ADD COLUMN IF NOT EXISTS waiting jsonb;
 
--- Reschedules, room changes, cancellations and new events found in chat messages (changes.py). They are listed on the
--- site (GET /announcements) to the users whose website chats include the message's chat, and a user who applies one
--- gets it in their personal calendar (personal_events); status and decided_at are from when an admin decided for
--- everybody and are no longer used. The worker reads new messages from a Redis stream, so history is never scanned.
-CREATE TABLE IF NOT EXISTS schedule_changes (
-    id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    message_id  bigint NOT NULL UNIQUE REFERENCES messages (id) ON DELETE CASCADE,
-    kind        text NOT NULL CHECK (kind IN ('reschedule', 'room_change', 'cancel', 'announcement')),
-    subject     text,
-    starts_at   timestamptz NOT NULL,
-    ends_at     timestamptz,
-    all_day     boolean NOT NULL DEFAULT false,   -- no time was stated: an all-day event
-    room        text,
-    summary     text NOT NULL,
-    status      text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
-    created_at  timestamptz NOT NULL DEFAULT now(),
-    decided_at  timestamptz
-);
-ALTER TABLE schedule_changes DROP COLUMN IF EXISTS notified_at;  -- Telegram notifications were replaced by the site's announcements
+DROP TABLE IF EXISTS schedule_changes;  -- schedule changes are no longer detected in chat messages
+DELETE FROM calendar_proposals WHERE id LIKE 'change:%';  -- their saved durations
 
 -- Raw opaque calendar subscription keys are intentionally retained only for link retrieval/revocation.
 -- The application role needs access; ctx_reader must never read this table (revokes follow below).
@@ -755,11 +738,6 @@ REVOKE ALL ON ALL TABLES IN SCHEMA public FROM ctx_reader;
 REVOKE ALL ON SCHEMA public FROM ctx_reader;
 GRANT USAGE ON SCHEMA visible TO ctx_reader;
 GRANT SELECT ON visible.chats, visible.messages TO ctx_reader;
-ALTER TABLE schedule_changes ADD COLUMN IF NOT EXISTS all_day boolean NOT NULL DEFAULT false;  -- tables created before this column existed
--- 'announcement' was added after the table was first created.
-ALTER TABLE schedule_changes DROP CONSTRAINT IF EXISTS schedule_changes_kind_check;
-ALTER TABLE schedule_changes ADD CONSTRAINT schedule_changes_kind_check
-    CHECK (kind IN ('reschedule', 'room_change', 'cancel', 'announcement'));
 
 -- Messages the guardrail stopped as an attack or abuse, per user, and the pauses that repeated ones lead to (catix/abuse.py).
 -- user_key is 'tg:<id>' or 'max:<id>'. Nobody is notified; the admins read /abuse.

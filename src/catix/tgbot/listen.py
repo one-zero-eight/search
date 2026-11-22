@@ -17,10 +17,9 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from catix import groups, official, userbot_config
+from catix import admins, groups, official, userbot_config
 from catix.db import pg, store
 from catix.tgbot import group_settings, source_requests
-from catix.worker import changes
 
 log = logging.getLogger("catix.listen")
 router = Router()
@@ -216,7 +215,7 @@ async def _draft_callback(query: CallbackQuery, args: list[str]) -> None:
         del SESSIONS[user_id]
         if action == "clear":
             deleted = await asyncio.to_thread(store.clear_chat, s.chat_id)
-            remaining, _ = await asyncio.to_thread(store.chat_message_counts, s.chat_id)
+            remaining = await asyncio.to_thread(store.chat_message_count, s.chat_id)
             notice = f"Удалено сообщений: {deleted}" if not remaining else "Не удалось подтвердить очистку: в базе есть сообщения."
         else:
             await asyncio.to_thread(userbot_config.set_listen, s.chat_id, False)
@@ -303,7 +302,7 @@ def _short(title: str, size: int = BUTTON_TITLE) -> str:
 
 
 async def _is_admin(user_id: int) -> bool:
-    return user_id in await asyncio.to_thread(changes.admins)
+    return user_id in await asyncio.to_thread(admins.everyone)
 
 
 def _group_of(chat_id: int) -> str:
@@ -400,7 +399,7 @@ def _advanced_screen(chat_id: int) -> tuple[str, Keyboard]:
     if dialog is None:
         return _chat_screen(chat_id)
     is_official = official.flags([chat_id]).get(chat_id, False)
-    stored, _ = store.chat_message_counts(chat_id)
+    stored = store.chat_message_count(chat_id)
     lines = [f"<b>{html.escape(dialog.title)} — дополнительно</b>",
              _reader_line(dialog, userbot_config.readers().get(chat_id, "auto")),
              f"Официальный чат: {'да' if is_official else 'нет'} (только такие сообщения агент называет официальными)",
@@ -418,8 +417,8 @@ def _advanced_screen(chat_id: int) -> tuple[str, Keyboard]:
 def _clear_screen(chat_id: int) -> tuple[str, Keyboard]:
     dialog = userbot_config.dialog(chat_id)
     title = dialog.title if dialog else str(chat_id)
-    stored, changes = store.chat_message_counts(chat_id)
-    text = group_settings.clear_text(title, stored, changes, chat_id in userbot_config.listened())
+    stored = store.chat_message_count(chat_id)
+    text = group_settings.clear_text(title, stored, chat_id in userbot_config.listened())
     return text, []  # Confirmation buttons are bound to the active draft nonce.
 
 

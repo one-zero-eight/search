@@ -1,7 +1,7 @@
 [project]
 name = "catix"
 version = "0.1.0"
-description = "cAtIx: a student assistant for Innopolis University (passive Telegram/MAX chat sources, search, schedule changes)"
+description = "cAtIx: a student assistant for Innopolis University (passive Telegram/MAX chat sources, search)"
 authors = [
     { name = "mainStorne", email = "dbevzpr@mail.ru" }
 ]

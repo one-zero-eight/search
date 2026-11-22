@@ -23,7 +23,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
-from catix.api import announcements, ask, attachments, moodle, parsers, search, source_requests, sources, users
+from catix.api import ask, attachments, moodle, parsers, search, source_requests, sources, users
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
@@ -115,7 +115,7 @@ async def swagger_ui_html(request: Request):
     )
 
 
-for _router in (announcements.router, search.router, attachments.router, ask.router, parsers.router, users.router, source_requests.router, sources.router, moodle.router):
+for _router in (search.router, attachments.router, ask.router, parsers.router, users.router, source_requests.router, sources.router, moodle.router):
     app.include_router(_router)
 
 

@@ -1,7 +1,6 @@
-"""Telegram reader and calendar-notification bot.
+"""Telegram reader bot.
 
-Stores messages from configured groups/topics and channels. The worker indexes them
-and sends calendar changes; questions and calendar management live on innohassle.ru.
+Stores messages from configured groups/topics and channels; questions and calendar management live on innohassle.ru.
 Run: `catix-tgbot`.
 
 Note: a bot sees group messages only with privacy mode disabled (@BotFather -> /setprivacy -> Disable)
@@ -33,8 +32,7 @@ from catix.tgbot import admin
 from catix.tgbot import listen
 from catix.tgbot import max_sources
 from catix.tgbot import official
-from catix.worker import changes
-from catix import userbot_config
+from catix import admins, userbot_config
 from catix.ingest import writer as ingest
 from catix.ingest import images
 from catix.db import pg
@@ -174,14 +172,14 @@ async def _save(message: Message, *, observed_at: datetime | None = None) -> Non
 async def start(message: Message) -> None:
     await message.answer(
         "Привет! Я cAtIx. Читаю подключённые чаты Университета Иннополис.\n\n"
-        "Вопросы ассистенту и анонсы из чатов — на https://innohassle.ru/search/ask."
+        "Вопросы ассистенту и календарь — на https://innohassle.ru/search/ask."
     )
 
 
 @router.message(Command("id"))
 async def show_ids(message: Message) -> None:
     """Chat and topic ids for TG_CHATS / TG_TOPICS; send it inside the topic you want."""
-    if not message.from_user or message.from_user.id not in await asyncio.to_thread(changes.admins):
+    if not message.from_user or message.from_user.id not in await asyncio.to_thread(admins.everyone):
         return
     topic = message.message_thread_id if message.is_topic_message else None
     lines = [f"chat id: <code>{message.chat.id}</code>"]
@@ -248,7 +246,7 @@ async def set_commands(bot: Bot) -> None:
     """Publish only /start; clear old administrator-specific menus."""
     await bot.set_my_commands(COMMANDS)
     try:
-        admin_ids = await asyncio.to_thread(changes.admins)
+        admin_ids = await asyncio.to_thread(admins.everyone)
     except Exception:  # The menu is a convenience; database failure must not stop ingestion.
         log.warning("could not look up old admin menus", exc_info=True)
         return
@@ -266,13 +264,13 @@ def profile_texts(username: str) -> dict[str | None, tuple[str, str]]:
     return {
         None: (
             "Привет! Я cAtIx. Читаю подключённые чаты Университета Иннополис.\n\n"
-            "Вопросы ассистенту, анонсы из чатов и календарь — на https://innohassle.ru.",
-            "Чтение учебных чатов. Ассистент и анонсы — на innohassle.ru.",
+            "Вопросы ассистенту и календарь — на https://innohassle.ru.",
+            "Чтение учебных чатов. Ассистент — на innohassle.ru.",
         ),
         "en": (
             "Hi! I'm cAtIx. I read configured Innopolis University chats.\n\n"
-            "Ask the assistant, see announcements from chats and manage your calendar at https://innohassle.ru.",
-            "Study chat reader. Assistant and announcements at innohassle.ru.",
+            "Ask the assistant and manage your calendar at https://innohassle.ru.",
+            "Study chat reader. Assistant at innohassle.ru.",
         ),
     }
 

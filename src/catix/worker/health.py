@@ -17,9 +17,9 @@ import redis.asyncio as aioredis
 from aiogram import Bot
 from aiogram.exceptions import TelegramAPIError
 
-from catix import live_search
+from catix import admins, live_search
 from catix.settings import settings
-from catix.worker import changes, embedder
+from catix.worker import embedder
 
 log = logging.getLogger("catix.health")
 
@@ -83,7 +83,7 @@ class Monitor:
 async def _notifier(bot: Bot) -> Callable[[str], Awaitable[None]]:
     async def notify(text: str) -> None:
         log.warning("alert: %s", text)
-        for admin in await asyncio.to_thread(changes.admins):
+        for admin in await asyncio.to_thread(admins.everyone):
             with contextlib.suppress(TelegramAPIError):
                 await bot.send_message(admin, text)
 

@@ -1,5 +1,5 @@
-# Postgres with pgvector and ParadeDB's pg_search (BM25) for chat messages, and Redis (a stream that carries
-# new messages from the bots to the schedule-changes worker).
+# Postgres with pgvector and ParadeDB's pg_search (BM25) for chat messages, and Redis (a stream that wakes the worker's
+# embedders on new messages from the bots).
 # Start:  sudo docker compose up -d      Stop:  sudo docker compose down  (data stays in the volume)
 # The project name stays `ctx`: it names the containers and the volumes that hold the data (ctx_pgdata, ctx_redisdata).
 # Without it Compose would name the project after the directory and create new, empty volumes.

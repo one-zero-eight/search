@@ -50,11 +50,10 @@ def official_notice(chat_id: int) -> str:
     return "Чат отмечен официальным: его сообщения можно называть официальными" if value else "Отметка «официальный» снята"
 
 
-def clear_text(title: str, stored: int, changes: int, enabled: bool) -> str:
+def clear_text(title: str, stored: int, enabled: bool) -> str:
     """Describe irreversible content deletion without changing chat policy."""
     return (
         f"Удалить все <b>{stored}</b> сообщений чата «{html.escape(title)}» и их эмбеддинги? Это необратимо.\n"
-        + (f"Вместе с ними удалятся найденные в них изменения расписания: {changes}.\n" if changes else "")
         + "Сам чат, его учебная группа и выбор «слушать» остаются. "
         + ("Пока чат включён, новые сообщения продолжат сохраняться." if enabled else "")
     ).strip()

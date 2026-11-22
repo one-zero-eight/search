@@ -193,7 +193,7 @@ def _chat_screen(source: dict) -> tuple[str, Keyboard]:
 def _advanced_screen(source: dict) -> tuple[str, Keyboard]:
     chat_id = source['chat_id']
     marked = official.flags([chat_id]).get(chat_id, False)
-    stored, _ = store.chat_message_counts(chat_id)
+    stored = store.chat_message_count(chat_id)
     lines = _source_lines(source) + [
         'Читает: MAX userbot (с историей).',
         f"Официальный чат: {'да' if marked else 'нет'} (только такие сообщения агент называет официальными)",
@@ -290,8 +290,8 @@ def _draft_screen(s: Session, source: dict, legacy: list[dict]) -> tuple[str, Ke
                      "Существующие сообщения не очищаются. Состояние восстановления разрыва учитывается отдельно.")
         rows.append([_draft_button(s, "Подтвердить повтор истории", "history")])
     elif s.stage == 'clear':
-        stored, changes = store.chat_message_counts(s.chat_id)
-        lines.append(group_settings.clear_text(_title(source), stored, changes, source['enabled']))
+        stored = store.chat_message_count(s.chat_id)
+        lines.append(group_settings.clear_text(_title(source), stored, source['enabled']))
         lines.append('Текущая загрузка архива остановится. Для новой загрузки используйте «Повторить историю».')
         rows.append([_draft_button(s, '✅ Да, удалить', 'clear')])
     rows.append([_draft_button(s, "Отмена", "cancel")])

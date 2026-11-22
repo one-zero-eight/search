@@ -466,7 +466,7 @@ async def _listen_once() -> None:
             row = _to_store(event.message, event.chat_id, entity)
             if row and store.topic_allowed(row.chat_id, row.topic_id):
                 store.upsert_messages([row])
-                await publish.publish([(row.chat_id, row.msg_id)])  # the worker looks for schedule changes in it
+                await publish.publish([(row.chat_id, row.msg_id)])  # wakes the worker's embedders
 
         client.add_event_handler(save, events.NewMessage())
         client.add_event_handler(save, events.MessageEdited())
