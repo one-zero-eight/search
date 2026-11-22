@@ -12,7 +12,7 @@ from pydantic import SecretStr
 from catix.agent.core import build_agent
 from catix.api import ask, chats
 from catix.api.auth import UserTokenData
-from catix.api.schemas import AskDecision, AskResponses, SearchResponses
+from catix.api.schemas import AskDecision, AskResponses, CalendarEventOffer, SearchResponses
 from catix.common.citations import AnswerSource, ArchiveDocument, CitationLink
 from catix.db import pg
 from catix.settings import settings
@@ -103,6 +103,38 @@ def test_a_deleted_chat_goes_with_its_answers(owner):
         assert pg.scalar(conn, "SELECT count(*) FROM api_answers WHERE chat_id = %s", (chat_id,)) == 0
     assert [c.chat_id for c in chats.of_user(owner)] == [kept]
     assert not chats.delete(chat_id, owner)  # gone already
+
+
+def test_calendar_offers_of_a_chat_outlive_the_bot_ttl_and_show_what_the_calendar_has(owner):
+    from datetime import datetime, timezone
+
+    from catix import personal_calendar
+
+    chat_id = chats.start(owner, "когда экзамен")
+    key = personal_calendar.account_key(owner)
+    event = {"title": "Экзамен", "starts_at": "2099-06-01T10:00:00+03:00", "ends_at": "2099-06-01T12:00:00+03:00", "all_day": False}
+    [(pid, shown)] = personal_calendar.propose([event], chat_id)
+    [(bot_pid, _)] = personal_calendar.propose([{**event, "title": "Для бота"}])  # no chat: the bot's
+    offer = CalendarEventOffer(id=pid, **shown)
+    chats.save_answer(AskResponses(query="q", answer="a", chat_id=chat_id, calendar_events=[offer], messages=[]), None, "cp-1")
+    with pg.connection() as conn:
+        conn.execute("UPDATE calendar_proposals SET created_at = now() - interval '30 days' WHERE id = ANY(%s)", ([pid, bot_pid],))
+    personal_calendar.propose([])  # the clean-up of the old offers runs
+
+    with pg.connection() as conn:
+        assert pg.scalar(conn, "SELECT count(*) FROM calendar_proposals WHERE id = %s", (pid,)) == 1
+        assert pg.scalar(conn, "SELECT count(*) FROM calendar_proposals WHERE id = %s", (bot_pid,)) == 0
+    assert [o.added for o in chats.history(chat_id, owner).answers[0].calendar_events] == [False]  # type: ignore[union-attr]
+    assert personal_calendar.add_proposal(key, pid) == "Экзамен"
+    assert [o.added for o in chats.history(chat_id, owner).answers[0].calendar_events] == [True]  # type: ignore[union-attr]
+    assert personal_calendar.added_offers("ih:somebody else", [("Экзамен", datetime(2099, 6, 1, 7, tzinfo=timezone.utc))]) == set()
+    with pg.connection() as conn:
+        conn.execute("DELETE FROM personal_events WHERE user_key = %s", (key,))  # the user removed it from the calendar
+    assert [o.added for o in chats.history(chat_id, owner).answers[0].calendar_events] == [False]  # type: ignore[union-attr]
+
+    assert chats.delete(chat_id, owner)
+    with pg.connection() as conn:
+        assert pg.scalar(conn, "SELECT count(*) FROM calendar_proposals WHERE id = %s", (pid,)) == 0
 
 
 def test_the_agent_remembers_a_chat_after_a_restart(owner, monkeypatch):

@@ -98,7 +98,7 @@ def test_api_offer_pipeline_keeps_visible_suggestion_and_serialized_interval(sto
     from catix.api import ask
 
     monkeypatch.setattr(ask.calendar_events, "extract", lambda answer, **kwargs: [event()])
-    [offer] = asyncio.run(ask.calendar_offers("Study on 8 November at 23:30"))
+    [offer] = asyncio.run(ask.calendar_offers("Study on 8 November at 23:30", "chat"))
     payload = offer.model_dump(mode="json")
     assert payload["end_suggested"] is True
     assert payload["ends_at"] == "2026-11-09T01:00:00+03:00"

@@ -105,7 +105,7 @@ def test_an_answer_offers_its_events_for_the_calendar(client, monkeypatch):
         return [event]
 
     monkeypatch.setattr(ask.calendar_events, "extract", extract)
-    monkeypatch.setattr(personal_calendar, "propose", lambda events: [("p1", e) for e in events])
+    monkeypatch.setattr(personal_calendar, "propose", lambda events, chat_id=None: [("p1", e) for e in events])
     monkeypatch.setattr(innohassle_token, "claims", lambda t: {"uid": "u1", "email": "a@innopolis.university"})
     offers = client.post("/ask/", json={"query": "когда экзамен"}, headers={"Authorization": "Bearer x"}).json()["calendar_events"]
     assert [(o["id"], o["title"], o["room"]) for o in offers] == [("p1", "Экзамен", "108")]

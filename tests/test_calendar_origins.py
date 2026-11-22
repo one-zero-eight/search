@@ -30,7 +30,7 @@ def extraction(monkeypatch):
             return result
 
     monkeypatch.setattr(events, '_model', Model)
-    monkeypatch.setattr(personal_calendar, 'propose', lambda items: proposals.extend(items) or [
+    monkeypatch.setattr(personal_calendar, 'propose', lambda items, chat_id=None: proposals.extend(items) or [
         (f'p{i}', item) for i, item in enumerate(items)])
     return day, result, calls, proposals
 

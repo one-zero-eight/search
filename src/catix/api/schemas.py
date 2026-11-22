@@ -163,7 +163,7 @@ class SearchResponses(BaseModel):
 
 class CalendarEventOffer(BaseModel):
     id: str
-    "Pass it to POST /users/my-calendar/events/{proposal_id} to add the event to the user's calendar (for 48 hours)."
+    "Pass it to POST /users/my-calendar/events/{proposal_id} to add the event to the user's calendar (as long as the chat exists)."
     title: str
     starts_at: datetime
     "Start; for an all-day event the day (its time means nothing)."
@@ -175,6 +175,8 @@ class CalendarEventOffer(BaseModel):
     room: str | None = None
     source_url: str | None = None
     "Where the event comes from (a message of a chat)."
+    added: bool = False
+    "The user's calendar has the event already (in a chat's history; an event removed from the calendar is offered again)."
 
 
 class AddedCalendarEvent(BaseModel):

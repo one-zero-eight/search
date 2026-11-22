@@ -94,19 +94,21 @@ def telegram_key(telegram_id: int) -> str:
 # ---- events ---------------------------------------------------------------------------------------------------
 
 
-def propose(events: list[dict]) -> list[tuple[str, dict]]:
-    """Keep the events the agent offered under an answer until someone presses the button; returns (id, event)."""
+def propose(events: list[dict], chat_id: str | None = None) -> list[tuple[str, dict]]:
+    """Keep the events the agent offered under an answer until someone presses the button; returns (id, event). An offer of a
+    chat of the site stays as long as the chat does (the chat shows the answer); one without a chat (the bot's) expires."""
     events = [proposed_event(event) for event in events[:MAX_PROPOSALS]]
     out = []
     with pg.connection() as conn:
         # Worker cards have durable callbacks; their displayed interval must outlive answer-offer expiry.
         conn.execute(
-            "DELETE FROM calendar_proposals WHERE created_at < now() - make_interval(hours => %s) AND NOT (event ? 'change_id')",
+            "DELETE FROM calendar_proposals WHERE created_at < now() - make_interval(hours => %s) AND NOT (event ? 'change_id')"
+            " AND chat_id IS NULL",
             (PROPOSAL_TTL_HOURS,),
         )
         for event in events[:MAX_PROPOSALS]:
             pid = secrets.token_hex(6)
-            conn.execute("INSERT INTO calendar_proposals (id, event) VALUES (%s, %s::jsonb)", (pid, json.dumps(event)))
+            conn.execute("INSERT INTO calendar_proposals (id, event, chat_id) VALUES (%s, %s::jsonb, %s)", (pid, json.dumps(event), chat_id))
             out.append((pid, event))
     return out
 
@@ -151,6 +153,20 @@ def add_proposal(user_key: str, proposal_id: str) -> str | None:
             (user_key, event["title"], event["starts_at"], event.get("ends_at"), bool(event.get("all_day")), event.get("room"), event.get("source_url")),
         )
     return event["title"]
+
+
+def added_offers(user_key: str, offers: list[tuple[str, datetime]]) -> set[tuple[str, datetime]]:
+    """Which of the offered events (title, start) the user's calendar has: the same key as the calendar's own, so an event
+    the user removed from it is offered again."""
+    if not offers:
+        return set()
+    with pg.connection() as conn:
+        rows = conn.execute(
+            """SELECT title, starts_at FROM personal_events WHERE user_key = %s
+               AND (title, starts_at) IN (SELECT * FROM unnest(%s::text[], %s::timestamptz[]))""",
+            (user_key, [title for title, _ in offers], [starts_at for _, starts_at in offers]),
+        ).fetchall()
+    return {(row["title"], row["starts_at"]) for row in rows}
 
 
 MAX_TITLE_LENGTH = 300

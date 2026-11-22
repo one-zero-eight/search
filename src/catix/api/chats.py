@@ -10,6 +10,7 @@ The functions block: the API calls them with asyncio.to_thread.
 
 from psycopg.types.json import Jsonb
 
+from catix import personal_calendar
 from catix.api import state
 from catix.api.schemas import AskChat, AskChatHistory, AskResponses, SearchResponses, SignupOffer, SignupSelection
 from catix.db import pg
@@ -173,6 +174,10 @@ def history(chat_id: str, innohassle_id: str) -> AskChatHistory | None:
             return None
         rows = conn.execute("SELECT response, feedback, comment FROM api_answers WHERE chat_id = %s ORDER BY id", (chat_id,)).fetchall()
     answers = [AskResponses(**row["response"], messages=[], feedback=row["feedback"], feedback_comment=row["comment"]) for row in rows]
+    offers = [offer for item in answers for offer in item.calendar_events]
+    added = personal_calendar.added_offers(f"ih:{innohassle_id}", [(offer.title, offer.starts_at) for offer in offers])
+    for offer in offers:
+        offer.added = (offer.title, offer.starts_at) in added
     pending = chat.pop("waiting")
     waiting_for = AskResponses(**pending["response"], messages=[]) if pending else None
     return AskChatHistory(**chat, answers=answers, waiting=waiting_for)

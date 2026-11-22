@@ -331,7 +331,7 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         ask_query_id=state.new_id() if span_id else None,
         sources=sources,
         # After a decision, the booked event is in the service already.
-        calendar_events=await calendar_offers(answer, sources=sources, origins=getattr(messages, 'calendar_origins', None)) if decision is None else [],
+        calendar_events=await calendar_offers(answer, chat_id, sources=sources, origins=getattr(messages, 'calendar_origins', None)) if decision is None else [],
         signup_offers=getattr(messages, 'signup_offers', []),
         messages=messages,
     )
@@ -432,12 +432,12 @@ async def _run(
     return cited.answer, cited.sources, history, traced.id, after.config["configurable"]["checkpoint_id"]
 
 
-async def calendar_offers(answer: str, *, sources: list[AnswerSource] | None = None, origins: dict | None = None) -> list[CalendarEventOffer]:
+async def calendar_offers(answer: str, chat_id: str, *, sources: list[AnswerSource] | None = None, origins: dict | None = None) -> list[CalendarEventOffer]:
     """The upcoming events the answer names, offered for the user's calendar as under the bot's answers (one more short
     call of the model, only when the answer has a date). A bonus: when it fails, the answer goes without them."""
     try:
         events = await asyncio.to_thread(calendar_events.extract, answer, sources=sources, origins=origins)
-        offered = await asyncio.to_thread(personal_calendar.propose, events) if events else []
+        offered = await asyncio.to_thread(personal_calendar.propose, events, chat_id) if events else []
     except Exception as exc:  # noqa: BLE001 - the answer is there already
         log.warning("could not offer calendar events (%s)", type(exc).__name__)
         return []
