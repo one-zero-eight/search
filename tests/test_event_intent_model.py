@@ -81,7 +81,7 @@ def routing(monkeypatch, mcp_http_protocol):
         assert business == []
         if with_image:
             assert reads == [FILE_ID]
-            assert calls[0]["name"] == "view_attachment"
+            assert calls[0]["name"] == "read_attachment"
         return calls, actions, answer
 
     return run

@@ -61,10 +61,10 @@ def test_short_event_request_reads_image_with_real_model(monkeypatch):
         traced.answer(answer)
     tracing.flush()
     calls = [call for message in result["messages"] if isinstance(message, AIMessage) for call in message.tool_calls]
-    assert calls and calls[0]["name"] == "view_attachment"
+    assert calls and calls[0]["name"] == "read_attachment"
     assert reads == [file_id]
     visual = [json.loads(message.text) for message in result["messages"]
-              if isinstance(message, ToolMessage) and message.name == "view_attachment"]
+              if isinstance(message, ToolMessage) and message.name == "read_attachment"]
     assert len(visual) == 1 and visual[0].get("visual") is True, visual
     assert "512" in visual[0]["text"] and "17:35" in visual[0]["text"], visual
     assert "512" in answer and "17:35" in answer, answer

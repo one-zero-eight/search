@@ -136,7 +136,7 @@ def intent_probe(monkeypatch, mcp_http_protocol, intent_token):
             asked_at=datetime.fromisoformat("2026-11-09T12:00:00+03:00"),
         )
         allowed = {"search_api_tools", "call_api_tool"} if event_timeout else (
-            {"view_attachment", "add_to_ai_calendar"} if image is not None else set()
+            {"read_attachment", "add_to_ai_calendar"} if image is not None else set()
         )
         boundary = _ToolBoundary(allowed)
         graph = core.build_agent(guardrail=False)
@@ -152,9 +152,9 @@ def intent_probe(monkeypatch, mcp_http_protocol, intent_token):
         assert writes == []
         if image is not None:
             assert reads == [FILE_ID] and len(inspections) == 1
-            assert calls and calls[0]["name"] == "view_attachment"
+            assert calls and calls[0]["name"] == "read_attachment"
             visual = [json.loads(message.text) for message in result["messages"]
-                      if isinstance(message, ToolMessage) and message.name == "view_attachment"]
+                      if isinstance(message, ToolMessage) and message.name == "read_attachment"]
             assert len(visual) == 1 and visual[0].get("visual") is True
             assert visual[0]["text"] == image
         else:
@@ -168,8 +168,8 @@ def intent_probe(monkeypatch, mcp_http_protocol, intent_token):
 
 def test_incomplete_poster_is_read_then_missing_calendar_fields_are_clarified(intent_probe):
     calls, actions, answer, started, _, _ = intent_probe("добавь в ai календарь", image=INCOMPLETE_POSTER)
-    assert [call["name"] for call in calls] == ["view_attachment"], calls
-    assert started == ["view_attachment"] and actions == []
+    assert [call["name"] for call in calls] == ["read_attachment"], calls
+    assert started == ["read_attachment"] and actions == []
     lowered = answer.lower()
     assert answer.strip() and "год" in lowered, answer
     assert any(word in lowered for word in ("врем", "час", "начал")), answer
@@ -178,8 +178,8 @@ def test_incomplete_poster_is_read_then_missing_calendar_fields_are_clarified(in
 
 def test_complete_poster_proposes_local_calendar_action_and_stops_at_native_approval(intent_probe):
     calls, actions, _, started, _, _ = intent_probe("добавь в ai календарь", image=COMPLETE_POSTER)
-    assert [call["name"] for call in calls] == ["view_attachment", "add_to_ai_calendar"], calls
-    assert started == ["view_attachment"], "The calendar tool must not execute before approval"
+    assert [call["name"] for call in calls] == ["read_attachment", "add_to_ai_calendar"], calls
+    assert started == ["read_attachment"], "The calendar tool must not execute before approval"
     assert len(actions) == 1 and actions[0]["name"] == "add_to_ai_calendar", actions
     args = actions[0]["args"]
     assert args["day"] == "2026-11-14"

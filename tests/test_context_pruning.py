@@ -104,7 +104,7 @@ def history() -> list[BaseMessage]:
         *turn(7, [("add_to_ai_calendar", {"title": "t"}, json.dumps({"done": True})),
                   ("update_ai_calendar", {"calendar_event_id": 1}, json.dumps({"done": True})),
                   ("remove_from_ai_calendar", {"calendar_event_id": 1}, json.dumps({"done": True}))]),
-        *turn(8, [("read_attachment", {"attachment_id": "f"}, "страница " * 400), ("view_attachment", {"attachment_id": "f"}, "картинка")]),
+        *turn(8, [("read_attachment", {"attachment_id": "f"}, "страница " * 400), ("read_attachment", {"attachment_id": "f", "question": "?"}, "картинка")]),
         *turn(9, [docs_search("Забронировано.")]),
     ]
 
@@ -168,7 +168,7 @@ def test_a_call_that_cannot_be_matched_and_a_result_without_an_id_stay():
 
 
 def test_every_tool_of_the_supervisor_is_either_pruned_or_kept_on_purpose():
-    kept = {"read_attachment", "view_attachment"} | LOCAL_CALENDAR_APPROVAL.keys()
+    kept = {"read_attachment"} | LOCAL_CALENDAR_APPROVAL.keys()
     assert roles.MAIN_TOOLS <= core.LOOKUP_RESULTS | kept, "a new tool: are its results looked up afresh, or evidence?"
     assert not core.LOOKUP_RESULTS & kept
     assert core.LOOKUP_RESULTS <= {t.name for t in TOOLS}

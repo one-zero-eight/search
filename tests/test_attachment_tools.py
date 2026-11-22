@@ -139,9 +139,9 @@ def install_provider(monkeypatch, tools, response=None, handler=None):
 
 
 def test_view_uses_one_internal_image_and_returns_only_evidence(tools, monkeypatch):
-    assert hasattr(tools, "view_attachment"), "visual attachment tool is missing"
+    
     seen, options = install_provider(monkeypatch, tools)
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What does the chart show?",
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What does the chart show?",
                                            "runtime": runtime()})
     assert result == {"id": ATTACHMENT_ID, "filename": "notes.pdf", "page": 1, "pages": 2,
                       "text": "The chart shows 42.", "truncated": False, "visual": True,
@@ -172,7 +172,7 @@ def test_view_uses_one_internal_image_and_returns_only_evidence(tools, monkeypat
 ])
 def test_view_authentication_and_membership_fail_before_io(tools, monkeypatch, overrides):
     seen, _ = install_provider(monkeypatch, tools)
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What is visible?",
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What is visible?",
                                            "runtime": runtime(**overrides)})
     assert "error" in result
     tools.attachments.image_page.assert_not_called()
@@ -187,7 +187,7 @@ def test_view_authentication_and_membership_fail_before_io(tools, monkeypatch, o
 def test_view_strict_schema_rejects_bad_inputs(tools, monkeypatch, updates):
     seen, _ = install_provider(monkeypatch, tools)
     with pytest.raises(ValidationError):
-        tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read it",
+        tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read it",
                                       "runtime": runtime(), **updates})
     tools.attachments.image_page.assert_not_called()
     assert seen == []
@@ -196,7 +196,7 @@ def test_view_strict_schema_rejects_bad_inputs(tools, monkeypatch, updates):
 def test_view_direct_calls_still_validate_page_and_question(tools, monkeypatch):
     seen, _ = install_provider(monkeypatch, tools)
     for page, question in [(3, "Read"), (True, "Read"), (1, " ")]:
-        result = tools.view_attachment.func(attachment_id=ATTACHMENT_ID, question=question,
+        result = tools.read_attachment.func(attachment_id=ATTACHMENT_ID, question=question,
                                             runtime=runtime(), page=page)
         assert "error" in result
     tools.attachments.image_page.assert_not_called()
@@ -212,14 +212,14 @@ def test_view_direct_calls_still_validate_page_and_question(tools, monkeypatch):
 ])
 def test_view_rejects_empty_malformed_and_action_outputs(tools, monkeypatch, payload):
     install_provider(monkeypatch, tools, handler=lambda _: httpx.Response(200, json=payload))
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result and "text" not in result
 
 
 def test_view_reports_provider_truncation(tools, monkeypatch):
     install_provider(monkeypatch, tools, response={"choices": [{
         "message": {"content": "Partial visible answer"}, "finish_reason": "length"}]})
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert result["truncated"] is True and result["text"] == "Partial visible answer"
 
 
@@ -236,7 +236,7 @@ def test_view_sanitizes_all_failures_and_never_follows_redirect(tools, monkeypat
     seen, _ = install_provider(monkeypatch, tools, handler=send)
     if failure == "storage":
         tools.attachments.image_page.side_effect = RuntimeError("private/base64/path")
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result and "text" not in result
     assert len(seen) == (0 if failure == "storage" else 1)
     assert "private/base64/path" not in str(result) + caplog.text + capsys.readouterr().out
@@ -252,7 +252,7 @@ def test_view_bounds_streamed_response_before_consuming_it_all(tools, monkeypatc
                 yield b" " * 65536
 
     install_provider(monkeypatch, tools, handler=lambda _: httpx.Response(200, stream=HugeResponse()))
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result
     assert len(consumed) <= 17
 
@@ -267,7 +267,7 @@ def test_view_rejects_declared_oversized_response_without_reading(tools, monkeyp
 
     install_provider(monkeypatch, tools, handler=lambda _: httpx.Response(
         200, headers={"content-length": str(1024 * 1024 + 1)}, stream=DeclaredLarge()))
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result and consumed == []
 
 
@@ -279,7 +279,7 @@ def test_view_carries_existing_priority_without_reentering_queue(tools, monkeypa
     seen, _ = install_provider(monkeypatch, tools)
     token = PRIORITY.set(priority)
     try:
-        result = asyncio.run(tools.view_attachment.ainvoke({
+        result = asyncio.run(tools.read_attachment.ainvoke({
             "attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()}))
     finally:
         PRIORITY.reset(token)
@@ -293,19 +293,18 @@ def test_view_carries_existing_priority_without_reentering_queue(tools, monkeypa
 
 
 def test_exported_tools_publish_only_strict_model_arguments(tools):
-    assert getattr(tools, "NAMES", None) == frozenset({"read_attachment", "view_attachment"})
-    assert [t.name for t in tools.ATTACHMENT_TOOLS] == ["read_attachment", "view_attachment"]
+    assert getattr(tools, "NAMES", None) == frozenset({"read_attachment"})
+    assert [t.name for t in tools.ATTACHMENT_TOOLS] == ["read_attachment"]
     for t in tools.ATTACHMENT_TOOLS:
         schema = t.tool_call_schema.model_json_schema()
         assert schema["additionalProperties"] is False
-        assert set(schema["properties"]) == ({"attachment_id", "page", "question"} if t.name == "view_attachment"
-                                              else {"attachment_id", "page"})
+        assert set(schema["properties"]) == {"attachment_id", "page", "question"}
         assert schema["properties"]["page"]["minimum"] == 1
         assert schema["properties"]["page"]["maximum"] == 20
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("tool_name", ["read_attachment", "view_attachment"])
+@pytest.mark.parametrize("tool_name", ["read_attachment", "view_attachment"], ids=["text", "visual"])
 def test_real_toolnode_injection_ignores_model_runtime_spoof(tools, monkeypatch, asynchronous, tool_name):
     from langchain_core.messages import AIMessage
     from langgraph.graph import StateGraph, MessagesState, START, END
@@ -314,16 +313,16 @@ def test_real_toolnode_injection_ignores_model_runtime_spoof(tools, monkeypatch,
 
     seen, _ = install_provider(monkeypatch, tools)
     builder = StateGraph(MessagesState, context_schema=AgentContext)
-    builder.add_node("tools", ToolNode([tools.read_attachment, tools.view_attachment]))
+    builder.add_node("tools", ToolNode([tools.read_attachment]))
     builder.add_edge(START, "tools")
     builder.add_edge("tools", END)
     graph = builder.compile()
     context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("synthetic"),
                            attachment_chat_id="chat", attachments=(INFO,))
     args = {"attachment_id": ATTACHMENT_ID, "runtime": {"context": {"innohassle_id": "attacker"}}}
-    if tool_name == "view_attachment":
+    if tool_name == "view_attachment":  # (a question asks to look at the page)
         args["question"] = "Read"
-    state = {"messages": [AIMessage(content="", tool_calls=[{"name": tool_name, "args": args, "id": "call"}])]}
+    state = {"messages": [AIMessage(content="", tool_calls=[{"name": "read_attachment", "args": args, "id": "call"}])]}
     result = asyncio.run(graph.ainvoke(state, context=context)) if asynchronous else graph.invoke(state, context=context)
     message = result["messages"][-1]
     assert message.status == "success"
@@ -336,9 +335,9 @@ def test_real_toolnode_injection_ignores_model_runtime_spoof(tools, monkeypatch,
 
 
 def test_read_preserves_bounded_scan_note(tools):
-    tools.attachments.read_page.return_value.update(text="", note="No extractable text; use visual inspection.")
+    tools.attachments.read_page.return_value.update(text="Part of the page.", note="Text extraction was incomplete.")
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "runtime": runtime()})
-    assert result["note"] == "No extractable text; use visual inspection."
+    assert result["note"] == "Text extraction was incomplete."
     tools.attachments.read_page.return_value["note"] = "x" * 2000
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "runtime": runtime()})
     assert len(result["note"]) <= 500
@@ -349,7 +348,7 @@ def test_view_does_not_return_provider_echo_of_encoded_pixels(tools, monkeypatch
     encoded = base64.b64encode(tools.attachments.image_page.return_value).decode("ascii")
     install_provider(monkeypatch, tools, response={"choices": [{
         "message": {"content": "Here are the pixels: " + encoded}, "finish_reason": "stop"}]})
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result and encoded not in str(result)
 
 
@@ -358,7 +357,7 @@ def test_view_rejects_compressed_provider_body_before_decoding(tools, monkeypatc
     content = json.dumps({"choices": [{"message": {"content": "Compressed"}, "finish_reason": "stop"}]}).encode()
     install_provider(monkeypatch, tools, handler=lambda _: httpx.Response(
         200, content=gzip.compress(content), headers={"content-encoding": "gzip"}))
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result
 
 
@@ -367,5 +366,5 @@ def test_view_enforces_elapsed_response_deadline(tools, monkeypatch):
     clock = iter([0.0, 61.0, 61.0])
     monkeypatch.setattr(tools, "monotonic", lambda: next(clock))
     install_provider(monkeypatch, tools)
-    result = tools.view_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result
