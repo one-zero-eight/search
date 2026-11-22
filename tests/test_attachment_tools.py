@@ -139,15 +139,14 @@ def install_provider(monkeypatch, tools, response=None, handler=None):
 
 
 def test_view_uses_one_internal_image_and_returns_only_evidence(tools, monkeypatch):
-    
     seen, options = install_provider(monkeypatch, tools)
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "What does the chart show?",
                                            "runtime": runtime()})
+    page = tools.attachments.read_page.return_value
     assert result == {"id": ATTACHMENT_ID, "filename": "notes.pdf", "page": 1, "pages": 2,
-                      "text": "The chart shows 42.", "truncated": False, "visual": True, "note": tools.VISUAL_NOTE,
+                      "text": page["text"], "truncated": False, "visual": "The chart shows 42.", "visual_truncated": False,
                       "source_label": "notes.pdf, page 1"}
     tools.attachments.image_page.assert_called_once_with("owner", "chat", ATTACHMENT_ID, 1)
-    tools.attachments.read_page.assert_not_called()
     assert len(seen) == 1
     request = seen[0]
     assert str(request.url) == str(tools.settings.llm_route).rstrip("/") + "/chat/completions"
@@ -220,7 +219,7 @@ def test_view_reports_provider_truncation(tools, monkeypatch):
     install_provider(monkeypatch, tools, response={"choices": [{
         "message": {"content": "Partial visible answer"}, "finish_reason": "length"}]})
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
-    assert result["truncated"] is True and result["text"] == "Partial visible answer"
+    assert result["visual_truncated"] is True and result["visual"] == "Partial visible answer"
 
 
 @pytest.mark.parametrize("failure", ["storage", "network", "redirect", "http", "json"])
@@ -368,3 +367,15 @@ def test_view_enforces_elapsed_response_deadline(tools, monkeypatch):
     install_provider(monkeypatch, tools)
     result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "question": "Read", "runtime": runtime()})
     assert "error" in result
+
+
+def test_reread_of_a_picture_uses_tesseract_text_and_the_vision_model(tools, monkeypatch):
+    info = {**INFO, "media_type": "image/png", "pages": 1}
+    tools.attachments.read_page.return_value = {"id": ATTACHMENT_ID, "page": 1, "pages": 1, "text": "", "truncated": False,
+                                                "note": "Image page; no OCR was performed. View the page image."}
+    tools.attachments.get_content = Mock(return_value=(None, b"image"))
+    monkeypatch.setattr(tools.images, "transcribe", lambda data: asyncio.sleep(0, "Экзамен 18 ноября, ауд. 512"))
+    install_provider(monkeypatch, tools)
+    result = tools.read_attachment.invoke({"attachment_id": ATTACHMENT_ID, "runtime": runtime(attachments=(info,))})
+    assert result["text"] == "Экзамен 18 ноября, ауд. 512" and result["ocr"] is True
+    assert result["visual"] == "The chart shows 42." and "note" not in result

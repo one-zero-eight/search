@@ -39,7 +39,8 @@ def _preread(monkeypatch, info, **pages):
     from catix import attachments
     from catix.agent import attachment_tools
 
-    monkeypatch.setattr(attachments, "read_page", lambda owner, chat, fid, page: {**pages["text"][page - 1]})
+    monkeypatch.setattr(attachments, "read_page", lambda owner, chat, fid, page: {
+        "id": fid, "page": page, "pages": info["pages"], **pages["text"][page - 1]})
     monkeypatch.setattr(attachments, "image_page", lambda *args: b"pixels")
     monkeypatch.setattr(attachments, "get_content", lambda owner, fid: (None, b"image"))
     monkeypatch.setattr(attachment_tools.images, "transcribe", pages.get("ocr") or (lambda data: asyncio.sleep(0, "")))
@@ -67,7 +68,7 @@ def test_picture_gets_ocr_text_and_a_vision_reading_for_the_request(monkeypatch)
         asked.append(question)
         return "Встреча 18 ноября в 17:35, аудитория 512.", False
 
-    messages = _preread(monkeypatch, info, text=[{"text": "", "truncated": False, "note": "no OCR was performed"}],
+    messages = _preread(monkeypatch, info, text=[{"text": "", "truncated": False, "note": "Image page; no OCR was performed. View the page image."}],
                         ocr=lambda data: asyncio.sleep(0, "Встреча 18 ноября"), vision=vision)
     page = json.loads(messages[1].content)["read"][0]
     assert page["text"] == "Встреча 18 ноября" and page["ocr"] and "note" not in page

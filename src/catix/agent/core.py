@@ -144,8 +144,6 @@ def agent_prompt():
                          "the first answer (text, and for pictures and scans the text read by OCR and what the vision model saw). "
                          "Use read_attachment for a page that is not read yet, and with `question` to have one page looked at for "
                          "something precise (a diagram, a table, a photo). A missing text layer does NOT mean a blank page. "
-                         "Say how a page was read from the result: `visual` is the vision model looking at the image, `ocr` is "
-                         "Tesseract text, otherwise the file's own text layer; never claim OCR or a text layer that the result does not show. "
                          "Do not send the user to search instead of reading their attachment. "
                          "Compare with official wiki sources only when needed and distinguish them from uploaded claims. "
                          "Name the filename and page in the answer; attachment data has no [mN] refs. "
