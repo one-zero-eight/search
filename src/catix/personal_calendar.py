@@ -24,7 +24,6 @@ log = logging.getLogger("catix.calendar")
 
 MAX_PROPOSALS = 3
 PROPOSED_DURATION_MINUTES = 90
-PROPOSAL_TTL_HOURS = 48
 ACCOUNT_TTL = 3600.0  # The InNoHassle account of a Telegram id is trusted for an hour; a miss is asked again each time.
 
 CONNECT_TELEGRAM = "https://innohassle.ru/account/connect-telegram"
@@ -95,17 +94,11 @@ def telegram_key(telegram_id: int) -> str:
 
 
 def propose(events: list[dict], chat_id: str | None = None) -> list[tuple[str, dict]]:
-    """Keep the events the agent offered under an answer until someone presses the button; returns (id, event). An offer of a
-    chat of the site stays as long as the chat does (the chat shows the answer); one without a chat (the bot's) expires."""
+    """Keep the events the agent offered under an answer for the button; returns (id, event). An offer of a chat of the site goes
+    with the chat (the chat shows the answer, so its button must work); the bot's has no chat and stays."""
     events = [proposed_event(event) for event in events[:MAX_PROPOSALS]]
     out = []
     with pg.connection() as conn:
-        # Worker cards have durable callbacks; their displayed interval must outlive answer-offer expiry.
-        conn.execute(
-            "DELETE FROM calendar_proposals WHERE created_at < now() - make_interval(hours => %s) AND NOT (event ? 'change_id')"
-            " AND chat_id IS NULL",
-            (PROPOSAL_TTL_HOURS,),
-        )
         for event in events[:MAX_PROPOSALS]:
             pid = secrets.token_hex(6)
             conn.execute("INSERT INTO calendar_proposals (id, event, chat_id) VALUES (%s, %s::jsonb, %s)", (pid, json.dumps(event), chat_id))
@@ -139,7 +132,7 @@ def _proposal_interval(event: dict) -> tuple[datetime, datetime | None]:
 
 
 def add_proposal(user_key: str, proposal_id: str) -> str | None:
-    """Copy an offered event into the user's calendar; its title, or None if the offer expired. The same event twice is one."""
+    """Copy an offered event into the user's calendar; its title, or None if there is no such offer. The same event twice is one."""
     if proposal_id.startswith("change:"):
         return None  # Worker callbacks apply rescheduling semantics, not answer-offer insertion.
     with pg.connection() as conn:

@@ -221,9 +221,3 @@ def test_saved_worker_proposal_is_not_accepted_as_an_answer_offer(storage):
     storage[0].execute.assert_not_called()
 
 
-def test_worker_proposal_survives_answer_offer_cleanup(storage):
-    personal_calendar.propose([event()])
-    cleanup = storage[0].execute.call_args_list[0].args[0]
-    assert "NOT (event ? 'change_id')" in cleanup
-
-

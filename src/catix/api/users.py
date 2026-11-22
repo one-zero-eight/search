@@ -51,7 +51,7 @@ def my_calendar(account: AccountDep) -> Response:
     responses={
         200: {"description": "The event is in the user's calendar"},
         401: {"description": "No token or a bad one"},
-        404: {"description": "The offer expired (it lives 48 hours) or there is no such offer"},
+        404: {"description": "There is no such offer"},
     },
 )
 async def add_calendar_event(account: AccountDep, proposal_id: str) -> AddedCalendarEvent:
@@ -60,7 +60,7 @@ async def add_calendar_event(account: AccountDep, proposal_id: str) -> AddedCale
     key = await asyncio.to_thread(personal_calendar.account_key, account.innohassle_id, account.telegram_id)
     title = await asyncio.to_thread(personal_calendar.add_proposal, key, proposal_id)
     if title is None:
-        raise HTTPException(404, "The offer expired or there is no such offer")
+        raise HTTPException(404, "There is no such offer")
     return AddedCalendarEvent(proposal_id=proposal_id, title=title)
 
 

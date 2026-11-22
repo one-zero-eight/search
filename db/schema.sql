@@ -460,8 +460,8 @@ CREATE TABLE IF NOT EXISTS api_chats (
 );
 CREATE INDEX IF NOT EXISTS api_chats_owner_idx ON api_chats (innohassle_id, updated_at DESC);
 
--- An offer under an answer of the site lives as long as its chat (the chat shows the answer, so its button must work), the
--- ones of the Telegram bot (no chat) expire.
+-- An offer under an answer of the site goes with its chat (the chat shows the answer, so its button must work); the ones of
+-- the Telegram bot have no chat.
 ALTER TABLE calendar_proposals ADD COLUMN IF NOT EXISTS chat_id text REFERENCES api_chats (chat_id) ON DELETE CASCADE;
 
 -- Private chat attachments: never part of wiki/BM25/vector indexes or ctx_reader views.
