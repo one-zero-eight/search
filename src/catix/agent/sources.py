@@ -18,7 +18,7 @@ from langchain.tools import ToolRuntime
 from langchain_core.messages import ToolMessage
 from langgraph.types import Command
 
-from catix.common.citations import AnswerSource, CitationLink, CitedAnswer
+from catix.common.citations import IMAGE_RE, MAX_SOURCE_IMAGES, AnswerSource, CitationLink, CitedAnswer, SourceImage, images_in
 from catix.db import store
 from catix.docs import previews
 
@@ -92,6 +92,8 @@ class Collector:
                   "site": hit.path.startswith("sites/"),
                   "guide": hit.path.startswith("guide/"),
                   "based_on": [{"title": b["title"], "link": b["link"]} for b in hit.based_on if b.get("link")][:2]}
+        if images := images_in(hit.text):
+            fields["images"] = images
         if document := previews.describe(hit):
             fields["archive_document"] = document
             return self._add(f"wiki:{hit.id}:{hit.page_sha}", fields)
@@ -158,6 +160,7 @@ def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
             }
         resolved[ref] = source
 
+    inline = {url for _, url in IMAGE_RE.findall(answer)}
     numbers: dict[object, int] = {}
     entries: dict[object, AnswerSource] = {}
 
@@ -182,6 +185,9 @@ def cite(answer: str, registry: dict[str, dict]) -> CitedAnswer:
             for based in source.get("based_on") or []:
                 if based.get("link") and not any(item.title == based["title"] and item.url == based["link"] for item in entry.based_on):
                     entry.based_on.append(CitationLink(title=based["title"], url=based["link"]))
+            for image in source.get("images") or []:
+                if len(entry.images) < MAX_SOURCE_IMAGES and image["url"] not in inline and all(i.url != image["url"] for i in entry.images):
+                    entry.images.append(SourceImage(**image))
         return f"[{', '.join(map(str, sorted(used)))}]" if used else ""
 
     answer = GROUP_RE.sub(renumber, RUN_RE.sub(lambda run: _capped(run, resolved), answer))

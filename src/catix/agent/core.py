@@ -641,6 +641,9 @@ class LoggingMiddleware(AgentMiddleware):
 
 
 URL_RE = re.compile(r"https?://[^\s)\]>\"']+")
+# A picture the answer shows, whatever its target: a relative or data: one goes as an invented one does.
+ANSWER_IMAGE = re.compile(r"!\[[^\]]*\]\(([^)\s]*)\)")
+MAX_ANSWER_IMAGES = 2
 # What follows a URL without being part of it: punctuation, and the markup the model wraps it in ("**https://…**").
 URL_TAIL = ".,;:!?*_~`"
 # A URL with the markup it opens with: an invented one goes with it, not leaving "Сайт спорта: **".
@@ -681,7 +684,7 @@ def _url_key(url: str) -> str:
 
 
 def clean(turn: list[BaseMessage], answer: str) -> str:
-    """The answer without invented URLs and without unbacked attributions, judged by the tool results of `turn`.
+    """The answer without invented URLs or pictures and without unbacked attributions, judged by the tool results of `turn`.
 
     The prompt forbids invented links and asks for careful wording, but small models do neither reliably, so both are
     enforced in code.
@@ -697,9 +700,21 @@ def clean(turn: list[BaseMessage], answer: str) -> str:
         tail = written[len(url) :]  # ("**" of "**https://…**", a full stop)
         return tail[len(opening) :] if opening and tail.startswith(opening) else opening + tail
 
+    shown = 0
+
+    def keep_image(match: re.Match) -> str:
+        nonlocal shown
+        target = match.group(1)
+        if target.startswith(("https://", "http://")) and _url_key(target) in known and shown < MAX_ANSWER_IMAGES:
+            shown += 1
+            return match.group(0)
+        log.warning("removed answer picture: %s", "private" if tracing.is_private() else target)
+        return ""
+
     lines: list[str] = []
     for line in ANSWER_TAG.sub("", answer).strip().split("\n"):
-        kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if _url_key(m.group(2)) in known else m.group(1), line)
+        pictured = ANSWER_IMAGE.sub(keep_image, line)
+        kept = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", lambda m: m.group(0) if _url_key(m.group(2)) in known else m.group(1), pictured)
         linked = WRAPPED_URL.sub(keep_known, kept)
         if linked != kept:  # A URL went: no gap where it was ("Зайдите на  и запишитесь").
             linked = re.sub(r"(?<=\S)[ \t]{2,}(?=\S)", " ", linked)

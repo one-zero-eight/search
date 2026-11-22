@@ -25,6 +25,28 @@ class CitationLink(BaseModel):
     url: str | None = None
 
 
+class SourceImage(BaseModel):
+    url: str
+    alt: str | None = None
+
+
+# A picture of a crawled site page as its markdown keeps it (docs/sources/sites.py _Page._picture: absolute, no spaces or brackets).
+IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((https?://[^)\s]+)\)")
+MAX_CHUNK_IMAGES = 4  # pictures one cited piece adds to its source
+MAX_SOURCE_IMAGES = 6  # pictures one line of the source list shows
+
+
+def images_in(text: str, limit: int = MAX_CHUNK_IMAGES) -> list[dict]:
+    """The pictures of a piece's markdown, first `limit`, each URL once: [{"url", "alt"}], alt None when empty."""
+    found: list[dict] = []
+    for match in IMAGE_RE.finditer(text):
+        if len(found) >= limit:
+            break
+        if all(item["url"] != match.group(2) for item in found):
+            found.append({"url": match.group(2), "alt": match.group(1).strip() or None})
+    return found
+
+
 class AnswerSource(BaseModel):
     number: int
     title: str
@@ -38,6 +60,7 @@ class AnswerSource(BaseModel):
     author: str | None = None
     author_url: str | None = None
     text: str | None = None  # the cited chat message (kind `chat`), for its preview on the site
+    images: list[SourceImage] = Field(default_factory=list)  # pictures of the cited pieces of a site page, for the site's source list
     official: bool = False
 
 
