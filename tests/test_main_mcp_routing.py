@@ -54,14 +54,10 @@ def test_agent_discovers_and_reads_directly(public_read):
     assert core.final_answer(out["messages"], {}).answer == "Аудитория 301 на третьем этаже."
 
 
-def test_prompt_keeps_trusted_group_without_course_glossary(monkeypatch):
+def test_prompt_keeps_trusted_group(monkeypatch):
     from langchain.agents.middleware import ModelRequest
     from langgraph.runtime import Runtime
 
-    monkeypatch.setattr(core.courses, "courses", lambda: (
-        core.courses.Course("ITP", "Introduction to Programming", ("итп",)),
-        core.courses.Course("CA", "Computer Architecture", ("компарх", "компарч")),
-    ))
     monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
     seen = []
     request = ModelRequest(model=ScriptedModel(responses=[AIMessage(content="ok")]),
@@ -74,14 +70,6 @@ def test_prompt_keeps_trusted_group_without_course_glossary(monkeypatch):
     assert "Courses (use these names" not in text
     assert "ITP = Introduction to Programming" not in text
     assert "CA = Computer Architecture" not in text
-
-    # Only the subject mentioned in the question is decoded, outside the system prompt.
-    question = request.override(messages=[HumanMessage("Когда мидтерм по компарчу?")])
-    hinted = core.QuestionNoteMiddleware(hint=True)._with_hint(question)
-    assert "CA = Computer Architecture" in hinted.messages[0].content
-    assert "ITP = Introduction to Programming" not in hinted.messages[0].content
-    assert question.messages[0].content == "Когда мидтерм по компарчу?"
-    assert {"компарх", "компарч"} <= set(core.store._words("компарч").split())
 
 
 def test_api_identifiers_cannot_resurrect_old_citations():

@@ -16,7 +16,6 @@ from psycopg.rows import dict_row
 
 from catix import userbot_config
 from catix.agent import tracing
-from catix.common import courses
 from catix.db import pg
 from catix.db.rows import ChatRow, MessageHit, SourceRow
 from catix.ingest import noise
@@ -441,12 +440,12 @@ def _vector(vector: list[float], ids: list[int] | None, date_from: str | None, d
 
 
 def _words(query: str) -> str:
-    """The query as the BM25 side sees it: course aliases added, filler words and bare years removed.
+    """The query as the BM25 side sees it: filler words and bare years removed.
 
     A year ("мидтерм 2026") is a rare token to BM25, so it outranks the real topic and pulls in every
     announcement that mentions 2026.
     """
-    all_words = re.findall(r"\w+", courses.expand_query(query).lower())
+    all_words = re.findall(r"\w+", query.lower())
     useful = [w for w in all_words if w not in STOPWORDS and not YEAR_RE.match(w)]
     return " ".join(dict.fromkeys(useful or all_words))
 

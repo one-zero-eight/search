@@ -55,7 +55,7 @@ WORKDIR /app
 RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|' /etc/apt/sources.list.d/debian.sources \
     && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries
 COPY db ./db
-COPY courses.toml sites.yaml ./
+COPY sites.yaml ./
 RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
 
 # The OS packages of a profile are separate stages, so that a profile lists only what it needs.

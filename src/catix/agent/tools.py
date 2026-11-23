@@ -25,7 +25,7 @@ from catix.agent.moodle_tools import MOODLE_TOOLS
 from catix.agent.schedule_tools import get_my_schedule
 from catix.agent.web_tools import WEB_TOOLS
 from catix.agent.sources import Collector
-from catix.common import courses, dates
+from catix.common import dates
 from catix import moodle_files
 from catix.db import rerank as joint_rerank
 from catix.db import store
@@ -76,7 +76,7 @@ def _fmt(dt: date | datetime) -> str:
 EVENT_POOL = 60
 
 
-def _message_item(row, collector: Collector, asked: list[str], now: datetime, text_limit: int = 600) -> dict:
+def _message_item(row, collector: Collector, now: datetime, text_limit: int = 600) -> dict:
     """A chat message as the model sees it, with a ref to cite."""
     item = {
         "ref": collector.add_db(row.ref_id),
@@ -88,7 +88,6 @@ def _message_item(row, collector: Collector, asked: list[str], now: datetime, te
         # The stamp is in the text itself, so "завтра" is read next to the day it was written on.
         "text": row.text[:text_limit],
     }
-    _subject_fields(item, row.text, row.chat_title, asked)
     if row.edit_date:
         item["edited"] = _fmt(row.edit_date)
     if settings.annotate_dates and (resolved := dates.resolve(row.text, row.date, now)):
@@ -182,9 +181,8 @@ def read_chats(
         days = {r.ref_id: dates.first_day_in(r.text, r.date, now, *period) for r in rows}
         rows = sorted((r for r in rows if days[r.ref_id]), key=lambda r: (days[r.ref_id], -r.date.timestamp()))
         total, rows = len(rows), rows[:limit]
-    asked = _asked_courses(runtime)
     text_limit = 600 if limit <= MAX_MESSAGES else READ_TEXT
-    result = {"total": total, "shown": len(rows), "messages": [_message_item(r, collector, asked, now, text_limit) for r in rows]}
+    result = {"total": total, "shown": len(rows), "messages": [_message_item(r, collector, now, text_limit) for r in rows]}
     if total > len(rows):
         which = "soonest" if period else "newest"
         result["note"] = f"The {which} {len(rows)} of {total}: narrow the period or the words, or raise the limit, to see more."
@@ -222,22 +220,6 @@ def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
         if getattr(message, "type", "") == "human":
             return str(message.content)[:300]
     return None
-
-
-def _asked_courses(runtime: ToolRuntime[AgentContext]) -> list[str]:
-    """The courses the user's question names (by any slang or spelling), short names."""
-    question = _question(runtime)
-    return [c.short for c in courses.hints(question)] if question else []
-
-
-def _subject_fields(item: dict, text: str, chat_title: str, asked: list[str]) -> None:
-    """Say which courses a result is about (its text or the name of its chat) and, when the question names a course,
-    whether the result is about it: a small model otherwise takes the midterm of one course for the midterm asked about."""
-    found = [c for c in courses.courses() if courses.mentioned(c.short, f"{chat_title}\n{text}")]
-    if found:
-        item["about"] = [f"{c.short} ({c.name})" for c in found]
-    if asked:
-        item["matches_question_subject"] = bool({c.short for c in found} & set(asked)) if found else None
 
 
 def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
@@ -410,8 +392,7 @@ def _render_chats(fetched, runtime: ToolRuntime[AgentContext], collector: Collec
     """(the result, the refs about the question, whether the results were scored)."""
     rows, dropped = fetched
     now = datetime.now(settings.tz)
-    asked = _asked_courses(runtime)
-    messages = [_message_item(row, collector, asked, now) for row in rows]
+    messages = [_message_item(row, collector, now) for row in rows]
     result: dict = {"total": len(messages), "messages": messages}
     if dropped:
         result["note"] = PAST_LEFT_OUT

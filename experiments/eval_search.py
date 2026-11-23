@@ -10,7 +10,6 @@ Usage: uv run python experiments/eval_search.py
 import statistics
 import time
 
-from catix.common import courses
 from catix.db import pg
 from catix.db import store
 

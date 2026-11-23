@@ -40,7 +40,7 @@ from catix.agent.api_preflight import ApiPreflightMiddleware
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS
 from catix.agent.guardrail import GuardrailMiddleware
 from catix.agent.tools import TOOLS, AgentContext
-from catix.common import courses, dates
+from catix.common import dates
 from catix.common.citations import CitedAnswer
 from catix.db import store
 from catix.settings import settings
@@ -213,15 +213,11 @@ class SourcesMiddleware(AgentMiddleware):
 
 
 class QuestionNoteMiddleware(AgentMiddleware):
-    """Adds computed dates and optional subject expansions to the user's message for the model.
+    """Adds computed dates to the user's message for the model.
 
     The stored conversation is not touched; factual notes are added on each model call.
     Behavioral instructions belong to the system prompt, not to synthetic user messages.
     """
-
-    def __init__(self, *, hint: bool = False) -> None:
-        super().__init__()
-        self.hint = hint
 
     def _with_hint(self, request: ModelRequest) -> ModelRequest:
         messages = list(request.messages)
@@ -233,7 +229,6 @@ class QuestionNoteMiddleware(AgentMiddleware):
                 worked = dates.question_dates(text, now)
                 notes = [
                     f"Dates in this message, worked out (use them, not your own arithmetic): {'; '.join(worked)}." if worked else "",
-                    courses.hint_line(text).strip() if self.hint else "",
                 ]
                 note = " ".join(n for n in notes if n)
                 if not note:
@@ -1010,7 +1005,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             LocalCalendarAccessMiddleware(),  # before the prompt, which lists available capabilities
             AttachmentAccessMiddleware(),
             agent_prompt(),
-            QuestionNoteMiddleware(hint=True),  # the full names of the subjects the question abbreviates, to search with
+            QuestionNoteMiddleware(),
             PruneOldToolResults(),  # before the summary, which then counts what is left
             TurnStartSummarization(
                 ChatOpenAI(
