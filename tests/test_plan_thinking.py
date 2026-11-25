@@ -38,7 +38,7 @@ def _settings(request: Req) -> dict:
 def test_the_first_call_always_thinks_with_the_model_cards_sampling(state):
     got = _settings(Req(QUESTION, state))
     assert got["extra_body"]["chat_template_kwargs"] == {"enable_thinking": True}
-    assert (got["temperature"], got["top_p"], got["presence_penalty"]) == (0.85, 0.95, 1.1)
+    assert (got["temperature"], got["top_p"], got["presence_penalty"]) == (1.0, 0.95, 1.5)
     assert (got["extra_body"]["top_k"], got["extra_body"]["min_p"], got["extra_body"]["repetition_penalty"]) == (20, 0.0, 1.0)
     assert got["max_tokens"] == settings.llm_plan_max_tokens
 

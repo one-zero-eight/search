@@ -549,7 +549,7 @@ class PriorityMiddleware(AgentMiddleware):
 
 # The sampling the model card recommends for thinking. Greedy (temperature 0, the agent's) a thinking model goes round in
 # its reasoning until the token limit, and the answer comes back empty.
-THINKING_SAMPLING = {"temperature": 0.85, "top_p": 0.95, "presence_penalty": 1.1}
+THINKING_SAMPLING = {"temperature": 1.0, "top_p": 0.95, "presence_penalty": 1.5}
 THINKING_EXTRA_BODY = {"top_k": 20, "min_p": 0.0, "repetition_penalty": 1.0}
 
 
