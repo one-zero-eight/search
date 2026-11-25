@@ -2,6 +2,8 @@
 
 import json
 
+from types import SimpleNamespace
+
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
@@ -153,7 +155,7 @@ def test_real_graph_reads_attachment_without_retrieval_helper(monkeypatch, async
     model = ScriptedModel(responses=[read_turn()[1], AIMessage("В syllabus.pdf, стр. 1: дедлайн 18 ноября.")])
     graph = core.build_agent(model, guardrail=False)
     context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"),
-                           attachment_chat_id="chat", attachments=(metadata,), current_attachment_ids=(FILE_ID,))
+                           attachment_chat_id="chat", attachments=(metadata,))
     args = ({"messages": [HumanMessage("Какой дедлайн в приложенном файле?")]}, {"configurable": {"thread_id": "files"}})
     result = asyncio.run(graph.ainvoke(*args, context=context)) if asynchronous else graph.invoke(*args, context=context)
     assert reads == [("owner", "chat", FILE_ID, 1)]
@@ -178,7 +180,7 @@ def test_file_derived_calendar_action_still_requires_host_approval(calendar, mon
     graph = core.build_agent(ScriptedModel(responses=[read_turn()[1], call("add_to_ai_calendar", ARGS, "file-action"),
                                                      AIMessage("Запрос обработан.")]), guardrail=False)
     context = AgentContext(innohassle_id="u1", innohassle_token=SecretStr("synthetic"),
-                           attachment_chat_id="chat", attachments=(metadata,), current_attachment_ids=(FILE_ID,))
+                           attachment_chat_id="chat", attachments=(metadata,))
     config = {"configurable": {"thread_id": "file-action-" + decision}}
     graph.invoke({"messages": [HumanMessage("Добавь встречу из файла в календарь.")]}, config, context=context)
     interrupts = graph.get_state(config).interrupts
@@ -186,3 +188,45 @@ def test_file_derived_calendar_action_still_requires_host_approval(calendar, mon
     assert interrupts[0].value["action_requests"][0]["name"] == "add_to_ai_calendar"
     graph.invoke(Command(resume={interrupts[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert len(calendar.writes) == (1 if decision == "approve" else 0)
+
+
+def _attached_run(monkeypatch, category):
+    """The whole agent on a picture with the guardrail's verdict forced; returns (preread questions, result)."""
+    import asyncio
+    from pydantic import SecretStr
+    from catix.agent import attachment_tools, guardrail
+    from catix.agent.tools import AgentContext
+    from tests.test_roles import ScriptedModel
+
+    info = {"id": FILE_ID, "filename": "image.png", "media_type": "image/png", "size_bytes": 100, "pages": 1}
+    asked = []
+
+    async def preread(owner, chat, manifest, current, query):
+        asked.append(query)
+        call = {"name": "read_attachment", "id": f"preread-{FILE_ID}", "args": {"attachment_id": FILE_ID, "page": 1}}
+        return [AIMessage("", tool_calls=[call]), ToolMessage("{}", tool_call_id=call["id"], name="read_attachment")]
+
+    async def screen(text, *, history="[]"):
+        return guardrail.Verdict(category=category)
+
+    monkeypatch.setattr(core, "tool_call_token", lambda: None)
+    monkeypatch.setattr(core.store, "visible_chats", lambda *args: [])
+    monkeypatch.setattr(attachment_tools, "preread", preread)
+    monkeypatch.setattr(guardrail, "ascreen", screen)
+    monkeypatch.setattr(guardrail.abuse, "record", lambda *args: SimpleNamespace(newly_paused=False, paused_until=None, warn=False))
+    context = AgentContext(innohassle_id="owner", innohassle_token=SecretStr("test-only"),
+                           attachment_chat_id="chat", attachments=(info,), current_attachment_ids=(FILE_ID,))
+    graph = core.build_agent(ScriptedModel(responses=[AIMessage("Черновик создан.")]), guardrail=True)
+    args = ({"messages": [HumanMessage("создай из этого изображения черновик события")]}, {"configurable": {"thread_id": "pic"}})
+    return asked, asyncio.run(graph.ainvoke(*args, context=context))
+
+
+def test_a_picture_is_read_for_a_message_the_guardrail_lets_through(monkeypatch):
+    asked, result = _attached_run(monkeypatch, "ok")
+    assert asked == ["создай из этого изображения черновик события"]
+    assert [m.name for m in result["messages"] if isinstance(m, ToolMessage)] == ["read_attachment"]
+
+
+def test_a_picture_is_not_read_for_a_blocked_message(monkeypatch):
+    asked, result = _attached_run(monkeypatch, "spam")
+    assert asked == [] and not any(isinstance(m, ToolMessage) for m in result["messages"])

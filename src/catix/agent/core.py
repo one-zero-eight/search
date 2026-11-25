@@ -1,5 +1,6 @@
 """LangChain agent over the local llama.cpp server (OpenAI-compatible API)."""
 
+import asyncio
 import json
 import logging
 import math
@@ -32,7 +33,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 from typing_extensions import NotRequired
 
-from catix.agent import claims, questions, roles, sources, tracing, web_tools
+from catix.agent import attachment_tools, claims, questions, roles, sources, tracing, web_tools
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
 from catix.agent.calendar_tools import _mutation_key
 from catix.agent.feedback_tools import FEEDBACK_APPROVAL
@@ -180,9 +181,37 @@ def agent_prompt():
     return system_prompt
 
 
+class PrereadMiddleware(AgentMiddleware[AgentState, AgentContext]):
+    """Reads the files of the new question (OCR, the vision model) once the guardrail let the message through: a blocked
+    message costs no vision call. The result goes after the user's message as a finished read_attachment call
+    (attachment_tools.preread), so nothing makes the model call a tool for the files."""
+
+    @staticmethod
+    def _files(state, runtime) -> tuple | None:
+        context = runtime.context
+        if not (context and context.innohassle_id and context.attachment_chat_id and context.current_attachment_ids):
+            return None
+        question = next((str(m.content) for m in reversed(state["messages"]) if isinstance(m, HumanMessage)), None)
+        if question is None:
+            return None
+        return context.innohassle_id, context.attachment_chat_id, context.attachments, context.current_attachment_ids, question
+
+    @staticmethod
+    def _messages(read: list[BaseMessage]) -> dict | None:
+        return {"messages": read} if read else None
+
+    def before_agent(self, state, runtime) -> dict | None:
+        files = self._files(state, runtime)
+        return self._messages(asyncio.run(attachment_tools.preread(*files))) if files else None
+
+    async def abefore_agent(self, state, runtime) -> dict | None:
+        files = self._files(state, runtime)
+        return self._messages(await attachment_tools.preread(*files)) if files else None
+
+
 class AttachmentAccessMiddleware(AgentMiddleware[AgentState, AgentContext]):
     """Expose the file tools only where the chat has files. The files of a new question are read by the code before the
-    model starts (api/ask.py, attachment_tools.preread), so nothing makes the model call a tool for them."""
+    model starts (PrereadMiddleware), so nothing makes the model call a tool for them."""
 
     @staticmethod
     def _without(request: ModelRequest[AgentContext]) -> ModelRequest[AgentContext]:
@@ -1003,6 +1032,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
         # Order matters: the first middleware wraps the rest, so logging sees the already trimmed context.
         middleware=[
             *([GuardrailMiddleware()] if guardrail else []),  # first: a blocked message costs the agent nothing
+            PrereadMiddleware(),  # right after the guardrail: files are read only for a message that goes on
             LocalCalendarAccessMiddleware(),  # before the prompt, which lists available capabilities
             AttachmentAccessMiddleware(),
             agent_prompt(),
