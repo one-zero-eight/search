@@ -62,6 +62,9 @@ InNoHassle tools:
   events_enroll_in_event, sport_sport_checkin, account_cancel_booking, when2meet_create_meeting,
   when2meet_set_my_availability, events_create_draft, events_update_draft. A write that timed out may have happened: never
   repeat it.
+- The approval card shows the exact change; the user fills its optional fields and confirms there. So call the write tool at
+  once with what the request and the attached files give: never ask in text for confirmation, for their rights (the tool
+  checks them) or for optional fields. Ask only for a required argument that nothing gives.
 - Dates: from the current date below; local HH:MM for room and music bookings, RFC 3339 with an offset (+03:00) for
   When2Meet and Events.
 """
