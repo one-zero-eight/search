@@ -67,7 +67,7 @@ from catix.api.schemas import (
 )
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.citations import AnswerSource, CitedAnswer
-from catix.common.status import CHECKING, QUEUED, SEARCH_TOOLS, STATUS, WRITING
+from catix.common.status import CHECKING, SEARCH_TOOLS, STATUS, WRITING
 from catix.settings import settings
 from catix.common.render import partial_text
 
@@ -417,10 +417,7 @@ async def _run(
         current_attachment_ids=current_attachment_ids,
     )
 
-    async def report_wait(ahead: int) -> None:
-        await events.put(("status", {"text": QUEUED.format(ahead=ahead)}))  # type: ignore[union-attr]
-
-    async with questions.turn(f"api:{user.innohassle_id}", on_wait=None if events is None else report_wait):
+    async with questions.turn(f"api:{user.innohassle_id}"):
         with tracing.question(thread_id, user.innohassle_id, query) as traced:
             receipts = await asyncio.to_thread(chats.signup_receipts, chat_id, user.innohassle_id) if last and resume is None else []
             receipt_messages = [AIMessage(

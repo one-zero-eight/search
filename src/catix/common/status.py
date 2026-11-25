@@ -1,7 +1,6 @@
 """What the user is told while the agent works on a question: the Telegram bot shows it in a draft, the API sends it as
 `status` events."""
 
-QUEUED = "⏳ Отвечаю на другие вопросы, ваш в очереди. Перед вами: {ahead}"
 CHECKING = "🛡 Проверяю запрос…"
 WRITING = "✍️ Формулирую ответ…"
 # The status of a tool while it runs, between the model deciding to call it and the answer starting.

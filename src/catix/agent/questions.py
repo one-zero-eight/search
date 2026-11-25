@@ -15,12 +15,9 @@ import asyncio
 import contextlib
 import contextvars
 import itertools
-import logging
 import time
-from collections.abc import AsyncIterator, Awaitable, Callable
+from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
-
-log = logging.getLogger("catix.questions")
 
 # The priority of the model calls of the question being answered (LLM_PRIORITY, agent/core.py PriorityMiddleware): the
 # moment it got its turn, in ms and below zero. vLLM serves the lowest first and gives 0 to a call without one, so the
@@ -46,10 +43,6 @@ class QuestionQueue:
         self._running: list[_Ticket] = []
         self._changed = asyncio.Condition()
 
-    def ahead(self, ticket: _Ticket) -> int:
-        """Questions that will be answered or are being answered before this one."""
-        return len(self._running) + self._waiting.index(ticket)
-
     def _enqueue(self, user: str) -> _Ticket:
         rank = sum(t.user == user for t in self._running + self._waiting)
         ticket = _Ticket(user, rank)
@@ -59,40 +52,19 @@ class QuestionQueue:
         return ticket
 
     @contextlib.asynccontextmanager
-    async def turn(
-        self, user: str, on_wait: Callable[[int], Awaitable[None]] | None = None, repeat: float | None = None
-    ) -> AsyncIterator[None]:
-        """Waits for the turn of a question of `user`, then holds a place while the block runs.
-
-        While it waits (not when there is no wait at all), `on_wait(n)` is called with the number of questions ahead
-        whenever it changes, and again every `repeat` seconds if it does not (a Telegram draft disappears after 30 s)."""
+    async def turn(self, user: str) -> AsyncIterator[None]:
+        """Waits for the turn of a question of `user`, then holds a place while the block runs."""
         async with self._changed:
             ticket = self._enqueue(user)
             self._changed.notify_all()  # those it was put ahead of are one place further back
         try:
-            shown, shown_at = None, 0.0
-            while True:
-                async with self._changed:
-                    if len(self._running) < self.parallel and self._waiting[0] is ticket:
-                        self._waiting.remove(ticket)
-                        self._running.append(ticket)
-                        self._changed.notify_all()  # with more than one place, the next one may start too
-                        break
-                    ahead = self.ahead(ticket)
-                    if on_wait is None or (ahead == shown and repeat is None):
-                        await self._changed.wait()
-                        continue
-                    left = shown_at + repeat - time.monotonic() if ahead == shown else 0
-                    if left > 0:
-                        with contextlib.suppress(TimeoutError):
-                            await asyncio.wait_for(self._changed.wait(), left)
-                        continue
-                if shown is None:
-                    log.info("question of %s waits, %d ahead", user, ahead)
-                shown, shown_at = ahead, time.monotonic()
-                await on_wait(ahead)  # outside the lock: it talks to the messenger
+            async with self._changed:
+                await self._changed.wait_for(lambda: len(self._running) < self.parallel and self._waiting[0] is ticket)
+                self._waiting.remove(ticket)
+                self._running.append(ticket)
+                self._changed.notify_all()  # with more than one place, the next one may start too
         except BaseException:
-            async with self._changed:  # left the queue while waiting (cancelled, or on_wait failed)
+            async with self._changed:  # left the queue while waiting (cancelled)
                 if ticket in self._waiting:
                     self._waiting.remove(ticket)
                     self._changed.notify_all()

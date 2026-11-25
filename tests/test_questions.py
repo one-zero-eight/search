@@ -9,12 +9,8 @@ def _run(coro):
     return asyncio.run(coro)
 
 
-async def _ask(queue: QuestionQueue, user: str, name: str, log: list, release: asyncio.Event, waits: list | None = None):
-    async def on_wait(ahead: int) -> None:
-        if waits is not None:
-            waits.append((name, ahead))
-
-    async with queue.turn(user, on_wait):
+async def _ask(queue: QuestionQueue, user: str, name: str, log: list, release: asyncio.Event):
+    async with queue.turn(user):
         log.append(f"start {name}")
         await release.wait()
         log.append(f"end {name}")
@@ -65,52 +61,6 @@ def test_a_users_second_question_waits_behind_the_first_questions_of_others():
     assert _run(scenario()) == ["s0", "o0", "s1", "s2"]  # s0 was already being answered when o0 came
 
 
-def test_a_waiting_question_hears_how_many_are_ahead_and_one_without_a_wait_hears_nothing():
-    async def scenario():
-        queue, log, waits = QuestionQueue(1), [], []
-        first, second = asyncio.Event(), asyncio.Event()
-        a = asyncio.create_task(_ask(queue, "a", "a", log, first, waits))
-        await _settle()
-        b = asyncio.create_task(_ask(queue, "b", "b", log, second, waits))
-        c = asyncio.create_task(_ask(queue, "c", "c", log, second, waits))
-        await _settle()
-        first.set()
-        await a
-        await _settle()
-        second.set()
-        await asyncio.gather(b, c)
-        return waits
-
-    assert _run(scenario()) == [("b", 1), ("c", 2), ("c", 1)]
-
-
-def test_the_status_is_repeated_while_the_place_stays_the_same():
-    async def scenario():
-        queue, seen, release = QuestionQueue(1), [], asyncio.Event()
-
-        async def holder():
-            async with queue.turn("a"):
-                await release.wait()
-
-        async def waiter():
-            async def on_wait(ahead):
-                seen.append(ahead)
-
-            async with queue.turn("b", on_wait, repeat=0.05):
-                pass
-
-        tasks = [asyncio.create_task(holder())]
-        await _settle()
-        tasks.append(asyncio.create_task(waiter()))
-        await asyncio.sleep(0.18)
-        release.set()
-        await asyncio.gather(*tasks)
-        return seen
-
-    seen = _run(scenario())
-    assert seen[0] == 1 and len(seen) >= 3, seen
-
-
 def test_a_question_that_gives_up_leaves_the_queue():
     async def scenario():
         queue, log, release = QuestionQueue(1), [], asyncio.Event()
@@ -126,8 +76,6 @@ def test_a_question_that_gives_up_leaves_the_queue():
 
     log, cancelled = _run(scenario())
     assert cancelled and log == ["start a", "end a", "start c", "end c"]
-
-
 
 
 def test_a_question_that_got_its_turn_earlier_has_the_lower_priority():
