@@ -259,10 +259,7 @@ def test_graph_preserves_opaque_id_and_requires_consent(monkeypatch, signed_user
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1
     assert paused[0].value["action_requests"][0]["args"]["arguments"] == arguments
-    assert "AA+/BB==" in paused[0].value["action_requests"][0]["description"]
-    assert "Study group" in paused[0].value["action_requests"][0]["description"]
-    assert [(request.method, request.url.raw_path) for request in upstream] == [
-        ("GET", b"/room-booking/v0/bookings/AA%2B%2FBB%3D%3D")]
+    assert upstream == [], "no service read before the user decides"
     agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     writes = [request for request in upstream if request.method != "GET"]
     if decision == "approve":
@@ -270,4 +267,4 @@ def test_graph_preserves_opaque_id_and_requires_consent(monkeypatch, signed_user
         assert writes[0].url.raw_path == b"/room-booking/v0/bookings/AA%2B%2FBB%3D%3D"
     else:
         assert writes == []
-    assert sum(request.method == "GET" for request in upstream) == 1, "Resume must not refetch the proposal"
+    assert not any(request.method == "GET" for request in upstream)

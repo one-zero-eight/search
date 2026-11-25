@@ -142,13 +142,7 @@ def test_checking_in_waits_for_the_askers_approval(sport, decision, cancel, monk
     assert len(paused) == 1 and not sport
     request = paused[0].value["action_requests"][0]
     assert request["name"] == "call_api_tool" and request["args"]["name"] == "sport_sport_checkin"
-    description = request["description"]
-    if cancel:
-        assert description.startswith("Отменить вашу запись на тренировку #13.")
-        assert "Swimming" in description
-    else:
-        assert description.startswith("Записать вас на тренировку #11.")
-        assert "Volleyball" in description and "18:00" in description and "19:30" in description
+    assert request["args"]["arguments"] == {"training_id": training_id, "cancel": cancel}
     agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert sport == ([(training_id, not cancel)] if decision == "approve" else [])
     assert not agent.get_state(config).interrupts

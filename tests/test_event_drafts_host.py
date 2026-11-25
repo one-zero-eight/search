@@ -7,7 +7,6 @@ from langgraph.types import Command
 from pydantic import SecretStr
 
 from catix.agent import core
-from catix.agent.api_descriptions import describe_action
 from catix.agent.tools import AgentContext
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS, CREDENTIAL_MODES
 from tests.test_mcp_event_drafts import CREATE, ID, signed, upstream
@@ -19,25 +18,10 @@ MUTATIONS = [('events_create_draft', CREATE),
 
 
 @pytest.mark.parametrize('name,arguments', MUTATIONS)
-@pytest.mark.parametrize('language', ['ru', 'en'])
-def test_draft_confirmation_covers_exact_requested_fields(name, arguments, language):
-    assert name in CONFIRMATION_TOOLS
-    assert CREDENTIAL_MODES[name] == 'innohassle'
-    text = describe_action(name, arguments, language)
-    for value in arguments.values():
-        if value != '':
-            assert str(value) in text
-    assert ('модерац' in text if language == 'ru' else 'moderation' in text)
-    if name == 'events_update_draft':
-        assert ('Очистить описание' in text if language == 'ru' else 'Clear description' in text)
-        assert ('внешнюю регистрацию' in text if language == 'ru' else 'external registration' in text)
-
-
-@pytest.mark.parametrize('name,arguments', MUTATIONS)
 @pytest.mark.parametrize('decision', ['approve', 'reject'])
 @pytest.mark.parametrize('asynchronous', [False, True])
 def test_draft_host_consent_then_real_protocol_readback(
-    signed, upstream, mcp_http_protocol, monkeypatch, name, arguments, helper, decision, asynchronous,
+    signed, upstream, mcp_http_protocol, monkeypatch, name, arguments, decision, asynchronous,
 ):
     _, requests = upstream
     monkeypatch.setattr(core.store, 'visible_chats', lambda *a: [])
@@ -59,7 +43,7 @@ def test_draft_host_consent_then_real_protocol_readback(
     assert requests == [], 'No upstream details/permissions or writes before consent'
     action = paused[0].value['action_requests'][0]
     assert action['args'] == {'name': name, 'arguments': arguments}
-    assert ('Создать черновик' if name == 'events_create_draft' else 'Изменить черновик') in action['description']
+    assert name in CONFIRMATION_TOOLS and CREDENTIAL_MODES[name] == 'innohassle'
     out = run(Command(resume={paused[0].id: {'decisions': [{'type': decision}]}}))
     assert not agent.get_state(config).interrupts
     if decision == 'reject':

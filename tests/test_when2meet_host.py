@@ -92,12 +92,6 @@ def test_when2meet_real_protocol_waits_for_consent_and_reads_back(
     assert requests == [], "Confirmation cannot read upstream details or mutate"
     action = paused[0].value["action_requests"][0]
     assert action["args"] == {"name": target, "arguments": arguments}
-    assert "When2Meet" in action["description"]
-    if target == "when2meet_create_meeting":
-        assert all(value in action["description"] for value in ("Planning", SLOT, "Europe/Moscow"))
-    else:
-        assert "team-42" in action["description"]
-        assert ("Заменить все" if arguments["availability"] else "Очистить все") in action["description"]
     out = invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}))
     assert not agent.get_state(config).interrupts
     if decision == "reject":

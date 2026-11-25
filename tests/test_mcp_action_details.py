@@ -63,9 +63,7 @@ def test_training_all_day_is_explicit(identity, monkeypatch):
     ('sport_get_sport_trainings', {'date_from': '2099-01-01', 'date_to': '2099-01-02'}),
     ('sport_get_my_sport', {}),
 ])
-def test_reused_training_all_day_description_preserves_date_range(identity, monkeypatch, name, arguments):
-    from catix.agent.api_context import from_result
-
+def test_reused_training_all_day_preserves_date_range(identity, monkeypatch, name, arguments):
     monkeypatch.setattr(sport, 'me', lambda *args: {'user_id': 1, 'student_info': {'medical_group': 'main'}})
     monkeypatch.setattr(sport, 'hours', lambda *args: {})
     monkeypatch.setattr(sport, 'current_semester', lambda *args: {})
@@ -76,10 +74,6 @@ def test_reused_training_all_day_description_preserves_date_range(identity, monk
     }])
     for result in invoke(name, arguments):
         assert not result.is_error, result
-        description = from_result('sport_sport_checkin', {'training_id': 7}, name, result.data)
-        assert description is not None
-        assert '2099-01-01' in description and '2099-01-03' in description
-        assert 'all day' in description
         item = result.data['checked_in' if name == 'sport_get_my_sport' else 'trainings'][0]
         assert item['all_day'] is True
         assert 'time' not in item

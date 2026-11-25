@@ -1,4 +1,4 @@
-"""Confirmation text is local; the replayed HITL callback is a pure lookup."""
+"""Preflight prepares the exact arguments and schema of an action before the user is asked."""
 
 import asyncio
 from copy import deepcopy
@@ -40,99 +40,47 @@ def state(call=None, questions=None, schema=SCHEMA) -> ApiPreflightState:
 
 
 @pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("question,description", [
-    ("Check in.", "Check you in to the training #7."),
-    ("Запиши на спорт.", "Записать вас на тренировку #7."),
-])
-def test_preflight_formats_locally_in_latest_language_then_callback_is_pure(monkeypatch, asynchronous, question, description):
+def test_preflight_prepares_exact_arguments_and_schema_without_rpc(monkeypatch, asynchronous):
     monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No RPC for a discovered action"))
     monkeypatch.setattr(mcp_client, "request", lambda *a, **kw: pytest.fail("No RPC for a discovered action"))
-    initial = state(questions=[HumanMessage("Previous question."), HumanMessage(question)])
+    initial = state()
     middleware = ApiPreflightMiddleware()
     prepared = (asyncio.run(middleware.aafter_model(initial, RUNTIME)) if asynchronous
                 else middleware.after_model(initial, RUNTIME))
     assert "jump_to" not in prepared
-    shown = api_tools._describe_mutation(CALL, prepared, RUNTIME)
-    assert shown.startswith(description) and "Frisbee" in shown
-    assert api_tools._describe_mutation(CALL, prepared, RUNTIME) == shown
-    assert prepared["api_prepared"][0]["arguments"] == ARGUMENTS  # Defaults never replace raw execution intent.
+    assert prepared["api_prepared"] == [{"call_id": "write-1", "target": "sport_sport_checkin",
+                                         "arguments": ARGUMENTS, "schema": SCHEMA}]  # Defaults never replace raw execution intent.
 
 
-@pytest.mark.parametrize("default", [False, True])
-@pytest.mark.parametrize("explicit", [None, False, True])
-def test_description_uses_discovered_defaults_without_changing_execution_arguments(monkeypatch, default, explicit):
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No RPC"))
-    schema = deepcopy(SCHEMA)
-    schema["properties"]["cancel"]["default"] = default
-    call = deepcopy(CALL)
-    if explicit is not None:
-        call["args"]["arguments"]["cancel"] = explicit
-    original = deepcopy(call)
-    prepared = ApiPreflightMiddleware().after_model(state(call, schema=schema), RUNTIME)
-    assert "jump_to" not in prepared
-    description = api_tools._describe_mutation(call, prepared, RUNTIME)
-    assert description.startswith("Cancel" if (default if explicit is None else explicit) else "Check")
-    assert prepared["api_prepared"][0]["arguments"] == original["args"]["arguments"]
-    assert call == original
+@pytest.mark.parametrize("change", ["target", "arguments", "bool_vs_int", "missing"])
+def test_edit_schema_is_found_only_for_the_prepared_call(change):
+    from catix.agent.approval_edit import prepared_schema
 
-
-@pytest.mark.parametrize("asynchronous", [False, True])
-@pytest.mark.parametrize("default", [None, 0, "false", "absent"])
-def test_invalid_or_missing_display_defaults_fail_without_approval(monkeypatch, asynchronous, default):
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No RPC"))
-    monkeypatch.setattr(mcp_client, "request", lambda *a, **kw: pytest.fail("No RPC"))
-    schema = deepcopy(SCHEMA)
-    if default == "absent":
-        del schema["properties"]["cancel"]["default"]
-    else:
-        schema["properties"]["cancel"]["default"] = default
-    initial = state(schema=schema)
-    original = deepcopy(initial)
-    middleware = ApiPreflightMiddleware()
-    prepared = (asyncio.run(middleware.aafter_model(initial, RUNTIME)) if asynchronous
-                else middleware.after_model(initial, RUNTIME))
-    assert prepared["jump_to"] == "model" and prepared["api_prepared"] == []
-    assert prepared["messages"][0].status == "error"
-    assert prepared["messages"][0].tool_call_id == CALL["id"]
-    assert initial == original
-    with pytest.raises(ValueError, match="prepared"):
-        api_tools._describe_mutation(CALL, prepared, RUNTIME)
-
-
-@pytest.mark.parametrize("change", ["id", "target", "arguments", "bool_vs_int", "missing"])
-def test_description_refuses_unprepared_or_different_call_without_io(monkeypatch, change):
-    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("HITL lookup must never perform I/O"))
-    prepared = {"api_prepared": [{"call_id": "write-1", "target": "sport_sport_checkin", "arguments": ARGUMENTS,
-                                  "description": "Reviewed training."}]}
-    call = deepcopy(CALL)
-    if change == "id":
-        call["id"] = "write-2"
-    elif change == "target":
-        call["args"]["name"] = "rooms_book_room"
+    prepared = [{"call_id": "write-1", "target": "sport_sport_checkin", "arguments": ARGUMENTS, "schema": SCHEMA}]
+    name, args = "call_api_tool", {"name": "sport_sport_checkin", "arguments": dict(ARGUMENTS)}
+    if change == "target":
+        args["name"] = "rooms_book_room"
     elif change == "arguments":
-        call["args"]["arguments"]["cancel"] = True
+        args["arguments"]["cancel"] = True
     elif change == "bool_vs_int":
-        prepared["api_prepared"][0]["arguments"] = {"training_id": 1}
-        call["args"]["arguments"] = {"training_id": True}
-    else:
-        prepared = {}
-    assert api_tools._needs_approval(SimpleNamespace(tool_call=call, runtime=RUNTIME))
-    with pytest.raises(ValueError, match="prepared"):
-        api_tools._describe_mutation(call, prepared, RUNTIME)
-    assert api_tools._needs_approval(SimpleNamespace(tool_call=call, runtime=RUNTIME))
+        prepared[0]["arguments"] = {"training_id": 1}
+        args["arguments"] = {"training_id": True}
+    elif change == "missing":
+        prepared = []
+    assert prepared_schema(prepared, name, args) is None
 
 
 @pytest.mark.parametrize("token", [None, SecretStr("synthetic-user")])
 def test_missing_required_credentials_never_send_preflight_io(monkeypatch, token):
     monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No required credentials"))
     runtime = Runtime(context=AgentContext(innohassle_token=token))
-    initial: ApiPreflightState = {**state(), "api_prepared": [{"description": "stale"}]}
+    initial: ApiPreflightState = {**state(), "api_prepared": [{"call_id": "stale"}]}
     assert ApiPreflightMiddleware().after_model(initial, runtime) == {"api_prepared": []}
     assert not api_tools._needs_approval(SimpleNamespace(tool_call=CALL, runtime=runtime))
 
 
 @pytest.mark.parametrize("arguments", [{"training_id": True}, {"training_id": 7, "cancel": 1}])
-def test_invalid_typed_arguments_never_reach_description(monkeypatch, arguments):
+def test_invalid_typed_arguments_never_reach_approval(monkeypatch, arguments):
     call = deepcopy(CALL)
     call["args"]["arguments"] = arguments
     monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No RPC"))

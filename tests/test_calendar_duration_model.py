@@ -45,6 +45,6 @@ def test_model_leaves_unknown_end_to_explicit_host_proposal(monkeypatch, known_e
     assert len(calls) == 1 and len(pending) == 1
     assert calls[0]["args"].get("end_time") == ("10:30" if known_end else None)
     assert calls[0]["args"].get("proposed_duration_minutes") == (None if known_end else 90)
-    description = pending[0].value["action_requests"][0]["description"]
-    assert "09:00" in description and "10:30" in description
-    assert ("предложенная" in description) is (not known_end)
+    shown = pending[0].value["action_requests"][0]["args"]
+    assert shown.get("end_time") == calls[0]["args"].get("end_time")
+    assert shown.get("proposed_duration_minutes") == calls[0]["args"].get("proposed_duration_minutes")

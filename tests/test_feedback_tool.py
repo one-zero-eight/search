@@ -46,9 +46,7 @@ def test_feedback_waits_for_approval_and_sends_once(sent, decision):
     agent, config, _ = run(SITE, f"feedback-{decision}")
     interrupts = agent.get_state(config).interrupts
     assert len(interrupts) == 1 and sent == []
-    description = interrupts[0].value["action_requests"][0]["description"]
-    for part in ("catix", "https://t.me/+AbCdEfGhIjKlMnOp", "a.b@innopolis.university", "Telegram id 42"):
-        assert part in description
+    assert interrupts[0].value["action_requests"][0]["args"] == ARGS, "the user sees exactly what is sent"
     out = agent.invoke(Command(resume={interrupts[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     if decision == "reject":
         assert sent == []

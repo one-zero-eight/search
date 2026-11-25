@@ -63,9 +63,8 @@ def test_every_context_waits_for_consent_and_sends_only_normal_credentials(monke
     agent, config, _ = _graph_action(model_args, context=context, reads=reads)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and sent == []
-    description = paused[0].value["action_requests"][0]["description"]
-    assert description.startswith("Записать вас на тренировку #11.")
-    assert "Basketball" in description and "17:00" in description
+    request_args = paused[0].value["action_requests"][0]["args"]
+    assert {key: value for key, value in request_args.items() if key != "runtime"} == args, "the user sees the exact arguments"
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}), config, context=context)
     assert not agent.get_state(config).interrupts
     assert sent == ([args] if decision == "approve" else [])
@@ -155,7 +154,7 @@ def test_server_business_validation_remains_at_execution(mcp_http_protocol, monk
         "day": "2099-01-01", "room_id": "r1", "title": "Meeting", "time_from": "11:00", "time_to": "10:00"}}
     agent, config, _ = _graph_action(args)
     paused = agent.get_state(config).interrupts[0]
-    assert "11:00–10:00" in paused.value["action_requests"][0]["description"]
+    assert paused.value["action_requests"][0]["args"] == args
     assert sent == ["search_tools"]
     context = AgentContext(innohassle_token=SecretStr("user-token"))
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": decision}]}}), config, context=context)
@@ -265,7 +264,7 @@ def test_all_graph_contexts_confirm_over_real_http_without_tickets(mcp_http_prot
     agent, config, _ = _graph_action(args, context=SITE)
     paused = agent.get_state(config).interrupts[0]
     assert writes == []
-    assert "18:00–19:00" in paused.value["action_requests"][0]["description"]
+    assert paused.value["action_requests"][0]["args"] == args
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert [(token, start.hour, end.hour) for token, start, end in writes] == (
         [("user-token", 18, 19)] if decision == "approve" else [])

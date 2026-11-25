@@ -17,7 +17,8 @@ room or a room, enrol them in an event, cancel a booking), and the orchestrator 
 HumanInTheLoopMiddleware pauses the
 agent before each such action (a LangGraph interrupt in the chat's thread). The response then has `approval` (what is to be
 done) alongside the assistant's explanation, and the question waits in the chat (api/chats.py `save_waiting`). POST
-/ask/{chat_id}/decision (or .../decision/stream) approves or rejects it: the agent goes on from where it paused, with the token
+/ask/{chat_id}/decision (or .../decision/stream) approves or rejects it (an approval may carry `edits`, the user's changes of
+the fields the action offers: agent/approval_edit.py): the agent goes on from where it paused, with the token
 of that request, and its answer is the answer to the question. An answer to a new question in the chat drops what waited.
 
 POST /act/ is a mock kept from the search service, which had an agent for actions only; cAtIx does them in /ask/.
@@ -42,17 +43,19 @@ from psycopg_pool import AsyncConnectionPool
 from catix import attachments, groups, personal_calendar
 from catix.attachments import AttachmentInfo
 from catix.agent import events as calendar_events
-from catix.agent import attachment_tools, titles, tracing
+from catix.agent import approval_edit, attachment_tools, titles, tracing
 from catix.agent.approval import DECLINED
-from catix.agent.core import SUPERVISOR_NAME, _language, build_agent, final_answer
+from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import chats, search, signup, state
 from catix.api.auth import AskerDep, UserTokenData, VerifiedDep
 from catix.api.schemas import (
     ActResponses,
+    ActionEdit,
     AskAction,
     AskApproval,
+    AskField,
     AskChat,
     AskChatHistory,
     AskDecision,
@@ -78,10 +81,6 @@ ACT_UNAVAILABLE = (
     "Здесь действия в сервисах InNoHassle не выполняются: попросите ассистента в чате (/ask/) — забронировать музкомнату или "
     "аудиторию, записаться на событие или отменить бронь, — и подтвердите действие под его ответом."
 )
-WAITING = {
-    "Russian": "Подтвердите или отклоните действие в карточке ниже.",
-    "English": "Approve or reject the action in the card below.",
-}
 
 
 _agent = None
@@ -148,15 +147,45 @@ def _approval(interrupts, checkpoint: str) -> AskApproval:
     actions = []
     for interrupt in interrupts:
         value = interrupt.value if isinstance(interrupt.value, dict) else {}
-        for request in value.get("action_requests") or [{"name": "action", "description": str(interrupt.value)}]:
-            actions.append(AskAction(name=request.get("name") or "action", description=request.get("description") or request.get("name") or ""))
+        for request in value.get("action_requests") or [{"name": "action"}]:
+            name = request.get("name") or "action"
+            target, args = approval_edit.target_and_args(name, request.get("args") or {})
+            actions.append(AskAction(
+                name=name, target=target, args=args,
+                fields=[AskField(**field) for field in approval_edit.fields(name, request.get("args") or {})],
+            ))
     return AskApproval(id=checkpoint, actions=actions)
 
 
-def _decisions(found: list[dict], decision: str) -> dict:
-    """The resume of each interrupt: one decision per action it asked about, the same for all."""
+def _decisions(found: list[dict], decision: str, edits: list[ActionEdit] | None = None, paused=None) -> dict:
+    """The resume of each interrupt: one decision per action it asked about, the same for all; an approved action the user
+    changed gets an `edit` decision with its validated new arguments (InvalidEdit when they do not hold)."""
     one = {"type": "approve"} if decision == "approve" else {"type": "reject", "message": DECLINED}
-    return {i["id"]: {"decisions": [one] * i["actions"]} for i in found}
+    changes = {edit.index: edit.values for edit in edits or [] if edit.values}
+    if not changes:
+        return {i["id"]: {"decisions": [one] * i["actions"]} for i in found}
+    if decision != "approve":
+        raise approval_edit.InvalidEdit("Changes can only be approved.")
+    requests = {interrupt.id: (interrupt.value or {}).get("action_requests") or [] for interrupt in paused.interrupts}
+    prepared = (paused.values or {}).get("api_prepared") or []
+    resume, position = {}, 0
+    for i in found:
+        decisions = []
+        for n in range(i["actions"]):
+            values = changes.pop(position, None)
+            position += 1
+            if values is None:
+                decisions.append(one)
+                continue
+            request = requests.get(i["id"], [])[n] if n < len(requests.get(i["id"], [])) else None
+            if request is None:
+                raise approval_edit.InvalidEdit("This action cannot be changed.")
+            schema = approval_edit.prepared_schema(prepared, request["name"], request.get("args") or {})
+            decisions.append(approval_edit.decision(request["name"], request.get("args") or {}, values, schema))
+        resume[i["id"]] = {"decisions": decisions}
+    if changes:
+        raise approval_edit.InvalidEdit("There is no such action to change.")
+    return resume
 
 
 
@@ -363,7 +392,10 @@ async def _run(
         if found is None or (decision.approval_id is not None and decision.approval_id != found[0]):
             raise NothingToDecide(chat_id)
         config["configurable"]["checkpoint_id"] = found[0]
-        resume = Command(resume=_decisions(found[1], decision.decision))
+        paused = None
+        if decision.edits:
+            paused = await agent().aget_state({"configurable": {"thread_id": thread_id, "checkpoint_id": found[0]}})
+        resume = Command(resume=_decisions(found[1], decision.decision, decision.edits, paused))
     # A question goes on from the chat's last answer: one that was cancelled (or failed, or the API stopped) halfway left its
     # messages in the thread, and a tool call without its result would break the next question. Before the first answer
     # there is nothing to go on from: what such a question left goes.
@@ -421,8 +453,6 @@ async def _run(
                 cited = CitedAnswer(answer="")
                 if messages and isinstance(messages[-1], AIMessage) and messages[-1].text.strip():
                     cited = final_answer(messages, result.get("sources") or {})
-                if not cited.answer:
-                    cited = CitedAnswer(answer=WAITING.get(_language(query), WAITING["Russian"]))
                 traced.answer(cited.answer)
                 counts = [{"id": i.id, "actions": len((i.value or {}).get("action_requests") or [None])} for i in paused]
                 return Waiting(cited.answer, cited.sources, _history(result["messages"]), traced.id, checkpoint, approval, counts)
@@ -564,6 +594,8 @@ def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecisi
             await events.put(("cancelled", {"detail": "The question was cancelled"}))
         except NothingToDecide:
             await events.put(("error", {"detail": NOTHING_WAITS}))
+        except approval_edit.InvalidEdit as e:
+            await events.put(("error", {"detail": str(e)}))
         except Exception as e:
             log.warning("the agent failed (%s)", type(e).__name__)
             if unreachable(e):
@@ -635,6 +667,7 @@ NOTHING_WAITS = "Nothing in this chat waits for a decision (it was decided alrea
         200: {"description": "The answer to the question that waited, or another approval"},
         404: {"description": "Chat not found or user has no access to it"},
         409: {"description": "Nothing waits for a decision in the chat, or the question was cancelled"},
+        422: {"description": "A change of an action's arguments (`edits`) does not hold"},
         502: {"description": "ML service error"},
         503: {"description": "The language model cannot be reached; the detail says the assistant is not working now"},
     },
@@ -649,6 +682,8 @@ async def decide(user: AskerDep, chat_id: str, decision: AskDecision):
         return await run(query, chat_id, user, decision=decision)
     except NothingToDecide:
         raise HTTPException(status_code=409, detail=NOTHING_WAITS) from None
+    except approval_edit.InvalidEdit as e:
+        raise HTTPException(status_code=422, detail=str(e)) from None
     except AskCancelled:
         raise HTTPException(status_code=409, detail="The question was cancelled") from None
     except Exception as e:

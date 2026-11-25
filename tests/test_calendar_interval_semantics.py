@@ -73,9 +73,7 @@ def test_new_event_proposes_ninety_minutes_before_consent(calendar, decision, la
     invoke({"messages": [HumanMessage("Добавь тест1 по дискре 9 ноября в 9 утра." if language == "ru" else "Add a test on November 9 at 9 am.")]})
     paused = graph.get_state(config)
     assert len(paused.interrupts) == 1 and calendar.writes == []
-    description = paused.interrupts[0].value["action_requests"][0]["description"]
-    assert "09:00" in description and "10:30" in description and "90" in description
-    assert ("предложен" if language == "ru" else "suggested") in description.lower()
+    assert paused.interrupts[0].value["action_requests"][0]["args"] == args
     graph = build_agent(model, guardrail=False, checkpointer=saver)
     invoke(Command(resume={paused.interrupts[0].id: {"decisions": [{"type": decision}]}}))
     if decision == "reject":
@@ -87,16 +85,12 @@ def test_new_event_proposes_ninety_minutes_before_consent(calendar, decision, la
         assert saved["ends_at"] == datetime(2026, 11, 9, 10, 30, tzinfo=settings.tz)
 
 
-def test_default_duration_crosses_midnight_with_full_dates_in_approval():
-    from langchain_core.messages import HumanMessage
-    from catix.agent.calendar_approval import _describe_calendar
+def test_default_duration_crosses_midnight():
     from catix.agent.calendar_tools import AddToAiCalendarArgs
 
     args = {"title": "Late meeting", "day": "2026-12-31", "start_time": "23:30", "proposed_duration_minutes": 90}
-    description = _describe_calendar({"name": "add_to_ai_calendar", "args": args}, {"messages": [HumanMessage("Add a late meeting")]}, None)
     values = AddToAiCalendarArgs.model_validate(args).event_values()
     assert values["ends_at"] == datetime(2027, 1, 1, 1, tzinfo=settings.tz)
-    assert all(value in description for value in ("2026", "2027", "23:30", "01:00", "90"))
 
 
 def test_update_does_not_backfill_an_unknown_end_without_an_explicit_interval():
@@ -174,8 +168,7 @@ def test_overnight_suggested_event_can_be_renamed_without_losing_its_end(calenda
     graph, config, _ = run_action("update_ai_calendar", args)
     pending = graph.get_state(config).interrupts
     assert len(pending) == 1 and calendar.writes == []
-    description = pending[0].value["action_requests"][0]["description"]
-    assert "2026" in description and "2027" in description and "предложенная" not in description
+    assert pending[0].value["action_requests"][0]["args"] == args
     graph.invoke(Command(resume={pending[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     saved = calendar.events["ih:u1", 5]
     assert saved.starts_at == row.starts_at and saved.ends_at == row.ends_at
@@ -200,7 +193,7 @@ def test_legacy_or_explicit_unknown_end_action_is_not_silently_changed(calendar)
     args = {"title": "Legacy", "day": "2026-11-09", "start_time": "09:00"}
     graph, config, _ = run_action("add_to_ai_calendar", args)
     pending = graph.get_state(config).interrupts[0]
-    assert "без времени окончания" in pending.value["action_requests"][0]["description"]
+    assert pending.value["action_requests"][0]["args"] == args
     graph.invoke(Command(resume={pending.id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert calendar.writes[0][2]["ends_at"] is None
 
@@ -212,7 +205,7 @@ def test_approved_suggestion_matches_real_sql_agent_read_and_ics(calendar_db):
     graph, config, _ = run_action("add_to_ai_calendar", args)
     pending = graph.get_state(config).interrupts[0]
     assert calendar_db.execute("SELECT count(*) AS n FROM personal_events").fetchone()["n"] == 0
-    assert "10:30" in pending.value["action_requests"][0]["description"]
+    assert pending.value["action_requests"][0]["args"] == args
     graph.invoke(Command(resume={pending.id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     rows = personal_calendar.between("ih:u1", datetime(2026, 11, 9, tzinfo=settings.tz), datetime(2026, 11, 10, tzinfo=settings.tz))
     assert len(rows) == 1 and rows[0].ends_at == datetime(2026, 11, 9, 10, 30, tzinfo=settings.tz)

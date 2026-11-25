@@ -10,7 +10,8 @@ from langchain.tools import ToolRuntime
 from langchain_core.tools import tool
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
-from catix.agent.calendar_approval import _calendar_business_args, _russian
+from catix.agent.approval import WAITING_FOR_USER
+from catix.agent.calendar_approval import _calendar_business_args
 from catix.settings import settings
 
 log = logging.getLogger("catix.feedback")
@@ -77,14 +78,6 @@ def _unknown() -> dict:
             "error": "Sending could not be confirmed; the feedback may have been recorded. Do not send it again."}
 
 
-def _describe(tool_call, state, runtime) -> str:
-    a = LeaveFeedbackArgs.model_validate(_calendar_business_args(tool_call["args"]))
-    contact, _ = _sender(runtime)
-    if _russian(state):
-        return f"Отправить отзыв команде InNoHassle (Google-форма one-zero-eight). Тема: «{a.subject}». Текст: «{a.feedback}». Контакт: {contact}."
-    return f"Send feedback to the InNoHassle team (one-zero-eight Google Form). Subject: “{a.subject}”. Text: “{a.feedback}”. Contact: {contact}."
-
-
 def _valid(request) -> bool:
     try:
         LeaveFeedbackArgs.model_validate(_calendar_business_args(request.tool_call["args"]))
@@ -93,5 +86,5 @@ def _valid(request) -> bool:
     return _sender(request.runtime)[0] is not None
 
 
-FEEDBACK_APPROVAL = {"leave_feedback": {"allowed_decisions": ["approve", "reject"], "description": _describe, "when": _valid}}
+FEEDBACK_APPROVAL = {"leave_feedback": {"allowed_decisions": ["approve", "edit", "reject"], "description": WAITING_FOR_USER, "when": _valid}}
 FEEDBACK_TOOLS = [leave_feedback]

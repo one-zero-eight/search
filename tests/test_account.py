@@ -87,8 +87,8 @@ def test_an_action_waits_for_the_users_approval_and_is_done_once_approved(music_
     assert len(paused) == 1 and not music_room, "nothing is booked before the user decides"
     request = paused[0].value["action_requests"][0]
     assert request["name"] == "call_api_tool" and request["args"]["name"] == "music_book_music_room"
-    assert "музыкальную комнату" in request["description"] and "18:00–19:00" in request["description"]
-    assert paused[0].value["review_configs"][0]["allowed_decisions"] == ["approve", "reject"]
+    assert request["args"]["arguments"] == {"day": DAY.isoformat(), "time_from": "18:00", "time_to": "19:00"}
+    assert paused[0].value["review_configs"][0]["allowed_decisions"] == ["approve", "edit", "reject"]
 
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert [(token, f"{start:%H:%M}", f"{end:%H:%M}") for token, start, end in music_room] == [("user-token", "18:00", "19:00")]
@@ -120,7 +120,7 @@ def test_a_past_action_is_refused_at_execution_and_by_direct_mcp(music_room):
     config = {"configurable": {"thread_id": "past"}}
     agent.invoke({"messages": [{"role": "user", "content": "забронируй музкомнату вчера"}]}, config, context=SITE)
     paused = agent.get_state(config).interrupts[0]
-    assert yesterday.isoformat() in paused.value["action_requests"][0]["description"]
+    assert paused.value["action_requests"][0]["args"]["arguments"]["day"] == yesterday.isoformat()
     assert not music_room
     out = agent.invoke(Command(resume={paused.id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert not agent.get_state(config).interrupts and not music_room
@@ -313,8 +313,8 @@ def test_an_event_is_removed_from_the_ai_calendar_once_the_user_approves(ai_cale
     agent.invoke({"messages": [{"role": "user", "content": asked}]}, config, context=SITE)
     paused = agent.get_state(config).interrupts
     assert len(paused) == 1 and not ai_calendar, "nothing is removed before the user decides"
-    description = paused[0].value["action_requests"][0]["description"]
-    assert "«Хакатон»" in description and "10:00–18:00" in description and "AI-календаря" in description
+    request = paused[0].value["action_requests"][0]
+    assert request["name"] == "remove_from_ai_calendar" and request["args"]["calendar_event_id"] == 5
     out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=SITE)
     assert ai_calendar == [("ih:u1", 5)] and out["messages"][-1].text == "Готово: хакатон убран."
 

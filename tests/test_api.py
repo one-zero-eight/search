@@ -664,7 +664,7 @@ def test_the_name_is_the_first_line_without_quotes(reply, name):
 
 # --- an answer that waits for the user's decision (HumanInTheLoopMiddleware) ---
 
-APPROVAL = AskApproval(id="cp-paused", actions=[AskAction(name="book_music_room", description="Забронировать музыкальную комнату на пт, 7 ноября, 18:00–19:00.")])
+APPROVAL = AskApproval(id="cp-paused", actions=[AskAction(name="call_api_tool", target="music_book_music_room", args={"day": "2026-11-07", "time_from": "18:00", "time_to": "19:00"})])
 
 
 def test_an_action_waits_in_the_chat_until_the_user_decides(client, monkeypatch, kept):
@@ -723,11 +723,11 @@ def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, st
         "- **Воллейбол**, 20:00–22:30, [SC] Big Hall (15 мест свободно)\n\nЗаписать вас на неё?"
     )
     paused = SimpleNamespace(id="i1", value={"action_requests": [
-        {"name": "call_api_tool", "description": "Записать вас на тренировку #46767."}
+        {"name": "call_api_tool", "args": {"name": "sport_sport_checkin", "arguments": {"training_id": 46767}}}
     ]})
     content = {"text": explanation, "blocks": [{"type": "text", "text": explanation}],
                "empty": "", "whitespace": " \n "}[content_kind]
-    expected = explanation if content_kind in {"text", "blocks"} else ask.WAITING["Russian"]
+    expected = explanation if content_kind in {"text", "blocks"} else ""
 
     class FakeAgent:
         paused = False
@@ -766,7 +766,8 @@ def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, st
     else:
         body = response.json()
     assert body["answer"] == expected
-    assert body["approval"]["actions"] == paused.value["action_requests"]
+    assert body["approval"]["actions"] == [{"name": "call_api_tool", "target": "sport_sport_checkin",
+                                            "args": {"training_id": 46767}, "fields": []}]
     history = client.get(f"/ask/chats/{body['chat_id']}", headers=AUTH).json()
     assert history["waiting"]["answer"] == expected
     assert not kept.answers, "the explanation is not a completed action"
@@ -774,7 +775,7 @@ def test_approval_keeps_the_assistants_explanation(client, monkeypatch, kept, st
 
 def test_a_decision_resumes_the_paused_checkpoint_once(monkeypatch, kept):
     calls = []
-    paused = SimpleNamespace(id="i1", value={"action_requests": [{"name": "book_music_room", "description": "Забронировать музкомнату."}]})
+    paused = SimpleNamespace(id="i1", value={"action_requests": [{"name": "book_music_room", "args": {}}]})
     state_of = {"paused": False}
 
     class FakeAgent:

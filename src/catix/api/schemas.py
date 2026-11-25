@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import StrEnum
-from typing import Annotated, Literal
+from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Discriminator, Field, PrivateAttr
 
@@ -185,11 +185,25 @@ class AddedCalendarEvent(BaseModel):
     "The title of the event as it is in the calendar."
 
 
+class AskField(BaseModel):
+    name: str
+    "The argument's name, the key of `ActionEdit.values`."
+    kind: Literal["text", "textarea", "date", "time", "number"]
+    value: str
+    "The current value as text; empty when the argument is not set."
+    required: bool
+    max_length: int | None = None
+
+
 class AskAction(BaseModel):
     name: str
-    "The action: book_music_room, book_room, enroll_in_event or cancel_booking."
-    description: str
-    "What is to be done for the user, in the language of the question, to show them."
+    "The tool of the agent that asks: `call_api_tool`, `add_to_ai_calendar`, `leave_feedback`, ..."
+    target: str = ""
+    "The operation: `rooms_book_room`, `music_book_music_room`, `account_cancel_booking`, ...: `name`, or for `call_api_tool` the service operation."
+    args: dict[str, Any] = Field(default_factory=dict)
+    "The arguments of the operation as the assistant chose them: the site shows them in its own language."
+    fields: list[AskField] = Field(default_factory=list)
+    "The arguments the user may change before approving."
 
 
 class AskApproval(BaseModel):
@@ -281,9 +295,18 @@ class AskChatHistory(AskChat):
     "The last question, when the assistant waits for the user's decision on its `approval` (POST /ask/{chat_id}/decision)."
 
 
+class ActionEdit(BaseModel):
+    index: int = Field(ge=0)
+    "The position of the action in `approval.actions`."
+    values: dict[str, str]
+    "The new text of the changed fields (`AskAction.fields`); an empty text clears an optional one."
+
+
 class AskDecision(BaseModel):
     decision: Literal["approve", "reject"]
     "Do the actions of the chat's `approval` (approve) or not (reject)."
+    edits: list[ActionEdit] = Field(default_factory=list, max_length=20)
+    "Changes of the actions' arguments, with `approve`: the action is done as changed (422 when a change does not hold)."
     approval_id: str | None = None
     "The `id` of the approval decided on; when it is not the one waiting, nothing is done (409)."
 

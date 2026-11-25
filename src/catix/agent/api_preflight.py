@@ -15,8 +15,6 @@ from langgraph.errors import GraphBubbleUp
 from referencing import Registry
 from typing_extensions import NotRequired
 
-from catix.agent import api_context
-from catix.agent.api_descriptions import describe_action
 from catix.agent.api_tools import _credential_mode, _credentials, _needs_approval, _reviewed_args
 from catix.innohassle import mcp_client
 
@@ -91,40 +89,14 @@ def _discovered_schema(messages, target):
     return found
 
 
-def _language(state):
-    question = next((str(message.content) for message in reversed(state["messages"])
-                     if isinstance(message, HumanMessage)), "")
-    letters = [char for char in question if char.isalpha()]
-    return "ru" if not letters or sum("Ѐ" <= char <= "ӿ" for char in letters) * 2 >= len(letters) else "en"
-
-
 def _prepared(call, args, state, schema, runtime):
-    # Defaults are for display only; execution and consent stay bound to the original JSON.
+    # The site shows the arguments themselves; `schema` validates the user's edit of them.
     displayed = {key: deepcopy(field["default"]) for key, field in schema.get("properties", {}).items()
                  if isinstance(field, dict) and "default" in field}
     displayed.update(deepcopy(args.arguments))
     _validate(schema, displayed)
-    description = describe_action(args.name, displayed, _language(state))
-    prepared = {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
-                "description": description}
-    return prepared
-
-
-def _context_request(prepared, state):
-    lookup = api_context.detail_request(prepared["target"], prepared["arguments"])
-    if lookup is not None:
-        details = api_context.from_messages(prepared["target"], prepared["arguments"], state["messages"], _language(state))
-        if details is None:
-            return lookup
-        prepared["description"] += " " + details
-    return None
-
-
-def _add_context(prepared, lookup, result, state):
-    details = api_context.from_result(prepared["target"], prepared["arguments"], lookup["name"], result, _language(state))
-    if details is None:
-        raise PreflightError("Could not obtain the action's name, date, time and location for confirmation. No action was executed.")
-    prepared["description"] += " " + details
+    return {"call_id": call["id"], "target": args.name, "arguments": deepcopy(args.arguments),
+            "schema": deepcopy(schema)}
 
 
 class ApiPreflightState(AgentState):
@@ -195,9 +167,6 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                     schema = _schema(mcp_client.request_sync("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
                 item = _prepared(call, args, state, schema, runtime)
-                if lookup := _context_request(item, state):
-                    token, credentials = _credentials(_credential_mode(lookup["name"]), runtime)
-                    _add_context(item, lookup, mcp_client.request_sync("call_tool", lookup, token, **credentials), state)
                 prepared.append(item)
             except GraphBubbleUp:
                 raise
@@ -222,9 +191,6 @@ class ApiPreflightMiddleware(AgentMiddleware[ApiPreflightState, Any]):
                     schema = _schema(await mcp_client.request("search_tools", {"query": args.name}), args.name)
                 _validate(schema, args.arguments)
                 item = await asyncio.to_thread(_prepared, call, args, state, schema, runtime)
-                if lookup := _context_request(item, state):
-                    token, credentials = _credentials(_credential_mode(lookup["name"]), runtime)
-                    _add_context(item, lookup, await mcp_client.request("call_tool", lookup, token, **credentials), state)
                 prepared.append(item)
             except GraphBubbleUp:
                 raise

@@ -22,7 +22,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.message import add_messages
 from pydantic import Field
 
-from catix.agent import api_context, api_tools, core, roles
+from catix.agent import api_tools, core, roles
 from catix.agent.api_preflight import ApiPreflightMiddleware, _discovered_schema
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
 from catix.agent.feedback_tools import FEEDBACK_APPROVAL
@@ -255,8 +255,7 @@ def test_a_schema_found_in_an_earlier_question_is_gone_and_the_preflight_asks_fo
     runtime = types.SimpleNamespace(context=AgentContext(innohassle_token=settings.llm_api_key, sport_token=settings.llm_api_key))
     result = ApiPreflightMiddleware().after_model(state, runtime)
     assert "jump_to" not in result and result["api_prepared"][0]["target"] == "sport_sport_checkin"
-    assert sent == ["search_tools", "call_tool"]  # the catalogue and the training are asked for again, once each
-    assert api_context.from_messages("sport_sport_checkin", {"training_id": 48591}, state["messages"]) is None  # nothing of the earlier turn
+    assert sent == ["search_tools"]  # the catalogue is asked for again, once; nothing else is read for the approval
 
 
 # --- the estimator and the trigger ----------------------------------------------------------------------------------------

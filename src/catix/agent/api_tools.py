@@ -13,6 +13,7 @@ from langchain_core.tools import StructuredTool
 from langgraph.runtime import Runtime
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from catix.agent.approval import WAITING_FOR_USER
 from catix.innohassle import mcp_client
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS, CREDENTIAL_MODES
 
@@ -115,18 +116,6 @@ def _needs_approval(request) -> bool:
         return False
 
 
-def _describe_mutation(tool_call, state, runtime) -> str:
-    """Pure checkpoint lookup: HITL replays this callback when consuming a resume."""
-    args = _reviewed_args(tool_call)
-    if args.name not in CONFIRMATION_TOOLS:
-        raise ValueError("Read operations do not require approval.")
-    for prepared in state.get("api_prepared", []):
-        if (prepared["call_id"] == tool_call.get("id") and prepared["target"] == args.name
-                and json.dumps(prepared["arguments"], sort_keys=True) == json.dumps(args.arguments, sort_keys=True)):
-            return prepared["description"]
-    raise ValueError("No matching prepared approval description. Run preflight before HITL.")
-
-
 def _prepare(name: str, arguments: dict | None, runtime: ToolRuntime):
     try:
         parsed = CallApiToolArgs(name=name, arguments={} if arguments is None else arguments)
@@ -183,6 +172,6 @@ call_api_tool = _CallApiTool.from_function(
 )
 
 # Every graph exposing this common tool installs the same conditional gate.
-API_APPROVAL = {"call_api_tool": {"allowed_decisions": ["approve", "reject"],
-                                 "description": _describe_mutation, "when": _needs_approval}}
+API_APPROVAL = {"call_api_tool": {"allowed_decisions": ["approve", "edit", "reject"],
+                                 "description": WAITING_FOR_USER, "when": _needs_approval}}
 API_TOOLS = [search_api_tools, call_api_tool]

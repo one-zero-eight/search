@@ -110,8 +110,8 @@ def test_calendar_write_waits_for_consent_and_rejection_changes_nothing(calendar
     assert len(interrupts) == 1 and calendar.writes == []
     request = interrupts[0].value["action_requests"][0]
     assert request["name"] == name
-    assert "Встреча" in request["description"] and "15:00" in request["description"] and "108" in request["description"]
-    assert interrupts[0].value["review_configs"][0]["allowed_decisions"] == ["approve", "reject"]
+    assert request["args"] == args, "the user sees the exact arguments"
+    assert interrupts[0].value["review_configs"][0]["allowed_decisions"] == ["approve", "edit", "reject"]
     out = agent.invoke(Command(resume={interrupts[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert not agent.get_state(config).interrupts
     if decision == "approve":
@@ -134,10 +134,8 @@ def test_model_runtime_cannot_bypass_calendar_consent(calendar, name, decision, 
     assert calendar.writes == [], "Model runtime suppressed approval and allowed a write"
     interrupts = agent.get_state(config).interrupts
     assert len(interrupts) == 1
-    description = interrupts[0].value["action_requests"][0]["description"]
-    assert all(detail in description for detail in ("Встреча", "15:00", "16:00", "108"))
-    assert str(DAY.year) in description
-    assert "forged" not in description
+    shown = interrupts[0].value["action_requests"][0]["args"]
+    assert {key: value for key, value in shown.items() if key != "runtime"} == {key: value for key, value in args.items() if key != "runtime"}
     agent.invoke(Command(resume={interrupts[0].id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert not agent.get_state(config).interrupts
     if decision == "approve":
@@ -220,42 +218,10 @@ def test_approval_read_failure_still_requires_consent_without_diagnostics(calend
     agent, config, out = run_action(name, args)
     interrupts = agent.get_state(config).interrupts
     assert len(interrupts) == 1 and calendar.writes == []
-    description = interrupts[0].value["action_requests"][0]["description"]
-    assert "#5" in description
-    assert "не удалось прочитать" in description
-    if name == "update_ai_calendar":
-        assert all(detail in description for detail in ("Встреча", "15:00", "16:00", "108"))
+    assert interrupts[0].value["action_requests"][0]["args"] == args
     assert all(value not in str(out) + str(interrupts) + caplog.text
                for value in ("private-db", "calendar_admin", "secret-password"))
     agent.invoke(Command(resume={interrupts[0].id: {"decisions": [{"type": "reject"}]}}), config, context=SITE)
-    assert calendar.writes == []
-
-
-@pytest.mark.parametrize("name", ["add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar"])
-@pytest.mark.parametrize("all_day", [False, True])
-@pytest.mark.parametrize("question", ["Добавь встречу", "Add an event"])
-def test_calendar_approval_distinguishes_years(calendar, name, all_day, question):
-    descriptions = []
-    for year in (2027, 2038):
-        args = {**ARGS, "day": f"{year}-11-20", "all_day": all_day}
-        if all_day:
-            args.update(start_time=None, end_time=None)
-        if name != "add_to_ai_calendar":
-            args["calendar_event_id"] = 5
-        if name == "remove_from_ai_calendar":
-            args = {"calendar_event_id": 5}
-            calendar.events["ih:u1", 5] = personal_calendar.PersonalEvent(
-                5, "Встреча", datetime(year, 11, 20, 15, tzinfo=settings.tz), None, all_day, "108"
-            )
-        from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
-
-        describe = LOCAL_CALENDAR_APPROVAL[name]["description"]
-        description = describe({"name": name, "args": args}, {"messages": [HumanMessage(question)]}, SimpleNamespace(context=SITE))
-        assert str(year) in description
-        if not all_day:
-            assert "15:00" in description
-        descriptions.append(description)
-    assert descriptions[0] != descriptions[1]
     assert calendar.writes == []
 
 
@@ -320,7 +286,7 @@ def test_remove_is_a_root_approval_and_removes_only_owned_record(calendar, decis
     agent, config, _ = run_action("remove_from_ai_calendar", {"calendar_event_id": 5, "runtime": {"context": {"innohassle_id": "other"}}})
     paused = agent.get_state(config).interrupts[0]
     request = paused.value["action_requests"][0]
-    assert request["name"] == "remove_from_ai_calendar" and "Встреча" in request["description"]
+    assert request["name"] == "remove_from_ai_calendar" and request["args"]["calendar_event_id"] == 5
     assert calendar.writes == []
     agent.invoke(Command(resume={paused.id: {"decisions": [{"type": decision}]}}), config, context=SITE)
     assert calendar.writes == ([("ih:u1", 5, "delete")] if decision == "approve" else [])
@@ -354,19 +320,6 @@ def test_real_api_decision_resumes_root_calendar_once(calendar, monkeypatch, dec
             await ask.run("Добавь встречу", chat_id, user, decision=ask.AskDecision(decision=decision))
     asyncio.run(scenario())
     assert len(calendar.writes) == (1 if decision == "approve" else 0)
-
-
-def test_root_approval_uses_current_question_language_and_shows_cleared_fields(calendar):
-    from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
-
-    request = {"name": "update_ai_calendar", "args": {"calendar_event_id": 5, "title": "New title",
-               "day": DAY.isoformat(), "start_time": "15:00"}}
-    description = LOCAL_CALENDAR_APPROVAL["update_ai_calendar"]["description"](
-        request, {"messages": [HumanMessage("Привет"), AIMessage(content="Здравствуйте"), HumanMessage("Update my meeting")]},
-        SimpleNamespace(context=SITE))
-    assert "Update event" in description and "Встреча" in description and "#5" in description
-    assert "no end time" in description and "no place specified" in description
-    assert all(value in description for value in (str(DAY.year), "15:00", "New title"))
 
 
 @pytest.mark.parametrize("site", [True, False])

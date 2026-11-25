@@ -162,7 +162,7 @@ def test_root_missing_title_reaches_model_without_interrupt_or_write(monkeypatch
 
 
 @pytest.mark.parametrize("decision", ["approve", "reject"])
-def test_valid_write_uses_local_description_and_original_arguments(monkeypatch, rpc, decision):
+def test_valid_write_shows_exact_arguments_and_keeps_them_for_execution(monkeypatch, rpc, decision):
     from langgraph.types import Command
 
     arguments = {**ARGUMENTS, "title": "Planning"}
@@ -172,10 +172,12 @@ def test_valid_write_uses_local_description_and_original_arguments(monkeypatch, 
     assert len(paused.interrupts) == 1
     assert [method for method, *_ in rpc] == ["search_tools"]
     request = paused.interrupts[0].value["action_requests"][0]
-    assert request["description"] == 'Book room su-office for 2026-11-10, 10:00–12:00: “Planning”.'
+    assert request["description"] == WAITING_FOR_USER
     assert request["args"] == {"name": TARGET, "arguments": arguments}
     prepared = paused.values.get("api_prepared")
-    assert prepared == [{"call_id": "write-1", "target": TARGET, "arguments": arguments, "description": request["description"]}]
+    assert [{key: item[key] for key in ("call_id", "target", "arguments")} for item in prepared] == [
+        {"call_id": "write-1", "target": TARGET, "arguments": arguments}]
+    assert "description" not in prepared[0] and prepared[0]["schema"]
     agent.invoke(Command(resume={paused.interrupts[0].id: {"decisions": [{"type": decision}]}}), CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
     assert [method for method, *_ in rpc] == ["search_tools"] + (["call_tool"] if decision == "approve" else [])
@@ -183,7 +185,7 @@ def test_valid_write_uses_local_description_and_original_arguments(monkeypatch, 
 
 
 @pytest.mark.parametrize("decision", [None, "approve", "reject"])
-def test_async_preflight_uses_native_discovery_and_local_description(monkeypatch, decision):
+def test_async_preflight_uses_native_discovery(monkeypatch, decision):
     import asyncio
     from langgraph.types import Command
 
@@ -219,10 +221,8 @@ def test_async_preflight_uses_native_discovery_and_local_description(monkeypatch
     assert sent == ["search_tools"] + (["call_tool"] if decision == "approve" else [])
 
 
-@pytest.mark.parametrize("failure", ["timeout", "exception", "formatting"])
+@pytest.mark.parametrize("failure", ["timeout", "exception"])
 def test_preparation_failure_returns_feedback_without_approval_or_execution(monkeypatch, failure):
-    from catix.agent import api_preflight
-
     sent = []
     arguments = {**ARGUMENTS, "title": "Planning"}
 
@@ -233,17 +233,11 @@ def test_preparation_failure_returns_feedback_without_approval_or_execution(monk
             raise TimeoutError("synthetic-private-diagnostic")
         raise ValueError("synthetic-private-diagnostic")
 
-    def broken_description(*args):
-        raise ValueError("synthetic-private-diagnostic")
-
     monkeypatch.setattr(api_tools.mcp_client, "request_sync", request)
-    if failure == "formatting":
-        monkeypatch.setattr(api_preflight, "describe_action", broken_description)
     agent, model = graph(monkeypatch, [action(arguments)])
-    out = agent.invoke({"messages": [HumanMessage("Book SU office."), *(discovery() if failure == "formatting" else [])]},
-                       CONFIG, context=CONTEXT)
+    out = agent.invoke({"messages": [HumanMessage("Book SU office.")]}, CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
-    assert sent == ([] if failure == "formatting" else ["search_tools"])
+    assert sent == ["search_tools"]
     feedback = next(m for m in model.seen[-1] if isinstance(m, ToolMessage) and m.tool_call_id == "write-1")
     assert json.loads(feedback.text)["error"]
     assert "synthetic-private-diagnostic" not in str(out)
@@ -330,7 +324,7 @@ def test_invalid_parallel_batch_pairs_every_call_and_executes_none(monkeypatch, 
              {"name": "get_my_ai_calendar", "args": {}, "id": "local-read"}]
     agent, model = graph(monkeypatch, calls)
     initial = {"messages": [HumanMessage("Book the room and read my calendar."), *discovery()],
-               "api_prepared": [{"call_id": "invalid", "target": TARGET, "arguments": ARGUMENTS, "description": "STALE"}]}
+               "api_prepared": [{"call_id": "invalid", "target": TARGET, "arguments": ARGUMENTS, "schema": {}}]}
     out = agent.invoke(initial, CONFIG, context=CONTEXT)
     assert not agent.get_state(CONFIG).interrupts
     assert rpc == []
@@ -444,7 +438,7 @@ def test_repeated_invalid_calls_remain_bounded_by_global_model_budget(monkeypatc
     assert not out["messages"][-1].tool_calls
 
 
-def test_new_batch_never_reuses_previous_approval_or_prepared_description(monkeypatch, rpc):
+def test_new_batch_never_reuses_previous_approval_or_prepared_call(monkeypatch, rpc):
     from langgraph.types import Command
 
     first = {**ARGUMENTS, "title": "First meeting"}
