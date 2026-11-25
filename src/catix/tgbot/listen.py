@@ -19,11 +19,10 @@ from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMar
 
 from catix import admins, groups, official, userbot_config
 from catix.db import pg, store
-from catix.tgbot import group_settings, source_requests
+from catix.tgbot import group_settings
 
 log = logging.getLogger("catix.listen")
 router = Router()
-router.include_router(source_requests.router)
 
 PAGE_SIZE = 8
 BUTTON_TITLE = 32
