@@ -17,7 +17,9 @@ import asyncio
 import contextlib
 import getpass
 import json
+import base64
 import random
+import ssl
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -26,6 +28,7 @@ from urllib.parse import unquote, urlsplit
 import redis.asyncio as aioredis
 from python_socks import ProxyError
 from telethon import TelegramClient, errors, events, utils
+from telethon.network.connection import ConnectionTcpFull
 from telethon.tl.custom.message import Message as TgMessage
 from telethon.tl.functions.auth import ResendCodeRequest, SendCodeRequest
 from telethon.tl.functions.messages import GetForumTopicsRequest
@@ -47,6 +50,35 @@ BATCH = 500
 PROXY_SCHEMES = ("socks5", "socks4", "http")
 
 
+class ConnectionHttpsProxy(ConnectionTcpFull):
+    """Telethon's own proxy support has no TLS to the proxy: here the TCP link to Telegram goes through an HTTPS proxy
+    (TLS to the proxy, then CONNECT inside it). self._proxy is {"addr", "port", "username", "password"}."""
+
+    async def _connect(self, timeout=None, ssl=None):
+        proxy = self._proxy
+        reader, writer = await asyncio.wait_for(
+            asyncio.open_connection(proxy["addr"], proxy["port"], ssl=_PROXY_TLS, server_hostname=proxy["addr"]), timeout
+        )
+        target = f"{self._ip}:{self._port}"
+        request = f"CONNECT {target} HTTP/1.1\r\nHost: {target}\r\n"
+        if proxy["username"] is not None:
+            credentials = base64.b64encode(f"{proxy['username']}:{proxy['password'] or ''}".encode()).decode()
+            request += f"Proxy-Authorization: Basic {credentials}\r\n"
+        writer.write(f"{request}\r\n".encode())
+        head = await asyncio.wait_for(reader.readuntil(b"\r\n\r\n"), timeout)
+        status = head.split(b"\r\n", 1)[0].decode(errors="replace")
+        if status.split(" ")[1:2] != ["200"]:
+            writer.close()
+            raise ConnectionError(f"HTTPS proxy refused CONNECT {target}: {status}")
+        self._reader, self._writer = reader, writer
+        self._codec = self.packet_codec(self)
+        self._init_conn()
+        await self._writer.drain()
+
+
+_PROXY_TLS = ssl.create_default_context()
+
+
 def proxy_args(url: str | None) -> dict:
     """TelegramClient arguments for TG_PROXY (see settings.py); {} without a proxy. A malformed value stops the start."""
     if not url:
@@ -55,8 +87,11 @@ def proxy_args(url: str | None) -> dict:
     if not parts.hostname or not parts.port:
         raise ValueError("TG_PROXY needs a host and a port, e.g. socks5://127.0.0.1:1080")
     if parts.scheme == "https":
-        raise ValueError("TG_PROXY: Telethon cannot talk TLS to a proxy; an HTTP proxy (http://host:port, CONNECT) carries Telegram's "
-                         "traffic, already encrypted")
+        return {"connection": ConnectionHttpsProxy, "proxy": {
+            "addr": parts.hostname, "port": parts.port,
+            "username": unquote(parts.username) if parts.username else None,
+            "password": unquote(parts.password) if parts.password else None,
+        }}  # fmt: skip
     if parts.scheme == "mtproxy":
         from telethon.network.connection import ConnectionTcpMTProxyRandomizedIntermediate
 

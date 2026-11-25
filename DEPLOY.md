@@ -336,11 +336,12 @@ timeout 5 bash -c "</dev/tcp/149.154.167.51/443" && echo ok || echo blocked
 ```
 Тогда userbot ходит через прокси с машины, откуда Telegram открыт, `TG_PROXY` в `.env`:
 ```
-TG_PROXY=http://user:password@host:3128          # HTTP-прокси (CONNECT); «HTTP/HTTPS-прокси» провайдеров — это он
+TG_PROXY=http://user:password@host:3128          # HTTP-прокси (CONNECT)
+TG_PROXY=https://user:password@host:8443         # HTTPS-прокси: к самому прокси по TLS, внутри CONNECT
 TG_PROXY=socks5://user:password@host:1080        # или socks4://
 ```
 TG_PROXY=mtproxy://SECRET@host:443               # MTProxy: hex-секрет, обычный или dd...; fake-TLS (ee...) Telethon не умеет
-Прокси, к которому подключаются по TLS (`https://` в адресе самого прокси), Telethon не умеет: такой адрес бот отвергает при старте. Обычный HTTP-прокси с CONNECT подходит — трафик Telegram внутри него и так зашифрован. Прокси должен разрешать CONNECT на порт 443 (дата-центры Telegram слушают 443). Проверить прокси с сервера:
+К HTTPS-прокси (TLS до самого прокси) userbot подключается своим классом соединения `ConnectionHttpsProxy`, сертификат прокси проверяется. Прокси должен разрешать CONNECT на порт 443 (дата-центры Telegram слушают 443). Проверить прокси с сервера:
 ```bash
 curl -sS -o /dev/null -w "%{http_code}\n" -x http://user:password@host:3128 https://api.telegram.org   # 302 или 200 — прокси работает
 ```
