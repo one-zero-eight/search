@@ -29,10 +29,8 @@ Yes: up to 3 PDF, TXT or image files per message, up to 10 MiB each.
 
 ## How do I add a chat to catix search?
 
-- Submit a chat request (Telegram or MAX) on the site: an invitation link, the study group the chat will be available to, a comment and explicit consent. You can pick one of your verified study groups or all catix users.
-- A catix moderator reviews the request. Once approved, catix joins the chat and indexes its history. The request status is shown on the site: pending, approved, connected, rejected or failed. The chat's admin may need to approve the join.
-- You can submit at most 5 new requests per day.
-- Moodle sync through the browser extension adds the chats your courses link to as requests by itself. Such a request is made for your verified study group and also waits for a moderator. A link is requested only once: if a request for it already exists (even a rejected one) or the chat is already connected, no new request is made.
+- Ask the catix assistant to pass the chat on to the InNoHassle team: it leaves feedback with the chat's link (the leave_feedback tool), and you approve the text before it is sent. The site's "Leave feedback" button works too.
+- Moodle sync through the browser extension records the chats your courses link to in a list for the catix admins; it does not connect any chat by itself.
 
 ## How do I set my study group?
 

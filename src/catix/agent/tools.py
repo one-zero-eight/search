@@ -20,6 +20,7 @@ from pydantic import BaseModel, Field, SecretStr, field_validator
 from catix.agent.api_tools import API_TOOLS
 from catix.agent.attachment_tools import ATTACHMENT_TOOLS
 from catix.agent.calendar_tools import CALENDAR_TOOLS
+from catix.agent.feedback_tools import FEEDBACK_TOOLS
 from catix.agent import moodle_tools
 from catix.agent.moodle_tools import MOODLE_TOOLS
 from catix.agent.schedule_tools import get_my_schedule
@@ -58,6 +59,8 @@ class AgentContext:
     # The asker's InNoHassle account on the site: their AI Calendar is kept under it (agent/calendar_tools.py). In the
     # Telegram bot the account linked to `user_telegram_id` is asked for when it is needed.
     innohassle_id: str | None = None
+    # The asker's Innopolis email on the site (from their token): leave_feedback puts it in the form's contact field. None in the bots and the CLI.
+    innohassle_email: str | None = None
     # The asker's InNoHassle Sport token, which the site sends with a question (api/auth.py verify_asker): shared API tools
     # read their sport and check them in through MCP. Never kept, never shown.
     sport_token: SecretStr | None = field(default=None, repr=False)
@@ -555,6 +558,7 @@ TOOLS = [
     read_wiki,
     *API_TOOLS,
     *CALENDAR_TOOLS,
+    *FEEDBACK_TOOLS,
     *ATTACHMENT_TOOLS,
     *MOODLE_TOOLS,
     get_my_schedule,

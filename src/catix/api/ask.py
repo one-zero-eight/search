@@ -378,6 +378,7 @@ async def _run(
         verified_study_groups=tuple(verified_groups),
         innohassle_token=user.token,  # the site's user: external MCP account actions and local calendar approval
         innohassle_id=user.innohassle_id,  # their AI Calendar (agent/calendar_tools.py)
+        innohassle_email=user.email,  # leave_feedback's contact field
         sport_token=user.sport_token,  # their sport through MCP, when the site sent their separate Sport token
         attachment_chat_id=chat_id,
         attachments=attachment_manifest,

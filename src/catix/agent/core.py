@@ -35,6 +35,7 @@ from typing_extensions import NotRequired
 from catix.agent import claims, questions, roles, sources, tracing, web_tools
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
 from catix.agent.calendar_tools import _mutation_key
+from catix.agent.feedback_tools import FEEDBACK_APPROVAL
 from catix.agent.api_tools import API_APPROVAL
 from catix.agent.api_preflight import ApiPreflightMiddleware
 from catix.innohassle.mcp_access import CONFIRMATION_TOOLS
@@ -571,11 +572,11 @@ class PlanThinkingMiddleware(AgentMiddleware):
 
 class LocalCalendarAccessMiddleware(AgentMiddleware):
     """Offer local writes only with an authenticated site owner; retain reads and shared API tools everywhere.
-    Each local write also enforces ownership at execution, even if the model guesses a hidden name."""
+    Each local write also enforces ownership at execution, even if the model guesses a hidden name; leave_feedback likewise."""
 
     @staticmethod
     def _without(request: ModelRequest) -> ModelRequest:
-        hidden = LOCAL_CALENDAR_APPROVAL if _mutation_key(request.runtime)[0] is None else {}
+        hidden = {**LOCAL_CALENDAR_APPROVAL, **FEEDBACK_APPROVAL} if _mutation_key(request.runtime)[0] is None else {}
         # Local reads are available on the site as well as in bots. Hidden writes are
         # also refused by each tool's runtime ownership guard if a model guesses a name.
         return request.override(tools=[t for t in request.tools if getattr(t, "name", None) not in hidden])
@@ -747,7 +748,7 @@ def _action_receipts(messages: list[BaseMessage]) -> list[dict]:
             target = call["args"].get("name")
             if not isinstance(target, str) or target not in CONFIRMATION_TOOLS:
                 continue
-        elif message.name not in LOCAL_CALENDAR_APPROVAL:
+        elif message.name not in LOCAL_CALENDAR_APPROVAL and message.name not in FEEDBACK_APPROVAL:
             continue
         try:
             data = json.loads(message.content)
@@ -1022,7 +1023,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
                 summary_prompt=SUMMARY_PROMPT,
             ),
             SourcesMiddleware(),
-            HumanInTheLoopMiddleware({**LOCAL_CALENDAR_APPROVAL, **API_APPROVAL}),
+            HumanInTheLoopMiddleware({**LOCAL_CALENDAR_APPROVAL, **FEEDBACK_APPROVAL, **API_APPROVAL}),
             ApiPreflightMiddleware(),  # after_model runs before HITL, in its own checkpointed node
             RunGuardMiddleware(t.name for t in main_tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too

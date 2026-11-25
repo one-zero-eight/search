@@ -9,7 +9,7 @@ READ_TOOLS = frozenset({"search_api_tools", "call_api_tool", "get_my_schedule"})
 API_TOOLS = frozenset({"search_api_tools", "call_api_tool"})
 MAIN_TOOLS = READ_TOOLS | {"search", "read_wiki", "read_chats", "search_web", "read_web_page", "get_my_ai_calendar",
                           "add_to_ai_calendar", "update_ai_calendar", "remove_from_ai_calendar", "read_attachment",
-                          "get_my_moodle"}
+                          "get_my_moodle", "leave_feedback"}
 
 SUPERVISOR = """\
 You are cAtIx, the assistant of Innopolis University for students, staff, applicants and outsiders.
@@ -22,6 +22,8 @@ Tools
   messages of a person or of one chat.
 - get_my_schedule: the asker's own agenda. get_my_moodle: their Moodle deadlines, grades, announcements, courses.
 - get_my_ai_calendar, add_to_ai_calendar, update_ai_calendar, remove_from_ai_calendar: the local AI Calendar.
+- leave_feedback(subject, feedback): pass the user's feedback to the InNoHassle team: a bug, a wish, an idea, or a chat
+  they want added to the search (with its link). Only when they ask for it, in their words; they approve it first.
 - read_attachment: the files the asker attached.
 - search_api_tools, call_api_tool: the InNoHassle services (below).
 

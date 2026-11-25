@@ -4,48 +4,14 @@ from types import SimpleNamespace
 
 import httpx
 import pytest
-from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage
-from pydantic import SecretStr
 
 from catix import groups
-from catix.api.app import app
-from catix.api.auth import UserTokenData, verify_user
-from catix.api import ask, source_requests
+from catix.api import ask
 from catix.innohassle import client as upstream
 from catix.settings import settings
 from tests.test_api import client, kept  # noqa: F401 - isolated auth/chat fixtures
-from tests.test_source_requests import db, source_database  # noqa: F401 - disposable SQL only
-
-
-def test_source_groups_use_website_token_without_telegram_or_service_key(monkeypatch):
-    monkeypatch.setattr(settings, "innohassle_service_token", None)
-    monkeypatch.setattr(settings, "innohassle_groups", False)
-    monkeypatch.setattr(source_requests.source_requests, "list_owned", lambda owner: [])
-    calls = []
-
-    def respond(request):
-        calls.append(request)
-        assert request.url.path == "/schedule-assistant/v0/me/student-groups"
-        assert request.headers["Authorization"] == "Bearer website-user"
-        return httpx.Response(200, json=["B26-CSE-01", "B26-CSE-02"])
-
-    def no_telegram(*args):
-        pytest.fail("Website must not resolve access via Telegram")
-
-    monkeypatch.setattr(groups, "auto_group", no_telegram)
-    with httpx.Client(transport=httpx.MockTransport(respond), base_url="https://upstream.test/") as client:
-        monkeypatch.setattr(upstream, "_client", client)
-        app.dependency_overrides[verify_user] = lambda: UserTokenData(
-            innohassle_id="user", email="user@example.org", token=SecretStr("website-user"),
-        )
-        try:
-            response = TestClient(app).get("/sources/requests")
-        finally:
-            app.dependency_overrides.pop(verify_user, None)
-    assert response.status_code == 200
-    assert response.json() == {"requests": [], "verified_groups": ["B26-CSE-01", "B26-CSE-02"]}
-    assert len(calls) == 1
+from tests.test_sources import db, sources_database  # noqa: F401 - disposable SQL only
 
 
 @pytest.mark.parametrize("streamed", [False, True])

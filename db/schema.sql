@@ -133,54 +133,17 @@ CREATE TABLE IF NOT EXISTS max_account (
 
 DROP TABLE IF EXISTS bot_users;  -- Telegram notifications were removed
 
+-- The Telegram and MAX chats Moodle courses link to (moodle_chats.py), found when a user's course is synced: a list for
+-- the admins to look through; nothing joins them by itself.
+CREATE TABLE IF NOT EXISTS proposed_chats (
+    link     text PRIMARY KEY,               -- canonical https://t.me/… or https://max.ru/… (chat_links.normalize_link)
+    owner    text NOT NULL,                  -- InNoHassle id of the user whose course linked it first
+    course   text NOT NULL DEFAULT '',       -- that course's full name
+    found_at timestamptz NOT NULL DEFAULT now()
+);
+DROP TABLE IF EXISTS source_request_join_intents, source_request_lease, source_requests;  -- the moderated chat requests were removed
+
 -- What the userbot listens to, set by an admin in the bot (/listen, tgbot/listen.py) and read by the userbot
--- Private invitations remain outside chats until a moderator approves and Telegram confirms membership.
-CREATE TABLE IF NOT EXISTS source_requests (
-    id text PRIMARY KEY CHECK (id ~ '^[0-9a-f]{32}$'),
-    owner text NOT NULL,
-    email text NOT NULL,
-    invite_link text NOT NULL,
-    group_code text NOT NULL,
-    comment text NOT NULL DEFAULT '',
-    consented_at timestamptz NOT NULL,
-    status text NOT NULL DEFAULT 'pending'
-        CHECK (status IN ('pending', 'approved', 'joining', 'waiting_join', 'connected', 'failed', 'rejected')),
-    message text,
-    title text,
-    created_at timestamptz NOT NULL DEFAULT now(),
-    UNIQUE (owner, invite_link)
-);
--- Explicitly consented, moderated 'all' proposals are allowed; existing chat policies are unchanged.
-ALTER TABLE source_requests DROP CONSTRAINT IF EXISTS source_requests_group_code_check;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_by bigint;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS decided_at timestamptz;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS available_at timestamptz NOT NULL DEFAULT now();
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS token text;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS lease_until timestamptz;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS join_started_at timestamptz;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS chat_id bigint;
-ALTER TABLE source_requests ADD COLUMN IF NOT EXISTS backfill_pending boolean NOT NULL DEFAULT false;
-CREATE INDEX IF NOT EXISTS source_requests_queue ON source_requests (available_at, created_at)
-    WHERE status IN ('approved', 'joining', 'waiting_join');
--- Independent of request rows: deleting a claimed request cannot start overlapping Telegram writes.
-CREATE TABLE IF NOT EXISTS source_request_lease (
-    singleton boolean PRIMARY KEY DEFAULT true CHECK (singleton),
-    token text,
-    lease_until timestamptz,
-    available_at timestamptz NOT NULL DEFAULT now()
-);
-INSERT INTO source_request_lease (singleton) VALUES (true) ON CONFLICT DO NOTHING;
-
--- One Telegram account shares join intent across owners; request deletion must not erase it.
-CREATE TABLE IF NOT EXISTS source_request_join_intents (
-    invite_link text PRIMARY KEY,
-    started_at timestamptz NOT NULL DEFAULT now()
-);
-INSERT INTO source_request_join_intents (invite_link, started_at)
-SELECT invite_link, min(join_started_at) FROM source_requests
-WHERE join_started_at IS NOT NULL GROUP BY invite_link
-ON CONFLICT DO NOTHING;
-
 -- (tguserbot/userbot.py). The userbot publishes the chats and forum topics it can see; the admin picks from them.
 CREATE TABLE IF NOT EXISTS userbot_dialogs (
     chat_id      bigint PRIMARY KEY,

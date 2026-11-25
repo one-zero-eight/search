@@ -86,6 +86,12 @@ class Settings(BaseSettings):
     # Off for now: the groups InNoHassle gives are not the right ones yet, so users set theirs with /mygroup.
     innohassle_groups: bool = False
     innohassle_cache_ttl: int = Field(600, ge=0, description="Seconds in the shared cache (Redis); 0: not cached.")
+    # The Google Form behind the agent's leave_feedback tool (agent/feedback_tools.py): the one-zero-eight feedback form by
+    # default; point these at a copy of it (same three fields) to try the tool without writing to the team's responses.
+    feedback_form_url: str = "https://docs.google.com/forms/d/e/1FAIpQLSc5049bPYh7VIu44vbaroN3B6XprsuZV17WtagNYbfXzvW9JQ/formResponse"
+    feedback_subject_field: str = "entry.1256372940"   # Subject / Тема (required)
+    feedback_text_field: str = "entry.1356945135"      # Feedback / Обратная связь (required)
+    feedback_contact_field: str = "entry.1696474646"   # Your Telegram (optional)
 
     # Telegram userbot (MTProto). api_id / api_hash come from https://my.telegram.org -> API development tools.
     tg_api_id: int | None = None

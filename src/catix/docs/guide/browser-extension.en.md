@@ -20,7 +20,7 @@ https://innohassle.ru/extension, for Chrome, Edge and Firefox.
 
 ## What does sync do with course chats?
 
-If a Moodle course links to a Telegram or MAX chat, sync adds that chat as a request to connect it to catix search (for your verified study group). The request waits for a moderator like one submitted by hand; the same link is never requested twice.
+If a Moodle course links to a Telegram or MAX chat, sync records that chat in a list for the catix admins; it is not connected to search by itself.
 
 ## Which files are read?
 

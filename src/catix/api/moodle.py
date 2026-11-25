@@ -2,7 +2,7 @@
 
     PUT    /users/my-moodle/overview                  courses, calendar, grades, assignments, quizzes, completion, groups
     PUT    /users/my-moodle/courses/{id}/content      the text, files (names, links, sha256) and announcements of one course
-    (the Telegram/MAX chats it links to are requested for moderation: moodle_chats.py)
+    (the Telegram/MAX chats it links to are recorded in proposed_chats: moodle_chats.py)
     GET    /users/my-moodle                           what the extension sent, without the course texts
     GET    /users/my-moodle/courses/{id}              the texts of one course
     PUT    /users/my-moodle/files/{sha256}            the bytes of a listed course file (PDF, Office, text, image; up to 100 MiB)
@@ -66,10 +66,9 @@ def put_course_content(user: VerifiedDep, course_id: int, body: MoodleCourseCont
     if missing is None:
         raise HTTPException(404, "Send the overview with this course first")
     try:
-        moodle_chats.request_chats(user.innohassle_id, user.email, user.token.get_secret_value() if user.token else None,
-                                   course_id, body)
-    except Exception:  # The sync is stored; a chat request must not fail it
-        log.warning("moodle course %s: chat requests failed", course_id, exc_info=True)
+        moodle_chats.record_chats(user.innohassle_id, course_id, body)
+    except Exception:  # The sync is stored; recording chat links must not fail it
+        log.warning("moodle course %s: chat links not recorded", course_id, exc_info=True)
     return MoodleContentResult(files_missing=missing)
 
 

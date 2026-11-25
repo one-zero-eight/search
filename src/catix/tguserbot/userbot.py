@@ -35,12 +35,11 @@ from telethon.tl.types import (
     MessageMediaDocument, MessageMediaPhoto,
 )
 
-from catix import live_search, source_requests, userbot_config
+from catix import live_search, userbot_config
 from catix.db import pg
 from catix.db import store
 from catix.ingest import images, publish
 from catix.settings import settings
-from catix.tguserbot import source_requests as source_worker
 
 BATCH = 500
 
@@ -480,12 +479,11 @@ async def _listen_once() -> None:
             return job["chat_id"] in userbot_config.userbot_reads() and store.topic_allowed(job["chat_id"], job["topic_id"])
 
         recognizing = asyncio.create_task(images.run("tguserbot", download, allowed=allowed))
-        requesting = asyncio.create_task(source_worker.run(client))
         print("Listening. The chats are chosen in the bot: /listen. Ctrl+C to stop.")
         try:
             await client.run_until_disconnected()
         finally:
-            tasks = (follower, searching, heartbeat, recognizing, requesting)
+            tasks = (follower, searching, heartbeat, recognizing)
             for task in tasks:
                 task.cancel()
             # Finish downloads/lease cleanup while the Telegram client is still open.
@@ -526,7 +524,7 @@ async def _follow_choice(client: TelegramClient, entities: dict[int, Channel | C
 async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channel | Chat], backfills: dict[int, asyncio.Task],
                               gate: asyncio.Semaphore) -> None:
     """Keep `entities` equal to the chats chosen in the bot; replay the configured history on startup and after
-    storage changes. Durable source requests also resume unfinished backfills on restart."""
+    storage changes."""
     applied: dict | None = None
     last_refresh, last_request = time.monotonic(), float(userbot_config.meta("refresh_requested") or 0)
     marks: dict[int, dict[int | None, int]] | None = None
@@ -538,7 +536,6 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
             if marks is None:  # (taken before any chat enters `entities`: save() stores nothing of a chat until then, so no live write moved them)
                 marks = {c: {t: store.last_msg_id(c, t) or 0 for t in (scope if scope is not None else [None])} for c, scope in wanted.items()}
             fingerprints = userbot_config.storage_fingerprints()
-            requested_backfills = source_requests.backfill_pending()
             for chat_id in set(entities) - set(wanted):
                 del entities[chat_id]
                 print(f"No longer listening to {chat_id}.")
@@ -555,7 +552,7 @@ async def _follow_choice_loop(client: TelegramClient, entities: dict[int, Channe
                         next_applied[chat_id] = applied[chat_id]
                     continue
                 changed = applied is not None and applied.get(chat_id, ...) != fingerprints.get(chat_id)
-                window = changed or chat_id in requested_backfills
+                window = changed
                 if applied is None or window:
                     after = None if window or chat_id not in marks else marks[chat_id]
                     if after is None:
@@ -718,8 +715,6 @@ async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list
     try:
         async with gate:
             print(await _sync_chat(client, entity, topics, backfill=after is None, after=after))
-        if after is None and utils.get_peer_id(entity) in userbot_config.userbot_reads():
-            source_requests.backfill_done(utils.get_peer_id(entity))
     except Exception as e:  # noqa: BLE001
         print(f"History of {utils.get_display_name(entity)} not fetched: {e!r}", file=sys.stderr)
 

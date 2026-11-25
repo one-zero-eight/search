@@ -1,7 +1,7 @@
 """User-visible Telegram and MAX sources, scoped like the website assistant (not an admin directory)."""
 from typing import Literal
 
-from catix import groups, source_requests, userbot_config
+from catix import chat_links, groups, userbot_config
 from catix.db import pg
 
 
@@ -80,7 +80,7 @@ def _source_link(link: str | None, platform: Literal["telegram", "max"], *, user
     """Prefer a public username, otherwise validate a saved HTTPS chat link or invitation."""
     if platform == "telegram" and username:
         try:
-            public_name = source_requests.public_username(f"https://t.me/{username}")
+            public_name = chat_links.public_username(f"https://t.me/{username}")
         except ValueError:
             public_name = None
         if public_name is not None:
@@ -91,15 +91,15 @@ def _source_link(link: str | None, platform: Literal["telegram", "max"], *, user
         if not link.startswith("https://t.me/"):
             return None
         try:
-            username = source_requests.public_username(link)
+            username = chat_links.public_username(link)
             if username is not None:
                 return f"https://t.me/{username}"
-            return f"https://t.me/+{source_requests.invite_hash(link)}"
+            return f"https://t.me/+{chat_links.invite_hash(link)}"
         except ValueError:
             return None
     if not link.startswith("https://max.ru/"):
         return None
-    match = source_requests.MAX_LINK_RE.fullmatch(link)
+    match = chat_links.MAX_LINK_RE.fullmatch(link)
     if not match or match[1].lower() in {"join", "joinchat"}:
         return None
     return f"https://max.ru/{match[1]}"

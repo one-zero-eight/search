@@ -1,15 +1,13 @@
 """The Telegram and MAX chats a Moodle course links to (its sections, modules, `url` modules' targets, announcements),
-requested for moderation when the course is synced (api/moodle.py put_course_content): once an admin approves, the
-userbots join and the chat is seen by the study group of the user whose course it is (source_requests.submit_found)."""
+recorded in proposed_chats when the course is synced (api/moodle.py put_course_content), for the admins to look through."""
 import logging
 import re
 
-from catix import groups, source_requests
+from catix import chat_links
 from catix.db import pg
 from catix.moodle_sync import MoodleCourseContentIn
 
 LINK_RE = re.compile(r"(?:https?://)?(?:www\.)?(t\.me|telegram\.me|max\.ru)/([A-Za-z0-9_+-]+(?:/[A-Za-z0-9_-]+)?)", re.ASCII)
-MAX_PER_SYNC = 3  # new links requested from one course sync; a course page lists its chat, not dozens
 log = logging.getLogger("catix.moodle_chats")
 
 
@@ -26,7 +24,7 @@ def links(content: MoodleCourseContentIn) -> list[str]:
         for m in LINK_RE.finditer(text):
             candidate = f"{'max.ru' if m[1] == 'max.ru' else 't.me'}/{m[2]}"
             try:
-                link = source_requests.normalize_link(candidate)
+                link = chat_links.normalize_link(candidate)
             except (ValueError, AssertionError):
                 continue
             if link.startswith("https://t.me/") and not link.startswith("https://t.me/+") and link.lower().endswith("bot"):
@@ -35,29 +33,16 @@ def links(content: MoodleCourseContentIn) -> list[str]:
     return list(found)
 
 
-def request_chats(owner: str, email: str, token: str | None, course_id: int, content: MoodleCourseContentIn) -> list[dict]:
+def record_chats(owner: str, course_id: int, content: MoodleCourseContentIn) -> int:
+    """Record the chats the course links to in proposed_chats (a link already there keeps its first finder); how many
+    were new."""
     found = links(content)
     if not found:
-        return []
-    verified = groups.website_groups(token)
-    if not verified:
-        log.info("moodle course %s: %d chat links, no verified study group: not requested", course_id, len(found))
-        return []
-    group = verified[0]
+        return 0
     with pg.connection() as conn:
-        fullname = pg.scalar(conn, "SELECT fullname FROM moodle_courses WHERE innohassle_id = %s AND course_id = %s",
-                             (owner, course_id))
-    comment = f"Moodle: {fullname}"
-    created: list[dict] = []
-    for link in found:
-        if len(created) >= MAX_PER_SYNC:
-            break
-        try:
-            row = source_requests.submit_found(owner, email, link, group, comment)
-        except ValueError:
-            continue
-        if row:
-            created.append(row)
-    for row in created:
-        log.info("moodle course %s: requested %s for %s", course_id, row["id"], group)
-    return created
+        course = pg.scalar(conn, "SELECT fullname FROM moodle_courses WHERE innohassle_id = %s AND course_id = %s",
+                           (owner, course_id)) or ""
+        new = sum(conn.execute("INSERT INTO proposed_chats (link, owner, course) VALUES (%s, %s, %s) ON CONFLICT (link) DO NOTHING",
+                               (link, owner, course)).rowcount for link in found)
+    log.info("moodle course %s: %d chat links, %d new", course_id, len(found), new)
+    return new

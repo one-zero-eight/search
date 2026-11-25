@@ -25,6 +25,7 @@ from pydantic import Field
 from catix.agent import api_context, api_tools, core, roles
 from catix.agent.api_preflight import ApiPreflightMiddleware, _discovered_schema
 from catix.agent.calendar_approval import LOCAL_CALENDAR_APPROVAL
+from catix.agent.feedback_tools import FEEDBACK_APPROVAL
 from catix.agent.core import (
     OMITTED,
     PRUNED_RESULT,
@@ -168,7 +169,7 @@ def test_a_call_that_cannot_be_matched_and_a_result_without_an_id_stay():
 
 
 def test_every_tool_of_the_supervisor_is_either_pruned_or_kept_on_purpose():
-    kept = {"read_attachment"} | LOCAL_CALENDAR_APPROVAL.keys()
+    kept = {"read_attachment"} | LOCAL_CALENDAR_APPROVAL.keys() | FEEDBACK_APPROVAL.keys()
     assert roles.MAIN_TOOLS <= core.LOOKUP_RESULTS | kept, "a new tool: are its results looked up afresh, or evidence?"
     assert not core.LOOKUP_RESULTS & kept
     assert core.LOOKUP_RESULTS <= {t.name for t in TOOLS}

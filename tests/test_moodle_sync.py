@@ -24,10 +24,10 @@ B = {"Authorization": "Bearer other"}
 FILE_URL = "https://moodle.innopolis.university/pluginfile.php/1/mod_resource/content/0/slides.pdf"
 
 
-def _clear_requests():
+def _clear_chats():
     with pg.connection() as conn:
-        conn.execute("DELETE FROM source_requests WHERE owner IN (%s, %s)", (U1, U2))
-        conn.execute("DELETE FROM source_requests WHERE invite_link LIKE 'https://t.me/+catixMoodleTest%%'")
+        conn.execute("DELETE FROM proposed_chats WHERE owner IN (%s, %s)", (U1, U2))
+        conn.execute("DELETE FROM proposed_chats WHERE link LIKE 'https://t.me/+catixMoodleTest%%'")
 
 
 @pytest.fixture
@@ -37,11 +37,11 @@ def client(monkeypatch):
     monkeypatch.setattr(settings, "reranker_route", None)
     monkeypatch.setattr(groups, "website_groups", lambda token: [])
     monkeypatch.setattr(pg, "embed", lambda texts, query=False: [[1.0] + [0.0] * 1023 for _ in texts])
-    _clear_requests()
+    _clear_chats()
     for uid in (U1, U2):
         moodle_sync.forget(uid)
     yield TestClient(app)
-    _clear_requests()
+    _clear_chats()
     for uid in (U1, U2):
         moodle_sync.forget(uid)
 
@@ -330,7 +330,7 @@ def test_reader_reads_text_and_refuses_binary():
         moodle_files.read_file(b"\x00\x01", ".txt")
 
 
-def test_course_chat_links_become_pending_requests(client, monkeypatch):
+def test_course_chat_links_are_recorded_once(client):
     link = "https://t.me/+catixMoodleTest" + "A" * 8
     content = {"sections": [{
         "section_id": 1, "summary_html": f'<a href="{link}">chat</a>',
@@ -342,20 +342,13 @@ def test_course_chat_links_become_pending_requests(client, monkeypatch):
 
     def rows():
         with pg.connection() as conn:
-            return conn.execute("SELECT * FROM source_requests WHERE invite_link = %s", (link,)).fetchall()
+            return conn.execute("SELECT link, owner, course FROM proposed_chats WHERE owner IN (%s, %s) "
+                                "OR link LIKE 'https://t.me/+catixMoodleTest%%'", (U1, U2)).fetchall()
 
-    monkeypatch.setattr(groups, "website_groups", lambda token: [])
     assert client.put("/users/my-moodle/overview", headers=A, json=overview()).status_code == 200
     assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 200
-    assert rows() == []
-
-    monkeypatch.setattr(groups, "website_groups", lambda token: ["B24-SD-01"])
-    assert client.put("/users/my-moodle/courses/1/content", headers=A, json=content).status_code == 200
-    [row] = rows()
-    assert (row["owner"], row["status"], row["group_code"], row["comment"], row["decided_by"]) == (
-        U1, "pending", "B24-SD-01", "Moodle: Course one", None)
-    assert row["decided_at"] is None
+    assert rows() == [{"link": link, "owner": U1, "course": "Course one"}]
 
     assert client.put("/users/my-moodle/overview", headers=B, json=overview("b@innopolis.university")).status_code == 200
     assert client.put("/users/my-moodle/courses/1/content", headers=B, json=content).status_code == 200
-    assert len(rows()) == 1
+    assert rows() == [{"link": link, "owner": U1, "course": "Course one"}]
