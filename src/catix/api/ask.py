@@ -255,6 +255,7 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
             if text and "<tool_call>" not in call_text:
                 if text != shown:
                     shown = text
+                    await show_status(WRITING)  # (an answer without a search or after another tool shows no status of its own)
                     await events.put(("answer", {"text": text}))
     return state
 

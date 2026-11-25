@@ -386,6 +386,43 @@ def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
     assert result["messages"][0].text == "Ответ"
 
 
+def test_stream_agent_says_it_writes_when_the_answer_starts_without_a_search(monkeypatch):
+    from langchain_core.messages import AIMessageChunk, ToolMessage
+
+    from catix.agent.core import SUPERVISOR_NAME
+    from catix.common.status import CHECKING, STATUS, WRITING
+
+    model = {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}
+
+    class FakeAgent:
+        async def astream(self, *args, **kwargs):
+            yield "messages", (AIMessageChunk(content="", id="c", tool_call_chunks=[{"name": "get_my_schedule", "args": "", "id": "1", "index": 0}]), model)
+            yield "messages", (ToolMessage("{}", name="get_my_schedule", tool_call_id="1"), {})
+            yield "messages", (AIMessageChunk(content="Завтра пара", id="a"), model)
+            yield "values", {"messages": [AIMessage("Завтра пара")]}
+
+    monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
+    events: asyncio.Queue = asyncio.Queue()
+    asyncio.run(ask.stream_agent({}, {}, None, events))
+    sent = [events.get_nowait() for _ in range(events.qsize())]
+    assert sent == [
+        ("status", {"text": CHECKING}),
+        ("status", {"text": STATUS["get_my_schedule"]}),
+        ("status", {"text": WRITING}),
+        ("answer", {"text": "Завтра пара"}),
+    ]
+
+    class DirectAgent:
+        async def astream(self, *args, **kwargs):
+            yield "messages", (AIMessageChunk(content="Привет", id="a"), model)
+            yield "values", {"messages": [AIMessage("Привет")]}
+
+    monkeypatch.setattr(ask, "agent", lambda: DirectAgent())
+    asyncio.run(ask.stream_agent({}, {}, None, events))
+    sent = [events.get_nowait() for _ in range(events.qsize())]
+    assert sent == [("status", {"text": CHECKING}), ("status", {"text": WRITING}), ("answer", {"text": "Привет"})]
+
+
 async def _state():
     return type("S", (), {"values": {}, "config": {"configurable": {"checkpoint_id": "cp"}}})()
 
