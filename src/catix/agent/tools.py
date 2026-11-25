@@ -370,7 +370,7 @@ class SearchArgs(BaseModel):
         return value or None
 
 
-MAX_RESULTS = 16  # results of all sources together when the reranker scores them in one pass (db/rerank.py)
+MAX_RESULTS = 8  # results of all sources together when the reranker scores them in one pass (db/rerank.py)
 
 
 def _fetch_chats(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool):
