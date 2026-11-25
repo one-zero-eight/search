@@ -295,6 +295,9 @@ NOT_MADE_HINT = (
     "the tool results above contain, citing refs as usual."
 )
 UNKNOWN_TOOL_HINT = "That tool call was not made: call one of the tools you are given, or write your answer as plain text."
+# A reply with neither text nor a tool call (the model ended its thinking without doing either), asked again once.
+EMPTY_HINT = "Your reply was empty. Call the tool you need, or write your answer as plain text."
+EMPTY_FINAL_HINT = "Your reply was empty. Write your answer now as plain text, with what the tool results above contain."
 
 
 # Qwen writes a tool call as text: <tool_call><function=NAME><parameter=KEY>VALUE</parameter></function></tool_call>.
@@ -504,6 +507,8 @@ class RunGuardMiddleware(AgentMiddleware):
         call, since the run would end on the call limit instead of an answer.
         """
         message = self._last(response)
+        if message is not None and not message.tool_calls and not message.text.strip():
+            return response, False
         repaired = _repair_text_tool_call(message, self.tool_names) if message else None
         if repaired is None:
             return response, True
@@ -512,11 +517,15 @@ class RunGuardMiddleware(AgentMiddleware):
         return response, False
 
     def _again(self, request: ModelRequest, response, allow_calls: bool) -> ModelRequest:
-        """The request once more, with the model's markup and why it was not made after the conversation."""
+        """The request once more, with the model's markup and why it was not made after the conversation; an empty reply
+        has no markup to show, only the hint."""
+        text = self._last(response).text
+        if not text.strip():
+            log.warning("the model's reply was empty, asking again")
+            return request.override(messages=[*request.messages, HumanMessage(EMPTY_HINT if allow_calls else EMPTY_FINAL_HINT)])
         log.warning("unusable tool call markup in the model's answer, asking again")
-        markup = AIMessage(content=self._last(response).text)
         hint = UNKNOWN_TOOL_HINT if allow_calls else NOT_MADE_HINT
-        return request.override(messages=[*request.messages, markup, HumanMessage(hint)])
+        return request.override(messages=[*request.messages, AIMessage(content=text), HumanMessage(hint)])
 
     @staticmethod
     def _no_markup(request: ModelRequest, allow_calls: bool) -> ModelRequest:

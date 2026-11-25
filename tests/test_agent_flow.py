@@ -57,6 +57,25 @@ def test_a_final_answer_is_not_followed_by_a_forced_search():
     assert result.result[-1] is answer and not answer.tool_calls
 
 
+def test_an_empty_reply_is_asked_again_once_and_a_second_one_is_a_failure():
+    """The model ended its thinking with neither text nor a tool call ('создай из этого изображения черновик события'):
+    the user got 'Не получилось сформулировать ответ.' Now it is asked once more; the retry that answers is used."""
+    seen = []
+
+    def empty_then(reply):
+        replies = iter([AIMessage(content=""), reply])
+        return lambda request: seen.append(request) or ModelResponse(result=[next(replies)])
+
+    good = AIMessage(content="", tool_calls=[SEARCH])
+    result = RunGuardMiddleware().wrap_model_call(Req(0), empty_then(good))
+    assert result.result[-1] is good and len(seen) == 2
+    assert seen[1].messages[-1].content == core.EMPTY_HINT and seen[1].messages[:-1] == seen[0].messages  # no empty message echoed back
+
+    both_empty = lambda request: ModelResponse(result=[AIMessage(content="  ")])  # noqa: E731
+    failed = RunGuardMiddleware().wrap_model_call(Req(0), both_empty)
+    assert failed.result[-1].content == core.TOOL_FAILURE_ANSWER
+
+
 def test_the_last_call_may_not_call_tools_and_has_an_order_to_answer():
     """The tools and the system prompt stay as they were (the start of the request is the model server's cache): the
     call only forbids tool calls and adds the order after the conversation."""
