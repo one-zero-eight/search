@@ -200,10 +200,12 @@ def body(domain, **overrides):
 
 def test_a_non_admin_is_refused_and_an_admin_is_remembered(client, seen_calls, monkeypatch):
     monkeypatch.setattr(userbot_config, "dialogs", lambda: [])
-    response = client.get("/admin/telegram/chats", headers=USER)
+    monkeypatch.setattr(state, "list_sources", lambda: [])
+    monkeypatch.setattr(state, "get_account", lambda: None)
+    response = client.get("/admin/chats", headers=USER)
     assert response.status_code == 403 and response.json()["detail"] == "Only for cAtIx admins"
     assert seen_calls == []
-    assert client.get("/admin/telegram/chats", headers=ADMIN).status_code == 200
+    assert client.get("/admin/chats", headers=ADMIN).status_code == 200
     assert seen_calls == [(ADMIN_ID, "a@innopolis.university", 5)]
 
 
@@ -278,3 +280,15 @@ def test_admins_roundtrip_in_the_database(db, monkeypatch):  # noqa: F811
     assert admins.telegram_ids() == [11]
     with admins.pg.connection() as conn:
         conn.execute("DELETE FROM admins WHERE innohassle_id IN (%s, %s)", (first, second))
+
+
+def test_the_chat_list_joins_telegram_and_max(client, domain, monkeypatch):
+    dialog = userbot_config.Dialog(-5, "TG chat", "group", None, False)
+    monkeypatch.setattr(userbot_config, "dialogs", lambda: [dialog])
+    monkeypatch.setattr(userbot_config, "listened", lambda: {-5: None})
+    monkeypatch.setattr(userbot_config, "readers", lambda: {-5: "search"})
+    monkeypatch.setattr("catix.api.admin._groups_of", lambda ids: {-5: "B26"})
+    body = client.get("/admin/chats", headers=ADMIN).json()
+    assert [(c["platform"], c["chat_id"], c["connected"], c["group_code"]) for c in body["chats"]] == [
+        ("telegram", "-5", True, "B26"), ("max", str(CHAT), False, "all")]
+    assert body["chats"][0]["search_only"] is True and body["max_account"]["online"] is True

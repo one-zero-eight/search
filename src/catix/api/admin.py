@@ -146,20 +146,6 @@ def list_groups(user: AdminDep):
     return groups.known_codes()
 
 
-@router.get("/telegram/chats", response_model=list[TelegramChatView])
-def telegram_chats(user: AdminDep):
-    dialogs = userbot_config.dialogs()
-    ids = [d.chat_id for d in dialogs]
-    on = userbot_config.listened()
-    readers = userbot_config.readers()
-    group_of = _groups_of(ids)
-    marks = official.flags(ids)
-    return [
-        _telegram_view(d, d.chat_id in on, readers.get(d.chat_id, "auto"), group_of.get(d.chat_id, groups.ALL), marks.get(d.chat_id, False))
-        for d in dialogs
-    ]
-
-
 def _topics(chat_id: int) -> list[userbot_config.Topic]:
     found = userbot_config.topics(chat_id)
     if not any(t.topic_id == store.GENERAL_TOPIC_ID for t in found):
@@ -257,9 +243,24 @@ class MaxSourceView(BaseModel):
     generation: int
 
 
-class MaxView(BaseModel):
-    account: MaxAccountView
-    sources: list[MaxSourceView]
+class ChatListItem(BaseModel):
+    platform: Literal["telegram", "max"]
+    chat_id: str
+    title: str
+    group_code: str
+    official: bool
+    connected: bool  # Telegram: listened; MAX: reading enabled
+    forum: bool
+    bot_in: bool
+    search_only: bool
+    raw_chat_id: str | None  # MAX only
+    access: str | None  # MAX only
+    history_status: str | None  # MAX only
+
+
+class ChatsView(BaseModel):
+    max_account: MaxAccountView
+    chats: list[ChatListItem]
 
 
 class MaxLegacyCandidate(BaseModel):
@@ -323,19 +324,6 @@ def _max_detail(chat_id: int) -> dict:
     if source is None:
         raise HTTPException(404, "source_not_found")
     return {**_max_view(source), "message_count": store.chat_message_count(chat_id), "legacy_candidates": _legacy_candidates(chat_id, source)}
-
-
-@router.get("/max", response_model=MaxView)
-def max_sources(user: AdminDep):
-    account = state.get_account()
-    return {
-        "account": {
-            "online": _online(account),
-            "catalog_status": account.get("catalog_status", "idle") if account else "idle",
-            "catalog_error": account.get("catalog_error") if account else None,
-        },
-        "sources": [_max_view(source) for source in state.list_sources()],
-    }
 
 
 @router.get("/max/{chat_id}", response_model=MaxSourceDetail)
@@ -470,3 +458,49 @@ def abuse_forgive(user_key: str, user: AdminDep):
     if not abuse.forgive(user_key):
         raise HTTPException(404, "not_found")
     return Response(status_code=204)
+
+
+# ---- the list of both platforms -------------------------------------------------------------------------------
+
+
+def _telegram_items() -> list[dict]:
+    dialogs = userbot_config.dialogs()
+    ids = [d.chat_id for d in dialogs]
+    on = userbot_config.listened()
+    readers = userbot_config.readers()
+    group_of = _groups_of(ids)
+    marks = official.flags(ids)
+    return [
+        {
+            "platform": "telegram", "chat_id": str(d.chat_id), "title": d.title, "group_code": group_of.get(d.chat_id, groups.ALL),
+            "official": marks.get(d.chat_id, False), "connected": d.chat_id in on, "forum": bool(d.forum and not d.bot_only),
+            "bot_in": d.bot_in, "search_only": readers.get(d.chat_id) == "search", "raw_chat_id": None, "access": None,
+            "history_status": None,
+        }
+        for d in dialogs
+    ]
+
+
+def _max_items() -> list[dict]:
+    return [
+        {
+            "platform": "max", "chat_id": str(s["chat_id"]), "title": s["title"] or "", "group_code": s["group_code"],
+            "official": bool(s.get("official")), "connected": s["enabled"], "forum": False, "bot_in": False, "search_only": False,
+            "raw_chat_id": str(s["raw_chat_id"]), "access": s["access"], "history_status": s["history_status"],
+        }
+        for s in state.list_sources()
+    ]
+
+
+@router.get("/chats", response_model=ChatsView)
+def list_chats(user: AdminDep):
+    """Telegram dialogs and MAX sources in one list; the MAX account status goes with it."""
+    account = state.get_account()
+    return {
+        "max_account": {
+            "online": _online(account),
+            "catalog_status": account.get("catalog_status", "idle") if account else "idle",
+            "catalog_error": account.get("catalog_error") if account else None,
+        },
+        "chats": [*_telegram_items(), *_max_items()],
+    }
