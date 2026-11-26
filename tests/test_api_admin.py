@@ -292,3 +292,17 @@ def test_the_chat_list_joins_telegram_and_max(client, domain, monkeypatch):
     assert [(c["platform"], c["chat_id"], c["connected"], c["group_code"]) for c in body["chats"]] == [
         ("telegram", "-5", True, "B26"), ("max", str(CHAT), False, "all")]
     assert body["chats"][0]["search_only"] is True and body["max_account"]["online"] is True
+
+
+def test_proposals_hide_connected_chats(db):  # noqa: F811
+    from catix import moodle_chats
+    from catix.db import pg
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO chats (chat_id, title, username) VALUES (-82101, 'Listened', 'listened_chat')")
+        conn.execute("INSERT INTO userbot_dialogs (chat_id, title, kind, username) VALUES (-82101, 'Listened', 'group', 'listened_chat')")
+        conn.execute("INSERT INTO userbot_listen (chat_id) VALUES (-82101)")
+        for link in ("https://t.me/listened_chat", "https://t.me/other_chat"):
+            conn.execute("INSERT INTO proposed_chats (link, owner, course) VALUES (%s, %s, 'c')", (link, OWNER and "o"))
+    total, items = moodle_chats.proposals(0, 50)
+    assert total == 1
+    assert [item["link"] for item in items] == ["https://t.me/other_chat"]

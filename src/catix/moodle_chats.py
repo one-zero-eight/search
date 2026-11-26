@@ -48,14 +48,29 @@ def record_chats(owner: str, course_id: int, content: MoodleCourseContentIn) -> 
     return new
 
 
-def proposals(offset: int, limit: int) -> tuple[int, list[dict]]:
-    """(total, the page of proposed chats with their owner's study groups), the newest first. Read-only: nothing here joins a chat."""
+def connected_links() -> list[str]:
+    """The canonical links of the chats already on the admins' list (listened Telegram chats, enabled MAX sources). A
+    private invitation cannot be matched to a Telegram chat unless it is the chat's stored link."""
     with pg.connection() as conn:
-        total = pg.scalar(conn, "SELECT count(*) FROM proposed_chats") or 0
+        telegram = conn.execute(
+            "SELECT d.username, c.link FROM userbot_listen l LEFT JOIN userbot_dialogs d ON d.chat_id = l.chat_id "
+            "LEFT JOIN chats c ON c.chat_id = l.chat_id").fetchall()
+        max_ = conn.execute("SELECT c.link FROM max_sources m JOIN chats c ON c.chat_id = m.chat_id WHERE m.enabled").fetchall()
+    candidates: list[str | None] = [f"https://t.me/{row['username']}" if row["username"] else None for row in telegram]
+    candidates += [row["link"] for row in telegram] + [row["link"] for row in max_]
+    return chat_links.canonical_links(candidates)
+
+
+def proposals(offset: int, limit: int) -> tuple[int, list[dict]]:
+    """(total, the page of proposed chats with their owner's study groups), the newest first, without the chats that are
+    already connected. Read-only: nothing here joins a chat."""
+    connected = connected_links()
+    with pg.connection() as conn:
+        total = pg.scalar(conn, "SELECT count(*) FROM proposed_chats WHERE link <> ALL(%s)", (connected,)) or 0
         rows = conn.execute(
             "SELECT p.link, p.owner, p.course, p.found_at, coalesce(a.study_groups, '{}') AS study_groups "
-            "FROM proposed_chats p LEFT JOIN moodle_accounts a ON a.innohassle_id = p.owner ORDER BY p.found_at DESC, p.link "
-            "OFFSET %s LIMIT %s",
-            (offset, limit),
+            "FROM proposed_chats p LEFT JOIN moodle_accounts a ON a.innohassle_id = p.owner WHERE p.link <> ALL(%s) "
+            "ORDER BY p.found_at DESC, p.link OFFSET %s LIMIT %s",
+            (connected, offset, limit),
         ).fetchall()
     return total, [dict(row) for row in rows]
