@@ -23,13 +23,16 @@ def screen(page: int) -> tuple[str, InlineKeyboardMarkup]:
     with pg.connection() as conn:
         total = pg.scalar(conn, "SELECT count(*) FROM proposed_chats") or 0
         page = min(max(page, 0), max((total - 1) // PAGE_SIZE, 0))
-        rows = conn.execute("SELECT link, owner, course, found_at FROM proposed_chats ORDER BY found_at DESC, link "
+        rows = conn.execute("SELECT p.link, p.owner, p.course, p.found_at, coalesce(a.study_groups, '{}') AS study_groups "
+                            "FROM proposed_chats p LEFT JOIN moodle_accounts a ON a.innohassle_id = p.owner ORDER BY p.found_at DESC, p.link "
                             "OFFSET %s LIMIT %s", (page * PAGE_SIZE, PAGE_SIZE)).fetchall()
     lines = [f"<b>Заявки на чаты</b> · {total}",
              "Ссылки на чаты из курсов Moodle пользователей. Список только для просмотра: к чатам ничего не подключается."]
     for row in rows:
         course = row["course"] if len(row["course"]) <= COURSE_TITLE else row["course"][:COURSE_TITLE - 1] + "…"
-        lines.append(f"\n<code>{html.escape(row['link'])}</code>\n{html.escape(course or 'курс не указан')} · "
+        study_groups = ", ".join(row["study_groups"]) or "группа не указана"
+        lines.append(f"\n<code>{html.escape(row['link'])}</code>\n{html.escape(study_groups)}\n"
+                     f"{html.escape(course or 'курс не указан')} · "
                      f"{row['found_at']:%Y-%m-%d} · <code>{html.escape(row['owner'])}</code>")
     if not rows:
         lines.append("\nПока ни одной ссылки.")
