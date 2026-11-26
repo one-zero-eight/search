@@ -277,6 +277,8 @@ class AskResponses(BaseModel):
     "(POST /ask/{chat_id}/decision) gives the answer; a new question in the chat instead drops them undone."
     search: SearchResponses | None = None
     "A plain search of the knowledge base kept in the chat (POST /ask/search), not an answer of the assistant: `answer` is empty and `search` holds the cards as GET /search/search gives them."
+    guardrail: Literal["small_talk", "blocked", "paused"] | None = None
+    "How the guardrail treated the question, for the site's reaction: `small_talk` (answered without tools), `blocked` (refused as an attack, abuse or spam) or `paused` (the user's access is paused after repeated violations); `answer` is then the refusal itself. Kept in a chat's history."
 
 
 class AskChat(BaseModel):

@@ -74,16 +74,16 @@ def test_signed_in_catalogue_search_never_verifies_or_forwards_user_tokens(monke
     assert "synthetic-user-token" not in str(result) and "synthetic-sport-token" not in str(result)
 
 
-LABELS = [
-    ("search_api_tools", "🔎 Ищу подходящий инструмент…"),
-    ("call_api_tool", "🔧 Обращаюсь к сервису…"),
-    ("add_to_ai_calendar", "🗓 Готовлю добавление в календарь…"),
-    ("update_ai_calendar", "🗓 Готовлю изменение календаря…"),
+PHASES = [
+    ("search_api_tools", "searching"),
+    ("call_api_tool", "working"),
+    ("add_to_ai_calendar", "preparing_action"),
+    ("update_ai_calendar", "preparing_action"),
 ]
 
 
-@pytest.mark.parametrize("tool_name,label", LABELS)
-def test_api_emits_status_while_tool_is_still_running(monkeypatch, tool_name, label):
+@pytest.mark.parametrize("tool_name,phase", PHASES)
+def test_api_emits_status_while_tool_is_still_running(monkeypatch, tool_name, phase):
     async def run():
         started, release = asyncio.Event(), asyncio.Event()
         events = asyncio.Queue()
@@ -104,24 +104,9 @@ def test_api_emits_status_while_tool_is_still_running(monkeypatch, tool_name, la
             await asyncio.wait_for(started.wait(), timeout=2)
             assert not task.done()
             sent = [events.get_nowait() for _ in range(events.qsize())]
-            assert sent == [("status", {"text": CHECKING}), ("status", {"text": label})]
+            assert sent == [("status", {"phase": CHECKING}), ("status", {"phase": phase})]
         finally:
             release.set()
             await task
-
-    asyncio.run(run())
-
-
-@pytest.mark.parametrize("tool_name,label", LABELS)
-def test_bot_shares_new_tool_progress_labels(tool_name, label):
-    from tests.test_stream import Recorder, SUPERVISOR
-
-    async def run():
-        drafts = Recorder()
-        await drafts.start()
-        await drafts.feed(AIMessageChunk(content="", id="m1", tool_call_chunks=[{
-            "name": tool_name, "args": "", "id": "c1", "index": 0,
-        }]), SUPERVISOR)
-        assert drafts.sent == [CHECKING, label]
 
     asyncio.run(run())

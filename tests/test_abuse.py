@@ -209,3 +209,19 @@ def test_the_command_lists_shows_and_clears(user):
     assert abuse.paused_until(user.key) is None
     assert "ничего нет" in abuse.command(user.key)
     assert abuse.command("clear") == abuse.USAGE
+
+
+def test_the_refusal_says_whether_the_message_was_blocked_or_the_user_is_paused(user):
+    middleware = GuardrailMiddleware()
+    context = SimpleNamespace(context=AgentContext(user_telegram_id=user.telegram_id))
+
+    def stopped() -> str | None:
+        out = middleware.before_agent({"messages": [HumanMessage(ATTACK)]}, context)
+        assert out is not None and out["jump_to"] == "end"
+        return guardrail.stopped_by(out["messages"][0])
+
+    assert stopped() == "blocked"
+    for _ in range(settings.abuse_pause_at - 1):
+        stopped()
+    assert abuse.paused_until(user.key)
+    assert stopped() == "paused"

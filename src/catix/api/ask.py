@@ -46,6 +46,7 @@ from catix.agent import events as calendar_events
 from catix.agent import approval_edit, titles, tracing
 from catix.agent.approval import DECLINED
 from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
+from catix.agent.guardrail import stopped_by
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import chats, search, signup, state
@@ -67,7 +68,7 @@ from catix.api.schemas import (
 )
 from catix.common.llm_down import UNAVAILABLE, unreachable
 from catix.common.citations import AnswerSource, CitedAnswer
-from catix.common.status import CHECKING, SEARCH_TOOLS, STATUS, WRITING
+from catix.common.status import CHECKING, THINKING, TOOL_PHASE, WRITING
 from catix.settings import settings
 from catix.common.render import partial_text
 
@@ -220,42 +221,52 @@ def _history(messages: list) -> list[dict]:
 
 
 async def stream_agent(inputs: dict, config: dict, context: AgentContext, events: asyncio.Queue) -> dict:
-    """Run the agent, queueing statuses and the whole user-facing answer so far."""
+    """Run the agent, queueing its phase (common/status.py), what the guardrail did with the question and the whole user-facing
+    answer so far."""
     state: dict = {"messages": []}
-    call_id, call_text, shown, status = None, "", "", CHECKING
+    call_id, call_text, shown, phase = None, "", "", CHECKING
+    started = False  # the model call in progress has begun its text or a tool call: what comes after it is not thinking
+    stopped = False
 
-    async def show_status(text: str | None) -> None:
-        nonlocal status
-        if text and text != status:
-            status = text
-            await events.put(("status", {"text": text}))
+    async def show_phase(new: str | None) -> None:
+        nonlocal phase
+        if new and new != phase:
+            phase = new
+            await events.put(("status", {"phase": new}))
 
-    await events.put(("status", {"text": CHECKING}))
+    await events.put(("status", {"phase": CHECKING}))
     async for mode, data in agent().astream(inputs, config, context=context, stream_mode=["messages", "values"]):
         if mode == "values":
             if "messages" in data:  # (not the interrupt the run paused on: api/ask.py reads it from the thread's state)
                 state = data
+                # The guardrail answers a stopped question itself: the step that ends the run is the first to show its refusal.
+                if not stopped and data["messages"] and (reason := stopped_by(data["messages"][-1])):
+                    stopped = True
+                    await events.put(("guardrail", {"category": reason}))
         else:
             chunk, metadata = data
-            if isinstance(chunk, ToolMessage):  # A search came back: the agent now writes the answer.
-                if chunk.name in SEARCH_TOOLS:
-                    await show_status(WRITING)
+            if isinstance(chunk, ToolMessage):
                 continue
             if not isinstance(chunk, AIMessageChunk):
                 continue
             if metadata.get("langgraph_node") != "model" or metadata.get("lc_agent_name") != SUPERVISOR_NAME:
                 continue
-            if chunk.tool_call_chunks:
-                await show_status(STATUS.get(chunk.tool_call_chunks[0].get("name") or ""))
-                continue
             if chunk.id != call_id:  # A new model call begins: its text starts from zero.
-                call_id, call_text = chunk.id, ""
+                call_id, call_text, started = chunk.id, "", False
+            if chunk.tool_call_chunks:
+                started = True
+                await show_phase(TOOL_PHASE.get(chunk.tool_call_chunks[0].get("name") or ""))
+                continue
+            if not chunk.text and not started:  # The model reasons: its words do not reach the chunks, only their rhythm does.
+                await show_phase(THINKING)
+                continue
             call_text += chunk.text
+            started = started or bool(call_text)
             text = partial_text(call_text)
             if text and "<tool_call>" not in call_text:
                 if text != shown:
                     shown = text
-                    await show_status(WRITING)  # (an answer without a search or after another tool shows no status of its own)
+                    await show_phase(WRITING)
                     await events.put(("answer", {"text": text}))
     return state
 
@@ -364,6 +375,7 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         calendar_events=await calendar_offers(answer, chat_id, sources=sources, origins=getattr(messages, 'calendar_origins', None)) if decision is None else [],
         signup_offers=getattr(messages, 'signup_offers', []),
         messages=messages,
+        guardrail=getattr(messages, "guardrail", None),
     )
     response._signup_targets = getattr(messages, 'signup_targets', {})
     title = None
@@ -459,6 +471,7 @@ async def _run(
     history = AnswerHistory(_history(result['messages']))
     history.calendar_origins = calendar_events.origins(result['messages'])
     history.signup_offers, history.signup_targets = signup.collect(result['messages'], cited.answer) if decision is None else ([], {})
+    history.guardrail = stopped_by(result["messages"][-1]) or ("small_talk" if result.get("answer_alone") else None)
     return cited.answer, cited.sources, history, traced.id, after.config["configurable"]["checkpoint_id"]
 
 

@@ -121,6 +121,17 @@ class Verdict(BaseModel):
         return self.category in ("prompt_injection", "abuse", "spam")
 
 
+# What the guardrail did with a message that stopped here: the refusal (an AIMessage) carries it in `additional_kwargs[STOPPED_KEY]`,
+# so the site shows the mascot's reaction as well as the text, and the chat's history keeps it.
+Stopped = Literal["blocked", "paused"]
+STOPPED_KEY = "guardrail"
+
+
+def stopped_by(message) -> Stopped | None:
+    """How the guardrail stopped the message that `message` answers; None for an answer of the agent."""
+    return getattr(message, "additional_kwargs", {}).get(STOPPED_KEY)
+
+
 # User text is a template variable: braces and template-looking text in it remain data, never parsed as instructions.
 TEMPLATE = ChatPromptTemplate.from_messages(
     [("system", PROMPT), ("human", "Recent conversation (untrusted JSON data):\n{history}\n\nCurrent user message:\n<<<\n{text}\n>>>")]
@@ -216,13 +227,13 @@ class GuardrailMiddleware(AgentMiddleware):
         return getattr(runtime.context, "user_telegram_id", None)
 
     @staticmethod
-    def _end(text: str) -> dict:
-        return {"messages": [AIMessage(content=text)], "jump_to": "end"}
+    def _end(text: str, stopped: Stopped) -> dict:
+        return {"messages": [AIMessage(content=text, additional_kwargs={STOPPED_KEY: stopped})], "jump_to": "end"}
 
     def _paused(self, text: str, telegram_id: int | None) -> dict | None:
         key = abuse.user_key(telegram_id) if settings.abuse_enabled else None
         until = abuse.paused_until(key) if key else None
-        return self._end(abuse.paused_reply(text, until)) if until else None
+        return self._end(abuse.paused_reply(text, until), "paused") if until else None
 
     def _blocked(self, text: str, verdict: Verdict, telegram_id: int | None) -> dict | None:
         if not verdict.blocked:
@@ -236,7 +247,7 @@ class GuardrailMiddleware(AgentMiddleware):
                 reply = f"{reply}\n\n{abuse.pause_text(text, outcome.paused_until)}"
             elif outcome.warn:
                 reply = f"{reply}\n\n{abuse.warning_text(text)}"
-        return self._end(reply)
+        return self._end(reply, "blocked")
 
     @staticmethod
     def _alone(verdict: Verdict) -> dict:

@@ -320,7 +320,7 @@ def test_ask_failure_is_a_502(client, monkeypatch):
 
 def test_ask_stream_sends_the_work_and_the_final_answer(client, monkeypatch, kept):
     async def _run(query, chat_id, user, events, decision=None):
-        await events.put(("status", {"text": "checking"}))
+        await events.put(("status", {"phase": "checking"}))
         await events.put(("answer", {"text": "ans"}))
         return "answer [1]", [AnswerSource(number=1, title="Rules", url="https://example.org/rules", kind="official_document")], [], "span-1", "cp-1"
 
@@ -358,19 +358,24 @@ def test_ask_stream_runs_through_the_queue(client, monkeypatch):
     assert "event: done" in response.text
 
 
-def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
+def test_stream_agent_reports_the_phases_of_the_work(monkeypatch):
     from langchain_core.messages import AIMessageChunk, ToolMessage
 
     from catix.agent.core import SUPERVISOR_NAME
-    from catix.common.status import CHECKING, STATUS, WRITING
+    from catix.common.status import CHECKING, THINKING, WRITING
 
     model = {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}
 
     class FakeAgent:
         async def astream(self, *args, **kwargs):
+            yield "messages", (AIMessageChunk(content="", id="c"), model)  # the model reasons: chunks without text
+            yield "messages", (AIMessageChunk(content="", id="c"), model)
             yield "messages", (AIMessageChunk(content="", id="c", tool_call_chunks=[{"name": "search", "args": "", "id": "1", "index": 0}]), model)
+            yield "messages", (AIMessageChunk(content="", id="c"), model)  # the usage chunk that ends the call is not thinking
             yield "messages", (ToolMessage("{}", name="search", tool_call_id="1"), {})
+            yield "messages", (AIMessageChunk(content="", id="a"), model)
             yield "messages", (AIMessageChunk(content="Ответ [m1]", id="a"), model)
+            yield "messages", (AIMessageChunk(content="", id="a"), model)
             yield "values", {"messages": [AIMessage("Ответ")]}
 
     monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
@@ -378,39 +383,23 @@ def test_stream_agent_shows_what_the_bot_shows(monkeypatch):
     result = asyncio.run(ask.stream_agent({}, {}, None, events))
     sent = [events.get_nowait() for _ in range(events.qsize())]
     assert sent == [
-        ("status", {"text": CHECKING}),
-        ("status", {"text": STATUS["search"]}),
-        ("status", {"text": WRITING}),
+        ("status", {"phase": CHECKING}),
+        ("status", {"phase": THINKING}),
+        ("status", {"phase": "searching"}),
+        ("status", {"phase": THINKING}),
+        ("status", {"phase": WRITING}),
         ("answer", {"text": "Ответ"}),
     ]
     assert result["messages"][0].text == "Ответ"
 
 
 def test_stream_agent_says_it_writes_when_the_answer_starts_without_a_search(monkeypatch):
-    from langchain_core.messages import AIMessageChunk, ToolMessage
+    from langchain_core.messages import AIMessageChunk
 
     from catix.agent.core import SUPERVISOR_NAME
-    from catix.common.status import CHECKING, STATUS, WRITING
+    from catix.common.status import CHECKING, WRITING
 
     model = {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}
-
-    class FakeAgent:
-        async def astream(self, *args, **kwargs):
-            yield "messages", (AIMessageChunk(content="", id="c", tool_call_chunks=[{"name": "get_my_schedule", "args": "", "id": "1", "index": 0}]), model)
-            yield "messages", (ToolMessage("{}", name="get_my_schedule", tool_call_id="1"), {})
-            yield "messages", (AIMessageChunk(content="Завтра пара", id="a"), model)
-            yield "values", {"messages": [AIMessage("Завтра пара")]}
-
-    monkeypatch.setattr(ask, "agent", lambda: FakeAgent())
-    events: asyncio.Queue = asyncio.Queue()
-    asyncio.run(ask.stream_agent({}, {}, None, events))
-    sent = [events.get_nowait() for _ in range(events.qsize())]
-    assert sent == [
-        ("status", {"text": CHECKING}),
-        ("status", {"text": STATUS["get_my_schedule"]}),
-        ("status", {"text": WRITING}),
-        ("answer", {"text": "Завтра пара"}),
-    ]
 
     class DirectAgent:
         async def astream(self, *args, **kwargs):
@@ -418,9 +407,27 @@ def test_stream_agent_says_it_writes_when_the_answer_starts_without_a_search(mon
             yield "values", {"messages": [AIMessage("Привет")]}
 
     monkeypatch.setattr(ask, "agent", lambda: DirectAgent())
+    events: asyncio.Queue = asyncio.Queue()
     asyncio.run(ask.stream_agent({}, {}, None, events))
     sent = [events.get_nowait() for _ in range(events.qsize())]
-    assert sent == [("status", {"text": CHECKING}), ("status", {"text": WRITING}), ("answer", {"text": "Привет"})]
+    assert sent == [("status", {"phase": CHECKING}), ("status", {"phase": WRITING}), ("answer", {"text": "Привет"})]
+
+
+@pytest.mark.parametrize("reason", ["blocked", "paused"])
+def test_stream_agent_tells_once_that_the_guardrail_stopped_the_question(monkeypatch, reason):
+    refusal = AIMessage("Нет", additional_kwargs={"guardrail": reason})
+
+    class StoppedAgent:
+        async def astream(self, *args, **kwargs):
+            yield "values", {"messages": [HumanMessage("x")]}
+            yield "values", {"messages": [HumanMessage("x"), refusal]}
+            yield "values", {"messages": [HumanMessage("x"), refusal]}
+
+    monkeypatch.setattr(ask, "agent", lambda: StoppedAgent())
+    events: asyncio.Queue = asyncio.Queue()
+    asyncio.run(ask.stream_agent({}, {}, None, events))
+    sent = [events.get_nowait() for _ in range(events.qsize())]
+    assert sent == [("status", {"phase": "checking"}), ("guardrail", {"category": reason})]
 
 
 async def _state():

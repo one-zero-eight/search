@@ -222,7 +222,7 @@ def test_root_uses_one_tool_and_keeps_combined_read_as_evidence(monkeypatch):
     import json
     from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
     from catix.agent import core
-    from catix.common.status import STATUS
+    from catix.common.status import TOOL_PHASE
     from tests.test_roles import ScriptedModel
 
     monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [CLASS], "bookings": []})
@@ -239,7 +239,7 @@ def test_root_uses_one_tool_and_keeps_combined_read_as_evidence(monkeypatch):
     assert isinstance(messages[0].content, str)
     assert json.loads(messages[0].content)["total"] == 2
     assert not agent.get_state(config).interrupts
-    assert "get_my_schedule" in STATUS
+    assert "get_my_schedule" in TOOL_PHASE
 
 
 @pytest.mark.parametrize("row", [{}, {**CLASS, "title": []}, {**CLASS, "starts_at": "not a timestamp"}])
@@ -256,7 +256,7 @@ def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, tool_name)
     import asyncio
     from langchain_core.messages import AIMessageChunk
     from catix.api import ask
-    from catix.common.status import STATUS
+    from catix.common.status import TOOL_PHASE
     from catix.agent.core import SUPERVISOR_NAME
 
     chunk = AIMessageChunk(content="", id="model", tool_call_chunks=[
@@ -268,7 +268,7 @@ def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, tool_name)
             yield event
             # The consumer must publish progress before the tool yields its result.
             sent = [queue.get_nowait() for _ in range(queue.qsize())]
-            assert ("status", {"text": STATUS[tool_name]}) in sent
+            assert ("status", {"phase": TOOL_PHASE[tool_name]}) in sent
             yield "values", {"messages": []}
     monkeypatch.setattr(ask, "agent", lambda: Stream())
     asyncio.run(ask.stream_agent({}, {}, CONTEXT, queue))
