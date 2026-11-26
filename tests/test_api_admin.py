@@ -306,3 +306,18 @@ def test_proposals_hide_connected_chats(db):  # noqa: F811
     total, items = moodle_chats.proposals(0, 50)
     assert total == 1
     assert [item["link"] for item in items] == ["https://t.me/other_chat"]
+
+
+def test_record_chats_skips_connected_chats(db):  # noqa: F811
+    from catix import moodle_chats
+    from catix.db import pg
+    from catix.moodle_sync import MoodleCourseContentIn, MoodleSectionIn
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO chats (chat_id, title, username) VALUES (-82102, 'Listened', 'listened_two')")
+        conn.execute("INSERT INTO userbot_listen (chat_id) VALUES (-82102)")
+        conn.execute("INSERT INTO userbot_dialogs (chat_id, title, kind, username) VALUES (-82102, 'Listened', 'group', 'listened_two')")
+    content = MoodleCourseContentIn(sections=[MoodleSectionIn(
+        section_id=1, summary_html="t.me/listened_two and t.me/fresh_chat")])
+    assert moodle_chats.record_chats("o", 1, content) == 1
+    with pg.connection() as conn:
+        assert [r["link"] for r in conn.execute("SELECT link FROM proposed_chats").fetchall()] == ["https://t.me/fresh_chat"]

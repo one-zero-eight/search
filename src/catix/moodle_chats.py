@@ -34,9 +34,10 @@ def links(content: MoodleCourseContentIn) -> list[str]:
 
 
 def record_chats(owner: str, course_id: int, content: MoodleCourseContentIn) -> int:
-    """Record the chats the course links to in proposed_chats (a link already there keeps its first finder); how many
-    were new."""
-    found = links(content)
+    """Record the chats the course links to in proposed_chats (a link already there keeps its first finder; a chat that
+    is already connected is not recorded); how many were new."""
+    connected = set(connected_links())
+    found = [link for link in links(content) if link not in connected]
     if not found:
         return 0
     with pg.connection() as conn:
