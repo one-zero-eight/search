@@ -77,6 +77,7 @@ log = logging.getLogger("catix.api")
 router = APIRouter(prefix="", tags=["Ask"])
 
 TITLE_WAIT = 5  # seconds the answer waits for the model's name of the chat once it is ready itself
+HEARTBEAT = 15  # seconds of silence after which the answer stream sends a comment line, so a proxy does not drop it
 NOT_BLANK = r"\S"  # a question has at least one non-space character
 COMMENT_MAX = 2000  # characters in a comment on an answer, as in the site's text box
 ACT_UNAVAILABLE = (
@@ -621,7 +622,14 @@ def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecisi
         yield server_event("chat", {"chat_id": chat_id})
         task = asyncio.create_task(work())
         try:
-            while (event := await events.get()) is not None:
+            while True:
+                try:
+                    event = await asyncio.wait_for(events.get(), HEARTBEAT)
+                except TimeoutError:
+                    yield ": ping\n\n"  # an SSE comment: keeps proxies (nginx proxy_read_timeout) from closing a silent stream
+                    continue
+                if event is None:
+                    break
                 yield server_event(*event)
         finally:
             task.cancel()  # The client went away: the answer is not needed any more.
