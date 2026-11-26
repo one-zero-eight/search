@@ -67,14 +67,17 @@ def _model():
 
 # These tools describe existing calendars, service registrations or bookable slots,
 # not independent reminders. Discovery and unrelated account reads do not qualify.
+# Moodle deadlines are in the user's calendar through the extension's Moodle calendar sync.
 _CALENDAR_TOOLS = {
     'get_my_schedule', 'get_my_ai_calendar', 'add_to_ai_calendar', 'update_ai_calendar', 'remove_from_ai_calendar',
     'account_get_my_schedule', 'account_get_booking', 'account_cancel_booking',
     'schedule_get_schedule', 'sport_get_my_sport', 'sport_get_training', 'sport_get_sport_trainings', 'sport_sport_checkin',
     'rooms_get_free_rooms', 'rooms_book_room', 'music_get_available_windows', 'music_get_music_room_schedule',
     'music_bookings_daily_bookings', 'music_book_music_room', 'events_enroll_in_event',
+    'get_my_moodle',
 }
 _EVENT_READS = {'events_get_event', 'events_get_university_events'}
+_MOODLE_DUE = re.compile(r'(\d{4}-\d{2}-\d{2}) \S+ (\d{2}:\d{2})')
 
 
 def _dated_items(value):
@@ -94,6 +97,8 @@ def _dated_items(value):
                 if start.utcoffset() is not None:
                     start = start.astimezone(settings.tz)
                     day, clock = start.date().isoformat(), start.strftime('%H:%M')
+            elif isinstance(value.get('due'), str) and (due := _MOODLE_DUE.fullmatch(value['due'])):
+                day, clock = date.fromisoformat(due[1]).isoformat(), due[2]
             elif isinstance(value.get('date'), str):
                 day = date.fromisoformat(value['date'].split(' ')[0]).isoformat()
         except ValueError:
@@ -120,6 +125,8 @@ def origins(messages: list) -> dict:
             name = call['args'].get('name') if message.name == 'call_api_tool' else message.name
             if not isinstance(name, str) or name not in _CALENDAR_TOOLS | _EVENT_READS:
                 continue
+            if name == 'get_my_moodle' and call['args'].get('what') != 'deadlines':
+                continue  # grades, announcements, courses are not calendar entries
             context['service'] = True
             if message.status != 'success' or not isinstance(message.content, str):
                 continue
@@ -137,6 +144,11 @@ def origins(messages: list) -> dict:
                     enrollment = item.get('enrollment_info')
                     key = 'excluded' if isinstance(enrollment, dict) and enrollment.get('type') == 'internal' else 'independent'
                     context.setdefault(key, []).extend(_dated_items(item))
+            elif name == 'get_my_moodle':
+                for item in data.get('items', []) if isinstance(data.get('items'), list) else []:
+                    if isinstance(item, dict):
+                        key = 'independent' if item.get('shared') is True else 'excluded'
+                        context.setdefault(key, []).extend(_dated_items(item))
             else:
                 context.setdefault('excluded', []).extend(_dated_items(data))
     return context

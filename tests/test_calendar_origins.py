@@ -110,6 +110,41 @@ def test_schedule_and_booking_answers_do_not_offer_duplicates(http_answer, extra
     assert calls == proposals == []
 
 
+def moodle_turn(day, what='deadlines', shared=False):
+    item = {'kind': 'quiz', 'course': 'English', 'shared': shared, 'name': 'Football', 'due': f'{day:%Y-%m-%d %a} 18:30',
+            'url': 'https://moodle.innopolis.university/mod/quiz/view.php?id=1'}
+    return [HumanMessage('какие у меня дедлайны?'),
+            AIMessage('', tool_calls=[{'id': 'moodle', 'name': 'get_my_moodle', 'args': {'what': what}}]),
+            ToolMessage(json.dumps({'what': what, 'items': [item], 'total': 1, 'truncated': False}),
+                        name='get_my_moodle', tool_call_id='moodle'),
+            AIMessage('Завтра в 18:30 дедлайн Football.')]
+
+
+def test_own_moodle_deadlines_do_not_start_calendar_extraction(http_answer, extraction):
+    day, _, calls, proposals = extraction
+    response = http_answer(moodle_turn(day))
+    assert response['calendar_events'] == []
+    assert calls == proposals == []
+
+
+def test_moodle_grades_do_not_suppress_calendar_offers(extraction):
+    day = extraction[0]
+    assert events.origins(moodle_turn(day, what='grades')) == {}
+
+
+def test_shared_moodle_deadline_stays_offerable(extraction):
+    day, _, calls, _ = extraction
+    messages = moodle_turn(day, shared=True)
+    found = events.extract(messages[-1].text, origins=events.origins(messages))
+    assert [item['title'] for item in found] == ['Football']
+    assert len(calls) == 1
+
+
+def test_moodle_due_is_read_as_local_day_and_time():
+    assert list(events._dated_items({'name': 'Quiz', 'due': '2026-11-29 Sun 09:00'})) == [
+        {'names': ['Quiz'], 'day': '2026-11-29', 'time': '09:00'}]
+
+
 @pytest.mark.parametrize('enrollment', ['internal', 'external', None])
 def test_events_with_internal_signup_only_skip_calendar_extraction(http_answer, extraction, enrollment):
     day, _, calls, proposals = extraction
