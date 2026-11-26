@@ -298,6 +298,10 @@ def test_proposals_hide_connected_chats(db):  # noqa: F811
     from catix import moodle_chats
     from catix.db import pg
     with pg.connection() as conn:
+        conn.execute("DELETE FROM proposed_chats")
+        conn.execute("DELETE FROM userbot_listen WHERE chat_id = -82101")
+        conn.execute("DELETE FROM userbot_dialogs WHERE chat_id = -82101")
+        conn.execute("DELETE FROM chats WHERE chat_id = -82101")
         conn.execute("INSERT INTO chats (chat_id, title, username) VALUES (-82101, 'Listened', 'listened_chat')")
         conn.execute("INSERT INTO userbot_dialogs (chat_id, title, kind, username) VALUES (-82101, 'Listened', 'group', 'listened_chat')")
         conn.execute("INSERT INTO userbot_listen (chat_id) VALUES (-82101)")
@@ -313,6 +317,10 @@ def test_record_chats_skips_connected_chats(db):  # noqa: F811
     from catix.db import pg
     from catix.moodle_sync import MoodleCourseContentIn, MoodleSectionIn
     with pg.connection() as conn:
+        conn.execute("DELETE FROM proposed_chats")
+        conn.execute("DELETE FROM userbot_listen WHERE chat_id = -82102")
+        conn.execute("DELETE FROM userbot_dialogs WHERE chat_id = -82102")
+        conn.execute("DELETE FROM chats WHERE chat_id = -82102")
         conn.execute("INSERT INTO chats (chat_id, title, username) VALUES (-82102, 'Listened', 'listened_two')")
         conn.execute("INSERT INTO userbot_listen (chat_id) VALUES (-82102)")
         conn.execute("INSERT INTO userbot_dialogs (chat_id, title, kind, username) VALUES (-82102, 'Listened', 'group', 'listened_two')")
