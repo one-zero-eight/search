@@ -81,6 +81,18 @@ def test_confirmation_saves_group_and_policy_together_without_deleting_history(d
         assert conn.execute("SELECT text FROM messages WHERE chat_id=-82001 AND msg_id=99").fetchone()["text"] == "historical text"
 
 
+def test_confirming_a_chat_removes_its_proposal(db):
+    with db() as conn:
+        conn.execute("UPDATE userbot_dialogs SET username = 'Forum_Chat' WHERE chat_id = -82001")
+        conn.execute("DELETE FROM proposed_chats WHERE link IN ('https://t.me/forum_chat', 'https://t.me/other_chat')")
+        conn.execute("INSERT INTO proposed_chats (link, owner) VALUES ('https://t.me/forum_chat', 'u'), ('https://t.me/other_chat', 'u')")
+    config.save_configuration(-82001, "all", "store", {})
+    with db() as conn:
+        left = [row["link"] for row in conn.execute("SELECT link FROM proposed_chats WHERE owner = 'u'").fetchall()]
+        conn.execute("DELETE FROM proposed_chats WHERE owner = 'u'")
+    assert left == ["https://t.me/other_chat"]
+
+
 @pytest.mark.parametrize("changes", [
     {"chat_id": -82002}, {"chat_id": True}, {"chat_id": "-82001"},
     {"group_code": "bad group"}, {"group_code": None},

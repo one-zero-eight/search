@@ -3,7 +3,7 @@
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 
-from catix import groups
+from catix import chat_links, groups
 from catix.db import pg, store
 from psycopg.types.json import Jsonb
 from .models import ProtocolError, db_chat_id, normalize_id
@@ -196,6 +196,8 @@ def save_configuration(chat_id: int, group_code: str, *, enabled: bool, expected
                          (enabled, legacy_chat_id, int(changed), int(toggled), chat_id))
             if enabled and legacy_chat_id is not None:
                 conn.execute("UPDATE chats SET max_legacy_archived=true WHERE chat_id=%s", (legacy_chat_id,))
+            if enabled:  # the chat is on the admin's list now: it is no longer a proposal
+                conn.execute("DELETE FROM proposed_chats WHERE link = ANY(%s)", (chat_links.canonical_links([source["link"]]),))
             if toggled and enabled:
                 _history_reset(conn, chat_id)
                 conn.execute("""UPDATE max_sources SET catchup_status='idle',catchup_before_ms=NULL,

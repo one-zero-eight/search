@@ -16,7 +16,7 @@ from typing import Any
 
 from psycopg.types.json import Jsonb
 
-from catix import groups
+from catix import chat_links, groups
 from catix.common import cache
 from catix.db import pg
 from catix.groups import MAX_CHAT_BASE
@@ -170,7 +170,16 @@ def save_configuration(chat_id: int, group_code: str, default_mode: str, topic_m
                    topic_policy = excluded.topic_policy""",
             (chat_id, scope, reader, Jsonb(policy)),
         )
+        _drop_proposals(conn, chat_id, found.username)
     _forget()
+
+
+def _drop_proposals(conn, chat_id: int, username: str | None) -> None:
+    """The chat is on the admin's list now: remove it from proposed_chats. A private invitation cannot be matched, only
+    the public username and the chat's own stored link can."""
+    stored = pg.scalar(conn, "SELECT link FROM chats WHERE chat_id = %s", (chat_id,))
+    links = chat_links.canonical_links([f"https://t.me/{username}" if username else None, stored])
+    conn.execute("DELETE FROM proposed_chats WHERE link = ANY(%s)", (links,))
 
 
 def listened() -> dict[int, list[int] | None]:

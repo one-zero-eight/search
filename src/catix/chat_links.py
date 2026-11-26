@@ -46,3 +46,14 @@ def normalize_link(link: str) -> str:
     match = INVITE_RE.fullmatch(link)
     assert match is not None
     return f"https://t.me/+{match[1]}"
+
+
+def canonical_links(candidates: list[str | None]) -> list[str]:
+    """The canonical links of the candidates that are chat links (others are skipped), for matching proposed_chats."""
+    links = []
+    for candidate in candidates:
+        try:
+            links.append(normalize_link(candidate or ""))
+        except (ValueError, AssertionError):
+            continue
+    return links
