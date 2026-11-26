@@ -155,13 +155,13 @@ def test_repeats_are_forgotten_after_a_quiet_week(user):
 
 
 @pytest.mark.parametrize("category", ["prompt_injection", "abuse", "spam"])
-def test_admins_are_never_counted(user, monkeypatch, category):
+def test_admins_are_counted_and_paused_like_everyone_else(user, monkeypatch, category):
     monkeypatch.setattr("catix.admins.everyone", lambda: [user.telegram_id])
     user.verdict["category"] = category
-    for _ in range(8):
-        assert_test(case(send(ATTACK, user)), [ContainsNone([WARNING, PAUSE], name="NotCounted")])
-    assert abuse.paused_until(user.key) is None
-    assert not abuse.recent(user.key)
+    for _ in range(5):
+        send(ATTACK, user)
+    assert abuse.paused_until(user.key)
+    assert abuse.recent(user.key)
 
 
 def test_the_texts_follow_the_language_of_the_message(user):
@@ -215,13 +215,33 @@ def test_the_refusal_says_whether_the_message_was_blocked_or_the_user_is_paused(
     middleware = GuardrailMiddleware()
     context = SimpleNamespace(context=AgentContext(user_telegram_id=user.telegram_id))
 
-    def stopped() -> str | None:
+    def stopped() -> tuple[str | None, str | None]:
         out = middleware.before_agent({"messages": [HumanMessage(ATTACK)]}, context)
         assert out is not None and out["jump_to"] == "end"
-        return guardrail.stopped_by(out["messages"][0])
+        return guardrail.stopped_by(out["messages"][0]), guardrail.pause_end_of(out["messages"][0])
 
-    assert stopped() == "blocked"
-    for _ in range(settings.abuse_pause_at - 1):
+    assert stopped() == ("blocked", None)
+    for _ in range(settings.abuse_pause_at - 2):
         stopped()
-    assert abuse.paused_until(user.key)
-    assert stopped() == "paused"
+    kind, until = stopped()  # the message that starts the pause says so
+    assert kind == "blocked" and until and datetime.fromisoformat(until) == abuse.paused_until(user.key)
+    kind, again = stopped()
+    assert kind == "paused" and again and datetime.fromisoformat(again) == abuse.paused_until(user.key)
+
+
+def test_the_site_user_is_counted_and_paused_by_the_innohassle_id(monkeypatch):
+    key = abuse.user_key(None, "test-abuse-ih")
+    assert key == "ih:test-abuse-ih"
+    abuse.forgive(key)
+    monkeypatch.setattr(guardrail, "screen", lambda text, **kwargs: Verdict(category="abuse"))
+    middleware = GuardrailMiddleware()
+    context = SimpleNamespace(context=AgentContext(innohassle_id="test-abuse-ih"))
+    try:
+        for _ in range(settings.abuse_pause_at):
+            out = middleware.before_agent({"messages": [HumanMessage(ATTACK)]}, context)
+            assert out is not None
+        assert abuse.paused_until(key)
+        again = middleware.before_agent({"messages": [HumanMessage(NORMAL)]}, context)
+        assert again is not None and guardrail.stopped_by(again["messages"][0]) == "paused"
+    finally:
+        abuse.forgive(key)

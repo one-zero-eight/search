@@ -310,6 +310,16 @@ def test_feedback_that_phoenix_does_not_take_is_a_502(client, monkeypatch, kept)
     assert kept.answers[0]["feedback"] is None
 
 
+def test_the_pause_belongs_to_the_user_and_not_to_a_chat(client, monkeypatch):
+    until = datetime(2099, 1, 1, 10, 15, tzinfo=timezone.utc)
+    asked = []
+    monkeypatch.setattr(ask.abuse, "paused_until", lambda key: asked.append(key) or until)
+    assert client.get("/ask/pause", headers=AUTH).json() == {"paused_until": "2099-01-01T10:15:00Z"}
+    assert asked == ["ih:u1"]
+    monkeypatch.setattr(ask.abuse, "paused_until", lambda key: None)
+    assert client.get("/ask/pause", headers=AUTH).json() == {"paused_until": None}
+
+
 def test_ask_failure_is_a_502(client, monkeypatch):
     async def run(query, chat_id, user):
         raise RuntimeError("model is down")
@@ -413,9 +423,9 @@ def test_stream_agent_says_it_writes_when_the_answer_starts_without_a_search(mon
     assert sent == [("status", {"phase": CHECKING}), ("status", {"phase": WRITING}), ("answer", {"text": "Привет"})]
 
 
-@pytest.mark.parametrize("reason", ["blocked", "paused"])
-def test_stream_agent_tells_once_that_the_guardrail_stopped_the_question(monkeypatch, reason):
-    refusal = AIMessage("Нет", additional_kwargs={"guardrail": reason})
+@pytest.mark.parametrize("reason,until", [("blocked", None), ("blocked", "2099-01-01T10:15:00+00:00"), ("paused", "2099-01-01T10:15:00+00:00")])
+def test_stream_agent_tells_once_that_the_guardrail_stopped_the_question(monkeypatch, reason, until):
+    refusal = AIMessage("Нет", additional_kwargs={"guardrail": reason, **({"paused_until": until} if until else {})})
 
     class StoppedAgent:
         async def astream(self, *args, **kwargs):
@@ -427,7 +437,7 @@ def test_stream_agent_tells_once_that_the_guardrail_stopped_the_question(monkeyp
     events: asyncio.Queue = asyncio.Queue()
     asyncio.run(ask.stream_agent({}, {}, None, events))
     sent = [events.get_nowait() for _ in range(events.qsize())]
-    assert sent == [("status", {"phase": "checking"}), ("guardrail", {"category": reason})]
+    assert sent == [("status", {"phase": "checking"}), ("guardrail", {"category": reason, "paused_until": until})]
 
 
 async def _state():

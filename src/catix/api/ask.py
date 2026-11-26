@@ -40,13 +40,13 @@ from langgraph.types import Command
 from psycopg.rows import dict_row
 from psycopg_pool import AsyncConnectionPool
 
-from catix import attachments, groups, personal_calendar
+from catix import abuse, attachments, groups, personal_calendar
 from catix.attachments import AttachmentInfo
 from catix.agent import events as calendar_events
 from catix.agent import approval_edit, titles, tracing
 from catix.agent.approval import DECLINED
 from catix.agent.core import SUPERVISOR_NAME, build_agent, final_answer
-from catix.agent.guardrail import stopped_by
+from catix.agent.guardrail import pause_end_of, stopped_by
 from catix.agent.questions import QuestionQueue
 from catix.agent.tools import AgentContext
 from catix.api import chats, search, signup, state
@@ -60,6 +60,7 @@ from catix.api.schemas import (
     AskChat,
     AskChatHistory,
     AskDecision,
+    AskPause,
     AskResponses,
     CalendarEventOffer,
     SearchResponses,
@@ -242,7 +243,7 @@ async def stream_agent(inputs: dict, config: dict, context: AgentContext, events
                 # The guardrail answers a stopped question itself: the step that ends the run is the first to show its refusal.
                 if not stopped and data["messages"] and (reason := stopped_by(data["messages"][-1])):
                     stopped = True
-                    await events.put(("guardrail", {"category": reason}))
+                    await events.put(("guardrail", {"category": reason, "paused_until": pause_end_of(data["messages"][-1])}))
         else:
             chunk, metadata = data
             if isinstance(chunk, ToolMessage):
@@ -376,6 +377,7 @@ async def _answer_in_chat(query, chat_id, user, events, decision, files, manifes
         signup_offers=getattr(messages, 'signup_offers', []),
         messages=messages,
         guardrail=getattr(messages, "guardrail", None),
+        paused_until=getattr(messages, "paused_until", None),
     )
     response._signup_targets = getattr(messages, 'signup_targets', {})
     title = None
@@ -472,6 +474,7 @@ async def _run(
     history.calendar_origins = calendar_events.origins(result['messages'])
     history.signup_offers, history.signup_targets = signup.collect(result['messages'], cited.answer) if decision is None else ([], {})
     history.guardrail = stopped_by(result["messages"][-1]) or ("small_talk" if result.get("answer_alone") else None)
+    history.paused_until = pause_end_of(result["messages"][-1])
     return cited.answer, cited.sources, history, traced.id, after.config["configurable"]["checkpoint_id"]
 
 
@@ -774,6 +777,15 @@ async def list_chats(user: VerifiedDep) -> list[AskChat]:
     """The user's chats with the assistant, the last answered first (at most 100). GET /ask/chats/{chat_id} gives the
     questions and answers of one, and a question with its `chat_id` goes on with it."""
     return await asyncio.to_thread(chats.of_user, user.innohassle_id)
+
+
+@router.get("/ask/pause", responses={200: {"description": "Success"}})
+async def ask_pause(user: AskerDep) -> AskPause:
+    """Whether the assistant is closed to the user for repeated violations of the usage rules (agent/guardrail.py, abuse.py),
+    and until when. The pause belongs to the user, not to a chat: the site asks it when it opens, to keep the message box closed."""
+    key = abuse.user_key(user.telegram_id, user.innohassle_id) if settings.abuse_enabled else None
+    until = await asyncio.to_thread(abuse.paused_until, key) if key else None
+    return AskPause(paused_until=until)
 
 
 @router.get(

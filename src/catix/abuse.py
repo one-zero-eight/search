@@ -8,10 +8,10 @@ gets the usual refusal. If the same user keeps trying, the refusals change and i
 - at ABUSE_PAUSE_AT the user is paused for ABUSE_PAUSE_MINUTES, doubled for each repeat, at most ABUSE_PAUSE_MAX_HOURS
   (the repeats are forgotten after ABUSE_FORGET_DAYS without a pause); every message of a paused user, normal ones too, gets
   a short notice and costs no model call; nobody is told: the admins look at `/abuse` when they want to;
-- only what the screen stops is counted (an off-topic request is refused by the agent itself and is not), and admins are never counted.
+- only what the screen stops is counted (an off-topic request is refused by the agent itself and is not); admins are counted too.
 
 Admins look and lift a pause with `/abuse` in the bot (tgbot/abuse.py). Previews of the stopped messages are kept for
-30 days. The user key is `tg:<id>` or `max:<id>`.
+30 days. The user key is `ih:<InNoHassle id>` (the site; the same account on every client), else `tg:<id>` or `max:<id>`.
 """
 
 import logging
@@ -38,8 +38,11 @@ class Outcome:
     newly_paused: bool
 
 
-def user_key(telegram_id: int | None) -> str | None:
-    """Telegram key, or a preserved legacy MAX key for negative stored identities; None without a user."""
+def user_key(telegram_id: int | None, innohassle_id: str | None = None) -> str | None:
+    """The InNoHassle account when there is one, else the Telegram key (or a preserved legacy MAX key for negative stored
+    identities); None without a user."""
+    if innohassle_id:
+        return f"ih:{innohassle_id}"
     if telegram_id is None or telegram_id == 0:
         return None
     return f"tg:{telegram_id}" if telegram_id > 0 else f"max:{-telegram_id}"
@@ -150,7 +153,7 @@ def paused_reply(message: str, until: datetime) -> str:
 
 # ---- /abuse ---------------------------------------------------------------------------------------------------
 
-USAGE = "Подробности: /abuse ключ (например /abuse tg:123456). Снять ограничение и забыть нарушения: /abuse clear ключ."
+USAGE = "Подробности: /abuse ключ (например /abuse ih:abc123 или /abuse tg:123456). Снять ограничение и забыть нарушения: /abuse clear ключ."
 
 
 def _key(text: str) -> str:

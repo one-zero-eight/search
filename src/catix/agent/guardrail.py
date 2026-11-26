@@ -13,6 +13,7 @@ import asyncio
 import json
 import logging
 import re
+from datetime import datetime
 from typing import Any, Literal
 
 from langchain.agents.middleware import AgentMiddleware, AgentState, hook_config
@@ -22,7 +23,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 from typing_extensions import NotRequired
 
-from catix import abuse, admins
+from catix import abuse
 from catix.agent import tracing
 from catix.settings import settings
 
@@ -125,11 +126,17 @@ class Verdict(BaseModel):
 # so the site shows the mascot's reaction as well as the text, and the chat's history keeps it.
 Stopped = Literal["blocked", "paused"]
 STOPPED_KEY = "guardrail"
+PAUSE_END_KEY = "paused_until"
 
 
 def stopped_by(message) -> Stopped | None:
     """How the guardrail stopped the message that `message` answers; None for an answer of the agent."""
     return getattr(message, "additional_kwargs", {}).get(STOPPED_KEY)
+
+
+def pause_end_of(message) -> str | None:
+    """When the user's pause ends (ISO time), if the guardrail's refusal `message` put them on one or says they are on it."""
+    return getattr(message, "additional_kwargs", {}).get(PAUSE_END_KEY)
 
 
 # User text is a template variable: braces and template-looking text in it remain data, never parsed as instructions.
@@ -214,7 +221,7 @@ class GuardrailMiddleware(AgentMiddleware):
     """Screens the user's message before the agent starts; a blocked one is answered here and the run ends.
 
     Repeated attacks escalate (abuse.py): a warning, then a pause during which every message of that user is answered with a
-    notice, without a model call. Admins are never counted.
+    notice, without a model call. Admins are counted like everyone else: they need to try it.
 
     Small talk alone goes on with `answer_alone`; RunGuardMiddleware disables tools for it. Safe unrelated or incomplete
     requests go to the main agent with tools available for its own clarification and specialization rules.
@@ -223,31 +230,39 @@ class GuardrailMiddleware(AgentMiddleware):
     state_schema = GuardState
 
     @staticmethod
-    def _telegram_id(runtime) -> int | None:
-        return getattr(runtime.context, "user_telegram_id", None)
+    def _abuse_key(runtime) -> str | None:
+        """Whose stopped messages are counted: the InNoHassle account of the site, else the Telegram/MAX identity of a bot; None
+        without either, or when abuse tracking is off."""
+        if not settings.abuse_enabled:
+            return None
+        context = runtime.context
+        return abuse.user_key(getattr(context, "user_telegram_id", None), getattr(context, "innohassle_id", None))
 
     @staticmethod
-    def _end(text: str, stopped: Stopped) -> dict:
-        return {"messages": [AIMessage(content=text, additional_kwargs={STOPPED_KEY: stopped})], "jump_to": "end"}
+    def _end(text: str, stopped: Stopped, paused_until: datetime | None = None) -> dict:
+        kept = {STOPPED_KEY: stopped, **({PAUSE_END_KEY: paused_until.isoformat()} if paused_until else {})}
+        return {"messages": [AIMessage(content=text, additional_kwargs=kept)], "jump_to": "end"}
 
-    def _paused(self, text: str, telegram_id: int | None) -> dict | None:
-        key = abuse.user_key(telegram_id) if settings.abuse_enabled else None
+    def _paused(self, text: str, runtime) -> dict | None:
+        key = self._abuse_key(runtime)
         until = abuse.paused_until(key) if key else None
-        return self._end(abuse.paused_reply(text, until), "paused") if until else None
+        return self._end(abuse.paused_reply(text, until), "paused", until) if until else None
 
-    def _blocked(self, text: str, verdict: Verdict, telegram_id: int | None) -> dict | None:
+    def _blocked(self, text: str, verdict: Verdict, runtime) -> dict | None:
         if not verdict.blocked:
             return None
         log.warning("blocked a message as %s: %r", verdict.category, "private" if tracing.is_private() else text[:120])
         reply = refusal(verdict.category, text)
-        key = abuse.user_key(telegram_id) if settings.abuse_enabled else None
-        if key and verdict.category in abuse.COUNTED and telegram_id not in admins.everyone():
+        key = self._abuse_key(runtime)
+        until = None
+        if key and verdict.category in abuse.COUNTED:
             outcome = abuse.record(key, verdict.category, text)
             if outcome.newly_paused and outcome.paused_until:
-                reply = f"{reply}\n\n{abuse.pause_text(text, outcome.paused_until)}"
+                until = outcome.paused_until
+                reply = f"{reply}\n\n{abuse.pause_text(text, until)}"
             elif outcome.warn:
                 reply = f"{reply}\n\n{abuse.warning_text(text)}"
-        return self._end(reply, "blocked")
+        return self._end(reply, "blocked", until)
 
     @staticmethod
     def _alone(verdict: Verdict) -> dict:
@@ -261,19 +276,17 @@ class GuardrailMiddleware(AgentMiddleware):
         text = _last_question(state["messages"])
         if not text:
             return None
-        telegram_id = self._telegram_id(runtime)
-        if paused := self._paused(text, telegram_id):
+        if paused := self._paused(text, runtime):
             return paused
         verdict = screen(text, history=_recent_history(state["messages"]))
-        return self._blocked(text, verdict, telegram_id) or self._alone(verdict)
+        return self._blocked(text, verdict, runtime) or self._alone(verdict)
 
     @hook_config(can_jump_to=["end"])
     async def abefore_agent(self, state, runtime) -> dict | None:
         text = _last_question(state["messages"])
         if not text:
             return None
-        telegram_id = self._telegram_id(runtime)
-        if paused := await asyncio.to_thread(self._paused, text, telegram_id):
+        if paused := await asyncio.to_thread(self._paused, text, runtime):
             return paused
         verdict = await ascreen(text, history=_recent_history(state["messages"]))
-        return await asyncio.to_thread(self._blocked, text, verdict, telegram_id) if verdict.blocked else self._alone(verdict)
+        return await asyncio.to_thread(self._blocked, text, verdict, runtime) if verdict.blocked else self._alone(verdict)

@@ -279,6 +279,13 @@ class AskResponses(BaseModel):
     "A plain search of the knowledge base kept in the chat (POST /ask/search), not an answer of the assistant: `answer` is empty and `search` holds the cards as GET /search/search gives them."
     guardrail: Literal["small_talk", "blocked", "paused"] | None = None
     "How the guardrail treated the question, for the site's reaction: `small_talk` (answered without tools), `blocked` (refused as an attack, abuse or spam) or `paused` (the user's access is paused after repeated violations); `answer` is then the refusal itself. Kept in a chat's history."
+    paused_until: datetime | None = None
+    "When the user's pause ends, if this answer put them on one (the fifth stopped message) or says they are on it (`guardrail` is `paused`): the site keeps the message box closed until then. Kept in a chat's history, where it may be long past."
+
+
+class AskPause(BaseModel):
+    paused_until: datetime | None = None
+    "When the user's pause ends, or null when they are not paused: it covers the whole assistant, every chat of the user."
 
 
 class AskChat(BaseModel):

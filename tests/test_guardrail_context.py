@@ -217,7 +217,6 @@ def identified_user(monkeypatch):
     """Exercise the counted-user path without contacting any database."""
     monkeypatch.setattr(settings, "abuse_enabled", True)
     monkeypatch.setattr(abuse, "paused_until", lambda key: None)
-    monkeypatch.setattr(guardrail.admins, "everyone", lambda: [])
     monkeypatch.setattr(abuse, "record", lambda *args: pytest.fail("a safe request received a strike"))
     return 999001234
 
