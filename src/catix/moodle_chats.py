@@ -46,3 +46,16 @@ def record_chats(owner: str, course_id: int, content: MoodleCourseContentIn) -> 
                                (link, owner, course)).rowcount for link in found)
     log.info("moodle course %s: %d chat links, %d new", course_id, len(found), new)
     return new
+
+
+def proposals(offset: int, limit: int) -> tuple[int, list[dict]]:
+    """(total, the page of proposed chats with their owner's study groups), the newest first. Read-only: nothing here joins a chat."""
+    with pg.connection() as conn:
+        total = pg.scalar(conn, "SELECT count(*) FROM proposed_chats") or 0
+        rows = conn.execute(
+            "SELECT p.link, p.owner, p.course, p.found_at, coalesce(a.study_groups, '{}') AS study_groups "
+            "FROM proposed_chats p LEFT JOIN moodle_accounts a ON a.innohassle_id = p.owner ORDER BY p.found_at DESC, p.link "
+            "OFFSET %s LIMIT %s",
+            (offset, limit),
+        ).fetchall()
+    return total, [dict(row) for row in rows]

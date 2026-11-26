@@ -9,6 +9,7 @@
     POST /{section}/parse                a request for the wiki's own run (Redis queue)   GET /parse/{id}   where it is
     POST /sites/new                      a new site for the wiki's run (Redis queue)
     GET  /users/my-calendar.ics          the user's personal calendar (the events they added under the answers)
+    GET/POST/PUT/DELETE /admin/*          the cAtIx admin panel of the site (/search/admin): admins, Telegram and MAX sources, proposals, abuse
     POST /users/my-calendar/events/{id}  the "➕ В мой календарь" button under an answer of /ask/ (its calendar_events)
 """
 
@@ -23,7 +24,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
-from catix.api import ask, attachments, moodle, parsers, search, sources, users
+from catix.api import admin, ask, attachments, moodle, parsers, search, sources, users
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
@@ -115,7 +116,7 @@ async def swagger_ui_html(request: Request):
     )
 
 
-for _router in (search.router, attachments.router, ask.router, parsers.router, users.router, sources.router, moodle.router):
+for _router in (admin.router, search.router, attachments.router, ask.router, parsers.router, users.router, sources.router, moodle.router):
     app.include_router(_router)
 
 

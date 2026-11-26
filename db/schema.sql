@@ -185,12 +185,15 @@ CREATE TABLE IF NOT EXISTS userbot_meta (
 -- Which chats an answer may use is decided by the asker's study group (groups.py), not by who is in a chat.
 DROP TABLE IF EXISTS members;
 
--- Telegram ids of the bot's admins added in the bot itself (/admin); the ones in ADMIN_TELEGRAM_IDS (or the owner of
--- INNOHASSLE_TOKEN) come from settings and are not stored here.
-CREATE TABLE IF NOT EXISTS bot_admins (
-    telegram_id bigint PRIMARY KEY,
-    added_by    bigint,
-    added_at    timestamptz NOT NULL DEFAULT now()
+DROP TABLE IF EXISTS bot_admins;
+-- cAtIx admins by InNoHassle id. added_by NULL: the row of an ADMIN_INNOHASSLE_IDS admin, kept only for their contacts.
+-- email and telegram_id are copied from the admin's own token on each admin request (alerts go to telegram_id).
+CREATE TABLE IF NOT EXISTS admins (
+    innohassle_id text PRIMARY KEY,
+    added_by      text,
+    added_at      timestamptz NOT NULL DEFAULT now(),
+    email         text,
+    telegram_id   bigint
 );
 
 CREATE TABLE IF NOT EXISTS messages (

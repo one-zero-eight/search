@@ -103,7 +103,7 @@ class Settings(BaseSettings):
     # mtproxy://SECRET@host:port (a hex secret, plain or "dd..."; fake-TLS "ee..." secrets are not supported by Telethon).
     tg_proxy: SecretStr | None = None
     # Only the starting list: copied into the database once, after that the chats and topics the userbot listens to
-    # are chosen in the bot (/listen).
+    # are chosen on the site (/search/admin).
     # Whitelist of chats to ingest: marked ids (-100...) or @usernames. JSON list in env: TG_CHATS='[-1001234, "@chat"]'
     tg_chats: list[int | str] = []
     tg_sync_days: int = Field(365, gt=0, description="How far back the first sync of a chat goes.")
@@ -123,8 +123,10 @@ class Settings(BaseSettings):
     # (`catix-worker`); every process keeps its cache there (common/cache.py: InNoHassle, Sport, DeepSeek, /listen). Without it the
     # bots publish nothing and nothing is cached.
     redis_url: str | None = None
-    # Telegram ids that set up the bot and get the alerts; more are added in the bot (/admin).
+    # Telegram ids that always get the alerts.
     admin_telegram_ids: list[int] = []
+    # InNoHassle ids (the `uid` of their tokens) of the fixed cAtIx admins; more are added on the site (/search/admin).
+    admin_innohassle_ids: list[str] = []
     # The HTTP API (`catix-api`, src/catix/api/): the search service's paths and the users' personal calendars
     # (/users/my-calendar.ics), behind an HTTPS proxy. In a container it listens on all interfaces: Docker's published
     # port reaches the container's own network, not its loopback (on 127.0.0.1 a request to it got an empty reply).

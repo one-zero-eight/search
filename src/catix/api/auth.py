@@ -7,6 +7,7 @@ from fastapi import Depends, Header, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field, SecretStr
 
+from catix import admins
 from catix.innohassle import token as innohassle_token
 
 bearer_scheme = HTTPBearer(
@@ -100,3 +101,13 @@ async def verify_asker(
 
 
 AskerDep = Annotated[UserTokenData, Depends(verify_asker)]
+
+
+def verify_admin(user: VerifiedDep) -> UserTokenData:
+    if not admins.is_admin(user.innohassle_id):
+        raise HTTPException(403, "Only for cAtIx admins")
+    admins.seen(user.innohassle_id, user.email, user.telegram_id)
+    return user
+
+
+AdminDep = Annotated[UserTokenData, Depends(verify_admin)]

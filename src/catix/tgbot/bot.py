@@ -19,7 +19,6 @@ from aiogram.exceptions import TelegramAPIError
 from aiogram.filters import Command, CommandStart
 from aiogram.types import (
     BotCommand,
-    BotCommandScopeChat,
     ChatMemberUpdated,
     Message,
     MessageOriginChannel,
@@ -27,13 +26,7 @@ from aiogram.types import (
     MessageOriginHiddenUser,
     MessageOriginUser,
 )
-from catix.tgbot import abuse as abuse_commands
-from catix.tgbot import chat_proposals
-from catix.tgbot import admin
-from catix.tgbot import listen
-from catix.tgbot import max_sources
-from catix.tgbot import official
-from catix import admins, userbot_config
+from catix import userbot_config
 from catix.ingest import writer as ingest
 from catix.ingest import images
 from catix.db import pg
@@ -177,17 +170,6 @@ async def start(message: Message) -> None:
     )
 
 
-@router.message(Command("id"))
-async def show_ids(message: Message) -> None:
-    """Chat and topic ids for TG_CHATS / TG_TOPICS; send it inside the topic you want."""
-    if not message.from_user or message.from_user.id not in await asyncio.to_thread(admins.everyone):
-        return
-    topic = message.message_thread_id if message.is_topic_message else None
-    lines = [f"chat id: <code>{message.chat.id}</code>"]
-    lines.append(f"topic id: <code>{topic}</code>" if topic else "topic id: none (General topic or no topics)")
-    await message.reply("\n".join(lines), parse_mode=ParseMode.HTML)
-
-
 # When Telegram upgrades a basic group to a supergroup the chat id changes. It sends a service message to the old
 # group (migrate_to_chat_id) and one to the new one (migrate_from_chat_id); either is enough, the move is repeatable.
 # This handler must come before the generic group handler.
@@ -244,18 +226,8 @@ COMMANDS = [BotCommand(command="start", description="О боте")]
 
 
 async def set_commands(bot: Bot) -> None:
-    """Publish only /start; clear old administrator-specific menus."""
+    """Publish only /start."""
     await bot.set_my_commands(COMMANDS)
-    try:
-        admin_ids = await asyncio.to_thread(admins.everyone)
-    except Exception:  # The menu is a convenience; database failure must not stop ingestion.
-        log.warning("could not look up old admin menus", exc_info=True)
-        return
-    for admin_id in admin_ids:
-        try:
-            await bot.delete_my_commands(scope=BotCommandScopeChat(chat_id=admin_id))
-        except TelegramAPIError as e:
-            log.warning("old menu for admin %s not cleared: %s", admin_id, e)
 
 
 def profile_texts(username: str) -> dict[str | None, tuple[str, str]]:
@@ -294,12 +266,6 @@ async def run() -> None:
         sys.exit("Set TG_BOT_TOKEN in .env (create a bot with @BotFather).")
     bot = Bot(settings.tg_bot_token.get_secret_value())
     dp = Dispatcher()
-    dp.include_router(max_sources.router)  # Slash filter clears MAX drafts and lets commands continue.
-    dp.include_router(chat_proposals.router)
-    dp.include_router(admin.router)  # before the generic handlers: /admin, /listen and their buttons
-    dp.include_router(listen.router)
-    dp.include_router(official.router)  # /official: an admin marks chats as official
-    dp.include_router(abuse_commands.router)  # Administrative moderation remains available outside the menu.
     dp.include_router(router)
     me = await bot.me()
     log.info("Running as @%s", me.username)

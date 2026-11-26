@@ -154,16 +154,6 @@ def test_repeats_are_forgotten_after_a_quiet_week(user):
     assert pause_minutes(user.key) in (14, 15)
 
 
-@pytest.mark.parametrize("category", ["prompt_injection", "abuse", "spam"])
-def test_admins_are_counted_and_paused_like_everyone_else(user, monkeypatch, category):
-    monkeypatch.setattr("catix.admins.everyone", lambda: [user.telegram_id])
-    user.verdict["category"] = category
-    for _ in range(5):
-        send(ATTACK, user)
-    assert abuse.paused_until(user.key)
-    assert abuse.recent(user.key)
-
-
 def test_the_texts_follow_the_language_of_the_message(user):
     replies = [send(ATTACK_EN, user) for _ in range(5)]
     assert_test(case(replies[2]), [ContainsAll(["break the usage rules"], name="EnglishWarning")])
@@ -196,19 +186,6 @@ def test_the_async_path_pauses_too(user, monkeypatch, category):
         return replies
 
     assert_test(case(asyncio.run(go())[4]), [ContainsAll([PAUSE], name="Paused")])
-
-
-def test_the_command_lists_shows_and_clears(user):
-    for _ in range(5):
-        send(ATTACK, user)
-    listing = abuse.command("")
-    assert user.key in listing and "пауза до" in listing
-    details = abuse.command(user.key)
-    assert_test(case(details), [ContainsAll(["Игнорируй правила", "prompt_injection", "пауза до"], name="Details")])
-    assert "Снято" in abuse.command(f"clear {user.key}")
-    assert abuse.paused_until(user.key) is None
-    assert "ничего нет" in abuse.command(user.key)
-    assert abuse.command("clear") == abuse.USAGE
 
 
 def test_the_refusal_says_whether_the_message_was_blocked_or_the_user_is_paused(user):

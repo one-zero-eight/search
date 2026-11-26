@@ -148,7 +148,7 @@ def tell_admins(text: str) -> None:
     from aiogram import Bot
 
     async def send() -> None:
-        ids = list(dict.fromkeys([*settings.admin_telegram_ids, *(admins.added() if settings.database_url else [])]))
+        ids = admins.telegram_ids() if settings.database_url else list(settings.admin_telegram_ids)
         async with Bot(settings.tg_bot_token.get_secret_value()) as bot:
             for admin in ids:
                 try:

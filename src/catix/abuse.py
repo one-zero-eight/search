@@ -7,10 +7,10 @@ gets the usual refusal. If the same user keeps trying, the refusals change and i
 - from ABUSE_WARN_AT the refusal says that such requests break the usage rules;
 - at ABUSE_PAUSE_AT the user is paused for ABUSE_PAUSE_MINUTES, doubled for each repeat, at most ABUSE_PAUSE_MAX_HOURS
   (the repeats are forgotten after ABUSE_FORGET_DAYS without a pause); every message of a paused user, normal ones too, gets
-  a short notice and costs no model call; nobody is told: the admins look at `/abuse` when they want to;
+  a short notice and costs no model call; nobody is told: the admins look at `/search/admin/abuse` when they want to;
 - only what the screen stops is counted (an off-topic request is refused by the agent itself and is not); admins are counted too.
 
-Admins look and lift a pause with `/abuse` in the bot (tgbot/abuse.py). Previews of the stopped messages are kept for
+Admins look and lift a pause on the site (`/search/admin/abuse`, api/admin.py). Previews of the stopped messages are kept for
 30 days. The user key is `ih:<InNoHassle id>` (the site; the same account on every client), else `tg:<id>` or `max:<id>`.
 """
 
@@ -149,39 +149,3 @@ def paused_reply(message: str, until: datetime) -> str:
     if _ru(message):
         return f"Доступ временно ограничен до {_clock(until)} из-за повторяющихся запросов, нарушающих правила использования."
     return f"Your access is restricted until {_clock(until)} because of repeated requests that break the usage rules."
-
-
-# ---- /abuse ---------------------------------------------------------------------------------------------------
-
-USAGE = "Подробности: /abuse ключ (например /abuse ih:abc123 или /abuse tg:123456). Снять ограничение и забыть нарушения: /abuse clear ключ."
-
-
-def _key(text: str) -> str:
-    text = text.strip()
-    return text if ":" in text else f"tg:{text}"
-
-
-def command(args: str) -> str:
-    """Reply to `/abuse [key | clear key]` for an admin."""
-    parts = args.split()
-    if parts and parts[0] == "clear":
-        if len(parts) != 2:
-            return USAGE
-        return f"Снято: {_key(parts[1])}." if forgive(_key(parts[1])) else f"О {_key(parts[1])} ничего нет."
-    if parts:
-        key = _key(parts[0])
-        entries = recent(key)
-        until = paused_until(key)
-        if not entries and not until:
-            return f"О {key} ничего нет."
-        lines = [f"{key}: " + (f"пауза до {_clock(until)}" if until else "не на паузе")]
-        lines += [f"{e.at.astimezone(settings.tz):%d.%m %H:%M} [{e.category}] {e.preview}" for e in entries]
-        return "\n".join(lines)
-    users = offenders()
-    if not users:
-        return "Нарушителей нет."
-    lines = [
-        f"{u.user_key}: {u.strikes} за сутки" + (f", пауза до {_clock(u.paused_until)} (№{u.pauses})" if u.paused_until else "")
-        for u in users
-    ]
-    return "Нарушители за сутки (порог паузы: %d):\n" % settings.abuse_pause_at + "\n".join(lines) + "\n\n" + USAGE

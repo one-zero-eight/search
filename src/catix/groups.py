@@ -125,5 +125,8 @@ def scoped_chat_ids(user_key: str, telegram_id: int | None = None) -> set[int]:
                AND (NOT requires_verified_group OR (group_code <> 'all' AND group_code = %s))""", (ALL, group, verified)))
 
 
-
-
+def known_codes() -> list[str]:
+    """Return all first, then codes in use ordered by popularity and code."""
+    with pg.connection() as conn:
+        used = pg.column(conn, "SELECT group_code FROM chats WHERE group_code <> %s GROUP BY 1 ORDER BY count(*) DESC, 1", (ALL,))
+    return [ALL, *used]

@@ -1,4 +1,4 @@
-"""What is listened to in Telegram: chats and forum topics, chosen by an admin in the bot (tgbot/listen.py).
+"""What is listened to in Telegram: chats and forum topics, chosen by an admin on the site (api/admin.py).
 
 Two readers share the choice. The userbot (tguserbot/userbot.py, an account that is a member of the chats) publishes the
 chats and topics it can see and stores what a chosen chat says, history included. The Bot API bot (tgbot/bot.py) discovers

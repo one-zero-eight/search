@@ -83,7 +83,7 @@ class Monitor:
 async def _notifier(bot: Bot) -> Callable[[str], Awaitable[None]]:
     async def notify(text: str) -> None:
         log.warning("alert: %s", text)
-        for admin in await asyncio.to_thread(admins.everyone):
+        for admin in await asyncio.to_thread(admins.telegram_ids):
             with contextlib.suppress(TelegramAPIError):
                 await bot.send_message(admin, text)
 
