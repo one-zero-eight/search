@@ -1,5 +1,5 @@
 """OCR of a scanned PDF by LightOnOCR (a 1B vision-language model, served as `lighton` at settings.ocr_route by
-catix-ocr.service on inh-compute: llama.cpp, Q4_K_M, vision encoder on the CPU, 1 page at once = OCR_PARALLEL): the image of a page in (no prompt), the page's
+catix-ocr.service on inh-compute: llama.cpp, Q4_K_M, vision encoder on the GPU, 1 page at once = OCR_PARALLEL; 10.4 pages a minute, the LLM beside it decodes ~26% slower): the image of a page in (no prompt), the page's
 markdown out (headings as '#', tables
 as markdown or HTML, pictures as `![image](...)`). The markdown becomes the nodes opendataloader gives for a text layer, and
 opendataloader.text_of makes the text of them as it does for one: a block a paragraph, a table as markdown, a paragraph going
