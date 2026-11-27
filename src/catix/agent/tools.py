@@ -229,9 +229,9 @@ COHORT_GROUP = re.compile(r"^[BM](\d{2})-", re.I)
 
 
 def _cohorts(runtime: ToolRuntime[AgentContext], queries: list[str]) -> frozenset[int]:
-    """The intakes whose course programmes are wanted: the years the question names, else those of the asker's study groups
-    ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
-    named = frozenset(int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join([*queries, _question(runtime) or ""])))
+    """The intakes whose course programmes are wanted: the years the agent's own queries name, else those of the asker's study
+    groups ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
+    named = frozenset(int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join(queries)))
     if named:
         return named
     context = runtime.context

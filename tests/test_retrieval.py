@@ -200,3 +200,5 @@ def test_the_intakes_wanted_are_the_years_the_question_names_else_those_of_the_s
     assert _cohorts(runtime(AgentContext(verified_study_groups=("ESCP-3",))), ["матанализ"]) == frozenset()
     assert _cohorts(runtime(AgentContext()), ["матанализ набор 2024"]) == frozenset({2024})
     assert _cohorts(runtime(None), ["матанализ"]) == frozenset()
+    asked = SimpleNamespace(context=context, state={"messages": [SimpleNamespace(type="human", content="РПД набор 2023")]})
+    assert _cohorts(asked, ["матанализ оценивание"]) == frozenset({2026}), "only the agent's queries name a year"
