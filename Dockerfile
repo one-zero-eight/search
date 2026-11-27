@@ -46,16 +46,14 @@ COPY src ./src
 RUN uv sync --frozen --no-dev --no-default-groups --group pdf --group browser
 
 
-# What every process has: the data of the repository it reads (db/schema.sql is found from src/, which the editable install of the
-# project points to: the final stages copy src/ last, so a code change rebuilds only that layer), and a user of its own. Telegram and MAX account sessions and
-# other state live in the volume mounted at /app/data.
+# What every process has: a user of its own, and the /app/data volume (Telegram and MAX account sessions and other state). The
+# final stages copy db/, sites.yaml and src/ after the OS packages and the venv, so a change to the data or the code rebuilds
+# only those layers, not the apt ones.
 FROM ${PYTHON} AS runtime
 ENV PYTHONUNBUFFERED=1 PATH="/app/.venv/bin:$PATH"
 WORKDIR /app
 RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|' /etc/apt/sources.list.d/debian.sources \
     && echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/80retries
-COPY db ./db
-COPY sites.yaml ./
 RUN useradd --create-home app && mkdir -p /app/data && chown app /app/data
 
 # The OS packages of a profile are separate stages, so that a profile lists only what it needs.
@@ -70,12 +68,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends openjdk-17-jre-
 
 FROM runtime AS core
 COPY --from=venv-core /app/.venv ./.venv
+COPY db ./db
+COPY sites.yaml ./
 COPY src ./src
 USER app
 CMD ["catix-mcp"]
 
 FROM os-ocr AS ocr
 COPY --from=venv-core /app/.venv ./.venv
+COPY db ./db
+COPY sites.yaml ./
 COPY src ./src
 USER app
 CMD ["catix-tgbot"]
@@ -84,6 +86,8 @@ FROM os-pdf AS api
 RUN apt-get update && apt-get install -y --no-install-recommends libarchive13 \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=venv-pdf /app/.venv ./.venv
+COPY db ./db
+COPY sites.yaml ./
 COPY src ./src
 USER app
 CMD ["catix-api"]
@@ -93,6 +97,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr t
     libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=venv-pdf /app/.venv ./.venv
+COPY db ./db
+COPY sites.yaml ./
 COPY src ./src
 USER app
 CMD ["catix-worker"]
@@ -102,6 +108,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends libarchive13 te
     chromium libreoffice-writer-nogui libreoffice-impress-nogui libreoffice-calc-nogui \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=venv-docs /app/.venv ./.venv
+COPY db ./db
+COPY sites.yaml ./
 COPY src ./src
 USER app
 CMD ["catix-docs", "run", "--loop"]
