@@ -225,6 +225,21 @@ def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
     return None
 
 
+COHORT_GROUP = re.compile(r"^[BM](\d{2})-", re.I)
+
+
+def _cohorts(runtime: ToolRuntime[AgentContext], queries: list[str]) -> frozenset[int]:
+    """The intake years of the asker's study groups ('B26-CSE-01': 2026), to keep the course programmes of their own intake.
+    Empty when the question names another year: it asks about another intake's programme."""
+    context = runtime.context
+    if context is None:
+        return frozenset()
+    groups = (*context.verified_study_groups, context.study_group)
+    cohorts = frozenset(2000 + int(m.group(1)) for g in groups if g and (m := COHORT_GROUP.match(g)))
+    named = {int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join([*queries, _question(runtime) or ""]))}
+    return frozenset() if named - cohorts else cohorts
+
+
 def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
     """The schedule group of the asker's study group, if InNoHassle has exactly one by that name."""
     group = runtime.context.study_group if runtime.context else None
@@ -464,7 +479,7 @@ def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list
     relevance, not by date: read the dates. Matches are not exhaustive lists or counts: use read_chats for those."""
     explicit = bool(sources)
     wanted = list(dict.fromkeys(sources or SOURCES))
-    filters = doc_store.Filters(issued_from=date_from, issued_to=date_to)
+    filters = doc_store.Filters(issued_from=date_from, issued_to=date_to, cohorts=_cohorts(runtime, queries))
     fetchers = {"moodle": moodle_tools.fetch, "chat": lambda q, r, rerank: _fetch_chats(q, r, rerank, date_from, date_to),
                 "docs": lambda q, r, rerank: _fetch_docs(q, r, rerank, filters)}
     # With a reranker the sources give their candidates unscored and it scores them all in one pass, on one scale.

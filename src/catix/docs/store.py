@@ -21,6 +21,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 
 from catix.db import pg
+from catix.db.docs import academic_year_of, series_of
 from catix.docs.chunks import SCHEME, Chunk, cut
 from catix.settings import settings
 
@@ -201,6 +202,20 @@ WHERE c.id = g.id AND c.copy_of IS DISTINCT FROM nullif(g.main, g.id)
 def mark_copies(conn, across_courses: bool = ACROSS_COURSES) -> int:
     """Mark again which pieces are copies of others (all of them: a new page may hold the latest copy); the rows changed."""
     return conn.execute(COPIES, {"across": across_courses}).rowcount
+
+
+def mark_series(conn) -> int:
+    """Give every document the series of versions its title makes and its academic year; all of them, because a title may
+    have changed. The number of rows changed."""
+    changed = []
+    for row in conn.execute("SELECT path, title, series, academic_year FROM documents").fetchall():
+        s = series_of(row["title"])
+        y = academic_year_of(row["title"]) if s else None
+        if (s, y) != (row["series"], row["academic_year"]):
+            changed.append((s, y, row["path"]))
+    with conn.cursor() as cur:
+        cur.executemany("UPDATE documents SET series = %s, academic_year = %s WHERE path = %s", changed)
+    return len(changed)
 
 
 CLAIM = """

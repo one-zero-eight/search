@@ -13,7 +13,7 @@ from dataclasses import replace
 
 from catix.agent import tracing
 from catix.db import pg
-from catix.db.docs import freshness
+from catix.db.docs import demote_course_programmes, freshness
 from catix.settings import settings
 
 log = logging.getLogger("catix.rerank")
@@ -52,6 +52,7 @@ def mixed(queries: list[str], pools: dict[str, list[tuple[object, str]]], limit:
     order = sorted(range(len(flat)), key=lambda i: ranked[i], reverse=True)
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
+    order = demote_course_programmes(order, [hit for _, hit, _ in flat])
     chosen = []
     for source in pools:  # the reserved ones first, then the best of all
         chosen += [i for i in order if flat[i][0] == source][:reserve]

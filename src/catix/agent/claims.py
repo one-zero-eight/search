@@ -9,6 +9,7 @@ record to have trusted `official: true` metadata. Unresolved or conflicting refs
 import json
 import logging
 import re
+from collections.abc import Iterable
 
 log = logging.getLogger("catix.claims")
 
@@ -101,3 +102,69 @@ def _unsupported(sentence: str, records: list[dict]) -> str | None:
             continue
         return claim
     return None
+
+
+def chat_names(title: str) -> list[str]:
+    """The forms of a chat title an answer may write, lowercased: the whole name and each part of "A / B", without the
+    "(@handle)" and the leading "[F26]" tags. Short names ("Test") are left out: they appear in any text."""
+    name = re.sub(r"\(@[^)]*\)", " ", title)
+    name = re.sub(r"^\s*(?:\[[^\]]*\]\s*)+", "", name)
+    name = " ".join(name.split()).lower()
+    return [n for n in dict.fromkeys([name, *(part.strip() for part in name.split(" / "))]) if len(n) >= 8]
+
+
+def _named(text_lower: str, name: str) -> bool:
+    return bool(re.search(rf"(?<!\w){re.escape(name)}(?!\w)", text_lower))
+
+
+def _origin(record: dict) -> str:
+    for key, kind in (("chat", "the chat"), ("course", "the Moodle course"), ("document", "the document")):
+        if record.get(key):
+            return f'{kind} "{record[key]}"'
+    return "another source"
+
+
+def foreign_names(answer: str, evidence: str, titles: Iterable[str]) -> list[str]:
+    """Problems of sentences that name a chat or course next to refs whose records are from elsewhere and never mention it."""
+    records = _records(evidence)
+    original: dict[str, str] = {}
+    for title in [*titles, *(r["chat"] for rs in records.values() for r in rs if isinstance(r.get("chat"), str))]:
+        for name in chat_names(title):
+            original.setdefault(name, title)
+    problems = []
+    parts = SENTENCES.split(answer)
+    for i in range(0, len(parts), 2):
+        sentence = parts[i]
+        refs = list(dict.fromkeys(ref for match in REFS.finditer(sentence) for ref in re.findall(r"m\d+", match.group(1))))
+        if not refs or not all(ref in records for ref in refs):
+            continue
+        lowered = sentence.replace("**", "").lower()
+        cited = [(ref, record) for ref in refs for record in records[ref]]
+        texts = [json.dumps(record, ensure_ascii=False).lower() for _, record in cited]
+        for title in dict.fromkeys(original[n] for n in original if _named(lowered, n)):
+            if any(_named(text, n) for text in texts for n in chat_names(title)):
+                continue
+            where = "; ".join(f"[{ref}] is from {_origin(record)}" for ref, record in cited)
+            problems.append(f'- The sentence with {" ".join(f"[{r}]" for r in refs)} names "{title}", but {where}.')
+    return problems
+
+
+PERCENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
+
+
+def numbers_from_earlier(answer: str, evidence: str, earlier: str) -> list[str]:
+    """Problem line when the answer has percentages that none of the cited records hold but an earlier answer has."""
+    records = _records(evidence)
+    cited_refs = [ref for ref in dict.fromkeys(re.findall(r"m\d+", " ".join(m.group(1) for m in REFS.finditer(answer)))) if ref in records]
+    if not cited_refs:
+        return []
+    text = "\n".join(json.dumps(r, ensure_ascii=False) for ref in cited_refs for r in records[ref])
+    found = []
+    for n in dict.fromkeys(PERCENT.findall(answer)):
+        held = any(re.search(rf"(?<!\d){re.escape(v)}(?!\d)", text) for v in {n, n.replace(",", "."), n.replace(".", ",")})
+        if not held and re.search(rf"(?<![\d.,]){re.escape(n)}\s*%", earlier):
+            found.append(n)
+    if not found:
+        return []
+    return [f"- {', '.join(n + '%' for n in found)} are in your earlier answer but in none of the results you cite "
+            f"({' '.join('[' + r + ']' for r in cited_refs)})."]

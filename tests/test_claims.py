@@ -214,3 +214,39 @@ def test_an_answer_keeps_pictures_from_the_results_and_drops_invented_ones():
     assert clean(turn, same) == same
     assert clean(turn, "Ключ [m1].\n![](https://invented.example/x.png)\n![x](/relative.png)").rstrip() == "Ключ [m1]."
     assert clean(turn, "Ключ [m1].\nСхема: ![](https://invented.example/x.png)").strip() == "Ключ [m1]."
+
+
+def record(ref: str, chat: str, text: str) -> dict:
+    return {"ref": ref, "chat": chat, "official": False, "text": text}
+
+
+MA_CHAT = "[F26] Mathematical Analysis I / Математический анализ I"
+CA_CHAT = "CA 2026 Students"
+
+
+def test_a_course_named_next_to_a_result_of_another_chat_is_a_problem():
+    answer = f"Согласно объявлению в чате курса **{MA_CHAT}** [m8]:\n| Тесты | 5% |"
+    ca = json.dumps({"messages": [record("m8", CA_CHAT, "We have also detalised the grading policy for the course… Regular quizzes 5%")]}, ensure_ascii=False)
+    problems = claims.foreign_names(answer, ca, [MA_CHAT, CA_CHAT])
+    assert len(problems) == 1 and CA_CHAT in problems[0]
+    own = json.dumps({"messages": [record("m8", MA_CHAT, "Regular quizzes 5%")]}, ensure_ascii=False)
+    assert claims.foreign_names(answer, own, [MA_CHAT, CA_CHAT]) == []
+    zoo = json.dumps({"messages": [record("m8", "Полезная часть зоопарка", "Mathematical Analysis I: quizzes 5%")]}, ensure_ascii=False)
+    assert claims.foreign_names(answer, zoo, [MA_CHAT, CA_CHAT]) == []
+
+
+def test_a_longer_course_name_is_not_found_in_the_name_of_the_next_course():
+    answer = "Курс Mathematical Analysis II [m8]."
+    evidence = json.dumps({"messages": [record("m8", "Mathematical Analysis II", "exam")]})
+    assert claims.foreign_names(answer, evidence, ["Mathematical Analysis I", "Mathematical Analysis II"]) == []
+
+
+def test_percentages_copied_from_an_earlier_answer_are_a_problem_unless_a_cited_result_holds_them():
+    answer = "| Тесты | 5% |\n| Финал | 60% | [m18][m19]"
+    earlier = "| Тесты | **5%** |\n| Финал | **60%** |"
+    evidence = json.dumps({"messages": [record("m18", MA_CHAT, "Midterm on 22 October"), record("m19", MA_CHAT, "Room 301")]})
+    problems = claims.numbers_from_earlier(answer, evidence, earlier)
+    assert len(problems) == 1 and "5%, 60%" in problems[0]
+    assert claims.numbers_from_earlier(answer, evidence, "") == []
+    holds = json.dumps({"messages": [record("m18", MA_CHAT, "quizzes 5%, final 60%"), record("m19", MA_CHAT, "Room 301")]})
+    assert claims.numbers_from_earlier(answer, holds, earlier) == []

@@ -775,6 +775,9 @@ CREATE TABLE IF NOT EXISTS documents (
     meta           jsonb NOT NULL DEFAULT '{}'      -- what the source knows of it (sources, archive member, ...)
 );
 ALTER TABLE documents ADD COLUMN IF NOT EXISTS site text;  -- the site the document comes from: 'hotel', 'university', ... ('eduwiki', 'guide')
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS series text;          -- the versions of one document share it: its title without the academic year (db/docs.py series_of)
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS academic_year int;    -- the first year of the academic year its title names ("2026/2027": 2026)
+CREATE INDEX IF NOT EXISTS documents_series_idx ON documents (series) WHERE series IS NOT NULL;
 CREATE INDEX IF NOT EXISTS documents_site_idx ON documents (site);
 CREATE INDEX IF NOT EXISTS documents_issued_idx ON documents (issued);
 CREATE TABLE IF NOT EXISTS document_chunks (

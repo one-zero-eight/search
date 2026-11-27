@@ -232,6 +232,32 @@ def test_an_uncited_answer_after_a_search_with_refs_is_asked_once_more():
     assert core.CiteMiddleware._uncited(earlier, answer) is None
 
 
+def test_an_answer_that_names_another_course_than_the_chat_it_cites_is_asked_once_more(monkeypatch):
+    from types import SimpleNamespace
+
+    monkeypatch.setattr(core.store, "visible_chats", lambda ids: [{"title": "[F26] Mathematical Analysis I / Математический анализ I"},
+                                                                  {"title": "CA 2026 Students"}])
+    result = json.dumps({"messages": [{"ref": "m8", "chat": "CA 2026 Students", "official": False, "text": "Regular quizzes 5%"}]})
+    request = SimpleNamespace(messages=[HumanMessage("Оценивание?"), call("search", {"queries": ["оценивание"]}, "s1"),
+                                        ToolMessage(content=result, name="search", tool_call_id="s1")],
+                              runtime=SimpleNamespace(context=AgentContext(allowed_chat_ids=frozenset({1}))),
+                              override=lambda **kw: SimpleNamespace(**{**vars(request), **kw}))
+    seen = []
+
+    def ask(answer):
+        def handler(req):
+            seen.append(req)
+            return AIMessage(content=answer)
+        seen.clear()
+        core.GroundingMiddleware().wrap_model_call(request, handler)
+        return len(seen)
+
+    assert ask("Оценивание в чате курса [F26] Mathematical Analysis I: тесты 5% [m8]") == 2
+    retry = seen[1].messages[-1]
+    assert isinstance(retry, HumanMessage) and retry.text.startswith("Your answer does not match")
+    assert ask("Оценивание в чате CA 2026 Students: тесты 5% [m8]") == 1
+
+
 def test_a_ref_is_honoured_only_when_this_turns_retrieval_results_gave_it():
     registry = {"m1": {"wiki": True, "title": "Rules", "link": None, "trust": "official"},
                 "m2": {"wiki": True, "title": "Old page", "link": None, "trust": "official"}}

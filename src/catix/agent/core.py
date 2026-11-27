@@ -398,6 +398,50 @@ class CiteMiddleware(AgentMiddleware):
         return await handler(self._again(request, last)) if last else response
 
 
+GROUNDING_HINT = (
+    "Your answer does not match the results it cites:\n{problems}\n"
+    "Write the answer again. A fact belongs to the course, chat or document of the result that gives it: never give it as "
+    "another course's. Your earlier answers in this conversation are not sources. Use only the results of this question, "
+    "or search again; if no result answers what the user asked, say so."
+)
+
+
+class GroundingMiddleware(AgentMiddleware):
+    """An answer that does not match the results it cites is asked for once more. Two checks (agent/claims.py): it names a
+    chat or course next to refs whose records are from another chat or course and do not mention the name; it cites refs but
+    holds percentages that none of the cited records hold and that the earlier answers of the conversation contain. The
+    second answer is not checked again."""
+
+    @staticmethod
+    def _problems(request: ModelRequest, response) -> list[str]:
+        last = RunGuardMiddleware._last(response)
+        if last is None or last.tool_calls or not re.search(r"\[\s*m\d+", last.text):
+            return []
+        evidence = turn_evidence(_this_run(request.messages))
+        if not evidence:
+            return []
+        context = getattr(getattr(request, "runtime", None), "context", None)
+        titles = [c["title"] for c in store.visible_chats(context.allowed_chat_ids)] if context else []
+        start = max((i for i, m in enumerate(request.messages) if isinstance(m, HumanMessage)), default=0)
+        earlier = "\n".join(m.text for m in request.messages[:start] if isinstance(m, AIMessage))
+        return claims.foreign_names(last.text, evidence, titles) + claims.numbers_from_earlier(last.text, evidence, earlier)
+
+    @staticmethod
+    def _again(request: ModelRequest, last: AIMessage, problems: list[str]) -> ModelRequest:
+        log.info("answer does not match its sources, asking again: %d problem(s)", len(problems))
+        return request.override(messages=[*request.messages, last, HumanMessage(GROUNDING_HINT.format(problems="\n".join(problems)))])
+
+    def wrap_model_call(self, request, handler):
+        response = handler(request)
+        problems = self._problems(request, response)
+        return handler(self._again(request, RunGuardMiddleware._last(response), problems)) if problems else response
+
+    async def awrap_model_call(self, request, handler):
+        response = await handler(request)
+        problems = self._problems(request, response)
+        return await handler(self._again(request, RunGuardMiddleware._last(response), problems)) if problems else response
+
+
 EMPTY_SEARCHES = 2  # model calls in a row whose searches all found nothing; then the next one is the report
 
 
@@ -716,6 +760,16 @@ def _url_key(url: str) -> str:
     return unquote(url.rstrip(URL_TAIL)).rstrip("/")
 
 
+def turn_evidence(turn: list[BaseMessage]) -> str:
+    """What the tools returned in `turn`, as one text: the records the answer's refs point to."""
+    return "\n".join(
+        content
+        for m in turn if isinstance(m, ToolMessage)
+        for content in [str(m.content), *((m.artifact or {}).get("results", []) if isinstance(m.artifact, dict) else [])]
+        if isinstance(content, str)
+    )
+
+
 def clean(turn: list[BaseMessage], answer: str) -> str:
     """The answer without invented URLs or pictures and without unbacked attributions, judged by the tool results of `turn`.
 
@@ -759,13 +813,7 @@ def clean(turn: list[BaseMessage], answer: str) -> str:
     answer = "\n".join(lines)
     # Sentences that attribute something to the administration, the dean's office or an "official source", or say that
     # something was "not announced", must be backed by the results of this turn (agent/claims.py).
-    evidence = "\n".join(
-        content
-        for m in turn if isinstance(m, ToolMessage)
-        for content in [str(m.content), *((m.artifact or {}).get("results", []) if isinstance(m.artifact, dict) else [])]
-        if isinstance(content, str)
-    )
-    answer, _ = claims.check(answer, evidence)
+    answer, _ = claims.check(answer, turn_evidence(turn))
     return answer
 
 
@@ -1066,6 +1114,7 @@ def build_agent(model=None, *, guardrail: bool = True, checkpointer: BaseCheckpo
             ApiPreflightMiddleware(),  # after_model runs before HITL, in its own checkpointed node
             RunGuardMiddleware(t.name for t in main_tools),
             CiteMiddleware(),  # inside the guard: the second answer is checked for tool call markup too
+            GroundingMiddleware(),  # inside CiteMiddleware: a rewritten answer is still checked for refs
             PlanThinkingMiddleware(),  # before PriorityMiddleware, which keeps the extra_body it sets
             PriorityMiddleware(),
             LoggingMiddleware(),

@@ -159,3 +159,42 @@ def test_reranker_failure_keeps_hybrid_ranking(monkeypatch, search):
     monkeypatch.setattr(pg, "rerank", unavailable)
     hits = [hit(search, "first"), hit(search, "second")]
     assert search._rerank(["question"], hits, 1) == hits[:1]
+
+
+def programme_hits():
+    from catix.db.docs import DocHit
+
+    def make(id, path, title):
+        return DocHit(id=id, path=path, seq=0, heading="", clause=None, sha=f"s{id}", text="t", cites=[], title=title, type="regulation",
+                      trust="official", audience=[], resource=None, status=None, review=None, source_warning=None, stale_after=None, issued=None)
+
+    return [*[make(i, f"course-programmes/p{i}", f"Программа {i}") for i in range(5)],
+            *[make(10 + i, f"eduwiki/w{i}", f"Wiki {i}") for i in range(2)]]
+
+
+def score_programmes(monkeypatch):
+    monkeypatch.setattr(settings, "rerank_min_score", None)
+    monkeypatch.setattr(pg, "rerank", lambda query, documents: [0.9 if d.startswith("Программа") else 0.1 for d in documents])
+
+
+def test_at_most_three_course_programmes_stay_among_the_results_while_others_remain(monkeypatch):
+    score_programmes(monkeypatch)
+    hits = programme_hits()
+    out = docs._rerank(["q"], hits, 5)
+    assert [h.path.split("/")[0] for h in out] == ["course-programmes"] * 3 + ["eduwiki"] * 2
+    from catix.db import rerank as joint_rerank
+
+    mixed = joint_rerank.mixed(["q"], {"docs": [(h, docs.rerank_document(h)) for h in hits]}, 5)["docs"]
+    assert [h.path.split("/")[0] for h in mixed] == ["course-programmes"] * 3 + ["eduwiki"] * 2
+
+
+def test_the_cohorts_of_the_asker_come_from_the_study_groups_unless_the_question_names_another_year():
+    from catix.agent.tools import AgentContext, _cohorts
+
+    def runtime(context):
+        return SimpleNamespace(context=context, state={"messages": []})
+
+    context = AgentContext(verified_study_groups=("B26-CSE-01", "ESCP-3"))
+    assert _cohorts(runtime(context), ["матанализ оценивание"]) == frozenset({2026})
+    assert _cohorts(runtime(context), ["РПД матанализа набор 2023"]) == frozenset()
+    assert _cohorts(runtime(None), ["матанализ"]) == frozenset()

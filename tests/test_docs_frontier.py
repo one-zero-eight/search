@@ -342,3 +342,34 @@ def test_a_search_keeps_the_documents_that_pass_the_status_the_date_and_the_site
     assert passing(docs_db, doc_search.Filters(site="university")) == {"regulations/undated"}
     with pytest.raises(ValueError, match="status"):
         doc_search.Filters(status="fresh")
+
+
+def test_a_search_leaves_out_the_programmes_of_other_cohorts_of_a_course_that_has_the_askers_cohort(docs_db):
+    def doc(path, title, **meta):
+        return store.Document(path, {"title": title, "type": "regulation", **meta}, "# T\n\n## P\n\nSome words of the document.\n")
+
+    ma = "Рабочая программа «Mathematical Analysis I / Математический анализ I» ({})"
+    store.sync("course-programmes/", [
+        doc("course-programmes/ma-2023", ma.format(2023), cohort=2023),
+        doc("course-programmes/ma-2026", ma.format(2026), cohort=2026),
+        doc("course-programmes/mat-2025", "Рабочая программа «Математический анализ (1 семестр)» (2025)", cohort=2025)])
+    store.sync("regulations/", [doc("regulations/rules", "Правила")])
+    every = {"course-programmes/ma-2023", "course-programmes/ma-2026", "course-programmes/mat-2025", "regulations/rules"}
+    assert passing(docs_db, doc_search.Filters()) == every
+    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2026}))) == every - {"course-programmes/ma-2023"}
+
+
+def test_the_versions_of_a_document_are_told_apart_in_sql(docs_db):
+    def doc(path, title):
+        return store.Document(path, {"title": title, "type": "regulation"}, "# T\n\n## P\n\nSome words of the document.\n")
+
+    rules = "Правила приема на обучение по программам бакалавриата на {} учебный год"
+    store.sync("regulations/", [doc("regulations/r24", rules.format("2024/2025")), doc("regulations/r26", rules.format("2026/2027")),
+                                doc("regulations/plain", "Устав")])
+    assert store.mark_series(docs_db) == 2
+    assert store.mark_series(docs_db) == 0
+    every = {"regulations/r24", "regulations/r26", "regulations/plain"}
+    assert passing(docs_db, doc_search.Filters(latest_versions=True)) == {"regulations/r26", "regulations/plain"}
+    assert passing(docs_db, doc_search.Filters(latest_versions=True, asked_years=frozenset({2024}))) == every
+    assert passing(docs_db, doc_search.Filters()) == every
+    assert doc_search.page("regulations/r24")[0].newer == rules.format("2026/2027")

@@ -8,9 +8,9 @@ page and the headings are part of what is searched, so "5.3. The term is ..." is
 
 import logging
 import re
-from collections.abc import Collection, Iterable
+from collections.abc import Collection, Iterable, Sequence
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date
 
 from catix.agent import tracing
@@ -28,12 +28,18 @@ STATUSES = ("current", "outdated", "unlisted")  # of a document: in force, stale
 class Filters:
     """What a search keeps of the documents, by what is known of the document itself. `status`: 'current' (not unlisted, not
     past its stale_after), 'outdated' (past it) or 'unlisted'; `issued_from`/`issued_to`: the day the document was issued, a
-    document with no date is left out when either is given; `site`: where it comes from ('hotel', 'university', 'eduwiki')."""
+    document with no date is left out when either is given; `site`: where it comes from ('hotel', 'university', 'eduwiki').
+    `cohorts`: the asker's cohorts; a course programme of another cohort is left out when its course has one of these cohorts.
+    `latest_versions`: a version of a document that a later one of its series replaces is left out, unless `asked_years` holds
+    its year."""
 
     status: str | None = None
     issued_from: date | None = None
     issued_to: date | None = None
     site: str | None = None
+    cohorts: frozenset[int] = frozenset()
+    latest_versions: bool = False
+    asked_years: frozenset[int] = frozenset()
 
     def __post_init__(self) -> None:
         if self.status is not None and self.status not in STATUSES:
@@ -58,7 +64,17 @@ class Filters:
         if self.site:
             where.append("site = %(f_site)s")
             params["f_site"] = self.site
-        return (f" AND {column} IN (SELECT path FROM documents WHERE {' AND '.join(where)})" if where else ""), params
+        if self.cohorts:
+            where.append("NOT (path LIKE %(f_courses)s AND meta ? 'cohort' AND NOT ((meta->>'cohort')::int = ANY(%(f_cohorts)s)) "
+                         "AND substring(title from '«([^»]+)»') IN (SELECT substring(o.title from '«([^»]+)»') FROM documents o "
+                         "WHERE o.path LIKE %(f_courses)s AND (o.meta->>'cohort')::int = ANY(%(f_cohorts)s)))")
+            params["f_cohorts"] = sorted(self.cohorts)
+            params["f_courses"] = COURSES
+        if self.latest_versions:
+            where.append("NOT (d.series IS NOT NULL AND NOT (d.academic_year = ANY(%(f_years)s)) "
+                         "AND EXISTS (SELECT 1 FROM documents n WHERE n.series = d.series AND n.trust = 'official' AND n.academic_year > d.academic_year))")
+            params["f_years"] = sorted(self.asked_years)
+        return (f" AND {column} IN (SELECT d.path FROM documents d WHERE {' AND '.join(where)})" if where else ""), params
 
 
 @dataclass
@@ -96,6 +112,19 @@ class DocHit:
 # fell out of the first ten). They are a pool of their own; both pools give candidates, the reranker orders them together.
 COURSES = "course-programmes/%"
 POOLS = (False, True)  # (not course programmes, course programmes)
+COURSE_PROGRAMMES_SHOWN = 3  # course-programme pieces among the results at most while other candidates remain: 8 programmes of one course from other programmes and intakes pushed out the course's eduwiki page with its grade breakdown (2026-11-27)
+
+
+def demote_course_programmes(order: list[int], hits: Sequence) -> list[int]:
+    """`order` (indexes of `hits`) with the course-programme pieces after the COURSE_PROGRAMMES_SHOWN-th moved to the end."""
+    kept, moved, seen = [], [], 0
+    for i in order:
+        if isinstance(hits[i], DocHit) and hits[i].path.startswith("course-programmes/"):
+            seen += 1
+            (kept if seen <= COURSE_PROGRAMMES_SHOWN else moved).append(i)
+        else:
+            kept.append(i)
+    return kept + moved
 
 
 def _bm25(words: str, trust: list[str], courses: bool = False, filters: Filters | None = None) -> list[int]:
@@ -136,7 +165,9 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False, filter
 HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, p.title, p.type, p.trust, p.audience, p.resource,
                 p.status, p.review, p.source_warning, p.stale_after, p.issued, p.sha AS page_sha,
                 p.meta->>'archive_member' AS archive_member, p.meta->>'archive_sha256' AS archive_sha256,
-                p.meta->>'issued_precision' AS issued_precision
+                p.meta->>'issued_precision' AS issued_precision,
+                (SELECT n.title FROM documents n WHERE n.series = p.series AND n.trust = 'official' AND n.academic_year > p.academic_year
+                 ORDER BY n.academic_year DESC, n.path LIMIT 1) AS newer
          FROM document_chunks c JOIN documents p ON p.path = c.path"""
 
 
@@ -151,7 +182,6 @@ def _hits(ids: list[int], queries: list[str] = ()) -> list[DocHit]:
             seen.add(by_id[i].sha)
             hits.append(by_id[i])
     _resolve_cites(hits)
-    _mark_newer(hits)
     return _copies(hits, queries)
 
 
@@ -186,7 +216,7 @@ def _copies(hits: list[DocHit], queries: list[str] = ()) -> list[DocHit]:
     for h in hits:
         shown = copies[swap[h.id]] if h.id in swap else h
         if h.id in swap:  # (what the found piece carried: the pages it cites, a later version)
-            shown.based_on, shown.newer = h.based_on, h.newer
+            shown.based_on = h.based_on
         shown.also_in = [{"title": r["title"], "page": r["path"]} for r in [{"title": h.title, "path": h.path}, *others.get(h.id, [])]
                          if r["path"] != shown.path and r["title"] != shown.title]
         out.append(shown)
@@ -211,13 +241,13 @@ def _words_of(text: str) -> list[str]:
     return re.sub(r"[^а-яёa-z0-9.]+", " ", re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", text.lower())).split()
 
 
-def _year(title: str) -> int | None:
+def academic_year_of(title: str) -> int | None:
     """The first year of the academic year a document is for ("на 2026/2027 учебный год": 2026)."""
     found = ACADEMIC_YEAR.search(_own_title(title))
     return int(found.group(1)) if found else None
 
 
-def _series(title: str) -> str | None:
+def series_of(title: str) -> str | None:
     """What stays of a document's own title without its academic year: the admission rules of every year have one. Only
     titles with an academic year make a series; "Учебный план" or "Приказ о зачислении" name different documents of
     different programmes."""
@@ -225,22 +255,6 @@ def _series(title: str) -> str | None:
     if not ACADEMIC_YEAR.search(title):
         return None
     return " ".join(_words_of(ACADEMIC_YEAR.sub(" ", title)))
-
-
-def _mark_newer(hits: list[DocHit]) -> None:
-    """A piece of a document that has a version for a later academic year gets that version's title in `newer`."""
-    if not any(_series(h.title) for h in hits):
-        return
-    with pg.connection() as conn:
-        titles = pg.column(conn, "SELECT DISTINCT title FROM documents WHERE trust = 'official' AND title ~ '\\d{4}\\s*/\\s*\\d{4}'")
-    latest: dict[str, tuple[int, str]] = {}
-    for title in titles:
-        key, year = _series(title), _year(title) or 0
-        if key and year > latest.get(key, (0, ""))[0]:
-            latest[key] = (year, title)
-    for h in hits:
-        if (key := _series(h.title)) and key in latest and latest[key][0] > (_year(h.title) or 0):
-            h.newer = latest[key][1]
 
 
 def _resolve_cites(hits: list[DocHit]) -> None:
@@ -276,6 +290,8 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     kinds = [t for t in (trust or TRUST) if t in TRUST]
     if not queries or not kinds or limit <= 0:
         return []
+    filters = replace(filters or Filters(), latest_versions=True,
+                      asked_years=frozenset(int(y) for y in re.findall(r"(?<!\d)(\d{4})(?!\d)", " ".join(queries))))
     vectors = _embed_all(queries)
     with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
         jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool, filters),
@@ -292,10 +308,6 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
         return []
     with tracing.span("load pieces", input=len(fused)):
         hits = _hits(fused, queries)
-    # An earlier version of a document is left out unless a query names its year: the helper cited the admission rules of
-    # 2024/2025 next to those of 2026/2027 even with the warning that they are replaced.
-    asked = " ".join(queries)
-    hits = [h for h in hits if not h.newer or str(_year(h.title)) in asked]
     if not rerank:
         return hits
     return _rerank(queries, hits, limit) if reranking else hits[:limit]
@@ -329,9 +341,10 @@ def _rerank(queries: list[str], hits: list[DocHit], limit: int) -> list[DocHit]:
         return hits[:limit]
     best = [max(per_query[i] for per_query in scores) for i in range(len(hits))]
     ranked = [best[i] * freshness(hits[i]) for i in range(len(hits))]
-    order = sorted(range(len(hits)), key=lambda i: ranked[i], reverse=True)[:limit]
+    order = sorted(range(len(hits)), key=lambda i: ranked[i], reverse=True)
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
+    order = demote_course_programmes(order, hits)[:limit]
     for i, column in enumerate(zip(*scores)):
         hits[i].relevance = sorted(column, reverse=True)[1 if len(column) > 1 else 0]
     return [hits[i] for i in order]
@@ -372,7 +385,6 @@ def page(path: str) -> list[DocHit]:
     with pg.connection() as conn:
         hits = pg.rows(conn, DocHit, HIT + " WHERE c.path = %s ORDER BY c.seq", (path,))
     _resolve_cites(hits)
-    _mark_newer(hits)
     return hits
 
 

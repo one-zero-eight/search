@@ -49,6 +49,7 @@ def _rebuild_groups(groups: set[str]) -> dict[str, int]:
         else:
             raise ValueError(f"no group of documents {group!r}")
     with pg.connection() as conn:
+        counts["documents given a series"] = store.mark_series(conn)
         counts["pieces marked as copies"] = store.mark_copies(conn)
     return dict(counts)
 
@@ -64,5 +65,6 @@ def _rebuild() -> dict[str, int]:
     counts.update(store.sync("sites/", docs, keep))
     counts["pages removed"] += store.prune(PREFIXES)
     with pg.connection() as conn:
+        counts["documents given a series"] = store.mark_series(conn)
         counts["pieces marked as copies"] = store.mark_copies(conn)
     return dict(counts)
