@@ -1,6 +1,6 @@
-"""One request at a time to a host across the threads of the process (the crawl, the documents, the OCR thread of
-`catix-docs run --loop`): two requests to one host are at least PAUSE seconds apart, as a single run keeps them. Off until
-share() (one thread alone already keeps its own pauses; tests and manual commands are unchanged)."""
+"""One request at a time to a host across the threads of the process (the crawl and the OCR thread of `catix-docs run`): two
+requests to one host are at least `pause` seconds apart (PAUSE; a site that asks for more says so: Site.pause). Off until
+share() (the run turns it on; tests and manual commands wait for nothing)."""
 
 import threading
 import time
@@ -18,14 +18,14 @@ def share() -> None:
     _SHARED = True
 
 
-def turn(url: str) -> None:
-    """Wait for the host's turn (nothing when not shared): its next request is PAUSE seconds after the one before, of any thread."""
+def turn(url: str, pause: float = PAUSE) -> None:
+    """Wait for the host's turn (nothing when not shared): its next request is `pause` seconds after the one before, of any thread."""
     if not _SHARED:
         return
     host = (urlsplit(url).hostname or "").lower().removeprefix("www.")
     with _LOCK:
         now = time.monotonic()
         at = max(now, _NEXT.get(host, 0.0))
-        _NEXT[host] = at + PAUSE
+        _NEXT[host] = at + pause
     if at > now:
         time.sleep(at - now)

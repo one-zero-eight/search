@@ -6,29 +6,29 @@ Russian), campuslife.innopolis.ru
 dormitories; Russian), new.innopolis.university/en/ (international applicants; English), media.innopolis.university (the
 news and events), stc.innopolis.university (IT courses), edu.innopolis.university (programmes for schools and teachers),
 innopolis.com (the city and its special economic zone; Russian and English), and the sites of the university's units and
-projects the pages link most (career, corporate, dovuz, progmatica, the college, the dissertation council, ...; see SITES).
+projects the pages link most (career, corporate, dovuz, progmatica, the college, the dissertation council, ...; see the catalog).
 
-    catix-docs sites fetch [SITE ...]   # the pages of every site (or of those named) -> source_files sites/<site>/ (one request every Site.pause seconds); trusted-provider page links are followed recursively,
-                                        # through the documents too: their text layers (scans queued for manual OCR), the pages their text names, their documents, ...
-    catix-docs sites new [SITE ...]     # only the pages that appeared: the new links of each site's feed (or start page), the trusted links of cached pages and documents
-                                        # no run has read (unread_links), and the new pages they link on any trusted site, through the documents they link, read by their
-                                        # text layer alone (a scan waits for a manual OCR run); a link that gave nothing is asked again after RETRY
-    catix-docs sites status     # pages and documents found on every site
-    catix-docs sites docs       # the documents of trusted sites that the pages link and no site has yet: to be downloaded by `regs fetch`
+    catix-docs sites request URL        # a new site: the run adds it to the catalog and reads it
+    catix-docs sites status             # the addresses of every site by kind and state (frontier.py)
+    catix-docs sites unvisited          # the addresses no run has read, and the hosts the catalog does not have
+    catix-docs sites catalog ...        # the catalog of sites (site_catalog): import, export, add, remove, block, unblock
+
+The crawl is the frontier's (docs/frontier.py: one row per address, the links between them) and the runner's (docs/runner.py: it
+reads the address that is due next). This module holds the rules of reading one address: read_page (a page: its text, its links,
+the same words under two addresses, a 404, a short read) and read_listing (a sitemap, the pages a browser lists), and the
+documents the pages make (compile_site).
 
 A page's text is kept as the site shows it: html_to_markdown turns the markup into markdown (a page that needs its scripts,
 an app's empty shell, is read in the browser first: get_page), the program drops what every page of the site repeats (menus,
 footers); no model is asked: the description is the page's first sentence. The documents a site
 links (PDF, DOCX: the rules of the dormitories, their prices) go the way of the regulations (regulations.py, which asks
 `docs()`): documents under regulations/, quoted by clause, `source_kind: official-document`. The pages themselves are `website`.
-Every week a run reads all pages again and compares their text: these sites say nothing reliable about changes (678 of 4476
-pages sent Last-Modified, the sitemaps of media and apply stopped in 2024 and 2025); the new pages are fetch_new's. A page that comes
-back with less than half of its own words (SHORT_READ: a stub, an app's empty shell, half a page), answers 404 or is no
-longer linked is kept as it was until the next run finds it so too: written over or dropped at once, a bad read would take
-the page out of the search. The sites are read once a week, so a page that really went is gone a week later.
+Every page is read again on its own interval and its text compared: these sites say nothing reliable about changes (678 of 4476
+pages sent Last-Modified, the sitemaps of media and apply stopped in 2024 and 2025). A page that comes back with less than half
+of its own words (SHORT_READ: a stub, an app's empty shell, half a page), answers 404 or is no longer linked is kept as it was
+until the next read finds it so too: written over or dropped at once, a bad read would take the page out of the search.
 """
 
-import contextlib
 import functools
 import hashlib
 import json
@@ -36,15 +36,14 @@ import logging
 import os
 import re
 import shutil
-import sys
 import time
 from argparse import Namespace
 from collections import Counter
-from dataclasses import dataclass, fields
+from dataclasses import MISSING, dataclass, fields
 from datetime import datetime, timedelta, timezone
 from http.cookiejar import CookieJar, DefaultCookiePolicy
 from pathlib import Path
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 from urllib.parse import parse_qs, quote, unquote, urldefrag, urljoin, urlsplit
 from urllib.robotparser import RobotFileParser
 
@@ -56,14 +55,17 @@ from usp.exceptions import SitemapException
 from usp.fetch_parse import SitemapFetcher
 from usp.web_client.abstract_client import AbstractWebClient, AbstractWebClientResponse, AbstractWebClientSuccessResponse, WebClientErrorResponse
 
-from catix.docs import files
+from catix.db import pg
 from catix.docs.sources import hosts, regulations
 from catix.docs.sources.rpd import latin
 from catix.docs.store import AUDIENCES, PRODUCER, Document
 from catix.settings import settings
 
+if TYPE_CHECKING:
+    from catix.docs.frontier import Row
+
 REVALIDATE = timedelta(days=28)  # a page the site answered 304 is still read whole this often, so a change of the reading code reaches it
-ROOT = "sites"  # the prefix of the cache of the sites in source_files, and of their documents' paths
+ROOT = "sites"  # the prefix of the documents' paths of the sites
 PAUSE = 2  # seconds between requests
 PROGRESS = 60  # seconds between two lines a crawl says of its progress
 MAX_PAGES = 60  # per site: the crawl follows the links of the site, this stops a calendar or a catalogue from running away
@@ -77,9 +79,7 @@ NOT_PAGE = re.compile(r"\.(xml|rss|atom|json|webmanifest|txt|csv|ics|ya?ml|css|m
 ARCHIVE_TYPES = {"application/zip": "zip", "application/x-zip-compressed": "zip", "application/x-7z-compressed": "7z"}
 UNIVERSITY = ("innopolis.university", "innopolis.ru", "innopolis.edu.ru", "innopolis.com", "innopolis.college")  # the hosts of the university and of the city
 MIN_WORDS = 10  # a page with fewer words (after the shared lines) is a page of pictures and buttons; a heading and a few links to its sections is a page
-NEW_PAGES = 50  # new pages a run of new pages (fetch_new) reads on one site besides its start pages: a feed shows tens, a calendar would run away
-NEW_DEPTH = 3  # waves of fetch_new: the new pages of other trusted sites that new pages link, and those that these link
-SHORT_READ = 0.5  # a page read with less than this share of its own words is kept as it was until the next run reads it as short (fetch_site)
+SHORT_READ = 0.5  # a page read with less than this share of its own words is kept as it was until the next read finds it so too (read_page)
 RETRY = timedelta(days=6)  # a link a run asked and got nothing from (a 404, a file, a host down, a login) waits this long before a run of
 # new links asks it again: 280 of the 474 links no run had read answered 404, and every 6-hourly run would ask them. Less than the
 # week between two runs of every site: the weekly run asks again what the last one could not get (it reads every link of a site anyway).
@@ -97,6 +97,7 @@ def recent(at: str | None, now: datetime | None = None) -> bool:
     return (now or datetime.now(timezone.utc)) - when < RETRY
 
 
+# A new field of Site needs the same column of site_catalog: ALTER TABLE site_catalog ADD COLUMN IF NOT EXISTS ... (db/schema.sql).
 @dataclass(frozen=True)
 class Site:
     base: str
@@ -121,11 +122,13 @@ class Site:
     missing: str | None = None  # what a page that does not exist looks like, when the site answers it with 200 (Wiki.js: 'Эта страница не существует')
     signin: str | None = None  # what the page of the login looks like in the DOM (the session ended: the portal shows 'Авторизация' in place of the page): the crawl stops, the form is not a page
     private: str | None = None  # what the pages show of the person who is logged in (name, mail, balance, notifications): cut from every page before anything is kept
-    feeds: tuple[str, ...] = ()  # the paths where the site shows its new pages (a list of news or events): fetch_new reads them every few hours in place of the start page
+    feeds: tuple[str, ...] = ()  # the paths where the site shows its new pages (a list of news or events): the crawl reads them every few hours in place of the start page (frontier.seed)
     aliases: tuple[str, ...] = ()  # other hosts of the site, an old name or a mirror: a link to one leads to the site's page of the same path, when there is one
 
 
-CATALOG = "catalog/sites.json"  # in source_files: {"sites": {name: record}, "blocked": [host, ...]}; `catix-docs sites catalog` edits it
+CATALOG_COLUMNS = [f.name for f in fields(Site)]  # the columns of site_catalog, from the dataclass so that the two cannot drift
+TUPLE_FIELDS = ("audience", "aliases", "feeds")  # text[] in the table
+DEFAULT_SITEMAP = "sitemap.xml"
 CATALOG_TTL = 15.0  # seconds a process trusts what it read: crawl.provider asks for the catalog for every link
 
 
@@ -136,10 +139,22 @@ def read_yaml(path: Path) -> dict[str, Any]:
 
 
 def load_config() -> dict[str, Any]:
-    raw = files.read_json(CATALOG)
-    if not isinstance(raw, dict):
+    """The catalog of the database: {"sites": {name: record}, "blocked": [host, ...]}; a record has every field of Site."""
+    columns = ", ".join(f'"{column}"' for column in CATALOG_COLUMNS)
+    with pg.connection() as conn:
+        rows = conn.execute(f"SELECT name, {columns} FROM site_catalog ORDER BY name").fetchall()
+        blocked = [row["host"] for row in conn.execute("SELECT host FROM blocked_hosts ORDER BY host").fetchall()]
+    if not rows:
         raise FileNotFoundError(f"the site catalog is empty: `catix-docs sites catalog import {settings.sites_file}`")
-    return raw
+    records: dict[str, Any] = {}
+    for row in rows:
+        record = {column: row[column] for column in CATALOG_COLUMNS}
+        record["sitemap"] = False if record["sitemap"] is None else True if record["sitemap"] == DEFAULT_SITEMAP else record["sitemap"]
+        for name in TUPLE_FIELDS:
+            if record[name] is not None:
+                record[name] = list(record[name])
+        records[row["name"]] = record
+    return {"sites": records, "blocked": blocked}
 
 
 def make_site(values: dict[str, Any]) -> Site:
@@ -152,14 +167,28 @@ def make_site(values: dict[str, Any]) -> Site:
 
 
 def save_catalog(raw: dict[str, Any]) -> None:
-    """The catalog into the database; every record must make a Site, a bad one is refused before anything is written."""
-    sites = {str(name): dict(values) for name, values in raw.get("sites", {}).items()}
-    for name, values in sites.items():
+    """The catalog into the database, in one transaction; every record must make a Site (a bad one is refused before anything is
+    written), and the table's CHECKs refuse a bad base, language, name or max_pages (nothing is written then either)."""
+    made: dict[str, Site] = {}
+    for name, values in raw.get("sites", {}).items():
         try:
-            make_site(values)
+            made[str(name)] = make_site(dict(values))
         except TypeError as error:
             raise ValueError(f"site {name}: {error}") from None
-    files.write_json(CATALOG, {"sites": sites, "blocked": sorted(set(raw.get("blocked", ())))})
+    columns = ", ".join(f'"{column}"' for column in CATALOG_COLUMNS)
+    marks = ", ".join(["%s"] * len(CATALOG_COLUMNS))
+    with pg.connection() as conn, conn.transaction():
+        conn.execute("DELETE FROM site_catalog")
+        conn.execute("DELETE FROM blocked_hosts")
+        for name, site in made.items():
+            values = {column: getattr(site, column) for column in CATALOG_COLUMNS}
+            values["sitemap"] = None if values["sitemap"] is False else DEFAULT_SITEMAP if values["sitemap"] is True else values["sitemap"]
+            for field in TUPLE_FIELDS:
+                if values[field] is not None:
+                    values[field] = list(values[field])
+            conn.execute(f"INSERT INTO site_catalog (name, {columns}) VALUES (%s, {marks})", (name, *values.values()))
+        for host in sorted(set(raw.get("blocked", ()))):
+            conn.execute("INSERT INTO blocked_hosts (host) VALUES (%s)", (host,))
     global _catalog_checked
     _catalog_checked = 0.0
 
@@ -184,16 +213,29 @@ def reload_catalog() -> None:
         BLOCKED, _catalog_raw = frozenset(raw.get("blocked", ())), raw
 
 
+DEFAULTS = {f.name: f.default for f in fields(Site) if f.default is not MISSING}
+
+
+def reduced(record: dict[str, Any]) -> dict[str, Any]:
+    """A record without the fields that are the defaults of Site: what sites.yaml says."""
+    return {key: value for key, value in record.items()
+            if key not in DEFAULTS or (tuple(value) if isinstance(value, list) else value) != DEFAULTS[key]}
+
+
 def catalog_main(args: Namespace) -> None:
     """`catix-docs sites catalog import FILE | export | add NAME KEY=VALUE ... | remove NAME | block HOST | unblock HOST`."""
     action = args.catalog_action
-    raw = files.read_json(CATALOG) or {"sites": {}, "blocked": []}
+    try:
+        raw = load_config()
+    except FileNotFoundError:
+        raw = {"sites": {}, "blocked": []}
     if action == "import":
         save_catalog(read_yaml(args.file))
         print(f"{len(read_yaml(args.file)['sites'])} sites imported from {args.file}")
         return
     if action == "export":
-        print(yaml.safe_dump(raw, allow_unicode=True, sort_keys=False), end="")
+        print(yaml.safe_dump({"sites": {name: reduced(record) for name, record in raw["sites"].items()}, "blocked": raw["blocked"]},
+                             allow_unicode=True, sort_keys=False), end="")
         return
     if action == "add":
         record = {}
@@ -267,32 +309,32 @@ class NewSite:
         return what + (f"; not read: {', '.join(f'{n}× {why}' for why, n in self.problems.most_common())}" if self.problems else "")
 
 
-def read_new_site(url: str, name: str | None = None) -> NewSite:
-    """Add the site of a request to the catalog and read it whole, and the documents its pages link (text layers only). Only the
-    site: the pages of other sites of the catalog it links are not read (no waves; the weekly run and the run of new links reach
-    them). It stays in the catalog whatever the read brings: what went wrong is the report's, to be handled later (skip, render,
-    profile, ...)."""
+def add_site(url: str, name: str | None = None) -> str:
+    """Add the site of a request to the catalog (new_site_record's template); its name. The run reads it: its start page is a
+    row of the frontier (frontier.seed) and the rest follows the links. It stays in the catalog whatever the read brings: what
+    went wrong is the report's (new_site_report), to be handled later (skip, render, profile, ...)."""
     name, record = new_site_record(url, name)
     raw = load_config()
     raw["sites"][name] = record
     save_catalog(raw)
     reload_catalog()
-    no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # (as fetch: every page as a new visitor sees it)
-    with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
-        try:
-            fetch_site(name, SITES[name], client, run=datetime.now(timezone.utc).isoformat(timespec="seconds"))
-        finally:
-            close_live()
-    documents = regulations.read_new(prefixes=(f"site-{name}-",), ocr=False)
-    index = load(name)
-    pages = sum(not page.get("gone") for page in index["pages"].values())
-    problems = Counter(re.sub(r"https?://\S+", "…", mark["why"])[:80] for mark in index.get("tried", {}).values())
-    if title := index["pages"].get("home", {}).get("title"):
+    return name
+
+
+def new_site_report(name: str) -> NewSite:
+    """What the crawl found of a new site: its pages and documents read, and why the addresses that gave no page gave none. The
+    start page's title joins the site's `about`."""
+    from catix.docs import frontier
+
+    reload_catalog()
+    pages, documents, whys, title = frontier.site_counts(name)
+    problems = Counter(re.sub(r"https?://\S+", "…", why)[:80] for why in whys)
+    if title:
         raw = load_config()
-        raw["sites"][name] = {**raw["sites"][name], "about": f"{record['about']}: {title}"}  # (as the wiki's run named its sites)
+        raw["sites"][name] = {**raw["sites"][name], "about": f"{raw['sites'][name]['about']}: {title}"}  # (as the wiki's run named its sites)
         save_catalog(raw)
         reload_catalog()
-    return NewSite(name, record["base"], pages, len(documents), problems)
+    return NewSite(name, SITES[name].base, pages, documents, problems)
 
 
 CHROMIUM = shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
@@ -357,18 +399,19 @@ BOT_TRIES = 8  # a bot check comes and goes (timepad behind Yandex answered seve
 BOT_PAUSE = 5  # seconds between the asks
 
 
-def get_through(client: httpx.Client, url: str, headers: dict | None = None) -> httpx.Response:
+def get_through(client: httpx.Client, url: str, headers: dict | None = None, pause: float = hosts.PAUSE) -> httpx.Response:
     """The answer for the url, asked again while a bot check answers in its place ('Вы не робот?' of Yandex on timepad, 'Just a
     moment' of Cloudflare): the wall is not the site, and it lets a request through now and then. The last answer is kept
-    whatever it is, so a page that names a bot check in its own words is only asked for again, never refused for them."""
+    whatever it is, so a page that names a bot check in its own words is only asked for again, never refused for them. Every
+    request waits for its host's turn (hosts.turn: `pause` seconds after the one before)."""
     extra = {"headers": headers} if headers else {}
-    hosts.turn(url)
+    hosts.turn(url, pause)
     page = client.get(url, **extra)
     for _ in range(BOT_TRIES - 1):
         if not WALL.search(page.text):
             break
         time.sleep(BOT_PAUSE)
-        hosts.turn(url)
+        hosts.turn(url, pause)
         page = client.get(url, **extra)
     return page
 
@@ -588,24 +631,31 @@ def conditional_headers(validators: dict) -> dict:
     return {}
 
 
+def pause_of(site: "Site") -> float:
+    return PAUSE if site.pause is None else site.pause
+
+
 def get_page(client: httpx.Client, site: "Site", url: str, validators: dict | None = None) -> httpx.Response:
     """The answer for a page: the site's own, or what the browser made of it, as if it were the answer: for every page of an app
-    (Site.render), for a page that needs its scripts (needs_script) on any other site."""
+    (Site.render), for a page that needs its scripts (needs_script) on any other site. Each request waits for its host's turn."""
+    pause = pause_of(site)
     if site.profile:
         profile = profile_of(site)
+        hosts.turn(url, pause)
         html = render_live(url, profile)
         if site.signin and re.search(site.signin, html):
             raise SessionEnded(f"the session of the profile {profile} has ended: {url} shows the login")
         return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8", "x-catix-rendered": "1"}, text=html, request=httpx.Request("GET", url))
     headers = {"content-type": "text/html; charset=utf-8", "x-catix-rendered": "1"}
     if not site.render:
-        page = get_through(client, url, conditional_headers(validators or {}))
+        page = get_through(client, url, conditional_headers(validators or {}), pause)
         if page.status_code == 304:
             return page
         if not needs_script(page, site.headings):
             return page
         url = str(page.url)
         try:
+            hosts.turn(url, pause)
             html = render_page(url)
         except httpx.TransportError as e:
             print(f"  {url}: needs its scripts, and {e}: read as the site sent it", flush=True)
@@ -617,28 +667,11 @@ def get_page(client: httpx.Client, site: "Site", url: str, validators: dict | No
             headers["last-modified"] = page.headers["last-modified"]
     else:
         try:
+            hosts.turn(url, pause)
             html = render_page(url)
-        except NotAPage as e:  # (the site's file as the site sent it: fetch_site leaves what is not a page)
+        except NotAPage as e:  # (the site's file as the site sent it: read_page leaves what is not a page)
             return httpx.Response(200, headers={"content-type": e.kind}, request=httpx.Request("GET", url))
     return httpx.Response(200 if html else 404, headers=headers, text=html or "", request=httpx.Request("GET", url))
-
-
-def missed(pages: dict, slug: str, why: str, run: str) -> int:
-    """A page the run did not find (a 404, no link to it): gone once a second run finds it so, kept until then (a site down
-    for an hour, a menu its scripts did not draw). 1 when it is gone now."""
-    page = pages[slug]
-    if (mark := page.get("missing")) and mark["run"] != run:
-        pages[slug] = {key: value for key, value in page.items() if key not in ("missing", "short")} | {"gone": True}
-        return 1
-    if not mark:
-        pages[slug] = {**page, "missing": {"why": why, "run": run}}
-        print(f"  {slug}: {why}, kept until the next run finds it so", flush=True)
-    return 0
-
-
-def put_cache(name: str, slug: str, text: str) -> None:
-    """The text of a page into the cache."""
-    files.write_text(f"{ROOT}/{name}/{slug}.md", text)
 
 
 def canonical(url: str) -> str:
@@ -902,7 +935,7 @@ def _options(url: str) -> ConversionOptions:
     )
 
 
-@functools.lru_cache(maxsize=2)  # (get_page reads a page to tell whether it needs its scripts, fetch_site reads it again)
+@functools.lru_cache(maxsize=2)  # (get_page reads a page to tell whether it needs its scripts, read_page reads it again)
 def convert_page(html: str, url: str, headings: str | None = None) -> tuple[str, str, tuple[tuple[str, str], ...], bool]:
     """(title, markdown lines, links, whether it needs its scripts) of a page; `headings`: Site.headings. A page needs its scripts
     when its <noscript> asks for JavaScript or it has fewer than MIN_WORDS words: the HTML is an empty shell."""
@@ -1008,479 +1041,209 @@ def robots_of(site: Site, client: httpx.Client) -> RobotFileParser | None:
     return rules
 
 
-def load(name: str) -> dict:
-    return files.read_json(f"{ROOT}/{name}/index.json") or {"pages": {}, "docs": {}}
+def client() -> httpx.Client:
+    """The HTTP client of the crawl: every page as a new visitor sees it (no cookies)."""
+    no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))
+    return httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies)
 
 
-def save(name: str, index: dict) -> None:
-    files.write_json(f"{ROOT}/{name}/index.json", index)
-    from catix.docs import document_worker
+def page_target(site: Site, link: str) -> str:
+    """The address under which the crawl reads a link of the site (page_url), a page of a list (Site.listing) after its first with its query; '' when it is none."""
+    target = page_url(site, link)
+    if not target:
+        return ""
+    number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
+    return target + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")
 
-    document_worker.wake()
+
+ROBOTS_TTL = timedelta(days=1)
+_robots: dict[str, tuple[datetime, RobotFileParser | None]] = {}
 
 
-def new_linked_pages(names: list[str] | None = None) -> dict[str, set[str]]:
-    """Trusted-provider page links in cached pages whose target is neither cached nor tried lately (settled). The menus repeat
-    the same links on every page: each link is judged once a call (crawl.provider for every link of 8000 pages took 84 s)."""
-    from catix.docs.sources import crawl
+def robots(site: Site, client: httpx.Client) -> RobotFileParser | None:
+    """robots_of, asked at most once a day for a site."""
+    now = datetime.now(timezone.utc)
+    if (cached := _robots.get(site.base)) and now - cached[0] < ROBOTS_TTL:
+        return cached[1]
+    rules = robots_of(site, client)
+    _robots[site.base] = (now, rules)
+    return rules
 
-    reload_catalog()
-    readable = SITES
-    selected = names or list(readable)
-    known = {name: settled(load(name)) for name in readable}
-    provider = functools.cache(lambda link: crawl.provider(link, page=True))  # (the catalog does not change within a call)
-    target_of = functools.cache(lambda name, link: page_url(SITES[name], link))
-    address_of = functools.cache(address)
-    found: dict[str, set[str]] = {}
-    for source in selected:
-        if source not in readable:
-            continue
-        index = load(source)
-        for path in files.list(f"{ROOT}/{source}/", ".md"):
-            here = canonical(index["pages"].get(path.rsplit("/", 1)[1][:-3], {}).get("url", readable[source].base))
-            for raw in crawl.PAGE.findall(files.read_text(path) or ""):  # (crawl.page_links, each link judged once)
-                link = raw.rstrip(crawl.TRAILING)
-                if not (name := provider(link)) or (target := target_of(name, link)) == here:
-                    continue
-                if (other := provider(target)) and address_of(target) not in known.setdefault(other, set()):
-                    found.setdefault(other, set()).add(target)
+
+COMMON_TTL = 3600  # seconds
+_common: dict[str, tuple[float, dict[str, set[str]]]] = {}
+
+
+def common(name: str) -> dict[str, set[str]]:
+    """The lines the pages of a site repeat, per language (boilerplate), from the pages kept; read again every COMMON_TTL seconds
+    and when compile_site rebuilds the site."""
+    from catix.docs import frontier
+
+    if (cached := _common.get(name)) and time.monotonic() - cached[0] < COMMON_TTL:
+        return cached[1]
+    site, rows = SITES[name], frontier.live_pages(name)
+    found = {lang: boilerplate([row.text for row in rows if row.text and language_of(site, row.slug or "") == lang]) for lang in ("ru", "en")}
+    _common[name] = (time.monotonic(), found)
     return found
 
 
-def unread_links(names: list[str] | None = None) -> dict[str, set[str]]:
-    """provider -> the pages of trusted sites that no run has read or tried lately (settled), though a cached page of `names`
-    (of every site when None) or a document read (of those sites) links them: links whose wave never came (a provider
-    approved after the page was read, a run that stopped at max_pages, a page only a document names). What `regs fetch`
-    and the 6-hourly run (fetch_new) read besides the documents and the feeds."""
-    found = new_linked_pages(names)
-    keys = None if not names else [key for key in regulations.all_docs() if key.startswith(tuple(f"site-{name}-" for name in names))]  # (the CLI's [] is every site)
-    for name, urls in regulations.page_links_of(keys).items():
-        known = settled(load(name))
-        if new := {url for url in urls if address(url) not in known}:
-            found.setdefault(name, set()).update(new)
-    return found
+LIVE_STATES = ("ok", "missing")  # a page kept in the search
 
 
-def wave_reads(name: str) -> bool:
-    """Whether a wave of new links enters a site: not behind a login (the person's browser once a week) and read whole once (the
-    weekly run reads a new site whole, not 50 pages)."""
-    return not SITES[name].profile and files.exists(f"{ROOT}/{name}/index.json")
-
-
-def foreign_links(names: list[str] | None = None) -> dict[str, set[str]]:
-    """host -> the links of cached pages of `names` (every site when None) to hosts that no site of the catalog covers and that
-    are not blocked: the places the sites send to and no run goes (a link to a site's own host that its `skip` refuses is no
-    unknown: the catalog decided it)."""
-    from catix.docs.sources import crawl
-
-    reload_catalog()
-    ours = {host for site in SITES.values() for host in crawl._site_hosts(site)}
-    found: dict[str, set[str]] = {}
-    judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
-
-    def host_of(link: str) -> str | None:
-        try:
-            host = (urlsplit(link).hostname or "").lower().rstrip(".")
-        except ValueError:
-            return None
-        if not host or any(host == b or host.endswith("." + b) for b in BLOCKED) or host in ours:
-            return None
-        return host
-
-    for source in names or list(SITES):
-        if source not in SITES:
-            continue
-        for path in files.list(f"{ROOT}/{source}/", ".md"):
-            for raw in crawl.PAGE.findall(files.read_text(path) or ""):
-                link = canonical(raw.rstrip(crawl.TRAILING))
-                if link not in judged:
-                    judged[link] = host_of(link)
-                if host := judged[link]:
-                    found.setdefault(host, set()).add(link)
-    return found
-
-
-def unread_files(names: list[str] | None = None) -> dict[str, set[str]]:
-    """provider -> the links of cached pages of `names` (every site when None) to files of trusted sites (crawl.provider: a PDF,
-    a Word file, an archive) that a run of documents still has to read: not registered, or regulations.settled_doc is false
-    (regs fetch downloads it); a course archive (rpd.archives) while rpd.pending lists it (rpd.fetch reads it)."""
-    from catix.docs.sources import crawl, rpd
-
-    reload_catalog()
-    docs = {canonical(d["url"]): (key, d) for key, d in regulations.all_docs().items() if not d.get("member")}
-    courses = {canonical(a["url"]) for a in rpd.archives()}  # (rpd reads them, not the documents' reader: regulations.all_docs leaves them out)
-    waiting = {canonical(a["url"]) for a in rpd.pending()}
-    judged: dict[str, str | None] = {}  # (the menus repeat the same links on every page: each is judged once)
-    found: dict[str, set[str]] = {}
-    for source in names or list(SITES):
-        if source not in SITES:
-            continue
-        for path in files.list(f"{ROOT}/{source}/", ".md"):
-            for raw in crawl.PAGE.findall(files.read_text(path) or ""):
-                link = canonical(raw.rstrip(crawl.TRAILING))
-                if link not in judged:
-                    judged[link] = crawl.provider(link) if DOC.search(urlsplit(link).path) and (
-                        link in waiting if link in courses else not ((kd := docs.get(link)) and regulations.settled_doc(*kd))) else None
-                if name := judged[link]:
-                    found.setdefault(name, set()).add(link)
-    return found
-
-
-def unvisited(names: list[str] | None = None, summary: bool = False, only: str | None = None) -> None:
-    """Print the addresses no run has gone to: of the sites of the catalog (their pages that a cached page or a document links
-    and no run read or tried lately: unread_links; their files that no document read has: unread_files), and of the hosts the
-    catalog does not have (foreign_links). `only`: 'known' or 'unknown' prints one of the two (the other is not searched)."""
-    blocks = []
-    if only != "unknown":
-        blocks += [("Known sites, pages", unread_links(names), "sites"), ("Known sites, files", unread_files(names), "sites")]
-    if only != "known":
-        blocks.append(("Unknown hosts", foreign_links(names), "hosts"))
-    for title, groups, kind in blocks:
-        print(f"{title}: {sum(map(len, groups.values()))} addresses in {len(groups)} {kind}")
-        for group, urls in sorted(groups.items(), key=lambda item: (-len(item[1]), item[0])):
-            print(f"  {group}: {len(urls)}")
-            if not summary:
-                for url in sorted(urls):
-                    print(f"    {url}")
-
-
-def backlog() -> int:
-    """How many of the links `unvisited --known` shows a run of new links reads now: the pages of unread_links on the sites a
-    wave enters (wave_reads) and the files of unread_files. 0: nothing to ask."""
-    reload_catalog()
-    pages = sum(len(urls) for name, urls in unread_links().items() if name in SITES and wave_reads(name))
-    return pages + sum(map(len, unread_files().values()))
-
-
-def known_urls(index: dict) -> set[str]:
-    """The addresses of a site's index, gone ones too (a page that went, a copy of another under a second address: not new)."""
-    return {address(page["url"]) for page in index["pages"].values() if page.get("url")}
-
-
-def settled(index: dict, now: datetime | None = None) -> set[str]:
-    """The addresses of a site a run of new links need not ask: those of its index (known_urls) and the new ones a run asked
-    lately that gave no page (`tried`: a 404, a file, the copy of another page, an address the site sends elsewhere)."""
-    return known_urls(index) | {url for url, mark in index.get("tried", {}).items() if recent(mark.get("run"), now)}
-
-
-def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | None = None,
-               linked: dict[str, set[str]] | None = None, visited: set[str] | None = None, run: str | None = None,
-               only_new: bool = False) -> int:
-    """Read every page of a site (from its sitemap and the links of its pages); keep the text of the new and changed ones
-    and the documents they link. The number of pages that are new, changed or gone. `run` names the run (`fetch` reads a
-    page again in the waves of linked pages): a page read short or not found is taken so only when another run finds it so.
-
-    An address the index does not have is read before the known ones: a new item of a feed does not wait for 2000 old news
-    (media's sitemap stopped in July 2024: its new pages are in the links of its start page), nor miss max_pages. With
-    `only_new` the pages of `start` are read and then only the new addresses they link (fetch_new), at most NEW_PAGES of them.
-    A few pages (`start`: a wave) do not read again a page this run read (`visited`): its site's run read it, and its links.
+def read_page(client: httpx.Client, row: "Row") -> bool:
+    """Read the page of one address of the frontier and note what came of it in its row (frontier.save): the text and the hash,
+    the links to other addresses (frontier.set_links) and the new ones among them (frontier.add). Whether the documents of the
+    site may have changed: a page whose text changed, or that came into the search or left it.
 
     A new address that gives no page (a 404, a file, the words of another page, robots.txt, a host that does not answer) is
-    noted in the index's `tried`, so that the runs of new links (unread_links) do not ask it every few hours (settled). A
-    new address the site sends to another one is no page of its own either: the page it is sent to is read in its place, in
-    this site or in the wave of the other one (innopolis.university/news/x is media's page; it was kept as the university's)."""
+    `tried` and asked again after RETRY. A new address the site sends to another one is no page of its own either: the page it is
+    sent to is added in its place. A page the search has (`ok`) that answers 404 is `missing`, kept until the next read finds it
+    so too (a site down for an hour, a menu its scripts did not draw), then `gone`. A page that comes back with less than half
+    of its own words is kept as it was until the next read finds it so too."""
+    from catix.docs import frontier
+    from catix.docs.frontier import Found, Link
     from catix.docs.sources import crawl
 
-    run = run or datetime.now(timezone.utc).isoformat()
-    index = load(name)
-    known = known_urls(index)
-
-    def note(url: str, why: str) -> None:
-        if address(url) not in known:  # (a page the index has keeps its own marks: missed, short)
-            index.setdefault("tried", {})[address(url)] = {"why": why, "run": run}
-
-    fresh: list[str] = []  # the new addresses: read first
-    kept = {slug: text for slug, page in index["pages"].items()
-            if not page.get("gone") and (text := files.read_text(f"{ROOT}/{name}/{slug}.md")) is not None}  # the pages as the last runs kept them
-    common = {lang: boilerplate([t for slug, t in kept.items() if language_of(site, slug) == lang]) for lang in ("ru", "en")}
-    partial = start is not None
-    todo: list[str] = list(start) if start is not None else [site.base]
-
-    def url_of(link: str) -> str:
-        target = page_url(site, link)
-        if not target:
-            return ""
-        number = re.search(rf"[?&]{site.listing}=(\d+)", link) if site.listing else None
-        return target + (f"?{site.listing}={number.group(1)}" if number and number.group(1) != "1" else "")  # (a page of a list, after its first)
-
-    def put(link: str) -> None:
-        url = url_of(link)
-        if not url:
-            return
-        if ("?" not in url or DOWNLOAD.search(urlsplit(url).path)) and url.rstrip("/") not in known:  # listing queries are not new pages; download IDs are distinct files
-            fresh.append(link)
-        elif not only_new:
-            todo.append(link)
-
-    if site.sitemap and not partial:
-        if not (listed := sitemap_pages(site, client)):
-            print(f"  {name}: no sitemap")
-        for loc in listed:
-            put(repaired(site, loc))
-    if site.discover and not partial:  # (the pages no link leads to: the browser lists them)
-        render_live(site.base, profile_of(site))
-        for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover)):
-            put(urljoin(site.base, path))
-        print(f"  {name}: {len(todo) + len(fresh)} pages listed, {len(fresh)} of them new")
-    rules = robots_of(site, client)
-    seen, read_slugs, read_ok, not_modified, changed, docs, contexts = set(), set(), 0, 0, 0, {}, {}
-    first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
-    limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
-    last_said = time.monotonic()
-
-
-    while (fresh or todo) and len(seen) < limit:
-        link = (fresh or todo).pop(0)
-        url = url_of(link)
-        if not url or url in seen or (partial and visited is not None and url in visited) or not _taken(site, link):
-            continue
-        if rules and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
-            note(url, "robots.txt disallows it")
-            continue
-        seen.add(url)
-        if visited is not None:
-            visited.add(url)
-        if time.monotonic() - last_said >= PROGRESS:  # (a page that has not changed says nothing: a long crawl was silent for an hour)
-            last_said = time.monotonic()
-            print(f"  {name}: {len(seen)} pages asked, {len(fresh) + len(todo)} listed left (up to {limit}), {changed} new or changed, {not_modified} not modified (304)", flush=True)
-        slug = slug_of(site, url)
-        if address(index["pages"].get(slug, {}).get("url", url)) != address(url):  # (two paths, one slug; an alias is the same page, not a collision)
-            slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
-        old = index["pages"].get(slug, {})
-        links_path = f"{ROOT}/{name}/{slug}.links.json"
+    site, url, live = SITES[row.site], row.url, row.state in LIVE_STATES
+    now = datetime.now(timezone.utc)
+    if crawl.provider(url, page=True) != row.site or not _taken(site, url):
+        frontier.save(row, state="gone", why="not taken", next_at=None)
+        return live
+    if (rules := robots(site, client)) and not rules.can_fetch(regulations.HEADERS["User-Agent"], url):
+        frontier.save(row, state="tried", why="robots.txt disallows it", next_at=frontier.later(RETRY))
+        return live
+    slug = row.slug or slug_of(site, url)
+    try:
+        if DOWNLOAD.search(urlsplit(url).path):
+            hosts.turn(url, pause_of(site))  # (do not GET a potentially large binary just to classify it as an archive)
+            head = client.head(url)
+            kind = ARCHIVE_TYPES.get(head.headers.get("content-type", "").split(";", 1)[0].lower())
+            if head.status_code == 200 and kind and crawl.provider(url):
+                frontier.save(row, kind="document", doc_key=doc_key(row.site, url), ext=kind, next_at=now, priority=frontier.NEW)
+                return False
         conditional = bool(
-            old.get("validators") and not old.get("gone") and "missing" not in old and "short" not in old and slug in kept
-            and (name, slug) not in EXTRAS and "?" not in url and old.get("read_at")
-            and datetime.fromisoformat(old["read_at"]) > datetime.now(timezone.utc) - REVALIDATE
-            and files.read_json(links_path) is not None)
-        try:
-            if DOWNLOAD.search(urlsplit(url).path):
-                # Do not GET a potentially large binary just to classify it as an archive.
-                hosts.turn(url)
-                head = client.head(url)
-                kind = ARCHIVE_TYPES.get(head.headers.get("content-type", "").split(";", 1)[0].lower())
-                if head.status_code == 200 and kind and crawl.provider(url):
-                    docs[url] = index["docs"].get(url, urlsplit(url).path.rsplit("/", 1)[-1])
-                    index.setdefault("archive_types", {})[url] = kind
-                    changed += url not in index["docs"]
-                    read_ok += 1
-                    time.sleep(PAUSE if site.pause is None else site.pause)
-                    continue
-            resp = get_page(client, site, url, old.get("validators") if conditional else None)
-            time.sleep(PAUSE if site.pause is None else site.pause)
-        except httpx.HTTPError as e:
-            print(f"  FAILED {url}: {e}")
-            note(url, f"{type(e).__name__}: {str(e)[:200]}")
-            continue
-        revalidated = resp.status_code == 304
-        if revalidated:
-            title, text, links = old["title"], kept[slug], [tuple(x) for x in files.read_json(links_path)]
-            read_ok += 1
-            read_slugs.add(slug)
-            not_modified += 1
+            row.validators and row.state == "ok" and row.short_words is None and row.text is not None and (row.site, slug) not in EXTRAS
+            and "?" not in url and row.read_at and now - row.read_at < REVALIDATE)
+        resp = get_page(client, site, url, row.validators if conditional else None)
+    except httpx.HTTPError as e:
+        print(f"  FAILED {url}: {e}")
+        if live:
+            frontier.save(row, next_at=frontier.later(frontier.SOON))
         else:
-            if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
-                why = "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})"
-                if old and not old.get("gone") and slug not in read_slugs:  # (not for the other spelling of an address that was read: /x/ and /x)
-                    changed += missed(index["pages"], slug, why, run)
-                note(url, why)
-                continue
-            if resp.status_code != 200:
-                print(f"  {url}: {resp.status_code}")
-                note(url, str(resp.status_code))
-                continue
-            moved = str(resp.url)
-            if address(url) not in known and address(moved) != address(url):  # (a known page that moved stays the page it was)
-                print(f"  {url}: sent to {moved}", flush=True)
-                note(url, f"sent to {moved}")
-                if (other := crawl.provider(moved, page=True)) == name:
-                    put(moved)
-                elif other and linked is not None and (target := page_url(SITES[other], moved)) not in (visited or set()):
-                    linked.setdefault(other, set()).add(target)
-                continue
-            title, text, links = read(resp.text, str(resp.url), site.headings)
-            if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
-                print(f"  {url}: a bot check answers in its place", flush=True)
-                note(url, "a bot check")
-                continue
-            read_ok += 1
-            read_slugs.add(slug)
-            if "missing" in old:  # (it is there: the 404 or the missing link before was the wrong one)
-                old = index["pages"][slug] = {key: value for key, value in old.items() if key != "missing"}
-            if site.private:
-                text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
-            if site.bare:
-                links = [(languaged(site, link, str(resp.url)), anchor) for link, anchor in links]
-                text = re.sub(r"(!\[[^\]]*\]\([^)\s]*\))|(?<=\]\()https?://[^)\s]+", lambda m: m.group(1) or languaged(site, m.group(), str(resp.url)), text)  # (not a picture)
-            if (extra := EXTRAS.get((name, slug))):
-                text = extra(client, resp.text, str(resp.url), text)
-        for link, anchor in links:
-            if (DOC.search(urlsplit(link).path) or canonical(link) in index.get("archive_types", {})) and crawl.provider(link):
-                doc = canonical(link)
-                docs[doc] = max(docs.get(doc, ""), anchor, key=len)  # the fullest of the link texts: 'Правила проживания', not 'Правила'
-            elif _taken(site, link):
-                put(link)
-            elif linked is not None and (other := crawl.provider(link, page=True)):
-                target = page_url(SITES[other], link)
-                if target not in (visited or set()) and target not in linked.setdefault(other, set()):
-                    linked[other].add(target)
-        for doc, context in contexts_of(text).items():
-            if doc in docs:
-                contexts.setdefault(doc, context)
-        if "?" in url:  # (a page of a list: its links are taken, it is not kept)
-            continue
-        if revalidated:  # (the page is as it was: nothing to write, its read_at stays)
-            first.setdefault(old["sha256"], slug)
-            continue
-        validators = {} if "x-catix-rendered" in resp.headers else {k: v for k, v in (("etag", resp.headers.get("etag")), ("modified", resp.headers.get("last-modified"))) if v}
-        stamp = {"validators": validators, "read_at": datetime.now(timezone.utc).isoformat(timespec="seconds")} if validators else {}
-
-        def save_links() -> None:
-            if stamp and files.read_json(links_path) != (payload := [list(x) for x in links]):
-                files.write_json(links_path, payload)
-
-        sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
-        if first.setdefault(sha, slug) != slug:  # the page read before under another address (Tilda: '/Vue-js-framework' is '/vue-js-framework')
-            if old and not old.get("gone"):
-                index["pages"][slug] = {**old, "gone": True}
-                changed += 1
-            note(url, f"the words of {first[sha]}")
-            continue
-        if old.get("sha256") == sha and not old.get("gone"):
-            index["pages"][slug] = {key: value for key, value in old.items() if key not in ("short", "validators", "read_at")} | stamp  # (the short read was the wrong one)
-            save_links()
-            if files.read_text(f"{ROOT}/{name}/{slug}.md") != text:
-                put_cache(name, slug, text)  # (the same words, other links and pictures)
-            continue
-        mark = old.get("short")
-        if slug in kept and not old.get("gone") and not (mark and mark["run"] != run):  # a read that went wrong (a stub, an app's empty shell, half a page)
-            lang = language_of(site, slug)  # writes over the page and the cards drop what it said: the next run has to read it so too
-            before, after = own_words(site, kept[slug], common[lang]), own_words(site, text, common[lang])
-            if before >= MIN_WORDS and after < SHORT_READ * before:
-                index["pages"][slug] = {**old, "short": mark or {"words": after, "run": run}}
-                if not mark:
-                    print(f"  {slug}: {after} words of its {before}, kept as it was until the next run reads it so", flush=True)
-                continue
-        put_cache(name, slug, text)
-        index["pages"][slug] = {"url": url, "title": title, "sha256": sha, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                "last_modified": resp.headers.get("last-modified", ""), **stamp}
-        save_links()
-        changed += 1
-        print(f"  {slug}: {'changed' if old else 'new'}, {len(text)} chars", flush=True)
-        if changed % 50 == 0:
-            save(name, index)  # (a long crawl cut short keeps what it read)
-    print(f"  {name}: {read_ok} pages read, {not_modified} of them not modified (304)")
-    for slug, page in list(index["pages"].items()):  # a page no link leads to any more has left the site
-        if (read_ok and not partial and page["url"] not in seen and slug not in read_slugs and not page.get("gone")
-                and len(seen) < site.max_pages):  # (not when the site did not answer; not from a few pages: they do not lead everywhere)
-            changed += missed(index["pages"], slug, "no link leads to it", run)
-    if read_ok and not partial:
-        unlisted = index.get("unlisted", {})
-        for url, anchor in index["docs"].items():  # a document no page links any more (removed, or hidden in a comment) keeps its
-            if url not in docs and url not in unlisted:  # page: what it said is not lost, it is marked as no longer on the site (docs)
-                unlisted[url] = {"anchor": anchor, "since": run[:10], **({"context": index["contexts"][url]} if url in index.get("contexts", {}) else {})}
-        index["unlisted"] = unlisted
-        index["docs"] = docs
-    elif docs:  # (a few pages: their documents join the site's, the whole site's run says which are linked no more)
-        index["docs"] = docs | index["docs"]
-    if "unlisted" in index:  # (linked again: listed as any other)
-        index["unlisted"] = {url: mark for url, mark in index["unlisted"].items() if url not in index["docs"]}
-        if not index["unlisted"]:
-            del index["unlisted"]
-    if contexts or "contexts" in index:
-        index["contexts"] = {doc: context for doc, context in {**index.get("contexts", {}), **contexts}.items() if doc in index["docs"]}
-    if "tried" in index:  # (an address read since is a page; one the whole site's run did not ask again lately is linked no more)
-        pages = known_urls(index)
-        index["tried"] = {url: mark for url, mark in index["tried"].items() if url not in pages and (partial or recent(mark.get("run")))}
-    save(name, index)
-    return changed
+            frontier.save(row, state="tried", why=f"{type(e).__name__}: {str(e)[:200]}", next_at=frontier.later(RETRY))
+        return False
+    if resp.status_code == 304:
+        frontier.save(row, read_at=now)
+        return False
+    if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
+        why = "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})"
+        if row.state == "ok":
+            print(f"  {slug}: {why}, kept until the next read finds it so", flush=True)
+            frontier.save(row, state="missing", why=why, next_at=frontier.later(frontier.SOON))
+            return False
+        if row.state == "missing":
+            frontier.save(row, state="gone", why=why, text=None, next_at=frontier.later(frontier.PAGE_EVERY))
+            return True
+        frontier.save(row, state="tried", why=why, next_at=frontier.later(RETRY))
+        return False
+    if resp.status_code != 200:
+        print(f"  {url}: {resp.status_code}")
+        if live:
+            frontier.save(row, next_at=frontier.later(frontier.SOON))
+        else:
+            frontier.save(row, state="tried", why=str(resp.status_code), next_at=frontier.later(RETRY))
+        return False
+    moved = str(resp.url)
+    if row.state in ("new", "tried") and address(moved) != row.address:  # (a known page that moved stays the page it was)
+        print(f"  {url}: sent to {moved}", flush=True)
+        frontier.save(row, state="tried", why=f"sent to {moved}", next_at=frontier.later(RETRY))
+        if (other := crawl.provider(moved, page=True)) and (target := page_url(SITES[other], moved)):
+            frontier.add([Found(target, other, "page")], by=row)
+        return False
+    title, text, links = read(resp.text, str(resp.url), site.headings)
+    if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
+        print(f"  {url}: a bot check answers in its place", flush=True)
+        if live:
+            frontier.save(row, next_at=frontier.later(frontier.SOON))
+        else:
+            frontier.save(row, state="tried", why="a bot check", next_at=frontier.later(RETRY))
+        return False
+    if site.private:
+        text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
+    if site.bare:
+        links = [(languaged(site, link, str(resp.url)), anchor) for link, anchor in links]
+        text = re.sub(r"(!\[[^\]]*\]\([^)\s]*\))|(?<=\]\()https?://[^)\s]+", lambda m: m.group(1) or languaged(site, m.group(), str(resp.url)), text)  # (not a picture)
+    if extra := EXTRAS.get((row.site, slug)):
+        text = extra(client, resp.text, str(resp.url), text)
+    spelled: dict[str, str] = {}
+    contexts = {spelled.setdefault(u, address(u)): c for u, c in contexts_of(text).items()}
+    web = [(link, anchor) for link, anchor in links if urlsplit(link).scheme in ("http", "https")]
+    dsts = [spelled.get(link) or spelled.setdefault(link, address(link)) for link, _ in web]
+    archives = frontier.known_documents(dsts)
+    found, written = [], []
+    for (link, anchor), dst in zip(web, dsts):
+        written.append(Link(dst, anchor, contexts.get(dst, "")))
+        if (DOC.search(urlsplit(link).path) or dst in archives) and (other := crawl.provider(link)):
+            found.append(Found(canonical(link), other, "document"))
+        elif (other := crawl.provider(link, page=True)) and (target := page_target(SITES[other], link)):
+            found.append(Found(target, other, "page"))
+    frontier.set_links(row.address, written)
+    frontier.add(found, by=row)
+    if "?" in url and not DOWNLOAD.search(urlsplit(url).path):  # (a page of a list: its links are taken, it is not kept)
+        frontier.save(row, state="ok", why=None, text=None, read_at=now)
+        return False
+    sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
+    if other := frontier.same_words(row.site, sha, row.address):  # the page read under another address (Tilda: '/Vue-js-framework' is '/vue-js-framework')
+        print(f"  {slug}: the words of {other}", flush=True)
+        if row.state == "ok":
+            frontier.save(row, state="gone", why=f"the words of {other}", text=None, next_at=frontier.later(frontier.PAGE_EVERY))
+            return True
+        frontier.save(row, state="tried", why=f"the words of {other}", next_at=frontier.later(RETRY))
+        return live
+    validators = {} if "x-catix-rendered" in resp.headers else {k: v for k, v in (("etag", resp.headers.get("etag")), ("modified", resp.headers.get("last-modified"))) if v}
+    before = row.text
+    if live and row.sha256 == sha:  # (the same words, other links and pictures: the short read was the wrong one)
+        frontier.save(row, state="ok", why=None, validators=validators, read_at=now, short_words=None, text=text)
+        return text != before
+    if row.state == "ok" and before and row.short_words is None:  # a read that went wrong (a stub, an app's empty shell, half a page)
+        words = common(row.site)[language_of(site, slug)]  # writes over the page and the cards drop what it said: the next read has to find it so too
+        was, now_words = own_words(site, before, words), own_words(site, text, words)
+        if was >= MIN_WORDS and now_words < SHORT_READ * was:
+            print(f"  {slug}: {now_words} words of its {was}, kept as it was until the next read finds it so", flush=True)
+            frontier.save(row, short_words=now_words, next_at=frontier.later(frontier.SOON))
+            return False
+    if not row.slug and frontier.slug_taken(row.site, slug):  # (two paths, one slug; an alias is the same page, not a collision)
+        slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
+    frontier.save(row, state="ok", why=None, slug=slug, title=title, text=text, sha256=sha, fetched_at=now, read_at=now, validators=validators, short_words=None)
+    print(f"  {slug}: {'changed' if before else 'new'}, {len(text)} chars", flush=True)
+    return True
 
 
-def fetch(names: list[str] | None = None, only_new: bool = False, documents: bool = False, ocr: bool = False) -> int:
-    """The sites named (every site when none is), one after another, then the pages of other trusted
-    sites their pages link, wave after wave; the number of pages that are new, changed or gone. In a site this run read whole
-    a wave reads the pages the run has not read yet (a page only another site leads to: its own run did not reach it, and
-    without the wave it would be gone a week later). In any other site it reads only the addresses its index does not have,
-    then the new addresses these link (fetch_site, only_new), NEW_DEPTH waves at most, as fetch_new does: its known pages are
-    the weekly run's, which reads them all again (the approval of a site that links one page of innopolis.university read
-    hundreds of the university's pages). A site never read and a site behind a login are left to the weekly run, which reads
-    them whole. `only_new` reads no site whole: the links of their cached pages and of the documents read that the sites they
-    lead to do not have and no run tried lately (unread_links), wave after wave; with `documents` too, it is what `regs fetch`
-    reads after the documents: every trusted link no run has processed, and what it leads to.
+def read_listing(client: httpx.Client, row: "Row") -> bool:
+    """Read the listing of a site: the pages its sitemaps list and the pages its browser lists (Site.discover; no link leads to
+    them). They are linked from the listing, so they stay as long as it does. Always False: no text of its own."""
+    from catix.docs import frontier
+    from catix.docs.frontier import Found, Link
 
-    With `documents` (the weekly run) the waves go on through the documents: once the pages settle, the documents they link
-    are read (regulations.read_new, which follows the documents those link; text layers only by default, scans queued for
-    a later manual run with OCR), and the pages of trusted sites
-    their text names are the next wave, whose documents are read in turn, until a wave brings nothing new (document -> site
-    -> document -> site). The first such wave takes the pages every document read so far names, not only the new ones': a
-    page only a document leads to is not reached by its own site's run, and without the wave it would be gone a week later
-    ('no link leads to it'). A run of a few sites takes their documents and the pages of what it read. The number counts
-    the documents read too."""
-    reload_catalog()
-    every = SITES
-    if unknown := [n for n in names or [] if n not in every]:
-        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(every)}")
-    total, run = 0, datetime.now(timezone.utc).isoformat(timespec="seconds")
-    weekly = not names and not only_new  # (every site read whole: its waves have no end but what they bring)
-    no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))  # every page as a new visitor sees it (robotics keeps the language of the last page in a cookie: its sitemap became English)
-    with httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies) as client:
-        linked: dict[str, set[str]] = unread_links(names) if only_new else {}
-        visited: set[str] = set()
-        whole = set() if only_new else {name for name in every if not names or name in names}
-        for name, site in every.items():
-            if name not in whole:
-                continue
-            print(f"== {name}: {site.base}")
-            try:
-                total += fetch_site(name, site, client, linked=linked, visited=visited, run=run)
-            except SessionEnded as e:
-                ENDED[name] = str(e)
-                print(f"  {name}: {e}; skipped, the other sites go on", flush=True)
-            finally:
-                close_live()
-
-        def unread(name: str, urls: set[str]) -> list[str]:
-            """The linked pages of a site a wave reads: those the run has not read, and of a site it did not read whole
-            only those its index does not have and no run tried lately (settled)."""
-            urls = urls - visited  # (read since the link was found: by its site's run)
-            if name in whole:
-                return sorted(urls)
-            if not wave_reads(name):
-                return []
-            known = settled(load(name))
-            return sorted(url for url in urls if address(url) not in known)
-
-        prefixes = tuple(f"site-{name}-" for name in names) if names else None
-        first = True
-        while True:
-            depth = 0
-            while linked and (weekly or depth < NEW_DEPTH):
-                wave, linked, depth = linked, {}, depth + 1
-                for name, urls in wave.items():
-                    if name not in SITES or name in ENDED or not (start := unread(name, urls)):
-                        continue
-                    print(f"== {name}: {len(start)} linked pages" + ("" if name in whole else " it does not have"))
-                    try:
-                        total += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run,
-                                            only_new=name not in whole)
-                    except SessionEnded as e:
-                        ENDED[name] = str(e)
-                        print(f"  {name}: {e}; skipped, the other sites go on", flush=True)
-                    finally:
-                        close_live()
-            if not documents:
-                break
-            print("== the documents the pages link", flush=True)
-            read = regulations.read_new(prefixes=prefixes, ocr=ocr)
-            total += len(read)
-            found = regulations.page_links_of(None if first and not names else read)
-            first = False
-            linked = {other: urls - visited for other, urls in found.items() if urls - visited}
-            if linked:
-                print(f"== the pages of trusted sites the documents name: {sum(map(len, linked.values()))}", flush=True)
-            else:
-                break
-    return total
+    site = SITES[row.site]
+    locs: list[str] = []
+    if site.sitemap:
+        if not (listed := sitemap_pages(site, client)):
+            print(f"  {row.site}: no sitemap")
+        locs += [repaired(site, loc) for loc in listed]
+    if site.discover:  # (the pages no link leads to: the browser lists them)
+        render_live(site.base, profile_of(site))
+        locs += [urljoin(site.base, path) for path in json.loads(LIVE[profile_of(site)].evaluate(site.discover))]
+        print(f"  {row.site}: {len(locs)} pages listed")
+    found, written = [], []
+    for loc in dict.fromkeys(locs):
+        if (target := page_target(site, loc)) and _taken(site, loc):
+            found.append(Found(target, row.site, "page"))
+            written.append(Link(address(target)))
+    frontier.set_links(row.address, written)
+    frontier.add(found, by=row)
+    frontier.save(row, state="ok", why=None, read_at=datetime.now(timezone.utc))
+    return False
 
 
 def entries(site: Site) -> list[str]:
@@ -1488,67 +1251,6 @@ def entries(site: Site) -> list[str]:
     if site.feeds:
         return list(dict.fromkeys(urljoin(site.base, path) for path in site.feeds))
     return [site.base, *([urljoin(site.base, f"{site.english}/")] if site.english else [])]
-
-
-def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None, documents: bool = False) -> int:
-    """The pages that appeared since the last run, read now and not at the weekly run: the feed of each site (its start page
-    when it names none: entries), the new addresses it links (fetch_site, only_new) and, wave after wave (NEW_DEPTH), the new
-    pages of other trusted sites that the new pages link. No sitemap: a known address is not read, but its file is (84 of
-    them, 5 minutes of a run), and a new page is in the feed first. The pages a site had are the weekly `fetch`'s: it reads
-    them all again for changes, and its sitemap. So is a site behind a login (Site.profile: the person's browser once a week,
-    not every few hours) and a site the weekly run has not read yet (the whole of it, not 50 pages). The number of pages new
-    or changed. The first wave takes, besides the feeds, the trusted links no run has read (unread_links: of a cached page,
-    of a document; 474 of them waited for the weekly run, most of them dead): one a run asked and got no page from waits
-    RETRY (settled), so a dead link is not asked every 6 hours.
-
-    With `documents` (the 6-hourly run) the first wave always reconsiders the saved document links, even when no HTML changed:
-    a provider approved since the last read makes an old link readable. Later waves read the documents their new pages link.
-    Only text layers are read (regulations.read_new without OCR: scans queue for a manual run), and the new pages their text
-    names join the next wave (site -> site -> document -> site). The number counts the documents too."""
-    reload_catalog()
-    if unknown := [n for n in names or [] if n not in SITES]:
-        sys.exit(f"no site {', '.join(unknown)}: the sites are {', '.join(SITES)}")
-    run = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    readable = {name for name in SITES if wave_reads(name)}
-    wave = {name: entries(SITES[name]) for name in SITES if name in readable and (not names or name in names)}
-    feeds = set(wave)
-    backlog = {name: sorted(urls) for name, urls in unread_links(names).items() if name in readable}
-    for name, urls in backlog.items():
-        wave[name] = list(dict.fromkeys([*wave.get(name, []), *urls]))
-    total, visited = 0, set()
-    with contextlib.ExitStack() as stack:
-        if client is None:
-            no_cookies = CookieJar(policy=DefaultCookiePolicy(allowed_domains=[]))
-            client = stack.enter_context(httpx.Client(headers=regulations.HEADERS, timeout=60, follow_redirects=True, cookies=no_cookies))
-        for depth in range(NEW_DEPTH + 1):
-            linked: dict[str, set[str]] = {}
-            changed = 0
-            for name, start in wave.items():
-                what = [f"{len(start)} new pages linked"] if depth else [
-                    *(["its start pages"] if name in feeds else []), *([f"{len(backlog[name])} links no run has read"] if name in backlog else [])]
-                print(f"== {name}: {' and '.join(what)}", flush=True)
-                try:
-                    changed += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run, only_new=True)
-                except Exception as e:  # noqa: BLE001 - one site failing (its browser, its server) leaves the others to read; the weekly run reads it whole
-                    if isinstance(e, SessionEnded):
-                        ENDED[name] = str(e)
-                    print(f"  {name}: {type(e).__name__}: {str(e)[:300]}", flush=True)
-                finally:
-                    close_live()
-            total += changed
-            if documents and (depth == 0 or changed):  # approval can make an old link readable without changing any page
-                read = regulations.read_new(prefixes=("site-",), ocr=False)
-                total += len(read)
-                for other, urls in regulations.page_links_of(read).items():
-                    linked.setdefault(other, set()).update(urls - visited)
-            wave = {}
-            for name, urls in linked.items():
-                known = settled(load(name)) if name in readable else set()
-                if name in readable and (new := sorted(u for u in urls if address(u) not in known)):
-                    wave[name] = new
-            if not wave:
-                break
-    return total
 
 
 LINKED_DOC = re.compile(r"\[([^\]]*)\]\((https?://[^)\s]+)\)")
@@ -1600,89 +1302,40 @@ def contexts_of(text: str) -> dict[str, str]:
     return {url: context for url, context in found.items() if context}
 
 
-def collect_linked_docs() -> int:
-    """The documents of trusted providers (crawl.provider: a site of SITES) that the cached pages of the sites link and no
-    site has among its documents yet (a page of `apply` or `dovuz` linking a PDF of innopolis.university: fetch_site took only
-    the documents of the site's own host before): added to the documents of the site whose page links them, to be downloaded
-    by `regs fetch`. The links are read from the cached pages, so the sites need not be read again. The number added."""
-    from catix.docs.sources import crawl
-
-    reload_catalog()
-    names = list(SITES)
-    have = {canonical(u) for name in names for u in load(name)["docs"]}
-    added = 0
-    for name in names:
-        if not files.exists(f"{ROOT}/{name}/index.json"):
-            continue
-        index, found = load(name), {}
-        for page in files.list(f"{ROOT}/{name}/", ".md"):
-            for label, link in links_of(files.read_text(page) or ""):
-                url = canonical(link)  # (https: a link the site wrote with http:// is the same file)
-                if DOC.search(urlsplit(link).path) and url not in have and crawl.provider(url):
-                    found[url] = max(found.get(url, ""), label, key=len)
-        if found:
-            index["docs"].update(found)
-            save(name, index)
-            have |= set(found)
-            added += len(found)
-            print(f"  {name}: {len(found)} documents of trusted sites added")
-    return added
-
-
 def docs() -> dict[str, dict]:
-    """The documents the sites link, as regulations.all_docs wants them. A file several sites link is one document (owner), not one a site."""
+    """The documents the sites link, as regulations.all_docs wants them: a file several sites link is one row of the frontier,
+    one document (the key of the row, frontier.add / the import), not one a site."""
+    from catix.docs import frontier
     from catix.docs.sources import crawl
 
     reload_catalog()
-    copies: dict[str, list[tuple[str, str, dict]]] = {}
-    for name, site in SITES.items():
-        index = load(name)
-        unlisted = {url: mark for url, mark in index.get("unlisted", {}).items() if url not in index["docs"]
-                    and any(files.exists(f"{ROOT}/{name}/docs/{doc_key(name, url)}{end}") for end in (".txt", ".archive.json"))}  # (one never read has nothing to keep)
-        for url, anchor in [*index["docs"].items(), *((url, mark["anchor"]) for url, mark in unlisted.items())]:
-            if crawl.provider(url) is None:
-                continue  # (a subdomain or a host blocked since: not the catalog's)
-            file = unquote(urlsplit(url).path.rsplit("/", 1)[-1])
-            stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
-            if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
-                anchor = re.sub(r"_+", " ", anchor.rsplit(".", 1)[0]).strip()
-            title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
-            title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", regulations.SIGNED.sub("", title))).strip()  # ('… 2025 год (2)': the second copy of a file)
-            context = index.get("contexts", {}).get(url, "") or unlisted.get(url, {}).get("context", "")
-            if context and (len(title) < 30 or re.fullmatch(r"[\d\s./()–-]+", title) or title.lower().startswith(("учебный план", "календарный", "рабочая программа"))):
-                title = f"{context[:220]} — {title}"  # ('Учебный план', '2025': the programme and the year are the table's, contexts_of)
-            copies.setdefault(url, []).append((name, doc_key(name, url), {
-                "title": title, "url": url, "root": f"{ROOT}/{name}/docs", "section": f"site/{name}", "ext": index.get("archive_types", {}).get(url, file.rsplit(".", 1)[-1].lower()),
-                **({"context": context} if context else {}), **({"audience": list(site.audience)} if site.audience else {}),  # (the regulations of help are for the staff, as its pages)
-                **({"unlisted": unlisted[url]["since"]} if url in unlisted else {})}))
-    return dict(owner(url, found) if len(found) > 1 else found[0][1:] for url, found in copies.items())
+    found: dict[str, dict] = {}
+    for row in frontier.documents():
+        if row.doc_key in regulations.DOCS or crawl.provider(row.url) is None:
+            continue  # (one of DOCS is read as that; a subdomain or a host blocked since is not the catalog's)
+        file = unquote(urlsplit(row.url).path.rsplit("/", 1)[-1])
+        stem = re.sub(r"[_]+", " ", file.rsplit(".", 1)[0]).strip()
+        anchor = row.anchor
+        if re.search(r"(?i)\.(pdf|docx?|xlsx?|pptx?|rtf|odt)$", anchor):  # the link says the file's name (help: 'Приказ ад-01.2019.12.23 регламент_процесса_….pdf')
+            anchor = re.sub(r"_+", " ", anchor.rsplit(".", 1)[0]).strip()
+        title = anchor if len(anchor) >= 12 and not re.fullmatch(r"(?i)(скачать|здесь|тут|download|here|подробнее|ссылк\w*)", anchor) else stem
+        title = re.sub(r"\s+", " ", re.sub(r"\s*\(\d\)$", "", regulations.SIGNED.sub("", title))).strip()  # ('… 2025 год (2)': the second copy of a file)
+        context = row.context
+        if context and (len(title) < 30 or re.fullmatch(r"[\d\s./()–-]+", title) or title.lower().startswith(("учебный план", "календарный", "рабочая программа"))):
+            title = f"{context[:220]} — {title}"  # ('Учебный план', '2025': the programme and the year are the table's, contexts_of)
+        linking = [SITES[n] for n in row.linking_sites if n in SITES] or [SITES[row.site]]
+        found[row.doc_key] = {
+            "title": title, "url": row.url, "section": f"site/{row.site}", "ext": row.ext or file.rsplit(".", 1)[-1].lower(),
+            **({"context": context} if context else {}),
+            **({"audience": [a for a in AUDIENCES if any(a in s.audience for s in linking)]} if all(s.audience for s in linking) else {}),  # (the regulations of help are for the staff, as its pages)
+            **({"unlisted": row.unlinked_since.isoformat()} if row.unlinked_since else {})}
+    return found
 
 
 def doc_key(name: str, url: str) -> str:
     """The key of a document of a site: the site, the address (canonical) and the name of its file."""
     stem = re.sub(r"[_]+", " ", unquote(urlsplit(url).path.rsplit("/", 1)[-1]).rsplit(".", 1)[0]).strip()
     return f"site-{name}-" + hashlib.sha1(url.encode()).hexdigest()[:8] + "-" + (latin(stem)[:40].strip("-") or "doc")
-
-
-def owner(url: str, copies: list[tuple[str, str, dict]]) -> tuple[str, dict]:
-    """(key, document) of a file several sites link: the cookie policy in the footer of 16 of them, the licence on four. Each
-    downloaded it, read it, queued its scan for OCR and made it a page of regulations of its own. The key is that of the copy
-    already read, else of one already tried (a note, an archive's manifest), else of the site that serves the file, else of
-    the first site that links it: a key once read stays (its text and OCR are not made again), and the links of every site's
-    pages lead to it (they find a document by its address). It is for everyone unless every site that links it names its
-    readers (help: the staff)."""
-    from catix.docs.sources import crawl
-
-    home = crawl.provider(url)
-    _, key, doc = min(copies, key=lambda copy: (not files.exists(f"{copy[2]['root']}/{copy[1]}.txt"),
-                                                 not any(files.exists(f"{copy[2]['root']}/{copy[1]}{end}") for end in (".json", ".archive.json")),
-                                                 copy[0] != home))  # (min keeps the first of equal copies)
-    doc = {field: value for field, value in doc.items() if field not in ("audience", "unlisted")}
-    if all(d.get("audience") for _, _, d in copies):
-        doc["audience"] = [a for a in AUDIENCES if any(a in d["audience"] for _, _, d in copies)]
-    if all(d.get("unlisted") for _, _, d in copies):  # (on the site while one site links it)
-        doc["unlisted"] = max(d["unlisted"] for _, _, d in copies)
-    return key, doc
 
 
 def boilerplate(texts: list[str]) -> set[str]:
@@ -1721,11 +1374,15 @@ def language_of(site: Site, slug: str) -> str:
 
 def address(url: str) -> str:
     """The spelling under which the pages and the links to them are compared; a link to another host of a site (Site.aliases)
-    is compared as a link to the site ('university.innopolis.ru/en/about/' is 'innopolis.university/en/about/')."""
+    is compared as a link to the site ('university.innopolis.ru/en/about/' is 'innopolis.university/en/about/'); a page of a list
+    after the first (Site.listing: '?page=2') is an address of its own, as page_target reads it."""
     reload_catalog()
     spelled = canonical(urldefrag(url)[0]).rstrip("/")
-    target = next((target for site in SITES.values() if (target := page_url(site, url))), "")
-    return target.rstrip("/") if target else spelled
+    owner, target = next(((site, target) for site in SITES.values() if (target := page_url(site, url))), (None, ""))
+    found = target.rstrip("/") if target else spelled
+    if owner and owner.listing and (number := re.search(rf"[?&]{owner.listing}=(\d+)", url)) and number.group(1) != "1":
+        found += f"?{owner.listing}={number.group(1)}"
+    return found
 
 
 SHARED_NOTE = {"ru": "_Меню, подвал и другие блоки, которые повторяются на страницах сайта, собраны в одном месте: [{0}]({0})._",
@@ -1762,56 +1419,54 @@ def shared_document(name: str, lang: str, body: str, at: str) -> Document:
     return Document(shared_path(site, name, lang), meta, f"# {title}\n\n{body}\n\n# Citations\n\n1. [{host}]({site.base}), read {at[:10]}\n")
 
 
-def compile_all() -> tuple[list[Document], tuple[str, ...]]:
-    """Every page read -> its document, by code alone (its description: its first sentence); a page gone from its site is no
-    document. The links of a page stay the addresses of the site. The second value: the prefixes of the sites not read here (a
-    site behind a login, read by the person's browser elsewhere): their documents stay as they are."""
+def compile_site(name: str) -> list[Document]:
+    """Every page of a site read -> its document, by code alone (its description: its first sentence); a page gone from its site is
+    no document. The links of a page stay the addresses of the site."""
+    from catix.docs import frontier
+
     reload_catalog()
-    entries: dict[tuple[str, str], dict] = {}
-    shared: dict[tuple[str, str], list[str]] = {}  # (site, language) -> the lines its pages repeat, in the order they come
-    keep: list[str] = []
-    for name, site in SITES.items():
-        if not files.exists(f"{ROOT}/{name}/index.json"):
-            keep.append(f"{ROOT}/{name}/")
-            print(f"{name}: not read here (no {ROOT}/{name}/index.json), its documents kept as they are")
-            continue
-        index = load(name)
-        texts = {slug: text for slug, p in index["pages"].items()
-                 if not p.get("gone") and (text := files.read_text(f"{ROOT}/{name}/{slug}.md")) is not None}
-        pages = {slug: p for slug, p in index["pages"].items() if slug in texts}
-        common = {lang: boilerplate([t for slug, t in texts.items() if language_of(site, slug) == lang]) for lang in {"ru", "en"}}  # (each language has its menu)
-        same = Counter(p["title"] for p in pages.values())  # (a title that five pages share names none of them: the template's, 'Шапка')
-        ends = Counter(m.group() for p in pages.values() if (m := re.search(r"\s[|—–-]\s[^|—–]{3,}$", p["title"])))
-        suffix = next((end for end, n in ends.most_common(1) if n >= max(5, len(pages) / 2)), None)  # (the name of the site after the page's: ' — Центр технологий ... мехатроники')
-        for slug, p in sorted(pages.items()):
-            if p["title"].startswith("Copy of "):
-                continue  # (Tilda's copy of a page, left unpublished: 'Copy of Гасников Александр Владимирович')
-            lang = language_of(site, slug)
-            for line in texts[slug].splitlines():
-                if line in common[lang] and line not in shared.setdefault((name, lang), []):
-                    shared[name, lang].append(line)
-            own = re.split(site.end, texts[slug], maxsplit=1)[0] if site.end else texts[slug]  # (the related and popular news are not the page's: they change by the day)
-            lines = [line for line in own.splitlines() if line not in common[lang] and not (site.drop and re.fullmatch(site.drop, line))]
-            title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*|Университет Иннополис|Innopolis University|Иннополис|Innopolis)$", "", p["title"]).strip() or p["title"]  # (innopolis.com: 'Аренда жилья - Иннополис')
-            if suffix and title.endswith(suffix) and title != suffix.strip(" |—–-"):
-                title = title[:-len(suffix)].strip()
-            if same[p["title"]] >= 5 and len(pages) >= 10:
-                title = next((h for h in (plain(line).lstrip("# ").strip() for line in lines if re.match(r"#{2,3} ", line)) if h), title)  # its first heading names the page
-            head = next((i for i, line in enumerate(lines[:3]) if plain(line).lstrip("# ").lower() == title.lower()), None)
-            if head is not None:  # (the page's own heading: the title says it)
-                del lines[head]
-                if 0 < head < len(lines) and lines[head - 1] == lines[head]:
-                    del lines[head]  # (the date of a news item before its heading and after it)
-            if len(re.findall(r"[^\W\d_]{3,}", plain("\n".join(lines)))) < MIN_WORDS:
-                continue  # a page of pictures and buttons
-            entries[name, slug] = {"site": site, "page": p, "title": title, "lang": lang, "lines": lines}
+    _common.pop(name, None)
+    site = SITES[name]
+    entries: dict[str, dict] = {}
+    shared: dict[str, list[str]] = {}  # language -> the lines its pages repeat, in the order they come
+    rows = [row for row in frontier.live_pages(name) if row.slug and row.sha256]
+    texts = {row.slug: row.text for row in rows}
+    pages = {row.slug: {"url": row.url, "title": row.title or row.url, "sha256": row.sha256, "audience": row.audience,
+                        "fetched_at": row.fetched_at.astimezone(timezone.utc).isoformat(timespec="seconds") if row.fetched_at else ""}
+             for row in rows}
+    common = {lang: boilerplate([t for slug, t in texts.items() if language_of(site, slug) == lang]) for lang in {"ru", "en"}}  # (each language has its menu)
+    same = Counter(p["title"] for p in pages.values())  # (a title that five pages share names none of them: the template's, 'Шапка')
+    ends = Counter(m.group() for p in pages.values() if (m := re.search(r"\s[|—–-]\s[^|—–]{3,}$", p["title"])))
+    suffix = next((end for end, n in ends.most_common(1) if n >= max(5, len(pages) / 2)), None)  # (the name of the site after the page's: ' — Центр технологий ... мехатроники')
+    for slug, p in sorted(pages.items()):
+        if p["title"].startswith("Copy of "):
+            continue  # (Tilda's copy of a page, left unpublished: 'Copy of Гасников Александр Владимирович')
+        lang = language_of(site, slug)
+        for line in texts[slug].splitlines():
+            if line in common[lang] and line not in shared.setdefault(lang, []):
+                shared[lang].append(line)
+        own = re.split(site.end, texts[slug], maxsplit=1)[0] if site.end else texts[slug]  # (the related and popular news are not the page's: they change by the day)
+        lines = [line for line in own.splitlines() if line not in common[lang] and not (site.drop and re.fullmatch(site.drop, line))]
+        title = re.sub(r"\s*[|—–-]\s*(Campus Life|Кампус.*|Университет Иннополис|Innopolis University|Иннополис|Innopolis)$", "", p["title"]).strip() or p["title"]  # (innopolis.com: 'Аренда жилья - Иннополис')
+        if suffix and title.endswith(suffix) and title != suffix.strip(" |—–-"):
+            title = title[:-len(suffix)].strip()
+        if same[p["title"]] >= 5 and len(pages) >= 10:
+            title = next((h for h in (plain(line).lstrip("# ").strip() for line in lines if re.match(r"#{2,3} ", line)) if h), title)  # its first heading names the page
+        head = next((i for i, line in enumerate(lines[:3]) if plain(line).lstrip("# ").lower() == title.lower()), None)
+        if head is not None:  # (the page's own heading: the title says it)
+            del lines[head]
+            if 0 < head < len(lines) and lines[head - 1] == lines[head]:
+                del lines[head]  # (the date of a news item before its heading and after it)
+        if len(re.findall(r"[^\W\d_]{3,}", plain("\n".join(lines)))) < MIN_WORDS:
+            continue  # a page of pictures and buttons
+        entries[slug] = {"page": p, "title": title, "lang": lang, "lines": lines}
     out: list[Document] = []
-    for (name, lang), lines in sorted(shared.items()):
-        pages = [e["page"] for (n, _), e in entries.items() if n == name and e["lang"] == lang]
-        if lines and pages:
-            out.append(shared_document(name, lang, "\n\n".join(lines), max(p["fetched_at"] for p in pages)))
-    for (name, slug), e in sorted(entries.items()):
-        site, p, title, lang = e["site"], e["page"], e["title"], e["lang"]
+    for lang, lines in sorted(shared.items()):
+        pages_in = [e["page"] for e in entries.values() if e["lang"] == lang]
+        if lines and pages_in:
+            out.append(shared_document(name, lang, "\n\n".join(lines), max(p["fetched_at"] for p in pages_in)))
+    for slug, e in sorted(entries.items()):
+        p, title, lang = e["page"], e["title"], e["lang"]
         body = "\n\n".join(e["lines"])
         year = year_of(site, slug, title, body)
         past = year if year and year < datetime.now(timezone.utc).year else None  # (the year it is about is over)
@@ -1824,40 +1479,46 @@ def compile_all() -> tuple[list[Document], tuple[str, ...]]:
         if past:
             meta["stale_after"] = f"{past + 1}-01-01T00:00:00+00:00"  # (the search warns: may be outdated)
             body = PAST_NOTE[lang].format(past) + "\n\n" + body
-        if shared.get((name, lang)):
+        if shared.get(lang):
             body += "\n\n" + SHARED_NOTE[lang].format(shared_path(site, name, lang))
         out.append(Document(f"{ROOT}/{name}/{slug}", meta, f"# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({p['url']}), read {p['fetched_at'][:10]}\n"))
+    print(f"{name}: {len(out)} documents")
+    return out
+
+
+def compile_all() -> tuple[list[Document], tuple[str, ...]]:
+    """The documents of every site (compile_site). The second value: the prefixes of the sites with no page read here (a site
+    behind a login, read by the person's browser elsewhere): their documents stay as they are."""
+    from catix.docs import frontier
+
+    reload_catalog()
+    out: list[Document] = []
+    keep: list[str] = []
+    for name in SITES:
+        if not frontier.has_pages(name):
+            keep.append(f"{ROOT}/{name}/")
+            print(f"{name}: no page read here, its documents kept as they are")
+            continue
+        out += compile_site(name)
     print(f"{len(out)} documents of the sites")
     return out, tuple(keep)
 
 
-def status() -> None:
-    reload_catalog()
-    for name, site in SITES.items():
-        index = load(name)
-        pages = index["pages"].values()
-        print(f"{name} ({site.base}): {sum(not p.get('gone') for p in pages)} pages, "
-              f"{sum(bool(p.get('gone')) for p in pages)} gone, {len(index['docs'])} documents linked")
-
-
 def main(args: Namespace) -> None:
     cmd = args.action
-    if cmd == "fetch":
-        only_new = getattr(args, "only_new", False)
-        print(f"{fetch(args.names, only_new=only_new, documents=not only_new)} pages new, changed or gone" + ("" if only_new else " and documents read"))
-    elif cmd == "new":
-        print(f"{fetch_new(args.names, documents=True)} pages new or changed and documents read")
-    elif cmd == "request":
+    if cmd == "request":
         try:
             request = request_new_site(args.url, args.name)
         except ValueError as e:
             raise SystemExit(str(e)) from None
         print(f"request {request.describe()} queued: `catix-docs run` adds and reads it")
     elif cmd == "status":
-        status()
+        from catix.docs import frontier
+
+        frontier.status()
     elif cmd == "unvisited":
-        unvisited(args.names, args.summary, args.only)
+        from catix.docs import frontier
+
+        frontier.unvisited(args.names, args.summary, args.only)
     elif cmd == "catalog":
         catalog_main(args)
-    elif cmd == "docs":
-        print(f"{collect_linked_docs()} documents added; `catix-docs regs fetch` downloads and reads them")

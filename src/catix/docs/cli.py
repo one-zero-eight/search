@@ -3,18 +3,20 @@
     catix-docs status                                   # the documents and the vector queue in the database
     catix-docs run [--loop] [--source NAME ...] [--site NAME ...] [--build]   # the documents maintain themselves, see runner.py
     catix-docs build [--embed]                          # rebuild the documents from the sources' data; --embed: then compute the vectors
-    catix-docs import-wiki ROOT                         # once: the data of the old WIKI_ROOT/raw into the database
     catix-docs eduwiki fetch [NAMESPACE ...]|status     # the eduwiki snapshot; default namespace 0 (articles)
-    catix-docs regs fetch|refresh|queue                 # official regulations (PDF), see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
+    catix-docs regs fetch|queue                         # official regulations (PDF), see sources/regulations.py; queue: the OCR queue (sources/ocr_queue.py)
     catix-docs rpd fetch|refresh|status                 # course programmes (РПД) from the archives of sveden/education, see sources/rpd.py
-    catix-docs sites fetch [SITE ...]|new|status|unvisited|request URL|docs   # the sites of the university, its services and the city, see sources/sites.py
+    catix-docs sites request URL|status|unvisited|catalog   # the sites of the university, its services and the city, see sources/sites.py
 
-Everything lives in Postgres (DATABASE_URL): the sources' state and extracted text in source_files, the documents in documents.
+Everything lives in Postgres (DATABASE_URL), in a table of its own for each kind of data: the catalog of sites (site_catalog), the
+crawl (crawl_urls, crawl_links: frontier.py), the documents read (document_files: notes.py; archives; course_programmes), the
+eduwiki (eduwiki_pages) and the documents made of them (documents).
 
 The code is laid out by what each part does:
-    sources/       what the documents are made from: each module asks one source what is new, keeps its state in source_files
-                   and makes documents of it (eduwiki, regulations: the documents the sites link, rpd: course programmes,
-                   sites: the services' sites); sources/__init__.py says how often each is asked
+    frontier.py    the crawl: the addresses, their links, when each is read next;  notes.py: the notes and texts of the documents read
+    sources/       what the documents are made from: each module reads one source, keeps its data in its tables and makes documents
+                   of it (eduwiki, regulations: the documents the sites link, rpd: course programmes, sites: the services' sites);
+                   sources/__init__.py lists the jobs and how often each is asked
     store.py       documents in the database for the agent's search;  chunks.py: how a document is cut into pieces
     build.py       all sources' documents;  runner.py: the run that keeps them current and serves the API's requests
 """
@@ -43,19 +45,18 @@ def parser() -> argparse.ArgumentParser:
         return child
 
     command(commands, "status", "Show the documents and the vector queue")
-    run = command(commands, "run", "Ask the due sources, rebuild the documents, serve the API's requests")
-    run.add_argument("--source", nargs="+", action="extend", metavar="NAME", help="Sources to ask now; may be repeated")
-    run.add_argument("--site", nargs="+", action="extend", metavar="NAME", help="Read only these sites (the source sites, limited); may be repeated")
-    run.add_argument("--loop", action="store_true", help="Keep running on the source schedule")
-    run.add_argument("--build", action="store_true", help="Rebuild the documents without asking sources")
+    run = command(commands, "run", "Read the addresses that are due, rebuild the documents, serve the API's requests")
+    run.add_argument("--source", nargs="+", action="extend", metavar="NAME", help="Jobs to run now: eduwiki, rpd, rpd-refresh; may be repeated")
+    run.add_argument("--site", nargs="+", action="extend", metavar="NAME", help="Read these sites' addresses first, and end when they are read; may be repeated")
+    run.add_argument("--loop", action="store_true", help="Keep running: read what falls due")
+    run.add_argument("--build", action="store_true", help="Rebuild the documents without reading anything")
     command(commands, "build", "Rebuild the documents from the sources' data").add_argument("--embed", action="store_true", help="Then compute the vectors")
-    command(commands, "import-wiki", "Import the data of an old WIKI_ROOT/raw into the database").add_argument("root", type=Path, metavar="ROOT")
 
     for name, about, default, actions in (
         ("eduwiki", "Eduwiki pages", "status", ("fetch", "status")),
-        ("regs", "Official regulations", None, ("fetch", "refresh", "queue")),
+        ("regs", "Official regulations", None, ("fetch", "queue")),
         ("rpd", "Course programmes", "status", ("fetch", "refresh", "status")),
-        ("sites", "University and city sites", "status", ("fetch", "new", "request", "status", "unvisited", "docs", "catalog")),
+        ("sites", "University and city sites", "status", ("request", "status", "unvisited", "catalog")),
     ):
         group = command(commands, name, about)
         actions_parser = group.add_subparsers(dest="action", required=default is None)
@@ -74,12 +75,7 @@ def parser() -> argparse.ArgumentParser:
                 leaf.add_argument("--all-years", action="store_const", const=True, default=None, help="Include every cohort")
                 leaf.add_argument("--limit", type=positive)
             elif name == "sites":
-                if action == "fetch":
-                    leaf.add_argument("names", nargs="*", metavar="SITE")
-                    leaf.add_argument("--only-new", action="store_true", help="Fetch only trusted-provider page links no run has read or tried lately")
-                elif action == "new":
-                    leaf.add_argument("names", nargs="*", metavar="SITE")
-                elif action == "request":
+                if action == "request":
                     leaf.add_argument("url")
                     leaf.add_argument("--name", help="Its name in the catalog; the host with dashes when omitted")
                 elif action == "unvisited":
@@ -121,10 +117,15 @@ def main(argv: list[str] | None = None) -> None:
 
 def dispatch(args) -> None:
     cmd = args.command
+    if cmd in ("run", "build", "regs", "rpd", "eduwiki", "sites"):
+        from catix.docs import frontier
+
+        frontier.ensure_imported()  # (the old store, once: legacy.py)
     if cmd == "status":
-        from catix.docs import store
+        from catix.docs import frontier, store
 
         store.status()
+        frontier.status()
     elif cmd == "run":
         from catix.docs import runner
 
@@ -135,10 +136,6 @@ def dispatch(args) -> None:
         print(build.rebuild())
         if args.embed:
             store.embed_all()
-    elif cmd == "import-wiki":
-        from catix.docs import import_wiki
-
-        import_wiki.main(args.root)
     elif cmd == "eduwiki":
         from catix.docs.sources import eduwiki
 

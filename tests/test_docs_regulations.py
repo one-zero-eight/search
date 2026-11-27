@@ -264,49 +264,48 @@ def test_a_scan_as_lighton_reads_it_is_text_as_a_text_layer_is():
         "1.1. Студент проходит практику в\nорганизации.", "- отчёт;\n- дневник.", "Директор", "К.В. Семенихин"]
 
 
-def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_waits(monkeypatch):
+def test_a_login_page_given_for_a_document_is_not_the_document_and_the_document_waits(monkeypatch, docs_db):
     import contextlib
 
     import httpx
 
-    from catix.docs import files
-    from catix.docs.sources import opendataloader, regulations, sites
+    from catix.docs import notes
+    from catix.docs.sources import opendataloader, regulations
 
     url = "https://help.university.innopolis.ru/documents/reglament.pdf"
-    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-help-1-reglament": {"title": "Регламент", "url": url, "root": "r", "section": "site/help", "ext": "pdf"}})
+    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-help-1-reglament": {"title": "Регламент", "url": url, "section": "site/help", "ext": "pdf"}})
     login = httpx.Response(200, html="<!DOCTYPE html><html><body>Sign in</body></html>", request=httpx.Request("GET", "https://sso.university.innopolis.ru/adfs/ls"))
     monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: login)
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
-    assert files.list("r/") == ["r/site-help-1-reglament.json"]  # no file; a note that it waits, not that it is skipped
-    note = files.read_json("r/site-help-1-reglament.json")
-    assert "skipped" not in note and note["failed"] == "sent to the login of sso.university.innopolis.ru"
+    assert [r["key"] for r in docs_db.execute("SELECT key FROM document_files").fetchall()] == ["site-help-1-reglament"]  # no file; a note that it waits, not that it is skipped
+    note = notes.note("site-help-1-reglament")
+    assert "skipped" not in note and note["failed"] == "sent to the login of sso.university.innopolis.ru" and not notes.has_text("site-help-1-reglament")
     monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: pytest.fail("asked again before RETRY"))
     assert regulations.fetch() == 0
 
 
-def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch):
+def test_a_broken_link_the_site_answers_with_its_page_is_skipped(monkeypatch, docs_db):
     import contextlib
 
     import httpx
 
-    from catix.docs import files
-    from catix.docs.sources import opendataloader, regulations, sites
+    from catix.docs import notes
+    from catix.docs.sources import opendataloader, regulations
 
     url = "https://innopolis.university/sveden/upload/iblock/e9e/x/10.pdf"
-    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-university-1-10": {"title": "Результаты опроса", "url": url, "root": "r", "section": "site/university", "ext": "pdf"}})
+    monkeypatch.setattr(regulations, "all_docs", lambda: {"site-university-1-10": {"title": "Результаты опроса", "url": url, "section": "site/university", "ext": "pdf"}})
     page = httpx.Response(200, html="<!DOCTYPE html><html><title>Сведения</title></html>", request=httpx.Request("GET", url))
     monkeypatch.setattr(regulations.httpx, "get", lambda *a, **k: page)
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
-    assert files.list("r/") == ["r/site-university-1-10.json"] and "skipped" in files.read_json("r/site-university-1-10.json")
+    assert [r["key"] for r in docs_db.execute("SELECT key FROM document_files").fetchall()] == ["site-university-1-10"]
+    assert "skipped" in notes.note("site-university-1-10")
 
 
-def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_documents(monkeypatch):
+def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_documents(monkeypatch, docs_db):
     """olymp.innopolis.ru has no address any more and university.innopolis.ru/files/ sends to the start page of
     innopolis.university: without a note every run asked them again, and five failures in a row stopped the whole run."""
     import contextlib
@@ -314,12 +313,12 @@ def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_docume
 
     import httpx
 
-    from catix.docs import files
+    from catix.docs import notes
     from catix.docs.sources import opendataloader, regulations, sites
 
-    docs = {f"site-dead-{n}": {"title": f"Dead {n}", "url": f"https://dead.example/{n}.pdf", "root": "r", "section": "site/dead", "ext": "pdf"}
+    docs = {f"site-dead-{n}": {"title": f"Dead {n}", "url": f"https://dead.example/{n}.pdf", "section": "site/dead", "ext": "pdf"}
             for n in range(regulations.MAX_FAILURES + 1)}
-    docs["site-media-1-free"] = {"title": "Free", "url": "https://old.example/files/FREE.pdf", "root": "r", "section": "site/media", "ext": "pdf"}
+    docs["site-media-1-free"] = {"title": "Free", "url": "https://old.example/files/FREE.pdf", "section": "site/media", "ext": "pdf"}
     monkeypatch.setattr(regulations, "all_docs", lambda: docs)
     asked = []
 
@@ -334,14 +333,13 @@ def test_every_download_ends_in_a_note_and_a_dead_host_stops_only_its_own_docume
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(regulations.time, "sleep", lambda seconds: None)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
     assert regulations.fetch() == 0
     dead = [f"https://dead.example/{n}.pdf" for n in range(regulations.MAX_FAILURES)]
     assert asked == [*dead, "https://old.example/files/FREE.pdf"]  # (the dead host let be after MAX_FAILURES; the other host read)
-    notes = {p.removeprefix("r/").removesuffix(".json"): files.read_json(p) for p in files.list("r/", ".json")}
-    assert all(notes[f"site-dead-{n}"]["failed"].startswith("ConnectError") for n in range(regulations.MAX_FAILURES))
-    assert f"site-dead-{regulations.MAX_FAILURES}" not in notes  # (not asked: the next run asks it)
-    assert notes["site-media-1-free"]["skipped"] == "a page, not the file"
+    written = {key: notes.note(key) for key in docs if notes.note(key)}
+    assert all(written[f"site-dead-{n}"]["failed"].startswith("ConnectError") for n in range(regulations.MAX_FAILURES))
+    assert f"site-dead-{regulations.MAX_FAILURES}" not in written  # (not asked: the next run asks it)
+    assert written["site-media-1-free"]["skipped"] == "a page, not the file"
     asked.clear()
     assert regulations.fetch() == 0
     assert asked == [f"https://dead.example/{regulations.MAX_FAILURES}.pdf"]  # (the others wait RETRY; the skipped one stays skipped)
@@ -375,19 +373,17 @@ def test_a_flat_numbering_past_99_keeps_its_clauses():
         "**99.** Зачисление проводится в 2 этапа.\n\n**100.** На каждом этапе определяется приоритет.")
 
 
-def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_a_run_with_it_which_downloads_it_again(monkeypatch, tmp_path):
+def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_a_run_with_it_which_downloads_it_again(monkeypatch, tmp_path, docs_db):
     import contextlib
     import tempfile
 
     import httpx
 
-    from catix.docs import files
-    from catix.docs.sources import opendataloader, regulations, sites
+    from catix.docs import notes
+    from catix.docs.sources import opendataloader, regulations
 
     url, key = "https://hotel.innopolis.university/upload/rules.pdf", "site-hotel-1-rules"
-    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": url, "root": "r", "section": "site/hotel", "ext": "pdf"}})
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)  # (it reads and writes the real bundle's sites)
-    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": url, "section": "site/hotel", "ext": "pdf"}})
     monkeypatch.setattr(tempfile, "tempdir", str(tmp_path))
     asked, layers, read = [], [], []
     monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: asked.append(u) or httpx.Response(200, content=b"%PDF-1.4 a scan", headers={"etag": "v1"},
@@ -399,23 +395,81 @@ def test_a_scan_is_queued_by_a_run_without_ocr_and_read_by_a_run_with_it_which_d
     monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, "ocr (LightOnOCR)"))
 
     assert regulations.read_new(ocr=False) == []
-    meta = files.read_json(f"r/{key}.json")
-    assert meta["ocr"] == "queued" and meta["pages"] == 3 and meta["remote"]["etag"] == "v1" and not read and not files.exists(f"r/{key}.txt")
+    meta = notes.note(key)
+    assert meta["ocr"] == "queued" and meta["pages"] == 3 and meta["remote"]["etag"] == "v1" and not read and not notes.has_text(key)
     assert regulations.read_new(ocr=False) == [] and asked == [url] and layers == [f"{key}.pdf"]  # (it waits: not downloaded, its text layer not asked again)
     assert not list(tmp_path.iterdir())  # (the original lived only in the run's temporary folder)
     assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and layers == [f"{key}.pdf"] and asked == [url, url]  # (the run with OCR downloads it again)
-    meta = files.read_json(f"r/{key}.json")
+    meta = notes.note(key)
     assert "ocr" not in meta and meta["method"] == "ocr (LightOnOCR)" and meta["remote"]["etag"] == "v1" and "sha256" in meta
-    assert files.read_text(f"r/{key}.txt").startswith("1. Общие положения") and not list(tmp_path.iterdir())
+    assert notes.text(key).startswith("1. Общие положения") and not list(tmp_path.iterdir())
     assert regulations.read_new() == [] and asked == [url, url]  # (read: nothing more)
 
 
-def test_a_file_of_the_bundle_a_site_links_with_its_spaces_is_one_document(monkeypatch):
+def test_a_recheck_asks_a_read_document_with_what_the_site_said_and_reads_it_again_only_when_it_changed(monkeypatch, tmp_path, docs_db):
+    import contextlib
+    import tempfile
+    from datetime import datetime, timedelta, timezone
+
+    import httpx
+
+    from catix.docs import frontier, notes
+    from catix.docs.sources import opendataloader, regulations
+    from tests.helpers import link_document
+
+    url, key = "https://hotel.innopolis.university/upload/rules.pdf", "site-hotel-1-rules"
+    assert link_document("hotel", url, "Правила проживания", key=key) == key
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": url, "section": "site/hotel", "ext": "pdf"}})
+    monkeypatch.setattr(tempfile, "tempdir", str(tmp_path))
+    answer = {"status": 200, "body": b"%PDF-1.4 one", "etag": "v1"}
+    sent = []
+
+    def get(u, **kwargs):
+        sent.append(kwargs.get("headers", {}))
+        return httpx.Response(answer["status"], content=b"" if answer["status"] == 304 else answer["body"], headers={"etag": answer["etag"]}, request=httpx.Request("GET", u))
+
+    layers = []
+    monkeypatch.setattr(regulations.httpx, "get", get)
+    monkeypatch.setattr(regulations, "PAUSE", 0)
+    monkeypatch.setattr(regulations, "pages_of", lambda pdf: 1)
+    monkeypatch.setattr(regulations, "pdf_created", lambda pdf: None)
+    monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
+    monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: layers.append(pdf.name) or (f"{pdf.read_bytes().decode()} " * 70, "text layer"))
+
+    assert regulations.recheck(["not-a-document"]) == [] and not sent  # (a key that is no document any more is passed by)
+    assert regulations.recheck([key]) == [key]  # (never read: read as new, asked for with nothing)
+    assert "If-None-Match" not in sent[-1] and notes.text(key).startswith("%PDF-1.4 one") and notes.note(key)["remote"]["etag"] == "v1"
+    row = docs_db.execute("SELECT state, why, priority, next_at FROM crawl_urls WHERE doc_key = %s", (key,)).fetchone()
+    assert row["state"] == "ok" and row["why"] is None and row["priority"] == frontier.RECHECK  # (frontier.documents_read noted the row)
+    assert row["next_at"] > datetime.now(timezone.utc) + frontier.DOCUMENT_EVERY - timedelta(minutes=5)
+
+    before = notes.note(key)
+    answer["status"] = 304  # (the site: not modified)
+    assert regulations.recheck([key]) == []
+    assert sent[-1]["If-None-Match"] == "v1" and len(layers) == 1  # (what the site said of the file is what is asked: no download, no extraction)
+    after = notes.note(key)
+    assert notes.text(key).startswith("%PDF-1.4 one") and "refetch" not in after
+    assert {k: v for k, v in after.items() if k != "checked_at"} == before and after["checked_at"]  # (only the check is noted)
+
+    answer.update(status=200, body=b"%PDF-1.4 two", etag="v2")  # (the site: a new version)
+    assert regulations.recheck([key]) == [key]
+    assert sent[-1]["If-None-Match"] == "v1" and notes.text(key).startswith("%PDF-1.4 two") and notes.note(key)["remote"]["etag"] == "v2"
+    assert notes.note(key)["sha256"] != before["sha256"] and len(layers) == 2
+
+    answer.update(body=b"%PDF-1.4 two", etag="v3")  # (the site says a new ETag, the bytes are the same: the text stays, nothing is extracted)
+    assert regulations.recheck([key]) == []
+    assert notes.note(key)["remote"]["etag"] == "v3" and notes.text(key).startswith("%PDF-1.4 two") and len(layers) == 2
+    assert not list(tmp_path.iterdir())
+
+
+def test_a_file_of_the_bundle_a_site_links_with_its_spaces_is_one_document(monkeypatch, docs_db):
     from catix.docs.sources import regulations, sites
+    from tests.helpers import link_document
 
     monkeypatch.setattr(regulations, "DOCS", {"attestation-regulation": ("Положение об аттестации", "bd2/Положение%20о%20формах.pdf")})
     url = sites.canonical(regulations.BASE + "bd2/Положение о формах.pdf")
-    sites.save("university", {"pages": {}, "docs": {url: "Положение о формах, периодичности и порядке контроля"}})
+    link_document("university", url, "Положение о формах, периодичности и порядке контроля")
+    assert [d["url"] for d in sites.docs().values()] == [url]  # (the site links it: a row of the frontier)
     assert [key for key in regulations.all_docs() if key.startswith(("attestation", "site-"))] == ["attestation-regulation"]
 
 
@@ -436,3 +490,88 @@ def test_a_document_without_a_date_in_its_text_takes_it_from_its_title_its_file_
     from catix.docs.sources.regulations import dated
 
     assert dated(text, title, url, member, created, F) == expected
+
+
+def _archive(status):
+    from catix.docs.sources import archive_documents
+
+    return lambda key, revision: archive_documents.save(key, {"url": "https://x.example/a.zip", "status": status, "sha256": "a" * 64})
+
+
+def _read(remote, **more):
+    from catix.docs import notes
+
+    def put(key, revision):
+        notes.put_text(key, revision, "1. Текст документа")
+        notes.put_note(key, revision, {"sha256": "a" * 64, "method": "text layer", "remote": remote, **more})
+
+    return put
+
+
+def _note(**fields):
+    from catix.docs import notes
+
+    return lambda key, revision: notes.put_note(key, revision, fields)
+
+
+ZIP, FILE = {"ext": "zip"}, {"ext": "pdf"}
+
+
+@pytest.mark.parametrize("document, put, expected", [
+    pytest.param(ZIP, _archive("ready"), ("ok", None, "DOCUMENT_EVERY"), id="an archive whose manifest is ready"),
+    pytest.param({"archived": True, "revision": "a" * 64, **FILE}, _archive("ready"), ("ok", None, "DOCUMENT_EVERY"), id="a PDF an archive URL served"),
+    pytest.param(ZIP, _archive("unsafe"), ("tried", "unsafe", "RETRY"), id="an archive whose manifest is another status"),
+    pytest.param(ZIP, lambda key, revision: None, ("new", None, "SOON"), id="an archive with no manifest"),
+    pytest.param(FILE, _read({"etag": "v1"}), ("ok", None, "DOCUMENT_EVERY"), id="a text read of a file the site signs"),
+    pytest.param(FILE, _read({}), ("ok", None, "UNSIGNED_EVERY"), id="a text read of a file the site says nothing of"),
+    pytest.param(FILE, _read({"etag": "v1"}, ocr="queued", pages=3), ("ok", None, "DOCUMENT_EVERY"), id="a text read wins over a queued scan"),
+    pytest.param(FILE, _note(ocr="queued", pages=3), ("ok", "queued", "DOCUMENT_EVERY"), id="a scan queued for OCR"),
+    pytest.param(FILE, _note(ocr="too long", pages=90), ("ok", "too long", "DOCUMENT_EVERY"), id="a scan put aside as too long"),
+    pytest.param(FILE, _note(skipped="a page, not the file"), ("gone", "a page, not the file", None), id="skipped"),
+    pytest.param(FILE, _note(failed="ConnectError: no address"), ("tried", "ConnectError: no address", "RETRY"), id="no file came lately"),
+    pytest.param(FILE, lambda key, revision: None, ("new", None, "SOON"), id="no note"),
+    pytest.param(FILE, _note(sha256="a" * 64), ("new", None, "SOON"), id="a hash with no text is not a read document"),
+])
+def test_the_row_of_a_document_has_the_state_its_notes_say(docs_db, document, put, expected):
+    from catix.docs import frontier
+    from catix.docs.sources import regulations
+
+    state, why, delay = expected
+    put("doc", document.get("revision", ""))
+    assert regulations.note_state("doc", document) == (state, why, getattr(frontier, delay) if delay else None)
+
+
+def test_the_state_of_a_document_is_that_of_its_revision(docs_db):
+    from catix.docs import notes
+    from catix.docs.sources import regulations
+
+    notes.put_note("member", "old", {"skipped": "too big"})
+    assert regulations.note_state("member", {"ext": "pdf", "revision": "new"})[0] == "new"  # (the new revision of a member is not read: its old one says nothing)
+    assert regulations.note_state("member", {"ext": "pdf", "revision": "old"}) == ("gone", "too big", None)
+    assert regulations.note_state("member", {"ext": "pdf"})[0] == "new"
+
+
+def test_a_document_is_a_page_when_its_text_is_read_and_readable_and_of_the_revision_now(monkeypatch, docs_db):
+    from catix.docs import notes
+    from catix.docs.sources import regulations
+
+    def read(key, revision, text, **more):
+        notes.put_text(key, revision, text)
+        notes.put_note(key, revision, {"title": key, "url": f"https://x.example/{key}.pdf", "sha256": "b" * 64, "method": "text layer", "section": "site/x",
+                                       "fetched_at": "2026-11-01T10:00:00+00:00", **more})
+
+    read("read", "", "1. Общие положения\n\n1.1. Текст пункта.")
+    read("member", "new", "1. Текст нового издания.")
+    read("member", "old", "1. Текст старого издания.")
+    read("blank", "", "____ | | ----")
+    notes.put_note("queued", "", {"ocr": "queued", "pages": 3})
+    read("gone", "", "1. Положение, на которое ссылок больше нет.")
+    docs = {key: {"title": f"Документ {key}", "url": f"https://x.example/{key}.pdf", "section": "site/x", "ext": "pdf"} for key in ("read", "blank", "queued", "gone", "unread")}
+    docs["member"] = {"title": "Документ member", "url": "https://x.example/member.pdf", "section": "site/x", "ext": "pdf", "revision": "new"}
+    docs["gone"]["unlisted"] = "2026-10-01"
+    monkeypatch.setattr(regulations, "all_docs", lambda: docs)
+    made = {d.path: d for d in regulations.compile_all()}
+    assert sorted(made) == ["regulations/gone", "regulations/member", "regulations/read"]  # (not the blank, the queued scan, the unread; of a member, its revision now)
+    assert "1.1." in made["regulations/read"].body and made["regulations/read"].meta["title"] == "Документ read"
+    assert "нового издания" in made["regulations/member"].body and "старого" not in made["regulations/member"].body
+    assert made["regulations/gone"].meta["stale_after"] == "2026-10-01T00:00:00+00:00" and "Ни одна видимая страница" in made["regulations/gone"].body

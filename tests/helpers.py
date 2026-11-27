@@ -341,37 +341,19 @@ class FakeRedis:
         return Pipeline()
 
 
-class MemoryFiles:
-    """catix.docs.files.Files on a dict: path -> ("json" | "text", value)."""
+def link_document(site: str, url: str, anchor: str = "", context: str = "", key: str | None = None, ext: str | None = None) -> str:
+    """A document a site links, as the crawl leaves it in docs_db: a live page of the site (its start page), the document's row in
+    the frontier (`key`: sites.doc_key by default) and the link between them with its text and context. The key of the document."""
+    from catix.db import pg
+    from catix.docs import frontier
+    from catix.docs.sources import sites
 
-    def __init__(self) -> None:
-        self.items: dict[str, tuple[str, object]] = {}
-
-    def read_json(self, path):
-        kind, value = self.items.get(path, ("", None))
-        return json.loads(json.dumps(value)) if kind == "json" else None
-
-    def write_json(self, path, data):
-        self.items[path] = ("json", json.loads(json.dumps(data, ensure_ascii=False)))
-
-    def read_text(self, path):
-        kind, value = self.items.get(path, ("", None))
-        return value if kind == "text" else None
-
-    def write_text(self, path, text):
-        self.items[path] = ("text", text)
-
-    def exists(self, path):
-        return path in self.items
-
-    def delete(self, path):
-        self.items.pop(path, None)
-
-    def delete_prefix(self, prefix):
-        gone = [p for p in self.items if p.startswith(prefix)]
-        for p in gone:
-            del self.items[p]
-        return len(gone)
-
-    def list(self, prefix, suffix=""):
-        return sorted(p for p in self.items if p.startswith(prefix) and p.endswith(suffix))
+    page = sites.SITES[site].base
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO crawl_urls (address, url, site, kind, every, next_at, state) VALUES (%s, %s, %s, 'page', '7 days', NULL, 'ok') ON CONFLICT DO NOTHING",
+                     (sites.address(page), page, site))
+    frontier.add([frontier.Found(url, site, "document", ext=ext, doc_key=key)])
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO crawl_links (src, dst, anchor, context) VALUES (%s, %s, %s, %s) ON CONFLICT (src, dst) DO UPDATE SET anchor = excluded.anchor, context = excluded.context",
+                     (sites.address(page), sites.address(url), anchor, context))
+        return conn.execute("SELECT doc_key FROM crawl_urls WHERE address = %s", (sites.address(url),)).fetchone()["doc_key"]

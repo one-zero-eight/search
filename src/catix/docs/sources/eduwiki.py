@@ -1,10 +1,10 @@
-"""Source `eduwiki`: a snapshot of the eduwiki (MediaWiki) in source_files (eduwiki/), and its pages as documents.
+"""Source `eduwiki`: a snapshot of the eduwiki (MediaWiki) in the table eduwiki_pages, and its pages as documents.
 
     catix-docs eduwiki fetch [NAMESPACE ...]   # default: namespace 0 (articles); only pages whose revision changed are downloaded
     catix-docs eduwiki status                  # pages in the snapshot, redirects, pages missing on the wiki now
 
-One file per page (eduwiki/pages/<pageid>.json) with the wikitext and the revision it came from; eduwiki/manifest.json maps
-page id -> title and revision id. compile_all turns the snapshot into documents by code alone: wikitext -> markdown
+One row per page (eduwiki_pages) with the wikitext and the revision it came from; load_manifest maps page id -> title and
+revision id. compile_all turns the snapshot into documents by code alone: wikitext -> markdown
 (markup.py, tables.py), no model.
 """
 
@@ -14,14 +14,13 @@ from urllib.parse import quote
 
 import httpx
 
-from catix.docs import files, markup, tables
+from catix.db import pg
+from catix.docs import markup, tables
 from catix.docs.store import PRODUCER, Document
 
 API = "https://eduwiki.innopolis.university/api.php"
 SITE = "https://eduwiki.innopolis.university/index.php/"
 ROOT = "eduwiki"
-PAGES = "eduwiki/pages"
-MANIFEST = "eduwiki/manifest.json"
 BATCH = 50  # MediaWiki returns page content for at most 50 titles per request
 MIN_TEXT = 80  # pages with less text than this (after redirects) carry nothing to compile
 MIN_LETTERS = 60  # letters of prose and tables left after markup and links are removed; fewer is an embed, a stub or a title (a teacher page with just an e-mail is content)
@@ -69,11 +68,10 @@ def fetch_content(client: httpx.Client, ids: list[int]) -> list[dict]:
 
 
 def load_manifest() -> dict[str, dict]:
-    return files.read_json(MANIFEST) or {}
-
-
-def save_manifest(manifest: dict[str, dict]) -> None:
-    files.write_json(MANIFEST, manifest)
+    """page id (a string) -> {title, revid, redirect, ns, deleted} of every page of the snapshot."""
+    with pg.connection() as conn:
+        rows = conn.execute("SELECT pageid, title, revid, redirect, ns, deleted FROM eduwiki_pages").fetchall()
+    return {str(r["pageid"]): {"title": r["title"], "revid": r["revid"], "redirect": r["redirect"], "ns": r["ns"], "deleted": r["deleted"]} for r in rows}
 
 
 def fetch(namespaces: list[int]) -> int:
@@ -86,26 +84,28 @@ def fetch(namespaces: list[int]) -> int:
         todo = [pid for pid, p in remote.items() if manifest.get(str(pid), {}).get("revid") != p["revid"]]
         print(f"{len(remote)} pages on the wiki, {len(todo)} new or changed")
         for i in range(0, len(todo), BATCH):
-            for page in fetch_content(client, todo[i : i + BATCH]):
-                page["fetched_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-                files.write_json(f"{PAGES}/{page['pageid']}.json", page)
-                manifest[str(page["pageid"])] = {"title": page["title"], "revid": page["revid"], "redirect": remote[page["pageid"]]["redirect"], "ns": page["ns"]}
+            with pg.connection() as conn:
+                for page in fetch_content(client, todo[i : i + BATCH]):
+                    conn.execute(
+                        """INSERT INTO eduwiki_pages (pageid, ns, title, revid, redirect, timestamp, wikitext, fetched_at) VALUES (%s, %s, %s, %s, %s, %s, %s, now())
+                           ON CONFLICT (pageid) DO UPDATE SET ns = excluded.ns, title = excluded.title, revid = excluded.revid, redirect = excluded.redirect,
+                           timestamp = excluded.timestamp, wikitext = excluded.wikitext, fetched_at = excluded.fetched_at""",
+                        (page["pageid"], page["ns"], page["title"], page["revid"], remote[page["pageid"]]["redirect"], page["timestamp"], page["wikitext"]))
             print(f"  {min(i + BATCH, len(todo))}/{len(todo)}")
-            save_manifest(manifest)
         # pages deleted on the wiki stay in the snapshot but are marked, so their documents are retired
         gone = 0
-        for pid, entry in manifest.items():
-            if entry["ns"] in namespaces:
-                gone += (int(pid) not in remote) != entry.get("deleted", False)
-                entry["deleted"] = int(pid) not in remote
-        save_manifest(manifest)
+        with pg.connection() as conn:
+            for pid, entry in manifest.items():
+                if entry["ns"] in namespaces and (deleted := int(pid) not in remote) != entry["deleted"]:
+                    gone += 1
+                    conn.execute("UPDATE eduwiki_pages SET deleted = %s WHERE pageid = %s", (deleted, int(pid)))
     return len(todo) + gone
 
 
 def status() -> None:
     manifest = load_manifest()
     redirects = sum(e["redirect"] for e in manifest.values())
-    deleted = sum(e.get("deleted", False) for e in manifest.values())
+    deleted = sum(e["deleted"] for e in manifest.values())
     print(f"{len(manifest)} pages in the snapshot, {redirects} redirects, {deleted} deleted on the wiki")
 
 
@@ -166,12 +166,14 @@ def compile_all() -> list[Document]:
     """The documents of the snapshot's pages: every page that is not a redirect, deleted, an old version or empty."""
     _names.clear()  # (the manifest changes between runs of a long-lived process)
     docs = []
-    for pid, entry in load_manifest().items():
-        if entry["redirect"] or entry.get("deleted") or SKIP_TITLE.search(entry["title"]):
+    with pg.connection() as conn:
+        stored = conn.execute("SELECT pageid, title, revid, ns, timestamp, wikitext, fetched_at FROM eduwiki_pages "
+                              "WHERE NOT redirect AND NOT deleted AND wikitext IS NOT NULL ORDER BY pageid").fetchall()
+    for row in stored:
+        if SKIP_TITLE.search(row["title"]) or len(row["wikitext"]) < MIN_TEXT:
             continue
-        page = files.read_json(f"{PAGES}/{pid}.json")
-        if not page or len(page["wikitext"]) < MIN_TEXT:
-            continue
+        page = {**row, "timestamp": row["timestamp"].astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "fetched_at": row["fetched_at"].astimezone(timezone.utc).isoformat(timespec="seconds")}
         text, tabs = tables.extract(page["wikitext"])
         text = markup.convert(text)
         if empty_reason(text, tabs):

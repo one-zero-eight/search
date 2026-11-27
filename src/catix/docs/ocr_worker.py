@@ -1,7 +1,7 @@
 """The OCR queue read as scans arrive: a thread of `catix-docs run --loop` (start). LightOnOCR (sources/lighton.py), Tesseract
-while its server does not answer, reads every scan the sources queued (ocr_queue), then the documents are rebuilt. It wakes
-when a source queues a scan (wake) and every RESCAN anyway (scans queued by another process: a manual `regs fetch --no-ocr`,
-ones that failed)."""
+while its server does not answer, reads every scan the crawl queued (ocr_queue), then the documents of the regulations are
+rebuilt. It wakes when a read queues a scan (wake) and every RESCAN anyway (scans queued by another process: a manual
+`regs fetch --no-ocr`, ones that failed)."""
 
 import threading
 import traceback
@@ -43,7 +43,7 @@ def read_once() -> tuple[int, bool]:
     if not (lighton.available() or tesseract.available()):
         return 0, False
     print(f"[{now()}] OCR: {', '.join(f'{source} {len(keys)}' for source, keys in queue.items())} scans wait", flush=True)
-    read = len(regulations.read_new(prefixes=tuple(queue["regs"]), ocr=True, collect=False)) if "regs" in queue else 0
+    read = len(regulations.read_new(prefixes=tuple(queue["regs"]), ocr=True)) if "regs" in queue else 0
     return read, True
 
 
@@ -57,7 +57,7 @@ def loop() -> None:
             read, up = read_once()
             if read:
                 print(f"[{now()}] OCR: {read} documents read; rebuilding", flush=True)
-                counts = build.rebuild()
+                counts = build.rebuild({"regulations"})
                 print(f"[{now()}] OCR: documents: {counts.get('pages new', 0)} new, {counts.get('pages changed', 0)} changed, "
                       f"{counts.get('pages removed', 0)} removed", flush=True)
                 continue

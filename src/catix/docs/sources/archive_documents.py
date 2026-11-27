@@ -16,22 +16,46 @@ from urllib.parse import urljoin
 
 import httpx
 
-from catix.docs import files
+from psycopg.types.json import Jsonb
+
+from catix.db import pg
+from catix.docs import notes
 from catix.docs.sources import archives, hosts
 
 EXTENSIONS = {"zip", "7z"}
 
 
-def manifest_path(key: str, doc: dict) -> str:
-    return f"{doc.get('archive_root', doc['root'])}/{key}.archive.json"
+def load(key: str) -> dict:
+    """The manifest of a container (the table archives): its columns that are set, `document` (a PDF the URL served) and `members`
+    (the documents inside); {} when there is none."""
+    with pg.connection() as conn:
+        row = conn.execute("SELECT url, sha256, remote, status, error, refetch, tried_at, document, members FROM archives WHERE key = %s", (key,)).fetchone()
+    if row is None:
+        return {}
+    data = {k: v for k, v in row.items() if v is not None and k not in ("remote", "refetch", "tried_at")}
+    if row["remote"]:
+        data["remote"] = row["remote"]
+    if row["refetch"]:
+        data["refetch"] = True
+    if row["tried_at"]:
+        data["tried_at"] = row["tried_at"].astimezone(timezone.utc).isoformat(timespec="seconds")
+    return data
 
 
-def load(key: str, doc: dict) -> dict:
-    return files.read_json(manifest_path(key, doc)) or {}
+def exists(key: str) -> bool:
+    with pg.connection() as conn:
+        return conn.execute("SELECT 1 FROM archives WHERE key = %s", (key,)).fetchone() is not None
 
 
-def save(key: str, doc: dict, data: dict) -> None:
-    files.write_json(manifest_path(key, doc), data)
+def save(key: str, data: dict) -> None:
+    with pg.connection() as conn:
+        conn.execute(
+            """INSERT INTO archives (key, url, sha256, remote, status, error, refetch, tried_at, document, members) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+               ON CONFLICT (key) DO UPDATE SET url = excluded.url, sha256 = excluded.sha256, remote = excluded.remote, status = excluded.status, error = excluded.error,
+               refetch = excluded.refetch, tried_at = excluded.tried_at, document = excluded.document, members = excluded.members""",
+            (key, data["url"], data.get("sha256"), Jsonb(data.get("remote") or {}), data.get("status"), data.get("error"), bool(data.get("refetch")),
+             datetime.fromisoformat(data["tried_at"]) if data.get("tried_at") else None, Jsonb(data["document"]) if data.get("document") else None,
+             Jsonb(data.get("members", []))))
 
 
 def install(source: Path, destination: Path) -> None:
@@ -41,7 +65,7 @@ def install(source: Path, destination: Path) -> None:
 
 
 def is_archive(key: str, doc: dict) -> bool:
-    return not doc.get("member") and not doc.get("archive_root") and (doc.get("ext") in EXTENSIONS or files.exists(manifest_path(key, doc)))
+    return not doc.get("member") and not doc.get("archived") and (doc.get("ext") in EXTENSIONS or exists(key))
 
 
 def members(docs: dict[str, dict]) -> dict[str, dict]:
@@ -49,17 +73,16 @@ def members(docs: dict[str, dict]) -> dict[str, dict]:
     for key, doc in docs.items():
         if not is_archive(key, doc):
             continue
-        data = load(key, doc)
+        data = load(key)
         if item := data.get("document"):
             # Same document and citation, not a synthetic archive member. The
             # boundary still owns download/refresh and the revisions kept by content.
-            found[key] = {**doc, "root": f"{doc['root']}/{item['storage']}", "ext": item["ext"],
-                          "archive_root": doc["root"], "content_sha": data["sha256"]}
+            found[key] = {**doc, "revision": data["sha256"], "ext": item["ext"], "archived": True, "content_sha": data["sha256"]}
         for item in data.get("members", []):
             if item["status"] != "ready":
                 continue
-            found[item["key"]] = {**doc, "root": f"{doc['root']}/{item['storage']}", "ext": item["ext"], "member": item["member"],
-                                   "archive_key": key, "title": f"{doc['title']} — {item['member']}", "content_sha": item["sha256"]}
+            found[item["key"]] = {**doc, "revision": item["sha256"], "ext": item["ext"], "member": item["member"],
+                                  "archive_key": key, "title": f"{doc['title']} — {item['member']}", "content_sha": item["sha256"]}
     return found
 
 
@@ -115,15 +138,14 @@ def download(url: str, destination: Path) -> dict:
     raise archives.ArchiveError("unsafe", "too many archive redirects")
 
 
-def settled(doc: dict, item: dict, ocr: bool) -> bool:
-    """Whether a ready item of a container needs no file: its text is read, it was skipped, it is put aside as too long, or it
-    is a scan queued and this run reads no scans."""
+def settled(item: dict, revision: str, ocr: bool) -> bool:
+    """Whether a ready item of a container (its document of that revision) needs no file: its text is read, it was skipped, it is put
+    aside as too long, or it is a scan queued and this run reads no scans."""
     from catix.docs.sources.regulations import QUEUED, TOO_LONG
 
-    base = f"{doc['root']}/{item['storage']}/{item['key']}"
-    if files.exists(f"{base}.txt"):
+    if notes.has_text(item["key"], revision):
         return True
-    note = files.read_json(f"{base}.json") or {}
+    note = notes.note(item["key"], revision)
     return "skipped" in note or note.get("ocr") == TOO_LONG or note.get("ocr") == QUEUED and not ocr
 
 
@@ -132,18 +154,17 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None, work: Path,
     deletion-only updates trigger a rebuild. A container that failed (a 404, a host down, one over the limits) is asked again
     after sites.RETRY, not by every run: one over the byte limit was downloaded up to it every few hours. A container whose
     members are all read (or need no file now: `settled`) is not downloaded."""
-    from catix.docs.sources import sites
+    from catix.docs.sources import regulations, sites
 
     removed = []
     for key, doc in docs.items():
-        if not (is_archive(key, doc) or doc.get("archive_root")) or prefixes and not key.startswith(prefixes):
+        if not (is_archive(key, doc) or doc.get("archived")) or prefixes and not key.startswith(prefixes):
             continue
-        doc = {**doc, "root": doc.get("archive_root", doc["root"])}
-        old = load(key, doc)
+        old = load(key)
         if old.get("status") not in (None, "ready") and sites.recent(old.get("tried_at")):
             continue
         if old.get("status") == "ready" and not old.get("refetch") and all(
-                settled(doc, item, ocr)
+                settled(item, item.get("sha256") or old["sha256"], ocr)
                 for item in [*old.get("members", []), *([old["document"]] if old.get("document") else [])] if item["status"] == "ready"):
             continue
         with tempfile.TemporaryDirectory(prefix="catix-docs-") as tmp:
@@ -155,8 +176,8 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None, work: Path,
                 ext = document_type(source)
                 document = None
                 if ext:
-                    document = {"key": key, "ext": ext, "storage": f"{key}.documents/{digest}", "status": "ready"}
-                    install(source, work / doc["root"] / document["storage"] / f"{key}.{ext}")
+                    document = {"key": key, "ext": ext, "status": "ready"}
+                    install(source, regulations.work_file(work, key, {"revision": digest, "ext": ext}))
                     entries = []
                 else:
                     entries = archives.unpack(source, tmp / "members")
@@ -166,21 +187,20 @@ def prepare(docs: dict[str, dict], prefixes: tuple[str, ...] | None, work: Path,
                         continue
                     identity = hashlib.sha256(f"{doc['url']}\n{item['member']}".encode()).hexdigest()[:20]
                     item["key"] = f"{key}-member-{identity}"
-                    item["storage"] = f"{key}.members/{identity}/{item['sha256']}"
-                    install(tmp / "members" / item["file"], work / doc["root"] / item["storage"] / f"{item['key']}.{item['ext']}")
+                    install(tmp / "members" / item["file"], regulations.work_file(work, item["key"], {"revision": item["sha256"], "ext": item["ext"]}))
                 before = {m["key"] for m in old.get("members", []) if m["status"] == "ready"}
                 after = {m["key"] for m in entries if m["status"] == "ready"}
                 if old.get("document"):
                     before.add(key)
                 if document:
                     after.add(key)
-                save(key, doc, {"url": doc["url"], "sha256": digest, "remote": remote, "status": "ready", "members": entries,
+                save(key, {"url": doc["url"], "sha256": digest, "remote": remote, "status": "ready", "members": entries,
                                 **({"document": document} if document else {})})
                 removed.extend(sorted(before - after))
                 print(f"{key}: archive read, {len(after)} documents, {len(before - after)} removed", flush=True)
             except (archives.ArchiveError, httpx.HTTPError, OSError) as error:
                 status = error.status if isinstance(error, archives.ArchiveError) else "unavailable"
-                save(key, doc, {**old, "url": doc["url"], "status": status, "error": str(error), "refetch": True,
+                save(key, {**old, "url": doc["url"], "status": status, "error": str(error), "refetch": True,
                                 "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
                 print(f"{key}: archive {status}: {error}; previous members kept", flush=True)
     return removed
@@ -190,7 +210,7 @@ def refresh(key: str, doc: dict, client: httpx.Client) -> bool:
     """Only the container has a remote version; children never issue HEAD on the archive individually."""
     from catix.docs.sources import regulations
 
-    data = load(key, doc)
+    data = load(key)
     if not data.get("sha256") or data.get("refetch"):
         return False
     hosts.turn(doc["url"])
@@ -203,5 +223,5 @@ def refresh(key: str, doc: dict, client: httpx.Client) -> bool:
         data["refetch"] = True
     if changed or not data.get("remote"):
         data["remote"] = remote
-        save(key, doc, data)
+        save(key, data)
     return changed

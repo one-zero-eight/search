@@ -1,11 +1,8 @@
 """The documents of the bundle (the first regulations, and every PDF or office file the sites link, the disclosure section of
-innopolis.university/sveden among them): their text (kept in Postgres: source_files) and the documents made of it.
+innopolis.university/sveden among them): their notes and text (kept in Postgres: document_files, notes.py) and the documents made of it.
 
-    catix-docs regs fetch [N] [--no-ocr]   # every trusted link no run has processed: download and extract the documents, after each material follow
-                                # links to documents on configured SITES providers; then read the pages of trusted sites that cached pages and
-                                # documents link and no run has read (sites.fetch, only_new) and their documents, until nothing new comes
-                                # (N: at most N documents, and no pages; --no-ocr: a scan is queued for a run with OCR, as the 6-hourly run does)
-    catix-docs regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
+    catix-docs regs fetch [N] [--no-ocr]   # the documents no run has read: download and extract them (N: at most N documents; --no-ocr: a scan is queued
+                                # for a run with OCR, as the loop does); --key KEY: that document again, whatever its note says
     catix-docs regs queue       # the OCR queue (every source's scans waiting for OCR) and the scans too long for it (ocr_queue.py)
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
@@ -22,7 +19,7 @@ import subprocess
 import tempfile
 import time
 from argparse import Namespace
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Callable, Iterator
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -31,12 +28,10 @@ import httpx
 from urllib.parse import unquote, urlsplit
 
 from catix.settings import settings
-from catix.docs import files
+from catix.docs import notes
 from catix.docs.sources import hosts
 from catix.docs.store import PRODUCER, Document
 
-ROOT = "regulations"
-LINKED = f"{ROOT}/linked.json"  # documents found in already processed trusted-provider materials
 BASE = "https://innopolis.university/upload/iblock/"
 DOCS = {  # key -> (title, path under BASE as the official page links it)
     "attestation-regulation": ("Положение о формах, периодичности и порядке проведения текущего контроля успеваемости и промежуточной аттестации (бакалавриат и магистратура)",
@@ -128,7 +123,7 @@ QUEUED, TOO_LONG = "queued", "too long"  # a scan's "ocr" in its note: waits for
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
 UNSIGNED_EVERY = timedelta(days=30)  # a file the site says nothing about (no ETag, date or size) is downloaded and compared by its bytes this often
-READ_LOCK = threading.RLock()  # (read_new and refresh write the documents' notes: the crawl, the document and the OCR threads one after the other; re-entrant: _files -> fetch -> read_new)
+READ_LOCK = threading.RLock()  # (read_new and recheck write the documents' notes: the crawl loop and the OCR thread one after the other)
 
 
 def locked(fn: Callable) -> Callable:
@@ -178,31 +173,27 @@ SIGNED = re.compile(r"\s*\(документы? подписаны? (?:ПЭП|п�
 GLUED = re.compile(r"^(\s*\d{1,2}(?:\.\d{1,2}){1,4}\.)(?=[^\W\d_]|«)|^(\s*\d{1,2}\.)(?=[А-ЯЁA-Z])", re.M)  # '3.2.Аспирант', '8.Во время'
 
 
-def all_docs() -> dict[str, dict]:
-    """Every document of the bundle: the first regulations (DOCS), those the sites link (the disclosure section of the
-    university's site among them: sites.docs) and those the documents' own text names (linked_documents)."""
-    from catix.docs.sources import crawl, sites
+def work_file(work: Path, key: str, d: dict) -> Path:
+    """Where a document's file is in the work folder of a read (the originals live only there): a revision of a document, a file."""
+    return work / (d.get("revision") or "_") / f"{key}.{d.get('ext', 'pdf')}"
 
-    docs = {k: {"title": t, "url": BASE + p, "root": ROOT, "section": "document"} for k, (t, p) in DOCS.items()}
+
+def all_docs() -> dict[str, dict]:
+    """Every document of the bundle: the first regulations (DOCS) and those the sites link (the disclosure section of the
+    university's site among them, and those the documents' own text names: the rows of the frontier, sites.docs). A document is
+    a key, and a `revision` ('' for a file at its URL; an archive's member, a PDF an archive URL served: its content's sha)."""
+    from catix.docs.sources import archive_documents, sites
+
+    docs = {k: {"title": t, "url": BASE + p, "section": "document"} for k, (t, p) in DOCS.items()}
     have = {sites.canonical(d["url"]) for d in docs.values()}
     docs.update({k: d for k, d in sites.docs().items() if d["url"] not in have})  # (one of DOCS the site links too is not read twice)
-    have |= {sites.canonical(d["url"]) for d in docs.values()}
-    for url, found in linked_documents().items():
-        if url in have or crawl.provider(url) is None:
-            continue
-        provider = found["provider"]
-        docs[found["key"]] = {"title": found["title"], "url": url, "root": f"{sites.ROOT}/{provider}/docs",
-                               "section": f"site/{provider}", "ext": found["ext"]}
-        have.add(url)
-    from catix.docs.sources import archive_documents
-
     if any(d.get("ext") in archive_documents.EXTENSIONS for d in docs.values()):
         from catix.docs.sources import rpd
 
         specialised = {sites.canonical(a["url"]) for a in rpd.archives()}
         read = {sites.canonical(c["archive"]) for c in rpd.load().values() if "sha256" in c}
         docs = {key: d for key, d in docs.items() if (url := sites.canonical(d["url"])) not in specialised  # (an archive read here
-                or url not in read and files.exists(f"{d['root']}/{key}.archive.json")}  # before rpd took it: its files stay pages until rpd has read it)
+                or url not in read and archive_documents.exists(key)}  # before rpd took it: its files stay pages until rpd has read it)
     docs.update(archive_documents.members(docs))
     boiler = re.compile(r"^(?:Высшее образование\s*[-–]\s*\w+\s*)?(?:Образовательная программа высшего образования\s*[-–]\s*программа\s*\w+\s*)?")
     for d in docs.values():
@@ -217,58 +208,6 @@ def all_docs() -> dict[str, dict]:
         if titles[d["title"]] > 1:
             d["title"] += f" [{unquote(d['url'].rsplit('/', 1)[-1]).rsplit('.', 1)[0][:60]}]"
     return docs
-
-
-def linked_documents() -> dict[str, dict]:
-    """The documents found in extracted text, persisted so a later run resumes the graph."""
-    return (files.read_json(LINKED) or {}).get("documents", {})
-
-
-def discover_linked_documents(docs: dict[str, dict] | None = None) -> dict[str, str]:
-    """Remember new document links from trusted-provider materials (of `docs`, of every document when None): the key of each
-    document added -> the key of the document whose text names it."""
-    from catix.docs.sources import crawl, sites
-
-    registry = linked_documents()
-    known = {sites.canonical(d["url"]) for d in all_docs().values()}
-    found: dict[str, str] = {}
-    source_docs = docs or all_docs()
-    for key, d in source_docs.items():
-        text = files.read_text(f"{d['root']}/{key}.txt")
-        if text is None:
-            continue
-        for url in crawl.document_links(text, d["url"]):
-            if url in known or url in registry:
-                continue
-            provider = crawl.provider(url)
-            if provider is None:
-                continue
-            filename = unquote(url.rsplit("/", 1)[-1])
-            stem, ext = filename.rsplit(".", 1)
-            new = f"site-{provider}-linked-{hashlib.sha1(url.encode()).hexdigest()[:8]}-{re.sub(r'[^a-z0-9]+', '-', stem.lower()).strip('-')[:40] or 'document'}"
-            registry[url] = {"key": new, "title": re.sub(r"\s+", " ", stem.replace("_", " ")).strip(), "ext": ext.lower(),
-                             "provider": provider, "from": [d["url"]]}
-            known.add(url)
-            found[new] = key
-    if found:
-        files.write_json(LINKED, {"documents": registry})
-    return found
-
-
-def page_links_of(keys: Iterable[str] | None = None) -> dict[str, set[str]]:
-    """provider -> the pages of trusted sites the text of the documents names (of those of `keys`, of every document read when
-    None): the waves of sites.fetch and fetch_new read them, so a page only a document links (a regulation's 'see
-    innopolis.university/...') is reached as the pages another site links are."""
-    from catix.docs.sources import crawl
-
-    docs, found = all_docs(), {}
-    for key in docs if keys is None else [k for k in keys if k in docs]:
-        text = files.read_text(f"{docs[key]['root']}/{key}.txt")
-        if text is not None:
-            for url in crawl.text_page_links(text, docs[key]["url"]):
-                if provider := crawl.provider(url, page=True):
-                    found.setdefault(provider, set()).add(url)
-    return found
 
 
 def pages_of(pdf: Path) -> int:
@@ -417,9 +356,10 @@ def ocr_state(note: dict, limit: int | None = None) -> str | None:
 
 
 def scan_notes() -> Iterator[tuple[str, dict, dict]]:
-    """(key, document, note) of every scan queued for OCR or put aside as too long (ocr_state)."""
-    for key, d in all_docs().items():
-        if (note := files.read_json(f"{d['root']}/{key}.json")) and ocr_state(note):
+    """(key, document, note) of every scan queued for OCR or put aside as too long (ocr_state), of the revision of the document now."""
+    docs = all_docs()
+    for key, revision, note in notes.scans():
+        if (d := docs.get(key)) is not None and d.get("revision", "") == revision and ocr_state(note):
             yield key, d, note
 
 
@@ -487,7 +427,7 @@ def extract(pdf: Path, ocr_left: int, converted: Path | None = None) -> tuple[st
     return *ocr_text(pdf), pages
 
 
-def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
+def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
     """Download the documents not read yet (and those `refresh` found changed) into a temporary folder, then read them: the text layers all at once
     (one run of opendataloader's JVM, not one a file), the scans after them; the keys of those read. `prefixes`: only the
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
@@ -503,25 +443,19 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     MAX_FAILURES times in a row is let be for the rest of the run; the other hosts are read (a dead host stopped the whole run)."""
     from catix.docs.sources import archive_documents, opendataloader, sites
 
-    # Pick up university-hosted files already present in the cached site pages;
-    # the site crawl itself records the links it saw while reading a page.
-    # (not in the threads beside the crawl: only the crawl writes a site's index.json)
-    if collect:
-        sites.collect_linked_docs()
+    def skip(key: str, d: dict, why: str) -> None:
+        notes.put_note(key, d.get("revision", ""), {"title": d["title"], "url": d["url"], "skipped": why})
 
-    def skip(d: dict, meta: str, why: str) -> None:
-        files.write_json(meta, {"title": d["title"], "url": d["url"], "skipped": why})
-
-    def put_off(d: dict, meta: str, old: dict, why: str) -> None:
+    def put_off(key: str, d: dict, old: dict, why: str) -> None:
         """No file this time: why and when, and what an earlier run read of the document stays (its text, its page)."""
-        files.write_json(meta, {**old, "title": d["title"], "url": d["url"], "failed": why,
-                                "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+        notes.put_note(key, d.get("revision", ""), {**old, "title": d["title"], "url": d["url"], "failed": why,
+                                                    "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
 
-    def unchanged(d: dict, meta: str, old: dict, remote: dict, why: str) -> None:
+    def unchanged(key: str, d: dict, old: dict, remote: dict, why: str) -> None:
         """The file is the one already read: its text stays, nothing is extracted or OCR'd again."""
         keep = {k: v for k, v in old.items() if k not in ("refetch", "force", "failed", "tried_at")}
-        files.write_json(meta, {**keep, "title": d["title"], "url": d["url"], "remote": remote or old.get("remote", {}),
-                                "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+        notes.put_note(key, d.get("revision", ""), {**keep, "title": d["title"], "url": d["url"], "remote": remote or old.get("remote", {}),
+                                                    "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
         print(f"  {why}: the text read before stays", flush=True)
 
     with tempfile.TemporaryDirectory(prefix="catix-docs-") as tmp:
@@ -531,17 +465,17 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         for key, d in docs.items():
             if archive_documents.is_archive(key, d) or prefixes and not key.startswith(prefixes):
                 continue
-            root: str = d["root"]
+            revision = d.get("revision", "")
             ext = d.get("ext", "pdf")
-            src, meta = work / root / f"{key}.{ext}", f"{root}/{key}.json"
-            old = files.read_json(meta) or {}
-            has_text = bool(old.get("sha256")) and files.exists(f"{root}/{key}.txt")
+            src = work_file(work, key, d)
+            old = notes.note(key, revision)
+            has_text = bool(old.get("sha256")) and notes.has_text(key, revision)
             if ocr_state(old) == TOO_LONG and not old.get("refetch"):  # (put aside: no run reads it, its text layer is not asked again)
                 if old["ocr"] != TOO_LONG:  # (queued before the long scans were put aside)
-                    files.write_json(meta, {**old, "ocr": TOO_LONG})
+                    notes.put_note(key, revision, {**old, "ocr": TOO_LONG})
                 continue
             waiting = ocr_state(old) == QUEUED  # (a scan queued by a run without OCR: a run with OCR downloads it again)
-            if not waiting and old and (files.exists(f"{root}/{key}.txt") or "skipped" in old) and not old.get("refetch"):
+            if not waiting and old and (notes.has_text(key, revision) or "skipped" in old) and not old.get("refetch"):
                 continue  # (a document that changed on the site is noticed by `regs refresh`; a skipped one stays skipped)
             if waiting and not ocr:
                 continue
@@ -551,13 +485,13 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             if limit is not None and len(downloaded) >= limit:
                 break
             print(key, flush=True)
-            if d.get("member") or d.get("archive_root"):  # (members and standalone PDFs are downloaded through the archive boundary)
+            if d.get("member") or d.get("archived"):  # (members and standalone PDFs are downloaded through the archive boundary)
                 if not src.exists():
                     print("  archive-managed source is missing locally: left for the next archive read")
                     continue
                 remote = {}
                 if has_text and not old.get("force") and hashlib.sha256(src.read_bytes()).hexdigest() == old["sha256"]:
-                    unchanged(d, meta, old, remote, "the same bytes as before")
+                    unchanged(key, d, old, remote, "the same bytes as before")
                     continue
             else:
                 try:
@@ -570,33 +504,33 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                             conditional = {"If-Modified-Since": old["remote"]["modified"]}
                     resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers={**HEADERS, **conditional})
                     if resp.status_code == 304:  # (before raise_for_status: httpx raises on 3xx)
-                        unchanged(d, meta, old, {**old.get("remote", {}), **{k: v for k, v in signature(resp.headers).items() if k != "size"}}, "not modified (304)")
+                        unchanged(key, d, old, {**old.get("remote", {}), **{k: v for k, v in signature(resp.headers).items() if k != "size"}}, "not modified (304)")
                         failures[host] = 0
                         time.sleep(PAUSE)
                         continue
                     resp.raise_for_status()
                     if len(resp.content) > limits(old)[0]:
                         print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
-                        skip(d, meta, "file too big")
+                        skip(key, d, "file too big")
                         continue
                     if ext not in ("htm", "html") and re.match(rb"\s*<(!doctype html|html)\b", resp.content[:200], re.I):
                         if resp.url.host != host and a_login(resp):  # (help: the university's SSO): not skipped, asked again later
                             print(f"  sent to the login of {resp.url.host}: asked again in {sites.RETRY.days} days")
-                            put_off(d, meta, old, f"sent to the login of {resp.url.host}")
+                            put_off(key, d, old, f"sent to the login of {resp.url.host}")
                         else:  # a broken link the site answers with one of its pages (or with the start page of another host of it)
                             print("  the site answers with a page, not the file, skipped" + (f" ({resp.url})" if resp.url.host != host else ""))
-                            skip(d, meta, "a page, not the file")
+                            skip(key, d, "a page, not the file")
                         time.sleep(PAUSE)
                         continue
                 except httpx.HTTPError as e:  # a moved file must not stop the others
                     print(f"  FAILED: {e}")
                     if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself
-                        skip(d, meta, "404 on the site")
+                        skip(key, d, "404 on the site")
                         failures[host] = 0
                         time.sleep(PAUSE)
                         continue
                     failures[host] += 1
-                    put_off(d, meta, old, f"{type(e).__name__}: {str(e)[:200]}")
+                    put_off(key, d, old, f"{type(e).__name__}: {str(e)[:200]}")
                     if failures[host] >= MAX_FAILURES:  # the host refuses connections: going on would only hammer it
                         print(f"  {failures[host]} failures in a row: {host} is not answering, its other documents wait for the next run")
                     time.sleep(PAUSE + 5 * failures[host])  # slower while the host is failing
@@ -607,7 +541,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 remote = signature(resp.headers)
                 time.sleep(PAUSE)
                 if has_text and not old.get("force") and hashlib.sha256(resp.content).hexdigest() == old["sha256"]:
-                    unchanged(d, meta, old, remote, "the same bytes as before")
+                    unchanged(key, d, old, remote, "the same bytes as before")
                     continue
             try:
                 pdf = to_pdf(src)
@@ -615,28 +549,28 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     raise ValueError("cannot read or too long")
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                 print(f"  skipped: {e}")
-                skip(d, meta, str(e))
+                skip(key, d, str(e))
                 continue
-            downloaded.append((key, d, src, pdf, meta, old, remote))
+            downloaded.append((key, d, src, pdf, revision, old, remote))
             if waiting:
                 queued.add(key)
         print(f"{len(downloaded)} documents to read" + (f", {len(queued)} of them scans queued for OCR" if queued else ""), flush=True)
 
         def store_new(item: tuple, text: str, method: str) -> None:
-            key, d, src, pdf, meta, old, remote = item
+            key, d, src, pdf, revision, old, remote = item
             sha = hashlib.sha256(src.read_bytes()).hexdigest()
-            files.write_text(f"{d['root']}/{key}.txt", text)
-            files.write_json(meta, {"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
+            notes.put_text(key, revision, text)
+            notes.put_note(key, revision, {"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
                                     "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote,
-                                    **({"pdf_created": c} if (c := pdf_created(pdf)) else {})})
+                                         **({"pdf_created": c} if (c := pdf_created(pdf)) else {})})
             print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
 
         def queue(item: tuple, pages: int, state: str = QUEUED, **more: object) -> None:
             """The scan's note: QUEUED for a run with OCR, or TOO_LONG, put aside. (`refetch` is done: the file was downloaded again.)"""
-            _, d, _, _, meta, old, remote = item
+            key, d, _, _, revision, old, remote = item
             old = {k: v for k, v in old.items() if k not in ("refetch", "failed", "tried_at")}
-            files.write_json(meta, {**old, "title": d["title"], "url": d["url"], "ocr": state, "pages": pages, "remote": remote,
-                                    "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more})
+            notes.put_note(key, revision, {**old, "title": d["title"], "url": d["url"], "ocr": state, "pages": pages, "remote": remote,
+                                         "queued_at": old.get("queued_at") or datetime.now(timezone.utc).isoformat(timespec="seconds"), **more})
             if state == QUEUED:
                 from catix.docs import ocr_worker
                 ocr_worker.wake()
@@ -644,13 +578,13 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         ocr_left, ocr_used, done, scans = OCR_BUDGET, 0, list(removed), []
         with opendataloader.converted([pdf for key, _, _, pdf, _, _, _ in downloaded if key not in queued]) as jsons:
             for item in downloaded:
-                key, d, src, pdf, meta, old, remote = item
+                key, d, src, pdf, revision, old, remote = item
                 if key not in queued:
                     try:
                         layer = layer_text(pdf, jsons.get(pdf))
                     except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                         print(f"{key}: skipped: {e}")
-                        skip(d, meta, str(e))
+                        skip(key, d, str(e))
                         continue
                     if layer is not None:
                         store_new(item, *layer)
@@ -684,7 +618,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 continue
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
                 print(f"{item[0]}: skipped: {e}")
-                skip(item[1], item[4], str(e))
+                skip(item[0], item[1], str(e))
                 continue
             store_new(item, text, method)
             done.append(item[0])
@@ -692,18 +626,38 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         return done
 
 
-def settled_doc(key: str, d: dict) -> bool:
-    """Whether a run without OCR passes the document by (the rules of _fetch_once): read (its text; an archive: its manifest),
-    skipped, a scan queued for OCR or put aside, or no file came lately (failed, sites.RETRY). One refresh found changed is not."""
-    from catix.docs.sources import archive_documents, sites
+def note_state(key: str, d: dict) -> tuple[str, str | None, timedelta | None]:
+    """(state, why, delay) of the row of a document in the frontier, from what its notes say: the delay until it is read again,
+    None for never.
 
-    if archive_documents.is_archive(key, d):
-        return files.exists(archive_documents.manifest_path(key, d))
-    old = files.read_json(f"{d['root']}/{key}.json") or {}
-    if old.get("refetch"):
-        return False
-    return (bool(old) and (files.exists(f"{d['root']}/{key}.txt") or "skipped" in old) or ocr_state(old) in (QUEUED, TOO_LONG)
-            or bool(old.get("failed")) and sites.recent(old.get("tried_at")))
+        an archive whose manifest is ready                ok          DOCUMENT_EVERY
+        an archive whose manifest is another status       tried       RETRY
+        an archive with no manifest                       new         SOON
+        a text read                                       ok          DOCUMENT_EVERY (UNSIGNED_EVERY when the site says nothing of the file)
+        a scan queued for OCR or put aside as too long    ok          DOCUMENT_EVERY
+        skipped                                           gone        never
+        no file came lately                               tried       RETRY
+        no note                                           new         SOON"""
+    from catix.docs import frontier
+    from catix.docs.sources import archive_documents
+
+    if archive_documents.is_archive(key, d) or d.get("archived"):
+        data = archive_documents.load(key)
+        if not data:
+            return "new", None, frontier.SOON
+        if data.get("status") == "ready":
+            return "ok", None, frontier.DOCUMENT_EVERY
+        return "tried", data.get("status"), frontier.RETRY
+    note = notes.note(key, d.get("revision", ""))
+    if note.get("sha256") and notes.has_text(key, d.get("revision", "")):
+        return "ok", None, frontier.DOCUMENT_EVERY if note.get("remote") else frontier.UNSIGNED_EVERY
+    if ocr_state(note):
+        return "ok", note["ocr"], frontier.DOCUMENT_EVERY
+    if note.get("skipped"):
+        return "gone", note["skipped"], None
+    if note.get("failed"):
+        return "tried", note["failed"], frontier.RETRY
+    return "new", None, frontier.SOON
 
 
 def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> int:
@@ -713,123 +667,60 @@ def fetch(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr
 
 @locked
 def force(key: str, now: bool = False, ocr: bool = True) -> None:
-    """Queue one document to be read again whatever its note says (read, skipped, put aside as too long, failed), with no limit of
-    size, pages or OCR budget (the note's `force`, see limits): `docs-loop` reads it (its document thread, then its OCR thread
-    for a scan) and rebuilds the pages, its vectors come from the queue. `now`: this process reads it at once, one pass over
-    the keys that start with `key` (no pass over the documents it names). KeyError for an unknown key."""
-    from catix.docs import document_worker, ocr_worker
-    from catix.docs.sources import archive_documents
+    """Read one document again whatever its note says (read, skipped, put aside as too long, failed), with no limit of size, pages
+    or OCR budget (the note's `force`, see limits). `now`: this process reads it at once, one pass over the keys that start with
+    `key`; else its row of the frontier is asked for, and the crawl reads it next (its scan then the OCR thread). KeyError for an
+    unknown key."""
+    from catix.docs import frontier
+    from catix.docs.sources import archive_documents, sites
 
     d = all_docs()[key]
     if archive_documents.is_archive(key, d):
         raise KeyError(f"{key}: an archive, read by rpd or the archives' reader, not by regs")
-    meta = f"{d['root']}/{key}.json"
-    files.write_json(meta, {**(files.read_json(meta) or {}), "refetch": True, "force": True, "failed": False})
+    revision = d.get("revision", "")
+    notes.put_note(key, revision, {**{k: v for k, v in notes.note(key, revision).items() if k != "failed"}, "refetch": True, "force": True})
     if now:
-        print(f"{len(_fetch_once(prefixes=(key,), ocr=ocr))} documents read")
+        print(f"{len(read_new(prefixes=(key,), ocr=ocr))} documents read")
     else:
-        print(f"{key}: queued; docs-loop reads it within {document_worker.RESCAN // 60} minutes (its scan within {ocr_worker.RESCAN // 60})")
+        frontier.request_address(sites.address(d["url"]))
+        print(f"{key}: queued; the crawl reads it next")
 
 
 @locked
-def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
-    """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
-    `ocr` the scans are queued for a run with OCR; those the OCR does not read stay queued too (_fetch_once).
+def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True) -> list[str]:
+    """Download and read the documents not read yet (_fetch_once), then note it in their rows of the frontier and add the
+    documents and pages their text names (frontier.documents_read); the keys of those read. Without `ocr` the scans are
+    queued for a run with OCR; those the OCR does not read stay queued too."""
+    from catix.docs import frontier
 
-    The existing SITES entries decide which providers and paths are trusted. A
-    newly found document is persisted before the next pass, so an interrupted
-    crawl resumes without rereading completed files.
-
-    A pass after the first reads the documents found in the one before, of any trusted provider, and no other document not
-    read yet. With `prefixes` (a run of a few sites) only those a document of the prefixes or one this run read names: the
-    pass that read every document no run had read yet took 54 of the university's for a request for the hotel. Every link
-    found is remembered all the same (every document is looked at: an old document may name a site approved since), and
-    the weekly run, which has no prefixes, reads them.
-    """
-    read, remaining, scope = [], limit, prefixes
-    while True:
-        done = _fetch_once(remaining, scope, ocr, collect=collect)
-        read += done
-        if remaining is not None:
-            remaining -= len(done)
-            if remaining <= 0:
-                break
-        reached = set(read)
-        scope = tuple(new for new, source in discover_linked_documents().items()  # (recursion may cross from one trusted provider to another)
-                      if prefixes is None or source.startswith(prefixes) or source in reached)
-        if not scope:
-            break
-    return read
+    keys = _fetch_once(limit, prefixes, ocr)
+    frontier.documents_read(keys)
+    return keys
 
 
 @locked
-def refresh(prefix: str = "") -> int:
-    """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
-    one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
-    document only records what the site says about it. A document the site says nothing about (no ETag, date or size) is
-    downloaded and compared by its bytes every UNSIGNED_EVERY. The number of changed documents."""
+def recheck(keys: list[str]) -> list[str]:
+    """Read the documents of these rows of the frontier again: an archive asks its site whether it changed (HEAD), a file that was
+    read is asked for again with what the site said of it (If-None-Match: an unchanged one costs a 304), the others are read as
+    new. Text layers only: a scan is queued for the OCR thread. Then the rows are noted (frontier.documents_read); the keys read."""
+    from catix.docs import frontier
     from catix.docs.sources import archive_documents
 
-    found, failures = 0, 0
+    docs = all_docs()
     with httpx.Client(headers=HEADERS, timeout=60, follow_redirects=True) as client:
-        for key, d in all_docs().items():
-            if d.get("member") or not key.startswith(prefix):
+        for key in keys:
+            if (d := docs.get(key)) is None:
                 continue
-            if archive_documents.is_archive(key, d) or d.get("archive_root"):
+            if archive_documents.is_archive(key, d) or d.get("archived"):
                 try:
-                    found += archive_documents.refresh(key, d, client)
+                    archive_documents.refresh(key, d, client)
                 except httpx.HTTPError as e:
                     print(f"{key}: archive refresh failed: {e}")
-                time.sleep(PAUSE)
-                continue
-            path = f"{d['root']}/{key}.json"
-            meta = files.read_json(path) or {}
-            if not key.startswith(prefix) or "sha256" not in meta or meta.get("refetch"):
-                continue
-            try:
-                hosts.turn(d["url"])
-                resp = client.head(d["url"])
-            except httpx.HTTPError as e:
-                failures += 1
-                print(f"{key}: {e}")
-                if failures >= MAX_FAILURES:
-                    print(f"{failures} failures in a row: the site is not answering, stopped")
-                    break
-                time.sleep(PAUSE + 5 * failures)
-                continue
-            failures = 0
-            time.sleep(PAUSE)
-            if resp.status_code != 200:  # (a document no page links any more leaves the bundle with the next run of its site)
-                continue
-            now = signature(resp.headers)
-            if not now and not meta.get("remote"):
-                if meta.get("checked_at") and datetime.now(timezone.utc) - datetime.fromisoformat(meta["checked_at"]) < UNSIGNED_EVERY:
-                    continue
-                try:
-                    hosts.turn(d["url"])
-                    got = client.get(d["url"], timeout=120)
-                except httpx.HTTPError as e:  # (checked_at stays: the next run asks again)
-                    print(f"{key}: {e}")
-                    continue
-                time.sleep(PAUSE)
-                meta["checked_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-                if got.status_code == 200 and len(got.content) <= MAX_BYTES and hashlib.sha256(got.content).hexdigest() != meta["sha256"]:
-                    meta["refetch"] = True
-                    found += 1
-                    print(f"{key}: changed on the site (its bytes; the site sends no ETag, date or size)")
-                files.write_json(path, meta)
-                continue
-            if changed(meta.get("remote"), now):
-                meta["refetch"] = True
-                found += 1
-                print(f"{key}: changed on the site")
-            elif not meta.get("remote"):
-                meta["remote"] = now
-            else:
-                continue
-            files.write_json(path, meta)
-    print(f"{found} documents changed on the site")
-    return found
+            elif "sha256" in (note := notes.note(key, d.get("revision", ""))):
+                notes.put_note(key, d.get("revision", ""), {**note, "refetch": True})
+    done = _fetch_once(prefixes=tuple(keys), ocr=False)
+    frontier.documents_read(keys)
+    return done
 
 
 def to_markdown(text: str) -> str:
@@ -920,11 +811,11 @@ def compile_all() -> list[Document]:
     for key, d in docs.items():
         if archive_documents.is_archive(key, d):
             continue  # (a container has no page: its members have)
-        meta = files.read_json(f"{d['root']}/{key}.json")
+        meta = notes.note(key, d.get("revision", ""))
         if not meta or "sha256" not in meta:
             continue  # (a new revision is queued: the old member's text is not published)
         title = docs[key]["title"]  # (not the one stored at download time: the titles are made unique across all documents)
-        text = files.read_text(f"{d['root']}/{key}.txt")
+        text = notes.text(key, d.get("revision", ""))
         if text is None or not readable(text):
             print(f"{key}: no readable text, skipped")
             continue
@@ -951,8 +842,6 @@ def compile_all() -> list[Document]:
 def main(args: Namespace) -> None:
     cmd = args.action
     if cmd == "fetch":
-        from catix.docs.sources import sites
-
         ocr = not getattr(args, "no_ocr", False)
         if args.key:  # (one document, again, whatever its note says)
             try:
@@ -960,12 +849,7 @@ def main(args: Namespace) -> None:
             except KeyError as e:
                 raise SystemExit(str(e.args[0])) from None
             return
-        read = fetch(args.limit, ocr=ocr)  # (the documents no run has read, and those they name)
-        if args.limit is None:  # (then the pages of trusted sites no run has read, their documents, ...; N: a quick run of documents only)
-            read += sites.fetch(only_new=True, documents=True, ocr=ocr)
-        print(f"{read} documents and pages read")
-    elif cmd == "refresh":
-        refresh()
+        print(f"{fetch(args.limit, ocr=ocr)} documents read")  # (the documents no run has read)
     elif cmd == "queue":
         from catix.docs.sources import ocr_queue
 

@@ -1,5 +1,5 @@
-"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections; the sources' files
-(docs/files.py) in memory."""
+"""Fixtures: skip when the model server is down; a throwaway chat with known facts and planted injections; the docs service's
+tables (docs_db) in temporary tables, its catalog of sites in memory."""
 
 import os
 from datetime import datetime, timedelta, timezone
@@ -19,25 +19,121 @@ CHAT_ID = -999000999
 MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"]
 
 
+DOCS_URL = os.environ.get("DOCS_TEST_DATABASE_URL")
+
+DOCS_SCHEMA = """
+CREATE TEMP TABLE documents (path text PRIMARY KEY, sha text NOT NULL, title text NOT NULL, type text NOT NULL, trust text NOT NULL,
+    audience text[] NOT NULL DEFAULT '{}', resource text, status text, review text, source_warning text, stale_after date, issued date,
+    indexed_at timestamptz NOT NULL DEFAULT now(), body text NOT NULL DEFAULT '', meta jsonb NOT NULL DEFAULT '{}');
+CREATE TEMP TABLE document_chunks (id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    path text NOT NULL REFERENCES documents (path) ON DELETE CASCADE ON UPDATE CASCADE, trust text NOT NULL, seq int NOT NULL,
+    heading text NOT NULL, clause text NOT NULL, sha text NOT NULL, text text NOT NULL, search_text text NOT NULL,
+    cites jsonb NOT NULL DEFAULT '[]', copy_of bigint REFERENCES document_chunks (id) ON DELETE SET NULL);
+CREATE TEMP TABLE document_embedding_queue (chunk_id bigint PRIMARY KEY REFERENCES document_chunks (id) ON DELETE CASCADE, queued_at timestamptz NOT NULL DEFAULT now());
+CREATE TEMP TABLE document_chunk_embeddings (chunk_id bigint PRIMARY KEY REFERENCES document_chunks (id) ON DELETE CASCADE);
+CREATE TEMP TABLE docs_meta (key text PRIMARY KEY, value text NOT NULL);
+CREATE TEMP TABLE site_catalog (
+    name text PRIMARY KEY CHECK (name ~ '^[a-z0-9][a-z0-9-]*$'), base text NOT NULL CHECK (base ~ '^https?://[^/]+/'),
+    language text NOT NULL CHECK (language IN ('ru', 'en')), about text NOT NULL, skip text NOT NULL DEFAULT '',
+    sitemap text DEFAULT 'sitemap.xml', max_pages integer NOT NULL DEFAULT 60 CHECK (max_pages > 0), english text,
+    dated boolean NOT NULL DEFAULT false, render boolean NOT NULL DEFAULT false, robots boolean NOT NULL DEFAULT false,
+    pause real CHECK (pause >= 0), headings text, bare boolean NOT NULL DEFAULT false, listing text, "end" text, drop text,
+    profile text, audience text[], discover text, missing text, signin text, private text,
+    feeds text[] NOT NULL DEFAULT '{}', aliases text[] NOT NULL DEFAULT '{}');
+CREATE TEMP TABLE blocked_hosts (host text PRIMARY KEY);
+CREATE TEMP TABLE crawl_urls (
+    address text PRIMARY KEY, url text NOT NULL, site text NOT NULL, kind text NOT NULL CHECK (kind IN ('page', 'listing', 'document')),
+    pinned boolean NOT NULL DEFAULT false, every interval NOT NULL, next_at timestamptz, priority smallint NOT NULL DEFAULT 1,
+    state text NOT NULL DEFAULT 'new' CHECK (state IN ('new', 'ok', 'missing', 'gone', 'tried')), why text, slug text,
+    doc_key text UNIQUE, ext text, title text, sha256 text, validators jsonb NOT NULL DEFAULT '{}', short_words integer, text text,
+    audience text[], fetched_at timestamptz, read_at timestamptz, unlinked_since date,
+    CHECK ((kind = 'document') = (doc_key IS NOT NULL)));
+CREATE UNIQUE INDEX crawl_urls_slug ON crawl_urls (site, slug) WHERE slug IS NOT NULL;
+CREATE TEMP TABLE crawl_links (
+    src text NOT NULL REFERENCES crawl_urls (address) ON DELETE CASCADE ON UPDATE CASCADE, dst text NOT NULL,
+    anchor text NOT NULL DEFAULT '', context text NOT NULL DEFAULT '', PRIMARY KEY (src, dst));
+CREATE TEMP TABLE document_files (
+    key text NOT NULL, revision text NOT NULL DEFAULT '', url text, title text, section text, context text,
+    sha256 text, method text, chars integer, tables smallint, pdf_created text, remote jsonb NOT NULL DEFAULT '{}',
+    ocr text CHECK (ocr IN ('queued', 'too long')), pages integer, queued_at timestamptz, ocr_failed integer,
+    skipped text, failed text, tried_at timestamptz, checked_at timestamptz, fetched_at timestamptz,
+    refetch boolean NOT NULL DEFAULT false, force boolean NOT NULL DEFAULT false, text text, PRIMARY KEY (key, revision));
+CREATE TEMP TABLE archives (
+    key text PRIMARY KEY, url text NOT NULL, sha256 text, remote jsonb NOT NULL DEFAULT '{}', status text, error text,
+    refetch boolean NOT NULL DEFAULT false, tried_at timestamptz, document jsonb, members jsonb NOT NULL DEFAULT '[]');
+CREATE TEMP TABLE course_programmes (
+    key text PRIMARY KEY, archive text NOT NULL, archive_title text, member text, programme text, level text,
+    year integer, semester integer, kind text, code text, name text, fetched_at timestamptz,
+    sha256 text, method text, chars integer, skipped text, text text);
+CREATE TEMP TABLE rpd_archives (url text PRIMARY KEY, remote jsonb NOT NULL DEFAULT '{}', failed text, tried_at timestamptz);
+CREATE TEMP TABLE eduwiki_pages (
+    pageid integer PRIMARY KEY, ns integer NOT NULL, title text NOT NULL, revid bigint NOT NULL,
+    redirect boolean NOT NULL DEFAULT false, deleted boolean NOT NULL DEFAULT false,
+    timestamp timestamptz, wikitext text, fetched_at timestamptz);
+"""
+
+
+@pytest.fixture
+def docs_db(monkeypatch):
+    """A real Postgres (DOCS_TEST_DATABASE_URL, a disposable database): temporary tables for everything the docs service keeps,
+    the permanent ones are not touched. One connection serves every pg.connection() of the test."""
+    if not DOCS_URL:
+        pytest.skip("requires a disposable DOCS_TEST_DATABASE_URL")
+    from contextlib import contextmanager
+
+    import psycopg
+    from psycopg.rows import dict_row
+
+    from catix.docs import store
+
+    connection = psycopg.connect(DOCS_URL, row_factory=dict_row, autocommit=True)
+    connection.execute(DOCS_SCHEMA)
+
+    @contextmanager
+    def same():
+        yield connection
+
+    monkeypatch.setattr(pg, "connection", same)
+    monkeypatch.setattr(store.settings, "embeddings_model", "test-model")
+    yield connection
+    connection.close()
+
+
 @pytest.fixture(autouse=True)
-def memory_files(monkeypatch):
-    """What the sources keep as files (docs/files.py) in memory, never the database of .env."""
-    from catix.docs import files
+def site_catalog(monkeypatch):
+    """Unit tests use the catalog of tests/fixtures/sites.yaml in memory, never the one of the database. Returns the real
+    load_config and save_catalog (the database ones) for the tests that run them on docs_db."""
+    import copy
+    from types import SimpleNamespace
 
-    memory = helpers.MemoryFiles()
-    monkeypatch.setattr(files, "BACKEND", memory)
-    return memory
-
-
-@pytest.fixture(autouse=True)
-def site_catalog(monkeypatch, memory_files):
-    """Unit tests use the catalog of tests/fixtures/sites.yaml in the in-memory files, never the one of the database."""
     from catix.docs.sources import sites
 
-    sites.save_catalog(sites.read_yaml(Path(__file__).with_name("fixtures") / "sites.yaml"))
+    real = SimpleNamespace(load_config=sites.load_config, save_catalog=sites.save_catalog)
+    stored: dict = {}
+
+    def load_config():
+        if not stored:
+            raise FileNotFoundError("the site catalog is empty")
+        return copy.deepcopy(stored)
+
+    def save_catalog(raw):
+        records = {str(name): dict(values) for name, values in raw.get("sites", {}).items()}
+        for name, values in records.items():
+            try:
+                sites.make_site(values)
+            except TypeError as error:
+                raise ValueError(f"site {name}: {error}") from None
+        stored.clear()
+        stored.update(copy.deepcopy({"sites": records, "blocked": sorted(set(raw.get("blocked", ())))}))
+        monkeypatch.setattr(sites, "_catalog_checked", 0.0)
+
+    monkeypatch.setattr(sites, "load_config", load_config)
+    monkeypatch.setattr(sites, "save_catalog", save_catalog)
+    save_catalog(sites.read_yaml(Path(__file__).with_name("fixtures") / "sites.yaml"))
     monkeypatch.setattr(sites, "CATALOG_TTL", 0.0)  # (a test that edits the catalog sees it at once)
     monkeypatch.setattr(sites, "_catalog_raw", None)
     sites.reload_catalog()
+    return real
 
 
 @pytest.fixture(autouse=True)

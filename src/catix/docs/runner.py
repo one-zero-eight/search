@@ -1,23 +1,27 @@
-"""The documents maintain themselves: the sources are asked on their schedule, and what changed becomes documents in Postgres.
+"""The documents maintain themselves: the crawl reads the address that is due next, and what changed becomes documents in Postgres.
 
     catix-docs run [--loop] [--source NAME ...] [--site NAME ...] [--build]
 
-Every turn works in this order:
-  1. the requests waiting in the queue (POST /{section}/parse of the API, parse_requests.py), served alone: the sources they name
-     (`sites` only the sites they name), a new site added and read; the run says in the queue what it did;
-  2. sources.BACKLOG (the links of known sites no run has read: `catix-docs sites unvisited --known`) and then the sources that are
-     due (sources/, each with its own interval; `--source` asks the named ones now; `--site` reads only the named sites in place
-     of every site);
-  3. if one brought something, or an earlier run was cut off before it built: build.rebuild(): changed documents are
-     rewritten, gone ones removed; the search finds them at once, the vectors of new pieces come from the queue.
-Under `--loop` a request that arrives stops nothing: the source running finishes, the request is served next, then the sources left.
-`--build`: no source is asked; the documents are rebuilt from the data the sources hold.
-OCR: the sources queue scans for a manual run with OCR and put aside those too long for it (sources/ocr_queue.py); when
-either grows, the admins are told in Telegram, of each scan once.
-Runs one at a time (an advisory lock of Postgres). Its state (when each source was asked, the scans the admins were told of,
-whether a rebuild is owed) is in docs_meta, key 'runner'. `--loop` wakes up for a request (REQUEST_POLL) without waiting for the schedule.
-Under `--loop` three threads work beside the sources: the document thread (document_worker.py) reads the documents the crawl registers, the OCR thread (ocr_worker.py) reads the scans queued, the flush thread (flusher.py) rebuilds every 10 minutes when something was written; one request at a time to a host across them (sources/hosts.py).
-Under `--loop` the guide of the repo (sources/guide.py) is synced once at the start.
+The crawl (frontier.py) is one table of addresses, each with the time it is read again (pages and documents every week, the feeds
+of a site every 6 hours, those it asked for first). Every turn of the loop:
+  1. the requests waiting in the queue (POST /{section}/parse of the API, parse_requests.py): `sites` asks for the rows of those
+     sites to be read first (frontier.request), a new site is added to the catalog and its rows are read first, the eduwiki is
+     read now; the run says in the queue what it did once nothing is asked for any more;
+  2. the jobs that are due (sources.JOBS: the eduwiki, the course programmes; each with its own interval);
+  3. one step: the row that is due next, a page or a listing (sites.read_page, sites.read_listing), or the documents due (a batch
+     of rows: regulations.recheck); the thread of the OCR queue (ocr_worker.py) reads the scans beside it;
+  4. the requests whose rows are all read are finished, after the documents they changed are rebuilt;
+  5. every FLUSH seconds the groups of documents that changed are rebuilt (build.rebuild(groups)): a changed page reaches the
+     search in minutes, and only its site's documents are made again; every day the sweep (frontier.sweep) drops what no page
+     links any more, and every document is made again;
+  6. nothing due: without `--loop` the run ends; with it, it sleeps until the next row falls due (REQUEST_POLL at most).
+`--source NAME ...` runs those jobs now, once; `--site NAME ...` reads those sites' rows first and ends when they are read
+(like a request); `--build` rebuilds every document from the tables and ends.
+Runs one at a time (an advisory lock of Postgres). Its state (when each job was asked, the scans the admins were told of, when the
+sweep was) is in docs_meta, key 'runner'. Under `--loop` the OCR thread (ocr_worker.py) reads the scans queued, and the guide of the
+repo (sources/guide.py) is synced once at the start; one request at a time to a host across the threads (sources/hosts.py).
+OCR: the sources queue scans for the OCR thread and put aside those too long for it (sources/ocr_queue.py); when either grows,
+the admins are told in Telegram, of each scan once.
 """
 
 import json
@@ -25,31 +29,22 @@ import sys
 import time
 import traceback
 from argparse import Namespace
-from collections.abc import Callable
+from collections import Counter
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
+
+import httpx
 
 from catix import admins
 from catix.db import pg
-from catix.docs import build, parse_requests, sources, store
+from catix.docs import build, frontier, parse_requests, sources, store
+from catix.docs.sources import hosts, regulations, rpd, sites
 from catix.settings import settings
 
 LOCK_ID = 7_301_001  # pg_try_advisory_lock key of catix-docs run
-IDLE = timedelta(minutes=15)  # the longest sleep of --loop between two looks at the schedule
-REQUEST_POLL = 30  # seconds between two looks of the sleeping --loop at the queue of requests
+REQUEST_POLL = 30  # seconds between two looks of the sleeping --loop at the queue of requests and the due rows
+FLUSH = 120  # seconds between two rebuilds of the documents that changed
 SESSION_RETELL = timedelta(days=7)  # an ended login is told again this often while it lasts
-
-
-class Outcome(str):
-    """What a run did, in a line, and of which kind: `changed` (the documents moved), `unchanged` or `deferred` (a request
-    waits: the sources left go on after it); `failed`: the sources that raised (the others went on). The queue of requests keeps them (parse_requests.finish)."""
-
-    kind: str
-    failed: tuple[str, ...] = ()
-
-    def __new__(cls, kind: str, text: str) -> "Outcome":
-        line = super().__new__(cls, text)
-        line.kind = kind
-        return line
 
 
 def load_state() -> dict:
@@ -64,73 +59,8 @@ def save_state(state: dict) -> None:
                      (json.dumps(state, ensure_ascii=False),))
 
 
-def due(state: dict, now: datetime) -> list[sources.Source]:
-    """The sources whose interval has passed."""
-    asked = state.get("asked", {})
-    return [s for s in sources.SOURCES if s.name not in asked or now - datetime.fromisoformat(asked[s.name]) >= s.every]
-
-
-def run_once(names: list[str] | None = None, sites: list[str] | None = None, backlog: bool = False,
-             wait_for: Callable[[], bool] | None = None) -> Outcome:
-    """One run; what it did, in a line. `sites`: the `sites` source reads only these sites (sources.sites_of). `backlog`: the links
-    of known sites no run has read come first (sources.BACKLOG). `wait_for`: asked before each source but the first; when true the
-    sources left wait, for the request that arrived (they are still due next turn)."""
-    state, now = load_state(), datetime.now(timezone.utc)
-    asked = [s for s in [sources.BACKLOG, *sources.SOURCES] if s.name in names] if names else [*([sources.BACKLOG] if backlog else []), *due(state, now)]
-    if sites:
-        asked = [sources.sites_of(sites) if s.name == "sites" else s for s in asked]
-    changed: dict[str, int] = {}
-    failed: list[str] = []
-
-    def outcome(kind: str, text: str) -> Outcome:
-        line = Outcome(kind, text + (f" (failed: {', '.join(failed)}; see the log)" if failed else ""))
-        line.failed = tuple(failed)
-        return line
-
-    for i, source in enumerate(asked):
-        if i and wait_for and wait_for():
-            left = asked[i:]
-            print(f"  a request waits: {', '.join(s.name for s in left)} after it", flush=True)
-            if any(changed.values()):
-                state["rebuild"] = True  # (the run of the request rebuilds; the news of the sources read are not lost)
-                save_state(state)
-            return outcome("deferred", f"a request waits; {', '.join(s.name for s in left)} go on after it")
-        print(f"== source {source.name}: {source.about}", flush=True)
-        try:
-            changed[source.name] = source.update()
-        except Exception:  # noqa: BLE001 - one source failing must not stop the others; it is asked again next time
-            traceback.print_exc()
-            failed.append(source.name)
-            continue
-        if source in sources.SOURCES:  # (a few sites read do not move the schedule of all of them)
-            state.setdefault("asked", {})[source.name] = now.isoformat(timespec="seconds")
-            save_state(state)
-    try:
-        tell_ended_sessions(state)
-    except Exception:  # noqa: BLE001 - the report must not stop the run
-        traceback.print_exc()
-    try:
-        tell_ocr_queue(state)
-    except Exception:  # noqa: BLE001 - the queue's report must not stop the run
-        traceback.print_exc()
-    build_only = names == ["build-only"]
-    if not build_only and not any(changed.values()) and not state.get("rebuild"):
-        return outcome("unchanged", f"nothing new ({', '.join(s.name for s in asked) or 'no source due'})")
-    state["rebuild"] = True
-    save_state(state)
-    counts = build.rebuild()
-    state.pop("rebuild")
-    save_state(state)
-    new, changed_n, removed = (counts.get(k, 0) for k in ("pages new", "pages changed", "pages removed"))
-    if new + changed_n + removed:
-        return outcome("changed", f"documents: {new} new, {changed_n} changed, {removed} removed; {store.queued()} pieces wait for a vector")
-    return outcome("unchanged", "sources changed, the documents did not")
-
-
 def tell_ended_sessions(state: dict) -> None:
     """The admins told of the sites whose login ended (sites.ENDED), each again after SESSION_RETELL while it lasts."""
-    from catix.docs.sources import sites
-
     ended, sites.ENDED = dict(sites.ENDED), {}
     told, now = state.setdefault("session_told", {}), datetime.now(timezone.utc)
     for name in ended:
@@ -183,38 +113,6 @@ def tell_admins(text: str) -> None:
         traceback.print_exc()
 
 
-def with_requests(requests: list[parse_requests.Request]) -> tuple[list[str], list[str] | None]:
-    """The sources the requests name and the sites `sites` reads (the union; None when one request asks every site); a request
-    without parsing adds nothing."""
-    asked = list(dict.fromkeys(r.source for r in requests if r.parsing)) or ["build-only"]
-    if "sites" not in asked:
-        return asked, None
-    limits = [r.sites or None for r in requests if r.parsing and r.source == "sites"]
-    return asked, None if None in limits else list(dict.fromkeys(name for limit in limits for name in limit))
-
-
-def served(requests: list[parse_requests.Request], line: Outcome) -> None:
-    """The queue learns what the run did; a request whose source raised failed (the run's other sources may have gone on)."""
-    if not requests:
-        return
-    broken = [r for r in requests if r.parsing and any(name.split(" (")[0] == r.source for name in line.failed)]
-    parse_requests.finish([r for r in requests if r not in broken], line.kind, str(line))
-    parse_requests.finish(broken, "error", str(line), failed=True)
-
-
-def attempt(started: datetime, run: Callable[[], Outcome], requests: list[parse_requests.Request] = ()) -> Outcome | None:
-    """One run; the queue learns what it did for `requests`. None: it raised (the loop goes on, the next turn tries again)."""
-    try:
-        line = run()
-    except Exception as e:  # noqa: BLE001
-        traceback.print_exc()
-        parse_requests.finish(list(requests), "error", f"the run failed: {type(e).__name__}: {e}", failed=True)
-        return None
-    print(f"[{started:%Y-%m-%d %H:%M}] {line}", flush=True)
-    served(list(requests), line)
-    return line
-
-
 def pause(seconds: float) -> None:
     """The sleep of --loop, cut short by a request in the queue."""
     end = time.monotonic() + seconds
@@ -222,80 +120,304 @@ def pause(seconds: float) -> None:
         time.sleep(min(REQUEST_POLL, left))
 
 
-def serve_new_site(request: parse_requests.Request, started: datetime) -> None:
-    """A request for a new site: the site added to the catalog and read (sites.read_new_site), the documents rebuilt when it
-    gave pages; the request and the admins learn what was read and what went wrong. No page read: the request failed, the site
-    stays in the catalog for its handling to be set up."""
-    from catix.docs.sources import sites as site_source
-
-    try:
-        found = site_source.read_new_site(request.url, request.sites[0] if request.sites else None)
-    except Exception as e:  # noqa: BLE001 - the loop goes on; the request says why
-        traceback.print_exc()
-        text = f"{request.url}: {type(e).__name__}: {str(e)[:300]}"
-        parse_requests.finish([request], "error", text, failed=True)
-        tell_admins(f"Новый сайт не прочитан: {text}")
-        return
-    report = found.report()
-    print(f"[{started:%Y-%m-%d %H:%M}] {report}", flush=True)
-    if not found.pages:
-        parse_requests.finish([request], "error", report, failed=True)
-        tell_admins(f"Новый сайт {found.name} добавлен в каталог, но не прочитан: {report}")
-        return
-    line = attempt(started, lambda: run_once(["build-only"]))
-    parse_requests.finish([request], line.kind if line else "error", f"{report}; {line if line else 'the rebuild failed, see the log'}",
-                          failed=line is None)
-    tell_admins(f"Новый сайт {found.name}: {report}")
-
-
 def sync_guide() -> None:
     """At the start of the loop: the guide of the repo indexed (sources/guide.py); a failure is logged, the loop goes on."""
     try:
         counts = build.sync_guide()
-    except Exception:  # noqa: BLE001 - a broken guide must not stop the sources
+    except Exception:  # noqa: BLE001 - a broken guide must not stop the crawl
         traceback.print_exc()
         return
     print(f"== guide/: {counts}", flush=True)
 
 
-def main(args: Namespace) -> None:
-    names, sites = args.source, getattr(args, "site", None)
-    if sites and "sites" not in (names or []):
-        names = [*(names or []), "sites"]  # (--site is the source `sites`, limited to these sites)
+@dataclass
+class Serving:
+    """Requests whose rows the crawl reads first: they are finished when no row of `sites` is asked for any more."""
+
+    requests: list[parse_requests.Request]
+    sites: list[str]
+    new_site: str | None = None  # the name of the site a new-site request added
+    counts: Counter = field(default_factory=Counter)  # what the rebuilds since it began did to the documents
+    ended: set[str] = field(default_factory=set)  # of its sites, those whose login ended meanwhile
+
+
+def counts_line(counts: Counter) -> str:
+    return (f"documents: {counts['pages new']} new, {counts['pages changed']} changed, {counts['pages removed']} removed; "
+            f"{store.queued()} pieces wait for a vector")
+
+
+class Run:
+    """The state of one run of the loop: what changed and is not rebuilt yet, the requests being served."""
+
+    def __init__(self, loop: bool) -> None:
+        self.loop = loop
+        self.state = load_state()
+        self.dirty: set[str] = set()
+        self.servings: list[Serving] = []
+        self.flushed = time.monotonic()
+        self.profile: str | None = None  # the site behind a login the last row was of: its browser stays open for its next rows
+
+    # -- requests
+
+    def serving_ids(self) -> set[str]:
+        return {r.id for s in self.servings for r in s.requests}
+
+    def take_requests(self) -> None:
+        requests = parse_requests.take(self.serving_ids())
+        if not requests:
+            return
+        print(f"[{datetime.now(timezone.utc):%Y-%m-%d %H:%M}] requests: {', '.join(r.describe() for r in requests)}", flush=True)
+        plain = [r for r in requests if r.parsing and r.source == "sites"]
+        for request in requests:
+            if not request.parsing:  # (nothing is read: the documents are made again from what the tables hold)
+                self.finish_with_rebuild(request, None)
+            elif request.source == "eduwiki":
+                self.finish_with_rebuild(request, "eduwiki")
+            elif request.source == "new-site":
+                self.add_site(request)
+        if plain:
+            names = list(dict.fromkeys(n for r in plain for n in (r.sites or list(sites.SITES))))
+            sites.reload_catalog()
+            known = [n for n in names if n in sites.SITES]
+            if gone := [n for n in names if n not in sites.SITES]:
+                print(f"  not in the catalog of sites (passed by): {', '.join(gone)}", flush=True)
+            frontier.request(known)
+            self.servings.append(Serving(plain, known))
+
+    def finish_with_rebuild(self, request: parse_requests.Request, job: str | None) -> None:
+        """A request of the eduwiki (the job runs now) or without parsing (nothing is read): the documents are rebuilt, the request told."""
+        try:
+            if job:
+                next(j for j in sources.JOBS if j.name == job).run()
+            counts = Counter(build.rebuild({job}) if job else build.rebuild())
+        except Exception as e:  # noqa: BLE001 - the loop goes on; the request says why
+            traceback.print_exc()
+            parse_requests.finish([request], "error", f"the run failed: {type(e).__name__}: {e}", failed=True)
+            return
+        changed = counts["pages new"] + counts["pages changed"] + counts["pages removed"]
+        parse_requests.finish([request], "changed" if changed else "unchanged", counts_line(counts))
+
+    def add_site(self, request: parse_requests.Request) -> None:
+        """A request for a new site: the site is added to the catalog and its rows are read first. A name the catalog refuses fails the
+        request, and the admins are told."""
+        try:
+            name = sites.add_site(request.url, request.sites[0] if request.sites else None)
+        except Exception as e:  # noqa: BLE001 - the loop goes on; the request says why
+            traceback.print_exc()
+            text = f"{request.url}: {type(e).__name__}: {str(e)[:300]}"
+            parse_requests.finish([request], "error", text, failed=True)
+            tell_admins(f"Новый сайт не прочитан: {text}")
+            return
+        frontier.seed()
+        frontier.request([name])
+        self.servings.append(Serving([request], [name], new_site=name))
+
+    def finish_servings(self) -> None:
+        done = [s for s in self.servings if not frontier.requested(s.sites)]
+        if not done:
+            return
+        self.flush(force=True)
+        for serving in done:
+            self.servings.remove(serving)
+            changed = serving.counts["pages new"] + serving.counts["pages changed"] + serving.counts["pages removed"]
+            kind = "error" if serving.ended else "changed" if changed else "unchanged"
+            line = counts_line(serving.counts) + (f" (the login ended: {', '.join(sorted(serving.ended))})" if serving.ended else "")
+            if serving.new_site:
+                self.finish_new_site(serving, kind, line)
+            else:
+                parse_requests.finish(serving.requests, kind, line, failed=kind == "error")
+            print(f"[{datetime.now(timezone.utc):%Y-%m-%d %H:%M}] {line}", flush=True)
+
+    def finish_new_site(self, serving: Serving, kind: str, line: str) -> None:
+        report = sites.new_site_report(serving.new_site or "")
+        print(report.report(), flush=True)
+        if not report.pages:
+            parse_requests.finish(serving.requests, "error", report.report(), failed=True)
+            tell_admins(f"Новый сайт {report.name} добавлен в каталог, но не прочитан: {report.report()}")
+            return
+        parse_requests.finish(serving.requests, kind, f"{report.report()}; {line}", failed=kind == "error")
+        tell_admins(f"Новый сайт {report.name}: {report.report()}")
+
+    # -- jobs
+
+    def run_jobs(self, only: list[str] | None = None) -> None:
+        """The jobs that are due (`only`: those named, now)."""
+        now = datetime.now(timezone.utc)
+        asked = self.state.setdefault("asked", {})
+        for job in sources.JOBS:
+            if only is not None:
+                if job.name not in only:
+                    continue
+            elif job.name in asked and now - datetime.fromisoformat(asked[job.name]) < job.every:
+                continue
+            print(f"== job {job.name}", flush=True)
+            try:
+                changed = job.run()
+            except Exception:  # noqa: BLE001 - one job failing must not stop the others; it is asked again next time
+                traceback.print_exc()
+                continue
+            asked[job.name] = now.isoformat(timespec="seconds")
+            save_state(self.state)
+            if changed:
+                self.dirty.add(job.group)
+
+    # -- the crawl
+
+    def step(self, client: httpx.Client) -> bool:
+        """Read the row that is due next; whether there was one. The documents are not read while another thread (the OCR) reads."""
+        free = regulations.READ_LOCK.acquire(blocking=False)
+        try:
+            if (row := frontier.next_due(documents=free)) is None:
+                return False
+            if self.profile and self.profile != row.site:
+                sites.close_live()  # (a browser kept open for one site's pages one after another)
+            self.profile = row.site if sites.SITES.get(row.site) and sites.SITES[row.site].profile else None
+            rows = [row]
+            try:
+                if row.kind == "page":
+                    if sites.read_page(client, row):
+                        self.dirty.add(f"sites/{row.site}")
+                elif row.kind == "listing":
+                    sites.read_listing(client, row)
+                else:
+                    rows = [row, *frontier.due_documents(frontier.DOC_BATCH - 1, row.priority, row.address)]
+                    self.read_documents(rows)
+            except sites.SessionEnded as e:
+                sites.ENDED[row.site] = str(e)
+                print(f"  {row.site}: {e}; its rows wait, the other sites go on", flush=True)
+                frontier.postpone(row.site, frontier.SOON)
+            except Exception as e:  # noqa: BLE001 - one address failing (its browser, its server) leaves the others to read
+                traceback.print_exc()
+                for r in rows:
+                    if r.state == "new":
+                        frontier.save(r, state="tried", why=f"{type(e).__name__}: {e}"[:200], next_at=frontier.later(frontier.RETRY))
+                    else:
+                        frontier.save(r, next_at=frontier.later(frontier.SOON))
+            return True
+        finally:
+            if free:
+                regulations.READ_LOCK.release()
+
+    def read_documents(self, rows: list[frontier.Row]) -> None:
+        """A batch of document rows due: the course archives are the course programmes' (the job `rpd` reads them), the rest is read
+        again (regulations.recheck)."""
+        courses = {sites.address(a["url"]) for a in rpd.archives()}
+        for row in rows:
+            if row.address in courses:
+                frontier.save(row, state="ok", why=None, next_at=frontier.later(frontier.DOCUMENT_EVERY))
+        rest = [row for row in rows if row.address not in courses]
+        if not rest:
+            return
+        done = regulations.recheck([row.doc_key for row in rest if row.doc_key])
+        for row in frontier.still_due(rest):  # (a document the bundle does not have, any more: asked again after SOON)
+            frontier.save(row, next_at=frontier.later(frontier.SOON))
+        if done:
+            self.dirty.add("regulations")
+
+    # -- the documents
+
+    def flush(self, force: bool = False) -> None:
+        """The documents of the groups that changed made again; the admins told what they should be."""
+        if not self.dirty or not (force or time.monotonic() - self.flushed >= FLUSH):
+            return
+        groups, self.dirty = self.dirty, set()
+        try:
+            counts = build.rebuild(groups)
+        except Exception:  # noqa: BLE001 - the loop goes on; the groups are made again at the next flush
+            traceback.print_exc()
+            self.dirty |= groups
+            return
+        self.flushed = time.monotonic()
+        for serving in self.servings:
+            serving.counts.update(counts)
+        print(f"[{datetime.now(timezone.utc):%Y-%m-%d %H:%M}] flush: documents: {counts.get('pages new', 0)} new, {counts.get('pages changed', 0)} changed, "
+              f"{counts.get('pages removed', 0)} removed", flush=True)
+        self.tell()
+
+    def tell(self) -> None:
+        """What the admins should know: the logins that ended, the scans that wait."""
+        for serving in self.servings:
+            serving.ended |= {name for name in sites.ENDED if name in serving.sites}
+        for report in (tell_ended_sessions, tell_ocr_queue):
+            try:
+                report(self.state)
+            except Exception:  # noqa: BLE001 - the report must not stop the run
+                traceback.print_exc()
+
+    def sweep(self) -> None:
+        """Once a day: what no page links any more is dropped (frontier.sweep), and every document made again."""
+        now = datetime.now(timezone.utc)
+        swept = self.state.get("swept_at")
+        if swept is None:  # (the first run: the clock starts, nothing is dropped before a day of reading)
+            self.state["swept_at"] = now.isoformat(timespec="seconds")
+            save_state(self.state)
+            return
+        if now - datetime.fromisoformat(swept) < frontier.SWEEP_EVERY:
+            return
+        print(f"== sweep: {frontier.sweep()}", flush=True)
+        self.state["swept_at"] = now.isoformat(timespec="seconds")
+        save_state(self.state)
+        build.rebuild()
+        self.flushed = time.monotonic()
+
+
+def run(args: Namespace) -> None:
+    """The run without its lock: the tables of the old store imported once, the rows of the catalog seeded, then the loop."""
+    frontier.ensure_imported()
+    frontier.seed()
     if args.build:
-        names = names or ["build-only"]  # no source is asked (a name that is none): the documents are rebuilt from the data
+        print(build.rebuild())
+        return
+    crawl = Run(args.loop)
+    if args.loop:
+        from catix.docs import ocr_worker
+
+        sync_guide()
+        ocr_worker.start()  # (the OCR queue is read as scans arrive, beside the crawl)
+        build.rebuild()
+    if args.source:
+        if unknown := [n for n in args.source if n not in {j.name for j in sources.JOBS}]:
+            print(f"no job {', '.join(unknown)}: the jobs are {', '.join(j.name for j in sources.JOBS)}", flush=True)
+        crawl.run_jobs(args.source)
+    if args.site:
+        sites.reload_catalog()
+        known = [n for n in args.site if n in sites.SITES]
+        if gone := [n for n in args.site if n not in sites.SITES]:
+            print(f"no site {', '.join(gone)}: the sites are {', '.join(sites.SITES)}", flush=True)
+        frontier.request(known)
+        crawl.servings.append(Serving([], known))
+    once = bool(args.source or args.site)
+    if args.source and not args.site and not args.loop:  # (the jobs named, now, once)
+        crawl.flush(force=True)
+        return
+    with sites.client() as client:
+        try:
+            while True:
+                crawl.take_requests()
+                if args.loop or not once:
+                    crawl.run_jobs()
+                stepped = crawl.step(client)
+                crawl.finish_servings()
+                crawl.flush()
+                crawl.sweep()
+                if once and not crawl.servings and not args.loop:
+                    crawl.flush(force=True)
+                    return
+                if not stepped:
+                    if not args.loop:
+                        crawl.flush(force=True)
+                        crawl.tell()
+                        return
+                    wake = frontier.next_wake()
+                    pause(REQUEST_POLL if wake is None else max(1.0, min(REQUEST_POLL, (wake - datetime.now(timezone.utc)).total_seconds())))
+        finally:
+            sites.close_live()
+
+
+def main(args: Namespace) -> None:
     lock = pg.connect()
     lock.autocommit = True
     if not lock.execute("SELECT pg_try_advisory_lock(%s) AS got", (LOCK_ID,)).fetchone()["got"]:
         sys.exit("another run of catix-docs is going on")
-    if args.loop:
-        from catix.docs import document_worker, flusher, ocr_worker
-        from catix.docs.sources import hosts
-
-        hosts.share()  # (the threads read the same hosts: one request at a time to each)
-        sync_guide()
-        document_worker.start()  # (the documents read beside the crawl)
-        ocr_worker.start()  # (the OCR queue is read as scans arrive, beside the sources)
-        flusher.start()  # (what the threads read reaches the search every flusher.EVERY seconds, not at the end of the turn)
-    while True:
-        started = datetime.now(timezone.utc)
-        if requests := parse_requests.take():
-            print(f"[{started:%Y-%m-%d %H:%M}] requests: {', '.join(r.describe() for r in requests)}", flush=True)
-            if plain := [r for r in requests if r.source != "new-site"]:
-                asked, limited = with_requests(plain)
-                attempt(started, lambda: run_once(asked, sites=limited), plain)
-            for request in requests:
-                if request.source == "new-site":
-                    serve_new_site(request, started)
-        if names:  # (--source, --site, --build: asked now, once; the loop then follows the backlog and the schedule)
-            attempt(started, lambda: run_once(names, sites=sites))
-            names, sites = None, None
-        else:
-            line = attempt(started, lambda: run_once(backlog=True, wait_for=parse_requests.waiting if args.loop else None))
-            if line is not None and line.kind == "deferred":
-                continue  # (the request is served first on the next turn, then the sources left)
-        if not args.loop:
-            return
-        state = load_state()
-        waits = [datetime.fromisoformat(state["asked"][s.name]) + s.every - datetime.now(timezone.utc) for s in sources.SOURCES if s.name in state.get("asked", {})]
-        pause(max(60.0, min([IDLE, *waits]).total_seconds()))
+    hosts.share()  # (the crawl and the OCR thread read the same hosts: one request at a time to each, and the pauses of the sites)
+    run(args)

@@ -1,5 +1,5 @@
 """Requests to update a source of the documents (POST /{section}/parse): the API queues them in Redis, `catix-docs run`
-takes them and asks the named sources (runner.py). A request names a source of SOURCES; `new-site` carries `url` (the base
+takes them and serves them (runner.py). A request names a source of SOURCES; `new-site` carries `url` (the base
 of a site the run adds to the catalog and reads), and its `sites` is the name the site gets. The API never reads sources itself: the run does, and writes only to Postgres.
 
     ctx:docs:parse:<id>               a request (hash): its source, sites, status, and what the run that served it did
@@ -26,7 +26,7 @@ RUNNING = f"{PREFIX}:running"
 NEXT = f"{PREFIX}:next"
 KEEP = 30 * 24 * 3600  # seconds a finished request keeps its status
 ATTEMPTS = 3  # runs that may die while serving a request before it fails (a request that brings the run down is not taken for ever)
-SOURCES = ("eduwiki", "sites", "new-site")  # the sources a request may name (sources/__init__.py; new-site: runner.serve_new_site)
+SOURCES = ("eduwiki", "sites", "new-site")  # the sources a request may name (eduwiki: sources/__init__.py JOBS; sites, new-site: the runner)
 
 
 class Unavailable(RuntimeError):
@@ -124,8 +124,9 @@ def _get(r: redis.Redis, request_id: str) -> Request | None:
     return Request.of(fields) if fields else None
 
 
-def take() -> list[Request]:
-    """The docs run (under its lock) takes every waiting request, and those a run that died left. Without a queue: none."""
+def take(serving: frozenset[str] | set[str] = frozenset()) -> list[Request]:
+    """The docs run (under its lock) takes every waiting request, and those a run that died left. Without a queue: none. `serving`:
+    the ids this run is serving still (a request takes many turns of the loop): not taken again."""
     try:
         r = connect()
     except Unavailable:
@@ -135,6 +136,8 @@ def take() -> list[Request]:
             pass
         taken, broken = [], []
         for request_id in r.lrange(RUNNING, 0, -1):
+            if request_id in serving:
+                continue
             if (request := _get(r, request_id)) is None:  # (expired while it waited: nothing to tell anyone)
                 r.lrem(RUNNING, 0, request_id)
                 continue

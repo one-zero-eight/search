@@ -8,29 +8,38 @@ import tempfile
 import httpx
 import pytest
 
-from catix.docs import files, runner
-from catix.docs.sources import lighton, tesseract, ocr_queue, opendataloader, regulations, sites
+from catix.docs import notes, runner
+from catix.docs.sources import lighton, tesseract, ocr_queue, opendataloader, regulations
+from tests.helpers import link_document
 
 LONG = regulations.MAX_OCR_PAGES + 1
 
 
-def test_the_queue_counts_the_scans_a_run_with_ocr_reads_and_not_those_too_long(monkeypatch):
+def test_the_queue_counts_the_scans_a_run_with_ocr_reads_and_not_those_too_long(monkeypatch, docs_db):
     for key, note in {"short": {"ocr": "queued", "pages": 3}, "long": {"ocr": "queued", "pages": LONG},
                       "aside": {"ocr": "too long", "pages": LONG}, "covered": {"ocr": "too long", "pages": 5},  # (the limit was raised)
                       "read": {"method": "text layer"}}.items():
-        files.write_json(f"r/{key}.json", note)
-    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"root": "r"} for key in ("short", "long", "aside", "covered", "read", "new")})
+        notes.put_note(key, "", note)
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {} for key in ("short", "long", "aside", "covered", "read", "new")})
     assert regulations.queued() == {"short": 3, "covered": 5}
     assert {key: regulations.ocr_state(note) for key, _, note in regulations.scan_notes()} == {
         "short": "queued", "long": "too long", "aside": "too long", "covered": "queued"}
 
 
+def test_the_queue_is_of_the_revision_of_the_document_now(monkeypatch, docs_db):
+    """A member of an archive is read again under a new revision: the scan of the old revision is no longer waiting."""
+    notes.put_note("member", "old", {"ocr": "queued", "pages": 3})
+    notes.put_note("member", "new", {"ocr": "queued", "pages": 4})
+    monkeypatch.setattr(regulations, "all_docs", lambda: {"member": {"revision": "new"}, "gone": {}})
+    notes.put_note("gone", "", {"ocr": "queued", "pages": 1})
+    notes.put_note("other", "", {"ocr": "queued", "pages": 2})  # (not a document any more)
+    assert regulations.queued() == {"member": 4, "gone": 1}
+
+
 def _one_scan(monkeypatch, tmp_path, pages):
     """One document on a site, a scan of `pages`; what the run asked: [downloads], [text layers], [scans read by OCR]."""
     url, key = "https://hotel.innopolis.university/upload/report.pdf", "site-hotel-1-report"
-    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Отчёт", "url": url, "root": "r", "section": "site/hotel", "ext": "pdf"}})
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)
-    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Отчёт", "url": url, "section": "site/hotel", "ext": "pdf"}})
     monkeypatch.setattr(regulations, "PAUSE", 0)
     asked, layers, read = [], [], []
     monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: asked.append(u) or httpx.Response(200, content=b"%PDF-1.4 a scan", request=httpx.Request("GET", u)))
@@ -42,9 +51,9 @@ def _one_scan(monkeypatch, tmp_path, pages):
 
 
 @pytest.mark.parametrize("ocr", [False, True])
-def test_a_scan_too_long_for_ocr_is_put_aside_not_queued_and_no_run_reads_it(monkeypatch, tmp_path, ocr):
+def test_a_scan_too_long_for_ocr_is_put_aside_not_queued_and_no_run_reads_it(monkeypatch, tmp_path, docs_db, ocr):
     key, asked, layers, read = _one_scan(monkeypatch, tmp_path, LONG)
-    note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
+    note = lambda: notes.note(key)  # noqa: E731
 
     assert regulations.read_new(ocr=ocr) == []
     assert note()["ocr"] == "too long" and note()["pages"] == LONG and note()["queued_at"] and not read
@@ -57,19 +66,18 @@ def test_a_scan_too_long_for_ocr_is_put_aside_not_queued_and_no_run_reads_it(mon
     assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and len(layers) == 1 and len(asked) == 2 and "ocr" not in note()
 
 
-def test_a_long_scan_queued_before_the_long_ones_were_put_aside_is_marked_so(monkeypatch, tmp_path):
+def test_a_long_scan_queued_before_the_long_ones_were_put_aside_is_marked_so(monkeypatch, tmp_path, docs_db):
     key, asked, layers, read = _one_scan(monkeypatch, tmp_path, LONG)
-    files.write_json(f"r/{key}.json", {"title": "Отчёт", "ocr": "queued", "pages": LONG, "queued_at": "2026-11-01T10:00:00+00:00"})
+    notes.put_note(key, "", {"title": "Отчёт", "ocr": "queued", "pages": LONG, "queued_at": "2026-11-01T10:00:00+00:00"})
     assert regulations.read_new() == [] and not asked and not layers and not read
-    assert files.read_json(f"r/{key}.json") == {
-        "title": "Отчёт", "ocr": "too long", "pages": LONG, "queued_at": "2026-11-01T10:00:00+00:00"}
+    assert notes.note(key) == {"title": "Отчёт", "ocr": "too long", "pages": LONG, "queued_at": "2026-11-01T10:00:00+00:00"}
 
 
-def test_a_long_scan_changed_on_the_site_is_downloaded_and_looked_at_again(monkeypatch, tmp_path):
+def test_a_long_scan_changed_on_the_site_is_downloaded_and_looked_at_again(monkeypatch, tmp_path, docs_db):
     key, asked, layers, _ = _one_scan(monkeypatch, tmp_path, 3)  # (the new version: 3 pages)
-    files.write_json(f"r/{key}.json", {"ocr": "too long", "pages": LONG, "sha256": "old", "refetch": True})
+    notes.put_note(key, "", {"ocr": "too long", "pages": LONG, "sha256": "old", "refetch": True})
     assert regulations.read_new(ocr=False) == [] and len(asked) == 1 and len(layers) == 1
-    note = files.read_json(f"r/{key}.json")
+    note = notes.note(key)
     assert note["ocr"] == "queued" and note["pages"] == 3 and "refetch" not in note
 
 
@@ -77,11 +85,11 @@ def _scan(key, pages, too_long=False, source="regs", title=None):
     return ocr_queue.Scan(source, key, title or f"Документ {key}", f"https://example.org/{key}.pdf", pages, too_long, "2026-11-04T01:00:00+00:00")
 
 
-def test_the_queue_shows_the_scans_waiting_and_apart_the_long_ones(monkeypatch, capsys):
+def test_the_queue_shows_the_scans_waiting_and_apart_the_long_ones(monkeypatch, capsys, docs_db):
     for key, note in {"short": {"ocr": "queued", "pages": 3, "ocr_failed": 2, "queued_at": "2026-11-01T10:00:00+00:00"},
                       "long": {"ocr": "too long", "pages": LONG}}.items():
-        files.write_json(f"r/{key}.json", note)
-    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"root": "r", "title": f"Положение {key}", "url": f"https://u.example/{key}.pdf"}
+        notes.put_note(key, "", note)
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": f"Положение {key}", "url": f"https://u.example/{key}.pdf"}
                                                           for key in ("short", "long")})
     found = ocr_queue.scans()
     assert [(s.source, s.key, s.pages, s.too_long) for s in found] == [("regs", "short", 3, False), ("regs", "long", LONG, True)]
@@ -131,13 +139,11 @@ def test_the_admins_are_told_of_each_new_scan_once(monkeypatch):
     assert len(told) == 4 and told[3].startswith("📕") and "Документ b" in told[3]
 
 
-def test_a_scan_lighton_fails_on_stays_queued_and_tesseract_is_not_asked_while_its_server_answers(monkeypatch, tmp_path):
+def test_a_scan_lighton_fails_on_stays_queued_and_tesseract_is_not_asked_while_its_server_answers(monkeypatch, tmp_path, docs_db):
     key = "site-hotel-1-rules"
-    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": "https://hotel.innopolis.university/r.pdf", "root": "r",
+    monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": "https://hotel.innopolis.university/r.pdf",
                                                                "section": "site/hotel", "ext": "pdf"}})
-    files.write_json(f"r/{key}.json", {"ocr": "queued", "pages": 3, "queued_at": "2026-11-01T10:00:00+00:00"})
-    monkeypatch.setattr(sites, "collect_linked_docs", lambda: 0)
-    monkeypatch.setattr(regulations, "discover_linked_documents", dict)
+    notes.put_note(key, "", {"ocr": "queued", "pages": 3, "queued_at": "2026-11-01T10:00:00+00:00"})
     monkeypatch.setattr(regulations, "PAUSE", 0)
     monkeypatch.setattr(regulations.httpx, "get", lambda u, **k: httpx.Response(200, content=b"%PDF-1.4 a scan", request=httpx.Request("GET", u)))
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
@@ -149,7 +155,7 @@ def test_a_scan_lighton_fails_on_stays_queued_and_tesseract_is_not_asked_while_i
     monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: pytest.fail("tesseract was asked while the server answers"))
     monkeypatch.setattr(regulations, "pdf_created", lambda pdf: None)  # (pdfinfo is not an OCR engine, but the guard below stops every subprocess)
     monkeypatch.setattr(regulations.subprocess, "run", lambda *a, **k: pytest.fail("another OCR engine was started"))
-    note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
+    note = lambda: notes.note(key)  # noqa: E731
 
     assert regulations.read_new() == []
     assert note()["ocr"] == "queued" and note()["ocr_failed"] == 1 and note()["queued_at"] == "2026-11-01T10:00:00+00:00"
@@ -159,7 +165,7 @@ def test_a_scan_lighton_fails_on_stays_queued_and_tesseract_is_not_asked_while_i
     for failed in range(2, 6):
         assert regulations.read_new() == []
         assert note()["ocr"] == "queued" and note()["ocr_failed"] == failed
-        assert not files.exists(f"r/{key}.txt")
+        assert not notes.has_text(key)
     monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf, **kw: "1. Общие положения " * 50)
     assert regulations.read_new() == [key]
     assert "ocr" not in note() and note()["method"] == lighton.METHOD
@@ -193,24 +199,29 @@ def test_a_scan_lighton_drops_mid_read_is_read_by_tesseract(monkeypatch, tmp_pat
     assert regulations.ocr_text(tmp_path / "scan.pdf")[1] == tesseract.METHOD
 
 
-def test_the_scan_is_not_kept_after_a_run_and_a_run_without_ocr_does_not_download_it(monkeypatch, tmp_path):
+def test_the_scan_is_not_kept_after_a_run_and_a_run_without_ocr_does_not_download_it(monkeypatch, tmp_path, docs_db):
     key, asked, layers, read = _one_scan(monkeypatch, tmp_path, 3)
     monkeypatch.setattr(tempfile, "tempdir", str(tmp_path))
     assert regulations.read_new(ocr=False) == [] and len(asked) == 1
     assert regulations.read_new(ocr=False) == [] and len(asked) == 1  # (waits for a run with OCR: not downloaded)
-    assert files.read_json(f"r/{key}.json")["ocr"] == "queued" and not files.exists(f"r/{key}.txt")
+    assert notes.note(key)["ocr"] == "queued" and not notes.has_text(key)
     assert not list(tmp_path.iterdir())  # (the original lived in the temporary folder of the run)
     assert regulations.read_new() == [key] and len(asked) == 2 and read == [f"{key}.pdf"]  # (a run with OCR downloads it again)
-    assert files.read_text(f"r/{key}.txt") and not list(tmp_path.iterdir())
+    assert notes.text(key) and not list(tmp_path.iterdir())
 
 
-def test_a_document_forced_by_a_person_is_queued_for_the_loop_and_read_with_no_limit(monkeypatch, tmp_path):
+def test_a_document_forced_by_a_person_is_queued_for_the_loop_and_read_with_no_limit(monkeypatch, tmp_path, docs_db):
     key, asked, layers, read = _one_scan(monkeypatch, tmp_path, LONG)
-    note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
+    url = "https://hotel.innopolis.university/upload/report.pdf"
+    note = lambda: notes.note(key)  # noqa: E731
+    link_document("hotel", url, "Отчёт", key=key)
+    docs_db.execute("UPDATE crawl_urls SET next_at = now() + interval '3 days', priority = 2 WHERE doc_key = %s", (key,))  # (read lately: it waits)
     assert regulations.read_new() == [] and note()["ocr"] == "too long"  # (put aside: no run reads it)
 
-    regulations.force(key)  # (queue only: this process reads nothing)
+    regulations.force(key)  # (queue only: this process reads nothing; the crawl's row of the document is asked for at once)
     assert len(asked) == 1 and regulations.queued() == {key: LONG}
+    row = docs_db.execute("SELECT priority, next_at <= now() AS due FROM crawl_urls WHERE doc_key = %s", (key,)).fetchone()
+    assert row["priority"] == 0 and row["due"]
     monkeypatch.setattr(regulations, "OCR_BUDGET", 1)  # (the OCR thread's run: neither the budget nor the page limit holds for it)
     assert regulations.read_new() == [key] and read == [f"{key}.pdf"] and len(asked) == 2
     assert "force" not in note() and "ocr" not in note()  # (read: it is an ordinary document again)

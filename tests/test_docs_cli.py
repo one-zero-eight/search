@@ -2,7 +2,6 @@
 
 import importlib
 import sys
-from pathlib import Path
 
 import pytest
 
@@ -12,19 +11,23 @@ from catix.settings import settings
 
 @pytest.fixture(autouse=True)
 def database(monkeypatch):
+    from catix.docs import frontier
+
     monkeypatch.setattr(settings, "database_url", "configured-for-test")
     monkeypatch.setattr(sys, "argv", ["unrelated", "arguments"])
+    monkeypatch.setattr(frontier, "ensure_imported", lambda: None)  # (the old store is imported before the commands that read: no database here)
+    monkeypatch.setattr(frontier, "status", lambda: None)
 
 
 def test_nested_help_does_not_read_sources(monkeypatch, capsys):
     from catix.docs.sources import sites
 
-    monkeypatch.setattr(sites, "fetch", lambda *a, **kw: pytest.fail("help must not read sites"))
+    monkeypatch.setattr(sites, "main", lambda *a, **kw: pytest.fail("help must not read sites"))
     with pytest.raises(SystemExit) as result:
-        cli.main(["sites", "fetch", "--help"])
+        cli.main(["sites", "unvisited", "--help"])
     assert result.value.code == 0
     output = capsys.readouterr().out
-    assert "--only-new" in output and "SITE" in output
+    assert "--summary" in output and "SITE" in output
 
 
 def test_typed_options_are_passed_to_the_source(monkeypatch):
@@ -36,13 +39,15 @@ def test_typed_options_are_passed_to_the_source(monkeypatch):
     assert calls == [{"all_years": True, "limit": 3}]
 
 
-def test_sites_fetch_only_new_is_typed(monkeypatch):
-    from catix.docs.sources import sites
+def test_the_old_store_is_imported_before_a_command_that_reads_the_sources(monkeypatch):
+    from catix.docs import frontier
+    from catix.docs.sources import rpd
 
     calls = []
-    monkeypatch.setattr(sites, "fetch", lambda names, only_new=False, documents=False: calls.append((names, only_new, documents)) or 0)
-    cli.main(["sites", "fetch", "apply", "--only-new"])
-    assert calls == [(["apply"], True, False)]  # (only the new linked pages: not the documents' waves)
+    monkeypatch.setattr(frontier, "ensure_imported", lambda: calls.append("import"))
+    monkeypatch.setattr(rpd, "status", lambda: calls.append("status"))
+    cli.main(["rpd"])
+    assert calls == ["import", "status"]
 
 
 def test_without_a_database_nothing_runs(monkeypatch):
@@ -61,6 +66,7 @@ def test_without_a_database_nothing_runs(monkeypatch):
     ["sveden"], ["agent"], ["layout"], ["compile"], ["link"], ["graph"], ["lint"], ["index"],
     ["autopilot"], ["autopilot", "accept"], ["fetch"], ["build", "--offline"],
     ["run", "--source"], ["run", "--no-push"], ["run", "--only-new"], ["import-wiki"],
+    ["regs", "refresh"], ["sites", "fetch"], ["sites", "new"], ["sites", "docs"],
 ])
 def test_invalid_arguments_exit_two_before_work(words, capsys):
     with pytest.raises(SystemExit) as result:
@@ -81,8 +87,8 @@ def test_defaults(words, command, action):
 
 
 def test_run_options_are_collected():
-    parsed = cli.parse_args(["run", "--source", "sites", "files", "--source", "eduwiki", "--site", "hotel", "--site", "campuslife", "--loop", "--build"])
-    assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (["sites", "files", "eduwiki"], ["hotel", "campuslife"], True, True)
+    parsed = cli.parse_args(["run", "--source", "rpd", "rpd-refresh", "--source", "eduwiki", "--site", "hotel", "--site", "campuslife", "--loop", "--build"])
+    assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (["rpd", "rpd-refresh", "eduwiki"], ["hotel", "campuslife"], True, True)
     parsed = cli.parse_args(["run"])
     assert (parsed.source, parsed.site, parsed.loop, parsed.build) == (None, None, False, False)
 
@@ -94,35 +100,29 @@ def test_run_options_are_collected():
     (["eduwiki", "fetch"], "sources.eduwiki", "fetch", ([0],), {}),
     (["eduwiki", "fetch", "0", "14"], "sources.eduwiki", "fetch", ([0, 14],), {}),
     (["regs", "fetch", "3"], "sources.regulations", "fetch", (3,), {"ocr": True}),
-    (["regs", "refresh"], "sources.regulations", "refresh", (), {}),
     (["rpd"], "sources.rpd", "status", (), {}),
     (["rpd", "refresh"], "sources.rpd", "refresh", (), {}),
-    (["sites"], "sources.sites", "status", (), {}),
-    (["sites", "fetch", "apply", "hotel"], "sources.sites", "fetch", (["apply", "hotel"],), {"only_new": False, "documents": True}),
-    (["sites", "fetch", "--only-new"], "sources.sites", "fetch", ([],), {"only_new": True, "documents": False}),
-    (["sites", "new", "apply"], "sources.sites", "fetch_new", (["apply"],), {"documents": True}),
-    (["sites", "docs"], "sources.sites", "collect_linked_docs", (), {}),
-    (["import-wiki", "/data/wiki"], "import_wiki", "main", (Path("/data/wiki"),), {}),
+    (["sites", "status"], "sources.sites", "main", None, None),
 ])
 def test_commands_dispatch_typed_arguments(words, module, function, positional, keywords, monkeypatch):
     target = importlib.import_module("catix.docs." + module)
     calls = []
     monkeypatch.setattr(target, function, lambda *args, **kwargs: calls.append((args, kwargs)) or 0)
     cli.main(words)
-    assert calls == [(positional, keywords)]
+    if positional is None:  # (the sites' commands go through main(args))
+        assert len(calls) == 1
+    else:
+        assert calls == [(positional, keywords)]
 
 
-def test_regs_fetch_reads_the_documents_then_the_trusted_pages_no_run_has_read(monkeypatch):
-    from catix.docs.sources import regulations, sites
+def test_regs_fetch_reads_the_documents_only(monkeypatch):
+    from catix.docs.sources import regulations
 
     calls = []
-    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: calls.append(("documents", args, kwargs)) or 2)
-    monkeypatch.setattr(sites, "fetch", lambda *args, **kwargs: calls.append(("pages", args, kwargs)) or 3)
+    monkeypatch.setattr(regulations, "fetch", lambda *args, **kwargs: calls.append((args, kwargs)) or 2)
     cli.main(["regs", "fetch", "--no-ocr"])
-    assert calls == [("documents", (None,), {"ocr": False}), ("pages", (), {"only_new": True, "documents": True, "ocr": False})]
-    calls.clear()
     cli.main(["regs", "fetch", "3"])
-    assert calls == [("documents", (3,), {"ocr": True})]  # (N: a quick run of documents only, no pages)
+    assert calls == [((None,), {"ocr": False}), ((3,), {"ocr": True})]  # (the crawl follows the links to the pages: no pass over sites here)
 
 
 def test_run_hands_its_arguments_to_the_runner(monkeypatch):
@@ -130,9 +130,9 @@ def test_run_hands_its_arguments_to_the_runner(monkeypatch):
 
     calls = []
     monkeypatch.setattr(runner, "main", calls.append)
-    cli.main(["run", "--source", "sites", "files", "--site", "hotel", "--loop"])
+    cli.main(["run", "--source", "rpd", "rpd-refresh", "--site", "hotel", "--loop"])
     (args,) = calls
-    assert (args.source, args.site, args.loop, args.build) == (["sites", "files"], ["hotel"], True, False)
+    assert (args.source, args.site, args.loop, args.build) == (["rpd", "rpd-refresh"], ["hotel"], True, False)
 
 
 @pytest.mark.parametrize("embed", [False, True])
@@ -140,15 +140,15 @@ def test_build_rebuilds_and_optionally_embeds(embed, monkeypatch):
     from catix.docs import build, store
 
     calls = []
-    monkeypatch.setattr(build, "rebuild", lambda: calls.append("build") or {})
+    monkeypatch.setattr(build, "rebuild", lambda groups=None: calls.append("build") or {})
     monkeypatch.setattr(store, "embed_all", lambda: calls.append("embed") or 0)
     cli.main(["build", *(["--embed"] if embed else [])])
     assert calls == (["build", "embed"] if embed else ["build"])
 
 
 @pytest.mark.parametrize("command", [
-    [], ["run"], ["build"], ["import-wiki"], ["eduwiki"], ["eduwiki", "fetch"], ["regs"], ["regs", "fetch"],
-    ["rpd"], ["sites"], ["sites", "fetch"], ["sites", "new"],
+    [], ["run"], ["build"], ["eduwiki"], ["eduwiki", "fetch"], ["regs"], ["regs", "fetch"],
+    ["rpd"], ["sites"], ["sites", "unvisited"], ["sites", "request"],
 ])
 def test_help_is_available_at_each_level(command, capsys):
     with pytest.raises(SystemExit) as result:

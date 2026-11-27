@@ -7,8 +7,8 @@ from fastapi.testclient import TestClient
 
 from catix.api.app import app
 from catix.innohassle import token
-from catix.docs import build, parse_requests, runner, sources
-from catix.docs.sources import eduwiki, sites
+from catix.docs import build, frontier, parse_requests, runner, sources
+from catix.docs.sources import eduwiki, regulations, sites
 
 AUTH = {"Authorization": "Bearer good"}
 
@@ -21,7 +21,7 @@ def client(monkeypatch):
     def never(*args, **kwargs):
         pytest.fail("the API read a source or built documents")
 
-    for module, name in ((sites, "fetch"), (sites, "compile_all"), (eduwiki, "fetch"), (eduwiki, "compile_all"), (build, "rebuild")):
+    for module, name in ((sites, "read_page"), (sites, "compile_all"), (eduwiki, "fetch"), (eduwiki, "compile_all"), (build, "rebuild")):
         monkeypatch.setattr(module, name, never)
     return TestClient(app)
 
@@ -133,21 +133,28 @@ class Lock:
         return {"got": True}
 
 
-def test_the_run_serves_the_request(client, monkeypatch):
-    """The request reaches runner.main: it asks the named sites as the source `sites`, the run rebuilds, the queue gets what it did."""
+def test_the_run_serves_the_request(client, monkeypatch, docs_db):
+    """The request reaches runner.main: the rows of the named sites are read first, the run rebuilds only their documents, the queue gets what it did."""
     request = client.post("/sites/parse?sites=hotel", headers=AUTH).json()
-    asked, built = [], []
+    read, built = [], []
+
+    def read_page(http, row):
+        read.append((row.site, row.priority))
+        frontier.save(row, state="ok")
+        return row.site == "hotel"
+
     monkeypatch.setattr(runner.pg, "connect", lambda: Lock())
-    monkeypatch.setattr(runner, "load_state", lambda: {"asked": {s.name: "2999-01-01T00:00:00+00:00" for s in sources.SOURCES}})
+    monkeypatch.setattr(runner, "load_state", lambda: {})
     monkeypatch.setattr(runner, "save_state", lambda state: None)
     monkeypatch.setattr(runner, "tell_ocr_queue", lambda state: None)
-    monkeypatch.setattr(sources, "sites_of", lambda names: sources.Source(f"sites ({', '.join(names)})", sources.timedelta(days=1),
-                                                                         lambda: asked.append(names) or 2, "the named sites"))
-    monkeypatch.setattr(build, "rebuild", lambda: built.append(1) or {"pages new": 2, "pages changed": 0, "pages removed": 0})
+    monkeypatch.setattr(sources, "JOBS", [])
+    monkeypatch.setattr(sites, "read_page", read_page)
+    monkeypatch.setattr(sites, "read_listing", lambda http, row: frontier.save(row, state="ok") and False)
+    monkeypatch.setattr(regulations, "recheck", lambda keys: [])
+    monkeypatch.setattr(build, "rebuild", lambda groups=None: built.append(groups) or {"pages new": 2, "pages changed": 0, "pages removed": 0})
     monkeypatch.setattr(runner.store, "queued", lambda: 5)
-    monkeypatch.setattr(sources, "BACKLOG", sources.Source("unvisited", sources.timedelta(0), lambda: 0, "stub"))
     runner.main(Namespace(source=None, site=None, build=False, loop=False))
-    assert asked == [["hotel"]] and built == [1]
+    assert read[0] == ("hotel", frontier.REQUEST) and built == [{"sites/hotel"}]
     status = client.get(f"/parse/{request['id']}", headers=AUTH).json()
     assert (status["status"], status["outcome"]) == ("done", "changed")
     assert status["result"] == "documents: 2 new, 0 changed, 0 removed; 5 pieces wait for a vector"

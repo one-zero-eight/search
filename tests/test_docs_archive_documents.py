@@ -1,7 +1,6 @@
 """Archives use the document reader and OCR queue, with one stable identity per member."""
 
 import contextlib
-import copy
 import io
 import re
 import tempfile
@@ -11,8 +10,9 @@ import httpx
 import pytest
 from httpx import Client
 
-from catix.docs import files
-from catix.docs.sources import lighton, tesseract, opendataloader, regulations, sites
+from catix.docs import frontier, notes
+from catix.docs.sources import archive_documents, lighton, tesseract, opendataloader, regulations, sites
+from tests.helpers import link_document
 
 
 def zipped(files):
@@ -46,13 +46,24 @@ def pages():
     return {d.path: d for d in regulations.compile_all()}
 
 
+def stored(db):
+    """Everything the documents' notes, texts and archive manifests hold, to see that a run changed none of it."""
+    return [db.execute(f"SELECT * FROM {table} ORDER BY 1, 2").fetchall() for table in ("document_files", "archives")]
+
+
+def refresh(key):
+    """The container asks its site whether it changed (HEAD) and is marked for a new download if so: the first step of recheck."""
+    with httpx.Client() as client:
+        return archive_documents.refresh(key, regulations.all_docs()[key], client)
+
+
 def no_originals(bundle):
     """The originals live only in the temporary folder of a run: nothing is left there."""
     return not list(bundle["tmp"].iterdir())
 
 
 @pytest.fixture
-def bundle(tmp_path, monkeypatch, memory_files):
+def bundle(tmp_path, monkeypatch, docs_db):
     tmp = tmp_path / "tmp"
     tmp.mkdir()
     monkeypatch.setattr(tempfile, "tempdir", str(tmp))
@@ -60,9 +71,9 @@ def bundle(tmp_path, monkeypatch, memory_files):
     monkeypatch.setattr(regulations, "DOCS", {})
     monkeypatch.setattr(regulations, "PAUSE", 0)
     url = "https://unit.example/docs/rules.zip"
-    sites.save("unit", {"pages": {}, "docs": {url: "Rules and orders"}})
+    parent = link_document("unit", url, "Rules and orders")
     state = {"body": zipped({"rules/admission.pdf": b"%PDF TEXT admission", "orders/scan.pdf": b"%PDF SCAN"}), "etag": "v1", "requests": [], "layers": [],
-             "tmp": tmp, "memory": memory_files}
+             "tmp": tmp, "db": docs_db}
 
     def response(request):
         state["requests"].append((request.method, str(request.url)))
@@ -92,31 +103,31 @@ def bundle(tmp_path, monkeypatch, memory_files):
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     monkeypatch.setattr(tesseract, "text_of_pdf", lambda *a, **kw: pytest.fail("scheduled archive processing started OCR"))
     state["url"] = url
-    state["parent"] = next(iter(sites.docs()))
+    state["parent"] = parent
     yield state
     client.close()
 
 
 def test_archive_named_pdf_is_one_document_with_real_citation(bundle):
-    from catix.docs.sources import archive_documents
-
     bundle["body"] = standalone_pdf()
     key = bundle["parent"]
     original = regulations.all_docs()[key]
+    assert original["ext"] == "zip"  # (the row of the frontier says an archive: the site named it so)
     # Retry an existing unsupported manifest, as produced by the old dispatcher.
-    archive_documents.save(key, original, {"status": "unsupported", "refetch": True, "url": bundle["url"]})
+    archive_documents.save(key, {"status": "unsupported", "refetch": True, "url": bundle["url"]})
     assert regulations.read_new(ocr=False) == [key]
     docs = regulations.all_docs()
     assert set(docs) == {key}
-    assert docs[key]["ext"] == "pdf" and not docs[key].get("member")
+    assert docs[key]["ext"] == "pdf" and not docs[key].get("member") and docs[key]["archived"]
+    assert re.fullmatch(r"[0-9a-f]{64}", docs[key]["revision"])  # (the revision of a PDF an archive URL served: its content's sha)
     assert docs[key]["url"] == bundle["url"]
-    assert files.read_text(f"{docs[key]['root']}/{key}.txt") and no_originals(bundle)
+    assert notes.text(key, docs[key]["revision"]) and no_originals(bundle)
     page = pages()[f"regulations/{key}"]
     assert bundle["url"] in page.body and "archive_member" not in page.meta
-    before = copy.deepcopy(bundle["memory"].items)
+    before = stored(bundle["db"])
     assert regulations.read_new(ocr=False) == []
     assert pages()[f"regulations/{key}"] == page
-    assert before == bundle["memory"].items
+    assert before == stored(bundle["db"])
     assert bundle["requests"] == [("GET", bundle["url"])] and len(bundle["layers"]) == 1
 
 
@@ -130,13 +141,26 @@ def test_archive_named_scan_queues_once_and_refreshes_at_boundary(bundle, monkey
     assert regulations.read_new(ocr=False) == []
     assert bundle["requests"] == [("GET", bundle["url"])] and len(bundle["layers"]) == 1
     bundle.update(body=standalone_pdf("TEXT revised"), etag="v2")
-    assert regulations.refresh() == 1
+    assert refresh(key)
     assert bundle["requests"][-1] == ("HEAD", bundle["url"])
     assert regulations.queued() == {key: 1}  # (the old scan stays queued until the replacement succeeds)
     assert regulations.read_new(ocr=False) == [key]
     assert regulations.queued() == {}
-    assert regulations.all_docs()[key]["root"] != doc["root"]
+    assert regulations.all_docs()[key]["revision"] != doc["revision"]
     assert len(bundle["layers"]) == 2 and no_originals(bundle)
+
+
+def test_a_recheck_asks_the_archive_first_and_reads_what_changed(bundle):
+    bundle["body"] = standalone_pdf("SCAN")
+    key = bundle["parent"]
+    assert regulations.read_new(ocr=False) == []
+    doc = regulations.all_docs()[key]
+    assert regulations.recheck([key]) == []  # (the same ETag: a HEAD, no download)
+    assert bundle["requests"] == [("GET", bundle["url"]), ("HEAD", bundle["url"])] and regulations.queued() == {key: 1}
+    bundle.update(body=standalone_pdf("TEXT revised"), etag="v2")
+    assert regulations.recheck([key]) == [key]
+    assert bundle["requests"][-2:] == [("HEAD", bundle["url"]), ("GET", bundle["url"])]
+    assert regulations.queued() == {} and regulations.all_docs()[key]["revision"] != doc["revision"] and no_originals(bundle)
 
 
 def test_standalone_pdf_can_be_replaced_by_a_real_archive(bundle):
@@ -145,8 +169,7 @@ def test_standalone_pdf_can_be_replaced_by_a_real_archive(bundle):
     assert regulations.read_new(ocr=False) == [key]
     assert f"regulations/{key}" in pages()
     bundle.update(body=zipped({"scan.pdf": b"%PDF SCAN"}), etag="v2")
-    assert regulations.refresh() == 1
-    assert regulations.read_new(ocr=False) == [key]  # removal alone must trigger rebuilding
+    assert regulations.recheck([key]) == [key]  # removal alone must trigger rebuilding
     assert f"regulations/{key}" not in pages()  # the documents are made from the data: the container has none
     assert len(regulations.queued()) == 1
 
@@ -159,19 +182,16 @@ def test_standalone_pdf_can_be_replaced_by_a_real_archive(bundle):
     (zipped({"[Content_Types].xml": b"types", "word/document.xml": b"word"}), "unsupported"),
 ])
 def test_failed_type_dispatch_retains_previous_revision(bundle, previous, replacement, status):
-    from catix.docs.sources import archive_documents
-
     if previous == "pdf":
         bundle["body"] = standalone_pdf()
     regulations.read_new(ocr=False)
     docs = regulations.all_docs()
     before = pages()
     bundle.update(body=replacement, etag="v2")
-    assert regulations.refresh() == 1
-    assert regulations.read_new(ocr=False) == []
+    assert regulations.recheck([bundle["parent"]]) == []
     assert regulations.all_docs() == docs
     assert pages() == before
-    manifest = archive_documents.load(bundle["parent"], docs[bundle["parent"]])
+    manifest = archive_documents.load(bundle["parent"])
     assert manifest["status"] == status and manifest["refetch"]
 
 
@@ -179,8 +199,7 @@ def test_archive_becomes_a_standalone_pdf_and_removes_old_members(bundle):
     previous = regulations.read_new(ocr=False)
     regulations.compile_all()
     bundle.update(body=standalone_pdf(), etag="v2")
-    assert regulations.refresh() == 1
-    assert set(previous + [bundle["parent"]]) <= set(regulations.read_new(ocr=False))
+    assert set(previous + [bundle["parent"]]) <= set(regulations.recheck([bundle["parent"]]))
     assert set(regulations.all_docs()) == {bundle["parent"]}
     assert not [d for d in regulations.compile_all() if "-member-" in d.path]
 
@@ -191,8 +210,7 @@ def test_standalone_same_bytes_refresh_does_not_reparse_and_a_read_file_is_not_d
     assert regulations.read_new(ocr=False) == [key]
     doc = regulations.all_docs()[key]
     bundle["etag"] = "v2"
-    assert regulations.refresh() == 1
-    assert regulations.read_new(ocr=False) == []  # (the archive boundary downloads it once more: the same bytes, the same text)
+    assert regulations.recheck([key]) == []  # (the archive boundary downloads it once more: the same bytes, the same text)
     assert regulations.all_docs()[key] == doc
     assert regulations.read_new(ocr=False) == [] and regulations.read_new() == []  # (text is stored: no run needs the file)
     assert bundle["requests"] == [("GET", bundle["url"]), ("HEAD", bundle["url"]), ("GET", bundle["url"])]
@@ -212,14 +230,12 @@ def test_standalone_scan_is_consumed_by_existing_ocr_queue(bundle, monkeypatch):
 
 
 def test_missing_standalone_scan_cannot_bypass_a_rejected_refresh(bundle, monkeypatch):
-    from catix.docs.sources import archive_documents
-
     bundle["body"] = standalone_pdf("SCAN")
     key = bundle["parent"]
     assert regulations.read_new(ocr=False) == []
     doc = regulations.all_docs()[key]
     bundle["etag"] = "v2"
-    assert regulations.refresh() == 1
+    assert refresh(key)
     requests = []
 
     def redirect(request):
@@ -235,7 +251,7 @@ def test_missing_standalone_scan_cannot_bypass_a_rejected_refresh(bundle, monkey
         assert regulations.read_new() == []  # (a run with OCR wants the scan's file: only the archive boundary may give it)
     assert requests == [bundle["url"]]
     assert regulations.all_docs()[key] == doc
-    assert archive_documents.load(key, doc)["status"] == "unsafe" and no_originals(bundle)
+    assert archive_documents.load(key)["status"] == "unsafe" and no_originals(bundle)
 
 
 def test_archive_members_use_document_text_and_persistent_ocr_queue(bundle, monkeypatch):
@@ -244,8 +260,9 @@ def test_archive_members_use_document_text_and_persistent_ocr_queue(bundle, monk
     assert len(members) == 2 and len(read) == 1
     by_name = {d["member"]: (k, d) for k, d in members.items()}
     key, scan = by_name["orders/scan.pdf"]
-    assert files.read_json(f"{scan['root']}/{key}.json")["ocr"] == "queued"
-    assert not files.list(f"{scan['root']}/", ".pdf") and no_originals(bundle)  # (the scan is queued as a note; its file is downloaded again by a run with OCR)
+    assert re.fullmatch(r"[0-9a-f]{64}", scan["revision"])  # (a member is a revision of its key: the sha of its content)
+    assert notes.note(key, scan["revision"])["ocr"] == "queued" and notes.note(key) == {}
+    assert no_originals(bundle)  # (the scan is queued as a note; its file is downloaded again by a run with OCR)
     doc = pages()[f"regulations/{read[0]}"]
     assert bundle["url"] in doc.body and doc.meta["archive_member"] == "rules/admission.pdf" and re.fullmatch(r"[0-9a-f]{64}", doc.meta["archive_sha256"])
     assert regulations.read_new(ocr=False) == []
@@ -255,7 +272,7 @@ def test_archive_members_use_document_text_and_persistent_ocr_queue(bundle, monk
     monkeypatch.setattr(tesseract, "text_of_pdf", lambda *a, **kw: "1. Приказ ректора " * 70)
     assert regulations.read_new() == [key]
     assert bundle["requests"] == [("GET", bundle["url"])] * 2  # (the archive is downloaded again for the scan)
-    assert files.read_text(f"{scan['root']}/{key}.txt") and no_originals(bundle)
+    assert notes.text(key, scan["revision"]) and no_originals(bundle)
 
 
 def test_archive_refresh_preserves_previous_members_until_replacement_is_valid(bundle, monkeypatch):
@@ -264,9 +281,8 @@ def test_archive_refresh_preserves_previous_members_until_replacement_is_valid(b
     key, doc = before["rules/admission.pdf"]
     page = pages()[f"regulations/{key}"]
     bundle.update(body=b"not an archive", etag="v2")
-    assert regulations.refresh() == 1
-    assert bundle["requests"][-1] == ("HEAD", bundle["url"])
-    assert regulations.read_new(ocr=False) == []
+    assert regulations.recheck([bundle["parent"]]) == []
+    assert bundle["requests"][-2:] == [("HEAD", bundle["url"]), ("GET", bundle["url"])]
     assert pages()[f"regulations/{key}"] == page
     assert set(before) == {d["member"] for d in regulations.all_docs().values() if d.get("member")}
     bundle["body"] = zipped({"orders/scan.pdf": b"%PDF SCAN", "new.pdf": b"%PDF TEXT new"})
@@ -287,10 +303,10 @@ def test_changed_member_keeps_identity_but_is_read_again(bundle):
     regulations.read_new(ocr=False)
     before = {d["member"]: (key, d) for key, d in regulations.all_docs().items() if d.get("member")}
     bundle.update(body=zipped({"rules/admission.pdf": b"%PDF TEXT revised", "orders/scan.pdf": b"%PDF SCAN"}), etag="v2")
-    assert regulations.refresh() == 1
-    assert regulations.read_new(ocr=False) == [before["rules/admission.pdf"][0]]
+    assert regulations.recheck([bundle["parent"]]) == [before["rules/admission.pdf"][0]]
     after = {d["member"]: (key, d) for key, d in regulations.all_docs().items() if d.get("member")}
-    assert before["rules/admission.pdf"][1]["root"] != after["rules/admission.pdf"][1]["root"]
+    assert before["rules/admission.pdf"][0] == after["rules/admission.pdf"][0]
+    assert before["rules/admission.pdf"][1]["revision"] != after["rules/admission.pdf"][1]["revision"]
     assert before["orders/scan.pdf"] == after["orders/scan.pdf"]
     assert regulations.read_new(ocr=False) == []
 
@@ -299,45 +315,38 @@ def test_archive_with_only_unsupported_files_removes_old_documents(bundle):
     read = regulations.read_new(ocr=False)
     regulations.compile_all()
     bundle.update(body=zipped({"readme.txt": b"documents withdrawn"}), etag="v2")
-    assert regulations.refresh() == 1
-    changed = regulations.read_new(ocr=False)
+    changed = regulations.recheck([bundle["parent"]])
     assert set(read) <= set(changed)
     assert not any(d.get("member") for d in regulations.all_docs().values())
     assert not [d for d in regulations.compile_all() if "-member-" in d.path]
 
 
 def test_nested_archives_are_visible_but_not_recursively_opened(bundle):
-    from catix.docs.sources import archive_documents
-
     bundle["body"] = zipped({"nested.zip": zipped({"deep.pdf": b"%PDF TEXT"}), "plain.pdf": b"%PDF TEXT"})
     assert len(regulations.read_new(ocr=False)) == 1
-    doc = regulations.all_docs()[bundle["parent"]]
-    listing = archive_documents.load(bundle["parent"], doc)
+    listing = archive_documents.load(bundle["parent"])
     assert next(m for m in listing["members"] if m["member"] == "nested.zip")["status"] == "unsupported"
     assert {d["member"] for d in regulations.all_docs().values() if d.get("member")} == {"plain.pdf"}
 
 
-@pytest.mark.parametrize("only_new", [False, True])
-def test_site_discovers_archive_download_without_filename(bundle, only_new):
+def test_site_discovers_archive_download_without_filename(bundle):
     url = "https://unit.example/download?id=rules"
     html = "<html><title>Unit</title><p>" + "Student rules and documents. " * 30 + f'</p><a href="{url}">Rules</a></html>'
     requests = []
 
     def answer(request):
-        requests.append(str(request.url))
+        requests.append((request.method, str(request.url)))
         if str(request.url) == "https://unit.example/":
             return httpx.Response(200, text=html, headers={"content-type": "text/html"})
         assert str(request.url) == url
         return httpx.Response(200, content=bundle["body"], headers={"content-type": "application/zip"})
 
+    bundle["db"].execute("UPDATE crawl_urls SET state = 'new', next_at = now() WHERE kind = 'page'")  # (the start page, left by the helper as read, is due)
     with Client(transport=httpx.MockTransport(answer)) as client:
-        if only_new:
-            sites.fetch_new(["unit"], client=client)
-        else:
-            sites.fetch_site("unit", sites.SITES["unit"], client)
-    assert url in sites.load("unit")["docs"]
+        while row := frontier.next_due(documents=False):  # (the start page, which links the download; then the download: a HEAD says an archive)
+            sites.read_page(client, row)
+    assert ("HEAD", url) in requests and ("GET", url) not in requests  # (an archive is not fetched as a page)
     assert next(d for d in sites.docs().values() if d["url"] == url)["ext"] == "zip"
-    assert url in requests
 
 
 def test_course_archives_keep_their_specialized_reader(bundle, monkeypatch):
@@ -348,17 +357,17 @@ def test_course_archives_keep_their_specialized_reader(bundle, monkeypatch):
 
 
 def test_oversized_download_is_reported_without_publishing_members(bundle, monkeypatch):
-    from catix.docs.sources import archive_documents, archives
+    from catix.docs.sources import archives
 
     monkeypatch.setattr(archives, "MAX_ARCHIVE_BYTES", 1)
     assert regulations.read_new(ocr=False) == []
     docs = regulations.all_docs()
     assert not any(d.get("member") for d in docs.values())
-    assert archive_documents.load(bundle["parent"], docs[bundle["parent"]])["status"] == "limit"
+    assert archive_documents.load(bundle["parent"])["status"] == "limit"
 
 
 def test_archive_redirect_cannot_leave_trusted_providers(bundle, monkeypatch, tmp_path):
-    from catix.docs.sources import archive_documents, archives
+    from catix.docs.sources import archives
 
     requests = []
     def answer(request):

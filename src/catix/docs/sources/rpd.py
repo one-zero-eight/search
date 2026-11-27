@@ -1,6 +1,6 @@
 """Course programmes (РПД, рабочие программы дисциплин) from the archives of innopolis.university/sveden/education.
 
-    catix-docs rpd fetch [--all-years] [--limit N]   # the archives of every cohort (or the latest, see below) (the text and the note of every PDF go to Postgres)
+    catix-docs rpd fetch [--all-years] [--limit N]   # the archives of every cohort (or the latest, see below) (the text and the note of every PDF go to the table course_programmes)
     catix-docs rpd refresh               # ask the site (HEAD) whether an archive read before changed; fetch reads a changed one again
     catix-docs rpd status                # archives found and taken, programmes read
 
@@ -26,14 +26,13 @@ from pathlib import Path
 
 import httpx
 
+from psycopg.types.json import Jsonb
+
+from catix.db import pg
 from catix.settings import settings
 from catix.docs.sources import hosts, regulations
-from catix.docs import files
 from catix.docs.store import PRODUCER, Document
 
-ROOT = "rpd"
-INDEX = f"{ROOT}/index.json"  # course key -> where it comes from and how it was read
-REMOTE = f"{ROOT}/archives.json"  # archive URL -> what the site said about the file when it was read (regulations.signature), or why it could not be read
 FOLDER = "course-programmes"
 CELL = re.compile(r"(?P<programme>.*?) — (?P<year>\d{4}) — (?P<kind>Рабочие программы дисциплин.*)$")
 HEADING = re.compile(r"^(?:(?:РАБОЧАЯ\s+)?ПРОГРАММА|ФОНД ОЦЕНОЧНЫХ СРЕДСТВ)\b.*$", re.M)
@@ -59,19 +58,16 @@ def archives(all_years: bool | None = None, dead: set[str] = frozenset()) -> lis
     master's programme of 2026 once) does not count: the one before it is taken. An archive keeps the address it was read
     under (the keys of its programmes are made of it): the disclosure section's old listing wrote its spaces, the sites
     write them as %20."""
+    from catix.docs import frontier
     from catix.docs.sources import sites
 
-    remote = files.read_json(REMOTE) or {}
-    known = {sites.canonical(url): url for url in [*remote, *(c["archive"] for c in load().values())]}
+    known = {sites.canonical(url): url for url in [*remote(), *(c["archive"] for c in load().values())]}
     found, seen = [], set()
-    for name in sites.SITES:
-        index = sites.load(name)
-        for url, anchor in index["docs"].items():
-            ext = index.get("archive_types", {}).get(url, url.rsplit(".", 1)[-1].lower())
-            if ext in ("7z", "zip") and url not in seen and (m := CELL.match(index.get("contexts", {}).get(url, ""))):
-                seen.add(url)
-                title = re.sub(r"\s+", " ", anchor).strip()
-                found.append({"url": known.get(url, url), "title": title, "programme": m["programme"], "year": int(m["year"]), "ext": ext})
+    for row in frontier.documents(("7z", "zip")):
+        if row.url not in seen and (m := CELL.match(row.context)):
+            seen.add(row.url)
+            found.append({"url": known.get(row.url, row.url), "title": re.sub(r"\s+", " ", row.anchor).strip(), "programme": m["programme"],
+                          "year": int(m["year"]), "ext": row.ext})
     if settings.docs_rpd_all_years if all_years is None else all_years:
         return found
     alive, total, latest = Counter(), Counter(), Counter()
@@ -163,24 +159,80 @@ def dead_links(index: dict) -> set[str]:
     return {c["archive"] for c in index.values() if c.get("skipped") == "404 on the site"}
 
 
+ENTRY = ("archive", "archive_title", "member", "programme", "level", "year", "semester", "kind", "code", "name", "fetched_at", "sha256", "method", "chars", "skipped")
+
+
+def _entry(row: dict) -> dict:
+    """An entry of the index from a row: the columns that are set (the time as an ISO string)."""
+    return {c: (row[c].astimezone(timezone.utc).isoformat(timespec="seconds") if c == "fetched_at" else row[c]) for c in ENTRY if row[c] is not None}
+
+
 def load() -> dict:
-    return files.read_json(INDEX) or {}
+    """course key -> where it comes from and how it was read (without the text)."""
+    with pg.connection() as conn:
+        rows = conn.execute(f"SELECT key, {', '.join(ENTRY)} FROM course_programmes").fetchall()
+    return {r["key"]: _entry(r) for r in rows}
+
+
+def _put(conn, key: str, entry: dict, text: str | None) -> None:
+    values = [datetime.fromisoformat(entry[c]) if c == "fetched_at" and c in entry else entry.get(c) for c in ENTRY]
+    marks = ", ".join(["%s"] * (len(ENTRY) + 2))
+    sets = ", ".join(f"{c} = excluded.{c}" for c in ENTRY)
+    conn.execute(f"INSERT INTO course_programmes (key, {', '.join(ENTRY)}, text) VALUES ({marks}) ON CONFLICT (key) DO UPDATE SET {sets}, "
+                 "text = coalesce(excluded.text, course_programmes.text)", (key, *values, text))
+
+
+def put(key: str, entry: dict, text: str | None = None) -> None:
+    """One course: its entry, and its text when it is given (else the text stays)."""
+    with pg.connection() as conn:
+        _put(conn, key, entry, text)
 
 
 def save(index: dict) -> None:
-    files.write_json(INDEX, index)
+    """The index as given: its entries written (their texts stay), the courses that are not in it deleted, in one transaction."""
+    with pg.connection() as conn, conn.transaction():
+        conn.execute("DELETE FROM course_programmes WHERE key <> ALL(%s)", (list(index),))
+        for key, entry in index.items():
+            _put(conn, key, entry, None)
+
+
+def text_of(key: str) -> str | None:
+    with pg.connection() as conn:
+        row = conn.execute("SELECT text FROM course_programmes WHERE key = %s", (key,)).fetchone()
+    return row["text"] if row else None
+
+
+def remote() -> dict[str, dict]:
+    """archive URL -> what the site said about the file when it was read (regulations.signature), or why it could not be read
+    (`failed`, `tried_at`)."""
+    with pg.connection() as conn:
+        rows = conn.execute("SELECT url, remote, failed, tried_at FROM rpd_archives").fetchall()
+    return {r["url"]: {"failed": r["failed"], "tried_at": r["tried_at"].astimezone(timezone.utc).isoformat(timespec="seconds")} if r["failed"] else r["remote"] for r in rows}
+
+
+def put_remote(url: str, value: dict) -> None:
+    failed = value.get("failed")
+    with pg.connection() as conn:
+        conn.execute("INSERT INTO rpd_archives (url, remote, failed, tried_at) VALUES (%s, %s, %s, %s) ON CONFLICT (url) DO UPDATE SET "
+                     "remote = excluded.remote, failed = excluded.failed, tried_at = excluded.tried_at",
+                     (url, Jsonb({} if failed else value), failed, datetime.fromisoformat(value["tried_at"]) if failed else None))
+
+
+def drop_remote(url: str) -> None:
+    with pg.connection() as conn:
+        conn.execute("DELETE FROM rpd_archives WHERE url = %s", (url,))
 
 
 def pending(all_years: bool | None = None) -> list[dict]:
     """The archives of archives() that fetch reads now: none of their programmes, skips or 404 is noted (load()), and they
-    did not fail to unpack lately (REMOTE `failed`, sites.RETRY)."""
+    did not fail to unpack lately (rpd_archives `failed`, sites.RETRY)."""
     from catix.docs.sources import sites
 
     index = load()
-    remote = files.read_json(REMOTE) or {}
+    tried = remote()
     read = {c["archive"] for c in index.values()}
     return [a for a in archives(all_years, dead_links(index)) if a["url"] not in read
-            and not ((old := remote.get(a["url"], {})).get("failed") and sites.recent(old.get("tried_at")))]
+            and not ((old := tried.get(a["url"], {})).get("failed") and sites.recent(old.get("tried_at")))]
 
 
 def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
@@ -188,10 +240,8 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
     live only in a temporary folder). Polite: one archive every `regulations.PAUSE` seconds, stop after
     `regulations.MAX_FAILURES` network errors in a row. An archive that cannot be unpacked is asked again after sites.RETRY."""
     from catix.docs.sources import archives as containers
-    from catix.docs.sources import archive_documents, sites
+    from catix.docs.sources import archive_documents
 
-    index = load()
-    remote = files.read_json(REMOTE) or {}
     todo = pending(all_years)[:limit]
     print(f"{len(todo)} archives to read")
     failures, total = 0, 0
@@ -204,8 +254,7 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
             except (httpx.HTTPError, containers.ArchiveError) as e:
                 print(f"  FAILED {a['url']}: {e}")
                 if isinstance(e, httpx.HTTPStatusError) and e.response.status_code == 404:  # a dead link on the site itself: not asked again
-                    index[f"archive-{akey}"] = {"archive": a["url"], "archive_title": a["title"], "skipped": "404 on the site"}
-                    save(index)
+                    put(f"archive-{akey}", {"archive": a["url"], "archive_title": a["title"], "skipped": "404 on the site"})
                     time.sleep(regulations.PAUSE)
                     continue
                 failures += 1
@@ -215,16 +264,14 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
                 time.sleep(regulations.PAUSE + 5 * failures)
                 continue
             failures = 0
-            remote[a["url"]] = signature
-            files.write_json(REMOTE, remote)
+            put_remote(a["url"], signature)
             time.sleep(regulations.PAUSE)
             unpacked = Path(tmp) / akey
             try:
                 members = containers.unpack(path, unpacked)
             except containers.ArchiveError as e:
                 print(f"  cannot unpack {a['url']}: {e.status}")
-                remote[a["url"]] = {"failed": str(e), "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-                files.write_json(REMOTE, remote)
+                put_remote(a["url"], {"failed": str(e), "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
                 continue
             level, label = programme_label(a["programme"])
             found = 0
@@ -242,12 +289,10 @@ def fetch(all_years: bool | None = None, limit: int | None = None) -> int:
                          "semester": semester_of(a["title"], Path(rel).name), "kind": kind, "code": code, "name": name,
                          "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
                 if text is None or not regulations.readable(text):
-                    index[key] = {**entry, "skipped": method if text is None else "no readable text"}
+                    put(key, {**entry, "skipped": method if text is None else "no readable text"})
                     continue
-                files.write_text(f"{ROOT}/{key}.txt", text)
-                index[key] = {**entry, "sha256": hashlib.sha256(member.read_bytes()).hexdigest(), "method": method, "chars": len(text)}
+                put(key, {**entry, "sha256": hashlib.sha256(member.read_bytes()).hexdigest(), "method": method, "chars": len(text)}, text)
                 found += 1
-        save(index)
         total += found
         print(f"{n}/{len(todo)} {label[:70]}, {a['year']}, {a['title'][:30]}: {found} programmes", flush=True)
     return total
@@ -257,11 +302,11 @@ def refresh() -> int:
     """HEAD every archive read before (one request every PAUSE seconds); a changed one loses its programmes from the index, so that
     the next `fetch` reads it again (their documents stay until then); an archive that could not be unpacked counts as changed
     and is asked again. The number of changed archives."""
-    index = load()
-    remote = files.read_json(REMOTE) or {}
-    failed = [url for url, r in remote.items() if r.get("failed")]
+    index, tried = load(), remote()
+    failed = [url for url, r in tried.items() if r.get("failed")]
     for url in failed:
-        del remote[url]
+        drop_remote(url)
+        del tried[url]
         print(f"could not be read, asked again: {url}")
     urls = sorted({c["archive"] for c in index.values() if "sha256" in c})
     found, failures = len(failed), 0
@@ -283,13 +328,13 @@ def refresh() -> int:
             if resp.status_code != 200:
                 continue
             now = regulations.signature(resp.headers)
-            if regulations.changed(remote.get(url), now):
-                index = {k: c for k, c in index.items() if c["archive"] != url}
+            if regulations.changed(tried.get(url), now):
+                with pg.connection() as conn:
+                    conn.execute("DELETE FROM course_programmes WHERE archive = %s", (url,))
                 found += 1
                 print(f"changed on the site: {url}")
-            remote[url] = remote.get(url) or now  # (a changed one gets its new signature when fetch downloads it)
-    save(index)
-    files.write_json(REMOTE, remote)
+            if not tried.get(url):
+                put_remote(url, now)  # (a changed one gets its new signature when fetch downloads it)
     print(f"{found} archives changed on the site")
     return found
 
@@ -302,7 +347,7 @@ def compile_all(all_years: bool | None = None) -> list[Document]:
     for key, c in sorted(index.items()):
         if "sha256" not in c or c["archive"] not in taken:
             continue
-        text = files.read_text(f"{ROOT}/{key}.txt")
+        text = text_of(key)
         if text is None:
             continue
         text = text.replace("\f", "\n")  # (a section often opens a page)

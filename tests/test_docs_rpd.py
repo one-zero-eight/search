@@ -3,7 +3,7 @@
 from catix.docs.sources.rpd import FACILITIES, latin, name_of, programme_label, semester_of
 
 
-def test_course_programmes_use_the_shared_safe_archive_reader(tmp_path, monkeypatch, memory_files):
+def test_course_programmes_use_the_shared_safe_archive_reader(tmp_path, monkeypatch, docs_db):
     import tempfile
     import zipfile
     from catix.docs.sources import archive_documents, archives, regulations, rpd
@@ -28,13 +28,13 @@ def test_course_programmes_use_the_shared_safe_archive_reader(tmp_path, monkeypa
     assert rpd.fetch() == 1 and len(called) == 1
     key, row = next(iter(rpd.load().items()))
     assert row["member"] == name and row["code"] == "Б1.О.18" and row["name"] == "Численные методы"
-    assert memory_files.read_text(f"rpd/{key}.txt").startswith("1. Цель программы")
+    assert rpd.text_of(key).startswith("1. Цель программы")
     assert list(tmp_path.iterdir()) == []  # the archive and its files are gone with their temporary folder
     (doc,) = rpd.compile_all()
     assert doc.path == f"course-programmes/{key}" and doc.meta["archive_member"] == name and len(doc.meta["archive_sha256"]) == 64
 
 
-def test_course_archive_download_is_bounded(tmp_path, monkeypatch, memory_files):
+def test_course_archive_download_is_bounded(tmp_path, monkeypatch, docs_db):
     import tempfile
 
     import pytest
@@ -53,24 +53,24 @@ def test_course_archive_download_is_bounded(tmp_path, monkeypatch, memory_files)
     assert list(tmp_path.iterdir()) == []
 
 
-def test_an_archive_that_cannot_be_unpacked_is_not_asked_again_at_once(tmp_path, monkeypatch, memory_files):
+def test_an_archive_that_cannot_be_unpacked_is_not_asked_again_at_once(tmp_path, monkeypatch, docs_db):
     from catix.docs.sources import archive_documents, archives, regulations, rpd
 
     monkeypatch.setattr(rpd.time, "sleep", lambda _: None)
     url = "https://innopolis.university/broken.zip"
     monkeypatch.setattr(rpd, "archives", lambda *a: [{"url": url, "ext": "zip", "title": "Courses", "year": 2026, "programme": "бакалавриата: Информатика"}])
     downloads = []
-    monkeypatch.setattr(archive_documents, "download", lambda source, destination: downloads.append(source) or destination.write_bytes(b"not an archive") or {})
+    monkeypatch.setattr(archive_documents, "download", lambda source, destination: [downloads.append(source), destination.write_bytes(b"not an archive")] and {})
 
     def broken(path, dest):
         raise archives.ArchiveError("corrupt", "broken")
 
     monkeypatch.setattr(archives, "unpack", broken)
     assert rpd.fetch() == 0 and len(downloads) == 1
-    assert "failed" in memory_files.read_json(rpd.REMOTE)[url]
+    assert "failed" in rpd.remote()[url]
     assert rpd.fetch() == 0 and len(downloads) == 1  # (recent: not tried again yet)
     assert rpd.refresh() == 1  # a failed one counts as changed and is dropped from the notes
-    assert url not in memory_files.read_json(rpd.REMOTE)
+    assert url not in rpd.remote()
 
 HEADER = """Председатель Ученого совета
 А.В. Гасников
@@ -134,48 +134,51 @@ def test_a_cut_caption_loses_its_cut_word():
     assert programme_label(cell) == ("СПО", "СПО 09.02.07 Информационные системы и программирование")
 
 
-def _listed(monkeypatch, listed):
-    """The archives as the university's site links them: its documents, and the cell of the table each sits in (contexts_of)."""
+def _listed(db, listed):
+    """The archives as the university's site links them: document rows linked from a live page with the text of the link
+    (the title) and the cell of the table (contexts_of) of each."""
     from catix.docs.sources import sites
 
-    monkeypatch.setattr(sites, "SITES", {"university": None})
-    monkeypatch.setattr(sites, "load", lambda name: {"docs": {d["url"]: d["title"] for d in listed}, "contexts": {d["url"]: d["context"] for d in listed}})
+    page = "https://innopolis.university/sveden/education"
+    db.execute("INSERT INTO crawl_urls (address, url, site, kind, every, state) VALUES (%s, %s, 'university', 'page', '7 days', 'ok')", (sites.address(page), page))
+    for i, d in enumerate(listed):
+        db.execute("INSERT INTO crawl_urls (address, url, site, kind, every, state, doc_key, ext) VALUES (%s, %s, 'university', 'document', '7 days', 'ok', %s, %s)",
+                   (sites.address(d["url"]), d["url"], d.get("key", f"site-university-{i}"), d.get("ext", "7z")))
+        db.execute("INSERT INTO crawl_links (src, dst, anchor, context) VALUES (%s, %s, %s, %s)", (sites.address(page), sites.address(d["url"]), d["title"], d["context"]))
 
 
-def test_an_archive_keeps_the_address_it_was_read_under(monkeypatch):
+def test_an_archive_keeps_the_address_it_was_read_under(monkeypatch, docs_db):
     from catix.docs.sources import rpd
 
     cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
-    _listed(monkeypatch, [{"url": "https://x/%D0%A0%D0%9F%D0%94%201.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
+    _listed(docs_db, [{"url": "https://x/%D0%A0%D0%9F%D0%94%201.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
     monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": "https://x/РПД 1.7z"}})  # (the old listing wrote the spaces)
     (archive,) = rpd.archives()
     assert archive["url"] == "https://x/РПД 1.7z" and archive["year"] == 2025 and archive["programme"] == "бакалавриата: 09.03.01 Информатика"
 
 
-def test_the_files_of_an_archive_stay_documents_until_rpd_has_read_it(monkeypatch, memory_files):
-    from catix.docs.sources import regulations, rpd, sites
+def test_the_files_of_an_archive_stay_documents_until_rpd_has_read_it(monkeypatch, docs_db):
+    from catix.docs.sources import regulations, rpd
 
     cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
     url = "https://innopolis.university/upload/x/РПД%201.7z"
-    _listed(monkeypatch, [{"url": url, "title": "1 семестр", "context": cell}])
+    key = "site-university-x-rpd-1"
+    _listed(docs_db, [{"url": url, "title": "1 семестр", "context": cell, "key": key}])
     monkeypatch.setattr(regulations, "DOCS", {})
-    monkeypatch.setattr(regulations, "linked_documents", lambda: {})
-    root = "sites/university/docs"
-    monkeypatch.setattr(sites, "docs", lambda: {"site-university-x-rpd-1": {"title": "1 семестр", "url": url, "root": root, "section": "site/university", "ext": "7z"}})
     monkeypatch.setattr(rpd, "load", lambda: {})
-    assert "site-university-x-rpd-1" not in regulations.all_docs()  # (new: rpd reads it, not the documents' reader too)
-    memory_files.write_json(f"{root}/site-university-x-rpd-1.archive.json", {"status": "ready", "members": []})
-    assert "site-university-x-rpd-1" in regulations.all_docs()  # (read as documents before rpd took it: its files are not lost meanwhile)
+    assert key not in regulations.all_docs()  # (new: rpd reads it, not the documents' reader too)
+    docs_db.execute("INSERT INTO archives (key, url, status, members) VALUES (%s, %s, 'ready', '[]')", (key, url))
+    assert key in regulations.all_docs()  # (read as documents before rpd took it: its files are not lost meanwhile)
     monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": url, "sha256": "ab"}})
-    assert "site-university-x-rpd-1" not in regulations.all_docs()  # (its courses are rpd's pages now)
+    assert key not in regulations.all_docs()  # (its courses are rpd's pages now)
 
 
-def test_a_cohort_whose_links_are_dead_gives_way_to_the_one_before(monkeypatch):
+def test_a_cohort_whose_links_are_dead_gives_way_to_the_one_before(monkeypatch, docs_db):
     from catix.docs.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — {} — Рабочие программы дисциплин"
     listed = [{"url": f"https://x/{y}-{s}.7z", "ext": "7z", "title": f"{s} семестр", "context": cell.format(y)} for y, n in ((2025, 3), (2026, 4)) for s in range(1, n + 1)]
-    _listed(monkeypatch, listed)
+    _listed(docs_db, listed)
     assert {a["year"] for a in rpd.archives()} == {2025, 2026}  # every cohort by default (WIKI_RPD_ALL_YEARS)
     assert {a["year"] for a in rpd.archives(all_years=False)} == {2026}
     dead = {f"https://x/2026-{s}.7z" for s in (1, 2, 3)}
@@ -206,16 +209,15 @@ def test_a_heading_at_the_top_of_a_page_is_a_heading_too():
     assert "## 1. Краткая характеристика дисциплины (модуля)" in to_markdown("Тыртышников Е. Е., д.ф.-м.н.\f1. КРАТКАЯ ХАРАКТЕРИСТИКА ДИСЦИПЛИНЫ (МОДУЛЯ)\nЦель")
 
 
-def test_a_programme_of_a_cohort_no_longer_taken_has_no_document(monkeypatch, memory_files):
+def test_a_programme_of_a_cohort_no_longer_taken_has_no_document(monkeypatch, docs_db):
     from catix.docs.sources import rpd
 
     cell = "магистратуры: 09.04.01 Информатика; Направленность программы (профиль) – Кибербезопасность* — 2026 — Рабочие программы дисциплин"
-    _listed(monkeypatch, [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
+    _listed(docs_db, [{"url": "https://x/a.7z", "ext": "7z", "title": "1 семестр", "context": cell}])
     note = {"archive": "https://x/a.7z", "sha256": "0" * 64, "member": "a.pdf", "programme": "магистратура", "level": "", "year": 2026,
             "code": "", "name": "A", "fetched_at": "2026-01-01T00:00:00+00:00", "method": "text layer"}
-    memory_files.write_json(rpd.INDEX, {"rpd-1-x": note, "rpd-2-y": {**note, "archive": "https://x/gone.7z"}})
-    memory_files.write_text("rpd/rpd-1-x.txt", "1. Цель программы\nтекст")
-    memory_files.write_text("rpd/rpd-2-y.txt", "1. Цель программы\nтекст")
+    rpd.put("rpd-1-x", note, "1. Цель программы\nтекст")
+    rpd.put("rpd-2-y", {**note, "archive": "https://x/gone.7z"}, "1. Цель программы\nтекст")
     assert [d.path for d in rpd.compile_all()] == ["course-programmes/rpd-1-x"]
 
 
@@ -228,16 +230,27 @@ def test_a_name_from_a_windows_zip_is_read_as_text():
     assert file_name(windows) == "Программа.pdf" and file_name("Программа.pdf") == "Программа.pdf"
 
 
-def test_a_course_archive_is_an_unread_file_only_while_rpd_has_to_read_it(monkeypatch, memory_files):
-    from catix.docs.sources import crawl, regulations, rpd, sites
+def test_the_programmes_and_their_texts_live_in_the_table(docs_db):
+    from catix.docs.sources import rpd
 
-    cell = "бакалавриата: 09.03.01 Информатика — 2025 — Рабочие программы дисциплин (модулей)"
-    read, dead, new = (f"https://innopolis.university/upload/{n}.7z" for n in ("read", "dead", "new"))
-    _listed(monkeypatch, [{"url": u, "title": "1 семестр", "context": cell} for u in (read, dead, new)])
-    monkeypatch.setattr(sites, "reload_catalog", lambda: None)
-    monkeypatch.setattr(regulations, "all_docs", lambda: {})
-    monkeypatch.setattr(crawl, "provider", lambda url, **kw: "university")
-    monkeypatch.setattr(rpd, "load", lambda: {"rpd-1-x": {"archive": read, "sha256": "ab"},
-                                             "archive-1": {"archive": dead, "skipped": "404 on the site"}})
-    memory_files.write_text("sites/university/page.md", f"[a]({read}) [b]({dead}) [c]({new})")
-    assert sites.unread_files() == {"university": {sites.canonical(new)}}
+    entry = {"archive": "https://x/a.7z", "sha256": "0" * 64, "name": "A", "year": 2026, "fetched_at": "2026-01-01T00:00:00+00:00"}
+    rpd.put("rpd-1-x", entry, "text")
+    rpd.put("rpd-2-y", {"archive": "https://x/b.7z", "skipped": "404 on the site"})
+    assert rpd.load() == {"rpd-1-x": entry, "rpd-2-y": {"archive": "https://x/b.7z", "skipped": "404 on the site"}}
+    assert rpd.text_of("rpd-1-x") == "text" and rpd.text_of("rpd-2-y") is None and rpd.text_of("nope") is None
+    rpd.put("rpd-1-x", {**entry, "name": "B"})  # (a put without a text keeps the text)
+    assert rpd.text_of("rpd-1-x") == "text" and rpd.load()["rpd-1-x"]["name"] == "B"
+    rpd.save({"rpd-1-x": entry})  # (the courses not in the index are deleted)
+    assert list(rpd.load()) == ["rpd-1-x"] and rpd.text_of("rpd-1-x") == "text"
+    assert rpd.dead_links({"a": {"archive": "u", "skipped": "404 on the site"}}) == {"u"}
+
+
+def test_what_the_site_said_of_an_archive_is_kept_by_its_address(docs_db):
+    from catix.docs.sources import rpd
+
+    signature = {"etag": "abc", "length": 12}
+    rpd.put_remote("https://x/a.7z", signature)
+    rpd.put_remote("https://x/b.7z", {"failed": "corrupt", "tried_at": "2026-01-01T00:00:00+00:00"})
+    assert rpd.remote() == {"https://x/a.7z": signature, "https://x/b.7z": {"failed": "corrupt", "tried_at": "2026-01-01T00:00:00+00:00"}}
+    rpd.drop_remote("https://x/b.7z")
+    assert list(rpd.remote()) == ["https://x/a.7z"]

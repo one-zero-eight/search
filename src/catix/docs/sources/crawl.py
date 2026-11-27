@@ -7,7 +7,6 @@ from catix.docs.sources import sites
 
 DOCUMENT = sites.DOC
 URL = re.compile(r"https?://[^\s<>()\[\]{}\"']+", re.I)
-PAGE = re.compile(r"(?<!\!)\[[^\]]*\]\((https?://[^)\s]+)\)", re.I)
 TRAILING = ",.;:!?)]}>'"
 
 
@@ -17,7 +16,7 @@ def _site_hosts(site) -> set[str]:
 
 def provider(url: str, *, page: bool = False) -> str | None:
     """The configured provider name for a safe URL, or None: its host is a site's own or one of its aliases (a subdomain is not: it
-    is a site of its own when the catalog names it); an HTML page also passes that site's page rules (the same rules as fetch_site).
+    is a site of its own when the catalog names it); an HTML page also passes that site's page rules (the same rules as read_page).
 
     SITES is the catalog of the database (sites.catalog_main edits it), read again every few seconds.
     """
@@ -68,21 +67,6 @@ def text_page_links(text: str, source_url: str) -> list[str]:
         if (name := provider(url, page=True)) is None:
             continue
         if (canonical := sites.page_url(sites.SITES[name], url)) not in seen:
-            seen.add(canonical)
-            found.append(canonical)
-    return found
-
-
-def page_links(text: str, source_url: str) -> list[str]:
-    """Canonical trusted HTML page URLs in a compiled site's markdown."""
-    found = []
-    seen = set()
-    for raw in PAGE.findall(text):
-        url = raw.rstrip(TRAILING)
-        if (name := provider(url, page=True)) is None:
-            continue
-        canonical = sites.page_url(sites.SITES[name], url)
-        if canonical != sites.canonical(source_url) and canonical not in seen:
             seen.add(canonical)
             found.append(canonical)
     return found

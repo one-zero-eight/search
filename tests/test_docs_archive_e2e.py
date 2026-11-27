@@ -1,6 +1,5 @@
 """Real ZIP/7z -> Word conversion -> PDF extraction -> documents, with only HTTP replaced."""
 
-import copy
 import re
 import shutil
 import subprocess
@@ -11,10 +10,11 @@ import httpx
 import pytest
 
 from catix.docs.sources import tesseract, regulations, sites
+from tests.helpers import link_document
 
 
 @pytest.mark.parametrize("extension", ["zip", "7z", "pdf"])
-def test_real_archive_documents_reach_the_store_without_ocr(tmp_path, monkeypatch, memory_files, extension):
+def test_real_archive_documents_reach_the_store_without_ocr(tmp_path, monkeypatch, docs_db, extension):
     if not all(shutil.which(cmd) for cmd in ("soffice", "pdfinfo", "7z")):
         pytest.skip("real archive conversion requires LibreOffice, Poppler and 7z")
     source = tmp_path / "source"
@@ -38,7 +38,7 @@ def test_real_archive_documents_reach_the_store_without_ocr(tmp_path, monkeypatc
     work.mkdir()
     monkeypatch.setattr(tempfile, "tempdir", str(work))
     url = f"https://unit.example/documents.{extension if extension != 'pdf' else 'zip'}"
-    sites.save("unit", {"pages": {}, "docs": {url: "University admission rules"}})
+    link_document("unit", url, "University admission rules")
     requests = []
     with httpx.Client(transport=httpx.MockTransport(lambda req: requests.append(str(req.url)) or httpx.Response(200, content=archive.read_bytes()))) as client:
         monkeypatch.setattr(regulations.httpx, "stream", client.stream)
@@ -53,8 +53,8 @@ def test_real_archive_documents_reach_the_store_without_ocr(tmp_path, monkeypatc
         else:
             assert doc.meta["archive_member"].endswith("rules.rtf") and re.fullmatch(r"[0-9a-f]{64}", doc.meta["archive_sha256"])
         assert not list(work.iterdir())  # (the original lived only in the run's temporary folder)
-        before = copy.deepcopy(memory_files.items)
+        before = [docs_db.execute(f"SELECT * FROM {table} ORDER BY 1, 2").fetchall() for table in ("document_files", "archives")]
         assert regulations.read_new(ocr=False) == []
         assert regulations.compile_all() == [doc]
-        assert before == memory_files.items
+        assert before == [docs_db.execute(f"SELECT * FROM {table} ORDER BY 1, 2").fetchall() for table in ("document_files", "archives")]
         assert requests == [url]

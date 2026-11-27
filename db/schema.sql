@@ -829,12 +829,109 @@ CREATE INDEX IF NOT EXISTS document_chunks_search ON document_chunks USING parad
 ) WITH (mutable_segment_rows = 100);
 CREATE INDEX IF NOT EXISTS document_chunk_embeddings_hnsw ON document_chunk_embeddings
     USING hnsw (embedding vector_cosine_ops);
--- What the sources kept as files in raw/: the state of a crawl (JSON), the text read from a document, the cache of the pages
--- of a site. The originals (PDF, Word, archives, pictures) are not kept: they are downloaded again when they are needed.
-CREATE TABLE IF NOT EXISTS source_files (
-    path       text PRIMARY KEY,        -- the old path below raw/: 'sites/hotel/index.json', 'regulations/x.txt'
-    data       jsonb,                   -- a .json file
-    text       text,                    -- a .txt or .md file
-    updated_at timestamptz NOT NULL DEFAULT now(),
-    CHECK ((data IS NULL) <> (text IS NULL))
+-- The catalog of sites (catix-docs sites catalog): one column per field of sources/sites.py Site, the same defaults.
+CREATE TABLE IF NOT EXISTS site_catalog (
+    name text PRIMARY KEY CHECK (name ~ '^[a-z0-9][a-z0-9-]*$'),
+    base text NOT NULL CHECK (base ~ '^https?://[^/]+/'),
+    language text NOT NULL CHECK (language IN ('ru', 'en')),
+    about text NOT NULL,
+    skip text NOT NULL DEFAULT '',
+    sitemap text DEFAULT 'sitemap.xml',      -- NULL: no sitemap (Site.sitemap False); a path: Site.sitemap (True = 'sitemap.xml')
+    max_pages integer NOT NULL DEFAULT 60 CHECK (max_pages > 0),
+    english text,
+    dated boolean NOT NULL DEFAULT false,
+    render boolean NOT NULL DEFAULT false,
+    robots boolean NOT NULL DEFAULT false,
+    pause real CHECK (pause >= 0),
+    headings text,
+    bare boolean NOT NULL DEFAULT false,
+    listing text,
+    "end" text,
+    drop text,
+    profile text,
+    audience text[],
+    discover text,
+    missing text,
+    signin text,
+    private text,
+    feeds text[] NOT NULL DEFAULT '{}',
+    aliases text[] NOT NULL DEFAULT '{}'
+);
+CREATE TABLE IF NOT EXISTS blocked_hosts (host text PRIMARY KEY);
+
+-- The crawl (src/catix/docs/frontier.py): one row per address, and the links between them.
+CREATE TABLE IF NOT EXISTS crawl_urls (
+    address text PRIMARY KEY,                -- sites.address(url)
+    url text NOT NULL,
+    site text NOT NULL,
+    kind text NOT NULL CHECK (kind IN ('page', 'listing', 'document')),
+    pinned boolean NOT NULL DEFAULT false,
+    every interval NOT NULL,
+    next_at timestamptz,                     -- NULL: never read again
+    priority smallint NOT NULL DEFAULT 1,    -- 0 request, 1 new, 2 recheck
+    state text NOT NULL DEFAULT 'new' CHECK (state IN ('new', 'ok', 'missing', 'gone', 'tried')),
+    why text,
+    slug text,                               -- pages: documents path sites/<site>/<slug>
+    doc_key text UNIQUE,                     -- documents: key of document_files / archives
+    ext text,
+    title text,
+    sha256 text,
+    validators jsonb NOT NULL DEFAULT '{}',
+    short_words integer,
+    text text,                               -- pages: markdown
+    audience text[],
+    fetched_at timestamptz,
+    read_at timestamptz,
+    unlinked_since date,
+    CHECK ((kind = 'document') = (doc_key IS NOT NULL))
+);
+CREATE INDEX IF NOT EXISTS crawl_urls_due ON crawl_urls (priority, next_at) WHERE next_at IS NOT NULL;
+CREATE INDEX IF NOT EXISTS crawl_urls_site ON crawl_urls (site, kind, state);
+CREATE UNIQUE INDEX IF NOT EXISTS crawl_urls_slug ON crawl_urls (site, slug) WHERE slug IS NOT NULL;
+CREATE INDEX IF NOT EXISTS crawl_urls_words ON crawl_urls (site, sha256) WHERE kind = 'page';
+CREATE TABLE IF NOT EXISTS crawl_links (
+    src text NOT NULL REFERENCES crawl_urls (address) ON DELETE CASCADE ON UPDATE CASCADE,
+    dst text NOT NULL,                       -- sites.address(link): every http(s) link, trusted or not
+    anchor text NOT NULL DEFAULT '',
+    context text NOT NULL DEFAULT '',
+    PRIMARY KEY (src, dst)
+);
+CREATE INDEX IF NOT EXISTS crawl_links_dst ON crawl_links (dst);
+
+-- A document file read (docs/notes.py): its note (what regulations._fetch_once knows of it) and its text. revision: '' for
+-- a file at its URL; the content sha of an archive member or of an archive URL that served a PDF (revisions coexist until read).
+CREATE TABLE IF NOT EXISTS document_files (
+    key text NOT NULL,
+    revision text NOT NULL DEFAULT '',
+    url text, title text, section text, context text,
+    sha256 text, method text, chars integer, tables smallint, pdf_created text,
+    remote jsonb NOT NULL DEFAULT '{}',
+    ocr text CHECK (ocr IN ('queued', 'too long')), pages integer, queued_at timestamptz, ocr_failed integer,
+    skipped text, failed text, tried_at timestamptz, checked_at timestamptz, fetched_at timestamptz,
+    refetch boolean NOT NULL DEFAULT false, force boolean NOT NULL DEFAULT false,
+    text text,
+    PRIMARY KEY (key, revision)
+);
+CREATE INDEX IF NOT EXISTS document_files_ocr ON document_files (ocr) WHERE ocr IS NOT NULL;
+
+-- The manifest of an archive container (sources/archive_documents.py), published whole after a safe extraction.
+CREATE TABLE IF NOT EXISTS archives (
+    key text PRIMARY KEY, url text NOT NULL, sha256 text, remote jsonb NOT NULL DEFAULT '{}',
+    status text, error text, refetch boolean NOT NULL DEFAULT false, tried_at timestamptz,
+    document jsonb, members jsonb NOT NULL DEFAULT '[]'
+);
+
+-- Course programmes (sources/rpd.py): one per PDF of a РПД archive; and what the site said of each archive.
+CREATE TABLE IF NOT EXISTS course_programmes (
+    key text PRIMARY KEY, archive text NOT NULL, archive_title text, member text, programme text, level text,
+    year integer, semester integer, kind text, code text, name text, fetched_at timestamptz,
+    sha256 text, method text, chars integer, skipped text, text text
+);
+CREATE TABLE IF NOT EXISTS rpd_archives (url text PRIMARY KEY, remote jsonb NOT NULL DEFAULT '{}', failed text, tried_at timestamptz);
+
+-- The snapshot of the eduwiki (sources/eduwiki.py).
+CREATE TABLE IF NOT EXISTS eduwiki_pages (
+    pageid integer PRIMARY KEY, ns integer NOT NULL, title text NOT NULL, revid bigint NOT NULL,
+    redirect boolean NOT NULL DEFAULT false, deleted boolean NOT NULL DEFAULT false,
+    timestamp timestamptz, wikitext text, fetched_at timestamptz
 );

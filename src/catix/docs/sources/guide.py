@@ -2,7 +2,7 @@
 
 The folder `src/catix/docs/guide/` holds one markdown file per topic and language, `<topic>.<lang>.md`: a `# Title` line, then
 `##` sections (each becomes a search piece, so each answers one question). The documents are rebuilt from the repo's files, no
-network and no source_files; their meta carries no date, so `store.sync` finds an unchanged document by its fingerprint and
+network and no table of the crawl; their meta carries no date, so `store.sync` finds an unchanged document by its fingerprint and
 leaves it alone at every start of the loop.
 """
 
