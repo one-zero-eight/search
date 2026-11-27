@@ -1,4 +1,4 @@
-"""OCR of a scanned PDF by the local Tesseract (`rus+eng`), the only OCR engine of the documents and the course files: each
+"""OCR of a scanned PDF by the local Tesseract (`rus+eng`), the fallback OCR engine of the documents and the course files while the LightOnOCR server does not answer: each
 page of the PDF is drawn by pdftoppm (DPI) and read by `tesseract` (page segmentation mode 3, a plain text out). The text
 of the pages becomes the nodes opendataloader gives for a text layer (a block a paragraph), and opendataloader.text_of makes
 the text of them as it does for one: a paragraph going on across a page. Tesseract gives no headings, tables or boxes: the

@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from catix.docs import files, runner
-from catix.docs.sources import tesseract, ocr_queue, opendataloader, regulations, sites
+from catix.docs.sources import lighton, tesseract, ocr_queue, opendataloader, regulations, sites
 
 LONG = regulations.MAX_OCR_PAGES + 1
 
@@ -37,7 +37,7 @@ def _one_scan(monkeypatch, tmp_path, pages):
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: pages)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     monkeypatch.setattr(regulations, "layer_text", lambda pdf, converted=None: layers.append(pdf.name))  # (None: a scan)
-    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, tesseract.METHOD))
+    monkeypatch.setattr(regulations, "ocr_text", lambda pdf: read.append(pdf.name) or ("1. Общие положения " * 50, lighton.METHOD))
     return key, asked, layers, read
 
 
@@ -89,7 +89,7 @@ def test_the_queue_shows_the_scans_waiting_and_apart_the_long_ones(monkeypatch, 
     ocr_queue.show(found)
     out = capsys.readouterr().out
     queue, apart = out.split("Too long for OCR")
-    assert queue.startswith("OCR queue: 1 scan, 3 pages") and "short" in queue and "tesseract failed 2x" in queue and "regs fetch" in queue
+    assert queue.startswith("OCR queue: 1 scan, 3 pages") and "short" in queue and "OCR failed 2x" in queue and "regs fetch" in queue
     assert "long" not in queue and "1 scan, 41 pages" in apart and "https://u.example/long.pdf" in apart
 
 
@@ -131,7 +131,7 @@ def test_the_admins_are_told_of_each_new_scan_once(monkeypatch):
     assert len(told) == 4 and told[3].startswith("📕") and "Документ b" in told[3]
 
 
-def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypatch, tmp_path):
+def test_a_scan_lighton_fails_on_stays_queued_and_tesseract_is_not_asked_while_its_server_answers(monkeypatch, tmp_path):
     key = "site-hotel-1-rules"
     monkeypatch.setattr(regulations, "all_docs", lambda: {key: {"title": "Правила", "url": "https://hotel.innopolis.university/r.pdf", "root": "r",
                                                                "section": "site/hotel", "ext": "pdf"}})
@@ -143,8 +143,11 @@ def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypat
     monkeypatch.setattr(regulations, "pages_of", lambda pdf: 3)
     monkeypatch.setattr(opendataloader, "converted", lambda pdfs: contextlib.nullcontext({}))
     up = [True]
-    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: None)
-    monkeypatch.setattr(tesseract, "available", lambda: up[0])
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf, **kw: None)
+    monkeypatch.setattr(lighton, "available", lambda: up[0])
+    monkeypatch.setattr(tesseract, "available", lambda: False)
+    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: pytest.fail("tesseract was asked while the server answers"))
+    monkeypatch.setattr(regulations, "pdf_created", lambda pdf: None)  # (pdfinfo is not an OCR engine, but the guard below stops every subprocess)
     monkeypatch.setattr(regulations.subprocess, "run", lambda *a, **k: pytest.fail("another OCR engine was started"))
     note = lambda: files.read_json(f"r/{key}.json")  # noqa: E731
 
@@ -157,17 +160,37 @@ def test_a_failed_scan_stays_queued_without_falling_back_after_retries(monkeypat
         assert regulations.read_new() == []
         assert note()["ocr"] == "queued" and note()["ocr_failed"] == failed
         assert not files.exists(f"r/{key}.txt")
-    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: "1. Общие положения " * 50)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf, **kw: "1. Общие положения " * 50)
     assert regulations.read_new() == [key]
-    assert "ocr" not in note() and note()["method"] == tesseract.METHOD
+    assert "ocr" not in note() and note()["method"] == lighton.METHOD
 
 
+@pytest.mark.parametrize("lighton_up", [True, False])
 @pytest.mark.parametrize("text", [None, "", "  \n"])
-def test_an_unreadable_scan_is_not_successful_text(monkeypatch, tmp_path, text):
-    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: text)
+def test_an_unreadable_scan_is_not_successful_text(monkeypatch, tmp_path, text, lighton_up):
+    engine = lighton if lighton_up else tesseract  # (the engine that is up reads the scan)
+    monkeypatch.setattr(engine, "text_of_pdf", lambda pdf, **kw: text)
+    monkeypatch.setattr(lighton, "available", lambda: lighton_up)
     monkeypatch.setattr(tesseract, "available", lambda: True)
     with pytest.raises(regulations.NotRead):
         regulations.ocr_text(tmp_path / "scan.pdf")
+
+
+def test_tesseract_reads_a_scan_while_the_lighton_server_is_away(monkeypatch, tmp_path):
+    monkeypatch.setattr(lighton, "available", lambda: False)
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf, **kw: pytest.fail("the away server was asked"))
+    monkeypatch.setattr(tesseract, "available", lambda: True)
+    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: "1. Общие положения " * 50)
+    assert regulations.ocr_text(tmp_path / "scan.pdf") == ("1. Общие положения " * 50, tesseract.METHOD)
+
+
+def test_a_scan_lighton_drops_mid_read_is_read_by_tesseract(monkeypatch, tmp_path):
+    answers = iter([True, False])
+    monkeypatch.setattr(lighton, "available", lambda: next(answers))
+    monkeypatch.setattr(lighton, "text_of_pdf", lambda pdf, **kw: None)
+    monkeypatch.setattr(tesseract, "available", lambda: True)
+    monkeypatch.setattr(tesseract, "text_of_pdf", lambda pdf, **kw: "1. Общие положения " * 50)
+    assert regulations.ocr_text(tmp_path / "scan.pdf")[1] == tesseract.METHOD
 
 
 def test_the_scan_is_not_kept_after_a_run_and_a_run_without_ocr_does_not_download_it(monkeypatch, tmp_path):

@@ -1,14 +1,14 @@
-"""OCR of a scanned PDF by LightOnOCR (a 1B vision-language model, served by llama.cpp as `lighton` at settings.ocr_route,
-127.0.0.1:9931 on the server, always up): the image of a page in (no prompt), the page's markdown out (headings as '#', tables
+"""OCR of a scanned PDF by LightOnOCR (a 1B vision-language model, served as `lighton` at settings.ocr_route by
+catix-ocr.service on inh-compute: <engine>, <N*> pages at once = OCR_PARALLEL): the image of a page in (no prompt), the page's
+markdown out (headings as '#', tables
 as markdown or HTML, pictures as `![image](...)`). The markdown becomes the nodes opendataloader gives for a text layer, and
 opendataloader.text_of makes the text of them as it does for one: a block a paragraph, a table as markdown, a paragraph going
 on across a page.
 
 The model gives no head or foot of a page apart from its text and no boxes. A picture is not text: its line is left out. An
-answer that does not end (the model looping to its token limit) is asked again warmer. The server has one slot of 8192
-tokens: a page's image (about 2500 tokens, LONGEST pixels on its longer side) and its answer (MAX_TOKENS) fit in it, so pages
-are read one at a time (OCR_PARALLEL=1). A page the server cannot read leaves the document queued for another attempt; no
-other OCR engine is used."""
+answer that does not end (the model looping to its token limit) is asked again warmer. A page's image (about 2500 tokens,
+LONGEST pixels on its longer side) and its answer (MAX_TOKENS) fit in a slot of 8192 tokens. A page the server cannot read
+leaves the document queued for another attempt; regulations.ocr_text falls back to Tesseract while the server does not answer."""
 
 import base64
 import io

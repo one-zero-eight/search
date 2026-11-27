@@ -1,7 +1,7 @@
 """The queue of the API's requests to the run of catix-docs (parse_requests.py) and how the run serves them (runner.py), in memory."""
 
 from collections import Counter
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -274,3 +274,19 @@ def test_a_new_site_request_says_what_went_wrong(parse_queue, monkeypatch, lock)
     got = parse_requests.get(done.id)
     assert (got.status, got.outcome) == ("done", "changed") and "3 pages read" in got.result
     assert ["build-only"] in calls
+
+
+def test_an_ended_login_is_told_once_a_week(monkeypatch):
+    told = []
+    monkeypatch.setattr(runner, "tell_admins", told.append)
+    monkeypatch.setattr(runner, "save_state", lambda state: None)
+    monkeypatch.setattr(site_source, "ENDED", {"my": "x"})
+    state: dict = {}
+    runner.tell_ended_sessions(state)
+    site_source.ENDED = {"my": "x"}
+    runner.tell_ended_sessions(state)
+    assert len(told) == 1 and "my" in told[0] and site_source.ENDED == {}
+    state["session_told"]["my"] = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat(timespec="seconds")
+    site_source.ENDED = {"my": "x"}
+    runner.tell_ended_sessions(state)
+    assert len(told) == 2

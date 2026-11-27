@@ -36,6 +36,7 @@ from catix.settings import settings
 LOCK_ID = 7_301_001  # pg_try_advisory_lock key of catix-docs run
 IDLE = timedelta(minutes=15)  # the longest sleep of --loop between two looks at the schedule
 REQUEST_POLL = 30  # seconds between two looks of the sleeping --loop at the queue of requests
+SESSION_RETELL = timedelta(days=7)  # an ended login is told again this often while it lasts
 
 
 class Outcome(str):
@@ -105,6 +106,10 @@ def run_once(names: list[str] | None = None, sites: list[str] | None = None, bac
             state.setdefault("asked", {})[source.name] = now.isoformat(timespec="seconds")
             save_state(state)
     try:
+        tell_ended_sessions(state)
+    except Exception:  # noqa: BLE001 - the report must not stop the run
+        traceback.print_exc()
+    try:
         tell_ocr_queue(state)
     except Exception:  # noqa: BLE001 - the queue's report must not stop the run
         traceback.print_exc()
@@ -120,6 +125,22 @@ def run_once(names: list[str] | None = None, sites: list[str] | None = None, bac
     if new + changed_n + removed:
         return outcome("changed", f"documents: {new} new, {changed_n} changed, {removed} removed; {store.queued()} pieces wait for a vector")
     return outcome("unchanged", "sources changed, the documents did not")
+
+
+def tell_ended_sessions(state: dict) -> None:
+    """The admins told of the sites whose login ended (sites.ENDED), each again after SESSION_RETELL while it lasts."""
+    from catix.docs.sources import sites
+
+    ended, sites.ENDED = dict(sites.ENDED), {}
+    told, now = state.setdefault("session_told", {}), datetime.now(timezone.utc)
+    for name in ended:
+        if name in told and now - datetime.fromisoformat(told[name]) < SESSION_RETELL:
+            continue
+        tell_admins(f"🔑 Сайт {name} ({sites.SITES[name].base}) не прочитан: закончилась сессия входа в его профиле Chromium. "
+                    "Остальные сайты прочитаны. Войдите в профиль заново и скопируйте его в /app/data/chromium-profile тома catix_data (DEPLOY.md).")
+        told[name] = now.isoformat(timespec="seconds")
+    if ended:
+        save_state(state)
 
 
 def tell_ocr_queue(state: dict) -> None:

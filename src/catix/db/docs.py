@@ -50,6 +50,7 @@ class DocHit:
     page_sha: str = ""  # the indexed page revision, not the chunk's text hash
     archive_member: str | None = None  # the PDF in the archive the page was read from, for the preview
     archive_sha256: str | None = None  # the full digest of that member
+    issued_precision: str | None = None  # 'year' when only the year of the date is known (from a title or a file name)
 
 
 # The course programmes (docs/sources/rpd.py) are 700 pages of the same shape that use every word of study ("курс", "дисциплина",
@@ -94,7 +95,8 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False) -> lis
 
 HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, p.title, p.type, p.trust, p.audience, p.resource,
                 p.status, p.review, p.source_warning, p.stale_after, p.issued, p.sha AS page_sha,
-                p.meta->>'archive_member' AS archive_member, p.meta->>'archive_sha256' AS archive_sha256
+                p.meta->>'archive_member' AS archive_member, p.meta->>'archive_sha256' AS archive_sha256,
+                p.meta->>'issued_precision' AS issued_precision
          FROM document_chunks c JOIN documents p ON p.path = c.path"""
 
 
@@ -262,6 +264,15 @@ def rerank_document(h: DocHit) -> str:
     return f"{h.title}\n{h.heading}\n{h.text[:settings.rerank_max_chars]}"
 
 
+def freshness(hit) -> float:
+    """The factor of a hit's reranker score for its age (settings.docs_freshness_*); 1 for a hit that is not a dated document."""
+    issued = getattr(hit, "issued", None)
+    if not isinstance(hit, DocHit) or issued is None or hit.path.startswith("sites/"):
+        return 1.0
+    years = (date.today() - issued).days / 365.25
+    return max(settings.docs_freshness_floor, 1 - settings.docs_freshness_rate * max(0.0, years - 1))
+
+
 def _rerank(queries: list[str], hits: list[DocHit], limit: int) -> list[DocHit]:
     """The `limit` pieces the reranker finds closest to any of the queries (its best score counts), above the cutoff; each
     keeps its second best score as `relevance`, how well two angles agree that it is about the question (see store._rerank)."""
@@ -276,7 +287,8 @@ def _rerank(queries: list[str], hits: list[DocHit], limit: int) -> list[DocHit]:
         log.warning("reranker server unavailable, keeping the hybrid ranking", exc_info=True)
         return hits[:limit]
     best = [max(per_query[i] for per_query in scores) for i in range(len(hits))]
-    order = sorted(range(len(hits)), key=lambda i: best[i], reverse=True)[:limit]
+    ranked = [best[i] * freshness(hits[i]) for i in range(len(hits))]
+    order = sorted(range(len(hits)), key=lambda i: ranked[i], reverse=True)[:limit]
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
     for i, column in enumerate(zip(*scores)):

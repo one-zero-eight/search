@@ -316,7 +316,7 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     item = {"ref": collector.add_wiki(hit), "document": hit.title, "kind": _kind(hit)}
     # (A site page's date is the day it was read, or the 1st of January of a past year it is about: its text has its own.)
     if hit.issued and not hit.path.startswith(SITES):
-        item["date"] = f"{hit.issued:%Y-%m-%d}"  # of the document: a newer one replaces an older one
+        item["date"] = f"{hit.issued:%Y}" if getattr(hit, "issued_precision", None) == "year" else f"{hit.issued:%Y-%m-%d}"  # of the document: a newer one replaces an older one
     if hit.trust == "official":
         item["official"] = True  # a document of the university: "official" may be said of it
     if hit.clause:

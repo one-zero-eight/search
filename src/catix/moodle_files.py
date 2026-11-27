@@ -88,6 +88,9 @@ def read_file(data: bytes, suffix: str) -> Extracted:
             env["DATABASE_URL"] = ""  # the docs modules it imports must not reach the corpus (nor .env: cwd is `work`)
             env["PYTHONPATH"] = str(Path(__file__).resolve().parent.parent)
             env["OCR_PARALLEL"] = str(settings.ocr_parallel)
+            if settings.ocr_route:
+                env["OCR_ROUTE"] = str(settings.ocr_route)
+            env["OCR_MODEL"] = settings.ocr_model
             process = subprocess.Popen(
                 [sys.executable, str(Path(__file__).with_name("moodle_file_reader.py")), suffix],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,

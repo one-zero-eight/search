@@ -62,6 +62,7 @@ from catix.docs.sources.rpd import latin
 from catix.docs.store import AUDIENCES, PRODUCER, Document
 from catix.settings import settings
 
+REVALIDATE = timedelta(days=28)  # a page the site answered 304 is still read whole this often, so a change of the reading code reaches it
 ROOT = "sites"  # the prefix of the cache of the sites in source_files, and of their documents' paths
 PAUSE = 2  # seconds between requests
 PROGRESS = 60  # seconds between two lines a crawl says of its progress
@@ -356,18 +357,19 @@ BOT_TRIES = 8  # a bot check comes and goes (timepad behind Yandex answered seve
 BOT_PAUSE = 5  # seconds between the asks
 
 
-def get_through(client: httpx.Client, url: str) -> httpx.Response:
+def get_through(client: httpx.Client, url: str, headers: dict | None = None) -> httpx.Response:
     """The answer for the url, asked again while a bot check answers in its place ('Вы не робот?' of Yandex on timepad, 'Just a
     moment' of Cloudflare): the wall is not the site, and it lets a request through now and then. The last answer is kept
     whatever it is, so a page that names a bot check in its own words is only asked for again, never refused for them."""
+    extra = {"headers": headers} if headers else {}
     hosts.turn(url)
-    page = client.get(url)
+    page = client.get(url, **extra)
     for _ in range(BOT_TRIES - 1):
         if not WALL.search(page.text):
             break
         time.sleep(BOT_PAUSE)
         hosts.turn(url)
-        page = client.get(url)
+        page = client.get(url, **extra)
     return page
 
 
@@ -570,18 +572,36 @@ def needs_script(page: httpx.Response, headings: str | None = None) -> bool:
             and convert_page(page.text, str(page.url), headings)[3])
 
 
-def get_page(client: httpx.Client, site: "Site", url: str) -> httpx.Response:
+class SessionEnded(RuntimeError):
+    """The Chromium profile of a site behind a login shows the login: the site is not read until a person logs in again."""
+
+
+ENDED: dict[str, str] = {}  # site name -> message, for the sites whose session ended in this process since the runner last took them
+
+
+def conditional_headers(validators: dict) -> dict:
+    """The request headers that ask the site to answer 304 when the page is the one read before (ETag, else its date)."""
+    if validators.get("etag"):
+        return {"If-None-Match": validators["etag"]}
+    if validators.get("modified"):
+        return {"If-Modified-Since": validators["modified"]}
+    return {}
+
+
+def get_page(client: httpx.Client, site: "Site", url: str, validators: dict | None = None) -> httpx.Response:
     """The answer for a page: the site's own, or what the browser made of it, as if it were the answer: for every page of an app
     (Site.render), for a page that needs its scripts (needs_script) on any other site."""
     if site.profile:
         profile = profile_of(site)
         html = render_live(url, profile)
         if site.signin and re.search(site.signin, html):
-            raise RuntimeError(f"the session of the profile {profile} has ended: {url} shows the login")
-        return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8"}, text=html, request=httpx.Request("GET", url))
-    headers = {"content-type": "text/html; charset=utf-8"}
+            raise SessionEnded(f"the session of the profile {profile} has ended: {url} shows the login")
+        return httpx.Response(404 if site.missing and re.search(site.missing, html) else 200, headers={"content-type": "text/html; charset=utf-8", "x-catix-rendered": "1"}, text=html, request=httpx.Request("GET", url))
+    headers = {"content-type": "text/html; charset=utf-8", "x-catix-rendered": "1"}
     if not site.render:
-        page = get_through(client, url)
+        page = get_through(client, url, conditional_headers(validators or {}))
+        if page.status_code == 304:
+            return page
         if not needs_script(page, site.headings):
             return page
         url = str(page.url)
@@ -1203,7 +1223,7 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             put(urljoin(site.base, path))
         print(f"  {name}: {len(todo) + len(fresh)} pages listed, {len(fresh)} of them new")
     rules = robots_of(site, client)
-    seen, read_slugs, read_ok, changed, docs, contexts = set(), set(), 0, 0, {}, {}
+    seen, read_slugs, read_ok, not_modified, changed, docs, contexts = set(), set(), 0, 0, 0, {}, {}
     first: dict[str, str] = {}  # the words of a page (their hash) -> the page read with them first in this run
     limit = min(site.max_pages, len(todo) + NEW_PAGES) if only_new else site.max_pages
     last_said = time.monotonic()
@@ -1222,10 +1242,17 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             visited.add(url)
         if time.monotonic() - last_said >= PROGRESS:  # (a page that has not changed says nothing: a long crawl was silent for an hour)
             last_said = time.monotonic()
-            print(f"  {name}: {len(seen)} pages asked, {len(fresh) + len(todo)} listed left (up to {limit}), {changed} new or changed", flush=True)
+            print(f"  {name}: {len(seen)} pages asked, {len(fresh) + len(todo)} listed left (up to {limit}), {changed} new or changed, {not_modified} not modified (304)", flush=True)
         slug = slug_of(site, url)
         if address(index["pages"].get(slug, {}).get("url", url)) != address(url):  # (two paths, one slug; an alias is the same page, not a collision)
             slug = f"{slug[:50]}-{hashlib.sha1(url.encode()).hexdigest()[:6]}"
+        old = index["pages"].get(slug, {})
+        links_path = f"{ROOT}/{name}/{slug}.links.json"
+        conditional = bool(
+            old.get("validators") and not old.get("gone") and "missing" not in old and "short" not in old and slug in kept
+            and (name, slug) not in EXTRAS and "?" not in url and old.get("read_at")
+            and datetime.fromisoformat(old["read_at"]) > datetime.now(timezone.utc) - REVALIDATE
+            and files.read_json(links_path) is not None)
         try:
             if DOWNLOAD.search(urlsplit(url).path):
                 # Do not GET a potentially large binary just to classify it as an archive.
@@ -1239,48 +1266,54 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                     read_ok += 1
                     time.sleep(PAUSE if site.pause is None else site.pause)
                     continue
-            resp = get_page(client, site, url)
+            resp = get_page(client, site, url, old.get("validators") if conditional else None)
             time.sleep(PAUSE if site.pause is None else site.pause)
         except httpx.HTTPError as e:
             print(f"  FAILED {url}: {e}")
             note(url, f"{type(e).__name__}: {str(e)[:200]}")
             continue
-        old = index["pages"].get(slug, {})
-        if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
-            why = "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})"
-            if old and not old.get("gone") and slug not in read_slugs:  # (not for the other spelling of an address that was read: /x/ and /x)
-                changed += missed(index["pages"], slug, why, run)
-            note(url, why)
-            continue
-        if resp.status_code != 200:
-            print(f"  {url}: {resp.status_code}")
-            note(url, str(resp.status_code))
-            continue
-        moved = str(resp.url)
-        if address(url) not in known and address(moved) != address(url):  # (a known page that moved stays the page it was)
-            print(f"  {url}: sent to {moved}", flush=True)
-            note(url, f"sent to {moved}")
-            if (other := crawl.provider(moved, page=True)) == name:
-                put(moved)
-            elif other and linked is not None and (target := page_url(SITES[other], moved)) not in (visited or set()):
-                linked.setdefault(other, set()).add(target)
-            continue
-        title, text, links = read(resp.text, str(resp.url), site.headings)
-        if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
-            print(f"  {url}: a bot check answers in its place", flush=True)
-            note(url, "a bot check")
-            continue
-        read_ok += 1
-        read_slugs.add(slug)
-        if "missing" in old:  # (it is there: the 404 or the missing link before was the wrong one)
-            old = index["pages"][slug] = {key: value for key, value in old.items() if key != "missing"}
-        if site.private:
-            text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
-        if site.bare:
-            links = [(languaged(site, link, str(resp.url)), anchor) for link, anchor in links]
-            text = re.sub(r"(!\[[^\]]*\]\([^)\s]*\))|(?<=\]\()https?://[^)\s]+", lambda m: m.group(1) or languaged(site, m.group(), str(resp.url)), text)  # (not a picture)
-        if (extra := EXTRAS.get((name, slug))):
-            text = extra(client, resp.text, str(resp.url), text)
+        revalidated = resp.status_code == 304
+        if revalidated:
+            title, text, links = old["title"], kept[slug], [tuple(x) for x in files.read_json(links_path)]
+            read_ok += 1
+            read_slugs.add(slug)
+            not_modified += 1
+        else:
+            if resp.status_code == 404 or "text/html" not in resp.headers.get("content-type", ""):
+                why = "404" if resp.status_code == 404 else f"not a page ({resp.headers.get('content-type', 'no type')})"
+                if old and not old.get("gone") and slug not in read_slugs:  # (not for the other spelling of an address that was read: /x/ and /x)
+                    changed += missed(index["pages"], slug, why, run)
+                note(url, why)
+                continue
+            if resp.status_code != 200:
+                print(f"  {url}: {resp.status_code}")
+                note(url, str(resp.status_code))
+                continue
+            moved = str(resp.url)
+            if address(url) not in known and address(moved) != address(url):  # (a known page that moved stays the page it was)
+                print(f"  {url}: sent to {moved}", flush=True)
+                note(url, f"sent to {moved}")
+                if (other := crawl.provider(moved, page=True)) == name:
+                    put(moved)
+                elif other and linked is not None and (target := page_url(SITES[other], moved)) not in (visited or set()):
+                    linked.setdefault(other, set()).add(target)
+                continue
+            title, text, links = read(resp.text, str(resp.url), site.headings)
+            if WALL_TITLE.search(title):  # (a bot check that let none of the asks of get_page through, not the site's page)
+                print(f"  {url}: a bot check answers in its place", flush=True)
+                note(url, "a bot check")
+                continue
+            read_ok += 1
+            read_slugs.add(slug)
+            if "missing" in old:  # (it is there: the 404 or the missing link before was the wrong one)
+                old = index["pages"][slug] = {key: value for key, value in old.items() if key != "missing"}
+            if site.private:
+                text = re.sub(site.private, "", text, flags=re.M).rstrip() + "\n"  # (the person who is logged in is not the page's)
+            if site.bare:
+                links = [(languaged(site, link, str(resp.url)), anchor) for link, anchor in links]
+                text = re.sub(r"(!\[[^\]]*\]\([^)\s]*\))|(?<=\]\()https?://[^)\s]+", lambda m: m.group(1) or languaged(site, m.group(), str(resp.url)), text)  # (not a picture)
+            if (extra := EXTRAS.get((name, slug))):
+                text = extra(client, resp.text, str(resp.url), text)
         for link, anchor in links:
             if (DOC.search(urlsplit(link).path) or canonical(link) in index.get("archive_types", {})) and crawl.provider(link):
                 doc = canonical(link)
@@ -1296,6 +1329,16 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 contexts.setdefault(doc, context)
         if "?" in url:  # (a page of a list: its links are taken, it is not kept)
             continue
+        if revalidated:  # (the page is as it was: nothing to write, its read_at stays)
+            first.setdefault(old["sha256"], slug)
+            continue
+        validators = {} if "x-catix-rendered" in resp.headers else {k: v for k, v in (("etag", resp.headers.get("etag")), ("modified", resp.headers.get("last-modified"))) if v}
+        stamp = {"validators": validators, "read_at": datetime.now(timezone.utc).isoformat(timespec="seconds")} if validators else {}
+
+        def save_links() -> None:
+            if stamp and files.read_json(links_path) != (payload := [list(x) for x in links]):
+                files.write_json(links_path, payload)
+
         sha = hashlib.sha256(plain(text).encode()).hexdigest()  # (the words: a new link or picture is not a new version)
         if first.setdefault(sha, slug) != slug:  # the page read before under another address (Tilda: '/Vue-js-framework' is '/vue-js-framework')
             if old and not old.get("gone"):
@@ -1304,7 +1347,8 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
             note(url, f"the words of {first[sha]}")
             continue
         if old.get("sha256") == sha and not old.get("gone"):
-            index["pages"][slug] = {key: value for key, value in old.items() if key != "short"}  # (the short read was the wrong one)
+            index["pages"][slug] = {key: value for key, value in old.items() if key not in ("short", "validators", "read_at")} | stamp  # (the short read was the wrong one)
+            save_links()
             if files.read_text(f"{ROOT}/{name}/{slug}.md") != text:
                 put_cache(name, slug, text)  # (the same words, other links and pictures)
             continue
@@ -1319,11 +1363,13 @@ def fetch_site(name: str, site: Site, client: httpx.Client, start: list[str] | N
                 continue
         put_cache(name, slug, text)
         index["pages"][slug] = {"url": url, "title": title, "sha256": sha, "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                "last_modified": resp.headers.get("last-modified", "")}
+                                "last_modified": resp.headers.get("last-modified", ""), **stamp}
+        save_links()
         changed += 1
         print(f"  {slug}: {'changed' if old else 'new'}, {len(text)} chars", flush=True)
         if changed % 50 == 0:
             save(name, index)  # (a long crawl cut short keeps what it read)
+    print(f"  {name}: {read_ok} pages read, {not_modified} of them not modified (304)")
     for slug, page in list(index["pages"].items()):  # a page no link leads to any more has left the site
         if (read_ok and not partial and page["url"] not in seen and slug not in read_slugs and not page.get("gone")
                 and len(seen) < site.max_pages):  # (not when the site did not answer; not from a few pages: they do not lead everywhere)
@@ -1387,6 +1433,9 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
             print(f"== {name}: {site.base}")
             try:
                 total += fetch_site(name, site, client, linked=linked, visited=visited, run=run)
+            except SessionEnded as e:
+                ENDED[name] = str(e)
+                print(f"  {name}: {e}; skipped, the other sites go on", flush=True)
             finally:
                 close_live()
 
@@ -1408,12 +1457,15 @@ def fetch(names: list[str] | None = None, only_new: bool = False, documents: boo
             while linked and (weekly or depth < NEW_DEPTH):
                 wave, linked, depth = linked, {}, depth + 1
                 for name, urls in wave.items():
-                    if name not in SITES or not (start := unread(name, urls)):
+                    if name not in SITES or name in ENDED or not (start := unread(name, urls)):
                         continue
                     print(f"== {name}: {len(start)} linked pages" + ("" if name in whole else " it does not have"))
                     try:
                         total += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run,
                                             only_new=name not in whole)
+                    except SessionEnded as e:
+                        ENDED[name] = str(e)
+                        print(f"  {name}: {e}; skipped, the other sites go on", flush=True)
                     finally:
                         close_live()
             if not documents:
@@ -1478,6 +1530,8 @@ def fetch_new(names: list[str] | None = None, client: httpx.Client | None = None
                 try:
                     changed += fetch_site(name, SITES[name], client, start=start, linked=linked, visited=visited, run=run, only_new=True)
                 except Exception as e:  # noqa: BLE001 - one site failing (its browser, its server) leaves the others to read; the weekly run reads it whole
+                    if isinstance(e, SessionEnded):
+                        ENDED[name] = str(e)
                     print(f"  {name}: {type(e).__name__}: {str(e)[:300]}", flush=True)
                 finally:
                     close_live()

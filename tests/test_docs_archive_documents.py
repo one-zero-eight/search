@@ -12,7 +12,7 @@ import pytest
 from httpx import Client
 
 from catix.docs import files
-from catix.docs.sources import tesseract, opendataloader, regulations, sites
+from catix.docs.sources import lighton, tesseract, opendataloader, regulations, sites
 
 
 def zipped(files):
@@ -203,6 +203,8 @@ def test_standalone_scan_is_consumed_by_existing_ocr_queue(bundle, monkeypatch):
     bundle["body"] = standalone_pdf("SCAN")
     assert regulations.read_new(ocr=False) == []
     assert bundle["requests"] == [("GET", bundle["url"])] and no_originals(bundle)
+    monkeypatch.setattr(lighton, "available", lambda: False)
+    monkeypatch.setattr(tesseract, "available", lambda: True)
     monkeypatch.setattr(tesseract, "text_of_pdf", lambda *a, **kw: "1. Приказ ректора " * 70)
     assert regulations.read_new() == [bundle["parent"]]  # (a run with OCR downloads the file again)
     assert regulations.queued() == {}
@@ -248,6 +250,8 @@ def test_archive_members_use_document_text_and_persistent_ocr_queue(bundle, monk
     assert bundle["url"] in doc.body and doc.meta["archive_member"] == "rules/admission.pdf" and re.fullmatch(r"[0-9a-f]{64}", doc.meta["archive_sha256"])
     assert regulations.read_new(ocr=False) == []
     assert bundle["requests"] == [("GET", bundle["url"])] and len(bundle["layers"]) == 2
+    monkeypatch.setattr(lighton, "available", lambda: False)
+    monkeypatch.setattr(tesseract, "available", lambda: True)
     monkeypatch.setattr(tesseract, "text_of_pdf", lambda *a, **kw: "1. Приказ ректора " * 70)
     assert regulations.read_new() == [key]
     assert bundle["requests"] == [("GET", bundle["url"])] * 2  # (the archive is downloaded again for the scan)

@@ -2,7 +2,7 @@
 
 argv[1] is the file's suffix, stdin its bytes; stdout is one JSON object {"page_texts", "method", "pages", "skipped"}, where
 page_texts is a list of [page or null, text] (a PDF page or slide each; null: not paged) or null. Exit 75:
-the OCR server did not answer (retry later); any other failure exits 1 without saying anything about the file."""
+no OCR engine is available (retry later); any other failure exits 1 without saying anything about the file."""
 
 import io
 import json
@@ -38,13 +38,21 @@ def _plain(data: bytes) -> dict:
 
 
 def _ocr_image(data: bytes, suffix: str) -> dict:
+    import httpx
     from PIL import Image
 
-    from catix.docs.sources import tesseract
+    from catix.docs.sources import lighton, tesseract
 
     im = _image(data, suffix)
     rgba = im.convert("RGBA")
     Image.alpha_composite(Image.new("RGBA", rgba.size, "white"), rgba).convert("RGB").save("page.png", format="PNG")
+    if lighton.available():
+        try:
+            markdown = lighton.read_page(Path("page.png"))
+            return {"page_texts": [[1, lighton.text_of_pages([markdown])]], "method": lighton.METHOD, "pages": 1}
+        except httpx.HTTPError:
+            if lighton.available():
+                raise
     if not tesseract.available():
         sys.exit(AWAY)
     text = tesseract.read_page(Path("page.png"))  # (a failure exits non-zero: the reader's caller takes it as ReadFailed)

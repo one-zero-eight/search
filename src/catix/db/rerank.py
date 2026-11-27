@@ -13,6 +13,7 @@ from dataclasses import replace
 
 from catix.agent import tracing
 from catix.db import pg
+from catix.db.docs import freshness
 from catix.settings import settings
 
 log = logging.getLogger("catix.rerank")
@@ -47,14 +48,15 @@ def mixed(queries: list[str], pools: dict[str, list[tuple[object, str]]], limit:
         return out
     best = [max(column) for column in zip(*scores)]
     agreed = [sorted(column, reverse=True)[1 if len(column) > 1 else 0] for column in zip(*scores)]
-    order = sorted(range(len(flat)), key=lambda i: best[i], reverse=True)
+    ranked = [best[i] * freshness(flat[i][1]) for i in range(len(flat))]
+    order = sorted(range(len(flat)), key=lambda i: ranked[i], reverse=True)
     if settings.rerank_min_score is not None:
         order = [i for i in order if best[i] >= settings.rerank_min_score]
     chosen = []
     for source in pools:  # the reserved ones first, then the best of all
         chosen += [i for i in order if flat[i][0] == source][:reserve]
     chosen += [i for i in order if i not in chosen][: max(limit - len(chosen), 0)]
-    for i in sorted(chosen, key=lambda i: best[i], reverse=True):
+    for i in sorted(chosen, key=lambda i: ranked[i], reverse=True):
         source, hit, _ = flat[i]
         out[source].append(replace(hit, relevance=agreed[i]))
     return out

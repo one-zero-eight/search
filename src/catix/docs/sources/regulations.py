@@ -6,7 +6,7 @@ innopolis.university/sveden among them): their text (kept in Postgres: source_fi
                                 # documents link and no run has read (sites.fetch, only_new) and their documents, until nothing new comes
                                 # (N: at most N documents, and no pages; --no-ocr: a scan is queued for a run with OCR, as the 6-hourly run does)
     catix-docs regs refresh     # ask the site (HEAD) whether a downloaded document changed; a changed one is downloaded again by fetch
-    catix-docs regs queue       # the OCR queue (every source's scans waiting for tesseract) and the scans too long for it (ocr_queue.py)
+    catix-docs regs queue       # the OCR queue (every source's scans waiting for OCR) and the scans too long for it (ocr_queue.py)
 
 The text of a regulation is NOT rewritten by the model: the program only turns the layout into markdown (chapters, clauses, tables)
 and the clause numbers stay, so that an answer can cite 'п. 5.3'. No model writes any of the page (compile_all). The originals live only in a temporary folder while a run reads them.
@@ -24,11 +24,11 @@ import time
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Iterator
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import httpx
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 
 from catix.settings import settings
 from catix.docs import files
@@ -75,10 +75,59 @@ def issued_of(text: str, fallback: str) -> str:
     return f"{y}-{mo:02d}-{d:02d}T00:00:00+03:00"
 
 
+DAY_FIRST = re.compile(r"(?<!\d)(\d{1,2})[.\-](\d{1,2})[.\-]((?:19|20)\d{2})(?!\d)")   # 01.02.2023, 21-08-2025
+YEAR_FIRST = re.compile(r"(?<!\d)((?:19|20)\d{2})[.\-](\d{1,2})[.\-](\d{1,2})(?!\d)")  # 2019.12.23
+YEAR = re.compile(r"(?<!\d)((?:19|20)\d{2})(?!\d)")                                      # ГИА 2026, report-2016, 2026/2027
+WORDY = re.compile(r"(?<!\d)(\d{1,2})\s+(" + "|".join(MONTHS) + r")\s+((?:19|20)\d{2})(?!\d)")
+
+
+def date_in(name: str) -> tuple[str, str] | None:
+    """(ISO date, 'day' or 'year') named in a title or a file name: the latest full date, else the latest year; none in the
+    future, none before 1990."""
+    name = name.replace("_", " ")
+    today = datetime.now(timezone.utc).date()
+    found = [(int(y), int(m), int(d)) for d, m, y in DAY_FIRST.findall(name)]
+    found += [(int(y), int(m), int(d)) for y, m, d in YEAR_FIRST.findall(name)]
+    found += [(int(y), MONTHS[m], int(d)) for d, m, y in WORDY.findall(name.lower())]
+    found = [f for f in found if 1 <= f[1] <= 12 and 1 <= f[2] <= 31 and 1990 <= f[0] and f <= (today.year, today.month, today.day)]
+    if found:
+        y, m, d = max(found)
+        return f"{y}-{m:02d}-{d:02d}T00:00:00+03:00", "day"
+    years = [int(y) for y in YEAR.findall(name) if 1990 <= int(y) <= today.year]
+    return (f"{max(years)}-01-01T00:00:00+03:00", "year") if years else None
+
+
+def dated(text: str, title: str, url: str, member: str | None, pdf_created: str | None, fallback: str) -> tuple[str, str, str]:
+    """(issued, from, precision): the text's own date (issued_of), else the title's, else the file name's (the archive
+    member's, else the last part of the URL path, unquoted), else the PDF's CreationDate; else (fallback, '', '')."""
+    if own := issued_of(text, ""):
+        return own, "text", "day"
+    if found := date_in(title):
+        return found[0], "title", found[1]
+    if found := date_in(Path(member).name if member else unquote(urlsplit(url).path.rsplit("/", 1)[-1])):
+        return found[0], "filename", found[1]
+    if pdf_created:
+        return f"{pdf_created}T00:00:00+03:00", "pdf", "day"
+    return fallback, "", ""
+
+
+def pdf_created(pdf: Path) -> str | None:
+    """The PDF's CreationDate (YYYY-MM-DD), None when it has none, is before 1990 or is in the future."""
+    try:
+        out = subprocess.run(["pdfinfo", "-isodates", str(pdf)], capture_output=True, text=True, timeout=60, check=False).stdout
+    except (OSError, subprocess.SubprocessError):
+        return None
+    m = re.search(r"^CreationDate:\s+(\d{4}-\d{2}-\d{2})", out, re.M)
+    if not m or not "1990-01-01" <= m.group(1) <= datetime.now(timezone.utc).date().isoformat():
+        return None
+    return m.group(1)
+
+
 MAX_BYTES, MAX_PAGES, MAX_OCR_PAGES = 25_000_000, 150, 40  # one document may not take hours of OCR
 QUEUED, TOO_LONG = "queued", "too long"  # a scan's "ocr" in its note: waits for a run with OCR / longer than MAX_OCR_PAGES, put aside (ocr_state)
 MAX_FAILURES = 5  # network errors in a row before a run gives up
 PAUSE = 2  # seconds between requests: the site blocked us once after a burst, so stay well below what it tolerates
+UNSIGNED_EVERY = timedelta(days=30)  # a file the site says nothing about (no ETag, date or size) is downloaded and compared by its bytes this often
 READ_LOCK = threading.RLock()  # (read_new and refresh write the documents' notes: the crawl, the document and the OCR threads one after the other; re-entrant: _files -> fetch -> read_new)
 
 
@@ -380,28 +429,39 @@ def queued() -> dict[str, int]:
 
 
 class NotRead(RuntimeError):
-    """Tesseract did not read a scan. `away`: it is not installed (not the scan's fault); else a page of it failed."""
+    """The OCR did not read a scan. `away`: no OCR engine is available (not the scan's fault); else a page of it failed."""
 
     def __init__(self, away: bool) -> None:
-        super().__init__("tesseract is not installed" if away else "tesseract could not read a page of it")
+        super().__init__("no OCR engine is available (the LightOnOCR server does not answer, tesseract is not installed)" if away
+                         else "the OCR could not read a page of it")
         self.away = away
 
 
 def ocr_text(pdf: Path, *, marked: bool = False) -> tuple[str, str]:
-    """(text, method) of a scan by Tesseract alone; NotRead leaves the scan queued for a later attempt."""
-    from catix.docs.sources import tesseract
+    """(text, method) of a scan by LightOnOCR, by Tesseract only while its server does not answer; NotRead leaves the scan
+    queued for a later attempt."""
+    from catix.docs.sources import lighton, tesseract
 
+    if lighton.available():
+        text = lighton.text_of_pdf(pdf, marked=marked)
+        if text and text.strip():
+            return text, lighton.METHOD
+        if lighton.available():  # the server answers: a page of this scan failed
+            raise NotRead(away=False)
+    print(f"  the LightOnOCR server {settings.ocr_route} does not answer: {pdf.name} read by tesseract", flush=True)
+    if not tesseract.available():
+        raise NotRead(away=True)
     text = tesseract.text_of_pdf(pdf, marked=marked)
     if text is None or not text.strip():
-        raise NotRead(away=not tesseract.available())
+        raise NotRead(away=False)
     return text, tesseract.METHOD
 
 
 def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[Path], tuple[str, str]] | None = None) -> Iterator[tuple[T, Future]]:
-    """The scans read several at once, each (scan, its future of `read`, ocr_text by default) as it is done. As many scans as the OCR server
-    OCR_PARALLEL are open at a time, their pages in one queue (tesseract.page_pool): a scan of 3 pages does not leave the other
-    slots idle while it is read, as one at a time did (1Cat vLLM: 16.3 pages a minute at 16 at once, 11.8 at 6)."""
-    from catix.docs.sources import tesseract
+    """The scans read several at once, each (scan, its future of `read`, ocr_text by default) as it is done. As many scans as
+    OCR_PARALLEL are open at a time, their pages in one queue (page_pool): a scan of 3 pages does not leave the other
+    slots idle while it is read, as one at a time did (<N*>: measured pages a minute at OCR_PARALLEL at once)."""
+    from catix.docs.sources import lighton, tesseract
 
     pool, finished = ThreadPoolExecutor(settings.ocr_parallel, thread_name_prefix="scan"), False
     try:
@@ -411,6 +471,7 @@ def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[P
         finished = True
     finally:
         if not finished:  # a stopped run (Ctrl-C) does not wait for the scans and pages queued behind the ones being read
+            lighton.cancel_pages()
             tesseract.cancel_pages()
         pool.shutdown(wait=finished, cancel_futures=not finished)
 
@@ -432,7 +493,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
     documents whose key starts with one of them ('site-lab-': the documents of one site). Without `ocr` a scan (a PDF the text
     layer gives too little of) is not read: it is queued (`"ocr": "queued"` in its note) for a run with OCR, which downloads it again
     and reads it; the runs without OCR pass it by (the 6-hourly run needs no OCR model up).
-    A scan tesseract does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
+    A scan the OCR does not read stays queued, regardless of the number of failed attempts. A scan longer than MAX_OCR_PAGES
     is not queued: it is put aside (`"ocr": "too long"`), and no run reads it or asks its text layer again until the limit
     covers it or the file changes on the site (ocr_state; `catix-docs regs queue` lists them apart).
 
@@ -456,6 +517,13 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         files.write_json(meta, {**old, "title": d["title"], "url": d["url"], "failed": why,
                                 "tried_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
 
+    def unchanged(d: dict, meta: str, old: dict, remote: dict, why: str) -> None:
+        """The file is the one already read: its text stays, nothing is extracted or OCR'd again."""
+        keep = {k: v for k, v in old.items() if k not in ("refetch", "force", "failed", "tried_at")}
+        files.write_json(meta, {**keep, "title": d["title"], "url": d["url"], "remote": remote or old.get("remote", {}),
+                                "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+        print(f"  {why}: the text read before stays", flush=True)
+
     with tempfile.TemporaryDirectory(prefix="catix-docs-") as tmp:
         work = Path(tmp)
         removed = archive_documents.prepare(all_docs(), prefixes, work, ocr)
@@ -467,6 +535,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
             ext = d.get("ext", "pdf")
             src, meta = work / root / f"{key}.{ext}", f"{root}/{key}.json"
             old = files.read_json(meta) or {}
+            has_text = bool(old.get("sha256")) and files.exists(f"{root}/{key}.txt")
             if ocr_state(old) == TOO_LONG and not old.get("refetch"):  # (put aside: no run reads it, its text layer is not asked again)
                 if old["ocr"] != TOO_LONG:  # (queued before the long scans were put aside)
                     files.write_json(meta, {**old, "ocr": TOO_LONG})
@@ -487,10 +556,24 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                     print("  archive-managed source is missing locally: left for the next archive read")
                     continue
                 remote = {}
+                if has_text and not old.get("force") and hashlib.sha256(src.read_bytes()).hexdigest() == old["sha256"]:
+                    unchanged(d, meta, old, remote, "the same bytes as before")
+                    continue
             else:
                 try:
                     hosts.turn(d["url"])
-                    resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers=HEADERS)
+                    conditional = {}
+                    if has_text and not old.get("force"):
+                        if (old.get("remote") or {}).get("etag"):
+                            conditional = {"If-None-Match": old["remote"]["etag"]}
+                        elif (old.get("remote") or {}).get("modified"):
+                            conditional = {"If-Modified-Since": old["remote"]["modified"]}
+                    resp = httpx.get(d["url"], timeout=120, follow_redirects=True, headers={**HEADERS, **conditional})
+                    if resp.status_code == 304:  # (before raise_for_status: httpx raises on 3xx)
+                        unchanged(d, meta, old, {**old.get("remote", {}), **{k: v for k, v in signature(resp.headers).items() if k != "size"}}, "not modified (304)")
+                        failures[host] = 0
+                        time.sleep(PAUSE)
+                        continue
                     resp.raise_for_status()
                     if len(resp.content) > limits(old)[0]:
                         print(f"  too big ({len(resp.content) // 1_000_000} MB), skipped")
@@ -523,6 +606,9 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 src.write_bytes(resp.content)
                 remote = signature(resp.headers)
                 time.sleep(PAUSE)
+                if has_text and not old.get("force") and hashlib.sha256(resp.content).hexdigest() == old["sha256"]:
+                    unchanged(d, meta, old, remote, "the same bytes as before")
+                    continue
             try:
                 pdf = to_pdf(src)
                 if not pdf.exists() or pages_of(pdf) > limits(old)[1]:
@@ -537,11 +623,12 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
         print(f"{len(downloaded)} documents to read" + (f", {len(queued)} of them scans queued for OCR" if queued else ""), flush=True)
 
         def store_new(item: tuple, text: str, method: str) -> None:
-            key, d, src, _, meta, old, remote = item
+            key, d, src, pdf, meta, old, remote = item
             sha = hashlib.sha256(src.read_bytes()).hexdigest()
             files.write_text(f"{d['root']}/{key}.txt", text)
             files.write_json(meta, {"title": d["title"], "url": d["url"], "sha256": sha, "method": method, "chars": len(text), "tables": TABLES, "section": d["section"], "context": d.get("context", ""),
-                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote})
+                                    "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "remote": remote,
+                                    **({"pdf_created": c} if (c := pdf_created(pdf)) else {})})
             print(f"{key}: {len(text)} chars by {method}" + (" (a new version)" if old.get("sha256") and old["sha256"] != sha else ""), flush=True)
 
         def queue(item: tuple, pages: int, state: str = QUEUED, **more: object) -> None:
@@ -592,7 +679,7 @@ def _fetch_once(limit: int | None = None, prefixes: tuple[str, ...] | None = Non
                 text, method = future.result()
             except NotRead as e:
                 failed = item[5].get("ocr_failed", 0) + (not e.away)
-                print(f"{item[0]}: {e}: stays queued for the next run with OCR" + (f" (tesseract failed on it {failed} times)" if failed else ""), flush=True)
+                print(f"{item[0]}: {e}: stays queued for the next run with OCR" + (f" (OCR failed on it {failed} times)" if failed else ""), flush=True)
                 queue(item, pages_of(item[3]), **({"ocr_failed": failed} if failed else {}))
                 continue
             except (ValueError, subprocess.SubprocessError, AttributeError) as e:
@@ -647,7 +734,7 @@ def force(key: str, now: bool = False, ocr: bool = True) -> None:
 @locked
 def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, ocr: bool = True, collect: bool = True) -> list[str]:
     """Fetch documents and recursively queue links to documents on configured providers; the keys of those read. Without
-    `ocr` the scans are queued for a run with OCR; those tesseract does not read stay queued too (_fetch_once).
+    `ocr` the scans are queued for a run with OCR; those the OCR does not read stay queued too (_fetch_once).
 
     The existing SITES entries decide which providers and paths are trusted. A
     newly found document is persisted before the next pass, so an interrupted
@@ -679,7 +766,8 @@ def read_new(limit: int | None = None, prefixes: tuple[str, ...] | None = None, 
 def refresh(prefix: str = "") -> int:
     """Ask the site (HEAD, one request every PAUSE seconds) whether each downloaded document is still the same file. A changed
     one is marked `refetch`: the next `fetch` downloads and reads it again (its page stays until then). The first check of a
-    document only records what the site says about it. The number of changed documents."""
+    document only records what the site says about it. A document the site says nothing about (no ETag, date or size) is
+    downloaded and compared by its bytes every UNSIGNED_EVERY. The number of changed documents."""
     from catix.docs.sources import archive_documents
 
     found, failures = 0, 0
@@ -714,6 +802,23 @@ def refresh(prefix: str = "") -> int:
             if resp.status_code != 200:  # (a document no page links any more leaves the bundle with the next run of its site)
                 continue
             now = signature(resp.headers)
+            if not now and not meta.get("remote"):
+                if meta.get("checked_at") and datetime.now(timezone.utc) - datetime.fromisoformat(meta["checked_at"]) < UNSIGNED_EVERY:
+                    continue
+                try:
+                    hosts.turn(d["url"])
+                    got = client.get(d["url"], timeout=120)
+                except httpx.HTTPError as e:  # (checked_at stays: the next run asks again)
+                    print(f"{key}: {e}")
+                    continue
+                time.sleep(PAUSE)
+                meta["checked_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+                if got.status_code == 200 and len(got.content) <= MAX_BYTES and hashlib.sha256(got.content).hexdigest() != meta["sha256"]:
+                    meta["refetch"] = True
+                    found += 1
+                    print(f"{key}: changed on the site (its bytes; the site sends no ETag, date or size)")
+                files.write_json(path, meta)
+                continue
             if changed(meta.get("remote"), now):
                 meta["refetch"] = True
                 found += 1
@@ -729,7 +834,7 @@ def refresh(prefix: str = "") -> int:
 
 def to_markdown(text: str) -> str:
     """Layout text -> markdown: chapters '## N. Title', clauses as paragraphs starting with their bold number, 3-space-gapped rows as tables.
-    A text whose headings the OCR marked ('## 4 Процесс …', tesseract) keeps them, and no line is guessed a chapter from its number:
+    A text whose headings the OCR marked ('## 4 Процесс …', lighton) keeps them, and no line is guessed a chapter from its number:
     the guess took '1. Начало процесса:' (an item of a list) for one and missed '4 Процесс …' (a chapter with no dot)."""
     out, para, table, made = [], [], [], []
     text = GLUED.sub(lambda m: f"{m.group(1) or m.group(2)} ", text)  # a clause's number glued to its words (the text layer, OCR)
@@ -825,7 +930,7 @@ def compile_all() -> list[Document]:
             continue
         audience = d.get("audience") or AUDIENCE_OF_SECTION.get(d["section"], [])  # (a site that names its readers names those of its documents)
         body = to_markdown(text)
-        issued = issued_of(text, meta["fetched_at"])
+        issued, issued_from, precision = dated(text, title, meta["url"], d.get("member"), meta.get("pdf_created"), meta["fetched_at"])
         ocr = meta["method"].startswith("ocr")
         front = {"type": "regulation", "title": title, "resource": meta["url"],
                  **({"archive_member": d["member"], "archive_sha256": meta["sha256"]} if d.get("member") else {}),
@@ -834,6 +939,7 @@ def compile_all() -> list[Document]:
                  "sources": [{"resource": meta["url"], "id": meta["sha256"][:12], "title": title, "last_modified": issued}],
                  "generated": {"by": f"{PRODUCER} regulations", "at": meta["fetched_at"]},
                  "extraction": meta["method"], "status": "draft",
+                 **({"issued_from": issued_from, "issued_precision": precision} if issued_from else {}),
                  **({"review": "scanned document read by OCR: check numbers and dates against the PDF before relying on them"} if ocr else {})}
         if d.get("unlisted"):  # (no page of the site links it any more: removed or hidden; what it said stays, as possibly outdated)
             front["stale_after"] = d["unlisted"] + "T00:00:00+00:00"

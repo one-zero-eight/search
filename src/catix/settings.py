@@ -153,12 +153,12 @@ class Settings(BaseSettings):
     search_candidates: int = Field(30, gt=0)
     docs_search_candidates: int = Field(30, gt=0)
     search_ef: int = Field(400, ge=1, le=1000)
-    # OCR of scanned documents (docs/sources/lighton.py): LightOnOCR behind an OpenAI-compatible server (llama.cpp, one
-    # slot), always up on the server. Without one, or when it does not answer or cannot read a scan, the scan stays queued.
+    # OCR of scanned documents (docs/sources/lighton.py): LightOnOCR on the GPU server (catix-ocr.service), an
+    # OpenAI-compatible server. A scan waits only when its server does not answer and Tesseract is missing too.
     ocr_route: HttpUrl | None = HttpUrl("http://127.0.0.1:9931/v1")
     ocr_model: str = "lighton"
-    ocr_parallel: int = Field(1, gt=0, description="Pages sent at once, of one scan or several read side by side, and "
-                              "scans open at once: the server's slots (llama.cpp -np 1).")
+    ocr_parallel: int = Field(1, gt=0, description="Pages sent at once, of one scan or several, and scans open at once; the "
+                              "OCR server reads at most <N*> together, Tesseract runs this many processes while it is away.")
     # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
     # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
     # query and the best few go to the model.
@@ -167,6 +167,10 @@ class Settings(BaseSettings):
     rerank_candidates: int = Field(30, gt=0)
     docs_rerank_candidates: int = Field(30, gt=0)
     rerank_queries: int = Field(9, gt=0)
+    # Fresher documents first: after the reranker, a document's score is multiplied by 1 - rate × (its age in years - 1), not
+    # below the floor; a document up to a year old, an undated one and a site page (its date is the day it was read) keep theirs.
+    docs_freshness_rate: float = Field(0.03, ge=0)
+    docs_freshness_floor: float = Field(0.85, gt=0, le=1)
     # How much of a piece the reranker reads. At 1000 the answer of a piece that puts it near the end was cut off: on the
     # 57-question set 2000 kept hit@5 as it was and found the answer in the top 8 for 1.8 points more of the questions,
     # on the 159 generated ones it raised hit@1 by 3 points and MRR from 0.561 to 0.583.

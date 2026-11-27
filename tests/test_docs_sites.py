@@ -2,6 +2,7 @@
 
 import dataclasses
 import re
+from datetime import datetime, timedelta, timezone
 
 import httpx
 import pytest
@@ -581,6 +582,58 @@ class Moving(Web):
     def get(self, url):
         target = self.moved.get(httpx.URL(url).host, {}).get(httpx.URL(url).path)
         return super().get(target) if target else super().get(url)
+
+
+class Validated(Web):
+    """Web that gives every page an ETag and answers 304 to the request that carries it; what was sent, as {path: headers}."""
+
+    def __init__(self, links):
+        super().__init__(links)
+        self.sent: dict[str, dict | None] = {}
+
+    def get(self, url, headers=None):
+        self.sent[httpx.URL(url).path] = headers
+        if headers and headers.get("If-None-Match") == '"e1"':
+            return httpx.Response(304, headers={"etag": '"e1"'}, request=httpx.Request("GET", url))
+        page = super().get(url)
+        return httpx.Response(page.status_code, headers={**page.headers, "etag": '"e1"'}, text=page.text, request=page.request)
+
+
+def test_a_page_answered_304_keeps_its_text_and_its_links(monkeypatch, memory_files):
+    monkeypatch.setattr(sites, "PAUSE", 0)
+    unit = sites.Site("https://unit.example/", "ru", "a unit", r"^nothing$", sitemap=False)
+    monkeypatch.setattr(sites, "SITES", {"unit": unit})
+    web = Validated({"unit.example": {"/": ["/a/", "/doc.pdf"], "/a/": []}})
+    assert sites.fetch_site("unit", unit, web) == 2
+    assert web.sent["/"] is None
+    before = sites.load("unit")["pages"]
+    web.sent.clear()
+    sites.fetch_site("unit", unit, web)
+    assert web.sent["/"] == {"If-None-Match": '"e1"'} and web.sent["/a/"] == {"If-None-Match": '"e1"'}
+    index = sites.load("unit")
+    assert "a" in index["pages"] and not index["pages"]["a"].get("gone") and "unlisted" not in index
+    assert "https://unit.example/doc.pdf" in index["docs"]
+    assert index["pages"] == before  # (not read again: nothing written)
+    index["pages"]["a"]["read_at"] = (datetime.now(timezone.utc) - timedelta(days=29)).isoformat(timespec="seconds")
+    sites.save("unit", index)
+    web.sent.clear()
+    sites.fetch_site("unit", unit, web)
+    assert web.sent["/a/"] is None and web.sent["/"] == {"If-None-Match": '"e1"'}
+
+
+def test_a_site_whose_login_ended_is_skipped_and_the_others_are_read(monkeypatch):
+    read = []
+
+    def fetch_site(name, site, client, **kwargs):
+        if name == "my":
+            raise sites.SessionEnded("x")
+        read.append(name)
+        return 0
+
+    monkeypatch.setattr(sites, "fetch_site", fetch_site)
+    monkeypatch.setattr(sites, "ENDED", {})
+    sites.fetch(["my", "help"])
+    assert read == ["help"] and sites.ENDED == {"my": "x"}
 
 
 def test_a_new_address_the_site_sends_elsewhere_is_no_page_of_its_own_and_the_page_it_is_sent_to_is_read(monkeypatch):

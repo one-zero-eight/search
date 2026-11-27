@@ -417,3 +417,22 @@ def test_a_file_of_the_bundle_a_site_links_with_its_spaces_is_one_document(monke
     url = sites.canonical(regulations.BASE + "bd2/Положение о формах.pdf")
     sites.save("university", {"pages": {}, "docs": {url: "Положение о формах, периодичности и порядке контроля"}})
     assert [key for key in regulations.all_docs() if key.startswith(("attestation", "site-"))] == ["attestation-regulation"]
+
+
+F = "F"
+GIA_URL = "https://help.university.innopolis.ru/documents/%D0%BF%D1%80%D0%B8%D0%BA%D0%B0%D0%B7_%D0%BE%D1%82_01.02.2023___%D0%9E%D0%94_%D0%90%D0%94-03.pdf"
+
+
+@pytest.mark.parametrize("text, title, url, member, created, expected", [
+    ("Утверждено от 01.09.2024", "Положение 2026", "https://x.example/a.pdf", None, None, ("2024-09-01T00:00:00+03:00", "text", "day")),
+    ("Без дат.", "Положение о ГИА 2026", "https://x.example/a.pdf", None, None, ("2026-01-01T00:00:00+03:00", "title", "year")),
+    ("Без дат.", "Правила", GIA_URL, None, None, ("2023-02-01T00:00:00+03:00", "filename", "day")),
+    ("Без дат.", "Правила на 2026/2027 учебный год", "https://x.example/a.pdf", None, None, ("2026-01-01T00:00:00+03:00", "title", "year")),
+    ("Без дат.", "fgos 09.02.07 izm1", "https://x.example/x.pdf", None, "2021-03-04", ("2021-03-04T00:00:00+03:00", "pdf", "day")),
+    ("Без дат.", "Правила", "https://x.example/x.pdf", None, None, ("F", "", "")),
+    ("Без дат.", "Правила", "https://x.example/x.pdf", "orders/приказ 21-08-2025.pdf", None, ("2025-08-21T00:00:00+03:00", "filename", "day")),
+])
+def test_a_document_without_a_date_in_its_text_takes_it_from_its_title_its_file_or_its_pdf(text, title, url, member, created, expected):
+    from catix.docs.sources.regulations import dated
+
+    assert dated(text, title, url, member, created, F) == expected
