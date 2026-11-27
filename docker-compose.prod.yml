@@ -115,7 +115,7 @@ services:
     command: ["catix-worker"]
     environment:
       <<: *env
-      OCR_PARALLEL: "4"
+      OCR_PARALLEL: "1"
 
   # The HTTP API of the former search service (/search/search, /ask/, /act/): the same paths, answered by the agent
   # and the wiki, and the users' personal calendars (/users/my-calendar.ics). Put an HTTPS reverse proxy in front of it;
@@ -140,7 +140,7 @@ services:
     environment:
       <<: *env
       CATIX_CHROMIUM_PROFILE: /app/data/chromium-profile
-      OCR_PARALLEL: "4"
+      OCR_PARALLEL: "1"
 
   # Reads chats with a Telegram account: start it only after `login` (DEPLOY.md), the session lives in the data volume.
   userbot:

@@ -158,7 +158,7 @@ class Settings(BaseSettings):
     ocr_route: HttpUrl | None = HttpUrl("http://127.0.0.1:9931/v1")
     ocr_model: str = "lighton"
     ocr_parallel: int = Field(1, gt=0, description="Pages sent at once, of one scan or several, and scans open at once; the "
-                              "OCR server reads at most <N*> together, Tesseract runs this many processes while it is away.")
+                              "OCR server reads one page at a time, Tesseract runs this many processes while it is away.")
     # OpenAI-compatible /v1/rerank server (llama.cpp --reranking, bge-reranker-v2-m3). Without a route the search
     # keeps the order of the hybrid ranking. With one, `rerank_candidates` messages are re-scored against the
     # query and the best few go to the model.

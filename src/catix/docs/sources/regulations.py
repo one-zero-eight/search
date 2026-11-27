@@ -460,7 +460,7 @@ def ocr_text(pdf: Path, *, marked: bool = False) -> tuple[str, str]:
 def read_scans[T](scans: list[T], pdf_of: Callable[[T], Path], read: Callable[[Path], tuple[str, str]] | None = None) -> Iterator[tuple[T, Future]]:
     """The scans read several at once, each (scan, its future of `read`, ocr_text by default) as it is done. As many scans as
     OCR_PARALLEL are open at a time, their pages in one queue (page_pool): a scan of 3 pages does not leave the other
-    slots idle while it is read, as one at a time did (<N*>: measured pages a minute at OCR_PARALLEL at once)."""
+    slots idle while it is read, as one at a time did (LightOnOCR on inh-compute, llama.cpp with the vision encoder on the CPU: 2.7 pages a minute, one page at once, about 22 CPU cores; on the GPU it would read 10.4 at 1 and 14.7 at 4 but slow the agent's LLM by 25-33 %)."""
     from catix.docs.sources import lighton, tesseract
 
     pool, finished = ThreadPoolExecutor(settings.ocr_parallel, thread_name_prefix="scan"), False
