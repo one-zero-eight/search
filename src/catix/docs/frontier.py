@@ -468,6 +468,9 @@ def ensure_imported() -> None:
     with pg.connection() as conn:
         old = pg.scalar(conn, "SELECT to_regclass('public.source_files')")
     if old is not None:
+        with pg.connection() as conn:
+            if pg.scalar(conn, "SELECT to_regclass('public.site_catalog')") is None:
+                raise SystemExit("the tables of the crawl are not in the database yet: run `catix-db init` (it applies db/schema.sql), then this command again")
         from catix.docs import legacy
 
         print(f"source_files imported: {legacy.import_all()}", flush=True)
