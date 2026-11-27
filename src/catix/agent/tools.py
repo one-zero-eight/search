@@ -228,12 +228,12 @@ def _question(runtime: ToolRuntime[AgentContext]) -> str | None:
 COHORT_GROUP = re.compile(r"^[BM](\d{2})-", re.I)
 
 
-def _cohorts(runtime: ToolRuntime[AgentContext], queries: list[str]) -> frozenset[int]:
-    """The intakes whose course programmes are wanted: the years the agent's own queries name, else those of the asker's study
-    groups ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
-    named = frozenset(int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join(queries)))
-    if named:
-        return named
+def _cohorts(runtime: ToolRuntime[AgentContext], date_from: date | None, date_to: date | None) -> frozenset[int]:
+    """The intakes whose course programmes are wanted: the years of the agent's `date_from`/`date_to`, else those of the
+    asker's study groups ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
+    if date_from or date_to:
+        first, last = (date_from or date_to).year, (date_to or date_from).year
+        return frozenset(range(first, last + 1))
     context = runtime.context
     if context is None:
         return frozenset()
@@ -480,7 +480,7 @@ def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list
     relevance, not by date: read the dates. Matches are not exhaustive lists or counts: use read_chats for those."""
     explicit = bool(sources)
     wanted = list(dict.fromkeys(sources or SOURCES))
-    cohorts = _cohorts(runtime, queries)
+    cohorts = _cohorts(runtime, date_from, date_to)
     filters = doc_store.Filters(issued_from=date_from, issued_to=date_to, cohorts=cohorts, newest_programmes=not cohorts)
     fetchers = {"moodle": moodle_tools.fetch, "chat": lambda q, r, rerank: _fetch_chats(q, r, rerank, date_from, date_to),
                 "docs": lambda q, r, rerank: _fetch_docs(q, r, rerank, filters)}

@@ -57,11 +57,15 @@ class Filters:
         elif self.status == "unlisted":
             where.append("status = 'unlisted'")
         params: dict = {}
+        if self.issued_from or self.issued_to:
+            # A course programme has its intake in its meta: the dates choose the intake (`cohorts`), not its `issued`.
+            programme = "(path LIKE %(f_courses)s AND meta ? 'cohort')"
+            params["f_courses"] = COURSES
         if self.issued_from:
-            where.append("issued >= %(f_from)s")
+            where.append(f"({programme} OR issued >= %(f_from)s)")
             params["f_from"] = self.issued_from
         if self.issued_to:
-            where.append("issued <= %(f_to)s")
+            where.append(f"({programme} OR issued <= %(f_to)s)")
             params["f_to"] = self.issued_to
         if self.site:
             where.append("site = %(f_site)s")
