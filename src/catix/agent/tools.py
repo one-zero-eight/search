@@ -357,6 +357,13 @@ class SearchArgs(BaseModel):
         "sites), chat (the university chats), moodle (the asker's Moodle course files and pages). Omit to look in all of them.",
     )
 
+    date_from: date | None = Field(
+        None,
+        description="YYYY-MM-DD: only results from this day on: documents issued on or after it (undated ones are left out), chat messages "
+        "written on or after it. Moodle is not filtered.",
+    )
+    date_to: date | None = Field(None, description="YYYY-MM-DD inclusive: only results up to this day (as date_from).")
+
     @field_validator("queries", mode="before")
     @classmethod
     def _one_query(cls, value):
@@ -373,7 +380,7 @@ class SearchArgs(BaseModel):
 MAX_RESULTS = 8  # results of all sources together when the reranker scores them in one pass (db/rerank.py)
 
 
-def _fetch_chats(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool):
+def _fetch_chats(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool, date_from: date | None = None, date_to: date | None = None):
     """(the stored messages of the knowledge base that answer the queries, whether past ones were left out). With
     `rerank` False the pool of candidates, unscored."""
     allowed = runtime.context.allowed_chat_ids if runtime.context else None
@@ -381,7 +388,8 @@ def _fetch_chats(queries: list[str], runtime: ToolRuntime[AgentContext], rerank:
     upcoming = asks_upcoming(question)
     shown = MAX_MESSAGES if settings.reranker_route is None else MAX_MESSAGES_RERANKED
     # A question about what is coming needs a wider pool: the filter is applied after the ranking.
-    rows = store.search(queries, chat_ids=allowed, limit=EVENT_POOL if upcoming else shown, original=question, rerank=rerank)
+    rows = store.search(queries, chat_ids=allowed, limit=EVENT_POOL if upcoming else shown, original=question, rerank=rerank,
+                        date_from=date_from.isoformat() if date_from else None, date_to=date_to.isoformat() if date_to else None)
     found = len(rows)
     if upcoming:  # What is coming starts today, whenever it was written.
         now = datetime.now(settings.tz)
@@ -404,8 +412,8 @@ def _render_chats(fetched, runtime: ToolRuntime[AgentContext], collector: Collec
     return result, relevant, scored
 
 
-def _fetch_docs(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool):
-    return doc_store.search(queries, limit=MAX_WIKI, original=_question(runtime), rerank=rerank)
+def _fetch_docs(queries: list[str], runtime: ToolRuntime[AgentContext], rerank: bool, filters: doc_store.Filters | None = None):
+    return doc_store.search(queries, limit=MAX_WIKI, original=_question(runtime), rerank=rerank, filters=filters)
 
 
 def _render_docs(hits, collector: Collector) -> tuple[dict, list[str], bool]:
@@ -445,7 +453,8 @@ def _rerank_together(fetched: dict, queries: list[str], runtime: ToolRuntime[Age
 
 
 @tool(args_schema=SearchArgs)
-def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list[str] | None = None) -> Command:
+def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list[str] | None = None, date_from: date | None = None,
+           date_to: date | None = None) -> Command:
     """Search the university's information by words and meaning, in several sources at once; each result has a `ref` to cite.
     docs: official documents (regulations, orders, rules of admission, study plans, programmes), the eduwiki (courses,
     teachers, procedures) and the pages of the sites (news and events, olympiads, admission, courses, campus life, the city of
@@ -455,7 +464,9 @@ def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list
     relevance, not by date: read the dates. Matches are not exhaustive lists or counts: use read_chats for those."""
     explicit = bool(sources)
     wanted = list(dict.fromkeys(sources or SOURCES))
-    fetchers = {"moodle": moodle_tools.fetch, "chat": _fetch_chats, "docs": _fetch_docs}
+    filters = doc_store.Filters(issued_from=date_from, issued_to=date_to)
+    fetchers = {"moodle": moodle_tools.fetch, "chat": lambda q, r, rerank: _fetch_chats(q, r, rerank, date_from, date_to),
+                "docs": lambda q, r, rerank: _fetch_docs(q, r, rerank, filters)}
     # With a reranker the sources give their candidates unscored and it scores them all in one pass, on one scale.
     together = settings.reranker_route is not None
 

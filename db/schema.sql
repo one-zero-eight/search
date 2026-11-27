@@ -765,7 +765,7 @@ CREATE TABLE IF NOT EXISTS documents (
     trust          text NOT NULL CHECK (trust IN ('official', 'wiki')),  -- a document of the university, a page of eduwiki or of a site
     audience       text[] NOT NULL DEFAULT '{}',
     resource       text,                            -- the original: a PDF on the university's site or an eduwiki page
-    status         text,
+    status         text,                            -- 'current' or 'unlisted' (no page of the site links it any more); "outdated" is stale_after in the past, worked out at search time
     review         text,                            -- what in the document nobody checked, if anything
     source_warning text,
     stale_after    date,
@@ -774,6 +774,9 @@ CREATE TABLE IF NOT EXISTS documents (
     body           text NOT NULL DEFAULT '',        -- the markdown
     meta           jsonb NOT NULL DEFAULT '{}'      -- what the source knows of it (sources, archive member, ...)
 );
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS site text;  -- the site the document comes from: 'hotel', 'university', ... ('eduwiki', 'guide')
+CREATE INDEX IF NOT EXISTS documents_site_idx ON documents (site);
+CREATE INDEX IF NOT EXISTS documents_issued_idx ON documents (issued);
 CREATE TABLE IF NOT EXISTS document_chunks (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     path        text NOT NULL REFERENCES documents (path) ON DELETE CASCADE ON UPDATE CASCADE,

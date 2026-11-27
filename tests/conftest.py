@@ -24,7 +24,7 @@ DOCS_URL = os.environ.get("DOCS_TEST_DATABASE_URL")
 DOCS_SCHEMA = """
 CREATE TEMP TABLE documents (path text PRIMARY KEY, sha text NOT NULL, title text NOT NULL, type text NOT NULL, trust text NOT NULL,
     audience text[] NOT NULL DEFAULT '{}', resource text, status text, review text, source_warning text, stale_after date, issued date,
-    indexed_at timestamptz NOT NULL DEFAULT now(), body text NOT NULL DEFAULT '', meta jsonb NOT NULL DEFAULT '{}');
+    indexed_at timestamptz NOT NULL DEFAULT now(), body text NOT NULL DEFAULT '', meta jsonb NOT NULL DEFAULT '{}', site text);
 CREATE TEMP TABLE document_chunks (id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     path text NOT NULL REFERENCES documents (path) ON DELETE CASCADE ON UPDATE CASCADE, trust text NOT NULL, seq int NOT NULL,
     heading text NOT NULL, clause text NOT NULL, sha text NOT NULL, text text NOT NULL, search_text text NOT NULL,

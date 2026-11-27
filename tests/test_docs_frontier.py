@@ -296,3 +296,49 @@ def test_the_documents_after_the_import_are_what_they_were(docs_db):
         pack: ("Пакет документов", "", "", None, None),
         member: ("Пакет документов — doc/a.pdf", "", MEMBER_SHA, None, "doc/a.pdf")}
     assert crawl.provider(RULES) == "hotel"
+
+
+# -- the filters of the search by what is known of a document (db/docs.py Filters, docs/store.py site_of, status_of)
+
+from datetime import date  # noqa: E402
+
+from catix.db import docs as doc_search  # noqa: E402
+from catix.docs import store  # noqa: E402
+
+
+def test_the_site_and_status_of_a_document_follow_from_its_meta():
+    assert store.site_of("sites/hotel/rooms", {}) == "hotel"
+    assert store.site_of("regulations/x", {"section": "site/apply"}) == "apply"
+    assert store.site_of("regulations/attestation", {"section": "document"}) == "university"
+    assert store.site_of("course-programmes/x", {"section": "sveden/education"}) == "university"
+    assert store.site_of("eduwiki/pages/x", {}) == "eduwiki"
+    assert store.status_of({"unlisted": "2026-11-04"}) == "unlisted" and store.status_of({}) == "current"
+
+
+def passing(db, filters: doc_search.Filters) -> set[str]:
+    """The documents a search with these filters keeps: the clause a search appends, run over the documents."""
+    where, params = filters.clause("path")
+    return {r["path"] for r in db.execute(f"SELECT path FROM documents WHERE true{where}", params).fetchall()}
+
+
+def test_a_search_keeps_the_documents_that_pass_the_status_the_date_and_the_site(docs_db):
+    def doc(path, **meta):
+        return store.Document(path, {"title": path, "type": "regulation", **meta}, "# T\n\n## P\n\nSome words of the document.\n")
+
+    year = date.today().year
+    store.sync("regulations/", [
+        doc("regulations/current", section="site/hotel", sources=[{"last_modified": "2025-03-01"}], stale_after=f"{year + 5}-01-01"),
+        doc("regulations/old", section="site/hotel", sources=[{"last_modified": "2019-03-01"}], stale_after="2020-01-01"),
+        doc("regulations/unlisted", section="site/apply", sources=[{"last_modified": "2024-01-01"}], unlisted="2026-11-04", stale_after="2026-11-04"),
+        doc("regulations/undated", section="document")])
+    every = {"regulations/current", "regulations/old", "regulations/unlisted", "regulations/undated"}
+    assert passing(docs_db, doc_search.Filters()) == every
+    assert passing(docs_db, doc_search.Filters(status="current")) == {"regulations/current", "regulations/undated"}
+    assert passing(docs_db, doc_search.Filters(status="outdated")) == {"regulations/old"}
+    assert passing(docs_db, doc_search.Filters(status="unlisted")) == {"regulations/unlisted"}
+    assert passing(docs_db, doc_search.Filters(issued_from=date(2024, 1, 1))) == {"regulations/current", "regulations/unlisted"}  # (undated: left out)
+    assert passing(docs_db, doc_search.Filters(issued_to=date(2024, 12, 31))) == {"regulations/old", "regulations/unlisted"}
+    assert passing(docs_db, doc_search.Filters(site="hotel", status="current")) == {"regulations/current"}
+    assert passing(docs_db, doc_search.Filters(site="university")) == {"regulations/undated"}
+    with pytest.raises(ValueError, match="status"):
+        doc_search.Filters(status="fresh")

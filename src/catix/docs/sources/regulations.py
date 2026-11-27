@@ -833,6 +833,7 @@ def compile_all() -> list[Document]:
                  **({"issued_from": issued_from, "issued_precision": precision} if issued_from else {}),
                  **({"review": "scanned document read by OCR: check numbers and dates against the PDF before relying on them"} if ocr else {})}
         if d.get("unlisted"):  # (no page of the site links it any more: removed or hidden; what it said stays, as possibly outdated)
+            front["unlisted"] = d["unlisted"]
             front["stale_after"] = d["unlisted"] + "T00:00:00+00:00"
             body = f"> Ни одна видимая страница сайта не ссылается на этот документ (с {d['unlisted']}): ссылку убрали или скрыли, это может быть старая редакция.\n\n{body}"
         out.append(Document(f"regulations/{key}", front, f"# {title}\n\n{body}\n\n# Citations\n\n1. [{title}]({meta['url']}), file {meta['sha256'][:12]}\n"))

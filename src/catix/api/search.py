@@ -5,6 +5,7 @@ import json
 import logging
 import re
 import time
+from datetime import date
 from collections.abc import Callable
 from typing import Literal
 from urllib.parse import quote, unquote, urljoin, urlsplit
@@ -135,7 +136,7 @@ def _chats(study_groups: list[str], query: str, limit: int, rerank: bool) -> lis
         return []
 
 
-async def find(user: UserTokenData, query: str, sources: list[InfoSources], limit: int) -> list[SearchResponse]:
+async def find(user: UserTokenData, query: str, sources: list[InfoSources], limit: int, filters: doc_store.Filters | None = None) -> list[SearchResponse]:
     """The cards for `query` from every source asked for (all by default): the candidates of the documents, of the asker's
     Moodle courses and of the chats are scored by the reranker together, one pass, so that the best of all come first
     (db/rerank.py)."""
@@ -151,7 +152,7 @@ async def find(user: UserTokenData, query: str, sources: list[InfoSources], limi
         return []
 
     docs_hits, moodle_hits, chat_hits = await asyncio.gather(
-        asyncio.to_thread(doc_store.search, query, limit=limit, rerank=not together) if want_docs else none(),
+        asyncio.to_thread(doc_store.search, query, limit=limit, rerank=not together, filters=filters) if want_docs else none(),
         asyncio.to_thread(_moodle, user, study_groups, query, not together) if want_moodle else none(),
         asyncio.to_thread(_chats, study_groups, query, limit, not together) if want_chats else none(),
     )
@@ -177,16 +178,18 @@ async def search_by_query(
     sources: list[InfoSources] = Query(default=[]),
     response_types: list[Literal["pdf", "link_to_source"]] = Query(...),  # Currently ignored
     limit: int = LIMIT,
+    date_from: date | None = Query(None, description="Only documents issued on or after this day (undated ones are left out)"),
+    date_to: date | None = Query(None, description="Only documents issued on or before this day"),
 ) -> SearchResponses:
-    return await searched(user, query, sources, limit)
+    return await searched(user, query, sources, limit, doc_store.Filters(issued_from=date_from, issued_to=date_to))
 
 
-async def searched(user: UserTokenData, query: str, sources: list[InfoSources], limit: int = LIMIT) -> SearchResponses:
+async def searched(user: UserTokenData, query: str, sources: list[InfoSources], limit: int = LIMIT, filters: doc_store.Filters | None = None) -> SearchResponses:
     """The cards found for `query`, with a trace of its own in Phoenix (the query, the cards' titles and links, the steps of the search)."""
     started = time.monotonic()
     # A trace of its own in Phoenix: the query, the cards found (title and link), and the steps of the search under it.
     with tracing.question("api-search", user.innohassle_id, query, name="search", kind="RETRIEVER") as traced:
-        responses = await find(user, query, sources, limit)
+        responses = await find(user, query, sources, limit, filters)
         traced.answer(json.dumps([{"title": r.source.display_name, "url": getattr(r.source, "url", None) or getattr(r.source, "link", None)} for r in responses], ensure_ascii=False))
     log.info("search for `%s` (%d ms)", query, round((time.monotonic() - started) * 1000))
     return SearchResponses(searched_for=query, responses=responses, search_query_id=state.remember_search(len(responses)))

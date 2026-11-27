@@ -25,7 +25,7 @@ from catix.docs.chunks import SCHEME, Chunk, cut
 from catix.settings import settings
 
 PRODUCER = "catix-docs"
-DOC_FIELDS = 4  # in the fingerprint: change it when the meaning of meta changes
+DOC_FIELDS = 5  # in the fingerprint: change it when the meaning of meta changes
 EMBED_BATCH = 32
 
 AUDIENCES = ("student", "postgraduate", "applicant", "teacher", "staff", "management", "public")  # who a document is for
@@ -45,6 +45,24 @@ def fingerprint(doc: Document) -> str:
 
 def trust_of(meta: dict) -> str:
     return "official" if meta.get("source_kind") == "official-document" else "wiki"
+
+
+def site_of(path: str, meta: dict) -> str | None:
+    """The site a document comes from: the `section` of a document a site links ('site/hotel'), the university for its first
+    regulations and course programmes, the folder of the others ('eduwiki', 'guide'); a page of a site by its path."""
+    if path.startswith("sites/"):
+        return path.split("/")[1]
+    section = str(meta.get("section") or "")
+    if section.startswith("site/"):
+        return section.removeprefix("site/")
+    if path.startswith(("regulations/", "course-programmes/")):
+        return "university"
+    return path.split("/")[0] or None
+
+
+def status_of(meta: dict) -> str:
+    """'unlisted' for a document no page of its site links any more, else 'current' (whether it is outdated follows from stale_after)."""
+    return "unlisted" if meta.get("unlisted") else "current"
 
 
 def plan(old: list[tuple[int, str]], new: list[Chunk]) -> tuple[list[tuple[int, Chunk]], list[Chunk], list[int]]:
@@ -81,15 +99,15 @@ def write_page(conn, doc: Document, sha: str, chunks: list[Chunk]) -> tuple[int,
         issued = ""  # no date found in the document: sources/regulations.py put the day it was read there, which says nothing
     conn.execute(
         """INSERT INTO documents (path, sha, title, type, trust, audience, resource, status, review, source_warning, stale_after, issued,
-                                  body, meta, indexed_at)
-           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, now())
+                                  body, meta, site, indexed_at)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s, now())
            ON CONFLICT (path) DO UPDATE SET sha = excluded.sha, title = excluded.title, type = excluded.type, trust = excluded.trust,
                audience = excluded.audience, resource = excluded.resource, status = excluded.status, review = excluded.review,
                source_warning = excluded.source_warning, stale_after = excluded.stale_after, issued = excluded.issued,
-               body = excluded.body, meta = excluded.meta, indexed_at = now()""",
+               body = excluded.body, meta = excluded.meta, site = excluded.site, indexed_at = now()""",
         (rel, sha, title, str(meta.get("type") or ""), trust, [str(a) for a in meta.get("audience") or []], _text(meta.get("resource")),
-         _text(meta.get("status")), _text(meta.get("review")), _text(meta.get("source_warning")), stale, issued or None,
-         doc.body, json.dumps(meta, ensure_ascii=False, default=str)),
+         status_of(meta), _text(meta.get("review")), _text(meta.get("source_warning")), stale, issued or None,
+         doc.body, json.dumps(meta, ensure_ascii=False, default=str), site_of(rel, meta)),
     )
     old = [(r["id"], r["sha"]) for r in conn.execute("SELECT id, sha FROM document_chunks WHERE path = %s", (rel,)).fetchall()]
     kept, insert, delete = plan(old, chunks)

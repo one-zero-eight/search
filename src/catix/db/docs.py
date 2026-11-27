@@ -21,6 +21,44 @@ from catix.settings import settings
 log = logging.getLogger("catix.docs")
 
 TRUST = ("official", "wiki")
+STATUSES = ("current", "outdated", "unlisted")  # of a document: in force, stale_after has passed, or no page of its site links it any more
+
+
+@dataclass(frozen=True)
+class Filters:
+    """What a search keeps of the documents, by what is known of the document itself. `status`: 'current' (not unlisted, not
+    past its stale_after), 'outdated' (past it) or 'unlisted'; `issued_from`/`issued_to`: the day the document was issued, a
+    document with no date is left out when either is given; `site`: where it comes from ('hotel', 'university', 'eduwiki')."""
+
+    status: str | None = None
+    issued_from: date | None = None
+    issued_to: date | None = None
+    site: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.status is not None and self.status not in STATUSES:
+            raise ValueError(f"status is one of {', '.join(STATUSES)}")
+
+    def clause(self, column: str = "path") -> tuple[str, dict]:
+        """(SQL to append to a WHERE, its parameters): the pieces whose document passes."""
+        where = []
+        if self.status == "current":
+            where.append("status IS DISTINCT FROM 'unlisted' AND (stale_after IS NULL OR stale_after > current_date)")
+        elif self.status == "outdated":
+            where.append("status IS DISTINCT FROM 'unlisted' AND stale_after <= current_date")
+        elif self.status == "unlisted":
+            where.append("status = 'unlisted'")
+        params: dict = {}
+        if self.issued_from:
+            where.append("issued >= %(f_from)s")
+            params["f_from"] = self.issued_from
+        if self.issued_to:
+            where.append("issued <= %(f_to)s")
+            params["f_to"] = self.issued_to
+        if self.site:
+            where.append("site = %(f_site)s")
+            params["f_site"] = self.site
+        return (f" AND {column} IN (SELECT path FROM documents WHERE {' AND '.join(where)})" if where else ""), params
 
 
 @dataclass
@@ -60,21 +98,23 @@ COURSES = "course-programmes/%"
 POOLS = (False, True)  # (not course programmes, course programmes)
 
 
-def _bm25(words: str, trust: list[str], courses: bool = False) -> list[int]:
+def _bm25(words: str, trust: list[str], courses: bool = False, filters: Filters | None = None) -> list[int]:
+    where, more = (filters or Filters()).clause("path")
     with tracing.span("bm25 course programmes" if courses else "bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
         found = pg.column(
             conn,
-            """SELECT id FROM document_chunks
+            f"""SELECT id FROM document_chunks
                WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND trust = ANY(%(t)s)
-                 AND (path LIKE %(c)s) = %(courses)s AND copy_of IS NULL
+                 AND (path LIKE %(c)s) = %(courses)s AND copy_of IS NULL{where}
                ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
-            {"q": words, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses},
+            {"q": words, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses, **more},
         )
         done(len(found))
         return found
 
 
-def _vector(vector: list[float], trust: list[str], courses: bool = False) -> list[int]:
+def _vector(vector: list[float], trust: list[str], courses: bool = False, filters: Filters | None = None) -> list[int]:
+    where, more = (filters or Filters()).clause("c.path")
     with tracing.span("vector course programmes" if courses else "vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
         if pg.scalar(conn, "SELECT value FROM docs_meta WHERE key='embeddings_model'") != settings.embeddings_model:
             log.warning("Skipping wiki vectors whose model does not match EMBEDDINGS_MODEL")
@@ -85,9 +125,9 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False) -> lis
         conn.execute("SELECT set_config('hnsw.ef_search', %s, true)", (str(settings.search_ef),))
         found = pg.column(
             conn,
-            """SELECT e.chunk_id FROM document_chunk_embeddings e JOIN document_chunks c ON c.id = e.chunk_id
-               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s AND c.copy_of IS NULL ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
-            {"v": vector, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses},
+            f"""SELECT e.chunk_id FROM document_chunk_embeddings e JOIN document_chunks c ON c.id = e.chunk_id
+               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s AND c.copy_of IS NULL{where} ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
+            {"v": vector, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses, **more},
         )
         done(len(found))
         return found
@@ -220,8 +260,9 @@ def _resolve_cites(hits: list[DocHit]) -> None:
 
 
 def search(queries: str | list[str], *, trust: Collection[str] | None = None, limit: int = 8, original: str | None = None,
-           rerank: bool = True) -> list[DocHit]:
-    """The `limit` pieces that answer the queries best. `trust` keeps only some kinds of pages (official, wiki).
+           rerank: bool = True, filters: Filters | None = None) -> list[DocHit]:
+    """The `limit` pieces that answer the queries best. `trust` keeps only some kinds of pages (official, wiki); `filters` only
+    the documents that pass (Filters: status, date, site).
     `original` is the user's own question: one more angle that counts double (as in store.search). `rerank=False` returns
     the whole pool of candidates unscored, for a rerank over several sources together (db/rerank.py)."""
     if isinstance(queries, str):
@@ -237,8 +278,8 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
         return []
     vectors = _embed_all(queries)
     with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
-        jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool),
-                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool) if vectors else None)
+        jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool, filters),
+                 executor.submit(tracing.carry(_vector), vectors[i], kinds, pool, filters) if vectors else None)
                 for i, q in enumerate(queries) for pool in POOLS]
         per_query = [{item: (2 if original and i == 0 else 1) * value for item, value in _rrf(*[job.result() for job in pair if job]).items()}
                      for i, *pair in jobs]
