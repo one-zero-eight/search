@@ -81,7 +81,7 @@ QUESTIONS = [
 class Relevant:
     """The pieces that answer a question. A piece the search finds in place of one of them (store.mark_copies)
     answers too when the agent can get from it to the page: one of the same course (the programme of another intake, the
-    same text), or one whose list of pages with the same text shows that page."""
+    same text)."""
 
     ids: set[int]
     pages: set[str]
@@ -94,8 +94,7 @@ class Relevant:
                    {r["copy_of"] for r in rows if r["copy_of"]})
 
     def __contains__(self, hit) -> bool:
-        return hit.id in self.ids or hit.id in self.mains and (
-            doc_store.course_of(hit.path, hit.title) in self.courses or any(a["page"] in self.pages for a in hit.also_in[:doc_store.ALSO_SHOWN]))
+        return hit.id in self.ids or hit.id in self.mains and doc_store.course_of(hit.path, hit.title) in self.courses
 
     def __len__(self) -> int:
         return len(self.ids)

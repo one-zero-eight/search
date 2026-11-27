@@ -24,15 +24,22 @@ TRUST = ("official", "wiki")
 STATUSES = ("current", "outdated", "unlisted")  # of a document: in force, stale_after has passed, or no page of its site links it any more
 
 
+def years_between(start: date | None, end: date | None) -> frozenset[int]:
+    """The years from `start` to `end` (either may be missing: then the other's year alone); empty without both."""
+    if not start and not end:
+        return frozenset()
+    return frozenset(range((start or end).year, (end or start).year + 1))
+
+
 @dataclass(frozen=True)
 class Filters:
     """What a search keeps of the documents, by what is known of the document itself. `status`: 'current' (not unlisted, not
     past its stale_after), 'outdated' (past it) or 'unlisted'; `issued_from`/`issued_to`: the day the document was issued, a
     document with no date is left out when either is given; `site`: where it comes from ('hotel', 'university', 'eduwiki').
-    `cohorts`: the intakes asked for; a course programme of another intake is left out when its course has one of these.
+    `cohorts`: the intakes asked for; a course programme of another intake is left out.
     `newest_programmes`: without `cohorts`, only the newest intake's programme of each course is kept.
-    `latest_versions`: a version of a document that a later one of its series replaces is left out, unless `asked_years` holds
-    its year."""
+    `latest_versions`: a version of a document that a later one of its series replaces is left out, unless `asked_years` (the
+    years of the dates asked for) holds its year."""
 
     status: str | None = None
     issued_from: date | None = None
@@ -71,10 +78,7 @@ class Filters:
             where.append("site = %(f_site)s")
             params["f_site"] = self.site
         if self.cohorts:
-            where.append("NOT (path LIKE %(f_courses)s AND meta ? 'cohort' AND NOT ((meta->>'cohort')::int = ANY(%(f_cohorts)s)) "
-                         "AND substring(title from '«([^»]+)»') IS NOT NULL "
-                         "AND substring(title from '«([^»]+)»') IN (SELECT substring(o.title from '«([^»]+)»') FROM documents o "
-                         "WHERE o.path LIKE %(f_courses)s AND (o.meta->>'cohort')::int = ANY(%(f_cohorts)s)))")
+            where.append("NOT (path LIKE %(f_courses)s AND meta ? 'cohort' AND NOT ((meta->>'cohort')::int = ANY(%(f_cohorts)s)))")
             params["f_cohorts"] = sorted(self.cohorts)
             params["f_courses"] = COURSES
         elif self.newest_programmes:
@@ -87,6 +91,16 @@ class Filters:
                          "AND EXISTS (SELECT 1 FROM documents n WHERE n.series = d.series AND n.trust = 'official' AND n.academic_year > d.academic_year))")
             params["f_years"] = sorted(self.asked_years)
         return (f" AND {column} IN (SELECT d.path FROM documents d WHERE {' AND '.join(where)})" if where else ""), params
+
+    def pieces(self, alias: str = "") -> tuple[str, dict]:
+        """(SQL to append to a WHERE over document_chunks, its parameters): the pieces searched. A copy of a text (copy_of,
+        docs/store.py mark_copies) is searched only when the piece it is a copy of is left out by the filters: the programme of
+        an older intake has the same paragraph as the newest one, and a search for that intake must find it."""
+        where, params = self.clause(f"{alias}path")
+        if not where:
+            return f" AND {alias}copy_of IS NULL", params
+        main, _ = self.clause("m.path")
+        return f"{where} AND NOT EXISTS (SELECT 1 FROM document_chunks m WHERE m.id = {alias}copy_of{main})", params  # (none for a main: no copy_of)
 
 
 @dataclass
@@ -111,9 +125,9 @@ class DocHit:
     issued: date | None
     based_on: list[dict] = field(default_factory=list)  # the pages a piece cites, with their titles and originals (from `cites`)
     newer: str | None = None  # the title of a later version of the document ("на 2026/2027 учебный год" for one of 2024/2025)
-    also_in: list[dict] = field(default_factory=list)  # the other pages that hold the same text ({title, page}), those the queries name first
     relevance: float | None = None  # its second best score of the reranker over the queries, from _rerank (as store.MessageHit)
     page_sha: str = ""  # the indexed page revision, not the chunk's text hash
+    copy_of: int | None = None  # the piece this one is a copy of (docs/store.py mark_copies); set only when its main was filtered out
     archive_member: str | None = None  # the PDF in the archive the page was read from, for the preview
     archive_sha256: str | None = None  # the full digest of that member
     issued_precision: str | None = None  # 'year' when only the year of the date is known (from a title or a file name)
@@ -140,13 +154,13 @@ def demote_course_programmes(order: list[int], hits: Sequence) -> list[int]:
 
 
 def _bm25(words: str, trust: list[str], courses: bool = False, filters: Filters | None = None) -> list[int]:
-    where, more = (filters or Filters()).clause("path")
+    where, more = (filters or Filters()).pieces()
     with tracing.span("bm25 course programmes" if courses else "bm25", "RETRIEVER", input=words) as done, pg.connection() as conn:
         found = pg.column(
             conn,
             f"""SELECT id FROM document_chunks
                WHERE (search_text ||| %(q)s OR search_text::pdb.alias('search_text_en') ||| %(q)s) AND trust = ANY(%(t)s)
-                 AND (path LIKE %(c)s) = %(courses)s AND copy_of IS NULL{where}
+                 AND (path LIKE %(c)s) = %(courses)s{where}
                ORDER BY pdb.score(id) DESC LIMIT %(n)s""",
             {"q": words, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses, **more},
         )
@@ -155,7 +169,7 @@ def _bm25(words: str, trust: list[str], courses: bool = False, filters: Filters 
 
 
 def _vector(vector: list[float], trust: list[str], courses: bool = False, filters: Filters | None = None) -> list[int]:
-    where, more = (filters or Filters()).clause("c.path")
+    where, more = (filters or Filters()).pieces("c.")
     with tracing.span("vector course programmes" if courses else "vector", "RETRIEVER") as done, pg.connection() as conn, conn.transaction():
         if pg.scalar(conn, "SELECT value FROM docs_meta WHERE key='embeddings_model'") != settings.embeddings_model:
             log.warning("Skipping wiki vectors whose model does not match EMBEDDINGS_MODEL")
@@ -167,14 +181,14 @@ def _vector(vector: list[float], trust: list[str], courses: bool = False, filter
         found = pg.column(
             conn,
             f"""SELECT e.chunk_id FROM document_chunk_embeddings e JOIN document_chunks c ON c.id = e.chunk_id
-               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s AND c.copy_of IS NULL{where} ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
+               WHERE c.trust = ANY(%(t)s) AND (c.path LIKE %(c)s) = %(courses)s{where} ORDER BY e.embedding <=> %(v)s::vector LIMIT %(n)s""",
             {"v": vector, "t": trust, "n": settings.docs_search_candidates, "c": COURSES, "courses": courses, **more},
         )
         done(len(found))
         return found
 
 
-HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, p.title, p.type, p.trust, p.audience, p.resource,
+HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites, c.copy_of, p.title, p.type, p.trust, p.audience, p.resource,
                 p.status, p.review, p.source_warning, p.stale_after, p.issued, p.sha AS page_sha,
                 p.meta->>'archive_member' AS archive_member, p.meta->>'archive_sha256' AS archive_sha256,
                 p.meta->>'issued_precision' AS issued_precision,
@@ -183,21 +197,21 @@ HIT = """SELECT c.id, c.path, c.seq, c.heading, c.clause, c.sha, c.text, c.cites
          FROM document_chunks c JOIN documents p ON p.path = c.path"""
 
 
-def _hits(ids: list[int], queries: list[str] = ()) -> list[DocHit]:
+def _hits(ids: list[int], queries: list[str] = (), filters: Filters | None = None) -> list[DocHit]:
     with pg.connection() as conn:
         rows = pg.rows(conn, DocHit, HIT + " WHERE c.id = ANY(%s::bigint[])", (ids,))
     by_id = {r.id: r for r in rows}
-    hits, seen = [], set()
+    hits, seen, mains = [], set(), set()
     for i in ids:
         # The same document is often published twice (two links to one file): its pieces are the same text, shown once.
-        if i in by_id and by_id[i].sha not in seen:
+        # So are two copies of one main, found once the main is filtered out.
+        if i in by_id and by_id[i].sha not in seen and not (by_id[i].copy_of and by_id[i].copy_of in mains):
             seen.add(by_id[i].sha)
+            if by_id[i].copy_of:
+                mains.add(by_id[i].copy_of)
             hits.append(by_id[i])
     _resolve_cites(hits)
-    return _copies(hits, queries)
-
-
-ALSO_SHOWN = 5  # of the other pages that hold a piece's text, those the agent is shown
+    return _copies(hits, queries, filters)
 
 
 def course_of(path: str, title: str) -> str | None:
@@ -205,14 +219,15 @@ def course_of(path: str, title: str) -> str | None:
     return (m.group(1) if (m := re.search(r"«([^»]+)»", title)) else title) if path.startswith("course-programmes/") else None
 
 
-def _copies(hits: list[DocHit], queries: list[str] = ()) -> list[DocHit]:
-    """The search finds one piece of a text that several pages hold. When the title of another of them has more of the
-    queries' words (the course asked about), that one is given instead; the others are named, those the queries name first
-    (the agent sees only ALSO_SHOWN of them)."""
+def _copies(hits: list[DocHit], queries: list[str] = (), filters: Filters | None = None) -> list[DocHit]:
+    """The search finds one piece of a text that several pages hold. When the title of another of them that passes the
+    filters has more of the queries' words (the course asked about), that one is given instead."""
+    group = {h.id: h.copy_of or h.id for h in hits}
+    more, params = (filters or Filters()).clause("p.path")
     with pg.connection() as conn:
         rows = conn.execute("SELECT DISTINCT ON (p.path, c.copy_of) c.id, c.copy_of, p.title, p.path FROM document_chunks c "
-                            "JOIN documents p ON p.path = c.path WHERE c.copy_of = ANY(%s::bigint[]) ORDER BY p.path, c.copy_of, c.seq",
-                            ([h.id for h in hits],)).fetchall()
+                            f"JOIN documents p ON p.path = c.path WHERE c.copy_of = ANY(%(ids)s::bigint[]){more} "
+                            "ORDER BY p.path, c.copy_of, c.seq", {"ids": list(set(group.values())), **params}).fetchall()
     if not rows:
         return hits
     stems = {w[:5] for w in re.findall(r"[^\W\d_]{4,}", " ".join(queries).lower())}
@@ -220,7 +235,8 @@ def _copies(hits: list[DocHit], queries: list[str] = ()) -> list[DocHit]:
     others: dict[int, list[dict]] = {}
     for r in sorted(rows, key=lambda r: (-named(r["title"]), r["title"])):
         others.setdefault(r["copy_of"], []).append(r)
-    swap = {h.id: others[h.id][0]["id"] for h in hits if h.id in others and named(others[h.id][0]["title"]) > named(h.title)}
+    swap = {h.id: others[group[h.id]][0]["id"] for h in hits if group[h.id] in others
+            and others[group[h.id]][0]["id"] != h.id and named(others[group[h.id]][0]["title"]) > named(h.title)}
     if swap:
         with pg.connection() as conn:
             copies = {c.id: c for c in pg.rows(conn, DocHit, HIT + " WHERE c.id = ANY(%s::bigint[])", (list(swap.values()),))}
@@ -229,8 +245,6 @@ def _copies(hits: list[DocHit], queries: list[str] = ()) -> list[DocHit]:
         shown = copies[swap[h.id]] if h.id in swap else h
         if h.id in swap:  # (what the found piece carried: the pages it cites, a later version)
             shown.based_on = h.based_on
-        shown.also_in = [{"title": r["title"], "page": r["path"]} for r in [{"title": h.title, "path": h.path}, *others.get(h.id, [])]
-                         if r["path"] != shown.path and r["title"] != shown.title]
         out.append(shown)
     return out
 
@@ -302,8 +316,8 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     kinds = [t for t in (trust or TRUST) if t in TRUST]
     if not queries or not kinds or limit <= 0:
         return []
-    filters = replace(filters or Filters(), latest_versions=True,
-                      asked_years=frozenset(int(y) for y in re.findall(r"(?<!\d)(\d{4})(?!\d)", " ".join(queries))))
+    filters = filters or Filters()
+    filters = replace(filters, latest_versions=True, asked_years=years_between(filters.issued_from, filters.issued_to))
     vectors = _embed_all(queries)
     with tracing.span("hybrid", "RETRIEVER", input=queries), ThreadPoolExecutor(max_workers=4) as executor:
         jobs = [(i, executor.submit(tracing.carry(_bm25), _words(q), kinds, pool, filters),
@@ -319,7 +333,7 @@ def search(queries: str | list[str], *, trust: Collection[str] | None = None, li
     if not fused:
         return []
     with tracing.span("load pieces", input=len(fused)):
-        hits = _hits(fused, queries)
+        hits = _hits(fused, queries, filters)
     if not rerank:
         return hits
     return _rerank(queries, hits, limit) if reranking else hits[:limit]

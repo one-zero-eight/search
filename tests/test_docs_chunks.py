@@ -55,8 +55,8 @@ def test_an_update_keeps_the_rows_of_unchanged_pieces():
 
 
 def test_a_text_that_stands_on_several_pages_is_searched_once_on_the_latest_intakes(monkeypatch):
-    """The course programme of each intake repeats the last one: the copies are not searched, the latest intake's piece is,
-    with the others named. The same paragraph in another course stays searched, unless copies are marked across courses:
+    """The course programme of each intake repeats the last one: the copies are not searched, the latest intake's piece is.
+    The same paragraph in another course stays searched, unless copies are marked across courses:
     then a question that names that course gets its piece."""
     from contextlib import nullcontext
 
@@ -82,7 +82,5 @@ def test_a_text_that_stands_on_several_pages_is_searched_once_on_the_latest_inta
 
         hit = found("сколько часов", across=False)
         assert hit.path == "course-programmes/test-copies-1"
-        assert [a["title"] for a in hit.also_in] == [pages["course-programmes/test-copies-0"], pages["course-programmes/test-copies-2"]]
         hit = found("сколько часов у курса Бетакурс", across=True)
         assert hit.path == "course-programmes/test-copies-3"  # the course asked about, not the latest intake of another
-        assert hit.also_in[0]["page"] == "course-programmes/test-copies-1" and len(hit.also_in) == 3

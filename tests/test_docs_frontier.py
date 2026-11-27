@@ -344,7 +344,7 @@ def test_a_search_keeps_the_documents_that_pass_the_status_the_date_and_the_site
         doc_search.Filters(status="fresh")
 
 
-def test_a_search_leaves_out_the_programmes_of_other_cohorts_of_a_course_that_has_the_askers_cohort(docs_db):
+def test_a_search_keeps_only_the_programmes_of_the_intakes_asked_for(docs_db):
     def doc(path, title, **meta):
         return store.Document(path, {"title": title, "type": "regulation", **meta}, "# T\n\n## P\n\nSome words of the document.\n")
 
@@ -356,12 +356,33 @@ def test_a_search_leaves_out_the_programmes_of_other_cohorts_of_a_course_that_ha
     store.sync("regulations/", [doc("regulations/rules", "Правила")])
     every = {"course-programmes/ma-2023", "course-programmes/ma-2026", "course-programmes/mat-2025", "regulations/rules"}
     assert passing(docs_db, doc_search.Filters()) == every
-    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2026}))) == every - {"course-programmes/ma-2023"}
-    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2023}))) == every - {"course-programmes/ma-2026"}
+    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2026}))) == every - {"course-programmes/ma-2023", "course-programmes/mat-2025"}
+    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2023}))) == every - {"course-programmes/ma-2026", "course-programmes/mat-2025"}
     assert passing(docs_db, doc_search.Filters(newest_programmes=True)) == every - {"course-programmes/ma-2023"}
     # the dates choose the intake, not the programme's `issued`: an undated programme passes, an undated regulation does not
-    assert passing(docs_db, doc_search.Filters(issued_from=date(2024, 1, 1), cohorts=frozenset({2025}))) == {
-        "course-programmes/ma-2023", "course-programmes/ma-2026", "course-programmes/mat-2025"}
+    assert passing(docs_db, doc_search.Filters(issued_from=date(2024, 1, 1), cohorts=frozenset({2025}))) == {"course-programmes/mat-2025"}
+
+
+def test_the_piece_of_an_older_intake_is_searched_when_the_newest_one_is_left_out(docs_db):
+    def doc(path, title, **meta):
+        return store.Document(path, {"title": title, "type": "regulation", **meta}, "# T\n\n## P\n\nSome words of the document.\n")
+
+    ma = "Рабочая программа «Mathematical Analysis I / Математический анализ I» — {}"
+    store.sync("course-programmes/", [
+        doc("course-programmes/ma-2023", ma.format("профиль «Робототехника», набор 2023"), cohort=2023),
+        doc("course-programmes/ma-2026", ma.format("набор 2026"), cohort=2026)])
+    store.mark_copies(docs_db)
+
+    def searched(filters) -> set[str]:
+        where, params = filters.pieces()
+        return {r["path"] for r in docs_db.execute(f"SELECT path FROM document_chunks WHERE true{where}", params).fetchall()}
+
+    assert searched(doc_search.Filters()) == {"course-programmes/ma-2026"}
+    assert searched(doc_search.Filters(cohorts=frozenset({2023}))) == {"course-programmes/ma-2023"}
+    assert searched(doc_search.Filters(cohorts=frozenset({2026}))) == {"course-programmes/ma-2026"}
+    piece = docs_db.execute("SELECT id FROM document_chunks WHERE path = 'course-programmes/ma-2026' ORDER BY seq LIMIT 1").fetchone()["id"]
+    assert doc_search._hits([piece], ["робототехника"])[0].path == "course-programmes/ma-2023"
+    assert doc_search._hits([piece], ["робототехника"], doc_search.Filters(cohorts=frozenset({2026})))[0].path == "course-programmes/ma-2026"
 
 
 def test_the_versions_of_a_document_are_told_apart_in_sql(docs_db):

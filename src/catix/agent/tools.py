@@ -232,8 +232,7 @@ def _cohorts(runtime: ToolRuntime[AgentContext], date_from: date | None, date_to
     """The intakes whose course programmes are wanted: the years of the agent's `date_from`/`date_to`, else those of the
     asker's study groups ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
     if date_from or date_to:
-        first, last = (date_from or date_to).year, (date_to or date_from).year
-        return frozenset(range(first, last + 1))
+        return doc_store.years_between(date_from, date_to)
     context = runtime.context
     if context is None:
         return frozenset()
@@ -342,10 +341,6 @@ def _wiki_item(hit, collector: Collector, text_limit: int = WIKI_TEXT) -> dict:
     item["text"] = hit.text if len(hit.text) <= text_limit else hit.text[:text_limit] + " [...cut; read_wiki gives the rest]"
     if hit.based_on:
         item["based_on"] = [{"document": b["title"], "page": b["page"]} for b in hit.based_on[:3]]
-    if also := getattr(hit, "also_in", None):  # the same text in other documents (the programme of other intakes, other courses)
-        shown = doc_store.ALSO_SHOWN
-        item["same_text_also_in"] = [{"document": a["title"], "page": a["page"]} for a in also[:shown]] + (
-            [f"and {len(also) - shown} more"] if len(also) > shown else [])
     if warnings := _warnings(hit):
         item["warnings"] = warnings
     item["page"] = hit.path

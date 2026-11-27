@@ -96,16 +96,21 @@ def test_an_older_version_is_said_to_be_replaced():
     assert tools._warnings(old) == ["an older version: «Правила приема на 2026/2027 учебный год» replaces it; use that one unless the question is about this year"]
 
 
-def test_the_search_asks_the_sql_for_the_latest_versions_and_the_years_named(monkeypatch):
+def test_the_search_keeps_older_versions_only_for_the_years_of_the_dates(monkeypatch):
+    from datetime import date
+
     from catix.db import docs as doc_store
 
     seen = []
     monkeypatch.setattr(doc_store, "_embed_all", lambda queries: [])
     monkeypatch.setattr(doc_store, "_bm25", lambda words, kinds, courses=False, filters=None: seen.append(filters) or [])
-    monkeypatch.setattr(doc_store, "_hits", lambda ids, queries=(): [])
+    monkeypatch.setattr(doc_store, "_hits", lambda ids, queries=(), filters=None: [])
     monkeypatch.setattr(doc_store.settings, "reranker_route", None)
     doc_store.search("правила приема 2024 года")
-    assert seen and all(f.latest_versions is True and f.asked_years == frozenset({2024}) for f in seen)
+    assert seen and all(f.latest_versions is True and f.asked_years == frozenset() for f in seen)
+    seen.clear()
+    doc_store.search("правила приема", filters=doc_store.Filters(issued_from=date(2024, 9, 1), issued_to=date(2025, 6, 30)))
+    assert seen and all(f.asked_years == frozenset({2024, 2025}) for f in seen)
 
 
 def test_a_section_asked_as_the_table_of_contents_names_it_is_read(monkeypatch):
