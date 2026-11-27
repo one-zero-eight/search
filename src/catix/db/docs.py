@@ -29,7 +29,8 @@ class Filters:
     """What a search keeps of the documents, by what is known of the document itself. `status`: 'current' (not unlisted, not
     past its stale_after), 'outdated' (past it) or 'unlisted'; `issued_from`/`issued_to`: the day the document was issued, a
     document with no date is left out when either is given; `site`: where it comes from ('hotel', 'university', 'eduwiki').
-    `cohorts`: the asker's cohorts; a course programme of another cohort is left out when its course has one of these cohorts.
+    `cohorts`: the intakes asked for; a course programme of another intake is left out when its course has one of these.
+    `newest_programmes`: without `cohorts`, only the newest intake's programme of each course is kept.
     `latest_versions`: a version of a document that a later one of its series replaces is left out, unless `asked_years` holds
     its year."""
 
@@ -38,6 +39,7 @@ class Filters:
     issued_to: date | None = None
     site: str | None = None
     cohorts: frozenset[int] = frozenset()
+    newest_programmes: bool = False
     latest_versions: bool = False
     asked_years: frozenset[int] = frozenset()
 
@@ -66,9 +68,15 @@ class Filters:
             params["f_site"] = self.site
         if self.cohorts:
             where.append("NOT (path LIKE %(f_courses)s AND meta ? 'cohort' AND NOT ((meta->>'cohort')::int = ANY(%(f_cohorts)s)) "
+                         "AND substring(title from '«([^»]+)»') IS NOT NULL "
                          "AND substring(title from '«([^»]+)»') IN (SELECT substring(o.title from '«([^»]+)»') FROM documents o "
                          "WHERE o.path LIKE %(f_courses)s AND (o.meta->>'cohort')::int = ANY(%(f_cohorts)s)))")
             params["f_cohorts"] = sorted(self.cohorts)
+            params["f_courses"] = COURSES
+        elif self.newest_programmes:
+            where.append("(NOT (path LIKE %(f_courses)s AND meta ? 'cohort') OR substring(title from '«([^»]+)»') IS NULL "
+                         "OR (substring(title from '«([^»]+)»'), (meta->>'cohort')::int) IN (SELECT substring(o.title from '«([^»]+)»'), "
+                         "max((o.meta->>'cohort')::int) FROM documents o WHERE o.path LIKE %(f_courses)s AND o.meta ? 'cohort' GROUP BY 1))")
             params["f_courses"] = COURSES
         if self.latest_versions:
             where.append("NOT (d.series IS NOT NULL AND NOT (d.academic_year = ANY(%(f_years)s)) "

@@ -229,15 +229,16 @@ COHORT_GROUP = re.compile(r"^[BM](\d{2})-", re.I)
 
 
 def _cohorts(runtime: ToolRuntime[AgentContext], queries: list[str]) -> frozenset[int]:
-    """The intake years of the asker's study groups ('B26-CSE-01': 2026), to keep the course programmes of their own intake.
-    Empty when the question names another year: it asks about another intake's programme."""
+    """The intakes whose course programmes are wanted: the years the question names, else those of the asker's study groups
+    ('B26-CSE-01': 2026). Empty when neither is known: then only the newest programme of each course is kept."""
+    named = frozenset(int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join([*queries, _question(runtime) or ""])))
+    if named:
+        return named
     context = runtime.context
     if context is None:
         return frozenset()
     groups = (*context.verified_study_groups, context.study_group)
-    cohorts = frozenset(2000 + int(m.group(1)) for g in groups if g and (m := COHORT_GROUP.match(g)))
-    named = {int(y) for y in re.findall(r"(?<!\d)(20\d{2})(?!\d)", " ".join([*queries, _question(runtime) or ""]))}
-    return frozenset() if named - cohorts else cohorts
+    return frozenset(2000 + int(m.group(1)) for g in groups if g and (m := COHORT_GROUP.match(g)))
 
 
 def _own_group(runtime: ToolRuntime[AgentContext]) -> dict | None:
@@ -479,7 +480,8 @@ def search(queries: list[str], runtime: ToolRuntime[AgentContext], sources: list
     relevance, not by date: read the dates. Matches are not exhaustive lists or counts: use read_chats for those."""
     explicit = bool(sources)
     wanted = list(dict.fromkeys(sources or SOURCES))
-    filters = doc_store.Filters(issued_from=date_from, issued_to=date_to, cohorts=_cohorts(runtime, queries))
+    cohorts = _cohorts(runtime, queries)
+    filters = doc_store.Filters(issued_from=date_from, issued_to=date_to, cohorts=cohorts, newest_programmes=not cohorts)
     fetchers = {"moodle": moodle_tools.fetch, "chat": lambda q, r, rerank: _fetch_chats(q, r, rerank, date_from, date_to),
                 "docs": lambda q, r, rerank: _fetch_docs(q, r, rerank, filters)}
     # With a reranker the sources give their candidates unscored and it scores them all in one pass, on one scale.

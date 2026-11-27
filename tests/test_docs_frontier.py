@@ -357,6 +357,8 @@ def test_a_search_leaves_out_the_programmes_of_other_cohorts_of_a_course_that_ha
     every = {"course-programmes/ma-2023", "course-programmes/ma-2026", "course-programmes/mat-2025", "regulations/rules"}
     assert passing(docs_db, doc_search.Filters()) == every
     assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2026}))) == every - {"course-programmes/ma-2023"}
+    assert passing(docs_db, doc_search.Filters(cohorts=frozenset({2023}))) == every - {"course-programmes/ma-2026"}
+    assert passing(docs_db, doc_search.Filters(newest_programmes=True)) == every - {"course-programmes/ma-2023"}
 
 
 def test_the_versions_of_a_document_are_told_apart_in_sql(docs_db):

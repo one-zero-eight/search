@@ -188,7 +188,7 @@ def test_at_most_three_course_programmes_stay_among_the_results_while_others_rem
     assert [h.path.split("/")[0] for h in mixed] == ["course-programmes"] * 3 + ["eduwiki"] * 2
 
 
-def test_the_cohorts_of_the_asker_come_from_the_study_groups_unless_the_question_names_another_year():
+def test_the_intakes_wanted_are_the_years_the_question_names_else_those_of_the_study_groups():
     from catix.agent.tools import AgentContext, _cohorts
 
     def runtime(context):
@@ -196,5 +196,7 @@ def test_the_cohorts_of_the_asker_come_from_the_study_groups_unless_the_question
 
     context = AgentContext(verified_study_groups=("B26-CSE-01", "ESCP-3"))
     assert _cohorts(runtime(context), ["матанализ оценивание"]) == frozenset({2026})
-    assert _cohorts(runtime(context), ["РПД матанализа набор 2023"]) == frozenset()
+    assert _cohorts(runtime(context), ["РПД матанализа набор 2023"]) == frozenset({2023})
+    assert _cohorts(runtime(AgentContext(verified_study_groups=("ESCP-3",))), ["матанализ"]) == frozenset()
+    assert _cohorts(runtime(AgentContext()), ["матанализ набор 2024"]) == frozenset({2024})
     assert _cohorts(runtime(None), ["матанализ"]) == frozenset()
