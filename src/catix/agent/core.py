@@ -112,21 +112,6 @@ def _group_prompt(context: AgentContext | None) -> str:
     return GROUP_PROMPT.format(group=group) if group else NO_GROUP_PROMPT
 
 
-CHATS_PROMPT = """
-
-The chats of the knowledge base the asker may see (for `chat` of read_chats):
-{chats}"""
-
-
-def _chats_prompt(context: AgentContext | None) -> str:
-    """The list of chats, so that read_chats can be given one without a call to list them: there are 25 (2026-11-01)."""
-    chats = store.visible_chats(context.allowed_chat_ids if context else None)
-    lines = [f"- {c['title']}" + (f" (@{c['username']})" if c["username"] else "") + f" · group {c['group_code']}"
-             + (" · official" if c["official"] else "")
-             for c in chats if c["stored"]]
-    return CHATS_PROMPT.format(chats="\n".join(lines)) if lines else ""
-
-
 def agent_prompt():
     """The system prompt: the agent's instructions, what is known of this asker, and the date last."""
 
@@ -137,7 +122,7 @@ def agent_prompt():
         # V100). A new question gets a new context, so "today" stays correct in long-lived conversations.
         context = request.runtime.context
         now = context.asked_at if context else datetime.now(settings.tz)
-        parts = [roles.SUPERVISOR, _group_prompt(context), _chats_prompt(context)]
+        parts = [roles.SUPERVISOR, _group_prompt(context)]
         if context and context.attachment_chat_id and context.innohassle_token:
             parts.append("\n\nThe site accepts private PDF/TXT files and PNG/JPEG/WebP images in this chat. "
                          "Files attached to the current question are part of the user's request even if the text only says "
