@@ -653,6 +653,50 @@ def test_a_chats_history_says_when_a_question_is_being_answered(monkeypatch, kep
     assert after["answering"] is False and after["asking"] == []
 
 
+def test_a_page_that_comes_back_follows_the_answer_being_written(monkeypatch):
+    async def go():
+        gate = asyncio.Event()
+
+        async def fake(query, chat_id, user, events=None, decision=None, **kw):
+            await events.put(("status", {"phase": "searching"}))
+            await events.put(("answer", {"text": "Hal"}))
+            await events.put(("answer", {"text": "Half"}))
+            await gate.wait()
+            return SimpleNamespace(model_dump=lambda mode: {"answer": "Half done"})
+
+        monkeypatch.setattr(ask, "run", fake)
+        user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
+        body = ask._streamed("q", "c1", user).body_iterator
+        await body.__anext__()  # the `chat` event
+        first = asyncio.ensure_future(body.__anext__())
+        await asyncio.sleep(0.05)
+        queue = ask.streams["c1"][0].listen()
+        assert [await queue.get() for _ in range(2)] == [("status", {"phase": "searching"}), ("answer", {"text": "Half"})]
+        gate.set()
+        assert await queue.get() == ("done", {"answer": "Half done"})
+        assert await queue.get() is None
+        await first
+        async for _ in body:
+            pass
+        assert "c1" not in ask.streams
+
+    asyncio.run(go())
+
+
+def test_following_a_chat_needs_a_stream_and_the_owner(monkeypatch, kept):
+    kept.chats["c1"] = kept.chats.pop(kept.start("u1", "1"))
+
+    async def go():
+        async with two_users(monkeypatch) as c:
+            other = await c.get("/ask/chats/c1/stream", headers={"Authorization": "Bearer other"})
+            mine = await c.get("/ask/chats/c1/stream", headers={"Authorization": "Bearer good"})
+            return other, mine
+
+    other, mine = asyncio.run(go())
+    assert other.status_code == 404
+    assert mine.status_code == 409 and mine.json()["detail"] == ask.NOTHING_STREAMED
+
+
 def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):
     """A question cancelled (or failed, or cut by a restart) halfway leaves its messages in the thread: the next one goes on
     from the checkpoint kept with the chat's last answer, and before the first answer the thread is cleared."""

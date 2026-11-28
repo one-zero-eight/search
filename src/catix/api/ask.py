@@ -298,6 +298,48 @@ def _asking(chat_id: str) -> list[str]:
     return [text for task, text in questions_of.items() if task in tasks and not task.done()]
 
 
+class _Events(asyncio.Queue):
+    """The events of a streamed question. The stream that asked reads this queue; a page that comes back
+    (GET /ask/chats/{chat_id}/stream) gets the latest status, guardrail and answer, then the same events as they come."""
+
+    REPLAYED = ("status", "guardrail", "answer")
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.latest: dict[str, tuple[str, dict]] = {}  # event name -> the last such event (REPLAYED only)
+        self.end: tuple[str, dict] | None = None  # done / cancelled / error
+        self.closed = False
+        self.listeners: set[asyncio.Queue] = set()
+
+    async def put(self, item) -> None:
+        if item is None:
+            self.closed = True
+        elif item[0] in self.REPLAYED:
+            self.latest[item[0]] = item
+        else:
+            self.end = item
+        for listener in self.listeners:
+            listener.put_nowait(item)
+        await super().put(item)
+
+    def listen(self) -> asyncio.Queue:
+        """A queue with what was shown so far, then every later event, then None at the end."""
+        queue: asyncio.Queue = asyncio.Queue()
+        for item in self.latest.values():
+            queue.put_nowait(item)
+        if self.end is not None:
+            queue.put_nowait(self.end)
+        if self.closed:
+            queue.put_nowait(None)
+        else:
+            self.listeners.add(queue)
+        return queue
+
+
+# chat_id -> the streamed questions of the chat not finished yet, in the order they came (GET /ask/chats/{chat_id}/stream follows the first)
+streams: dict[str, list[_Events]] = {}
+
+
 # Answer streams whose client went away: asyncio keeps only weak references to tasks.
 background: set[asyncio.Task] = set()
 # InNoHassle id -> [lock, how many questions use it]: one client's questions are answered one at a time, in the order they
@@ -581,7 +623,7 @@ async def ask_by_query_stream(user: AskerDep, query: str = Body(..., pattern=NOT
     offers for the calendar), `cancelled`
     ({detail}: POST /ask/{chat_id}/cancel) or `error` ({detail}, and `code`: "llm_unavailable" when the language model cannot be reached). A client's questions are answered one at a time, in the
     order they came: while an earlier one is not done, this one waits and sends no events. Closing the stream does not stop the
-    question: it is answered and kept in the chat (GET /ask/chats/{chat_id} shows `answering` until then); POST
+    question: it is answered and kept in the chat (GET /ask/chats/{chat_id} shows `answering` until then; GET /ask/chats/{chat_id}/stream follows it again); POST
     /ask/{chat_id}/cancel stops it."""
     chat_id, files = await _chat_with_files(user, chat_id, query, attachment_ids)
     return _streamed(query, chat_id, user, files=files)
@@ -634,27 +676,33 @@ async def _chat_with_files(user: UserTokenData, chat_id: str | None, query: str,
 def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecision | None = None,
               files: list[AttachmentInfo] | None = None) -> StreamingResponse:
     """The answer to `query` (with `decision`: to the question that waited for it) as server-sent events."""
-    events: asyncio.Queue = asyncio.Queue()
+    events = _Events()
+    streams.setdefault(chat_id, []).append(events)
 
     async def work() -> None:
         started = time.monotonic()
         try:
-            done = await run(query, chat_id, user, events, decision, **({"files": files} if files else {}))
-            log.info("ask stream completed (%d ms)", round((time.monotonic() - started) * 1000))
-            await events.put(("done", done.model_dump(mode="json")))
-        except AskCancelled:
-            await events.put(("cancelled", {"detail": "The question was cancelled"}))
-        except NothingToDecide:
-            await events.put(("error", {"detail": NOTHING_WAITS}))
-        except approval_edit.InvalidEdit as e:
-            await events.put(("error", {"detail": str(e)}))
-        except Exception as e:
-            log.warning("the agent failed (%s)", type(e).__name__)
-            if unreachable(e):
-                await events.put(("error", {"detail": UNAVAILABLE, "code": "llm_unavailable"}))  # the site falls back to POST /ask/search
-            else:
-                await events.put(("error", {"detail": "ML service error"}))
-        await events.put(None)
+            try:
+                done = await run(query, chat_id, user, events, decision, **({"files": files} if files else {}))
+                log.info("ask stream completed (%d ms)", round((time.monotonic() - started) * 1000))
+                await events.put(("done", done.model_dump(mode="json")))
+            except AskCancelled:
+                await events.put(("cancelled", {"detail": "The question was cancelled"}))
+            except NothingToDecide:
+                await events.put(("error", {"detail": NOTHING_WAITS}))
+            except approval_edit.InvalidEdit as e:
+                await events.put(("error", {"detail": str(e)}))
+            except Exception as e:
+                log.warning("the agent failed (%s)", type(e).__name__)
+                if unreachable(e):
+                    await events.put(("error", {"detail": UNAVAILABLE, "code": "llm_unavailable"}))  # the site falls back to POST /ask/search
+                else:
+                    await events.put(("error", {"detail": "ML service error"}))
+            await events.put(None)
+        finally:
+            streams[chat_id].remove(events)
+            if not streams[chat_id]:
+                del streams[chat_id]
 
     async def generate():
         # The client must retain a new chat's id even if generation fails: its uploaded files already belong to it.
@@ -677,6 +725,19 @@ def _streamed(query: str, chat_id: str, user: UserTokenData, decision: AskDecisi
                 slog.info("ask_client_gone", chat_id=chat_id)
 
     return StreamingResponse(generate(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+async def _relayed(queue: asyncio.Queue):
+    """Server-sent events from `queue` until its None, with the heartbeat comment while it is silent."""
+    while True:
+        try:
+            event = await asyncio.wait_for(queue.get(), HEARTBEAT)
+        except TimeoutError:
+            yield ": ping\n\n"
+            continue
+        if event is None:
+            return
+        yield server_event(*event)
 
 
 @router.post('/ask/{chat_id}/signup/{offer_id}', response_model=SignupOffer,
@@ -846,12 +907,46 @@ async def ask_pause(user: AskerDep) -> AskPause:
 async def chat_history(user: VerifiedDep, chat_id: str) -> AskChatHistory:
     """A chat of the user: its questions and answers, the oldest first, as POST /ask/ gave them, with the user's votes. A
     question that was cancelled or failed is not in it: the agent does not remember it either. `answering` is true while a
-    question of the chat is being answered or waits for its turn (also after the page that asked it went away)."""
+    question of the chat is being answered or waits for its turn (also after the page that asked it went away).
+    GET /ask/chats/{chat_id}/stream follows the answer being written."""
     found = await asyncio.to_thread(chats.history, chat_id, user.innohassle_id)
     if found is None:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
-    asking = _asking(chat_id)
-    return found.model_copy(update={"answering": chat_id in _answering(), "asking": asking})
+    return found.model_copy(update={"answering": chat_id in _answering(), "asking": _asking(chat_id)})
+
+
+NOTHING_STREAMED = "No question of this chat is being answered with a stream now"
+
+
+@router.get(
+    "/ask/chats/{chat_id}/stream",
+    response_class=StreamingResponse,
+    responses={
+        200: {"description": "Server-sent events, as of POST /ask/stream without `chat`"},
+        404: {"description": "Chat not found or user has no access to it"},
+        409: {"description": "No question of the chat is being answered with a stream"},
+    },
+)
+async def follow_chat(user: VerifiedDep, chat_id: str):
+    """The answer being written in the chat, for a page that lost its stream (reloaded, closed, or opened the chat from the
+    list): the latest `status`, `guardrail` and `answer`, then the events of POST /ask/stream as they come, ending with `done`,
+    `cancelled` or `error`. It follows the oldest unfinished question of the chat; when it ends, GET /ask/chats/{chat_id} has
+    the answer, and `answering` tells whether another question of the chat is still going."""
+    if await asyncio.to_thread(chats.owner, chat_id) != user.innohassle_id:
+        raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
+    if not streams.get(chat_id):
+        raise HTTPException(status_code=409, detail=NOTHING_STREAMED)
+    events = streams[chat_id][0]
+    queue = events.listen()
+
+    async def relay():
+        try:
+            async for line in _relayed(queue):
+                yield line
+        finally:
+            events.listeners.discard(queue)
+
+    return StreamingResponse(relay(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 @router.patch(
