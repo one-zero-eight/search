@@ -111,10 +111,12 @@ class FakeChats:
         chat = self.chats[chat_id]
         return AskChat(chat_id=chat_id, title=chat["title"], created_at=chat["updated"], updated_at=chat["updated"])
 
-    def of_user(self, innohassle_id: str) -> list[AskChat]:
+    def of_user(self, innohassle_id: str, answering=()) -> list[AskChat]:
         answered = {a["response"].chat_id for a in self.answers}
-        mine = [c for c, chat in self.chats.items() if chat["owner"] == innohassle_id and (c in answered or chat.get("waiting"))]
-        return [self._chat(c) for c in sorted(mine, key=lambda c: self.chats[c]["updated"], reverse=True)]
+        mine = [c for c, chat in self.chats.items()
+                if chat["owner"] == innohassle_id and (c in answered or chat.get("waiting") or c in answering)]
+        return [self._chat(c).model_copy(update={"answering": c in answering})
+                for c in sorted(mine, key=lambda c: self.chats[c]["updated"], reverse=True)]
 
     def history(self, chat_id: str, innohassle_id: str) -> AskChatHistory | None:
         if self.owner(chat_id) != innohassle_id:
@@ -626,6 +628,8 @@ def test_a_question_goes_on_when_its_stream_is_closed(monkeypatch):
 
 
 def test_a_chats_history_says_when_a_question_is_being_answered(monkeypatch, kept):
+    """While the page is away its question is still listed: the chat is in the list with `answering`, and its history shows the
+    question that has no answer yet."""
     kept.chats["c1"] = kept.chats.pop(kept.start("u1", "1"))
 
     async def go():
@@ -633,16 +637,20 @@ def test_a_chats_history_says_when_a_question_is_being_answered(monkeypatch, kep
             h = {"Authorization": "Bearer good"}
             t = asyncio.ensure_future(asyncio.Event().wait())
             ask.pending["c1"] = {t}
+            ask.questions_of[t] = "Where is the gym?"
             during = (await c.get("/ask/chats/c1", headers=h)).json()
+            listed = (await c.get("/ask/chats", headers=h)).json()
             t.cancel()
             await asyncio.wait({t})
             ask.pending.pop("c1")
+            ask.questions_of.pop(t)
             after = (await c.get("/ask/chats/c1", headers=h)).json()
-            return during, after
+            return during, listed, after
 
-    during, after = asyncio.run(go())
-    assert during["answering"] is True
-    assert after["answering"] is False
+    during, listed, after = asyncio.run(go())
+    assert during["answering"] is True and during["asking"] == ["Where is the gym?"]
+    assert [(item["chat_id"], item["answering"]) for item in listed] == [("c1", True)]
+    assert after["answering"] is False and after["asking"] == []
 
 
 def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):

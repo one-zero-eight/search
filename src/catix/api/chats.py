@@ -8,6 +8,8 @@ gives the answer or a new question drops it. A search made in the chat (POST /as
 The functions block: the API calls them with asyncio.to_thread.
 """
 
+from collections.abc import Collection
+
 from psycopg.types.json import Jsonb
 
 from catix import personal_calendar
@@ -149,18 +151,21 @@ def delete(chat_id: str, innohassle_id: str) -> bool:
         return conn.execute("DELETE FROM api_chats WHERE chat_id = %s AND innohassle_id = %s", (chat_id, innohassle_id)).rowcount > 0
 
 
-def of_user(innohassle_id: str) -> list[AskChat]:
-    """The user's chats with an answer, waiting decision or bound upload, most recently updated first."""
+def of_user(innohassle_id: str, answering: Collection[str] = ()) -> list[AskChat]:
+    """The user's chats with an answer, waiting decision, bound upload or a question being answered (`answering`: the ids of
+    the chats being answered now), most recently updated first."""
     with pg.connection() as conn:
         rows = conn.execute(
-            """SELECT chat_id, title, created_at, updated_at FROM api_chats c
-               WHERE innohassle_id = %s AND (c.waiting IS NOT NULL
+            """SELECT chat_id, title, created_at, updated_at,
+                      (SELECT count(*) FROM api_answers a WHERE a.chat_id = c.chat_id) AS answer_count
+               FROM api_chats c
+               WHERE innohassle_id = %s AND (c.waiting IS NOT NULL OR c.chat_id = ANY(%s)
                    OR EXISTS (SELECT 1 FROM api_answers a WHERE a.chat_id = c.chat_id)
                    OR EXISTS (SELECT 1 FROM api_attachments f WHERE f.chat_id = c.chat_id AND f.owner = c.innohassle_id))
                ORDER BY updated_at DESC LIMIT %s""",
-            (innohassle_id, LISTED),
+            (innohassle_id, list(answering), LISTED),
         ).fetchall()
-    return [AskChat(**row) for row in rows]
+    return [AskChat(**row, answering=row["chat_id"] in answering) for row in rows]
 
 
 def history(chat_id: str, innohassle_id: str) -> AskChatHistory | None:
@@ -180,7 +185,7 @@ def history(chat_id: str, innohassle_id: str) -> AskChatHistory | None:
         offer.added = (offer.title, offer.starts_at) in added
     pending = chat.pop("waiting")
     waiting_for = AskResponses(**pending["response"], messages=[]) if pending else None
-    return AskChatHistory(**chat, answers=answers, waiting=waiting_for)
+    return AskChatHistory(**chat, answer_count=len(answers), answers=answers, waiting=waiting_for)
 
 
 def asked(ask_query_id: str) -> tuple[str, str] | None:

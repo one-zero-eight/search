@@ -284,6 +284,20 @@ class AskCancelled(Exception):
 
 # chat_id -> the questions of the chat that are running or waiting for their turn
 pending: dict[str, set[asyncio.Task]] = {}
+# The text of each question in `pending`, in the order they came
+questions_of: dict[asyncio.Task, str] = {}
+
+
+def _answering() -> set[str]:
+    """The chats with a question being answered or waiting for its turn."""
+    return {chat_id for chat_id, tasks in pending.items() if any(not t.done() for t in tasks)}
+
+
+def _asking(chat_id: str) -> list[str]:
+    tasks = pending.get(chat_id, ())
+    return [text for task, text in questions_of.items() if task in tasks and not task.done()]
+
+
 # Answer streams whose client went away: asyncio keeps only weak references to tasks.
 background: set[asyncio.Task] = set()
 # InNoHassle id -> [lock, how many questions use it]: one client's questions are answered one at a time, in the order they
@@ -315,8 +329,10 @@ async def run(
     raised here, while the cancelling of the caller itself (the client went away) goes on as it is."""
     task = asyncio.ensure_future(_in_line(query, chat_id, user, events, decision, files))
     pending.setdefault(chat_id, set()).add(task)
+    questions_of[task] = query
 
     def forget(done: asyncio.Task) -> None:
+        questions_of.pop(done, None)
         if chat_id in pending:
             pending[chat_id].discard(done)
             if not pending[chat_id]:
@@ -811,7 +827,7 @@ async def add_user_feedback(
 async def list_chats(user: VerifiedDep) -> list[AskChat]:
     """The user's chats with the assistant, the last answered first (at most 100). GET /ask/chats/{chat_id} gives the
     questions and answers of one, and a question with its `chat_id` goes on with it."""
-    return await asyncio.to_thread(chats.of_user, user.innohassle_id)
+    return await asyncio.to_thread(chats.of_user, user.innohassle_id, _answering())
 
 
 @router.get("/ask/pause", responses={200: {"description": "Success"}})
@@ -834,7 +850,8 @@ async def chat_history(user: VerifiedDep, chat_id: str) -> AskChatHistory:
     found = await asyncio.to_thread(chats.history, chat_id, user.innohassle_id)
     if found is None:
         raise HTTPException(status_code=404, detail="Chat not found or user has no access to it")
-    return found.model_copy(update={"answering": any(not t.done() for t in pending.get(chat_id, ()))})
+    asking = _asking(chat_id)
+    return found.model_copy(update={"answering": chat_id in _answering(), "asking": asking})
 
 
 @router.patch(
