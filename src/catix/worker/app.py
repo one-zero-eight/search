@@ -16,6 +16,7 @@ import redis.asyncio as redis
 from catix.worker import embedder
 from catix.worker import health
 from catix.worker import moodle_reader
+from catix.common import logs
 from catix.db import pg
 from catix.agent import tracing
 from catix.settings import settings
@@ -68,7 +69,7 @@ async def run() -> None:
 
 
 def main() -> None:
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    logs.setup()
     try:
         asyncio.run(run())
     except KeyboardInterrupt:

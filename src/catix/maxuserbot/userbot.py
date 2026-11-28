@@ -162,6 +162,9 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    from catix.common import logs
+
+    logs.setup()
     args = _parser().parse_args()
     try:
         asyncio.run(_execute(args))

@@ -430,6 +430,7 @@ dependencies = [
     { name = "recurring-ical-events" },
     { name = "redis" },
     { name = "segno" },
+    { name = "structlog" },
     { name = "telethon" },
     { name = "ultimate-sitemap-parser" },
     { name = "uvicorn" },
@@ -482,6 +483,7 @@ requires-dist = [
     { name = "recurring-ical-events", specifier = ">=3.8.2" },
     { name = "redis", specifier = ">=8.1.0" },
     { name = "segno", specifier = ">=1.6.6" },
+    { name = "structlog", specifier = ">=26.1.0" },
     { name = "telethon", specifier = ">=1.45.0" },
     { name = "ultimate-sitemap-parser", specifier = ">=1.8.1" },
     { name = "uvicorn", specifier = ">=0.54.0" },
@@ -3819,6 +3821,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ad/eb/4e197bf26b023abafc5e9043ec8710d7de0fcb032d0969045236d72aa0b1/starlette-1.9.0.tar.gz", hash = "sha256:3d931de246ed870e35ce605974440816ef895e592f255d1396cfdf191d4c4318", size = 2732466, upload-time = "2026-10-18T15:50:33.189Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f3/93/181df62699d9b5aca1d87e5cfda131dac87e3cdaebf668662f7206ca3470/starlette-1.9.0-py3-none-any.whl", hash = "sha256:fd3f159936e882d06c1108f84688f7cda2cf85fc6a592a50edbd175e882c2ddc", size = 80335, upload-time = "2026-10-18T15:50:31.526Z" },
+]
+
+[[package]]
+name = "structlog"
+version = "26.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/89/b4a0bcfdf4f71a3dea31379f095929613d7e4528a0996bca6aa964cd0dca/structlog-26.1.0.tar.gz", hash = "sha256:f63a716cbd1b1291cf7661de7794b455acfa4c43c5bcf1630e6ad5ddc1adb3b7", size = 1459881, upload-time = "2026-06-06T07:33:39.348Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a9/18/489c97b834dfff9cf2fc2507cede4bcd4b11e67f84bc462acd1992496f86/structlog-26.1.0-py3-none-any.whl", hash = "sha256:e081a26d6c373e6d201eca24eede26d8ffab07f88f477822e679183428d3d91e", size = 73764, upload-time = "2026-06-06T07:33:38.046Z" },
 ]
 
 [[package]]

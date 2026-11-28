@@ -39,6 +39,7 @@ from telethon.tl.types import (
 )
 
 from catix import live_search, userbot_config
+from catix.common import logs
 from catix.db import pg
 from catix.db import store
 from catix.ingest import images, publish
@@ -755,6 +756,7 @@ async def _backfill(client: TelegramClient, entity: Channel | Chat, topics: list
 
 
 def main() -> None:
+    logs.setup()
     commands = {"login": login, "chats": list_chats, "topics": None, "sync": sync, "listen": listen}
     parser = argparse.ArgumentParser(prog="catix-tguserbot", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=commands)

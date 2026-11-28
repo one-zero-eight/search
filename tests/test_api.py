@@ -1,6 +1,7 @@
 """The HTTP API (api/): the search service's paths answered by cAtIx. The wiki and the agent are replaced, the token is faked."""
 
 import asyncio
+import contextlib
 import json
 import time
 from datetime import datetime, timezone
@@ -13,6 +14,7 @@ from fastapi.testclient import TestClient
 from langchain_core.messages import AIMessage, HumanMessage
 from langgraph.types import Command
 from pydantic import SecretStr
+import structlog.testing
 
 from catix.api import ask, chats, search, state
 from catix.api.app import app
@@ -587,6 +589,60 @@ def test_a_deleted_chat_goes_with_its_answers_and_the_agents_memory(monkeypatch,
     assert after["chat_id"] not in (chat_id, other)  # a new chat
     assert not ask._gates and not ask.pending
     assert {a["response"].chat_id for a in kept.answers} == {other, after["chat_id"]}
+
+
+def test_a_question_goes_on_when_its_stream_is_closed(monkeypatch):
+    """The client going away (a closed tab, a reload) does not stop the question: it is answered and kept in the chat."""
+    state = {"finished": False}
+
+    async def go():
+        gate = asyncio.Event()
+
+        async def fake(query, chat_id, user, events=None, decision=None, **kw):
+            await gate.wait()
+            state["finished"] = True
+            return SimpleNamespace(model_dump=lambda mode: {})
+
+        monkeypatch.setattr(ask, "run", fake)
+        user = ask.UserTokenData(innohassle_id="u1", email="a@innopolis.university", telegram_id=7)
+        body = ask._streamed("q", "c1", user).body_iterator
+        await body.__anext__()  # the `chat` event
+        nxt = asyncio.ensure_future(body.__anext__())
+        await asyncio.sleep(0.05)
+        nxt.cancel()  # the client went away
+        with contextlib.suppress(asyncio.CancelledError):
+            await nxt
+        assert len(ask.background) == 1 and not state["finished"]
+        gate.set()
+        for _ in range(100):
+            if not ask.background:
+                break
+            await asyncio.sleep(0.01)
+        assert not ask.background and state["finished"]
+
+    with structlog.testing.capture_logs() as logged:
+        asyncio.run(go())
+    assert any(e["event"] == "ask_client_gone" and e["chat_id"] == "c1" for e in logged)
+
+
+def test_a_chats_history_says_when_a_question_is_being_answered(monkeypatch, kept):
+    kept.chats["c1"] = kept.chats.pop(kept.start("u1", "1"))
+
+    async def go():
+        async with two_users(monkeypatch) as c:
+            h = {"Authorization": "Bearer good"}
+            t = asyncio.ensure_future(asyncio.Event().wait())
+            ask.pending["c1"] = {t}
+            during = (await c.get("/ask/chats/c1", headers=h)).json()
+            t.cancel()
+            await asyncio.wait({t})
+            ask.pending.pop("c1")
+            after = (await c.get("/ask/chats/c1", headers=h)).json()
+            return during, after
+
+    during, after = asyncio.run(go())
+    assert during["answering"] is True
+    assert after["answering"] is False
 
 
 def test_a_question_goes_on_from_the_last_answer_of_its_chat(monkeypatch, kept):

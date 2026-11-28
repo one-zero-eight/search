@@ -39,6 +39,7 @@ dependencies = [
     "fastmcp>=4.1.6,<5",
     "httpx2>=2.5",
     "maxapi-python==2.5.0",
+    "structlog>=26.1.0",
 ]
 
 [project.scripts]

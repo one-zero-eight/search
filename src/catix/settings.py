@@ -1,6 +1,7 @@
 from datetime import time
 from functools import cached_property
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
@@ -64,6 +65,8 @@ class Settings(BaseSettings):
     # tracing (agent/tracing.py).
     phoenix_endpoint: HttpUrl | None = None
     phoenix_project: str = "catix"
+    # How services write their logs (catix/common/logs.py); prod sets json.
+    log_format: Literal["console", "json"] = "console"
 
     innohassle_api: HttpUrl = HttpUrl("https://api.innohassle.ru")
     # Optional complete API roots replacing /events/v1 and /clubs/v0, not the gateway or Accounts/JWKS.

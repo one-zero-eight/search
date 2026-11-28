@@ -302,6 +302,8 @@ class AskChatHistory(AskChat):
     "The questions with their answers and the searches made in the chat (`search` set), the oldest first, as POST /ask/ and POST /ask/search gave them, with the user's votes."
     waiting: AskResponses | None = None
     "The last question, when the assistant waits for the user's decision on its `approval` (POST /ask/{chat_id}/decision)."
+    answering: bool = False
+    "A question of the chat is being answered or waits for its turn; the site reads the chat again until it is false, then the answer is in `answers` (or not, when it failed or was cancelled)."
 
 
 class ActionEdit(BaseModel):

@@ -12,6 +12,7 @@ x-account-env: &account-env
   DATABASE_URL: postgresql://ctx@db:5432/ctx
   PGPASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
   REDIS_URL: redis://redis:6379/0
+  LOG_FORMAT: json
 
 x-build: &core { build: { context: ., target: core }, image: "catix-core:latest" }       # Python only
 x-build-ocr: &ocr { build: { context: ., target: ocr }, image: "catix-ocr:latest" }       # + Tesseract (chat images)

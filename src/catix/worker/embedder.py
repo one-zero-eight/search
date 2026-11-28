@@ -12,6 +12,7 @@ import logging
 import threading
 import time
 
+from catix.common import logs
 from catix.db import pg
 from catix.db.rows import QueuedMessage
 from catix.settings import settings
@@ -88,7 +89,7 @@ def start(stop: threading.Event, wake: threading.Event) -> list[threading.Thread
 
 def main() -> None:
     """`catix-embed`: run the workers on their own, e.g. to drain a backlog or when only the userbot is running."""
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    logs.setup()
     stop, wake = threading.Event(), threading.Event()
     start(stop, wake)
     log.info("%d workers running, %d messages queued", settings.embed_workers, backlog())

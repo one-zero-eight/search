@@ -31,7 +31,7 @@ from catix.ingest import writer as ingest
 from catix.ingest import images
 from catix.db import pg
 from catix.db import store
-from catix.common import cache
+from catix.common import cache, logs
 from catix.settings import settings
 
 log = logging.getLogger("catix.bot")
@@ -295,7 +295,7 @@ async def run() -> None:
 
 
 def main() -> None:
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    logs.setup()
     try:
         asyncio.run(run())
     except KeyboardInterrupt:

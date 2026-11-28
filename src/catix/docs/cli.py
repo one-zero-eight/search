@@ -103,7 +103,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
+    from catix.common import logs
     from catix.settings import settings
+
+    logs.setup()
 
     if not settings.database_url:
         sys.exit("catix-docs needs DATABASE_URL: the documents and their sources live in Postgres")

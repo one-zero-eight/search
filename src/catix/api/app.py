@@ -25,6 +25,7 @@ from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
 from catix.api import admin, ask, attachments, moodle, parsers, search, sources, users
+from catix.common import logs
 from catix.settings import settings
 
 log = logging.getLogger("catix.api")
@@ -121,4 +122,5 @@ for _router in (admin.router, search.router, attachments.router, ask.router, par
 
 
 def main() -> None:
-    uvicorn.run(app, host=settings.api_host, port=settings.api_port, forwarded_allow_ips="*")
+    logs.setup()
+    uvicorn.run(app, host=settings.api_host, port=settings.api_port, forwarded_allow_ips="*", log_config=None)

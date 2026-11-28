@@ -19,6 +19,7 @@ from pydantic import ValidationError as ModelValidationError
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from catix.common import logs
 from catix.innohassle import token as token_verifier
 from catix.innohassle.mcp_declarations import invalid_arguments
 
@@ -180,12 +181,13 @@ def main():
     parser.add_argument("--host", default="127.0.0.1", help="Bind address (default: loopback only)")
     parser.add_argument("--port", type=int, default=8010)
     options = parser.parse_args()
+    logs.setup()
 
     async def serve():
         async with adapter() as root:
             await root.run_async(
                 transport="http", host=options.host, port=options.port,
-                path="/mcp", stateless_http=True, show_banner=False,
+                path="/mcp", stateless_http=True, show_banner=False, uvicorn_config={"log_config": None},
             )
 
     asyncio.run(serve())
