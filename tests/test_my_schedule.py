@@ -1,0 +1,275 @@
+"""One host read assembles the personal agenda; all services/storage are synthetic."""
+from dataclasses import replace
+
+from copy import deepcopy
+from datetime import date, datetime
+from types import SimpleNamespace
+
+import pytest
+from pydantic import SecretStr
+
+from catix.agent import calendar_tools
+from catix.agent.tools import AgentContext, TOOLS
+from catix.innohassle import mcp_client
+
+from tests.test_schedule_source_timeouts import DAY as SOURCE_DAY, SPORT_TOKEN, TOKEN, sources, training_row
+DAY = "2026-11-09"
+PERIOD = {"date_from": DAY, "date_to": DAY}
+CONTEXT = AgentContext(innohassle_id="synthetic-owner", innohassle_token=SecretStr("synthetic-ih"),
+                       asked_at=datetime.fromisoformat(DAY + "T06:00:00+03:00"))
+CLASS = {"title": "Selected English", "kind": "class", "calendar": "english-selected", "calendar_uid": "class-uid",
+         "starts_at": DAY + "T09:00:00+03:00", "ends_at": DAY + "T10:30:00+03:00"}
+BOOKING = {"title": "Study room", "service": "room", "booking_id": "AA+/BB==", "room": "314",
+           "starts_at": DAY + "T12:00:00+03:00", "ends_at": DAY + "T13:00:00+03:00"}
+LOCAL = {"title": "My meeting", "calendar_event_id": 17, "all_day": False,
+         "starts_at": DAY + "T08:00:00Z", "ends_at": DAY + "T08:30:00Z", "source": "https://example.test/message"}
+
+
+def tool():
+    found = next((item for item in TOOLS if item.name == "get_my_schedule"), None)
+    assert found is not None, "The main agent needs one personal schedule tool including AI Calendar"
+    return found
+
+
+def test_one_read_combines_both_sources_and_preserves_ids(monkeypatch):
+    sent, local_reads = [], []
+    external = {"range": [DAY, DAY], "schedule": [CLASS], "bookings": [BOOKING]}
+    original = deepcopy(external)
+
+    def request(method, payload, token=None, **credentials):
+        sent.append((method, payload, token, credentials))
+        return external
+
+    def events(key, start, end):
+        local_reads.append((key, start, end))
+        return [LOCAL]
+
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(calendar_tools, "events_between", events)
+    result = tool().func(SimpleNamespace(context=CONTEXT), date(2026, 11, 9), date(2026, 11, 9))
+    assert sent == [("call_tool", {"name": "account_get_my_schedule", "arguments": PERIOD}, "synthetic-ih", {})]
+    assert local_reads == [("ih:synthetic-owner", date(2026, 11, 9), date(2026, 11, 9))]
+    assert result["range"] == [DAY, DAY] and result["complete"] is True
+    assert result["total"] == 3 and result["truncated"] is False
+    assert [e["title"] for e in result["events"]] == ["Selected English", "My meeting", "Study room"]
+    assert [e["source"] for e in result["events"]] == ["innohassle", "ai_calendar", "innohassle"]
+    assert result["events"][0]["calendar_uid"] == "class-uid"
+    assert result["events"][1]["calendar_event_id"] == 17
+    assert result["events"][1]["starts_at"] == DAY + "T11:00:00+03:00"
+    assert result["events"][1]["source_url"] == LOCAL["source"]
+    assert result["events"][2]["booking_id"] == "AA+/BB=="
+    assert result["sources"]["innohassle"]["status"] == "complete"
+    assert result["sources"]["ai_calendar"]["status"] == "complete"
+    assert external == original
+
+
+@pytest.mark.parametrize("generic", [False, True])
+def test_host_reads_checked_in_sport_through_native_account_transport(monkeypatch, sources, generic):
+    from catix.agent import api_tools
+    from tests.mcp_native_helpers import connection
+
+    assert SOURCE_DAY == DAY
+    sources["trainings"] = [training_row(), training_row(52, checked_in=False)]
+    context = replace(CONTEXT, innohassle_token=SecretStr(TOKEN), sport_token=SecretStr(SPORT_TOKEN))
+    def native_connection(token=None, *, sport_token=None):
+        return connection(token=token, sport_token=sport_token)
+
+    monkeypatch.setattr(mcp_client, "_connection", native_connection)
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *args: [LOCAL])
+    runtime = SimpleNamespace(context=context)
+    if generic:
+        result = api_tools._call("account_get_my_schedule", runtime, PERIOD)
+        events = result["schedule"]
+        assert "not_read" not in result
+    else:
+        result = tool().func(runtime, date(2026, 11, 9), date(2026, 11, 9))
+        events = result["events"]
+        assert result["complete"] is True
+        assert any(row.get("calendar_event_id") == 17 for row in events)
+    sport_events = [row for row in events if row.get("kind") == "sport"]
+    assert len(sport_events) == 1 and sport_events[0]["title"] == "Swimming"
+    assert sport_events[0]["ends_at"] == f"{DAY}T09:30:00+03:00"
+    direct = [request for request in sources["requests"] if request.url.path == "/users/me/schedule"]
+    assert len(direct) == 1 and direct[0].headers["Authorization"] == f"Bearer {SPORT_TOKEN}"
+    assert not any(request.url.path.endswith("sport.ics") for request in sources["requests"])
+    assert SPORT_TOKEN not in str(result) and TOKEN not in str(result)
+
+
+def test_generic_host_does_not_forward_sport_credential_to_other_account_reads(monkeypatch):
+    from catix.agent import api_tools
+
+    context = replace(CONTEXT, sport_token=SecretStr(SPORT_TOKEN))
+    sent = []
+
+    def request(method, payload, token=None, **credentials):
+        sent.append((method, payload, token, credentials))
+        return {"booking": {"id": "reservation"}}
+
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    result = api_tools._call("account_get_booking", SimpleNamespace(context=context),
+                             {"service": "room", "booking_id": "reservation"})
+    assert result == {"booking": {"id": "reservation"}}
+    assert sent == [("call_tool", {"name": "account_get_booking", "arguments": {
+        "service": "room", "booking_id": "reservation"}}, "synthetic-ih", {})]
+
+
+@pytest.mark.parametrize("broken", ["external_exception", "external_error", "local_exception", "external_partial", "external_truncated",
+                                   "local_truncated", "wrong_period", "malformed_bookings"])
+def test_unavailable_or_partial_source_does_not_hide_the_other(monkeypatch, broken):
+    external = {"range": [DAY, DAY], "schedule": [CLASS], "bookings": []}
+    if broken == "external_error":
+        external = {"error": "sensitive upstream diagnostic"}
+    elif broken == "external_partial":
+        external["not_read"] = ["class: selected English feed unavailable"]
+    elif broken == "external_truncated":
+        external["note"] = "Only the first 40 are shown; narrow the dates."
+    elif broken == "wrong_period":
+        external["range"] = ["2026-11-10", "2026-11-10"]
+    elif broken == "malformed_bookings":
+        external["bookings"] = None
+
+    def request(*a, **kw):
+        if broken == "external_exception":
+            raise RuntimeError("sensitive upstream diagnostic")
+        return external
+
+    def local(*a, **kw):
+        if broken == "local_exception":
+            raise RuntimeError("sensitive database diagnostic")
+        return [LOCAL] * (41 if broken == "local_truncated" else 1)
+
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(calendar_tools, "events_between", local)
+    result = tool().func(SimpleNamespace(context=CONTEXT), date(2026, 11, 9), date(2026, 11, 9))
+    assert result["complete"] is False and result["not_read"]
+    assert "sensitive" not in str(result)
+    good_source = "innohassle" if broken.startswith("local") else "ai_calendar"
+    assert any(event["source"] == good_source for event in result["events"])
+    assert result["sources"][good_source]["status"] == "complete"
+    if broken.endswith("truncated"):
+        assert result["truncated"] is True
+    if broken == "malformed_bookings":
+        assert any(event["title"] == CLASS["title"] for event in result["events"])
+
+
+def test_default_dates_anchor_to_question_and_match_for_both_sources(monkeypatch):
+    sent, local_reads = [], []
+    def request(method, payload, token=None, **kw):
+        sent.append(payload)
+        return {"range": list(payload["arguments"].values()), "schedule": [], "bookings": []}
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(calendar_tools, "events_between", lambda key, start, end: local_reads.append((str(start), str(end))) or [])
+    result = tool().func(SimpleNamespace(context=CONTEXT))
+    assert result["range"] == [DAY, "2026-11-15"] and result["complete"] is True
+    assert sent[0]["arguments"] == {"date_from": DAY, "date_to": "2026-11-15"}
+    assert local_reads == [(DAY, "2026-11-15")]
+
+
+def test_unauthenticated_read_keeps_local_events_without_private_rpc(monkeypatch):
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: pytest.fail("No private read without user credentials"))
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
+    context = AgentContext(innohassle_id="synthetic-owner", asked_at=CONTEXT.asked_at)
+    result = tool().func(SimpleNamespace(context=context))
+    assert result["complete"] is False and len(result["events"]) == 1
+    assert result["sources"]["innohassle"]["status"] == "unavailable"
+    assert "sign" in str(result["not_read"]).lower()
+
+
+def test_signed_in_external_failure_never_substitutes_group_timetable(monkeypatch):
+    sent = []
+    monkeypatch.setattr(mcp_client, "request_sync", lambda method, payload, *a, **kw: sent.append(payload) or {"error": "Unavailable"})
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
+    context = AgentContext(innohassle_id="synthetic-owner", innohassle_token=CONTEXT.innohassle_token,
+                           study_group="B26-CSE-01", asked_at=CONTEXT.asked_at)
+    result = tool().func(SimpleNamespace(context=context))
+    assert [r["name"] for r in sent] == ["account_get_my_schedule"]
+    assert result["complete"] is False and result["events"][0]["source"] == "ai_calendar"
+
+
+def test_bot_uses_trusted_group_as_labelled_partial_fallback(monkeypatch):
+    sent = []
+    def request(method, payload, token=None, **credentials):
+        sent.append((payload, token, credentials))
+        return {"range": [DAY, DAY], "schedule": "B26-CSE-01", "classes": [CLASS], "total": 1}
+    monkeypatch.setattr(mcp_client, "request_sync", request)
+    monkeypatch.setattr(calendar_tools.personal_calendar, "telegram_key", lambda ident: "ih:linked-owner" if ident == 17 else None)
+    monkeypatch.setattr(calendar_tools, "events_between", lambda key, *a: [LOCAL] if key == "ih:linked-owner" else [])
+    context = AgentContext(user_telegram_id=17, study_group="B26-CSE-01", asked_at=CONTEXT.asked_at)
+    result = tool().func(SimpleNamespace(context=context), date(2026, 11, 9), date(2026, 11, 9))
+    assert sent == [({"name": "schedule_get_schedule", "arguments": {**PERIOD, "group": "B26-CSE-01"}}, None, {})]
+    assert result["complete"] is False and result["total"] == 2
+    assert result["sources"]["group_timetable"]["status"] == "partial"
+    assert {e["source"] for e in result["events"]} == {"group_timetable", "ai_calendar"}
+    assert "English" in str(result["not_read"])
+
+
+def test_all_failed_is_not_a_successful_empty_agenda(monkeypatch):
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"error": "Unavailable"})
+    monkeypatch.setattr(calendar_tools, "read_calendar", lambda *a: {"error": "Unavailable"})
+    result = tool().func(SimpleNamespace(context=CONTEXT))
+    assert result["complete"] is False and result["events"] == []
+    assert all(s["status"] == "unavailable" for s in result["sources"].values())
+
+
+@pytest.mark.parametrize("field", ["day", "owner", "innohassle_token", "group"])
+def test_model_cannot_inject_identity_or_silent_date_alias(field):
+    from pydantic import ValidationError
+    with pytest.raises(ValidationError):
+        tool().args_schema.model_validate({field: "forged"})
+
+
+def test_root_uses_one_tool_and_keeps_combined_read_as_evidence(monkeypatch):
+    import json
+    from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+    from catix.agent import core
+    from catix.common.status import TOOL_PHASE
+    from tests.test_roles import ScriptedModel
+
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [CLASS], "bookings": []})
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
+    monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
+    agent = core.build_agent(ScriptedModel(responses=[
+        AIMessage(content="", tool_calls=[{"name": "get_my_schedule", "args": PERIOD, "id": "agenda"}]),
+        AIMessage(content="У вас английский и личная встреча."),
+    ]), guardrail=False)
+    config = {"configurable": {"thread_id": "combined-agenda"}}
+    result = agent.invoke({"messages": [HumanMessage("Что у меня завтра?")]}, config, context=CONTEXT)
+    messages = [m for m in result["messages"] if isinstance(m, ToolMessage)]
+    assert len(messages) == 1 and messages[0].name == "get_my_schedule"
+    assert isinstance(messages[0].content, str)
+    assert json.loads(messages[0].content)["total"] == 2
+    assert not agent.get_state(config).interrupts
+    assert "get_my_schedule" in TOOL_PHASE
+
+
+@pytest.mark.parametrize("row", [{}, {**CLASS, "title": []}, {**CLASS, "starts_at": "not a timestamp"}])
+def test_bad_event_does_not_abort_unaffected_source_or_prove_completeness(monkeypatch, row):
+    monkeypatch.setattr(mcp_client, "request_sync", lambda *a, **kw: {"range": [DAY, DAY], "schedule": [row], "bookings": []})
+    monkeypatch.setattr(calendar_tools, "events_between", lambda *a: [LOCAL])
+    result = tool().func(SimpleNamespace(context=CONTEXT), date(2026, 11, 9), date(2026, 11, 9))
+    assert result["complete"] is False and result["not_read"]
+    assert result["events"][0]["calendar_event_id"] == 17
+
+
+@pytest.mark.parametrize("tool_name", ["get_my_schedule"])
+def test_agenda_progress_is_shown_before_any_tool_result(monkeypatch, tool_name):
+    import asyncio
+    from langchain_core.messages import AIMessageChunk
+    from catix.api import ask
+    from catix.common.status import TOOL_PHASE
+    from catix.agent.core import SUPERVISOR_NAME
+
+    chunk = AIMessageChunk(content="", id="model", tool_call_chunks=[
+        {"name": tool_name, "args": "", "id": "agenda", "index": 0}])
+    event = ("messages", (chunk, {"langgraph_node": "model", "lc_agent_name": SUPERVISOR_NAME}))
+    queue = asyncio.Queue()
+    class Stream:
+        async def astream(self, *a, **kw):
+            yield event
+            # The consumer must publish progress before the tool yields its result.
+            sent = [queue.get_nowait() for _ in range(queue.qsize())]
+            assert ("status", {"phase": TOOL_PHASE[tool_name]}) in sent
+            yield "values", {"messages": []}
+    monkeypatch.setattr(ask, "agent", lambda: Stream())
+    asyncio.run(ask.stream_agent({}, {}, CONTEXT, queue))
+

@@ -1,0 +1,123 @@
+"""When2Meet host routing, read evidence and exact consent boundaries."""
+
+import asyncio
+import json
+from copy import deepcopy
+
+import httpx
+import pytest
+from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
+from langgraph.types import Command
+from pydantic import SecretStr
+
+from catix.agent import api_tools, core, roles
+from catix.agent.tools import AgentContext
+from catix.innohassle import client, token
+from tests.test_roles import ScriptedModel
+
+
+SLOT = "2099-01-02T10:00:00+03:00"
+MEETING = {"id": "a" * 24, "slug": "team-42", "name": "Planning", "slots": [SLOT],
+           "participants": [], "common_slots": [], "is_archived": False}
+LIST = {"meetings": [MEETING], "total": 1, "truncated": False, "status": "active", "scope": "all"}
+
+
+
+def test_when2meet_guidance_is_shared_and_credential_aware():
+    assert "When2Meet" in api_tools.search_api_tools.description
+
+
+@pytest.fixture
+def upstream(monkeypatch):
+    state = {**deepcopy(MEETING), "timezone": "Europe/Moscow", "specific_time": True,
+             "description": None, "owner_id": "test-user", "created_at": "2098-01-01T00:00:00Z",
+             "archive_after": "2099-01-03T00:00:00Z", "archived_at": None,
+             "selected_time": None, "booked_room": None, "time_range": None}
+    requests = []
+
+    def handle(request):
+        assert request.headers["Authorization"] == "Bearer synthetic-user"
+        requests.append((request.method, request.url.path, json.loads(request.content) if request.content else None))
+        path = request.url.path
+        if request.method == "POST" and path == "/when2meet/v0/meetings/":
+            state.update(json.loads(request.content))
+            return httpx.Response(201, json=state)
+        if request.method == "PUT" and path.endswith("/participants"):
+            state["participants"] = [{"user_id": "test-user", "name": "Tester",
+                                      "availability": json.loads(request.content)["availability"]}]
+            return httpx.Response(200, json=state)
+        if request.method == "GET" and path.rsplit("/", 1)[-1] in {state["id"], state["slug"]}:
+            return httpx.Response(200, json=state)
+        pytest.fail(f"Unexpected upstream operation: {request.method} {path}")
+
+    with httpx.Client(base_url="https://synthetic.invalid", transport=httpx.MockTransport(handle)) as http:
+        monkeypatch.setattr(client, "_client", http)
+        monkeypatch.setattr(token, "claims", lambda value: {"uid": "test-user"} if value == "synthetic-user" else None)
+        monkeypatch.setattr(core.store, "visible_chats", lambda *a: [])
+        monkeypatch.setattr(core, "tool_call_token", lambda: None)
+        yield state, requests
+
+
+MUTATIONS = [
+    ("when2meet_create_meeting", {"name": "Planning", "slots": [SLOT]}),
+    ("when2meet_set_my_availability", {"meeting_ref": "team-42", "availability": [SLOT]}),
+    ("when2meet_set_my_availability", {"meeting_ref": "team-42", "availability": []}),
+]
+
+
+def action_script(target, arguments):
+    return [AIMessage(content="", tool_calls=[{
+        "name": "call_api_tool", "args": {"name": target, "arguments": arguments}, "id": "write",
+    }]), *[AIMessage(content="Обработано.") for _ in range(4)]]
+
+
+@pytest.mark.parametrize("target,arguments", MUTATIONS)
+@pytest.mark.parametrize("decision", ["approve", "reject"])
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_when2meet_real_protocol_waits_for_consent_and_reads_back(
+    upstream, mcp_http_protocol, target, arguments, decision, asynchronous,
+):
+    state, requests = upstream
+    agent = core.build_agent(ScriptedModel(responses=action_script(target, arguments)), guardrail=False)
+    config = {"configurable": {"thread_id": "when2meet-consent"}}
+    context = AgentContext(innohassle_token=SecretStr("synthetic-user"))
+
+    def invoke(value):
+        return (asyncio.run(agent.ainvoke(value, config, context=context)) if asynchronous
+                else agent.invoke(value, config, context=context))
+
+    invoke({"messages": [HumanMessage("Измени опрос When2Meet.")]})
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1
+    assert requests == [], "Confirmation cannot read upstream details or mutate"
+    action = paused[0].value["action_requests"][0]
+    assert action["args"] == {"name": target, "arguments": arguments}
+    out = invoke(Command(resume={paused[0].id: {"decisions": [{"type": decision}]}}))
+    assert not agent.get_state(config).interrupts
+    if decision == "reject":
+        assert requests == []
+        assert not core.action_receipt(out["messages"])
+    else:
+        assert [method for method, *_ in requests] == (
+            ["POST", "GET"] if target == "when2meet_create_meeting" else ["GET", "PUT", "GET"])
+        assert requests[-1][1].rsplit("/", 1)[-1] in {state["id"], state["slug"]}
+        assert core.action_receipt(out["messages"])
+        assert core._action_receipts(out["messages"])[0]["outcome"] == "confirmed"
+
+
+def test_when2meet_archive_after_approval_prevents_write(upstream, mcp_http_protocol):
+    state, requests = upstream
+    target, arguments = MUTATIONS[1]
+    agent = core.build_agent(ScriptedModel(responses=action_script(target, arguments)), guardrail=False)
+    config = {"configurable": {"thread_id": "when2meet-archive"}}
+    context = AgentContext(innohassle_token=SecretStr("synthetic-user"))
+    agent.invoke({"messages": [HumanMessage("Отметь время When2Meet.")]}, config, context=context)
+    paused = agent.get_state(config).interrupts
+    assert len(paused) == 1 and requests == []
+    state["is_archived"] = True
+    out = agent.invoke(Command(resume={paused[0].id: {"decisions": [{"type": "approve"}]}}), config, context=context)
+    assert [method for method, *_ in requests] == ["GET"]
+    result = next(json.loads(m.content) for m in out["messages"]
+                  if isinstance(m, ToolMessage) and isinstance(m.content, str))
+    assert result["done"] is False
+    assert not core.action_receipt(out["messages"])

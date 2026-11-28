@@ -20,8 +20,6 @@ jobs:
     - name: Install the project
       run: uv sync
 
-    - name: Copy settings.yaml from example
-      run: cp settings.example.yaml settings.yaml
-
+    # Most of the suite asks the real model and needs the database (see tests/helpers.py); the API tests fake both.
     - name: Run tests
-      run: uv run pytest tests
+      run: uv run pytest tests/test_api.py tests/test_calendar_feed.py
