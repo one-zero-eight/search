@@ -14,11 +14,11 @@ x-account-env: &account-env
   REDIS_URL: redis://redis:6379/0
   LOG_FORMAT: json
 
-x-build: &core { build: { context: ., target: core }, image: "catix-core:latest" }       # Python only
-x-build-ocr: &ocr { build: { context: ., target: ocr }, image: "catix-ocr:latest" }       # + Tesseract (chat images)
-x-build-api: &api { build: { context: ., target: api }, image: "catix-api:latest" }       # + Java, Poppler, libarchive
-x-build-worker: &worker { build: { context: ., target: worker }, image: "catix-worker:latest" }  # + Java, Poppler, Tesseract, LibreOffice
-x-build-docs: &docs { build: { context: ., target: docs }, image: "catix-docs:latest" }   # + all of the above and Chromium
+x-build: &core { build: { context: ., target: core, network: host }, image: "catix-core:latest" }       # Python only
+x-build-ocr: &ocr { build: { context: ., target: ocr, network: host }, image: "catix-ocr:latest" }       # + Tesseract (chat images)
+x-build-api: &api { build: { context: ., target: api, network: host }, image: "catix-api:latest" }       # + Java, Poppler, libarchive
+x-build-worker: &worker { build: { context: ., target: worker, network: host }, image: "catix-worker:latest" }  # + Java, Poppler, Tesseract, LibreOffice
+x-build-docs: &docs { build: { context: ., target: docs, network: host }, image: "catix-docs:latest" }   # + all of the above and Chromium
 
 x-env: &env
   <<: *account-env
